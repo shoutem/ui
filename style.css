@@ -1,0 +1,399 @@
+/*
+	--text: #444f6c;
+*/
+
+/* Fonts */
+
+@font-face {
+	font-family: 'SourceCode';
+	src: url('fonts/sourcecodepro-medium-webfont.eot');
+	src: url('fonts/sourcecodepro-medium-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('fonts/sourcecodepro-medium-webfont.woff2') format('woff2'),
+		 url('fonts/sourcecodepro-medium-webfont.woff') format('woff'),
+		 url('fonts/sourcecodepro-medium-webfont.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'MuseoSans';
+	src: url('fonts/museosans-100-webfont.eot');
+	src: url('fonts/museosans-100-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('fonts/museosans-100-webfont.woff2') format('woff2'),
+		 url('fonts/museosans-100-webfont.woff') format('woff'),
+		 url('fonts/museosans-100-webfont.ttf') format('truetype');
+	font-weight: 100;
+	font-style: normal;
+}
+
+@font-face {
+   font-family: 'MuseoSans';
+   src: url('fonts/museosans-300-webfont.eot');
+   src: url('fonts/museosans-300-webfont.eot?#iefix') format('embedded-opentype'),
+		url('fonts/museosans-300-webfont.woff2') format('woff2'),
+		url('fonts/museosans-300-webfont.woff') format('woff'),
+		url('fonts/museosans-300-webfont.ttf') format('truetype');
+   font-weight: 300;
+   font-style: normal;
+}
+
+@font-face {
+	font-family: 'MuseoSans';
+	src: url('fonts/museosans_500-webfont.eot');
+	src: url('fonts/museosans_500-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('fonts/museosans_500-webfont.woff2') format('woff2'),
+		 url('fonts/museosans_500-webfont.woff') format('woff'),
+		 url('fonts/museosans_500-webfont.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'MuseoSans';
+	src: url('fonts/museosans_700-webfont.eot');
+	src: url('fonts/museosans_700-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('fonts/museosans_700-webfont.woff2') format('woff2'),
+		 url('fonts/museosans_700-webfont.woff') format('woff'),
+		 url('fonts/museosans_700-webfont.ttf') format('truetype');
+	font-weight: bold;
+	font-style: normal;
+}
+
+/* Normalize necessities */
+
+html {
+	font-family: sans-serif;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	background: #fff;
+	/* makes font rendering the same on Windows/OSX/iOS/Android */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+	color: inherit;
+	font: inherit;
+	margin: 0;
+}
+
+button {
+	overflow: visible;
+}
+
+button,
+select {
+	text-transform: none;
+}
+
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+	-webkit-appearance: button;
+	cursor: pointer;
+}
+
+button[disabled],
+html input[disabled] {
+	cursor: default;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+	border: 0;
+	padding: 0;
+}
+
+input {
+	line-height: normal;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+	box-sizing: border-box;
+	padding: 0;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+	height: auto;
+}
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+	-webkit-appearance: none;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+	color: #444f6c;
+	font-family: MuseoSans, sans-serif;
+	font-size: 16px;
+	font-size: 1rem;
+	font-weight: 300;
+	line-height: 1.5;
+}
+
+pre,
+code {
+	text-align: left;
+	margin: 0;
+	padding: 0;
+	font-size: 0.75rem;
+	line-height: 1.25;
+}
+
+pre {
+	padding: 8px 37px 8px 12px;
+	background: rgba(68,79,108, 0.05);
+}
+
+pre code {
+	margin-top: -2em;
+	display: block;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0;
+}
+
+p {
+	margin-bottom: 0;
+	margin-top: 1em;
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+
+/* === === === */
+
+/* Elements */
+
+.button {
+	height: 58px;
+	display: inline-block;
+	text-align: center;
+	line-height: 60px;
+	font-size: 0.8125em;
+	font-weight: 400;
+	text-transform: uppercase;
+	color: #444f6c;
+	text-decoration: none;
+	background: rgba(216,216,216, 0.3);
+	border-radius: 4px;
+	padding-left: 32px;
+	padding-right: 32px;
+}
+
+.example {
+	overflow: hidden;
+	margin-top: 60px;
+}
+
+.example .segment {
+	float: left;
+	width: 29.5%; /* * 3 = 88.5 */
+	margin-left: 5.75%;
+}
+
+.example .segment:first-child {
+	margin-left: 0;
+}
+
+.example .segment pre {
+	height: 190px;
+}
+
+/* Header */
+
+.container {
+	max-width: 1170px;
+	margin: 0 auto;
+}
+
+.site-header {
+	background: #000;
+	position: relative;
+	min-height: 640px;
+}
+
+.site-header::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 0;
+	opacity: 0.6;
+	background-image: url(images/header.jpg);
+	background-position: bottom right;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.site-header .container {
+	position: relative;
+	z-index: 1;
+}
+
+/* Navigation */
+
+.main-navigation {
+	position: relative;
+	z-index: 1;
+	height: 80px;
+	line-height: 80px;
+	overflow: hidden;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.menu {
+	float: right;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.menu li {
+	float: left;
+	margin: 0 0 0 24px;
+	padding: 0;
+}
+
+.menu a {
+	color: #FFF;
+	text-decoration: none;
+	padding: 15px 12px;
+}
+
+.menu .button-signup {
+	border: 1px solid rgba(249, 249, 249, 0.4);
+	border-radius: 4px;
+	padding: 13px 24px;
+	margin-left: 12px;
+}
+
+.menu-toggle,
+.main-navigation.toggled ul {
+	display: block;
+}
+
+@media screen and (min-width: 37.5em) {
+	.menu-toggle {
+		display: none;
+	}
+
+	.main-navigation ul {
+		display: block;
+	}
+}
+
+.site-title {
+	float: left;
+	width: 172px;
+	height: 30px;
+	margin-top: 21px;
+	background: url(images/shoutem-ui-toolkit.svg) center center no-repeat;
+}
+
+.site-title span {
+	position: relative;
+	top: -200px;
+}
+
+/* Header contents */
+
+.header-contents {
+	color: #FFF;
+}
+
+.page-title {
+	font-size: 3.5rem;
+	line-height: 1.2143;
+	font-weight: 100;
+	max-width: 670px;
+	margin-top: 140px;
+	margin-left: 110px;
+	letter-spacing: -1px;
+}
+
+.header-contents p {
+	font-size: 1rem;
+	line-height: 1.75;
+	font-weight: 500;
+	max-width: 380px;
+	margin-left: 110px;
+	margin-top: 1.3125em;
+}
+
+.header-contents .links {
+	margin-left: 111px;
+	padding-left: 0;
+	padding-right: 0;
+	margin-top: 2em;
+}
+
+.header-contents .links a {
+	width: 189px;
+	color: #FFF;
+}
+
+.header-contents .links .link-github {
+	background: #FFF;
+	font-weight: 400;
+	letter-spacing: 1.9px;
+	color: #444f6c;
+	margin-right: 12px;
+}
+
+/* Main content */
+
+.site-content {
+	text-align: center; 
+}
+
+.site-content h2 {
+	margin-top: 100px;
+	font-size: 3rem;
+	font-weight: 100;   
+}
+
+.site-content h3 {
+	margin-top: 100px;
+	font-size: 2rem;
+	font-weight: 300;   
+}
+
+.site-content .section > p {
+	font-size: 0.9375em;
+	line-height: 1.67;
+	max-width: 530px;
+	display: inline-block;
+	color: #7c8398;
+}
+
+.site-content .button {
+	background-color: rgba(68,79,108, 0.2);
+}
