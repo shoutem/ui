@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="47px" height="77px" viewBox="0 0 47 77" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
+    <title>80B7E7F4-892C-46B1-B1C8-0B14FE3D7B40</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="47" height="77" rx="2"></rect>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="47" height="77" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="A-Landing" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="A04-Home-(Desktop)---Without-features" transform="translate(-697.000000, -3603.000000)">
+            <g id="Group-5" transform="translate(0.000000, 3357.000000)">
+                <g id="Group-16" transform="translate(205.000000, 77.000000)">
+                    <g id="Group-62" transform="translate(0.000000, 117.000000)">
+                        <g id="Group-13" transform="translate(360.000000, 0.000000)">
+                            <g id="Group-11">
+                                <g id="icon-tutorial-ui-toolkit" transform="translate(132.000000, 52.000000)">
+                                    <use id="Rectangle-390" stroke="#FFFFFF" mask="url(#mask-2)" stroke-width="4" xlink:href="#path-1"></use>
+                                    <path d="M2.57894737,17 L45.4210526,17" id="Line" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path>
+                                    <rect id="Rectangle-391" fill="#FFFFFF" x="6" y="23" width="6" height="6" rx="1"></rect>
+                                    <rect id="Rectangle-391" fill="#FFFFFF" x="16" y="25" width="12" height="2" rx="1"></rect>
+                                    <rect id="Rectangle-391" fill="#FFFFFF" x="18" y="10" width="12" height="2" rx="1"></rect>
+                                    <rect id="Rectangle-391" fill="#FFFFFF" x="16" y="35" width="17" height="2" rx="1"></rect>
+                                    <rect id="Rectangle-391" fill="#FFFFFF" x="16" y="45" width="9" height="2" rx="1"></rect>
+                                    <rect id="Rectangle-391" fill="#FFFFFF" x="6" y="33" width="6" height="6" rx="1"></rect>
+                                    <rect id="Rectangle-391" fill="#FFFFFF" x="6" y="43" width="6" height="6" rx="1"></rect>
+                                    <rect id="Rectangle-391" fill="#FFFFFF" x="16" y="55" width="13" height="2" rx="1"></rect>
+                                    <rect id="Rectangle-391" fill="#FFFFFF" x="6" y="53" width="6" height="6" rx="1"></rect>
+                                    <path d="M2.57894737,65 L45.4210526,65" id="Line" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path>
+                                    <circle id="Oval-156" fill="#FFFFFF" cx="7.5" cy="70.5" r="2.5"></circle>
+                                    <circle id="Oval-156" fill="#FFFFFF" cx="15.5" cy="70.5" r="2.5"></circle>
+                                    <circle id="Oval-156" fill="#FFFFFF" cx="23.5" cy="70.5" r="2.5"></circle>
+                                    <circle id="Oval-156" fill="#FFFFFF" cx="31.5" cy="70.5" r="2.5"></circle>
+                                    <circle id="Oval-156" fill="#FFFFFF" cx="39.5" cy="70.5" r="2.5"></circle>
+                                    <circle id="Oval-156" fill="#FFFFFF" cx="41" cy="11" r="2"></circle>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
