@@ -67,6 +67,7 @@ html {
 body {
 	margin: 0;
 	background: #fff;
+	font-weight: normal;
 	/* makes font rendering the same on Windows/OSX/iOS/Android */
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -139,7 +140,7 @@ textarea {
 	font-family: MuseoSans, sans-serif;
 	font-size: 16px;
 	font-size: 1rem;
-	font-weight: 300;
+	font-weight: 500;
 	line-height: 1.5;
 }
 
