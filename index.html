@@ -5,6 +5,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Shoutem UI toolkit</title>
 	<link rel="stylesheet" id="toolkit-style-css"  href="style.css?ver=1" type="text/css" media="all" />
+	<!--[if lte IE 8]>
+		<script>var dce = document.createElement; dce("header"); dce("nav"); dce("main"); dce("footer");</script>
+	<![endif]-->
 </head>
 
 <body>
@@ -37,24 +40,29 @@
 					class="link-docs button" href="https://shoutem.github.io">Documentation</a>
 				</div>
 			</div>
-		</div>
 
-	</header>
+		</header>
 
-	<div id="content" class="site-content container">
+		<div id="content" class="site-content">
 
-		<main id="main" class="site-main container" role="main">
+			<main id="main" class="site-main" role="main">
 
-			<div class="section section-examples">
-				<h2>Building UI should be easy</h2>
+				<div class="section section-examples container">
+					<h2>Building UI should be easy</h2>
 
-				<p>Writing cross-platform React Native components is hard. 
-					Shoutem UI Toolkit makes UI as easy as it should be.</p>
+					<p>Writing cross-platform React Native components is hard. 
+						Shoutem UI Toolkit makes UI as easy as it should be.</p>
 
 					<div class="example example-button compare">
 						
-						<div class="segment output">
-						BUTTON
+						<div class="segment preview">
+							<div class="button-basket">
+								<img src="images/plain-button.png" 
+									srcset="images/plain-button@2x.png 2x, 
+											images/plain-button@3x.png 3x"
+								/>
+							</div>
+							<p>Basic Button component</p>
 						</div>
 
 						<div class="segment shoutem">
@@ -63,6 +71,12 @@
 &lt;Button&gt;Add to basket&lt;/Button&gt;
 								</code>
 							</pre>
+
+							<p>With Shoutem UI Toolkit</p>
+
+							<div class="bar positive">
+								Nice and easy!
+							</div>
 						</div>
 
 						<div class="segment plain">
@@ -81,6 +95,12 @@ var style = stylesheet.create({
 &lt;/TouchableOpacity&gt;
 								</code>
 							</pre>
+
+							<p>With plain React native</p>
+
+							<div class="bar negative">
+								Unsightly and tedious.
+							</div>
 						</div>
 
 					</div>
@@ -91,66 +111,132 @@ var style = stylesheet.create({
 						real-world problem solving.</p>
 
 						<div class="example-complex">
-							COMPLEX EXAMPLES
+							
+							<div class="example example-icon-button">
+								<div class="preview">
+									<img src="images/icon-button.png" 
+										srcset="images/icon-button@2x.png 2x, 
+												images/icon-button@3x.png 3x"
+									/>
+								</div>
+								<pre>
+									<code class="language-javascript">
+&lt;IconButton iconName="add-to-basket"&gt;Add to basket&lt;/IconButton&gt;
+									</code>
+								</pre>
+							</div>							
+							<div class="example example-tile">
+								<div class="preview">
+									<img src="images/tile.png" 
+										srcset="images/tile@2x.png 2x, 
+												images/tile@3x.png 3x"
+									/>
+								</div>
+								<pre>
+									<code class="language-javascript">
+&lt;Tile&gt;
+  &lt;Image source="..."&gt;
+    &lt;Title&gt;Cool black and white stylish watches&lt;/Title&gt;
+    &lt;Subtitle styleName="strikethrough"&gt;$280.00&lt;/Subtitle&gt;
+    &lt;Heading&gt;$250.00&lt;/Heading&gt;
+    &lt;IconButton iconName="add-to-basket" onPress={...}&gt;Add to basket&lt;/IconButton&gt;
+  &lt;/Image&gt;
+&lt;/Tile&gt;
+									</code>
+								</pre>
+							</div>							
+							<div class="example example-navbar">
+								<div class="preview">
+									<img src="images/layout.png" 
+										srcset="images/layout@2x.png 2x, 
+												images/layout@3x.png 3x"
+									/>
+								</div>
+								<pre>
+									<code class="language-javascript">
+&lt;NavigationBar
+      leftComponent={...}
+      centerComponent={...}
+      rightComponent={...}
+/&gt;
+&lt;AdvancedGridView
+    data={...}
+    gridColumns={...}
+    search={...} 
+    fetch={...}
+    renderGridItem={...}
+    style={...}
+/&gt;
+									</code>
+								</pre>
+							</div>
+
 						</div>
 
 						<a href="#" class="button explore-components">Explore 20+ components</a>
 					</div>
 
-					<div class="section section-themes">
+					<div class="section section-themes container">
 						<h3>UI Themes</h3>
 
-						<div>THEMES</div>
+						<div class="screenshots">
+							<span class="phone-wrap"><img src="images/theme-1-crop.jpg" alt="Screenshot of a theme" /></span>
+							<span class="phone-wrap"><img src="images/theme-2-crop.png" alt="Screenshot of a theme" /></span>
+							<span class="phone-wrap"><img src="images/theme-3-crop.png" alt="Screenshot of a theme" /></span>
+						</div>
 
 						<p>Style your React Native apps from a single place using themes that work similar to SASS/CSS.</p>
 
 						<a href="#" class="button explore-themes">Explore themes</a>
 					</div>
 
-					<div class="section section-animations">
+					<div class="section section-animations container">
 						<h3>Animations</h3>
 
-						<div>VIDEO DEMO</div>
+						<span class="phone-wrap big">
+							<img src="images/video-still.png" alt="Video still" />
+						</span>
 
-						<p>Shoutem UI Toolkit provides beatiful transitions both between the screens as well within the screens, with beautiful parallax effect on scrolling, headers collapsing to navigation bar, load more animations, preloaders, and more.</p>
+						<div class="description">
+							<p>Shoutem UI Toolkit provides beatiful transitions both between the screens as well within the screens, with beautiful parallax effect on scrolling, headers collapsing to navigation bar, load more animations, preloaders, and more.</p>
 
-						<a href="#" class="button explore-animations">Explore animations</a>
+							<a href="#" class="button explore-animations">Explore animations</a>
+						</div>
 					</div>
 
 					<div class="section section-get-started">
 						<h2>Get started now</h2>
 
-						<div class="flex-container">
+						<div class="container">
 							<a class="chapter" href="/docs/getting-started/introduction">
 								<div class="chapter-image blue">
-									<img src="images/icon-tutorial-getting-started.svg"></div>
+									<img src="images/icon-tutorial-getting-started.svg" />
 								</div>
-								<h3>Tutorial</h3>
-								<h4>Getting started</h4>
-								<p>Create your first custom Shoutem app/extension in three simple steps</p>
-								<div class="chapter-time">
-									<div class="time-icon"></div>
-									<span> 15 min &nbsp;&#8226;&nbsp; Simple</span>
+								<div class="chapter-content">
+									<h3>Tutorial</h3>
+									<h4>Getting started</h4>
+									<p>Create your first custom Shoutem app/extension in three simple steps</p>
+									<div class="chapter-time">15 min &nbsp;&#8226;&nbsp; Simple</div>
 								</div>
 							</a>
 							<a class="chapter" href="/docs/ui-toolkit/introduction">
 								<div class="chapter-image purple">
-									<div class="ui-toolkit-icon"></div>
+									<img src="images/icon-tutorial-ui-toolkit.svg" />
 								</div>
 								<div class="chapter-content">
-									<h3 class="chapter-category">Reference</h3>
-									<h4 class="chapter-title">UI Toolkit</h4>
-									<p class="chapter-description">Build skinnable React Native apps sing our professionally designed UI components</p>
+									<h3>Reference</h3>
+									<h4>UI Toolkit</h4>
+									<p>Build skinnable React Native apps sing our professionally designed UI components</p>
 								</div>
 							</a>
 							<a class="chapter" href="http://www.shoutem.com">
 								<div class="chapter-image greyblue">
-									<div class="shoutem-icon"></div>
+									<img src="images/icon-tutorial-shoutem.svg" />
 								</div>
 								<div class="chapter-content">
-									<h3 class="chapter-category">Explore</h3>
-									<h4 class="chapter-title">Shoutem app builder</h4>
-									<p class="chapter-description">Shoutem enables anyone to create and manage beautiful apps with minimal effort</p>
+									<h3>Explore</h3>
+									<h4>Shoutem app builder</h4>
+									<p>Shoutem enables anyone to create and manage beautiful apps with minimal effort</p>
 								</div>
 							</a>
 						</div>
@@ -183,19 +269,43 @@ var style = stylesheet.create({
 					</div>
 				</div>  
 
-				<div class="footer-bottom">
-					<a href="http://www.shoutem.com" class="footer-logo"></a>
-					<ul class="footer-menu">
-						<li><a href="http://www.shoutem.com/about">About</a></li>
-						<li><a href="http://www.shoutem.com/termsofservice">Terms of service</a></li>
-						<li><a href="http://www.shoutem.com/privacypolicy">Privacy</a></li>
-						<li><a href="http://www.shoutem.com/dmca">DMCA</a></li>
-						<li class="icon-github"><a href="https://github.com/shoutem/shoutem.github.io">Github</a></li>
-						<li class="icon-twitter"><a href="https://twitter.com/shoutem">Twitter</a></li>
-					</ul>
+				<div class="bottom-footer">
+					<div class="container">
+						<a href="http://www.shoutem.com" class="footer-logo"></a>
+						<ul class="footer-menu">
+							<li><a href="http://www.shoutem.com/about">About</a></li>
+							<li><a href="http://www.shoutem.com/termsofservice">Terms of service</a></li>
+							<li><a href="http://www.shoutem.com/privacypolicy">Privacy</a></li>
+							<li><a href="http://www.shoutem.com/dmca">DMCA</a></li>
+							<li class="icon-github"><a href="https://github.com/shoutem/shoutem.github.io">Github</a></li>
+							<li class="icon-twitter"><a href="https://twitter.com/shoutem">Twitter</a></li>
+						</ul>
+					</div>
 				</div>
 			</footer>
 		</div>
+
+		<script>
+
+			function onFooterResize() {
+
+				if( document.documentElement.scrollWidth <= 640 ) {
+					return;
+				}
+
+				var page = document.querySelector("#page");
+				var footer = document.querySelector(".site-footer");
+
+				// throttle
+				setTimeout(function() {
+					page.style.marginBottom = footer.scrollHeight + "px";
+				}, 300);
+			}
+				
+			window.onresize = onFooterResize;
+			
+			onFooterResize();
+		</script>
 
 	</body>
 	</html>
