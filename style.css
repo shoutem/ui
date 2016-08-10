@@ -235,6 +235,18 @@ p {
 	background-size: cover;
 }
 
+@media
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (   min--moz-device-pixel-ratio: 2),
+only screen and (     -o-min-device-pixel-ratio: 2/1),
+only screen and (        min-device-pixel-ratio: 2),
+only screen and (                min-resolution: 192dpi),
+only screen and (                min-resolution: 2dppx) { 
+	.site-header::before {
+		background-image: url(images/header@2x.jpg);
+	}
+}
+
 .site-header .container {
 	position: relative;
 	z-index: 1;
