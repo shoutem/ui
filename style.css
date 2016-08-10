@@ -157,11 +157,7 @@ code {
 pre {
 	padding: 8px 37px 8px 12px;
 	background: rgba(68, 79, 108, 0.05);
-}
-
-pre code {
-	margin-top: -2em;
-	display: block;
+	min-height: 190px;
 }
 
 h1,
@@ -293,12 +289,27 @@ only screen and (                min-resolution: 2dppx) {
 	margin-left: 12px;
 }
 
+.main-navigation ul {
+	display: none;
+}
+
 .menu-toggle,
 .main-navigation.toggled ul {
 	display: block;
 }
 
-@media screen and (min-width: 37.5em) {
+.menu-toggle {
+	background: transparent url(images/icon-menu.svg) center center no-repeat;
+	width: 24px;
+	height: 24px;
+	border: none;
+	overflow: hidden;
+	text-indent: -100px;
+	float: right;
+	margin-top: 28px;
+}
+
+@media screen and (min-width: 640px) {
 	.menu-toggle {
 		display: none;
 	}
@@ -337,7 +348,7 @@ only screen and (                min-resolution: 2dppx) {
 	letter-spacing: -1px;
 }
 
-.header-contents p {
+.page-description {
 	font-size: 1rem;
 	line-height: 1.75;
 	font-weight: 500;
@@ -371,6 +382,42 @@ only screen and (                min-resolution: 2dppx) {
 	padding-right: 15px;
 }
 
+@media (max-width: 767px) {
+	.page-title,
+	.page-description,
+	.header-contents .links {
+		margin-left: 0;
+	}
+
+	.menu li:not(:first-child) {
+		margin-left: 8px;
+	}
+}
+
+@media (max-width: 480px) {
+	.page-title {
+		font-size: 1.5rem;
+		line-height: 1.58;
+		font-weight: 500;
+		letter-spacing: 0;
+	}
+
+	.page-title,
+	.page-description,
+	.header-contents .links {
+		max-width: 280px;
+		margin-left: auto;
+		margin-right: auto;
+		text-align: center;
+	}
+
+	.header-contents .links a {
+		display: block;
+		width: 222px;
+		margin: 0 auto 12px !important;
+	}
+}
+
 /* Main content */
 
 .site-content {
@@ -380,6 +427,7 @@ only screen and (                min-resolution: 2dppx) {
 .site-content h2 {
 	margin-top: 94px;
 	font-size: 3rem;
+	line-height: 1.28;
 	font-weight: 100;   
 }
 
@@ -387,6 +435,24 @@ only screen and (                min-resolution: 2dppx) {
 	margin-top: 100px;
 	font-size: 2rem;
 	font-weight: 300;   
+}
+
+@media (max-width: 480px) {
+
+	.site-content h2 {
+		font-size: 2.25rem;
+		line-height: 1.28;
+		max-width: 294px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.site-content h3 {
+		font-size: 1.5rem;
+		max-width: 294px;
+		margin-left: auto;
+		margin-right: auto;
+	}
 }
 
 .site-content .section > p {
@@ -406,7 +472,6 @@ only screen and (                min-resolution: 2dppx) {
 
 /* Examples */
 
-
 .example {
 	margin-top: 60px;
 	overflow: hidden;
@@ -423,7 +488,7 @@ only screen and (                min-resolution: 2dppx) {
 }
 
 .button-basket {
-	background: rgba(68, 79, 108, 0.05);
+	background: rgba(0, 0, 0, 0.2);
 	height: 190px;
 	line-height: 190px;
 	text-align: center;
@@ -526,6 +591,36 @@ only screen and (                min-resolution: 2dppx) {
 	padding-top: 20px;
 }
 
+@media (max-width: 480px) {
+
+	.segment {
+		display: block;
+		width: 100%;
+	}
+
+	.segment + .segment {
+		margin-top: 60px;
+	}
+
+	.example-complex .example {
+		overflow: auto;
+		height: auto;
+	}
+
+	.example-complex .preview,
+	.example-complex pre {
+		width: 100% !important;
+		float: none;
+		display: block;
+		margin-left: 0;
+		min-height: 190px;
+	}
+
+	.example pre {
+		overflow-x: auto;
+	}
+}
+
 /* Themes */
 
 .screenshots {
@@ -552,8 +647,39 @@ only screen and (                min-resolution: 2dppx) {
 	border-radius: 59px;
 }
 
-.screenshots .phone-wrap:not(:last-child) {
-	margin-right: 7%;
+.screenshots .phone-wrap {
+	margin-bottom: 24px;
+}
+
+.screenshots .phone-wrap:not(:first-child) {
+	margin-left: 7%;
+}
+
+@media (max-width: 1023px) {
+	.screenshots .phone-wrap:not(:first-child) {
+		margin-left: 5%;
+	}
+}
+
+@media (max-width: 959px) {
+
+	.screenshots {
+		margin-bottom: 20px;
+	}
+
+	.screenshots .phone-wrap:last-child {
+		margin-left: 80px;
+		margin-right: 80px;
+	}
+}
+
+@media (max-width: 640px) {
+
+	.screenshots .phone-wrap {
+		margin-left: auto !important;
+		margin-right: auto !important;
+		display: block;
+	}
 }
 
 .explore-themes::before {
@@ -561,6 +687,8 @@ only screen and (                min-resolution: 2dppx) {
 	display: block;
 	height: 1px;
 }
+
+/* Animations */
 
 .section-animations {
 	overflow: hidden;
@@ -577,13 +705,87 @@ only screen and (                min-resolution: 2dppx) {
 	margin-top: 225px;
 }
 
-.section-animations h3,
-.section-animations .description {
+.section-animations .description,
+.section-animations .explore-animations {
 	float: right;
 	text-align: left;
-	width: 50%;
+	width: calc(100% - 470px - 150px);
 	max-width: 460px;
+	margin-left: 50px;
 	margin-right: 100px;
+}
+
+.section-animations .explore-animations {
+	width: calc(100% - 470px - 150px);
+	max-width: 460px;
+}
+
+.explore-animations .button {
+	width: 220px;
+	padding: 0;
+}
+
+@media (max-width: 960px) {
+	.section-animations .phone-wrap {
+		margin-left: 40px;
+	}
+
+	.section-animations .description,
+	.section-animations .explore-animations {
+		margin-left: 30px;
+		margin-right: 10px;
+		width: calc(100% - 410px - 40px);
+	}
+}
+
+@media (max-width: 767px) {
+	.section-animations .phone-wrap {
+		width: 300px;
+		height: 600px;
+	}
+
+	.section-animations .phone-wrap img {
+		width: 270px;
+	}
+
+	.section-animations h3 {
+		margin-top: 155px;
+	}
+
+	.section-animations .description,
+	.section-animations .explore-animations {
+		margin-left: 20px;
+		margin-right: 10px;
+		width: calc(100% - 350px - 30px);
+	}
+
+	.section-animations .button {
+		width: 200px;
+	}
+}
+
+@media (max-width: 639px) {
+	.section-animations .phone-wrap,
+	.section-animations .description,
+	.section-animations .explore-animations {
+		float:  none;
+		margin-left: auto;
+		margin-right: auto;
+		text-align: center;
+	}
+
+	.section-animations h3 {
+		margin-top: 20px;
+	}
+
+	.section-animations .phone-wrap {
+		margin-top: 48px;
+	}
+
+	.section-animations .description,
+	.section-animations .explore-animations {
+		width: calc(100% - 96px);
+	}
 }
 
 /* Get started */
@@ -591,6 +793,7 @@ only screen and (                min-resolution: 2dppx) {
 .section-get-started {
 	background-color: #f7f7f7;
 	padding-top: 77px;
+	padding-bottom: 80px;
 	margin-top: 100px;
 }
 
@@ -598,23 +801,19 @@ only screen and (                min-resolution: 2dppx) {
 	margin-top: 0;
 }
 
-.section-get-started .chapter {
-	margin-top: 60px;
-}
-
 .chapter {
 	display: inline-block;
 	vertical-align: top;
-	width: 310px;
+	width: 26.5%;
 	min-height: 400px;
 	background-color: #fff;
 	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 0 2px 0 rgba(0, 0, 0, 0.1);
 	transition: box-shadow ease-out 0.2s;
 	cursor: pointer;
-	margin-bottom: 80px;
 	overflow: hidden;
 	border-radius: 4px;
 	text-decoration: none;
+	margin-top: 60px;
 
 	font-size: 0px;
 }
@@ -690,20 +889,28 @@ only screen and (                min-resolution: 2dppx) {
 	background-color: #58c6fb
 }
 
-.chapter-image.orange {
-	background-color: #fe9827
-}
-
 .chapter-image.purple {
 	background-color: #bd10e0
 }
 
-.chapter-image.darkblue {
-	background-color: #0f75fb
-}
-
 .chapter-image.greyblue {
 	background-color: #444f6c
+}
+
+@media only screen and (max-width:767px) {
+	.chapter {
+		width: 100%;
+		max-width: 480px;
+		margin-right: 0 !important;
+	}
+}
+
+@media only screen and (max-width:480px) {
+	.chapter {
+		width: calc(100% - 40px);
+		max-width: 280px;
+		margin-bottom: 40px
+	}
 }
 
 /* Footer */
@@ -860,40 +1067,73 @@ only screen and (                min-resolution: 2dppx) {
 	text-decoration: none
 }
 
-
-
-/* Media queries */
-
-@media only screen and (max-width:992px) {
-	.chapter {
-		width: 270px
-	}
-}
-
-@media only screen and (max-width:882px) {
-	.chapter {
-		width: 240px
-	}
-}
-
-@media only screen and (max-width:768px) {
-	.chapter {
-		width: 100%;
-		max-width: 480px
-	}
-}
-
-@media only screen and (max-width:480px) {
-	.chapter {
-		width: calc(100% - 18px);
-		max-width: 280px;
-		margin-bottom: 40px
-	}
-}
-
 @media only screen and (max-width:640px) {
 	.site-footer {
 		position: static
+	}
+
+	.signup-email {
+		margin-bottom: 12px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 100%;
+		max-width: 280px;
+		display: block
+	}
+
+	.signup-button {
+		width: 100%;
+		max-width: 280px;
+		margin-bottom: 60px
+	}
+
+	.bottom-footer {
+		height: 380px
+	}
+
+	.footer-logo {
+		float: none;
+		display: block;
+		margin-bottom: 24px;
+		margin: 8px 0 12px
+	}
+
+	.site-footer-menu {
+		float: none;
+		padding: 0;
+		margin-top: 0
+	}
+
+	.site-footer-menu li {
+		float: none;
+		display: block
+	}
+
+	.site-footer-menu .icon-twitter a,
+	.site-footer-menu .icon-github a {
+		margin-top: 0
+	}
+
+	.site-footer-menu .icon-github:before {
+		content: "Follow";
+		text-transform: uppercase;
+		font-size: 0.8125rem;
+		letter-spacing: 1px;
+		display: block;
+		color: #888fa1;
+		opacity: 0.5;
+		margin: 23px 0 17px
+	}
+
+	.site-footer-menu .icon-github a {
+		margin-left: 0;
+		float: left
+	}
+
+	.site-footer-menu a {
+		margin-left: 0;
+		display: block;
+		padding: 5px 0
 	}
 }
 
@@ -905,105 +1145,9 @@ only screen and (                min-resolution: 2dppx) {
 		margin: 0 auto 15px;
 		padding-top: 60px
 	}
-}
 
-@media only screen and (max-width:480px) {
 	.signup-description {
 		width: 100%;
 		margin-bottom: 30px
-	}
-}
-
-@media only screen and (max-width:640px) {
-	.signup-email {
-		margin-bottom: 12px;
-		margin-left: auto;
-		margin-right: auto;
-		width: 100%;
-		max-width: 280px;
-		display: block
-	}
-}
-
-@media only screen and (max-width:640px) {
-	.signup-button {
-		width: 100%;
-		max-width: 280px;
-		margin-bottom: 60px
-	}
-}
-
-@media only screen and (max-width:640px) {
-	.bottom-footer {
-		height: 380px
-	}
-}
-
-@media only screen and (max-width:640px) {
-	.footer-logo {
-		float: none;
-		display: block;
-		margin-bottom: 24px
-	}
-}
-
-@media only screen and (max-width:640px) {
-	.footer-logo {
-		margin: 8px 0 12px
-	}
-}
-
-@media only screen and (max-width:640px) {
-	.site-footer-menu {
-		float: none;
-		padding: 0
-	}
-}
-
-@media only screen and (max-width:640px) {
-	.site-footer-menu {
-		margin-top: 0
-	}
-}
-
-@media only screen and (max-width:640px) {
-	.site-footer-menu li {
-		float: none;
-		display: block
-	}
-}
-
-@media only screen and (max-width:640px) {
-	.site-footer-menu .icon-twitter a,
-	.site-footer-menu .icon-github a {
-		margin-top: 0
-	}
-}
-
-@media only screen and (max-width:640px) {
-	.site-footer-menu .icon-github:before {
-		content: "Follow";
-		text-transform: uppercase;
-		font-size: 0.8125rem;
-		letter-spacing: 1px;
-		display: block;
-		color: #888fa1;
-		opacity: 0.5;
-		margin: 23px 0 17px
-	}
-}
-
-@media only screen and (max-width:640px) {
-	.site-footer-menu .icon-github a {
-		margin-left: 0;
-		float: left
-	}
-}
-
-@media only screen and (max-width:640px) {
-	.site-footer-menu a {
-		margin-left: 0;
-		display: block;
-		padding: 5px 0
 	}
 }
