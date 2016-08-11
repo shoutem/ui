@@ -957,9 +957,29 @@ only screen and (                min-resolution: 2dppx) {
 	transition: all .2s linear 0s
 }
 
+.signup-email::-webkit-input-placeholder {
+    color: #BDC0CB;
+}
+
+.signup-email::-moz-placeholder { /* Firefox 19+ */
+    color: #BDC0CB;
+    opacity: 1;
+}
+
+.signup-email:-ms-input-placeholder {
+    color: #BDC0CB;
+}
+
+.signup-email:-moz-placeholder {
+    color: #BDC0CB;
+    opacity: 1;
+}
+
 .signup-email:focus {
-	background-color: white;
-	color: #444f6c
+	color: #FFF;
+	border-color: rgba(136,143,161,0.85);
+	background: none;
+	outline: none;
 }
 
 .signup-button {
@@ -992,8 +1012,12 @@ only screen and (                min-resolution: 2dppx) {
 	padding-top: 22px
 }
 
-.footer-logo {
-	background-image: url(images/shoutem_logo_footer.png);
+.bottom-footer .container-fluid {
+	max-width: 1210px
+}
+
+.bottom-footer .footer-logo {
+	background-image: url("images/shoutem_logo_footer.png");
 	width: 85px;
 	height: 30px;
 	background-size: 100%;
@@ -1004,12 +1028,13 @@ only screen and (                min-resolution: 2dppx) {
 	transition: all .2s linear 0s
 }
 
-.footer-logo:hover,
-.footer-logo:active {
+
+.bottom-footer .footer-logo:hover,
+.bottom-footer .footer-logo:active {
 	opacity: 1
 }
 
-.footer-menu {
+.bottom-footer .footer-menu {
 	float: right;
 	opacity: 1;
 	color: #7b7f8c;
@@ -1019,12 +1044,13 @@ only screen and (                min-resolution: 2dppx) {
 	padding-left: 0
 }
 
-.footer-menu li {
-	float: left
+.bottom-footer .footer-menu li {
+	float: left;
+	line-height: 1.875;
 }
 
-.footer-menu .icon-twitter a,
-.footer-menu .icon-github a {
+.bottom-footer .footer-menu .icon-twitter a,
+.bottom-footer .footer-menu .icon-github a {
 	background-image: url(images/icon-twitter.svg);
 	background-repeat: no-repeat;
 	background-size: 22px;
@@ -1034,35 +1060,36 @@ only screen and (                min-resolution: 2dppx) {
 	height: 24px;
 	overflow: hidden;
 	display: inline-block;
-	margin-left: 24px;
+	margin-left: 48px;
 	margin-top: 3px;
 	opacity: 0.4
 }
 
-.footer-menu .icon-twitter a:hover,
-.footer-menu .icon-twitter a:active,
-.footer-menu .icon-github a:hover,
-.footer-menu .icon-github a:active {
+.bottom-footer .footer-menu .icon-twitter a:hover,
+.bottom-footer .footer-menu .icon-twitter a:active,
+.bottom-footer .footer-menu .icon-github a:hover,
+.bottom-footer .footer-menu .icon-github a:active {
 	opacity: 1
 }
 
-.footer-menu .icon-github a {
+
+.bottom-footer .footer-menu .icon-github a {
 	background-image: url(images/icon-github.svg);
 	background-size: 20px;
-	margin-left: 27px
+	margin-left: 37px
 }
 
-.footer-menu a {
+.bottom-footer .footer-menu a {
 	color: #888fa1;
 	transition: all .2s linear 0s;
-	font-size: 0.875;
+	font-size: 14px;
 	padding: 10px 11px;
 	margin-left: 22px;
 	text-decoration: none;
 }
 
-.footer-menu a:hover,
-.footer-menu a:active {
+.bottom-footer .footer-menu a:hover,
+.bottom-footer .footer-menu a:active {
 	color: white;
 	text-decoration: none
 }
@@ -1151,3 +1178,10 @@ only screen and (                min-resolution: 2dppx) {
 		margin-bottom: 30px
 	}
 }
+
+
+
+
+
+
+
