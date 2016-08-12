@@ -10,8 +10,11 @@
 	<![endif]-->
 </head>
 
-<body>
-
+<body class="no-js">
+	<script>
+		var b = document.querySelector("body");
+		b.className = b.className.replace("no-js", "js");
+	</script>
 	<div id="page" class="site">
 
 		<header id="masthead" class="site-header" role="banner">
@@ -22,13 +25,16 @@
 						<span>Shoutem UI toolkit</span>
 					</a>
 
-					<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">Menu</button>
+					<a href="#navigation" class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">Menu</a href="#navigation">
 
-					<ul class="menu nav-menu primary-menu">
-						<li><a href="https://shoutem.github.io">Documentation</a></li>
-						<li><a href="https://github.com/shoutem">Github</a></li>
-						<li><a href="#signup" class="button-signup">Stay informed</a></li>
-					</ul>
+					<div class="navigation" id="navigation">
+						<ul class="menu nav-menu primary-menu">
+							<li class="close-navigation"><a href="#">Close</a></li>
+							<li><a href="https://shoutem.github.io">Documentation</a></li>
+							<li><a href="https://github.com/shoutem">Github</a></li>
+							<li><a href="#signup" class="button-signup">Stay informed</a></li>
+						</ul>
+					</div>
 				</div>
 			</nav>
 
@@ -179,7 +185,45 @@
 						</div>
 
 						<span class="phone-wrap big">
-							<img src="images/video-still.png" alt="Video still" />
+							<video loop class="video-screen">
+								<source src="video/header.webm" type="video/webm" />
+								<source src="video/header.mp4" type="video/mp4" />
+							</video>
+							<script>
+								var vc = document.querySelector(".video-screen");
+								var vcParent = vc.parentElement;
+								var temp;
+
+								if( window.matchMedia )
+								{
+									var mq = window.matchMedia("only screen and (-webkit-min-device-pixel-ratio: 2),only screen and ( min--moz-device-pixel-ratio: 2), only screen and ( o-min-device-pixel-ratio: 2/1), only screen and ( min-device-pixel-ratio: 2), only screen and ( min-resolution: 192dpi), only screen and ( min-resolution: 2dppx)");
+
+									if( mq && mq.matches )
+									{
+										vc.pause();
+										vcParent.removeChild(vc);
+
+										vc = document.createElement("video");
+										vc.className = "video-screen";
+										vc.setAttribute("autoplay", true);
+										vc.setAttribute("loop", true);
+										vcParent.appendChild(vc);
+
+										temp = document.createElement("source");
+										temp.setAttribute("src", "/video/header@2x.webm");
+										temp.setAttribute("type", "video/webm");
+										vc.appendChild(temp);
+
+										temp = document.createElement("source");
+										temp.setAttribute("src", "/video/header@2x.mp4");
+										temp.setAttribute("type", "video/mp4");
+										vc.appendChild(temp);
+
+										vc.play();
+									}
+								}
+							</script>
+
 						</span>
 
 						<div class="explore-animations">
@@ -268,7 +312,38 @@
 			</footer>
 		</div>
 
+		<div class="mobile-menu-overlay">
+			<div class="close-menu-overlay">
+			</div>
+		</div>
+
 		<script>
+			var mobileNav = document.querySelector(".navigation");
+			var mobileNavOverlay = document.querySelector(".mobile-menu-overlay");
+			var pwb = document.querySelector(".phone-wrap.big");
+			var video = document.querySelector(".video-screen");
+
+			document.querySelector(".close-menu-overlay").onclick = function () {
+				mobileNav.className = mobileNav.className.replace(/\sopen\s/, "");
+				mobileNavOverlay.className = mobileNavOverlay.className.replace(/\sopen\s/, "");
+			};
+
+			document.querySelector(".menu-toggle").onclick = function (e) {
+				mobileNav.className += " open ";
+				mobileNavOverlay.className += " open ";
+				e.preventDefault();
+			};
+
+			pwb.onclick = function() {
+				pwb.className += " playing ";
+				video.play();
+			}
+
+			video.onclick = function(e) {
+				e.stopPropagation();
+				video.pause();
+				pwb.className = pwb.className.replace("playing", "");
+			}
 
 			function onFooterResize() {
 
@@ -276,12 +351,11 @@
 					return;
 				}
 
-				var page = document.querySelector("#page");
+				var site = document.querySelector(".site");
 				var footer = document.querySelector(".site-footer");
 
-				// throttle
 				setTimeout(function() {
-					page.style.marginBottom = footer.scrollHeight + "px";
+					site.style.marginBottom = footer.scrollHeight + "px";
 				}, 300);
 			}
 				
