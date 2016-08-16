@@ -885,14 +885,15 @@ only screen and (                min-resolution: 2dppx) {
 	background-color: #00aadf;
 	background-image: url(images/icon-play.svg);
 	background-repeat: no-repeat;
-	background-position: center center;
+	background-position: 38px center;
 	transform: scale(1, 1);
-	transition: width 0.15s, height 0.15s, margin 0.15s, opacity 0.25s;
+	transition: width 0.15s, height 0.15s, margin 0.15s, background-position 0.15s, opacity 0.25s;
 	opacity: 1;
 }
 
 .phone-wrap.big:hover::after {
 	/*transform: scale(1.05, 1.05);*/
+	background-position: 43px center;
 	width: 100px;
 	height: 100px;
 	margin: -50px 0 0 -50px;
