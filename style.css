@@ -586,6 +586,10 @@ only screen and (                min-resolution: 2dppx) {
 	z-index: 1;
 }
 
+.segment.plain pre code {
+	white-space: pre;
+}
+
 .segment .button-basket::after,
 .segment pre::after,
 .example-complex pre::before {
@@ -868,6 +872,7 @@ only screen and (                min-resolution: 2dppx) {
 
 .video-screen {
 	width: 330px;
+	border-radius: 5px;
 }
 
 .js .phone-wrap.big:not(.playing) .video-screen {
