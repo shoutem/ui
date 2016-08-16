@@ -232,6 +232,7 @@ p {
 	background: #000;
 	position: relative;
 	min-height: 640px;
+	padding-top: 80px;
 }
 
 .site-header::before {
@@ -285,18 +286,22 @@ only screen and (                min-resolution: 2dppx) {
 
 .site-header .container {
 	position: relative;
-	/*z-index: 1;*/
 }
 
 /* Navigation */
 
 .main-navigation {
-	position: relative;
-	/*z-index: 2;*/
+	position: fixed;
 	height: 80px;
 	line-height: 81px;
-	overflow: hidden;
+	right: 0;
+	left: 0;
+	top: 0;
+	z-index: 1070;
+	background-color: transparent;
 	border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+	will-change: transform;
+	transition: transform 0.2s linear, background-color 0.2s linear;
 }
 
 .menu {
@@ -337,6 +342,7 @@ only screen and (                min-resolution: 2dppx) {
 
 .navigation {
 	visibility: visible;
+	z-index: 1070;
 }
 
 .menu-toggle,
@@ -367,6 +373,67 @@ only screen and (                min-resolution: 2dppx) {
 .site-title span {
 	position: relative;
 	top: -200px;
+}
+
+/* Headroom */
+
+.main-navigation.faded {
+	background-color: transparent !important;
+}
+
+.main-navigation.faded .site-title {
+	opacity: 0.4 !important;
+	pointer-events: none;
+}
+
+.headroom--pinned {
+	transform: translateY(0%);
+}
+
+.headroom--unpinned {
+	transform: translateY(-100%);
+}
+
+.js .headroom:not(.headroom--top) {
+	background-color: #FFF;
+	border-color: rgba(0, 0, 0, 0.07);
+}
+
+.js .headroom:not(.headroom--top) .menu a {
+	color: #697289;
+}
+
+@media (min-width: 640px) {
+	.js .headroom:not(.headroom--top) .menu .button-signup {
+		border-color: #00aadf;
+		background-color: #00aadf;
+		color: #FFF;
+		transition: border-color 0.2s linear, background-color 0.2s linear;
+	}
+
+	.js .headroom:not(.headroom--top) .menu .button-signup:hover {
+		background-color: #00BEF7;
+		border-color: #00BEF7;
+	}
+}
+
+@media (max-width: 639px) {
+	.menu .button-signup {
+		border-radius: 0;
+		border: none;
+	}
+}
+
+.js .headroom:not(.headroom--top) .site-title {
+	background-image: url(images/shoutem-ui-toolkit-dark.svg);
+}
+
+.js .headroom:not(.headroom--top) .menu-toggle {
+	background-image: url(images/icon-menu-dark.svg);
+}
+
+.headroom--unpinned .navigation.open {
+	top: 80px;
 }
 
 /* Header contents */
@@ -1508,8 +1575,8 @@ only screen and (                min-resolution: 2dppx) {
 	{
 		position: fixed;
 		right: 0;
-		bottom: 0;
-		height: 100%;
+		top: 0;
+		height: 100vh;
 		width: 280px;
 		overflow: auto;
 		padding: 28px 0;

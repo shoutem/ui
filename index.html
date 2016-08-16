@@ -19,7 +19,7 @@
 
 		<header id="masthead" class="site-header" role="banner">
 
-			<nav id="site-navigation" class="main-navigation" role="navigation">
+			<nav id="site-navigation" class="main-navigation headroom" role="navigation">
 				<div class="container">
 					<a class="site-title" href="index.html" rel="home">
 						<span>Shoutem UI toolkit</span>
@@ -325,75 +325,8 @@
 			</div>
 		</div>
 
-		<script>
-			var mobileNav = document.querySelector(".navigation");
-			var mobileNavOverlay = document.querySelector(".mobile-menu-overlay");
-			var pwb = document.querySelector(".phone-wrap.big");
-			var video = document.querySelector(".video-screen");
-
-			document.querySelector(".close-menu-overlay").onclick = function () {
-				mobileNav.className = mobileNav.className.replace(/\sopen\s/, "");
-				mobileNavOverlay.className = mobileNavOverlay.className.replace(/\sopen\s/, "");
-			};
-
-			document.querySelector(".menu-toggle").onclick = function (e) {
-				mobileNav.className += " open ";
-				mobileNavOverlay.className += " open ";
-				e.preventDefault();
-			};
-
-			pwb.onclick = function() {
-				pwb.className += " playing ";
-				video.play();
-			}
-
-			video.onclick = function(e) {
-				e.stopPropagation();
-				video.pause();
-				pwb.className = pwb.className.replace("playing", "");
-			}
-
-			function onFooterResize() {
-
-				if( document.documentElement.scrollWidth <= 640 ) {
-					return;
-				}
-
-				var site = document.querySelector(".site");
-				var footer = document.querySelector(".site-footer");
-
-				setTimeout(function() {
-					site.style.marginBottom = footer.scrollHeight + "px";
-				}, 300);
-			}
-				
-			window.onresize = onFooterResize;
-			
-			onFooterResize();
-
-			// http://stackoverflow.com/a/35627449
-			function scrollTo(element, from, to, duration, currentTime)
-			{
-				if (from <= 0) { from = 0;}
-				if (to <= 0) { to = 0;}
-				if (currentTime>=duration) return;
-				var delta = to-from;
-				var progress = currentTime / duration * Math.PI / 2;
-				var position = delta * (Math.sin(progress));
-
-				setTimeout(function () {
-					element.scrollTop = from + position;
-					scrollTo(element, from, to, duration, currentTime + 10);
-				}, 10);
-			}
-
-			var $doc = document.documentElement;
-
-			document.querySelector('a[href="#signup"]').onclick = function(e) {
-				e.preventDefault();
-				scrollTo($doc, $doc.scrollTop, $doc.scrollHeight, 600, 0);
-			};
-		</script>
+		<script type="text/javascript" src="js/headroom.min.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
 
 	</body>
 	</html>
