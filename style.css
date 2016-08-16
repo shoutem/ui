@@ -210,6 +210,7 @@ p {
 	line-height: 60px;
 	font-size: 0.8125em;
 	font-weight: 700;
+	letter-spacing: 1px;
 	text-transform: uppercase;
 	color: #444f6c;
 	text-decoration: none;
@@ -326,6 +327,12 @@ only screen and (                min-resolution: 2dppx) {
 	border-radius: 4px;
 	padding: 13px 22px;
 	margin-left: 12px;
+    font-weight: 700;
+    transition: border-color .4s linear 0s;
+}
+
+.menu .button-signup:hover {
+	border-color: rgba(249, 249, 249, 1);
 }
 
 .navigation {
@@ -496,6 +503,11 @@ only screen and (                min-resolution: 2dppx) {
 .site-content .button {
 	background-color: rgba(68, 79, 108, 0.2);
 	margin-top: 48px;
+	transition: background-color 0.2s linear;
+}
+
+.site-content .button:hover {
+	background-color: rgba(68, 79, 108, 0.3);
 }
 
 
@@ -607,6 +619,16 @@ only screen and (                min-resolution: 2dppx) {
 	z-index: -1;
 }
 
+@media (min-width: 481px) {
+	.example-complex pre::before {
+		bottom: 50%;
+		left: -4px;
+		margin-bottom: -10px;
+		margin-left: 0;
+	}
+}
+	
+
 .segment .button-basket::after {
 	background-color: #ccc;
 }
@@ -649,12 +671,12 @@ only screen and (                min-resolution: 2dppx) {
 	float: left;
 	position: relative;
 	z-index: 1;
+	border-radius: 2px;
 }
 
 .example-complex .preview {
 	width: 29.4875%;
 	background-color: rgba(0, 0, 0, 0.2);
-	border-radius: 2px;
 }
 
 .example-complex pre {
@@ -685,7 +707,7 @@ only screen and (                min-resolution: 2dppx) {
 }
 
 .button.explore-components {
-	width: 260px;
+	width: 270px;
 }
 
 @media (max-width: 480px) {
@@ -848,6 +870,7 @@ only screen and (                min-resolution: 2dppx) {
 	background-repeat: no-repeat;
 	background-position: 20px 80px;
 	background-size: 330px;
+	cursor: pointer;
 }
 
 .phone-wrap.big::after {
@@ -863,11 +886,22 @@ only screen and (                min-resolution: 2dppx) {
 	background-image: url(images/icon-play.svg);
 	background-repeat: no-repeat;
 	background-position: center center;
+	transform: scale(1, 1);
+	transition: width 0.15s, height 0.15s, margin 0.15s, opacity 0.25s;
+	opacity: 1;
+}
+
+.phone-wrap.big:hover::after {
+	/*transform: scale(1.05, 1.05);*/
+	width: 100px;
+	height: 100px;
+	margin: -50px 0 0 -50px;
 }
 
 .no-js .phone-wrap.big::after,
 .phone-wrap.big.playing::after {
-	display: none;
+	opacity: 0;
+	pointer-events: none;
 }
 
 .video-screen {
@@ -1100,8 +1134,8 @@ only screen and (                min-resolution: 2dppx) {
 	vertical-align: middle;
 }
 
-.chapter-image.blue {
-	background-color: #58c6fb
+.chapter-image.black {
+	background-color: #3b3b3b;
 }
 
 .chapter-image.purple {
@@ -1147,6 +1181,10 @@ only screen and (                min-resolution: 2dppx) {
 	bottom: 0;
 	width: 100%;
 	z-index: -1;
+}
+
+.no-js .site-footer{
+	position: static;
 }
 
 .signup {
