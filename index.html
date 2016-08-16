@@ -359,6 +359,29 @@
 			window.onresize = onFooterResize;
 			
 			onFooterResize();
+
+			// http://stackoverflow.com/a/35627449
+			function scrollTo(element, from, to, duration, currentTime)
+			{
+				if (from <= 0) { from = 0;}
+				if (to <= 0) { to = 0;}
+				if (currentTime>=duration) return;
+				var delta = to-from;
+				var progress = currentTime / duration * Math.PI / 2;
+				var position = delta * (Math.sin(progress));
+
+				setTimeout(function () {
+					element.scrollTop = from + position;
+					scrollTo(element, from, to, duration, currentTime + 10);
+				}, 10);
+			}
+
+			var $doc = document.documentElement;
+
+			document.querySelector('a[href="#signup"]').onclick = function(e) {
+				e.preventDefault();
+				scrollTo($doc, $doc.scrollTop, $doc.scrollHeight, 600, 0);
+			};
 		</script>
 
 	</body>
