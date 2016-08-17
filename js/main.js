@@ -1,27 +1,26 @@
-var navContainer = document.querySelector(".main-navigation");
 var mobileNav = document.querySelector(".navigation");
 var mobileNavOverlay = document.querySelector(".mobile-menu-overlay");
 var pwb = document.querySelector(".phone-wrap.big");
 var video = document.querySelector(".video-screen");
+var mobileNavClone = mobileNav.cloneNode(true);
+
+mobileNavClone.id = "navigation-clone";
+
+mobileNavOverlay.appendChild(mobileNavClone);
 
 document.querySelector(".close-menu-overlay").onclick = function () {
-	mobileNav.className = mobileNav.className.replace(/\sopen\s/ig, "");
+	mobileNavClone.className = mobileNav.className.replace(/\sopen\s/ig, "");
 	mobileNavOverlay.className = mobileNavOverlay.className.replace(/\sopen\s/ig, "");
-	navContainer.className = navContainer.className.replace(/\sfaded\s/ig, "");
 };
 
 document.querySelector(".menu-toggle").onclick = function (e) {
 
 	if( ! mobileNav.className.match(/open/) ) {
-		mobileNav.className += " open ";
+		mobileNavClone.className += " open ";
 	}
 
 	if( ! mobileNavOverlay.className.match(/open/) ) {
 		mobileNavOverlay.className += " open ";
-	}
-
-	if( ! navContainer.className.match(/faded/) ) {
-		navContainer.className += " faded ";
 	}
 
 	e.preventDefault();

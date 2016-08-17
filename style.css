@@ -368,6 +368,7 @@ only screen and (                min-resolution: 2dppx) {
 	height: 30px;
 	margin-top: 21px;
 	background: url(images/shoutem-ui-toolkit.svg) center center no-repeat;
+	transition: opacity 0.4s;
 }
 
 .site-title span {
@@ -1537,12 +1538,8 @@ only screen and (                min-resolution: 2dppx) {
 	right: 0;
 	width: 100%;
 	height: 100%;
-	z-index: 1060;
+	z-index: -1;
 	transition: visibility 0.5s;
-}
-
-.mobile-menu-overlay.open {
-	visibility: visible;
 }
 
 .mobile-menu-overlay .close-menu-overlay {
@@ -1569,6 +1566,11 @@ only screen and (                min-resolution: 2dppx) {
 
 	.menu-toggle {
 		display: block;
+	}
+
+	.mobile-menu-overlay.open {
+		z-index: 1080;
+		visibility: visible;
 	}
 
 	.navigation
