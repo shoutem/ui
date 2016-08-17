@@ -491,7 +491,14 @@ only screen and (                min-resolution: 2dppx) {
 	.page-title,
 	.page-description,
 	.header-contents .links {
-		margin-left: 0;
+		margin-left: auto;
+		margin-right: auto;
+		text-align: center;
+	}
+
+	.page-title {
+		font-size: 2.4375rem;
+		max-width: 430px;
 	}
 
 	.menu li:not(:first-child) {
@@ -584,7 +591,7 @@ only screen and (                min-resolution: 2dppx) {
 	.site-content h2 {
 		font-size: 2.25rem;
 		line-height: 1.28;
-		max-width: 294px;
+		max-width: 280px;
 		margin-left: auto;
 		margin-right: auto;
 		margin-top: 60px;
@@ -687,7 +694,7 @@ only screen and (                min-resolution: 2dppx) {
 	z-index: -1;
 }
 
-@media (min-width: 481px) {
+@media (min-width: 769px) {
 	.example-complex pre::before {
 		bottom: 50%;
 		left: -4px;
@@ -778,7 +785,7 @@ only screen and (                min-resolution: 2dppx) {
 	width: 270px;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
 
 	.example {
 		margin-top: 48px;
@@ -1174,23 +1181,6 @@ only screen and (                min-resolution: 2dppx) {
 	margin-top: 8px;
 	line-height: 1.6;
 	color: #697289;
-}
-
-.chapter-time {
-	font-size: 0.875rem;
-	line-height: 24px;
-	color: #969cac;
-}
-
-.chapter-time::before {
-	content: "";
-	display: inline-block;
-	background-image: url("images/icon-time.svg");
-	width: 19px;
-	height: 19px;
-	background-size: 100%;
-	background-repeat: no-repeat;
-	margin-right: 8px
 }
 
 .chapter-image {
