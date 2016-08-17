@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="17px"
+   height="11px"
+   viewBox="0 0 17 11"
+   version="1.1"
+   id="svg4256"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="icon-menu-dark.svg">
+  <metadata
+     id="metadata4271">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="2560"
+     inkscape:window-height="1361"
+     id="namedview4269"
+     showgrid="false"
+     inkscape:zoom="36.576705"
+     inkscape:cx="1.0112973"
+     inkscape:cy="6.9321171"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4256" />
+  <!-- Generator: sketchtool 39.1 (31720) - http://www.bohemiancoding.com/sketch -->
+  <title
+     id="title4258">92294BCF-5B07-4F30-A73F-9E0CC33FA56F</title>
+  <desc
+     id="desc4260">Created with sketchtool.</desc>
+  <defs
+     id="defs4262" />
+  <g
+     id="B.1-Shoutem-UI-Toolkit"
+     stroke="none"
+     stroke-width="1"
+     fill="none"
+     fill-rule="evenodd"
+     style="fill:#000000">
+    <g
+       id="B.1-02-Home-(Mobile)"
+       transform="translate(-334.000000, -35.000000)"
+       style="fill:#000000">
+      <g
+         id="ic-menu"
+         transform="translate(331.000000, 28.000000)"
+         style="fill:#000000">
+        <polygon
+           id="Bounds"
+           fill-opacity="0.100000001"
+           fill="#D0011B"
+           opacity="0"
+           points="0 0 24 0 24 24 0 24"
+           style="fill:#000000" />
+        <path
+           d="M3,8 L3,7 L20,7 L20,8 L3,8 L3,8 Z M20,12 L20,13 L3,13 L3,12 L20,12 L20,12 Z M3,17 L20,17 L20,18 L3,18 L3,17 L3,17 Z"
+           id="Icon-Shape"
+           fill="#FFFFFF"
+           style="fill:#000000" />
+      </g>
+    </g>
+  </g>
+</svg>

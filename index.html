@@ -10,25 +10,31 @@
 	<![endif]-->
 </head>
 
-<body>
-
+<body class="no-js">
+	<script>
+		var b = document.querySelector("body");
+		b.className = b.className.replace("no-js", "js");
+	</script>
 	<div id="page" class="site">
 
 		<header id="masthead" class="site-header" role="banner">
 
-			<nav id="site-navigation" class="main-navigation" role="navigation">
+			<nav id="site-navigation" class="main-navigation headroom" role="navigation">
 				<div class="container">
 					<a class="site-title" href="index.html" rel="home">
 						<span>Shoutem UI toolkit</span>
 					</a>
 
-					<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">Menu</button>
+					<a href="#navigation" class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">Menu</a href="#navigation">
 
-					<ul class="menu nav-menu primary-menu">
-						<li><a href="https://shoutem.github.io">Documentation</a></li>
-						<li><a href="https://github.com/shoutem">Github</a></li>
-						<li><a href="#signup" class="button-signup">Stay informed</a></li>
-					</ul>
+					<div class="navigation" id="navigation">
+						<ul class="menu nav-menu primary-menu">
+							<li class="close-navigation"><a href="#">Close</a></li>
+							<li><a href="https://shoutem.github.io">Documentation</a></li>
+							<li><a href="https://github.com/shoutem">Github</a></li>
+							<li><a href="#signup" class="button-signup">Stay informed</a></li>
+						</ul>
+					</div>
 				</div>
 			</nav>
 
@@ -78,14 +84,12 @@
 						<div class="segment plain">
 <pre><code class="language-javascript">var style = stylesheet.create({
     Button: { 
-        backgroundColor: '#222',
-        borderRadius: '4px'
+        backgroundColor: '#222', borderRadius: '4px'
      }
 });
 &lt;TouchableOpacity style={style.button}&gt;
-    &lt;Text style={{color: 'white'}}&gt;
-    	Add to basket
-    &lt;/Text&gt;
+    &lt;Text style={{color: 'white'}}&gt;Add to 
+    basket&lt;/Text&gt;
 &lt;/TouchableOpacity&gt;</code></pre>
 
 							<p>With plain React native</p>
@@ -160,9 +164,21 @@
 						<h3>UI Themes</h3>
 
 						<div class="screenshots">
-							<span class="phone-wrap"><img src="images/theme-1-crop.jpg" alt="Screenshot of a theme" /></span>
-							<span class="phone-wrap"><img src="images/theme-2-crop.png" alt="Screenshot of a theme" /></span>
-							<span class="phone-wrap"><img src="images/theme-3-crop.png" alt="Screenshot of a theme" /></span>
+							<span class="phone-wrap">
+								<img src="images/theme-rubicon.jpg"
+									srcset="images/theme-rubicon@2x.jpg 2x"
+									alt="Screenshot of the 'Rubicon' theme" />
+							</span>
+							<span class="phone-wrap">
+								<img src="images/theme-arno.png" 
+									srcset="images/theme-arno@2x.jpg 2x"
+									alt="Screenshot of the 'Arno' theme" />
+							</span>
+							<span class="phone-wrap">
+								<img src="images/theme-sesia.jpg" 
+									srcset="images/theme-sesia@2x.jpg 2x"
+									alt="Screenshot of the 'Sesia' theme" />
+							</span>
 						</div>
 
 						<p>Style your React Native apps from a single place using themes that work similar to SASS/CSS.</p>
@@ -179,7 +195,45 @@
 						</div>
 
 						<span class="phone-wrap big">
-							<img src="images/video-still.png" alt="Video still" />
+							<video loop class="video-screen">
+								<source src="video/header.webm" type="video/webm" />
+								<source src="video/header.mp4" type="video/mp4" />
+							</video>
+							<script>
+								var vc = document.querySelector(".video-screen");
+								var vcParent = vc.parentElement;
+								var temp;
+
+								if( window.matchMedia )
+								{
+									var mq = window.matchMedia("only screen and (-webkit-min-device-pixel-ratio: 2),only screen and ( min--moz-device-pixel-ratio: 2), only screen and ( o-min-device-pixel-ratio: 2/1), only screen and ( min-device-pixel-ratio: 2), only screen and ( min-resolution: 192dpi), only screen and ( min-resolution: 2dppx)");
+
+									if( mq && mq.matches )
+									{
+										vc.pause();
+										vcParent.removeChild(vc);
+
+										vc = document.createElement("video");
+										vc.className = "video-screen";
+										vc.setAttribute("autoplay", true);
+										vc.setAttribute("loop", true);
+										vcParent.appendChild(vc);
+
+										temp = document.createElement("source");
+										temp.setAttribute("src", "/video/header@2x.webm");
+										temp.setAttribute("type", "video/webm");
+										vc.appendChild(temp);
+
+										temp = document.createElement("source");
+										temp.setAttribute("src", "/video/header@2x.mp4");
+										temp.setAttribute("type", "video/mp4");
+										vc.appendChild(temp);
+
+										vc.play();
+									}
+								}
+							</script>
+
 						</span>
 
 						<div class="explore-animations">
@@ -192,24 +246,23 @@
 
 						<div class="container">
 							<a class="chapter" href="/docs/getting-started/introduction">
-								<div class="chapter-image blue">
-									<img src="images/icon-tutorial-getting-started.svg" />
-								</div>
-								<div class="chapter-content">
-									<h3>Tutorial</h3>
-									<h4>Getting started</h4>
-									<p>Create your first custom Shoutem app/extension in three simple steps</p>
-									<div class="chapter-time">15 min &nbsp;&#8226;&nbsp; Simple</div>
-								</div>
-							</a>
-							<a class="chapter" href="/docs/ui-toolkit/introduction">
 								<div class="chapter-image purple">
 									<img src="images/icon-tutorial-ui-toolkit.svg" />
 								</div>
 								<div class="chapter-content">
-									<h3>Reference</h3>
-									<h4>UI Toolkit</h4>
-									<p>Build skinnable React Native apps sing our professionally designed UI components</p>
+									<h3>UI Toolkit</h3>
+									<h4>Documentation</h4>
+									<p>Build beautiful React Native apps by using our professionally designed UI components.</p>
+								</div>
+							</a>
+							<a class="chapter" href="/docs/ui-toolkit/introduction">
+								<div class="chapter-image black">
+									<img src="images/icon-tutorial-github.svg" />
+								</div>
+								<div class="chapter-content">
+									<h3>Code</h3>
+									<h4>Github</h4>
+									<p>Get the code on GitHub. It’s all open source, remember!</p>
 								</div>
 							</a>
 							<a class="chapter" href="http://www.shoutem.com">
@@ -218,8 +271,8 @@
 								</div>
 								<div class="chapter-content">
 									<h3>Explore</h3>
-									<h4>Shoutem app builder</h4>
-									<p>Shoutem enables anyone to create and manage beautiful apps with minimal effort</p>
+									<h4>Shoutem platform</h4>
+									<p>Shoutem provides you with everything you need to create amazing apps</p>
 								</div>
 							</a>
 						</div>
@@ -231,8 +284,8 @@
 
 			<footer id="colophon" class="site-footer" role="contentinfo">
 				<div id="signup" class="signup">
-					<div class="signup-title">Sign up for an early invite!</div>
-					<div class="signup-description">We are currently in private beta. If you would like early access to the beta, please sign up with your email address.</div>
+					<div class="signup-title">Subscribe to our newsletter</div>
+					<div class="signup-description">Subscribe to our newsletter if you'd like to stay infomed about new and updated components and themes.</div>
 
 					<div id="mc_embed_signup">
 						<form action="//shoutem.us1.list-manage.com/subscribe/post?u=2465033d224d289aca631307f&amp;id=8c16387120" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
@@ -257,9 +310,8 @@
 						<a href="http://www.shoutem.com" class="footer-logo"></a>
 						<ul class="footer-menu">
 							<li><a href="http://www.shoutem.com/about">About</a></li>
-							<li><a href="http://www.shoutem.com/termsofservice">Terms of service</a></li>
-							<li><a href="http://www.shoutem.com/privacypolicy">Privacy</a></li>
-							<li><a href="http://www.shoutem.com/dmca">DMCA</a></li>
+							<li><a href="http://www.shoutem.com/legal">Legal</a></li>
+							<li><a href="http://www.shoutem.com/contact">Contact us</a></li>
 							<li class="icon-github"><a href="https://github.com/shoutem/shoutem.github.io">Github</a></li>
 							<li class="icon-twitter"><a href="https://twitter.com/shoutem">Twitter</a></li>
 						</ul>
@@ -268,27 +320,13 @@
 			</footer>
 		</div>
 
-		<script>
+		<div class="mobile-menu-overlay">
+			<div class="close-menu-overlay">
+			</div>
+		</div>
 
-			function onFooterResize() {
-
-				if( document.documentElement.scrollWidth <= 640 ) {
-					return;
-				}
-
-				var page = document.querySelector("#page");
-				var footer = document.querySelector(".site-footer");
-
-				// throttle
-				setTimeout(function() {
-					page.style.marginBottom = footer.scrollHeight + "px";
-				}, 300);
-			}
-				
-			window.onresize = onFooterResize;
-			
-			onFooterResize();
-		</script>
+		<script type="text/javascript" src="js/headroom.min.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
 
 	</body>
 	</html>
