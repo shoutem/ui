@@ -422,9 +422,17 @@ only screen and (                min-resolution: 2dppx) {
 }
 
 @media (max-width: 639px) {
+
+	.menu .menu-button-signup {
+		padding: 15px 0;
+		border-top: 1px solid #DDD;
+		border-bottom: 1px solid #DDD;
+		margin: 15px 0 !important;
+	}
 	.menu .button-signup {
 		border-radius: 0;
 		border: none;
+		color: #00aadf;
 	}
 }
 
@@ -1618,12 +1626,17 @@ only screen and (                min-resolution: 2dppx) {
 		text-decoration: none;
 		padding: 0 0 0 24px !important;
 		margin: 0 !important;
-		font-size: 0.875rem;
+		font-weight: 700;
 		transition: all .2s linear 0s;
 	}
 
 	.navigation li a:hover {
 	    background-color: rgba(0,170,223,0.16);
+	}
+
+	.navigation li.sidelink a {
+		font-weight: 500;
+		font-size: 0.875em;
 	}
 }
 
