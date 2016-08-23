@@ -229,10 +229,14 @@ p {
 }
 
 .site-header {
-	background: #000;
 	position: relative;
 	min-height: 640px;
 	padding-top: 80px;
+
+	background-image: url(images/header.jpg);
+	background-position: 80% 50%;
+	background-repeat: no-repeat;
+	background-size: 100%;
 }
 
 .site-header::before {
@@ -243,11 +247,8 @@ p {
 	width: 100%;
 	height: 100%;
 	z-index: 0;
-	opacity: 0.6;
-	background-image: url(images/header.jpg);
-	background-position: 80% 50%;
-	background-repeat: no-repeat;
-	background-size: 100%;
+	opacity: 0.4;
+	background: #000;
 }
 
 @media
@@ -257,21 +258,21 @@ only screen and (     -o-min-device-pixel-ratio: 2/1),
 only screen and (        min-device-pixel-ratio: 2),
 only screen and (                min-resolution: 192dpi),
 only screen and (                min-resolution: 2dppx) { 
-	.site-header::before {
+	.site-header {
 		background-image: url(images/header@2x.jpg);
 	}
 }
 
 @media
 (min-width: 1561px) {
-	.site-header::before {
+	.site-header {
 		background-position: 80% 60%;
 	}
 }
 
 @media
 (min-width: 1651px) {
-	.site-header::before {
+	.site-header {
 		background-position: 80% 70%;
 	}
 }
@@ -279,7 +280,7 @@ only screen and (                min-resolution: 2dppx) {
 @media
 (min-width: 1921px),
 (max-width: 1150px) {
-	.site-header::before {
+	.site-header {
 		background-size: cover;
 	}
 }
@@ -287,6 +288,8 @@ only screen and (                min-resolution: 2dppx) {
 .site-header .container {
 	position: relative;
 }
+
+
 
 /* Navigation */
 
