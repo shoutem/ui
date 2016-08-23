@@ -1091,6 +1091,8 @@ only screen and (                min-resolution: 2dppx) {
 		height: 540px;
 		padding-top: 58px;
 		border-radius: 43px;
+		background-size: 239px auto;
+		background-position: 15px 58px;
 	}
 
 	.video-screen {
