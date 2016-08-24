@@ -8,13 +8,15 @@ mobileNavClone.id = "navigation-clone";
 
 mobileNavOverlay.appendChild(mobileNavClone);
 
-document.querySelector(".close-menu-overlay").onclick = function () {
+document.querySelector(".close-menu-overlay").onclick = closeMobileNav;
+
+function closeMobileNav () {
 	mobileNavClone.className = mobileNav.className.replace(/\sopen\s/ig, "");
 	mobileNavOverlay.className = mobileNavOverlay.className.replace(/\sopen\s/ig, "");
-};
+}
 
-document.querySelector(".menu-toggle").onclick = function (e) {
-
+document.querySelector(".menu-toggle").onclick = function openMobileNav(e)
+{
 	if( ! mobileNav.className.match(/open/) ) {
 		mobileNavClone.className += " open ";
 	}
@@ -25,6 +27,8 @@ document.querySelector(".menu-toggle").onclick = function (e) {
 
 	e.preventDefault();
 };
+
+
 
 pwb.onclick = function() {
 	pwb.className += " playing ";
@@ -39,7 +43,7 @@ video.onclick = function(e) {
 
 function onFooterResize() {
 
-	if( document.documentElement.scrollWidth <= 640 ) {
+	if( window.outerWidth <= 640 ) {
 		return;
 	}
 
@@ -58,8 +62,8 @@ onFooterResize();
 // http://stackoverflow.com/a/35627449
 function scrollTo(element, from, to, duration, currentTime)
 {
-	if (from <= 0) { from = 0;}
-	if (to <= 0) { to = 0;}
+	if (from <= 0) { from = 0; }
+	if (to <= 0) { to = 0; }
 	if (currentTime>=duration) return;
 	var delta = to-from;
 	var progress = currentTime / duration * Math.PI / 2;
@@ -72,11 +76,15 @@ function scrollTo(element, from, to, duration, currentTime)
 }
 
 var $doc = document.documentElement;
+var signupButtons = document.querySelectorAll('a[href="#signup"]');
 
-document.querySelector('a[href="#signup"]').onclick = function(e) {
-	e.preventDefault();
-	scrollTo($doc, $doc.scrollTop, $doc.scrollHeight, 600, 0);
-};
+Array.prototype.slice.call(signupButtons).forEach(function(el){
+	el.onclick = function(e) {
+		scrollTo($doc, $doc.scrollTop, $doc.scrollHeight, 600, 0);
+		closeMobileNav();
+		e.preventDefault();
+	};
+})
 
 var headroom  = new Headroom(document.querySelector(".headroom"), {
 		tolerance: {
