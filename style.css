@@ -1019,11 +1019,6 @@ only screen and (                min-resolution: 2dppx) {
 	margin-right: 105px;
 }
 
-.section-animations .explore-animations {
-	width: calc(100% - 470px - 160px);
-	max-width: 460px;
-}
-
 .explore-animations .button {
 	width: 220px;
 	padding: 0;
