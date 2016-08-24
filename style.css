@@ -1565,6 +1565,11 @@ only screen and (                min-resolution: 2dppx) {
 	display: none;
 }
 
+.navigation .sidelink,
+.navigation .mobile-only {
+	display: none;
+}
+
 @media (max-width: 639px) {
 
 	.menu-toggle {
@@ -1637,6 +1642,11 @@ only screen and (                min-resolution: 2dppx) {
 	.navigation li.sidelink a {
 		font-weight: 500;
 		font-size: 0.875em;
+	}
+
+	.navigation .sidelink,
+	.navigation .mobile-only {
+		display: block;
 	}
 }
 
