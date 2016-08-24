@@ -100,7 +100,9 @@
 						</div>
 
 						<div class="segment shoutem">
-<pre><code class="language-javascript">&lt;Button&gt;Add to basket&lt;/Button&gt;</code></pre>
+							<pre><code class="language-javascript">&lt;Button styleName="dark"&gt;
+  &lt;Text&gt;ADD TO BASKET&lt;/Text&gt;
+&lt;/Button&gt;</code></pre>
 
 							<p>With Shoutem UI Toolkit</p>
 
@@ -110,14 +112,14 @@
 						</div>
 
 						<div class="segment plain">
-<pre><code class="language-javascript">var style = stylesheet.create({
-    Button: { 
-        backgroundColor: '#222', borderRadius: '4px'
-     }
+							<pre><code class="language-javascript">var style = StyleSheet.create({
+  button: {
+    backgroundColor: '#222',
+    borderRadius: '4px'
+  }
 });
 &lt;TouchableOpacity style={style.button}&gt;
-    &lt;Text style={{color: 'white'}}&gt;Add to 
-    basket&lt;/Text&gt;
+  &lt;Text style={{color: 'white'}}&gt;ADD TO BASKET&lt;/Text&gt;
 &lt;/TouchableOpacity&gt;</code></pre>
 
 							<p>With plain React native</p>
@@ -143,7 +145,10 @@
 												images/icon-button@3x.png 3x"
 									/>
 								</div>
-								<pre><code class="language-javascript">&lt;IconButton iconName="add-to-basket"&gt;Add to basket&lt;/IconButton&gt;</code></pre>
+								<pre><code class="language-javascript">&lt;Button&gt;
+  &lt;Icon name="add-to-basket" /&gt;
+  &lt;Text&gt;ADD TO BASKET&lt;/Text&gt;
+&lt;/Button&gt;</code></pre>
 							</div>							
 							<div class="example example-tile">
 								<div class="preview">
@@ -152,12 +157,15 @@
 												images/tile@3x.png 3x"
 									/>
 								</div>
-<pre><code class="language-javascript">&lt;Tile&gt;
-  &lt;Image source="..."&gt;
+								<pre><code class="language-javascript">&lt;Tile&gt;
+  &lt;Image source="http://shoutem.github.io/ui/examples/images/watches.png"&gt;
     &lt;Title&gt;Cool black and white stylish watches&lt;/Title&gt;
     &lt;Subtitle styleName="strikethrough"&gt;$280.00&lt;/Subtitle&gt;
     &lt;Heading&gt;$250.00&lt;/Heading&gt;
-    &lt;IconButton iconName="add-to-basket" onPress={...}&gt;Add to basket&lt;/IconButton&gt;
+    &lt;Button&gt;
+      &lt;Icon name="add-to-basket" /&gt;
+      &lt;Text&gt;ADD TO BASKET&lt;/Text&gt;
+    &lt;/Button&gt;
   &lt;/Image&gt;
 &lt;/Tile&gt;</code></pre>
 							</div>							
