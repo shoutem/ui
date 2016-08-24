@@ -1,0 +1,23 @@
+### Node ###
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependency directories
+node_modules
+jspm_packages
+
+# Optional npm cache directory
+.npm
+
+### OSX ###
+.DS_Store
+
+### Jekyll ###
+_site/
+.sass-cache/
+.jekyll-metadata
+
+### Sublime ###
+*.sublime-*
