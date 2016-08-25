@@ -1627,7 +1627,8 @@ only screen and (                min-resolution: 2dppx) {
 		padding: 0 0 0 24px !important;
 		margin: 0 !important;
 		font-weight: 700;
-		transition: all .2s linear 0s;
+		font-size: 0.9375em;
+		transition: all .2s linear 0s !important;
 	}
 
 	.navigation li a:hover {
