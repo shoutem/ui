@@ -77,12 +77,13 @@ function scrollTo(element, from, to, duration, currentTime)
 
 var $doc = document.documentElement;
 var $body = document.querySelector("body");
-var signupButtons = document.querySelectorAll('a[href="#signup"]');
+var $signupButtons = document.querySelectorAll('a[href="#signup"]');
+var $signup = document.querySelector("#signup");
 
-Array.prototype.slice.call(signupButtons).forEach(function(el){
+Array.prototype.slice.call($signupButtons).forEach(function(el){
 	el.onclick = function(e) {
-		scrollTo($doc, $doc.scrollTop, $doc.scrollHeight, 600, 0);
-		scrollTo($body, $body.scrollTop, $body.scrollHeight, 600, 0);
+		scrollTo($doc, $doc.scrollTop, $signup.offsetTop, 600, 0);
+		scrollTo($body, $body.scrollTop, $signup.offsetTop, 600, 0);
 		closeMobileNav();
 		e.preventDefault();
 	};
