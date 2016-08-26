@@ -114,13 +114,12 @@
 
 						<div class="segment plain">
 							<pre><code class="language-javascript">var style = StyleSheet.create({
-  button: {
-    backgroundColor: '#222',
-    borderRadius: '4px'
-  }
+  button: { backgroundColor: '#222', borderRadius: '4px' },
+  text: { color: 'white' }
 });
+
 &lt;TouchableOpacity style={style.button}&gt;
-  &lt;Text style={{color: 'white'}}&gt;ADD TO BASKET&lt;/Text&gt;
+  &lt;Text style={style.text}&gt;ADD TO BASKET&lt;/Text&gt;
 &lt;/TouchableOpacity&gt;</code></pre>
 
 							<p>With plain React native</p>
@@ -159,7 +158,7 @@
 									/>
 								</div>
 								<pre><code class="language-javascript">&lt;Tile&gt;
-  &lt;Image source="http://shoutem.github.io/ui/examples/images/watches.png"&gt;
+  &lt;Image source="http://shoutem.github.io/ui/images/examples/watches.png"&gt;
     &lt;Title&gt;Cool black and white stylish watches&lt;/Title&gt;
     &lt;Subtitle styleName="strikethrough"&gt;$280.00&lt;/Subtitle&gt;
     &lt;Heading&gt;$250.00&lt;/Heading&gt;
@@ -178,18 +177,19 @@
 									/>
 								</div>
 <pre><code class="language-javascript">&lt;NavigationBar
-      leftComponent={...}
-      centerComponent={...}
-      rightComponent={...}
+  leftComponent={...}
+  centerComponent={...}
+  rightComponent={...}
 /&gt;
-&lt;AdvancedGridView
-    data={...}
-    gridColumns={...}
-    search={...} 
-    fetch={...}
-    renderGridItem={...}
-    style={...}
-/&gt;</code></pre>
+&lt;Tile&gt;
+  {children}
+&lt;/Tile&gt;
+&lt;ListView data={...} &gt;
+  &lt;GridRow&gt;
+    &lt;Card&gt; {children} &lt;/Card&gt;
+    &lt;Card&gt; {children} &lt;/Card&gt;
+  &lt;/GridRow&gt;
+&lt;/ListView&gt;</code></pre>
 							</div>
 
 						</div>
