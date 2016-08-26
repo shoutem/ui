@@ -75,15 +75,16 @@ function scrollTo(element, from, to, duration, currentTime)
 	}, 10);
 }
 
-var $doc = document.documentElement;
+var $doc = document.querySelector("html");
 var $body = document.querySelector("body");
+var $footer = document.querySelector(".site-footer");
 var $signupButtons = document.querySelectorAll('a[href="#signup"]');
-var $signup = document.querySelector("#signup");
 
 Array.prototype.slice.call($signupButtons).forEach(function(el){
 	el.onclick = function(e) {
-		scrollTo($doc, $doc.scrollTop, $signup.offsetTop, 600, 0);
-		scrollTo($body, $body.scrollTop, $signup.offsetTop, 600, 0);
+		var fsh = $footer.scrollHeight;
+		scrollTo($doc, $doc.scrollTop, $doc.scrollHeight - fsh, 600, 0);
+		scrollTo($body, $body.scrollTop, $body.scrollHeight - fsh, 600, 0);
 		closeMobileNav();
 		e.preventDefault();
 	};
