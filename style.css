@@ -407,7 +407,7 @@ only screen and (                min-resolution: 2dppx) {
 	color: #697289;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 840px) {
 	.js .headroom:not(.headroom--top) .menu .button-signup {
 		border-color: #00aadf;
 		background-color: #00aadf;
@@ -421,7 +421,7 @@ only screen and (                min-resolution: 2dppx) {
 	}
 }
 
-@media (max-width: 639px) {
+@media (max-width: 839px) {
 
 	.menu .menu-button-signup {
 		padding: 15px 0;
@@ -1565,7 +1565,7 @@ only screen and (                min-resolution: 2dppx) {
 	display: none;
 }
 
-@media (max-width: 639px) {
+@media (max-width: 839px) {
 
 	.menu-toggle {
 		display: block;
