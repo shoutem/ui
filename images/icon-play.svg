@@ -1,23 +1,56 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="21px" height="26px" viewBox="0 0 21 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <defs>
-        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
-            <stop stop-color="#DADCE2" offset="0%"></stop>
-            <stop stop-color="#000000" offset="100%"></stop>
-        </linearGradient>
-    </defs>
-    <g id="B.1-Shoutem-UI-Toolkit" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="B.1-02-Home-(Mobile)" transform="translate(-180.000000, -6457.000000)">
-            <g id="Group-28" transform="translate(0.000000, 5877.000000)">
-                <g id="Play-button" transform="translate(142.635135, 547.918919)">
-                    <g id="ic_play" transform="translate(21.000000, 21.000000)">
-                        <g id="Group">
-                            <circle id="Oval-16" fill="url(#linearGradient-1)" opacity="0" cx="24" cy="24" r="24"></circle>
-                            <path d="M18.7021513,36.1376557 C17.7620791,36.7252008 17,36.3065214 17,35.2044956 L17,13.1985049 C17,12.0955897 17.7649512,11.6795947 18.7021513,12.2653448 L36.0978487,23.1376557 C37.0379209,23.7252008 37.0350488,24.6795947 36.0978487,25.2653448 L18.7021513,36.1376557 Z M34,24.2015002 L19,14.8015002 L19,33.6015002 L34,24.2015002 L34,24.2015002 Z" id="Icon-Shape" fill="#FFFFFF"></path>
-                        </g>
-                    </g>
-                </g>
-            </g>
-        </g>
-    </g>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="27"
+   height="27"
+   viewBox="0 0 27 27"
+   version="1.1"
+   id="svg2"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="icon-play.svg">
+  <metadata
+     id="metadata10">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
+     id="namedview6"
+     showgrid="false"
+     inkscape:zoom="9.0769231"
+     inkscape:cx="-22.991525"
+     inkscape:cy="13"
+     inkscape:window-x="-9"
+     inkscape:window-y="1431"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2" />
+  <path
+     d="M 8.202151,25.435846 C 7.262079,26.023391 6.5,25.604711 6.5,24.502686 L 6.5,2.4966947 C 6.5,1.3937795 7.264951,0.97778454 8.202151,1.5635346 L 25.597849,12.435846 c 0.940072,0.587545 0.9372,1.541939 0,2.127689 L 8.202151,25.435846 Z M 23.5,13.49969 l -15,-9.4 0,18.8 15,-9.4 0,0 z"
+     style="fill:#ffffff"
+     id="path4"
+     inkscape:connector-curvature="0" />
 </svg>

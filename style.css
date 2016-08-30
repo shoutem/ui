@@ -988,59 +988,79 @@ only screen and (                min-resolution: 2dppx) {
 	margin-left: 100px;
 }
 
-
 .phone-wrap.big {
 	width: 370px;
 	height: 740px;
 	padding-top: 80px;
 	border-radius: 59px;
 	position: relative;
-	background-image: url(images/video-still@2x.jpg);
-	background-repeat: no-repeat;
-	background-position: 20px 80px;
-	background-size: 330px;
 	cursor: pointer;
 }
 
-.phone-wrap.big::after {
-	content: "";
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	margin: -45px 0 0 -45px;
-	width: 90px;
-	height: 90px;
-	border-radius: 100px;
-	background-color: #00aadf;
-	background-image: url(images/icon-play.svg);
-	background-repeat: no-repeat;
-	background-position: 38px center;
-	transform: scale(1, 1);
-	transition: width 0.15s, height 0.15s, margin 0.15s, background-position 0.15s, opacity 0.25s;
-	opacity: 1;
-}
 
-.phone-wrap.big:hover::after {
-	/*transform: scale(1.05, 1.05);*/
-	background-position: 43px center;
-	width: 100px;
-	height: 100px;
-	margin: -50px 0 0 -50px;
-}
-
-.no-js .phone-wrap.big::after,
-.phone-wrap.big.playing::after {
-	opacity: 0;
-	pointer-events: none;
-}
+/* Video play/pause buttons */
 
 .video-screen {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
 	width: 330px;
 	border-radius: 5px;
 }
 
-.js .phone-wrap.big:not(.playing) .video-screen {
-	visibility: hidden;
+.video-screen video {
+	width: 100%;
+}
+
+.video-screen::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 1;
+    transition-property: opacity;
+    transition-duration: 0.2s;
+}
+
+.video-screen.playing::before {
+    opacity: 0;
+}
+
+.video-screen.playing:hover::before {
+    opacity: 1;
+}
+
+.video-screen::after {
+    content: "";
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    left: calc(50% - 45px);
+    top: calc(50% - 45px);
+    border-radius: 50%;
+    display: block;
+    background: #00aadf url("images/icon-play.svg") no-repeat center center;
+    transition-property: width, height, left, top, opacity;
+    transition-duration: 0.2s;
+}
+
+.video-screen:hover::after {
+    width: 100px;
+    height: 100px;
+    left: calc(50% - 50px);
+    top: calc(50% - 50px);
+}
+
+.video-screen.playing::after {
+    background-image: url("images/icon-pause.svg");
+    opacity: 0;
+}
+
+.video-screen.playing:hover::after {
+    opacity: 1;
 }
 
 .section-animations h3 {
@@ -1084,7 +1104,7 @@ only screen and (                min-resolution: 2dppx) {
 	.section-animations .phone-wrap {
 		width: 300px;
 		height: 600px;
-		padding-top: 70px;
+		padding-top: 55px;
 		background-size: 270px auto;
 		background-position: 15px 70px;
 	}
@@ -1694,7 +1714,5 @@ only screen and (                min-resolution: 2dppx) {
 		width: 256px;
 	}
 }
-
-
 
 
