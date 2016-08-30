@@ -231,13 +231,16 @@
 						</div>
 
 						<span class="phone-wrap big">
-							<video loop class="video-screen">
-								<source src="video/header.webm" type="video/webm" />
-								<source src="video/header.mp4" type="video/mp4" />
-							</video>
+
+							<div class="video-screen">
+								<video loop>
+									<source src="video/header.webm" type="video/webm" />
+									<source src="video/header.mp4" type="video/mp4" />
+								</video>
+							</div>
 							<script>
 								var vc = document.querySelector(".video-screen");
-								var vcParent = vc.parentElement;
+								var v = vc.querySelector("video");
 								var temp;
 
 								if( window.matchMedia )
@@ -246,26 +249,23 @@
 
 									if( mq && mq.matches )
 									{
-										vc.pause();
-										vcParent.removeChild(vc);
+										v.pause();
+										vc.removeChild(v);
 
-										vc = document.createElement("video");
-										vc.className = "video-screen";
-										vc.setAttribute("autoplay", true);
-										vc.setAttribute("loop", true);
-										vcParent.appendChild(vc);
+										v = document.createElement("video");
+										v.setAttribute("autoplay", true);
+										v.setAttribute("loop", true);
+										vc.appendChild(v);
 
 										temp = document.createElement("source");
-										temp.setAttribute("src", "/video/header@2x.webm");
+										temp.setAttribute("src", "video/header@2x.webm");
 										temp.setAttribute("type", "video/webm");
-										vc.appendChild(temp);
+										v.appendChild(temp);
 
 										temp = document.createElement("source");
-										temp.setAttribute("src", "/video/header@2x.mp4");
+										temp.setAttribute("src", "video/header@2x.mp4");
 										temp.setAttribute("type", "video/mp4");
-										vc.appendChild(temp);
-
-										vc.play();
+										v.appendChild(temp);
 									}
 								}
 							</script>

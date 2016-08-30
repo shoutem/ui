@@ -1,7 +1,7 @@
 var mobileNav = document.querySelector(".navigation");
 var mobileNavOverlay = document.querySelector(".mobile-menu-overlay");
-var pwb = document.querySelector(".phone-wrap.big");
-var video = document.querySelector(".video-screen");
+var vs = document.querySelector(".video-screen");
+var video = vs.querySelector("video");
 var mobileNavClone = mobileNav.cloneNode(true);
 
 mobileNavClone.id = "navigation-clone";
@@ -30,15 +30,22 @@ document.querySelector(".menu-toggle").onclick = function openMobileNav(e)
 
 
 
-pwb.onclick = function() {
-	pwb.className += " playing ";
-	video.play();
-}
-
-video.onclick = function(e) {
+vs.onclick = video.onclick = function(e)
+{
 	e.stopPropagation();
-	video.pause();
-	pwb.className = pwb.className.replace("playing", "");
+
+	var c = vs.className;
+	var v = vs.querySelector("video");
+
+	if( c.indexOf("playing") > -1 ) {
+		c = c.replace("playing", "");
+		v.pause();
+	} else {
+		c += " playing";
+		v.play();
+	}
+
+	vs.className = c.trim();
 }
 
 function onFooterResize() {
