@@ -426,8 +426,8 @@ only screen and (                min-resolution: 2dppx) {
 	position: absolute;
 	width: 0;
 	height: 4px;
-	left: 0;
-	bottom: -1px;
+	left: 12px;
+	bottom: -15px;
 	-webkit-transform: scale3d(0, 1, 1);
 	transform: scale3d(0, 1, 1);
 	-webkit-transform-origin: center left;
@@ -441,7 +441,7 @@ only screen and (                min-resolution: 2dppx) {
 }
 
 .js .headroom .menu a:not(.button-signup):hover::after {
-	width: 100%;
+	width: calc(100% - 24px);
 	-webkit-transform: scale3d(1, 1, 1);
 	transform: scale3d(1, 1, 1);
 }
@@ -1252,8 +1252,8 @@ only screen and (                min-resolution: 2dppx) {
 	background-color: #bd10e0
 }
 
-.chapter-image.greyblue {
-	background-color: #444f6c
+.chapter-image.blue {
+	background-color: #00AADF
 }
 
 @media only screen and (max-width:767px) {
