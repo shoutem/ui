@@ -1,19 +1,19 @@
 var mobileNav = document.querySelector(".navigation");
 var mobileNavOverlay = document.querySelector(".mobile-menu-overlay");
-var vs = document.querySelector(".video-screen");
-var video = vs.querySelector("video");
+var videoContainer = document.querySelector(".video-screen");
+var video = videoContainer.querySelector("video");
 var mobileNavClone = mobileNav.cloneNode(true);
 
-mobileNavClone.id = "navigation-clone";
+var $doc = document.querySelector("html");
+var $body = document.querySelector("body");
+var $footer = document.querySelector(".site-footer");
+var $signupButtons = document.querySelectorAll('a[href="#signup"]');
 
+/* Navigation */
+mobileNavClone.id = "navigation-clone";
 mobileNavOverlay.appendChild(mobileNavClone);
 
 document.querySelector(".close-menu-overlay").onclick = closeMobileNav;
-
-function closeMobileNav () {
-	mobileNavClone.className = mobileNav.className.replace(/\sopen\s/ig, "");
-	mobileNavOverlay.className = mobileNavOverlay.className.replace(/\sopen\s/ig, "");
-}
 
 document.querySelector(".menu-toggle").onclick = function openMobileNav(e)
 {
@@ -28,28 +28,68 @@ document.querySelector(".menu-toggle").onclick = function openMobileNav(e)
 	e.preventDefault();
 };
 
+/* Videos */
+videoContainer.onmouseleave = function(e)
+{
+	videoContainer.className = videoContainer.className.replace("hide-controls", "").trim();
+};
 
-
-vs.onclick = video.onclick = function(e)
+videoContainer.onclick = video.onclick = function(e)
 {
 	e.stopPropagation();
 
-	var c = vs.className;
-	var v = vs.querySelector("video");
+	var c = videoContainer.className;
+	var v = videoContainer.querySelector("video");
 
 	if( c.indexOf("playing") > -1 ) {
 		c = c.replace("playing", "");
 		v.pause();
 	} else {
-		c += " playing";
+		c += " playing hide-controls";
 		v.play();
 	}
 
-	vs.className = c.trim();
+	videoContainer.className = c.trim();
+};
+
+/* Footer */
+window.onresize = onFooterResize;
+
+onFooterResize();
+
+Array.prototype.slice.call($signupButtons).forEach(function(el)
+{
+	el.onclick = function(e)
+	{
+		var fsh = $footer.scrollHeight;
+		scrollTo($doc, $doc.scrollTop, $doc.scrollHeight - fsh, 600, 0);
+		scrollTo($body, $body.scrollTop, $body.scrollHeight - fsh, 600, 0);
+		closeMobileNav();
+		e.preventDefault();
+	};
+})
+
+/* Header */
+var headroom  = new Headroom(document.querySelector(".headroom"), {
+		tolerance: {
+			down : 10, up : 20
+		},
+		offset : 81
+	}	
+);
+
+headroom.init();
+
+
+
+function closeMobileNav ()
+{
+	mobileNavClone.className = mobileNav.className.replace(/\sopen\s/ig, "");
+	mobileNavOverlay.className = mobileNavOverlay.className.replace(/\sopen\s/ig, "");
 }
 
-function onFooterResize() {
-
+function onFooterResize()
+{
 	if( window.outerWidth <= 640 ) {
 		return;
 	}
@@ -61,10 +101,6 @@ function onFooterResize() {
 		site.style.marginBottom = footer.scrollHeight + "px";
 	}, 300);
 }
-	
-window.onresize = onFooterResize;
-
-onFooterResize();
 
 // http://stackoverflow.com/a/35627449
 function scrollTo(element, from, to, duration, currentTime)
@@ -81,28 +117,3 @@ function scrollTo(element, from, to, duration, currentTime)
 		scrollTo(element, from, to, duration, currentTime + 10);
 	}, 10);
 }
-
-var $doc = document.querySelector("html");
-var $body = document.querySelector("body");
-var $footer = document.querySelector(".site-footer");
-var $signupButtons = document.querySelectorAll('a[href="#signup"]');
-
-Array.prototype.slice.call($signupButtons).forEach(function(el){
-	el.onclick = function(e) {
-		var fsh = $footer.scrollHeight;
-		scrollTo($doc, $doc.scrollTop, $doc.scrollHeight - fsh, 600, 0);
-		scrollTo($body, $body.scrollTop, $body.scrollHeight - fsh, 600, 0);
-		closeMobileNav();
-		e.preventDefault();
-	};
-})
-
-var headroom  = new Headroom(document.querySelector(".headroom"), {
-		tolerance: {
-			down : 10, up : 20
-		},
-		offset : 81
-	}	
-);
-
-headroom.init();

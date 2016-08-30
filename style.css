@@ -998,20 +998,26 @@ only screen and (                min-resolution: 2dppx) {
 }
 
 
+
 /* Video play/pause buttons */
 
 .video-screen {
     position: relative;
     display: inline-block;
     cursor: pointer;
-	width: 330px;
+    /*IE rounding bug adds a black border on a side when width is set to 330px */
+	width: 329px;
+	height: calc(329px * (654px / 368px));
 	border-radius: 5px;
 }
 
 .video-screen video {
 	width: 100%;
+	height: 100%;
+	display: block;
 }
 
+/* overlay */
 .video-screen::before {
     content: "";
     position: absolute;
@@ -1029,29 +1035,30 @@ only screen and (                min-resolution: 2dppx) {
     opacity: 0;
 }
 
-.video-screen.playing:hover::before {
+.video-screen.playing:not(.hide-controls):hover::before {
     opacity: 1;
 }
 
+/* buttons */
 .video-screen::after {
     content: "";
     position: absolute;
     width: 90px;
     height: 90px;
-    left: calc(50% - 45px);
-    top: calc(50% - 45px);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     border-radius: 50%;
     display: block;
     background: #00aadf url("images/icon-play.svg") no-repeat center center;
-    transition-property: width, height, left, top, opacity;
+    background-size: 27px 27px;
+    transition-property: width, height, opacity;
     transition-duration: 0.2s;
 }
 
 .video-screen:hover::after {
     width: 100px;
     height: 100px;
-    left: calc(50% - 50px);
-    top: calc(50% - 50px);
 }
 
 .video-screen.playing::after {
@@ -1059,9 +1066,10 @@ only screen and (                min-resolution: 2dppx) {
     opacity: 0;
 }
 
-.video-screen.playing:hover::after {
+.video-screen.playing:not(.hide-controls):hover::after {
     opacity: 1;
 }
+/**/
 
 .section-animations h3 {
 	margin-top: 221px;
@@ -1111,6 +1119,7 @@ only screen and (                min-resolution: 2dppx) {
 
 	.video-screen {
 		width: 270px;
+		height: calc(270px * (654px / 368px));
 	}
 
 	.section-animations h3 {
@@ -1166,7 +1175,7 @@ only screen and (                min-resolution: 2dppx) {
 
 	.video-screen {
 		width: 241px;
-		height: 426px;
+		height: calc(241px * (654px / 368px));
 	}
 
 	.section-animations .description,
