@@ -6,7 +6,7 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
-    "@shoutem/ui": "0.8.0",
+    "@shoutem/ui": "*",
     "react": "~15.3.0",
     "react-native": "0.32.0",
     "react-redux": "^4.4.5",
