@@ -1,0 +1,16 @@
+node_modules
+.idea
+
+# Ignore test files
+*_tests_
+
+# Ignore the example app
+examples/RestaurantsApp/
+
+# Ignore local/config files
+.editorconfig
+.npmignore
+.gitignore
+
+# Ignore previous builds
+*.tgz
