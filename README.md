@@ -28,9 +28,10 @@ Create new React Native project:
 $ react-native init HelloWorld
 ```
 
-Install `@shoutem/ui` in your project:
+Locate to project and install `@shoutem/ui` in your project:
 
 ```bash
+$ cd HelloWorld
 $ npm install --save @shoutem/ui
 ```
 
