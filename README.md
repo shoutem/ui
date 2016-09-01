@@ -41,7 +41,7 @@ Run `rnpm` to link fonts that the toolkit is using:
 $ rnpm link
 ```
 
-Now, simply copy the following to your `index.ios.js` and `index.android.js` files of the React Native project:
+Now, simply copy the following to your `index.ios.js` files of the React Native project:
 
 ```JavaScript
 import React, { Component } from 'react';
@@ -57,6 +57,12 @@ class HelloWorld extends Component {
 }
 
 AppRegistry.registerComponent('HelloWorld', () => HelloWorld);
+```
+
+Finally, run the app!
+
+```bash
+$ react-native run-ios
 ```
 
 To see other components, just import them from `@shoutem/ui` and render them.
