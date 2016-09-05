@@ -39,6 +39,8 @@ const LARGE_GUTTER = 30;
 const EXTRA_LARGE_GUTTER = 45;
 
 const NAVIGATION_BAR_HEIGHT = 70;
+const RICH_MEDIA_IMAGE_HEIGHT = 200;
+const RICH_MEDIA_VIDEO_HEIGHT = 200;
 
 const sizeVariants = ['', 'left', 'right', 'top', 'bottom', 'horizontal', 'vertical'];
 const textComponents = [
@@ -814,6 +816,69 @@ export default () => ({
     textAlign: 'center',
     textAlignVertical: 'center',
     fontSize: 24,
+  },
+
+  'shoutem.ui.RichMedia': {
+    b: {
+      [INCLUDE]: ['boldTextStyle'],
+    },
+    strong: {
+      [INCLUDE]: ['boldTextStyle'],
+    },
+    i: {
+      [INCLUDE]: ['italicTextStyle'],
+    },
+    em: {
+      [INCLUDE]: ['italicTextStyle'],
+    },
+    pre: {
+      [INCLUDE]: ['codeTextStyle'],
+    },
+    code: {
+      [INCLUDE]: ['codeTextStyle'],
+    },
+    a: {
+      fontWeight: '500',
+      color: 'blue',
+    },
+    h1: {
+      color: '#000',
+      fontSize: 28,
+    },
+    h2: {
+      color: '#000',
+      fontSize: 24,
+    },
+    h3: {
+      fontWeight: '900',
+      color: '#000',
+      fontSize: 18,
+    },
+    h4: {
+      fontWeight: '700',
+      color: '#000',
+      fontSize: 16,
+    },
+    h5: {
+      fontWeight: '500',
+      color: '#000',
+      fontSize: 14,
+    },
+    video: {
+      height: RICH_MEDIA_VIDEO_HEIGHT,
+    },
+    img: {
+      height: RICH_MEDIA_IMAGE_HEIGHT,
+    },
+    p: {
+      [INCLUDE]: ['shoutem.ui.Text', 'richMediaTextStyle'],
+    },
+    div: {
+      [INCLUDE]: ['shoutem.ui.Text', 'richMediaTextStyle'],
+    },
+    container: {
+      margin: MEDIUM_GUTTER,
+    },
   },
 
   //

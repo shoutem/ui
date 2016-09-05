@@ -3,47 +3,12 @@ import React, {
   PropTypes,
 } from 'react';
 import { View } from '../View';
-import * as _ from 'lodash';
-
 import { connectStyle } from '@shoutem/theme';
-import HypermediaComposer from './lib/HypermediaComposer';
-import AttachmentTagTransformer from './lib/AttachmentTagTransformer';
+import HypermediaComposer from './HypermediaComposer';
+import createDOM from './createDom';
 
-const propTypes = {
-  body: PropTypes.string,
-  onError: PropTypes.func,
-  attachments: PropTypes.object,
-  style: PropTypes.object,
-};
-
-function getMediaElementMargin(mediaElementStyle) {
-  const { marginHorizontal, margin, marginLeft, marginRight } = mediaElementStyle;
-
-  const left = marginLeft || marginHorizontal / 2 || margin;
-  const right = marginRight || marginHorizontal / 2 || margin;
-
-  return {
-    marginLeft: left,
-    marginRight: right,
-  };
-}
-
-function getStyleWithUpdatedMediaElementMargins(oldStyle) {
-  const videoStyle = oldStyle.video;
-  const videoWithMargins = getMediaElementMargin(videoStyle);
-
-  const imageStyle = oldStyle.img;
-  const imageWithMargins = getMediaElementMargin(imageStyle);
-
-  const galleryStyle = oldStyle.gallery;
-  const galleryWithMargins = getMediaElementMargin(galleryStyle);
-
-  return _.merge({}, oldStyle, {
-    img: imageWithMargins,
-    video: videoWithMargins,
-    gallery: galleryWithMargins,
-  });
-}
+const DEFAULT_IMAGE_HEIGHT = 200;
+const DEFAULT_VIDEO_HEIGHT = 200;
 
 /**
  * Displays content in the html body as a composition of
@@ -51,57 +16,87 @@ function getStyleWithUpdatedMediaElementMargins(oldStyle) {
  */
 class RichMedia extends Component {
   state = {
-    content: null,
+    dom: null,
   };
 
   componentDidMount() {
-    const { body, attachments } = this.props;
-    this.startHtmlRender(body, attachments);
+    this.updateDomState();
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.body !== nextProps.body) {
-      this.startHtmlRender(nextProps.body, nextProps.attachments);
+      this.updateDomState();
     }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return this.props.body !== nextProps.body || this.state.content !== nextState.content;
+    return this.props.body !== nextProps.body || this.state.dom !== nextState.dom;
   }
 
-  startHtmlRender(body, attachments) {
-    if (body) {
-      const customStyle = getStyleWithUpdatedMediaElementMargins(this.props.style);
-      const attachmentTagTransformer = new AttachmentTagTransformer(attachments);
-      const hypermediaComposer = new HypermediaComposer([attachmentTagTransformer], customStyle);
+  updateDomState() {
+    const { body } = this.props;
 
-      hypermediaComposer.compose(body, (err, content) => {
+    if (body) {
+      createDOM(body, (err, dom) => {
         if (err) {
           this.props.onError(err);
         }
 
-        this.setState({ content });
+        this.setState({ dom });
       });
-    } else {
-      this.setState({ content: null });
     }
   }
 
   render() {
+    const {
+      renderElement,
+      renderText,
+      style,
+      openUrl,
+    } = this.props;
+    const { dom } = this.state;
+
+    if (!dom) {
+      return null;
+    }
+
     return (
-      <View style={this.props.style.container}>
-        {this.state.content}
+      <View >
+        <HypermediaComposer
+          dom={dom}
+          style={style || {}}
+          openUrl={openUrl}
+          elementTransformer={renderElement}
+          textTransformer={renderText}
+        />
       </View>
     );
   }
 }
 
-RichMedia.propTypes = propTypes;
 RichMedia.defaultProps = {
   onError: console.error.bind(console),
 };
 
-const StyledRichMedia = connectStyle('shoutem.ui.RichMedia', {})(RichMedia);
+RichMedia.propTypes = {
+  body: PropTypes.string,
+  onError: PropTypes.func,
+  style: PropTypes.object,
+  openUrl: PropTypes.func,
+  renderElement: PropTypes.func,
+  renderText: PropTypes.func,
+};
+
+const defaultStyle = {
+  img: {
+    height: DEFAULT_IMAGE_HEIGHT,
+  },
+  video: {
+    height: DEFAULT_VIDEO_HEIGHT,
+  },
+};
+
+const StyledRichMedia = connectStyle('shoutem.ui.RichMedia', defaultStyle)(RichMedia);
 export {
   StyledRichMedia as RichMedia,
 };
