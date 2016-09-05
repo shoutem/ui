@@ -1006,8 +1006,8 @@ only screen and (                min-resolution: 2dppx) {
     display: inline-block;
     cursor: pointer;
     /*IE rounding bug adds a black border on a side when width is set to 330px */
-	width: 329px;
-	height: calc(329px * (654px / 368px));
+	width: 331px;
+	height: calc(331px * (654px / 368px));
 	border-radius: 5px;
 }
 
