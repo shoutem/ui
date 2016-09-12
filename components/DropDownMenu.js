@@ -70,14 +70,19 @@ class DropDownMenu extends Component {
   }
 
   componentWillMount() {
-    this.autoSelect(this.props.options, this.props.selectedOption);
+    this.autoSelect(this.props.options);
     this.scrollDriver = new ScrollDriver();
     this.timingDriver = new TimingDriver();
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!this.state.selectedOption && _.size(nextProps.options) > 0) {
-      this.autoSelect(nextProps.options, nextProps.selectedOption);
+    const { selectedOption } = this.state;
+    if (selectedOption !== nextProps.selectedOption && nextProps.selectedOption) {
+      // Select option if it is changed from outside
+      this.selectOption(nextProps.selectedOption);
+    } else if (!selectedOption || nextProps.options !== this.props.options) {
+      // Auto select first option if non is selected
+      this.autoSelect(nextProps.options);
     }
   }
 
@@ -104,12 +109,16 @@ class DropDownMenu extends Component {
     return this.state.selectedOption;
   }
 
+  selectOption(option) {
+    this.setState({ selectedOption: option }, this.emitOnOptionSelectedEvent);
+  }
+
   /**
-   * Selects first item as default if non is selected
+   * Selects first item as default
    */
-  autoSelect(options = [], selectedOption) {
-    if (!selectedOption && !this.state.selectedOption && _.size(options) > 0) {
-      this.setState({ selectedOption: options[0] }, this.emitOnOptionSelectedEvent);
+  autoSelect(options = []) {
+    if (_.size(options) > 0) {
+      this.selectOption(options[0]);
     }
   }
 
@@ -169,7 +178,7 @@ class DropDownMenu extends Component {
     const fadeInEnd = optionPosition - (visibleOptions - 1.5) * optionHeight;
     const onPress = () => {
       this.close();
-      this.setState({ selectedOption: option }, this.emitOnOptionSelectedEvent);
+      this.selectOption(option);
     };
     return (
       <TouchableOpacity onPress={onPress} style={style.modalItem} onLayout={this.onOptionLayout}>
