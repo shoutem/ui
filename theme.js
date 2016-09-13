@@ -268,6 +268,12 @@ export default () => ({
       width: window.width,
       height: (130 / 375) * window.width,
     },
+
+    '.preview': {
+      flex: 1,
+      backgroundColor: 'transparent',
+      resizeMode: 'contain',
+    },
   },
   'shoutem.ui.Image': {
     [INCLUDE]: ['commonVariants', 'imageSizes'],
