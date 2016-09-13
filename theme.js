@@ -881,6 +881,17 @@ export default () => ({
     },
   },
   'shoutem.ui.NavigationBar': {
+    ...createSharedStyle([...textComponents, 'shoutem.ui.Icon'], {
+      solidifyAnimation(driver, { layout, animationOptions }) {
+        return {
+          color: driver.value.interpolate({
+            inputRange: [250, 300],
+            outputRange: [Colors.LIGHT, 'black'],
+            extrapolate: 'clamp',
+          }),
+        };
+      },
+    }),
     '.clear': {
       [INCLUDE]: ['clearNavigationBar'],
     },
@@ -910,7 +921,28 @@ export default () => ({
       [INCLUDE]: ['clearButton', 'tightButton', 'actionButton'],
       'shoutem.ui.Icon': {
         marginVertical: 9,
+        solidifyAnimation(driver, { layout, animationOptions }) {
+          return {
+            color: driver.value.interpolate({
+              inputRange: [250, 300],
+              outputRange: [Colors.LIGHT, 'black'],
+              extrapolate: 'clamp',
+            }),
+          };
+        },
       },
+    },
+
+    solidifyAnimation(driver, { layout, animationOptions }) {
+      return {
+        container: {
+          backgroundColor: driver.value.interpolate({
+            inputRange: [250, 300],
+            outputRange: [Colors.CLEAR, Colors.BACKGROUND],
+            extrapolate: 'clamp',
+          }),
+        },
+      };
     },
 
     container: {
