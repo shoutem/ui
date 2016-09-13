@@ -12,6 +12,10 @@ class Image extends Component {
     ...RNImage.propTypes,
   }
 
+  setNativeProps(nativeProps) {
+    this._root.setNativeProps(nativeProps);
+  }
+
   render() {
     const { props } = this;
     let resolvedProps = props;
@@ -32,7 +36,7 @@ class Image extends Component {
     }
 
     return (
-      <RNImage {...resolvedProps} />
+      <RNImage {...resolvedProps} ref={component => this._root = component} />
     );
   }
 }
