@@ -81,7 +81,7 @@ class DropDownMenu extends Component {
       // Select option if it is changed from outside
       this.selectOption(nextProps.selectedOption);
     } else if (!selectedOption || nextProps.options !== this.props.options) {
-      // Auto select first option if non is selected
+      // Auto select first option if non is selected or if options are changed
       this.autoSelect(nextProps.options);
     }
   }
