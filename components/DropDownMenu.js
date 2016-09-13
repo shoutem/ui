@@ -78,10 +78,11 @@ class DropDownMenu extends Component {
   componentWillReceiveProps(nextProps) {
     const { selectedOption } = this.state;
     if (selectedOption !== nextProps.selectedOption && nextProps.selectedOption) {
-      // Select option if it is changed from outside
+      // Select the option when the selectedOption prop changes
       this.selectOption(nextProps.selectedOption);
     } else if (!selectedOption || nextProps.options !== this.props.options) {
-      // Auto select first option if non is selected or if options are changed
+      // Automatically select the first option if there is no selected option
+      // or when options change
       this.autoSelect(nextProps.options);
     }
   }
@@ -114,7 +115,7 @@ class DropDownMenu extends Component {
   }
 
   /**
-   * Selects first item as default
+   * Selects the first option by default.
    */
   autoSelect(options = []) {
     if (_.size(options) > 0) {
