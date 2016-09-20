@@ -14,12 +14,14 @@ export class ScrollView extends Component {
 
   static contextTypes = {
     animationDriver: DriverShape,
-    pool: React.PropTypes.instanceOf(DriverPool),
+    pool: React.PropTypes.object,
   }
 
   static childContextTypes = {
     animationDriver: DriverShape,
   }
+
+  static DriverPool = DriverPool;
 
   constructor(props, context) {
     super(props, context);

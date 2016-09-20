@@ -34,8 +34,6 @@ export { ImageGallery } from './components/ImageGallery';
 export { RichMedia } from './components/RichMedia';
 export { MapView, InlineMap } from './components/Map/';
 
-export { DriverPool } from './components/DriverPool';
-
 export {
   Heading,
   Title,

@@ -9,14 +9,14 @@ import { DriverShape, ScrollDriver } from '@shoutem/animation';
  */
 export class DriverPool extends Component {
   static childContextTypes = {
-    pool: React.PropTypes.instanceOf(DriverPool),
+    pool: React.PropTypes.object,
     animationDriver: DriverShape,
-  }
+  };
 
   static propTypes = {
     children: React.PropTypes.node,
     animationDriver: DriverShape,
-  }
+  };
 
   constructor(props,context) {
     super(props, context);

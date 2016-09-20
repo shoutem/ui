@@ -25,6 +25,7 @@ const Colors = {
   DIVIDER_BORDER: 'rgba(51, 51, 51, 0.1)',
   NAVIGATION_TINT: '#333333',
   NAVIGATION_BAR_BORDER: 'rgba(20, 20, 20, 0.2)',
+  NAVIGATION_BAR_TEXT: 'black',
 
   TEXT: '#666666',
   TITLE: '#222222',
@@ -880,18 +881,18 @@ export default () => ({
       borderBottomColor: 'transparent',
     },
   },
+  colorAnimations: {
+    solidifyAnimation(driver, { layout, animationOptions }) {
+      return {
+        color: driver.value.interpolate({
+          inputRange: [250, 300],
+          outputRange: [Colors.LIGHT, Colors.NAVIGATION_BAR_TEXT],
+          extrapolate: 'clamp',
+        }),
+      };
+    },
+  },
   'shoutem.ui.NavigationBar': {
-    ...createSharedStyle([...textComponents, 'shoutem.ui.Icon'], {
-      solidifyAnimation(driver, { layout, animationOptions }) {
-        return {
-          color: driver.value.interpolate({
-            inputRange: [250, 300],
-            outputRange: [Colors.LIGHT, 'black'],
-            extrapolate: 'clamp',
-          }),
-        };
-      },
-    }),
     '.clear': {
       [INCLUDE]: ['clearNavigationBar'],
     },
@@ -903,33 +904,31 @@ export default () => ({
     },
 
     'shoutem.ui.Title': {
+      [INCLUDE]: ['colorAnimations'],
       fontSize: 15,
       lineHeight: 18,
     },
 
     'shoutem.ui.Icon': {
-      color: 'black',
+      [INCLUDE]: ['colorAnimations'],
+      color: Colors.NAVIGATION_BAR_TEXT,
       fontSize: 24,
     },
 
     'shoutem.ui.Text': {
-      color: 'black',
+      [INCLUDE]: ['colorAnimations'],
+      color: Colors.NAVIGATION_BAR_TEXT,
       fontSize: 15,
     },
 
     'shoutem.ui.Button': {
       [INCLUDE]: ['clearButton', 'tightButton', 'actionButton'],
       'shoutem.ui.Icon': {
+        [INCLUDE]: ['colorAnimations'],
         marginVertical: 9,
-        solidifyAnimation(driver, { layout, animationOptions }) {
-          return {
-            color: driver.value.interpolate({
-              inputRange: [250, 300],
-              outputRange: [Colors.LIGHT, 'black'],
-              extrapolate: 'clamp',
-            }),
-          };
-        },
+      },
+      'shoutem.ui.Text': {
+        [INCLUDE]: ['colorAnimations'],
       },
     },
 
