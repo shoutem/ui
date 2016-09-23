@@ -9,12 +9,12 @@ import * as _ from 'lodash';
  */
 export class ScrollDriverProvider extends Component {
   static childContextTypes = {
-    driverPool: React.PropTypes.object,
+    driverProvider: React.PropTypes.object,
     animationDriver: DriverShape,
   };
 
   static contextTypes = {
-    driverPool: React.PropTypes.object,
+    driverProvider: React.PropTypes.object,
   };
 
   static propTypes = {
@@ -24,13 +24,13 @@ export class ScrollDriverProvider extends Component {
 
   constructor(props,context) {
     super(props, context);
-    this.animationDriver = context.driverPool ?
-      context.driverPool.animationDriver : new ScrollDriver();
+    this.animationDriver = context.driverProvider ?
+      context.driverProvider.animationDriver : new ScrollDriver();
   }
 
   getChildContext() {
     return {
-      driverPool: this,
+      driverProvider: this,
       animationDriver: this.animationDriver,
     };
   }
@@ -38,9 +38,9 @@ export class ScrollDriverProvider extends Component {
   setAnimationDriver(driver, primaryScrollView) {
     if ((driver || !this.animationDriver) || primaryScrollView) {
       _.assign(this.animationDriver, driver);
-      const { driverPool } = this.context;
-      if (driverPool) {
-        driverPool.setAnimationDriver(driver, primaryScrollView);
+      const { driverProvider } = this.context;
+      if (driverProvider) {
+        driverProvider.setAnimationDriver(driver, primaryScrollView);
       }
     }
   }

@@ -14,7 +14,7 @@ export class ScrollView extends Component {
 
   static contextTypes = {
     animationDriver: DriverShape,
-    driverPool: React.PropTypes.object,
+    driverProvider: React.PropTypes.object,
   }
 
   static childContextTypes = {
@@ -35,10 +35,10 @@ export class ScrollView extends Component {
   }
 
   componentWillMount() {
-    const { driverPool } = this.context;
+    const { driverProvider } = this.context;
     const { primary } = this.props
-    if (driverPool) {
-      driverPool.setAnimationDriver(this.animationDriver, primary);
+    if (driverProvider) {
+      driverProvider.setAnimationDriver(this.animationDriver, primary);
     }
   }
 
