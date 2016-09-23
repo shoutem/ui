@@ -7,14 +7,14 @@ import * as _ from 'lodash';
  * between Screen and NavigationBar automatically. ScrollView from @shoutem/ui uses it to
  * register its driver.
  */
-export class DriverProvider extends Component {
+export class ScrollDriverProvider extends Component {
   static childContextTypes = {
-    pool: React.PropTypes.object,
+    driverPool: React.PropTypes.object,
     animationDriver: DriverShape,
   };
 
   static contextTypes = {
-    pool: React.PropTypes.object,
+    driverPool: React.PropTypes.object,
   };
 
   static propTypes = {
@@ -24,12 +24,13 @@ export class DriverProvider extends Component {
 
   constructor(props,context) {
     super(props, context);
-    this.animationDriver = context.pool ? context.pool.animationDriver : new ScrollDriver();
+    this.animationDriver = context.driverPool ?
+      context.driverPool.animationDriver : new ScrollDriver();
   }
 
   getChildContext() {
     return {
-      pool: this,
+      driverPool: this,
       animationDriver: this.animationDriver,
     };
   }
@@ -37,9 +38,9 @@ export class DriverProvider extends Component {
   setAnimationDriver(driver, primaryScrollView) {
     if ((driver || !this.animationDriver) || primaryScrollView) {
       _.assign(this.animationDriver, driver);
-      const { pool } = this.context;
-      if (pool) {
-        pool.setAnimationDriver(driver, primaryScrollView);
+      const { driverPool } = this.context;
+      if (driverPool) {
+        driverPool.setAnimationDriver(driver, primaryScrollView);
       }
     }
   }

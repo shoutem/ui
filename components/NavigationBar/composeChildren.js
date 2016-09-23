@@ -31,9 +31,7 @@ const composers = {
 
     return {
       rightComponent: (
-        <Button
-          onPress={onShare}
-        >
+        <Button onPress={onShare}>
           <Icon
             name="share"
             animationName={props.animationName}

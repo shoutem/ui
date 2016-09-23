@@ -5,7 +5,7 @@ import { ScrollDriver, DriverShape } from '@shoutem/animation';
 
 import { connectStyle } from '@shoutem/theme';
 
-import { DriverProvider } from './DriverProvider.js';
+import { ScrollDriverProvider } from './ScrollDriverProvider.js';
 
 export class ScrollView extends Component {
   static propTypes = {
@@ -14,14 +14,14 @@ export class ScrollView extends Component {
 
   static contextTypes = {
     animationDriver: DriverShape,
-    pool: React.PropTypes.object,
+    driverPool: React.PropTypes.object,
   }
 
   static childContextTypes = {
     animationDriver: DriverShape,
   }
 
-  static DriverProvider = DriverProvider;
+  static DriverProvider = ScrollDriverProvider;
 
   constructor(props, context) {
     super(props, context);
@@ -35,10 +35,10 @@ export class ScrollView extends Component {
   }
 
   componentWillMount() {
-    const { pool } = this.context;
+    const { driverPool } = this.context;
     const { primary } = this.props
-    if (pool) {
-      pool.setAnimationDriver(this.animationDriver, primary);
+    if (driverPool) {
+      driverPool.setAnimationDriver(this.animationDriver, primary);
     }
   }
 

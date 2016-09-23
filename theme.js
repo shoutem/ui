@@ -881,7 +881,7 @@ export default () => ({
       borderBottomColor: 'transparent',
     },
   },
-  colorAnimations: {
+  navigationBarTextAnimations: {
     solidifyAnimation(driver, { layout, animationOptions }) {
       return {
         color: driver.value.interpolate({
@@ -918,13 +918,13 @@ export default () => ({
     },
 
     'shoutem.ui.Icon': {
-      [INCLUDE]: ['colorAnimations'],
+      [INCLUDE]: ['navigationBarTextAnimations'],
       color: Colors.NAVIGATION_BAR_TEXT,
       fontSize: 24,
     },
 
     'shoutem.ui.Text': {
-      [INCLUDE]: ['colorAnimations'],
+      [INCLUDE]: ['navigationBarTextAnimations'],
       color: Colors.NAVIGATION_BAR_TEXT,
       fontSize: 15,
     },
@@ -932,11 +932,11 @@ export default () => ({
     'shoutem.ui.Button': {
       [INCLUDE]: ['clearButton', 'tightButton', 'actionButton'],
       'shoutem.ui.Icon': {
-        [INCLUDE]: ['colorAnimations'],
+        [INCLUDE]: ['navigationBarTextAnimations'],
         marginVertical: 9,
       },
       'shoutem.ui.Text': {
-        [INCLUDE]: ['colorAnimations'],
+        [INCLUDE]: ['navigationBarTextAnimations'],
       },
     },
 
