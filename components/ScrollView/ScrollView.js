@@ -5,7 +5,7 @@ import { ScrollDriver, DriverShape } from '@shoutem/animation';
 
 import { connectStyle } from '@shoutem/theme';
 
-import { DriverPool } from './DriverPool.js';
+import { DriverProvider } from './DriverProvider.js';
 
 export class ScrollView extends Component {
   static propTypes = {
@@ -21,7 +21,7 @@ export class ScrollView extends Component {
     animationDriver: DriverShape,
   }
 
-  static DriverPool = DriverPool;
+  static DriverProvider = DriverProvider;
 
   constructor(props, context) {
     super(props, context);

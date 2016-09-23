@@ -7,7 +7,7 @@ import * as _ from 'lodash';
  * between Screen and NavigationBar automatically. ScrollView from @shoutem/ui uses it to
  * register its driver.
  */
-export class DriverPool extends Component {
+export class DriverProvider extends Component {
   static childContextTypes = {
     pool: React.PropTypes.object,
     animationDriver: DriverShape,
