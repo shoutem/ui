@@ -867,6 +867,9 @@ export default () => ({
     ...createSharedStyle([...textComponents, 'shoutem.ui.Icon'], {
       color: Colors.LIGHT,
     }),
+    'shoutem.ui.Title': {
+      color: Colors.CLEAR,
+    },
     'shoutem.ui.Button': {
       [INCLUDE]: ['clearButton'],
       'shoutem.ui.Icon': {
