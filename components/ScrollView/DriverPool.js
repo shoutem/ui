@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { DriverShape, ScrollDriver } from '@shoutem/animation';
-
+import * as _ from 'lodash';
 /**
  * Use this component if you want to share animation driver between unreachable siblings.
  * Just wrap their parent component with it. We use it to share an instance of ScrollDriver
@@ -13,6 +13,10 @@ export class DriverPool extends Component {
     animationDriver: DriverShape,
   };
 
+  static contextTypes = {
+    pool: React.PropTypes.object,
+  };
+
   static propTypes = {
     children: React.PropTypes.node,
     animationDriver: DriverShape,
@@ -20,7 +24,7 @@ export class DriverPool extends Component {
 
   constructor(props,context) {
     super(props, context);
-    this.animationDriver = new ScrollDriver();
+    this.animationDriver = context.pool ? context.pool.animationDriver : new ScrollDriver();
   }
 
   getChildContext() {
@@ -32,7 +36,11 @@ export class DriverPool extends Component {
 
   setAnimationDriver(driver, primaryScrollView) {
     if ((driver || !this.animationDriver) || primaryScrollView) {
-      this.animationDriver = driver;
+      _.assign(this.animationDriver, driver);
+      const { pool } = this.context;
+      if (pool) {
+        pool.setAnimationDriver(driver, primaryScrollView);
+      }
     }
   }
 

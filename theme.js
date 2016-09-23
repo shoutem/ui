@@ -904,7 +904,15 @@ export default () => ({
     },
 
     'shoutem.ui.Title': {
-      [INCLUDE]: ['colorAnimations'],
+      solidifyAnimation(driver, { layout, animationOptions }) {
+        return {
+          color: driver.value.interpolate({
+            inputRange: [250, 300],
+            outputRange: [Colors.CLEAR, Colors.NAVIGATION_BAR_TEXT],
+            extrapolate: 'clamp',
+          }),
+        };
+      },
       fontSize: 15,
       lineHeight: 18,
     },
@@ -938,6 +946,11 @@ export default () => ({
           backgroundColor: driver.value.interpolate({
             inputRange: [250, 300],
             outputRange: [Colors.CLEAR, Colors.BACKGROUND],
+            extrapolate: 'clamp',
+          }),
+          borderBottomColor: driver.value.interpolate({
+            inputRange: [250, 300],
+            outputRange: [Colors.CLEAR, Colors.NAVIGATION_BAR_BORDER],
             extrapolate: 'clamp',
           }),
         },
