@@ -13,7 +13,6 @@ class TextInput extends Component {
     delete style.placeholderTextColor;
     delete style.selectionColor;
 
-    console.log(JSON.stringify(style));
     return (
       <RNTextInput
         {...props}
