@@ -14,6 +14,7 @@ import { DropDownMenus } from './DropDownMenu';
 import { FormComponents } from './FormComponents';
 import { Headers } from './Headers';
 import { NavigationBars } from './NavigationBars';
+import { Videos } from './Videos';
 
 const examples = [
   { title: 'Typography', component: Typography },
@@ -27,6 +28,7 @@ const examples = [
   { title: 'Spinners', component: Spinners },
   { title: 'Buttons', component: Buttons },
   { title: 'Images', component: Images },
+  { title: 'Video', component: Videos },
   { title: 'Form Components', component: FormComponents },
 ];
 

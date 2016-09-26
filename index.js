@@ -48,4 +48,6 @@ export { Card } from './components/Card';
 export { Row } from './components/Row';
 export { Tile } from './components/Tile';
 
+export { default as Lightbox } from 'react-native-lightbox';
+
 export { Examples } from './examples/components';

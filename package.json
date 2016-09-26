@@ -1,6 +1,6 @@
 {
   "name": "@shoutem/ui",
-  "version": "0.8.5",
+  "version": "0.9.0",
   "description": "Styleable set of components for React Native applications",
   "dependencies": {
     "buffer": "^4.5.1",
@@ -8,13 +8,13 @@
     "html-entities": "^1.2.0",
     "htmlparser2": "^3.9.0",
     "lodash": "^4.15.0",
-    "@shoutem/animation": "^0.8.5",
+    "@shoutem/animation": "^0.8.6",
     "stream": "0.0.2",
     "tinycolor2": "^1.3.0",
     "react-native-maps": "5minutes/react-native-maps#friends-with-28",
+    "react-native-lightbox": "shoutem/react-native-lightbox",
     "react-native-share": "^1.0.13",
     "react-native-vector-icons": "^2.0.3",
-    "react-native-video": "^0.8.0",
     "@shoutem/theme": "^0.8.5",
     "babel-plugin-transform-decorators-legacy": "^1.3.4"
   },
@@ -23,17 +23,19 @@
     "react-native": ">=0.28.0"
   },
   "devDependencies": {
-    "babel-preset-react-native": "^1.7.0",
-    "chai": "^3.5.0",
+    "babel": "^6.3.26",
+    "babel-preset-react-native": "^1.9.0",
+    "chai": "^3.4.1",
+    "deep-freeze": "0.0.1",
     "enzyme": "^2.0.0-rc1",
-    "react-dom": "^0.14.7",
-    "mocha": "^2.4.5",
-    "react-native-mock": "^0.0.6"
+    "mocha": "^2.3.4",
+    "react-addons-test-utils": "^15.3.1",
+    "react-dom": "^15.3.1",
+    "react-native-mock": "^0.2.5"
   },
   "scripts": {
-    "test": "mocha -R spec --require react-native-mock/mock.js --compilers js:babel-core/register $(find . -name '*.spec.js' ! -ipath '*node_modules*')",
-    "debug": "mocha --debug-brk -R spec --require react-native-mock/mock.js --compilers js:babel-core/register $(find . -name '*.spec.js' ! -ipath '*node_modules*')",
-    "postinstall": "rnpm link"
+    "test": "mocha -R spec --require test-utils/setup.js --require react-native-mock/mock.js --compilers js:babel-core/register $(find . -name '*.spec.js' ! -ipath '*node_modules*')",
+    "postinstall": "react-native link"
   },
   "rnpm": {
     "assets": [

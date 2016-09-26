@@ -23,11 +23,11 @@ function getVimeoVideoId(url) {
 }
 
 function getYouTubeEmbedUrl(id) {
-  return `http://www.youtube.com/embed/${id}`;
+  return `https://www.youtube.com/embed/${id}`;
 }
 
 function getVimeoEmbedUrl(id) {
-  return `http://player.vimeo.com/video/${id}?title=0&byline=0&portrait=0`;
+  return `https://player.vimeo.com/video/${id}?title=0&byline=0&portrait=0`;
 }
 
 /**
@@ -41,7 +41,7 @@ export default class VideoSourceReader {
     this.isVimeo = !!getVimeoVideoId(source);
   }
 
-  isWebVideo() {
+  isEmbeddableVideo() {
     return this.isYouTube || this.isVimeo;
   }
 

@@ -1,18 +1,10 @@
-/**
- * @flow
- */
-
 import React from 'react';
 
 import {
   Platform,
 } from 'react-native';
 
-import { Text } from '../../Text';
-
-import type {
-  NodeType,
-} from './types';
+import { Text } from '../Text';
 
 // Use two line breaks on Android because it renders small newlines
 const LINE_BREAK = Platform.OS === 'android' ? '\n\n' : '\n';
@@ -20,10 +12,9 @@ const PARAGRAPH_BREAK = Platform.OS === 'android' ? '\n\n' : '\n';
 
 const BULLET = '\u2022 ';
 
-// TODO(Vladimir) - split into multiple files, each implementing the TagTransformer interface
 const tagTransformers = [
   {
-    canTransform(node: NodeType): boolean {
+    canTransform(node) {
       return node.name === 'p';
     },
 
@@ -36,7 +27,7 @@ const tagTransformers = [
     },
   },
   {
-    canTransform(node: NodeType): boolean {
+    canTransform(node) {
       return node.name === 'pre';
     },
 
@@ -48,7 +39,7 @@ const tagTransformers = [
     },
   },
   {
-    canTransform(node: NodeType): boolean {
+    canTransform(node) {
       return node.name === 'li';
     },
 
@@ -60,7 +51,7 @@ const tagTransformers = [
     },
   },
   {
-    canTransform(node: NodeType): boolean {
+    canTransform(node) {
       return node.name === 'br';
     },
 
@@ -73,7 +64,7 @@ const tagTransformers = [
     },
   },
   {
-    canTransform(node: NodeType): boolean {
+    canTransform(node) {
       return ['h1', 'h2', 'h3', 'h4', 'h5'].some(tag => tag === node.name);
     },
 
@@ -88,14 +79,22 @@ const tagTransformers = [
 ];
 
 const HtmlTagTransformer = {
-  canTransform(node: NodeType): boolean {
+  canTransform(node) {
     return tagTransformers.some(transformer => transformer.canTransform(node));
   },
 
-  transform(renderChildren: any, node: NodeType): any {
+  transform(renderChildren, node) {
     return tagTransformers.find(transformer => transformer.canTransform(node))
                           .transform(renderChildren, node);
   },
 };
 
-export default HtmlTagTransformer;
+function transformHtmlTag(node, style, renderChildren) {
+  if (!HtmlTagTransformer.canTransform(node)) {
+    return null;
+  }
+
+  return HtmlTagTransformer.transform(renderChildren, node);
+}
+
+export default transformHtmlTag;

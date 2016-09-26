@@ -32,7 +32,10 @@ const composers = {
     return {
       rightComponent: (
         <Button onPress={onShare}>
-          <Icon name="share" />
+          <Icon
+            name="share"
+            animationName={props.animationName}
+          />
         </Button>
       ),
     };
@@ -54,7 +57,10 @@ const composers = {
         styleName="clear"
         onPress={navigateBackWithoutEventParameter}
       >
-        <Icon name="back" />
+        <Icon
+          name="back"
+          animationName={props.animationName}
+        />
       </Button>
     ) :
       null;

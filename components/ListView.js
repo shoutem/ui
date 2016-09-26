@@ -119,6 +119,13 @@ class ListView extends React.Component {
       (nextState.status !== this.state.status);
   }
 
+  componentWillUnmount() {
+    if ((Platform.OS === 'ios') && (this.state.status !== Status.IDLE)) {
+      // Reset the global network indicator state
+      StatusBar.setNetworkActivityIndicatorVisible(false);
+    }
+  }
+
   onRefresh() {
     this.setState({
       status: Status.REFRESHING,
