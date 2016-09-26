@@ -25,6 +25,7 @@ const Colors = {
   DIVIDER_BORDER: 'rgba(51, 51, 51, 0.1)',
   NAVIGATION_TINT: '#333333',
   NAVIGATION_BAR_BORDER: 'rgba(20, 20, 20, 0.2)',
+  NAVIGATION_BAR_TEXT: 'black',
 
   TEXT: '#666666',
   TITLE: '#222222',
@@ -866,6 +867,9 @@ export default () => ({
     ...createSharedStyle([...textComponents, 'shoutem.ui.Icon'], {
       color: Colors.LIGHT,
     }),
+    'shoutem.ui.Title': {
+      color: Colors.CLEAR,
+    },
     'shoutem.ui.Button': {
       [INCLUDE]: ['clearButton'],
       'shoutem.ui.Icon': {
@@ -880,6 +884,17 @@ export default () => ({
       borderBottomColor: 'transparent',
     },
   },
+  navigationBarTextAnimations: {
+    solidifyAnimation(driver, { layout, animationOptions }) {
+      return {
+        color: driver.value.interpolate({
+          inputRange: [250, 300],
+          outputRange: [Colors.LIGHT, Colors.NAVIGATION_BAR_TEXT],
+          extrapolate: 'clamp',
+        }),
+      };
+    },
+  },
   'shoutem.ui.NavigationBar': {
     '.clear': {
       [INCLUDE]: ['clearNavigationBar'],
@@ -892,25 +907,57 @@ export default () => ({
     },
 
     'shoutem.ui.Title': {
+      solidifyAnimation(driver, { layout, animationOptions }) {
+        return {
+          color: driver.value.interpolate({
+            inputRange: [250, 300],
+            outputRange: [Colors.CLEAR, Colors.NAVIGATION_BAR_TEXT],
+            extrapolate: 'clamp',
+          }),
+        };
+      },
       fontSize: 15,
       lineHeight: 18,
     },
 
     'shoutem.ui.Icon': {
-      color: 'black',
+      [INCLUDE]: ['navigationBarTextAnimations'],
+      color: Colors.NAVIGATION_BAR_TEXT,
       fontSize: 24,
     },
 
     'shoutem.ui.Text': {
-      color: 'black',
+      [INCLUDE]: ['navigationBarTextAnimations'],
+      color: Colors.NAVIGATION_BAR_TEXT,
       fontSize: 15,
     },
 
     'shoutem.ui.Button': {
       [INCLUDE]: ['clearButton', 'tightButton', 'actionButton'],
       'shoutem.ui.Icon': {
+        [INCLUDE]: ['navigationBarTextAnimations'],
         marginVertical: 9,
       },
+      'shoutem.ui.Text': {
+        [INCLUDE]: ['navigationBarTextAnimations'],
+      },
+    },
+
+    solidifyAnimation(driver, { layout, animationOptions }) {
+      return {
+        container: {
+          backgroundColor: driver.value.interpolate({
+            inputRange: [250, 300],
+            outputRange: [Colors.CLEAR, Colors.BACKGROUND],
+            extrapolate: 'clamp',
+          }),
+          borderBottomColor: driver.value.interpolate({
+            inputRange: [250, 300],
+            outputRange: [Colors.CLEAR, Colors.NAVIGATION_BAR_BORDER],
+            extrapolate: 'clamp',
+          }),
+        },
+      };
     },
 
     container: {
