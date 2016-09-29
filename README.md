@@ -6,7 +6,7 @@ Shoutem UI is a set of styleable components that enables you to build beautiful 
 
 ```
 $ npm install --save @shoutem/ui
-$ rnpm link
+$ react-native link
 ```
 
 ## Docs
@@ -35,10 +35,10 @@ $ cd HelloWorld
 $ npm install --save @shoutem/ui
 ```
 
-Run `rnpm` to link fonts that the toolkit is using:
+Run `react-native` to link fonts that the toolkit is using:
 
 ```bash
-$ rnpm link
+$ react-native link
 ```
 
 Now, simply copy the following to your `index.ios.js` files of the React Native project:
@@ -88,7 +88,7 @@ Install and link dependencies:
 
 ```bash
 npm install
-rnpm link
+react-native link
 ```
 
 Finally, run the app!
