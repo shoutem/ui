@@ -18,7 +18,7 @@ export function Cards() {
         <Card>
           <Image
             styleName="medium-wide"
-            source={{ uri: 'http://shoutem.github.io/img/ui-toolkit/examples/image-10.png' }}
+            source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-10.png' }}
           />
           <View styleName="content">
             <Subtitle>Choosing The Right Boutique Hotel For You</Subtitle>
@@ -31,7 +31,7 @@ export function Cards() {
         <Card>
           <Image
             styleName="medium-wide"
-            source={{ uri: 'http://shoutem.github.io/img/ui-toolkit/examples/image-12.png' }}
+            source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-12.png' }}
           />
           <View styleName="content">
             <Subtitle>Choosing The Right Boutique Hotel For You</Subtitle>
@@ -47,7 +47,7 @@ export function Cards() {
         <Card>
           <Image
             styleName="medium-wide"
-            source={{ uri: 'http://shoutem.github.io/img/ui-toolkit/examples/image-11.png' }}
+            source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-11.png' }}
           />
           <View styleName="content">
             <Subtitle>Choosing The Right Boutique Hotel For You</Subtitle>
