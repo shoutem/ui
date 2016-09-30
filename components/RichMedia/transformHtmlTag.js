@@ -14,28 +14,6 @@ const BULLET = '\u2022 ';
 const tagTransformers = [
   {
     canTransform(node) {
-      return node.name === 'p';
-    },
-
-    transform(renderChildren) {
-      return [
-        renderChildren(),
-      ];
-    },
-  },
-  {
-    canTransform(node) {
-      return node.name === 'pre';
-    },
-
-    transform(renderChildren) {
-      return [,
-        renderChildren(),
-      ];
-    },
-  },
-  {
-    canTransform(node) {
       return node.name === 'li';
     },
 
@@ -59,7 +37,7 @@ const tagTransformers = [
   },
   {
     canTransform(node) {
-      return ['h1', 'h2', 'h3', 'h4', 'h5'].some(tag => tag === node.name);
+      return ['h1', 'h2', 'h3', 'h4', 'h5', 'p', 'pre'].some(tag => tag === node.name);
     },
 
     transform(renderChildren) {
