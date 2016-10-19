@@ -123,8 +123,8 @@ export default () => ({
 
   multilineTextStyle: {
     '.v-center': {
-        // Compensate for lineHeight, because
-        // textAlignVertical is not supported on iOS
+      // Compensate for lineHeight, because
+      // textAlignVertical is not supported on iOS
       marginTop: -4,
       marginBottom: 4,
     },
@@ -300,7 +300,7 @@ export default () => ({
       backgroundColor: Colors.OVERLAY,
     },
 
-    heroAnimation(driver, { layout, options }) {
+    heroAnimation(driver, { layout }) {
       return {
         transform: [
           {
@@ -557,7 +557,7 @@ export default () => ({
       [INCLUDE]: ['textCentricTile'],
     },
 
-    heroAnimation(driver, { layout, options }) {
+    heroAnimation(driver, { layout }) {
       return {
         opacity: driver.value.interpolate({
           inputRange: [-0.2 * layout.height, 0, layout.height],
@@ -674,7 +674,6 @@ export default () => ({
   },
 
   actionButton: {
-    marginTop: 9,
     'shoutem.ui.Text': {
       [INCLUDE]: ['defaultFont'],
       fontSize: 15,
@@ -950,7 +949,7 @@ export default () => ({
     },
   },
   navigationBarTextAnimations: {
-    solidifyAnimation(driver, { layout, animationOptions }) {
+    solidifyAnimation(driver) {
       return {
         color: driver.value.interpolate({
           inputRange: [250, 300],
@@ -1062,6 +1061,90 @@ export default () => ({
     rightComponent: {
       alignItems: 'flex-end',
       flex: 1,
+    },
+  },
+  'shoutem.ui.navigation.NavigationBar': {
+    '.clear': {
+      [INCLUDE]: ['clearNavigationBar'],
+    },
+
+    '.no-border': {
+      container: {
+        borderBottomWidth: 0,
+      },
+    },
+
+    'shoutem.ui.View': {
+      '.container': {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 9,
+      },
+    },
+
+    'shoutem.ui.Title': {
+      solidifyAnimation(driver) {
+        return {
+          color: driver.value.interpolate({
+            inputRange: [250, 300],
+            outputRange: [Colors.CLEAR, Colors.NAVIGATION_BAR_TEXT],
+            extrapolate: 'clamp',
+          }),
+        };
+      },
+
+      flex: 1,
+      textAlign: 'center',
+      fontSize: 15,
+      lineHeight: 18,
+    },
+
+    'shoutem.ui.Icon': {
+      [INCLUDE]: ['navigationBarTextAnimations'],
+      color: Colors.NAVIGATION_BAR_TEXT,
+      fontSize: 24,
+    },
+
+    'shoutem.ui.Text': {
+      [INCLUDE]: ['navigationBarTextAnimations'],
+      color: Colors.NAVIGATION_BAR_TEXT,
+      fontSize: 15,
+    },
+
+    'shoutem.ui.Button': {
+      [INCLUDE]: ['clearButton', 'tightButton', 'actionButton'],
+      'shoutem.ui.Icon': {
+        [INCLUDE]: ['navigationBarTextAnimations'],
+        marginVertical: 9,
+      },
+      'shoutem.ui.Text': {
+        [INCLUDE]: ['navigationBarTextAnimations'],
+      },
+    },
+
+    solidifyAnimation(driver) {
+      return {
+        container: {
+          backgroundColor: driver.value.interpolate({
+            inputRange: [250, 300],
+            outputRange: [Colors.CLEAR, Colors.BACKGROUND],
+            extrapolate: 'clamp',
+          }),
+          borderBottomColor: driver.value.interpolate({
+            inputRange: [250, 300],
+            outputRange: [Colors.CLEAR, Colors.NAVIGATION_BAR_BORDER],
+            extrapolate: 'clamp',
+          }),
+        },
+      };
+    },
+
+    container: {
+      backgroundColor: 'white',
+      borderBottomColor: 'rgba(0, 0, 0, .15)',
+      borderBottomWidth: StyleSheet.hairlineWidth,
     },
   },
 

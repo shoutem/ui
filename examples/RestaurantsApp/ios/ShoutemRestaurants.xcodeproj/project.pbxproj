@@ -12,7 +12,6 @@
 		00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* ShoutemRestaurantsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ShoutemRestaurantsTests.m */; };
-		10EBF2613136461EBECAFF8D /* Rubik-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E926EDF96FD045AB9AECFF94 /* Rubik-BlackItalic.ttf */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
@@ -22,18 +21,18 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
-		1AF87FEC89CA4E0DB8D54DF8 /* Rubik-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14C8D2B619B649FA9761D61F /* Rubik-BoldItalic.ttf */; };
-		6143A9C406A942D386317085 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 40595248500D45628E7D57C4 /* OFL.txt */; };
-		615A693DA2884C54A2EC4EBA /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 10B584D894AC43BFBC9262FC /* rubicon-icon-font.ttf */; };
-		6D37511016D94FA19971A6B4 /* Rubik-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1CCE11369ADF48499C0B4468 /* Rubik-MediumItalic.ttf */; };
-		7DF354ED34CB480C91B78178 /* Rubik-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 240CEB88BBC049BB8F7C4AE6 /* Rubik-Bold.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
-		D63141AE0B3445359F06EBDF /* Rubik-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8CA2E2341A24DECB3B0B220 /* Rubik-Black.ttf */; };
-		D7AFD3F4A0FB462E95B98650 /* Rubik-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C3CD251EB5B45D7980E9DAC /* Rubik-Regular.ttf */; };
-		D7E227CE27134FEB8A236FE8 /* Rubik-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E98FA06638924B7E98D48E43 /* Rubik-Medium.ttf */; };
-		DA1864AA71194B7380627C0F /* Rubik-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62896FD75F5240D58DD9FC55 /* Rubik-Light.ttf */; };
-		E66C71BC96CD473895900BC6 /* Rubik-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D147C170ADB3427FAA32D3DE /* Rubik-LightItalic.ttf */; };
-		FF6ED6B527164F9BBDC710C2 /* Rubik-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1C3FE63F69FD42C8804545A8 /* Rubik-Italic.ttf */; };
+		A4F946167D224CF0A8CB727A /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FDB18960870D4E12ABF6563F /* rubicon-icon-font.ttf */; };
+		BFFBA1D478814D858499455B /* Rubik-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DA158F47AF64AFC9A35C483 /* Rubik-Black.ttf */; };
+		1050BE428C924388918F2092 /* Rubik-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CC1E3628006540BA8241CF52 /* Rubik-BlackItalic.ttf */; };
+		6A02900217D04B6F8B587ED7 /* Rubik-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2406932CE9E8403BA67722AF /* Rubik-Bold.ttf */; };
+		BDB110B7655E4EDC9E323B09 /* Rubik-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4453F17108854120BEE689D3 /* Rubik-BoldItalic.ttf */; };
+		9C8F5FA9896A4BABB6648F09 /* Rubik-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2082FDFA05B146809B5E68AF /* Rubik-Italic.ttf */; };
+		37A0698EB1014284B30489F5 /* Rubik-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB009B2E3D434ED99665D590 /* Rubik-Light.ttf */; };
+		3392D7A318E947E4BDB39879 /* Rubik-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 782FEB0FCE2147D59D04D67D /* Rubik-LightItalic.ttf */; };
+		19C70BAE0ADC409FB3E8D58F /* Rubik-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 37D6CC79DCC44C6298B953E5 /* Rubik-Medium.ttf */; };
+		48C8E14FB36A4E0591F4B91D /* Rubik-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C37037C11ADD452D90157013 /* Rubik-MediumItalic.ttf */; };
+		C926A29D898E41B9AB7B88D9 /* Rubik-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CFD9050B073F4BB0A84CA628 /* Rubik-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,18 +116,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTActionSheet.xcodeproj; path = "../node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheet.xcodeproj"; sourceTree = "<group>"; };
-		00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTGeolocation.xcodeproj; path = "../node_modules/react-native/Libraries/Geolocation/RCTGeolocation.xcodeproj"; sourceTree = "<group>"; };
-		00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTImage.xcodeproj; path = "../node_modules/react-native/Libraries/Image/RCTImage.xcodeproj"; sourceTree = "<group>"; };
-		00C302D31ABCB9D200DB3ED1 /* RCTNetwork.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTNetwork.xcodeproj; path = "../node_modules/react-native/Libraries/Network/RCTNetwork.xcodeproj"; sourceTree = "<group>"; };
-		00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTVibration.xcodeproj; path = "../node_modules/react-native/Libraries/Vibration/RCTVibration.xcodeproj"; sourceTree = "<group>"; };
+		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = main.jsbundle; sourceTree = "<group>"; };
+		00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTActionSheet.xcodeproj; path = ../node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheet.xcodeproj; sourceTree = "<group>"; };
+		00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTGeolocation.xcodeproj; path = ../node_modules/react-native/Libraries/Geolocation/RCTGeolocation.xcodeproj; sourceTree = "<group>"; };
+		00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTImage.xcodeproj; path = ../node_modules/react-native/Libraries/Image/RCTImage.xcodeproj; sourceTree = "<group>"; };
+		00C302D31ABCB9D200DB3ED1 /* RCTNetwork.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTNetwork.xcodeproj; path = ../node_modules/react-native/Libraries/Network/RCTNetwork.xcodeproj; sourceTree = "<group>"; };
+		00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTVibration.xcodeproj; path = ../node_modules/react-native/Libraries/Vibration/RCTVibration.xcodeproj; sourceTree = "<group>"; };
 		00E356EE1AD99517003FC87E /* ShoutemRestaurantsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShoutemRestaurantsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* ShoutemRestaurantsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShoutemRestaurantsTests.m; sourceTree = "<group>"; };
-		10B584D894AC43BFBC9262FC /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "rubicon-icon-font.ttf"; path = "../node_modules/@shoutem/ui/fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; };
-		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
-		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
+		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = ../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj; sourceTree = "<group>"; };
+		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = ../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* ShoutemRestaurants.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShoutemRestaurants.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ShoutemRestaurants/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ShoutemRestaurants/AppDelegate.m; sourceTree = "<group>"; };
@@ -136,20 +134,20 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ShoutemRestaurants/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ShoutemRestaurants/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ShoutemRestaurants/main.m; sourceTree = "<group>"; };
-		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
-		14C8D2B619B649FA9761D61F /* Rubik-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-BoldItalic.ttf"; path = "../node_modules/@shoutem/ui/fonts/Rubik-BoldItalic.ttf"; sourceTree = "<group>"; };
-		1C3FE63F69FD42C8804545A8 /* Rubik-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Italic.ttf"; path = "../node_modules/@shoutem/ui/fonts/Rubik-Italic.ttf"; sourceTree = "<group>"; };
-		1CCE11369ADF48499C0B4468 /* Rubik-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-MediumItalic.ttf"; path = "../node_modules/@shoutem/ui/fonts/Rubik-MediumItalic.ttf"; sourceTree = "<group>"; };
-		240CEB88BBC049BB8F7C4AE6 /* Rubik-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Bold.ttf"; path = "../node_modules/@shoutem/ui/fonts/Rubik-Bold.ttf"; sourceTree = "<group>"; };
-		2C3CD251EB5B45D7980E9DAC /* Rubik-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Regular.ttf"; path = "../node_modules/@shoutem/ui/fonts/Rubik-Regular.ttf"; sourceTree = "<group>"; };
-		40595248500D45628E7D57C4 /* OFL.txt */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = OFL.txt; path = "../node_modules/@shoutem/ui/fonts/OFL.txt"; sourceTree = "<group>"; };
-		62896FD75F5240D58DD9FC55 /* Rubik-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Light.ttf"; path = "../node_modules/@shoutem/ui/fonts/Rubik-Light.ttf"; sourceTree = "<group>"; };
-		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
-		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
-		D147C170ADB3427FAA32D3DE /* Rubik-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-LightItalic.ttf"; path = "../node_modules/@shoutem/ui/fonts/Rubik-LightItalic.ttf"; sourceTree = "<group>"; };
-		E926EDF96FD045AB9AECFF94 /* Rubik-BlackItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-BlackItalic.ttf"; path = "../node_modules/@shoutem/ui/fonts/Rubik-BlackItalic.ttf"; sourceTree = "<group>"; };
-		E98FA06638924B7E98D48E43 /* Rubik-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Medium.ttf"; path = "../node_modules/@shoutem/ui/fonts/Rubik-Medium.ttf"; sourceTree = "<group>"; };
-		F8CA2E2341A24DECB3B0B220 /* Rubik-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Black.ttf"; path = "../node_modules/@shoutem/ui/fonts/Rubik-Black.ttf"; sourceTree = "<group>"; };
+		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = ../node_modules/react-native/React/React.xcodeproj; sourceTree = "<group>"; };
+		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = ../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj; sourceTree = "<group>"; };
+		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = ../node_modules/react-native/Libraries/Text/RCTText.xcodeproj; sourceTree = "<group>"; };
+		FDB18960870D4E12ABF6563F /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; name = "rubicon-icon-font.ttf"; path = "../node_modules/@shoutem/ui/fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0DA158F47AF64AFC9A35C483 /* Rubik-Black.ttf */ = {isa = PBXFileReference; name = "Rubik-Black.ttf"; path = "../node_modules/@shoutem/ui/fonts/Rubik-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CC1E3628006540BA8241CF52 /* Rubik-BlackItalic.ttf */ = {isa = PBXFileReference; name = "Rubik-BlackItalic.ttf"; path = "../node_modules/@shoutem/ui/fonts/Rubik-BlackItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2406932CE9E8403BA67722AF /* Rubik-Bold.ttf */ = {isa = PBXFileReference; name = "Rubik-Bold.ttf"; path = "../node_modules/@shoutem/ui/fonts/Rubik-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4453F17108854120BEE689D3 /* Rubik-BoldItalic.ttf */ = {isa = PBXFileReference; name = "Rubik-BoldItalic.ttf"; path = "../node_modules/@shoutem/ui/fonts/Rubik-BoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2082FDFA05B146809B5E68AF /* Rubik-Italic.ttf */ = {isa = PBXFileReference; name = "Rubik-Italic.ttf"; path = "../node_modules/@shoutem/ui/fonts/Rubik-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CB009B2E3D434ED99665D590 /* Rubik-Light.ttf */ = {isa = PBXFileReference; name = "Rubik-Light.ttf"; path = "../node_modules/@shoutem/ui/fonts/Rubik-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		782FEB0FCE2147D59D04D67D /* Rubik-LightItalic.ttf */ = {isa = PBXFileReference; name = "Rubik-LightItalic.ttf"; path = "../node_modules/@shoutem/ui/fonts/Rubik-LightItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		37D6CC79DCC44C6298B953E5 /* Rubik-Medium.ttf */ = {isa = PBXFileReference; name = "Rubik-Medium.ttf"; path = "../node_modules/@shoutem/ui/fonts/Rubik-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C37037C11ADD452D90157013 /* Rubik-MediumItalic.ttf */ = {isa = PBXFileReference; name = "Rubik-MediumItalic.ttf"; path = "../node_modules/@shoutem/ui/fonts/Rubik-MediumItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CFD9050B073F4BB0A84CA628 /* Rubik-Regular.ttf */ = {isa = PBXFileReference; name = "Rubik-Regular.ttf"; path = "../node_modules/@shoutem/ui/fonts/Rubik-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -276,25 +274,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4EC71C4FEF094BF0B3B4A5A1 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				40595248500D45628E7D57C4 /* OFL.txt */,
-				10B584D894AC43BFBC9262FC /* rubicon-icon-font.ttf */,
-				F8CA2E2341A24DECB3B0B220 /* Rubik-Black.ttf */,
-				E926EDF96FD045AB9AECFF94 /* Rubik-BlackItalic.ttf */,
-				240CEB88BBC049BB8F7C4AE6 /* Rubik-Bold.ttf */,
-				14C8D2B619B649FA9761D61F /* Rubik-BoldItalic.ttf */,
-				1C3FE63F69FD42C8804545A8 /* Rubik-Italic.ttf */,
-				62896FD75F5240D58DD9FC55 /* Rubik-Light.ttf */,
-				D147C170ADB3427FAA32D3DE /* Rubik-LightItalic.ttf */,
-				E98FA06638924B7E98D48E43 /* Rubik-Medium.ttf */,
-				1CCE11369ADF48499C0B4468 /* Rubik-MediumItalic.ttf */,
-				2C3CD251EB5B45D7980E9DAC /* Rubik-Regular.ttf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
 		78C398B11ACF4ADC00677621 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -335,7 +314,7 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* ShoutemRestaurantsTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
-				4EC71C4FEF094BF0B3B4A5A1 /* Resources */,
+				D04842D7EA0F4021BCB7C608 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -348,6 +327,25 @@
 				00E356EE1AD99517003FC87E /* ShoutemRestaurantsTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		D04842D7EA0F4021BCB7C608 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FDB18960870D4E12ABF6563F /* rubicon-icon-font.ttf */,
+				0DA158F47AF64AFC9A35C483 /* Rubik-Black.ttf */,
+				CC1E3628006540BA8241CF52 /* Rubik-BlackItalic.ttf */,
+				2406932CE9E8403BA67722AF /* Rubik-Bold.ttf */,
+				4453F17108854120BEE689D3 /* Rubik-BoldItalic.ttf */,
+				2082FDFA05B146809B5E68AF /* Rubik-Italic.ttf */,
+				CB009B2E3D434ED99665D590 /* Rubik-Light.ttf */,
+				782FEB0FCE2147D59D04D67D /* Rubik-LightItalic.ttf */,
+				37D6CC79DCC44C6298B953E5 /* Rubik-Medium.ttf */,
+				C37037C11ADD452D90157013 /* Rubik-MediumItalic.ttf */,
+				CFD9050B073F4BB0A84CA628 /* Rubik-Regular.ttf */,
+			);
+			name = Resources;
+			path = "";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -552,18 +550,17 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
-				6143A9C406A942D386317085 /* OFL.txt in Resources */,
-				615A693DA2884C54A2EC4EBA /* rubicon-icon-font.ttf in Resources */,
-				D63141AE0B3445359F06EBDF /* Rubik-Black.ttf in Resources */,
-				10EBF2613136461EBECAFF8D /* Rubik-BlackItalic.ttf in Resources */,
-				7DF354ED34CB480C91B78178 /* Rubik-Bold.ttf in Resources */,
-				1AF87FEC89CA4E0DB8D54DF8 /* Rubik-BoldItalic.ttf in Resources */,
-				FF6ED6B527164F9BBDC710C2 /* Rubik-Italic.ttf in Resources */,
-				DA1864AA71194B7380627C0F /* Rubik-Light.ttf in Resources */,
-				E66C71BC96CD473895900BC6 /* Rubik-LightItalic.ttf in Resources */,
-				D7E227CE27134FEB8A236FE8 /* Rubik-Medium.ttf in Resources */,
-				6D37511016D94FA19971A6B4 /* Rubik-MediumItalic.ttf in Resources */,
-				D7AFD3F4A0FB462E95B98650 /* Rubik-Regular.ttf in Resources */,
+				A4F946167D224CF0A8CB727A /* rubicon-icon-font.ttf in Resources */,
+				BFFBA1D478814D858499455B /* Rubik-Black.ttf in Resources */,
+				1050BE428C924388918F2092 /* Rubik-BlackItalic.ttf in Resources */,
+				6A02900217D04B6F8B587ED7 /* Rubik-Bold.ttf in Resources */,
+				BDB110B7655E4EDC9E323B09 /* Rubik-BoldItalic.ttf in Resources */,
+				9C8F5FA9896A4BABB6648F09 /* Rubik-Italic.ttf in Resources */,
+				37A0698EB1014284B30489F5 /* Rubik-Light.ttf in Resources */,
+				3392D7A318E947E4BDB39879 /* Rubik-LightItalic.ttf in Resources */,
+				19C70BAE0ADC409FB3E8D58F /* Rubik-Medium.ttf in Resources */,
+				48C8E14FB36A4E0591F4B91D /* Rubik-MediumItalic.ttf in Resources */,
+				C926A29D898E41B9AB7B88D9 /* Rubik-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -583,6 +580,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
+			showEnvVarsInLog = 1;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -666,7 +664,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 				);
-				INFOPLIST_FILE = ShoutemRestaurants/Info.plist;
+				INFOPLIST_FILE = "ShoutemRestaurants/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -686,7 +684,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 				);
-				INFOPLIST_FILE = ShoutemRestaurants/Info.plist;
+				INFOPLIST_FILE = "ShoutemRestaurants/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
