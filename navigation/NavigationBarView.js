@@ -110,22 +110,38 @@ class NavigationBarView extends Component {
   }
 
   /**
-   * Manually resolves the next props. This function currently
-   * only resolves the style by using the functions provided by
+   * Manually resolves the next props to match the props that would
+   * be received by the component during a normal render cycle. This
+   * usually means that we need t manually apply everything that any
+   * HOCs do to the props before passing them to this component. We
+   * currently only resolve the style by using the functions provided by
    * the parent StyledComponent.
    *
-   * @param scene The scene to resolve the props for.
+   * @param props The props to resolve.
    * @returns {*} The resolved props.
    */
-  resolveNextProps(scene) {
+  resolveNextProps(props) {
     const { resolveStyle } = this.context;
 
-    const props = this.getNextNavBarProps(scene);
     const style = resolveStyle(props);
     return {
       ...props,
       style,
     };
+  }
+
+  resolveSceneProps(scene) {
+    const VERSION_KEY = '.version';
+
+    const nextProps = this.getNextNavBarProps(scene);
+    const renderedProps = this.getRenderedProps(scene);
+    if (renderedProps[VERSION_KEY]) {
+      // Return the rendered props, if the next props have been
+      // rendered at least once.
+      return renderedProps;
+    }
+
+    return this.resolveNextProps(nextProps);
   }
 
   /**
@@ -146,15 +162,13 @@ class NavigationBarView extends Component {
       return {};
     }
 
-    // Previous and/or next scenes should already be rendered, but
-    // the current scene is probably being rendered now. We are using
-    // the next props for the current scene, so that we immediately
-    // start the animation with the final state of the navigation bar.
-    // Without this, we may get delays in the navigation bar animations,
-    // and various flickers on the screen.
-    const previousProps = this.getRenderedProps(scenes[index - 1]);
-    const currentProps = this.resolveNextProps(scene);
-    const nextProps = this.getRenderedProps(scenes[index + 1]);
+    // resolveSceneProps will return the latest version of the props
+    // from the parent component. This is necessary to perform the
+    // animations to the final state of the navigation bar. Otherwise
+    // we are often getting various delays and flickers during transitions.
+    const previousProps = this.resolveSceneProps(scenes[index - 1]);
+    const currentProps = this.resolveSceneProps(scene);
+    const nextProps = this.resolveSceneProps(scenes[index + 1]);
 
     const previousColor = this.getBackgroundColor(previousProps);
     const currentColor = this.getBackgroundColor(currentProps);
@@ -170,11 +184,11 @@ class NavigationBarView extends Component {
   }
 
   render() {
-    const { style } = this.props;
+    const { scene, style } = this.props;
 
     // Report our current props, so that next/previous scenes may
     // use them for their animations.
-    this.context.setRenderedNavBarProps(this.props);
+    this.context.setRenderedNavBarProps(scene.route, this.props);
 
     return (
       <Animated.View style={[style.container, this.interpolateNavBarStyle()]}>

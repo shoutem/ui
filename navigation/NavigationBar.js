@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { NavigationBarView } from './NavigationBarView';
+import { DriverShape } from '@shoutem/animation';
 
 /**
  * A NavigationBar component that can be used to define
@@ -19,6 +20,8 @@ class NavigationBar extends Component {
   };
 
   static contextTypes = {
+    animationDriver: DriverShape,
+    scene: React.PropTypes.object.isRequired,
     setNextNavBarProps: React.PropTypes.func.isRequired,
     clearNavBarProps: React.PropTypes.func.isRequired,
   };
@@ -26,16 +29,25 @@ class NavigationBar extends Component {
   constructor(props, context) {
     super(props, context);
 
-    context.setNextNavBarProps(props);
+    this.setNextNavBarProps(props);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.context.setNextNavBarProps(nextProps);
+    this.setNextNavBarProps(nextProps);
   }
 
   componentWillUnmount() {
     // The parent screen is being unmounted, we can cleanup now
-    this.context.clearNavBarProps();
+    const { scene, clearNavBarProps } = this.context;
+    clearNavBarProps(scene.route);
+  }
+
+  setNextNavBarProps(props) {
+    const { scene, animationDriver, setNextNavBarProps } = this.context;
+    setNextNavBarProps(scene.route, {
+      ...props,
+      driver: animationDriver,
+    });
   }
 
   render() {

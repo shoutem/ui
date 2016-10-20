@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Children } from 'react';
 import { DriverShape, ScrollDriver } from '@shoutem/animation';
 import * as _ from 'lodash';
 /**
@@ -14,18 +14,17 @@ export class ScrollDriverProvider extends Component {
   };
 
   static contextTypes = {
-    driverProvider: React.PropTypes.object,
+    animationDriver: DriverShape,
   };
 
   static propTypes = {
     children: React.PropTypes.node,
-    animationDriver: DriverShape,
+    driver: DriverShape,
   };
 
-  constructor(props,context) {
+  constructor(props, context) {
     super(props, context);
-    this.animationDriver = context.driverProvider ?
-      context.driverProvider.animationDriver : new ScrollDriver();
+    this.setAnimationDriverFromProps(props, context);
   }
 
   getChildContext() {
@@ -33,6 +32,20 @@ export class ScrollDriverProvider extends Component {
       driverProvider: this,
       animationDriver: this.animationDriver,
     };
+  }
+
+  componentWillReceiveProps(nextProps, nextContext) {
+    this.setAnimationDriverFromProps(nextProps, nextContext);
+  }
+
+  setAnimationDriverFromProps(props, context) {
+    if (props.driver) {
+      this.animationDriver = props.driver;
+    } else if (context.driverProvider) {
+      this.animationDriver = context.animationDriver;
+    } else if (!this.animationDriver) {
+      this.animationDriver = new ScrollDriver();
+    }
   }
 
   setAnimationDriver(driver, primaryScrollView) {
@@ -46,6 +59,7 @@ export class ScrollDriverProvider extends Component {
   }
 
   render() {
-    return this.props.children;
+    const { children } = this.props;
+    return children && Children.only(this.props.children);
   }
 }

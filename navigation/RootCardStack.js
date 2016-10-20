@@ -5,6 +5,8 @@ import {
   ScrollView,
 } from '@shoutem/ui';
 
+import { SceneProvider } from './SceneProvider';
+
 const {
   CardStack: NavigationCardStack,
 } = NavigationExperimental;
@@ -27,11 +29,19 @@ export class RootCardStack extends Component {
 
     setRenderedNavBarProps: React.PropTypes.func,
     getRenderedNavBarProps: React.PropTypes.func,
+
+    scene: React.PropTypes.object,
   };
 
   constructor(props, context) {
     super(props, context);
     this.renderNavBar = this.renderNavBar.bind(this);
+    this.renderScene = this.renderScene.bind(this);
+    this.getNextNavBarProps = this.getNextNavBarProps.bind(this);
+    this.setNextNavBarProps = this.setNextNavBarProps.bind(this);
+    this.clearNavBarProps = this.clearNavBarProps.bind(this);
+    this.getRenderedNavBarProps = this.getRenderedNavBarProps.bind(this);
+    this.setRenderedNavBarProps = this.setRenderedNavBarProps.bind(this);
 
     /**
      * A map where the key is the route key, and the value is
@@ -49,37 +59,29 @@ export class RootCardStack extends Component {
   }
 
   getChildContext() {
-    const currentRoute = this.getCurrentRoute();
-
     return {
-      getNextNavBarProps: (route) => this.getNextNavBarProps(route),
-      setNextNavBarProps: (navBarProps) => this.setNextNavBarProps(currentRoute, navBarProps),
-      clearNavBarProps: () => this.clearNavBarProps(currentRoute),
+      getNextNavBarProps: this.getNextNavBarProps,
+      setNextNavBarProps: this.setNextNavBarProps,
+      clearNavBarProps: this.clearNavBarProps,
 
-      getRenderedNavBarProps: (route) => this.getRenderedNavBarProps(route),
-      setRenderedNavBarProps: (navBarProps) =>
-        this.setRenderedNavBarProps(currentRoute, navBarProps),
+      getRenderedNavBarProps: this.getRenderedNavBarProps,
+      setRenderedNavBarProps: this.setRenderedNavBarProps,
     };
   }
 
-  getCurrentRoute() {
-    const { routes, index } = this.props.navigationState;
-    if (!routes) {
-      return undefined;
-    }
-
-    return routes[index];
-  }
-
   setNextNavBarProps(route = {}, props) {
+    const VERSION_KEY = '.version';
+
     const key = route.key;
     const currentProps = this.getNextNavBarProps(route);
+    const version = currentProps[VERSION_KEY] || 0;
 
     // Merge the props, so that we may set them partially
     // in cases when there are multiple screens in the hierarchy.
     this.nextNavBarProps[key] = {
       ...currentProps,
       ...props,
+      [VERSION_KEY]: version + 1,
     };
   }
 
@@ -116,18 +118,37 @@ export class RootCardStack extends Component {
       return null;
     }
 
-    return this.props.renderNavBar(navBarProps);
+    // Expose the animation driver to child components of the
+    // navigation bar, so that we can animate them without
+    // explicitly passing the driver to each component.
+    return (
+      <ScrollView.DriverProvider driver={navBarProps.driver}>
+        {this.props.renderNavBar(navBarProps)}
+      </ScrollView.DriverProvider>
+    );
+  }
+
+  renderScene(props) {
+    // DriverProvider provides the animation driver from the
+    // primary scroll component of the screen to all other
+    // screen children. The scene provider provides the current
+    // navigation scene to child components through the context.
+    return (
+      <ScrollView.DriverProvider>
+        <SceneProvider scene={props.scene}>
+          {this.props.renderScene(props)}
+        </SceneProvider>
+      </ScrollView.DriverProvider>
+    );
   }
 
   render() {
     return (
-      <ScrollView.DriverProvider>
-        <NavigationCardStack
-          {...this.props}
-          renderHeader={this.renderNavBar}
-          renderScene={this.props.renderScene}
-        />
-      </ScrollView.DriverProvider>
+      <NavigationCardStack
+        {...this.props}
+        renderHeader={this.renderNavBar}
+        renderScene={this.renderScene}
+      />
     );
   }
 }
