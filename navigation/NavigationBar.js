@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
+
 import { NavigationBarView } from './NavigationBarView';
 import { DriverShape } from '@shoutem/animation';
 
@@ -33,6 +35,10 @@ class NavigationBar extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (_.isEqual(nextProps, this.props)) {
+      return;
+    }
+
     this.setNextNavBarProps(nextProps);
   }
 
