@@ -147,7 +147,7 @@ class ListView extends React.Component {
 
     // configuration
     // default load more threshold
-    mappedProps.onEndReachedThreshold = 40;
+    mappedProps.onEndReachedThreshold = props.onEndReachedThreshold || 40;
     // React native warning
     // NOTE: In react 0.23 it can't be set to false
     mappedProps.enableEmptySections = true;
