@@ -8,10 +8,12 @@ import { connectStyle } from '@shoutem/theme';
 function Spinner({ style }) {
   const indicatorStyle = { ...style };
   delete indicatorStyle.size;
+  delete indicatorStyle.color;
 
   return (
     <ActivityIndicator
       animating
+      color={style.color}
       size={style.size}
       style={indicatorStyle}
     />
@@ -24,6 +26,7 @@ Spinner.propTypes = {
 
 const StyledSpinner = connectStyle('shoutem.ui.Spinner', {
   size: 'small',
+  color: 'gray',
 })(Spinner);
 
 export {
