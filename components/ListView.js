@@ -67,8 +67,10 @@ class ListView extends React.Component {
   static propTypes = {
     autoHideHeader: React.PropTypes.bool,
     style: React.PropTypes.object,
-    data: React.PropTypes.array,
+    data: React.PropTypes.oneOfType([
+      React.PropTypes.object, React.PropTypes.array]),
     loading: React.PropTypes.bool,
+    rowHasChanged: React.PropTypes.func,
     onLoadMore: React.PropTypes.func,
     onRefresh: React.PropTypes.func,
     getSectionId: React.PropTypes.func,
@@ -77,6 +79,7 @@ class ListView extends React.Component {
     renderFooter: React.PropTypes.func,
     renderSectionHeader: React.PropTypes.func,
     scrollDriver: React.PropTypes.object,
+    onEndReachedThreshold: React.PropTypes.number,
     // TODO(Braco) - add render separator
   };
 
@@ -91,7 +94,7 @@ class ListView extends React.Component {
 
 
     this.listDataSource = new ListDataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2,
+      rowHasChanged: props.rowHasChanged || ((r1, r2) => r1 !== r2),
       sectionHeaderHasChanged: props.renderSectionHeader ? (s1, s2) => s1 !== s2 : undefined,
       getSectionHeaderData: (dataBlob, sectionId) => props.getSectionId(dataBlob[sectionId][0]),
     }, props.getSectionId);
@@ -147,7 +150,7 @@ class ListView extends React.Component {
 
     // configuration
     // default load more threshold
-    mappedProps.onEndReachedThreshold = 40;
+    mappedProps.onEndReachedThreshold = props.onEndReachedThreshold || 40;
     // React native warning
     // NOTE: In react 0.23 it can't be set to false
     mappedProps.enableEmptySections = true;
