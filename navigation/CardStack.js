@@ -12,15 +12,22 @@ const {
   CardStack: NavigationCardStack,
 } = NavigationExperimental;
 
+export const VERSION_KEY = '.version';
+
 /**
- * A root navigation stack. This component renders a global
- * navigation bar and facilitates the communication between
- * the navigation bar view, and various application screens.
+ * A card navigation stack. This component renders a navigation
+ * bar and facilitates the communication between the navigation
+ * bar view, and various application screens.
  */
-export class RootCardStack extends Component {
+export class CardStack extends Component {
   static propTypes = {
     ...NavigationCardStack.propTypes,
     renderNavBar: React.PropTypes.func,
+  };
+
+  static contextTypes = {
+    getNextNavBarProps: React.PropTypes.func,
+    scene: React.PropTypes.object,
   };
 
   static childContextTypes = {
@@ -75,8 +82,6 @@ export class RootCardStack extends Component {
   }
 
   setNextNavBarProps(route = {}, props) {
-    const VERSION_KEY = '.version';
-
     const key = route.key;
     const currentProps = this.getNextNavBarProps(route);
     const version = currentProps[VERSION_KEY] || 0;
@@ -93,8 +98,23 @@ export class RootCardStack extends Component {
   }
 
   getNextNavBarProps(route = {}) {
-    const props = this.nextNavBarProps[route.key] || {};
-    return props;
+    let props = this.nextNavBarProps[route.key] || {};
+    const { getNextNavBarProps, scene } = this.context;
+    if (getNextNavBarProps && scene) {
+      const parentProps = getNextNavBarProps(scene.route);
+      if (parentProps.child) {
+        delete parentProps.child;
+        delete parentProps.driver;
+        delete parentProps[VERSION_KEY];
+        props = {
+          ...props,
+          ...parentProps,
+        };
+        delete props.child;
+      }
+    }
+
+    return { ...props };
   }
 
   setRenderedNavBarProps(route = {}, props) {
@@ -133,7 +153,7 @@ export class RootCardStack extends Component {
       ...nextProps,
     };
 
-    if (navBarProps.hidden) {
+    if (navBarProps.hidden || navBarProps.child) {
       return null;
     }
 
@@ -172,4 +192,4 @@ export class RootCardStack extends Component {
   }
 }
 
-delete RootCardStack.propTypes.renderHeader;
+delete CardStack.propTypes.renderHeader;

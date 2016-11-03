@@ -16,9 +16,16 @@ class NavigationBar extends Component {
   static propTypes = {
     ...NavigationBarView.propTypes,
     /**
-     * If true, the navigation bar will not be rendered.
+     * If `true`, the navigation bar will not be rendered.
      */
     hidden: React.PropTypes.bool,
+    /**
+     * Use the child navigation bar instead, if `true`
+     * the parent navigation bar will be hidden, and
+     * the navigation bar props will be merged with the
+     * props of the child navigation bar instead.
+     */
+    child: React.PropTypes.bool,
   };
 
   static contextTypes = {

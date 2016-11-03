@@ -23,13 +23,13 @@ const navigationHeaderStyle = {
 };
 
 /**
- * A root navigation bar component that needs to work with
- * the RootNavigationStack, and NavigationBar components.
+ * A navigation bar component that work together with
+ * the CardStack, and NavigationBar components.
  *
- * The RootNavigationStack serves as a mediator between
- * the screen and this component so that each screen can
- * define and update the navigation bar props in its render
- * method by rendering the NavigationBar virtual component.
+ * The CardStack serves as a mediator between the screen
+ * and this component so that each screen can define and
+ * update the navigation bar props in its render method
+ * by rendering the NavigationBar virtual component.
  *
  * This allows us to add or remove navigation bar components
  * during the lifetime of a screen, instead of defining them
@@ -98,7 +98,7 @@ class NavigationBarView extends Component {
    * @returns {*} The background color.
    */
   getBackgroundColor(props) {
-    const color = _.get(props, 'style.container.backgroundColor', 'black');
+    const color = _.get(props, 'style.container.backgroundColor', 'white');
 
     // If this is an animated value, we want to convert it to
     // a plain object in order to get its current value.
@@ -183,6 +183,46 @@ class NavigationBarView extends Component {
     };
   }
 
+  /**
+   * Wraps the header component render function in a wrapper that
+   * exposes the navBarProps to the wrapped functions.
+   *
+   * @param renderer The function to wrap.
+   * @return {function(*): *} The wrapped renderer function.
+   */
+  createHeaderComponentRenderer(renderer) {
+    return (props) => renderer({
+      ...props,
+      navBarProps: this.props,
+    });
+  }
+
+  createNavigationHeaderProps() {
+    const { style } = this.props;
+
+    const headerProps = {
+      ...this.props,
+      style: [navigationHeaderStyle, style.navigationHeader],
+    };
+
+    if (headerProps.renderLeftComponent) {
+      headerProps.renderLeftComponent =
+        this.createHeaderComponentRenderer(headerProps.renderLeftComponent);
+    }
+
+    if (headerProps.renderTitleComponent) {
+      headerProps.renderTitleComponent =
+        this.createHeaderComponentRenderer(headerProps.renderTitleComponent);
+    }
+
+    if (headerProps.renderRightComponent) {
+      headerProps.renderRightComponent =
+        this.createHeaderComponentRenderer(headerProps.renderRightComponent);
+    }
+
+    return headerProps;
+  }
+
   render() {
     const { scene, style } = this.props;
 
@@ -194,8 +234,7 @@ class NavigationBarView extends Component {
       <Animated.View style={[style.container, this.interpolateNavBarStyle()]}>
         <StatusBar translucent />
         <NavigationHeader
-          {...this.props}
-          style={navigationHeaderStyle}
+          {...this.createNavigationHeaderProps()}
         />
       </Animated.View>
     );
