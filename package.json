@@ -11,7 +11,7 @@
     "html-entities": "^1.2.0",
     "htmlparser2": "^3.9.0",
     "lodash": "^4.15.0",
-    "react-native-lightbox": "shoutem/react-native-lightbox",
+    "react-native-lightbox": "git+https://github.com/shoutem/react-native-lightbox#master",
     "react-native-maps": "^0.8.2",
     "react-native-share": "^1.0.13",
     "react-native-vector-icons": "^2.0.3",
