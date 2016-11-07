@@ -34,8 +34,7 @@
     "react-native-mock": "^0.2.5"
   },
   "scripts": {
-    "test": "mocha -R spec --require test-utils/setup.js --require react-native-mock/mock.js --compilers js:babel-core/register $(find . -name '*.spec.js' ! -ipath '*node_modules*')",
-    "postinstall": "react-native link"
+    "test": "mocha -R spec --require test-utils/setup.js --require react-native-mock/mock.js --compilers js:babel-core/register $(find . -name '*.spec.js' ! -ipath '*node_modules*')"
   },
   "rnpm": {
     "assets": [
