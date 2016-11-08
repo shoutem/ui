@@ -92,13 +92,14 @@ class NavigationBarView extends Component {
   }
 
   /**
-   * Gets the background navigation bar color for props.
+   * Gets a navigation bar color for props.
    *
    * @param props The props to get the color from.
+   * @param colorName The color property name to get.
    * @returns {*} The background color.
    */
-  getBackgroundColor(props) {
-    const color = _.get(props, 'style.container.backgroundColor', 'white');
+  getColor(props, colorName) {
+    const color = _.get(props, `style.container.${colorName}`, 'white');
 
     // If this is an animated value, we want to convert it to
     // a plain object in order to get its current value.
@@ -107,6 +108,24 @@ class NavigationBarView extends Component {
     }
 
     return color;
+  }
+
+  /**
+   * Returns the array of previous, current, and next color by getting
+   * the color with the given name from the props.
+   *
+   * @param previousProps The props with the previous color.
+   * @param currentProps The props with the current color.
+   * @param nextProps The props with the next color.
+   * @param colorName The name of the color property to get.
+   * @return {*[]} The colors array.
+   */
+  getColors(previousProps, currentProps, nextProps, colorName) {
+    const previousColor = this.getColor(previousProps, colorName);
+    const currentColor = this.getColor(currentProps, colorName);
+    const nextColor = this.getColor(nextProps, colorName);
+
+    return [previousColor, currentColor, nextColor];
   }
 
   /**
@@ -170,14 +189,15 @@ class NavigationBarView extends Component {
     const currentProps = this.resolveSceneProps(scene);
     const nextProps = this.resolveSceneProps(scenes[index + 1]);
 
-    const previousColor = this.getBackgroundColor(previousProps);
-    const currentColor = this.getBackgroundColor(currentProps);
-    const nextColor = this.getBackgroundColor(nextProps);
-
     return {
       backgroundColor: position.interpolate({
         inputRange: [index - 1, index, index + 1],
-        outputRange: [previousColor, currentColor, nextColor],
+        outputRange: this.getColors(previousProps, currentProps, nextProps, 'backgroundColor'),
+        extrapolate: 'clamp',
+      }),
+      borderBottomColor: position.interpolate({
+        inputRange: [index - 1, index, index + 1],
+        outputRange: this.getColors(previousProps, currentProps, nextProps, 'borderBottomColor'),
         extrapolate: 'clamp',
       }),
     };
