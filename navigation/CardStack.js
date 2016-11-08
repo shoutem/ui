@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { NavigationExperimental } from 'react-native';
-import _ from 'lodash';
+import { NavigationExperimental, InteractionManager } from 'react-native';
 
 import {
   ScrollView,
@@ -50,10 +49,7 @@ export class CardStack extends Component {
     this.clearNavBarProps = this.clearNavBarProps.bind(this);
     this.getRenderedNavBarProps = this.getRenderedNavBarProps.bind(this);
     this.setRenderedNavBarProps = this.setRenderedNavBarProps.bind(this);
-    this.isNavBarInTransition = () => false;
-
-    const refreshNavBar = this.refreshNavBar.bind(this);
-    this.refreshNavBar = _.debounce(refreshNavBar, 100);
+    this.refreshNavBar = this.refreshNavBar.bind(this);
 
     /**
      * A map where the key is the route key, and the value is
@@ -133,20 +129,12 @@ export class CardStack extends Component {
   }
 
   refreshNavBar() {
-    if (!this.isNavBarInTransition()) {
-      this.forceUpdate();
-    } else {
-      // We don't want to re-render during transitions, postpone the
-      // update until the current transition is over (this function is
-      // debounced in the constructor).
-      this.refreshNavBar();
-    }
+    InteractionManager.runAfterInteractions(() => this.forceUpdate());
   }
 
   renderNavBar(props) {
-    const { scene, position } = props;
+    const { scene } = props;
     const nextProps = this.getNextNavBarProps(scene.route);
-    this.isNavBarInTransition = () => position.toJSON() !== scene.index;
 
     const navBarProps = {
       ...props,
