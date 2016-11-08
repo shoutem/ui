@@ -6,7 +6,7 @@ Shoutem UI is a set of styleable components that enables you to build beautiful 
 
 ```
 $ npm install --save @shoutem/ui
-$ react-native link
+$ react-native link # No need to run this with Exponent
 ```
 
 ## Docs
@@ -22,6 +22,10 @@ To see how Shoutem UI works, you can:
 
 ### Examples component
 
+**If you are using Exponent, see [this
+project](https://github.com/exponentjs/shoutem-example/blob/master/main.js)
+for example usage. Otherwise, follow the steps below.**
+
 Create new React Native project:
 
 ```bash
@@ -35,7 +39,8 @@ $ cd HelloWorld
 $ npm install --save @shoutem/ui
 ```
 
-Run `react-native` to link fonts that the toolkit is using:
+Run `react-native` to link fonts that the toolkit is using (skip this if
+you are using Exponent):
 
 ```bash
 $ react-native link
@@ -100,12 +105,12 @@ react-native run-android
 
 ## UI Toolkit
 
-Shoutem UI is a part of the Shoutem UI Toolkit that enables you to build professionally looking React Native apps with ease.  
+Shoutem UI is a part of the Shoutem UI Toolkit that enables you to build professionally looking React Native apps with ease.
 
 It consists of three libraries:
 
 - [@shoutem/ui](https://github.com/shoutem/ui): beautiful and customizable UI components
-- [@shoutem/theme](https://github.com/shoutem/theme): “CSS-way” of styling entire app 
+- [@shoutem/theme](https://github.com/shoutem/theme): “CSS-way” of styling entire app
 - [@shoutem/animation](https://github.com/shoutem/animation): declarative way of applying ready-made  animations
 
 ## License
