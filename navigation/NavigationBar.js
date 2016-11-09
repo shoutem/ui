@@ -58,8 +58,8 @@ class NavigationBar extends Component {
   setNextNavBarProps(props) {
     const { scene, animationDriver, setNextNavBarProps } = this.context;
     setNextNavBarProps(scene.route, {
-      ...props,
       driver: animationDriver,
+      ...props,
     });
   }
 
