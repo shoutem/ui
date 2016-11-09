@@ -2,33 +2,56 @@ import React, { Component } from 'react';
 import {
   Image as RNImage,
   Platform,
+  View as RNView,
 } from 'react-native';
 import _ from 'lodash';
 
 import { connectStyle } from '@shoutem/theme';
-import { connectAnimation } from '@shoutem/animation';
+import {
+  connectAnimation,
+  FadeIn,
+  TimingDriver,
+} from '@shoutem/animation';
+
 
 // a valid source is either an object with an uri key or a number (from a `require` call)
-const isValidSource = (source) => _.isNumber(source) || (_.isObject(source) && source.uri)
+const isValidSource = (source) => _.isNumber(source) || (_.isObject(source) && source.uri);
 
 class Image extends Component {
   static propTypes = {
     ...RNImage.propTypes,
+  };
+
+  constructor(props, context) {
+    super(props, context);
+
+    this.resolveOnLoad = this.resolveOnLoad.bind(this);
   }
 
   setNativeProps(nativeProps) {
     this._root.setNativeProps(nativeProps);
   }
 
-  render() {
+  resolveOnLoad() {
+    if (this.props.onLoad) {
+      this.props.onLoad();
+    }
+
+    this.driver.runTimer(1);
+  }
+
+  componentWillMount() {
+    this.driver = new TimingDriver();
+  }
+
+  resolveProps() {
     const { props } = this;
-    let resolvedProps = props;
     const { source, defaultSource } = props;
 
     // defaultSource is not supported on Android, so we manually
     // reassign the defaultSource prop to source if source is not defined
     if (Platform.OS === 'android' && !isValidSource(source)) {
-      resolvedProps = {
+      return {
         ...props,
         // Image views are not rendered on Android if there is no image to display,
         // so we fallback to a transparent image to be compatible with iOS
@@ -38,9 +61,46 @@ class Image extends Component {
         style: { ...props.style, width: null },
       };
     }
+    return props;
+  }
+
+  /**
+   * Render children absolutely so they are showed
+   * while waiting for image to be completely loaded.
+   * @param children
+   * @returns {JSX}
+   */
+  renderChildren(children) {
+    return (
+      <RNView
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0
+        }}
+      >
+        {children}
+      </RNView>
+    );
+  }
+
+  render() {
+    const resolvedProps = this.resolveProps();
 
     return (
-      <RNImage {...resolvedProps} ref={component => this._root = component} />
+      <RNView>
+        <FadeIn driver={this.driver}>
+          <RNImage
+            {...resolvedProps}
+            children={null}
+            onLoad={this.resolveOnLoad}
+            ref={component => this._root = component}
+          />
+        </FadeIn>
+        {this.renderChildren(resolvedProps.children)}
+      </RNView>
     );
   }
 }
