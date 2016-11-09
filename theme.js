@@ -24,6 +24,7 @@ const Colors = {
   DIVIDER_LINE: '#eeeeee',
   DIVIDER_BORDER: 'rgba(51, 51, 51, 0.1)',
   NAVIGATION_TINT: '#333333',
+  NAVIGATION_BAR_BACKGROUND: '#ffffff',
   NAVIGATION_BAR_BORDER: 'rgba(20, 20, 20, 0.2)',
   NAVIGATION_BAR_TEXT: 'black',
 
@@ -971,7 +972,7 @@ export default () => ({
     },
 
     'shoutem.ui.Title': {
-      solidifyAnimation(driver, { layout, animationOptions }) {
+      solidifyAnimation(driver) {
         return {
           color: driver.value.interpolate({
             inputRange: [250, 300],
@@ -1007,7 +1008,7 @@ export default () => ({
       },
     },
 
-    solidifyAnimation(driver, { layout, animationOptions }) {
+    solidifyAnimation(driver) {
       return {
         container: {
           backgroundColor: driver.value.interpolate({
@@ -1027,7 +1028,7 @@ export default () => ({
     container: {
       [INCLUDE]: ['fillParent'],
       height: 70,
-      backgroundColor: 'white',
+      backgroundColor: Colors.NAVIGATION_BAR_BACKGROUND,
       borderBottomColor: Colors.NAVIGATION_BAR_BORDER,
       borderBottomWidth: 1,
       padding: 15,
@@ -1142,8 +1143,8 @@ export default () => ({
     },
 
     container: {
-      backgroundColor: 'white',
-      borderBottomColor: 'rgba(0, 0, 0, .15)',
+      backgroundColor: Colors.NAVIGATION_BAR_BACKGROUND,
+      borderBottomColor: Colors.NAVIGATION_BAR_BORDER,
       borderBottomWidth: StyleSheet.hairlineWidth,
     },
   },
