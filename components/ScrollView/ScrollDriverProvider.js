@@ -24,7 +24,7 @@ export class ScrollDriverProvider extends Component {
 
   constructor(props, context) {
     super(props, context);
-    this.setAnimationDriverFromProps(props, context);
+    this.setupAnimationDriver(props, context);
   }
 
   getChildContext() {
@@ -35,10 +35,10 @@ export class ScrollDriverProvider extends Component {
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
-    this.setAnimationDriverFromProps(nextProps, nextContext);
+    this.setupAnimationDriver(nextProps, nextContext);
   }
 
-  setAnimationDriverFromProps(props, context) {
+  setupAnimationDriver(props, context) {
     if (props.driver) {
       this.animationDriver = props.driver;
     } else if (context.driverProvider) {
