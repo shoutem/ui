@@ -11,7 +11,7 @@
     "html-entities": "^1.2.0",
     "htmlparser2": "^3.9.0",
     "lodash": "^4.15.0",
-    "react-native-lightbox": "shoutem/react-native-lightbox",
+    "react-native-lightbox": "git+https://github.com/shoutem/react-native-lightbox#master",
     "react-native-maps": "^0.8.2",
     "react-native-share": "^1.0.13",
     "react-native-vector-icons": "^2.0.3",
@@ -34,8 +34,7 @@
     "react-native-mock": "^0.2.5"
   },
   "scripts": {
-    "test": "mocha -R spec --require test-utils/setup.js --require react-native-mock/mock.js --compilers js:babel-core/register $(find . -name '*.spec.js' ! -ipath '*node_modules*')",
-    "postinstall": "react-native link"
+    "test": "mocha -R spec --require test-utils/setup.js --require react-native-mock/mock.js --compilers js:babel-core/register $(find . -name '*.spec.js' ! -ipath '*node_modules*')"
   },
   "rnpm": {
     "assets": [
