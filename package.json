@@ -1,6 +1,6 @@
 {
   "name": "@shoutem/ui",
-  "version": "0.9.2-beta.0",
+  "version": "0.10.0-beta.1",
   "description": "Styleable set of components for React Native applications",
   "dependencies": {
     "@shoutem/animation": "^0.8.6",
@@ -39,7 +39,10 @@
   "rnpm": {
     "assets": [
       "fonts"
-    ]
+    ],
+    "commands": {
+      "postlink": "node ./node_modules/@shoutem/ui/scripts/link.js"
+    }
   },
   "homepage": "http://shoutem.github.io/docs/ui-toolkit/introduction",
   "bugs": {
