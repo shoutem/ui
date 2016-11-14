@@ -8,9 +8,7 @@ import { connectStyle } from '@shoutem/theme';
 
 import { SceneProvider } from './SceneProvider';
 
-const {
-  CardStack: NavigationCardStack,
-} = NavigationExperimental;
+import { RNCardStack } from './RNCardStack';
 
 export const VERSION_KEY = '.version';
 
@@ -21,10 +19,10 @@ export const VERSION_KEY = '.version';
  */
 class CardStack extends Component {
   static propTypes = {
-    ...NavigationCardStack.propTypes,
+    ...RNCardStack.propTypes,
     renderNavBar: React.PropTypes.func,
     style: React.PropTypes.shape({
-      cardStack: NavigationCardStack.propTypes.style,
+      cardStack: RNCardStack.propTypes.style,
       card: React.PropTypes.any,
     }),
   };
@@ -176,14 +174,15 @@ class CardStack extends Component {
 
   render() {
     const style = this.props.style || {};
-    console.log('cs', style);
+
     return (
-      <NavigationCardStack
+      <RNCardStack
         {...this.props}
         style={style.cardStack}
         cardStyle={style.card}
         renderHeader={this.renderNavBar}
         renderScene={this.renderScene}
+        interpolateCardStyle={style.interpolateCardStyle}
       />
     );
   }
