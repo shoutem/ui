@@ -19,7 +19,7 @@ export const VERSION_KEY = '.version';
  * bar and facilitates the communication between the navigation
  * bar view, and various application screens.
  */
-export class CardStack extends Component {
+class CardStack extends Component {
   static propTypes = {
     ...NavigationCardStack.propTypes,
     renderNavBar: React.PropTypes.func,
@@ -191,4 +191,7 @@ export class CardStack extends Component {
 
 delete CardStack.propTypes.renderHeader;
 
-export default connectStyle('shoutem.ui.navigation.CardStack')(CardStack);
+const StyledCardStack = connectStyle('shoutem.ui.navigation.CardStack')(CardStack);
+export {
+  StyledCardStack as CardStack,
+};
