@@ -17,7 +17,7 @@ exec(linkCommands.join(' && '), function(error, stdout, stderr) {
   console.log(stdout);
   console.log(stderr);
   if (error !== null) {
-    console.log('exec error: ' + error);
+    console.log('Linking error: ' + error);
   }
   console.log('[@shoutem/ui] - native dependencies linked');
 });
