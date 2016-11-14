@@ -4,6 +4,7 @@ import { NavigationExperimental, InteractionManager } from 'react-native';
 import {
   ScrollView,
 } from '@shoutem/ui';
+import { connectStyle } from '@shoutem/theme';
 
 import { SceneProvider } from './SceneProvider';
 
@@ -22,6 +23,10 @@ export class CardStack extends Component {
   static propTypes = {
     ...NavigationCardStack.propTypes,
     renderNavBar: React.PropTypes.func,
+    style: React.PropTypes.shape({
+      cardStack: NavigationCardStack.propTypes.style,
+      card: React.PropTypes.any,
+    }),
   };
 
   static contextTypes = {
@@ -170,9 +175,13 @@ export class CardStack extends Component {
   }
 
   render() {
+    const style = this.props.style || {};
+    console.log('cs', style);
     return (
       <NavigationCardStack
         {...this.props}
+        style={style.cardStack}
+        cardStyle={style.card}
         renderHeader={this.renderNavBar}
         renderScene={this.renderScene}
       />
@@ -181,3 +190,5 @@ export class CardStack extends Component {
 }
 
 delete CardStack.propTypes.renderHeader;
+
+export default connectStyle('shoutem.ui.navigation.CardStack')(CardStack);
