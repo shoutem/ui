@@ -47,21 +47,23 @@ class Image extends Component {
   resolveProps() {
     const { props } = this;
     const { source, defaultSource } = props;
+    let resolvedProps = {...props};
+
+    // Render children absolutely so they appear before
+    // the image finishes with loading.
+    resolvedProps.children = null;
 
     // defaultSource is not supported on Android, so we manually
     // reassign the defaultSource prop to source if source is not defined
     if (Platform.OS === 'android' && !isValidSource(source)) {
-      return {
-        ...props,
-        // Image views are not rendered on Android if there is no image to display,
-        // so we fallback to a transparent image to be compatible with iOS
-        source: defaultSource || require('../assets/images/transparent.png'),
-        // Fixes a bug with local image resizing on Android:
-        // https://github.com/facebook/react-native/issues/4598#issuecomment-162328501
-        style: { ...props.style, width: null },
-      };
+      // Image views are not rendered on Android if there is no image to display,
+      // so we fallback to a transparent image to be compatible with iOS
+      resolvedProps.source = defaultSource || require('../assets/images/transparent.png');
+      // Fixes a bug with local image resizing on Android:
+      // https://github.com/facebook/react-native/issues/4598#issuecomment-162328501
+      resolvedProps.style = { ...props.style, width: null };
     }
-    return props;
+    return resolvedProps;
   }
 
   /**
@@ -94,12 +96,11 @@ class Image extends Component {
         <FadeIn driver={this.driver}>
           <RNImage
             {...resolvedProps}
-            children={null}
             onLoad={this.resolveOnLoad}
             ref={component => this._root = component}
           />
         </FadeIn>
-        {this.renderChildren(resolvedProps.children)}
+        {this.renderChildren(this.props.children)}
       </RNView>
     );
   }
