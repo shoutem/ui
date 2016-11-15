@@ -4,12 +4,11 @@ import { NavigationExperimental, InteractionManager } from 'react-native';
 import {
   ScrollView,
 } from '@shoutem/ui';
+import { connectStyle } from '@shoutem/theme';
 
 import { SceneProvider } from './SceneProvider';
 
-const {
-  CardStack: NavigationCardStack,
-} = NavigationExperimental;
+import { RNCardStack } from './RNCardStack';
 
 export const VERSION_KEY = '.version';
 
@@ -18,10 +17,14 @@ export const VERSION_KEY = '.version';
  * bar and facilitates the communication between the navigation
  * bar view, and various application screens.
  */
-export class CardStack extends Component {
+class CardStack extends Component {
   static propTypes = {
-    ...NavigationCardStack.propTypes,
+    ...RNCardStack.propTypes,
     renderNavBar: React.PropTypes.func,
+    style: React.PropTypes.shape({
+      cardStack: RNCardStack.propTypes.style,
+      card: React.PropTypes.any,
+    }),
   };
 
   static contextTypes = {
@@ -170,14 +173,24 @@ export class CardStack extends Component {
   }
 
   render() {
+    const style = this.props.style || {};
+
     return (
-      <NavigationCardStack
+      <RNCardStack
         {...this.props}
+        style={style.cardStack}
+        cardStyle={style.card}
         renderHeader={this.renderNavBar}
         renderScene={this.renderScene}
+        interpolateCardStyle={style.interpolateCardStyle}
       />
     );
   }
 }
 
 delete CardStack.propTypes.renderHeader;
+
+const StyledCardStack = connectStyle('shoutem.ui.navigation.CardStack')(CardStack);
+export {
+  StyledCardStack as CardStack,
+};

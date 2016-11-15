@@ -1148,6 +1148,10 @@ export default () => ({
       borderBottomWidth: StyleSheet.hairlineWidth,
     },
   },
+  'shoutem.ui.navigation.CardStack': {
+    cardStack: {},
+    card: {},
+  },
 
   sectionHeaderDivider: {
     'shoutem.ui.Caption': {
