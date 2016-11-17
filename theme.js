@@ -1168,4 +1168,121 @@ export default () => ({
       flex: 1,
     },
   },
+
+  //
+  // HorizontalPager
+  //
+
+  'shoutem.ui.HorizontalPager': {
+    container: {
+      flex: 1,
+    },
+    scrollView: {
+      flex: 1,
+      backgroundColor: 'transparent',
+      overflow: 'visible',
+    },
+    page: {
+      backgroundColor: 'transparent',
+    },
+  },
+
+  //
+  // InlineGallery
+  //
+  'shoutem.ui.InlineGallery': {
+    '*': {
+      flex: 1,
+    },
+
+    '.large-wide': {
+      height: (238 / 375) * window.width,
+    },
+
+    '.large-ultra-wide': {
+      height: (130 / 375) * window.width,
+    },
+
+    height: (345 / 375) * window.width,
+  },
+
+  //
+  // ImageGallery
+  //
+  'shoutem.ui.ImageGallery': {
+    [INCLUDE]: ['guttersPadding'],
+    page: {
+      flex: 1,
+      justifyContent: 'center',
+      overflow: 'hidden',
+    },
+    fixedTitle: {
+      position: 'absolute',
+      backgroundColor: Colors.LIGHT_GRAY,
+      paddingTop: MEDIUM_GUTTER,
+      paddingHorizontal: MEDIUM_GUTTER,
+      height: 60,
+      top: 70,
+      left: 0,
+      right: 0,
+    },
+    title: {
+      color: Colors.DARKER,
+      textAlign: 'center',
+    },
+    fixedDescription: {
+      position: 'absolute',
+      backgroundColor: Colors.LIGHT_GRAY,
+      paddingTop: SMALL_GUTTER,
+      bottom: 0,
+      left: 0,
+      right: 0,
+    },
+    innerDescription: {
+      padding: MEDIUM_GUTTER,
+      marginTop: -8,
+    },
+    descriptionScroll: {
+      maxHeight: 200,
+    },
+    description: {
+      color: Colors.DARK,
+      textAlign: 'center',
+    },
+    'shoutem.ui.View': {
+      lightsOffAnimation(driver, { layout, options }) {
+        return {
+          backgroundColor: driver.value.interpolate({
+            inputRange: [0, 1],
+            outputRange: [
+              Colors.LIGHT_GRAY,
+              Colors.SHADOW,
+            ],
+          }),
+        };
+      },
+      'shoutem.ui.HorizontalPager': {
+        'shoutem.ui.View': {
+          'shoutem.ui.View': {
+            lightsOffTransparentAnimation(driver, { layout, options }) {
+              return {
+                backgroundColor: driver.value.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [
+                    Colors.LIGHT_GRAY,
+                    Colors.SHADOW,
+                  ],
+                }),
+                opacity: driver.value.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [1, 0],
+                }),
+              };
+            },
+          },
+        },
+      },
+    },
+  },
+
 });

@@ -31,6 +31,8 @@ export { Video } from './components/Video';
 export { Image } from './components/Image';
 export { ImagePreview } from './components/ImagePreview';
 export { ImageGallery } from './components/ImageGallery';
+export { InlineGallery } from './components/InlineGallery';
+export { HorizontalPager } from './components/HorizontalPager';
 export { RichMedia } from './components/RichMedia';
 export { MapView, InlineMap } from './components/Map/';
 
