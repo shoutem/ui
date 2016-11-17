@@ -25,14 +25,19 @@ class Image extends Component {
   constructor(props, context) {
     super(props, context);
 
-    this.resolveOnLoad = this.resolveOnLoad.bind(this);
+    this.handleLoad = this.handleLoad.bind(this);
+    this.captureNativeComponentRef = this.captureNativeComponentRef.bind(this);
+  }
+
+  captureNativeComponentRef(component) {
+    this.nativeComponent = component;
   }
 
   setNativeProps(nativeProps) {
-    this._root.setNativeProps(nativeProps);
+    this.nativeComponent.setNativeProps(nativeProps);
   }
 
-  resolveOnLoad() {
+  handleLoad() {
     if (this.props.onLoad) {
       this.props.onLoad();
     }
@@ -44,13 +49,17 @@ class Image extends Component {
     this.driver = new TimingDriver();
   }
 
-  resolveProps() {
+  resolveImageProps() {
     const { props } = this;
     const { source, defaultSource } = props;
     let resolvedProps = {...props};
 
-    // Render children absolutely so they appear before
-    // the image finishes with loading.
+    /**
+     * The children will be rendered absolutely in a different container,
+     * so that they are visible while the image is loading. We need to clear
+     * them from the `Image` props here so that they are not rendered within
+     * the `Image` component as well.
+     */
     resolvedProps.children = null;
 
     // defaultSource is not supported on Android, so we manually
@@ -67,7 +76,7 @@ class Image extends Component {
   }
 
   /**
-   * Render children absolutely so they are showed
+   * Render children absolutely so they are visible
    * while waiting for image to be completely loaded.
    * @param children
    * @returns {JSX}
@@ -89,15 +98,15 @@ class Image extends Component {
   }
 
   render() {
-    const resolvedProps = this.resolveProps();
+    const imageProps = this.resolveImageProps();
 
     return (
       <RNView>
         <FadeIn driver={this.driver}>
           <RNImage
-            {...resolvedProps}
-            onLoad={this.resolveOnLoad}
-            ref={component => this._root = component}
+            {...imageProps}
+            onLoad={this.handleLoad}
+            ref={this.captureNativeComponentRef}
           />
         </FadeIn>
         {this.renderChildren(this.props.children)}
