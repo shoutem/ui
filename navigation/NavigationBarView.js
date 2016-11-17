@@ -11,6 +11,7 @@ import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
 
 import composeChildren from './composeChildren';
+import { LinearGradient } from '../components/LinearGradient';
 
 const {
   Header: NavigationHeader,
@@ -252,6 +253,7 @@ class NavigationBarView extends Component {
 
     return (
       <Animated.View style={[style.container, this.interpolateNavBarStyle()]}>
+        <LinearGradient />
         <StatusBar translucent />
         <NavigationHeader
           {...this.createNavigationHeaderProps()}
