@@ -1183,8 +1183,10 @@ export default () => ({
       overflow: 'visible',
     },
     page: {
+      flex: 1,
       backgroundColor: 'transparent',
     },
+    nextPageInsetRatio: 2,
   },
 
   //
@@ -1216,13 +1218,14 @@ export default () => ({
       justifyContent: 'center',
       overflow: 'hidden',
     },
+    // Top position will most likely be 0 or 70
     fixedTitle: {
       position: 'absolute',
       backgroundColor: Colors.LIGHT_GRAY,
       paddingTop: MEDIUM_GUTTER,
       paddingHorizontal: MEDIUM_GUTTER,
       height: 60,
-      top: 70,
+      top: 0,
       left: 0,
       right: 0,
     },

@@ -6,14 +6,14 @@ import React, {
 import {
   ScrollView,
   InteractionManager,
-  View,
+  View as RNView,
 } from 'react-native';
 
 import _ from 'lodash';
 
 import { connectStyle } from '@shoutem/theme';
 
-import { View as SEView } from './View';
+import { View } from './View';
 import { Spinner } from './Spinner';
 
 /**
@@ -52,23 +52,34 @@ class HorizontalPager extends Component {
     style: PropTypes.object,
     // Prop that reduces page size by pageMargin, allowing 'sneak peak' of next page
     showNextPage: PropTypes.bool,
-    // onFullPageSelected triggered when full new page gets selected
-    // (100% of page becomes visible)
-    onFullPageSelected: PropTypes.func,
   };
+
+  static defaultProps = {
+    pageMargin: 0,
+    selectedIndex: 0,
+    showNextPage: false,
+    renderPlaceholder: () => {
+      return (
+        <View styleName="flexible vertical v-center">
+          <View styleName="horizontal h-center">
+            <Spinner />
+          </View>
+        </View>
+      );
+    },
+  }
 
   constructor(props) {
     super(props);
     this.state = {
       width: 0,
-      height: 0,
       selectedIndex: this.props.selectedIndex,
       initialSelectedIndex: this.props.selectedIndex,
-      pageMargin: this.props.pageMargin || 0,
-      showNextPage: this.props.showNextPage || false,
+      pageMargin: this.props.pageMargin,
+      showNextPage: this.props.showNextPage,
       shouldRenderContent: false,
     };
-    this.calculateNewIndex = this.calculateNewIndex.bind(this);
+    this.calculateIndex = this.calculateIndex.bind(this);
     this.onHorizontalScroll = this.onHorizontalScroll.bind(this);
     this.onLayoutContainer = this.onLayoutContainer.bind(this);
     this.renderContent = this.renderContent.bind(this);
@@ -91,29 +102,20 @@ class HorizontalPager extends Component {
   }
 
   onLayoutContainer(event) {
-    const { width, height } = event.nativeEvent.layout;
+    const { width } = event.nativeEvent.layout;
     const { initialSelectedIndex } = this.state;
 
-    this.setState({
-      width,
-      height,
-    },
-      () => this.scrollToPage(initialSelectedIndex)
+    this.setState({ width }, () =>
+      this.scrollToPage(initialSelectedIndex)
     );
   }
 
   onHorizontalScroll(event) {
-    const { width, selectedIndex, pageMargin } = this.state;
-    const { onIndexSelected, onFullPageSelected } = this.props;
+    const { selectedIndex } = this.state;
+    const { onIndexSelected } = this.props;
     const contentOffset = event.nativeEvent.contentOffset;
 
-    const newSelectedIndex = this.calculateNewIndex(contentOffset);
-
-    if (contentOffset.x % (width + pageMargin) === 0 || contentOffset === 0) {
-      if (_.isFunction(onFullPageSelected)) {
-        onFullPageSelected(newSelectedIndex);
-      }
-    }
+    const newSelectedIndex = this.calculateIndex(contentOffset);
 
     if (selectedIndex !== newSelectedIndex) {
       if (_.isFunction(onIndexSelected)) {
@@ -147,7 +149,7 @@ class HorizontalPager extends Component {
     }
   }
 
-  calculateNewIndex(contentOffset) {
+  calculateIndex(contentOffset) {
     const { width, selectedIndex, pageMargin } = this.state;
     const { data } = this.props;
 
@@ -168,57 +170,50 @@ class HorizontalPager extends Component {
   }
 
   renderContent() {
-    const { width, height, pageMargin, showNextPage } = this.state;
+    const { width, pageMargin, showNextPage } = this.state;
     const { data, renderPage, style } = this.props;
     const pages = data.map((page, pageId) => {
       const lastPage = pageId === data.length - 1;
-      let recalculatedContainerWidth = this.calculateContainerWidth();
+      let containerWidth = this.calculateContainerWidth();
 
-      // If `showNextPage` is `true` then one page must have width narrower by 2*pageMargin
+      // If `showNextPage` is `true` then one page must have width narrower
+      // By nextPageInsetRatio*pageMargin.
       // To allow rendering of small portion of next page
-      let recalculatedPageWidth = showNextPage ? (width - (2 * pageMargin)) : width;
+      let pageWidth = showNextPage ? (width - (style.nextPageInsetRatio * pageMargin)) : width;
 
       if (lastPage && showNextPage) {
         // If page is last in collection, then it should populate whole container,
-        recalculatedContainerWidth = width;
-        recalculatedPageWidth = width;
+        containerWidth = width;
+        pageWidth = width;
       }
 
       return (
-        <View
-          style={[style.page, { width: recalculatedContainerWidth }]}
+        <RNView
+          style={[style.page, { width: containerWidth }]}
           key={pageId}
           renderToHardwareTextureAndroid
         >
-          <View style={{ width: recalculatedPageWidth, height }}>
+          <RNView style={[style.page, { width: pageWidth }]}>
             {renderPage(page, pageId)}
-          </View>
-        </View>
+          </RNView>
+        </RNView>
       );
     });
     return pages;
   }
 
-  renderPlaceholder() {
-    return (
-      <SEView styleName="flexible vertical v-center">
-        <SEView styleName="horizontal h-center">
-          <Spinner />
-        </SEView>
-      </SEView>
-    );
-  }
-
   render() {
-    const { bounces, scrollEnabled, style } = this.props;
+    const { bounces, scrollEnabled, style, renderPlaceholder } = this.props;
     const { shouldRenderContent } = this.state;
 
     if (!shouldRenderContent) {
-      return this.renderPlaceholder();
+      if (_.isFunction(renderPlaceholder)) {
+        return renderPlaceholder();
+      }
     }
 
     return (
-      <View
+      <RNView
         style={style.container}
         onLayout={this.onLayoutContainer}
       >
@@ -239,7 +234,7 @@ class HorizontalPager extends Component {
         >
           {this.renderContent()}
         </ScrollView>
-      </View>
+      </RNView>
     );
   }
 

@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import {
   ScrollView,
   LayoutAnimation,
+  InteractionManager,
 } from 'react-native';
 
 import { connectStyle } from '@shoutem/theme';
@@ -16,7 +17,8 @@ import { Subtitle } from './Text';
 import { View } from './View';
 import { TouchableOpacity } from './TouchableOpacity';
 import { HorizontalPager } from './HorizontalPager';
-import { Image as SEImage } from './Image';
+
+const DESCRIPTION_LENGTH_TRIM_LIMIT = 90;
 
 class ImageGallery extends Component {
   static propTypes = {
@@ -35,12 +37,9 @@ class ImageGallery extends Component {
     onIndexSelected: PropTypes.func,
     // Initially selected page in gallery
     selectedIndex: PropTypes.number,
-    // Prop that forces interactive (full screen) mode (black background)
-    forceInteractiveMode: PropTypes.bool,
     // onModeChanged, callback function triggered when user taps on single photo
-    // Or when user transforms (zooms etc), image
-    // Triggered only if forceInteractiveMode is false.
-    // Useful for hiding external controls (ie navigation bar)
+    // Or when user transforms (zooms etc.) image
+    // Useful for hiding external controls (i.e. navigation bar)
     onModeChanged: PropTypes.func,
     // Style prop used to override default (theme) styling
     style: PropTypes.object,
@@ -62,24 +61,17 @@ class ImageGallery extends Component {
     this.renderDescription = this.renderDescription.bind(this);
     this.onViewTransformed = this.onViewTransformed.bind(this);
     this.onSingleTapConfirmed = this.onSingleTapConfirmed.bind(this);
-    this.resetCurrentImageTransform = this.resetCurrentImageTransform.bind(this);
-    this.resetHistoryImageTransform = this.resetHistoryImageTransform.bind(this);
+    this.resetCurrentImageTransformation = this.resetCurrentImageTransformation.bind(this);
+    this.resetSurroundingImageTransformations = this.resetSurroundingImageTransformations.bind(this);
     this.getImageTransformer = this.getImageTransformer.bind(this);
-    this.checkCurrentZoomingSpace = this.checkCurrentZoomingSpace.bind(this);
+    this.updateImageTransformedStatus = this.updateImageTransformedStatus.bind(this);
     this.state = {
       selectedIndex: this.props.selectedIndex || 0,
       collapsed: true,
-      hideAllControls: this.props.forceInteractiveMode || false,
-      scrollEnabled: true,
+      controlsVisible: true,
+      imageTransformed: true,
       pageMargin: this.props.pageMargin || 0,
     };
-  }
-
-  componentWillMount() {
-    const { forceInteractiveMode } = this.props;
-    if (forceInteractiveMode) {
-      this.timingDriver.runTimer(1);
-    }
   }
 
   onIndexSelected(newIndex) {
@@ -90,6 +82,12 @@ class ImageGallery extends Component {
       if (_.isFunction(onIndexSelected)) {
         onIndexSelected(newIndex);
       }
+      InteractionManager.runAfterInteractions(() => {
+        // After swipe interaction finishes, we'll have new selected index in state
+        // And we're resetting surrounding image transformations,
+        // So that images aren't left zoomed in when user swipes to next/prev image
+        this.resetSurroundingImageTransformations();
+      });
     });
   }
 
@@ -120,62 +118,67 @@ class ImageGallery extends Component {
     }
   }
 
-  checkCurrentZoomingSpace() {
-    const { scrollEnabled, selectedIndex } = this.state;
+  updateImageTransformedStatus() {
+    const { imageTransformed, selectedIndex } = this.state;
     const transformer = this.getImageTransformer(selectedIndex);
 
     if (transformer) {
       const space = transformer.getAvailableTranslateSpace();
 
-      if (space && (space.right > 0 && space.left > 0) && scrollEnabled) {
-        this.setState({ scrollEnabled: false });
+      if (!space) {
+        return;
       }
 
-      if (space && (space.right <= 0 || space.left <= 0) && !scrollEnabled) {
-        this.setState({ scrollEnabled: true });
+      if ((space.right > 0 && space.left > 0) && imageTransformed) {
+        this.setState({ imageTransformed: false });
+      }
+
+      if ((space.right <= 0 || space.left <= 0) && !imageTransformed) {
+        this.setState({ imageTransformed: true });
       }
     }
   }
 
   onViewTransformed(event) {
-    const { hideAllControls } = this.state;
+    const { controlsVisible } = this.state;
     const { onModeChanged } = this.props;
 
-    if (event.scale > 1.0 && !hideAllControls) {
+    if (event.scale > 1.0 && controlsVisible) {
+      // If controls are visible and image is transformed,
+      // We should hide controls and trigger animation
       if (_.isFunction(onModeChanged)) {
         onModeChanged(true);
       }
       this.timingDriver.runTimer(1);
-      this.setState({ hideAllControls: true });
-    } else if (hideAllControls) {
-      this.checkCurrentZoomingSpace();
+      this.setState({ controlsVisible: false });
+    } else if (!controlsVisible) {
+      this.updateImageTransformedStatus();
     }
   }
 
   onSingleTapConfirmed() {
-    const { hideAllControls } = this.state;
-    const { onModeChanged, forceInteractiveMode } = this.props;
+    const { controlsVisible } = this.state;
+    const { onModeChanged } = this.props;
 
-    if (!forceInteractiveMode) {
-      if (hideAllControls) {
-        this.timingDriver.runTimer(0, () => {
-          if (_.isFunction(onModeChanged)) {
-            onModeChanged(false);
-          }
-        });
-        this.resetCurrentImageTransform();
-      } else {
+    if (!controlsVisible) {
+      // If controls are not visible and user taps on image
+      // We should reset current image transformation (set scale to 1.0)
+      this.timingDriver.runTimer(0, () => {
         if (_.isFunction(onModeChanged)) {
-          onModeChanged(true);
+          onModeChanged(false);
         }
-        this.timingDriver.runTimer(1);
-      }
-
-      this.setState({
-        hideAllControls: !hideAllControls,
-        scrollEnabled: true,
       });
+      this.resetCurrentImageTransformation();
+    } else {
+      if (_.isFunction(onModeChanged)) {
+        onModeChanged(true);
+      }
+      this.timingDriver.runTimer(1);
     }
+    // And toggle visibility of controls
+    this.setState({
+      controlsVisible: !controlsVisible,
+    });
   }
 
   renderDescription(description) {
@@ -203,7 +206,7 @@ class ImageGallery extends Component {
         animationName="lightsOffTransparent"
       >
         <TouchableOpacity onPress={collapsed ? this.collapseDescription : this.expandDescription}>
-          {description.length >= 90 ? descriptionIcon : null}
+          {description.length >= DESCRIPTION_LENGTH_TRIM_LIMIT ? descriptionIcon : null}
         </TouchableOpacity>
         <View style={style.innerDescription}>
           <ScrollView
@@ -244,7 +247,7 @@ class ImageGallery extends Component {
     return null;
   }
 
-  resetCurrentImageTransform() {
+  resetCurrentImageTransformation() {
     const { selectedIndex } = this.state;
     const transformer = this.getImageTransformer(selectedIndex);
     if (transformer) {
@@ -252,7 +255,7 @@ class ImageGallery extends Component {
     }
   }
 
-  resetHistoryImageTransform() {
+  resetSurroundingImageTransformations() {
     const { selectedIndex } = this.state;
     let transformer = this.getImageTransformer(selectedIndex - 1);
     if (transformer) {
@@ -266,7 +269,7 @@ class ImageGallery extends Component {
 
   renderPage(page, pageId) {
     const { style } = this.props;
-    const { scrollEnabled } = this.state;
+    const { imageTransformed } = this.state;
     const image = _.get(page, 'source.uri');
     const title = _.get(page, 'title');
     const description = _.get(page, 'description');
@@ -286,7 +289,7 @@ class ImageGallery extends Component {
           style={{ flex: 1 }}
           onViewTransformed={this.onViewTransformed}
           onSingleTapConfirmed={this.onSingleTapConfirmed}
-          enableTranslate={!scrollEnabled}
+          enableTranslate={!imageTransformed}
           ref={((ref) => { this.imageRefs.set(pageId, ref); })}
         />
         { this.renderTitle(title) }
@@ -296,8 +299,8 @@ class ImageGallery extends Component {
   }
 
   render() {
-    const { data, style } = this.props;
-    const { scrollEnabled, selectedIndex, pageMargin } = this.state;
+    const { data } = this.props;
+    const { imageTransformed, selectedIndex, pageMargin } = this.state;
 
     return (
       <View
@@ -311,8 +314,7 @@ class ImageGallery extends Component {
           onIndexSelected={this.onIndexSelected}
           selectedIndex={selectedIndex}
           renderPage={this.renderPage}
-          scrollEnabled={scrollEnabled}
-          onFullPageSelected={this.resetHistoryImageTransform}
+          scrollEnabled={imageTransformed}
           bounces
           pageMargin={pageMargin}
           showNextPage={false}
