@@ -253,7 +253,7 @@ class NavigationBarView extends Component {
 
     return (
       <Animated.View style={[style.container, this.interpolateNavBarStyle()]}>
-        <LinearGradient />
+        <LinearGradient animationName={this.props.animationName} />
         <StatusBar translucent />
         <NavigationHeader
           {...this.createNavigationHeaderProps()}
