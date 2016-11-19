@@ -881,6 +881,9 @@ export default () => ({
       margin: MEDIUM_GUTTER,
     },
   },
+  'shoutem.ui.Spinner'; {
+    color: Colors.SPINNER,
+  },
 
   //
   // Collections
