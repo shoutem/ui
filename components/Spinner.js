@@ -26,7 +26,6 @@ Spinner.propTypes = {
 
 const StyledSpinner = connectStyle('shoutem.ui.Spinner', {
   size: 'small',
-  color: 'gray',
 })(Spinner);
 
 export {
