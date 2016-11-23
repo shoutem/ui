@@ -32,7 +32,8 @@ class DropDownMenu extends Component {
      */
     options: React.PropTypes.array.isRequired,
     /**
-     * Initially selected option
+     * Selected option, option to be shown.
+     * It is required but conditionally, handled in componentWillReceiveProps.
      */
     selectedOption: React.PropTypes.any,
     /**
@@ -70,26 +71,16 @@ class DropDownMenu extends Component {
   }
 
   componentWillMount() {
-    this.autoSelect(this.props.options);
     this.scrollDriver = new ScrollDriver();
     this.timingDriver = new TimingDriver();
   }
 
   componentWillReceiveProps(nextProps) {
-    const { selectedOption } = this.state;
-    if (selectedOption !== nextProps.selectedOption && nextProps.selectedOption) {
-      // Select the option when the selectedOption prop changes
-      this.selectOption(nextProps.selectedOption);
-    } else if (!selectedOption || nextProps.options !== this.props.options) {
-      // Automatically select the first option if there is no selected option
-      // or when options change
-      this.autoSelect(nextProps.options);
+    const { options, selectedOption } = nextProps;
+    if (_.size(options) > 0 && _.indexOf(options, selectedOption) === -1) {
+      // If options are empty array, selectedOption does not have to be set.
+      throw Error('Invalid selectedOption, DropDown selectedOption must be member of options.');
     }
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return (nextProps.options !== this.props.options) ||
-      (nextState !== this.state);
   }
 
   onOptionLayout(event) {
@@ -106,23 +97,6 @@ class DropDownMenu extends Component {
     return selectedOption[valueProperty];
   }
 
-  getSelectedOption() {
-    return this.state.selectedOption;
-  }
-
-  selectOption(option) {
-    this.setState({ selectedOption: option }, this.emitOnOptionSelectedEvent);
-  }
-
-  /**
-   * Selects the first option by default.
-   */
-  autoSelect(options = []) {
-    if (_.size(options) > 0) {
-      this.selectOption(options[0]);
-    }
-  }
-
   collapse() {
     this.setState({ collapsed: true });
     this.scrollDriver = new ScrollDriver();
@@ -133,9 +107,9 @@ class DropDownMenu extends Component {
     this.timingDriver.runTimer(0, () => this.setState({ collapsed: false }));
   }
 
-  emitOnOptionSelectedEvent() {
+  emitOnOptionSelectedEvent(option) {
     if (this.props.onOptionSelected) {
-      this.props.onOptionSelected(this.state.selectedOption);
+      this.props.onOptionSelected(option);
     }
   }
 
@@ -155,8 +129,7 @@ class DropDownMenu extends Component {
   }
 
   renderSelectedOption() {
-    const { style, titleProperty } = this.props;
-    const { selectedOption } = this.state;
+    const { style, titleProperty, selectedOption } = this.props;
 
     return selectedOption ? (
       <Button onPress={this.collapse} style={style.selectedOption}>
@@ -179,7 +152,7 @@ class DropDownMenu extends Component {
     const fadeInEnd = optionPosition - (visibleOptions - 1.5) * optionHeight;
     const onPress = () => {
       this.close();
-      this.selectOption(option);
+      this.emitOnOptionSelectedEvent(option);
     };
     return (
       <TouchableOpacity onPress={onPress} style={style.modalItem} onLayout={this.onOptionLayout}>
