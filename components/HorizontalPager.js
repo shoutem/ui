@@ -6,7 +6,6 @@ import React, {
 import {
   ScrollView,
   InteractionManager,
-  View as RNView,
 } from 'react-native';
 
 import _ from 'lodash';
@@ -15,6 +14,8 @@ import { connectStyle } from '@shoutem/theme';
 
 import { View } from './View';
 import { Spinner } from './Spinner';
+
+const MAX_INDICATOR_COUNT = 10;
 
 /**
  * Renders a horizontal pager which renders pages by using
@@ -42,8 +43,17 @@ class HorizontalPager extends Component {
     onIndexSelected: PropTypes.func,
     // Page margin, margin visible between pages, during swipe gesture.
     pageMargin: PropTypes.number,
-    // Callback function
+    // Callback function which renders single page
     renderPage: PropTypes.func,
+    // Callback function that can be used to override rendering of default page indicators
+    // Or boolean value to use default page indicators (true), or to disable rendering (false)
+    renderPageIndicators: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.bool,
+    ]),
+    // Callback function that can be used to override rendering of default Placeholder
+    // That appears when content is loading
+    renderPlaceholder: PropTypes.func,
     // Initially selected page in gallery
     selectedIndex: PropTypes.number,
     // Prop that forces enables or disables swiping
@@ -85,6 +95,8 @@ class HorizontalPager extends Component {
     this.renderContent = this.renderContent.bind(this);
     this.scrollToPage = this.scrollToPage.bind(this);
     this.calculateContainerWidth = this.calculateContainerWidth.bind(this);
+    this.renderPageIndicator = this.renderPageIndicator.bind(this);
+    this.renderPageIndicators = this.renderPageIndicators.bind(this);
   }
 
   componentDidMount() {
@@ -127,15 +139,15 @@ class HorizontalPager extends Component {
     }
   }
 
-  getSelectedIndex() {
-    const { selectedIndex } = this.state;
-
-    return selectedIndex;
-  }
-
   calculateContainerWidth() {
+    const { style } = this.props;
     const { width, pageMargin, showNextPage } = this.state;
-    return showNextPage ? (width - pageMargin) : (width + pageMargin);
+    // If `showNextPage` is `true` then container must have width narrower
+    // By `nextPageInsetSize`, to allow rendering of small portion of next page
+    // While keeping `pageMargin` intact between pages
+    // If `showNextPage` is `false`, then `nextPageInsetSize` doesn't matter,
+    // And we only use `pageMargin` for spacing between pages.
+    return showNextPage ? (width - style.nextPageInsetSize) : (width + pageMargin);
   }
 
   scrollToPage(page) {
@@ -174,32 +186,80 @@ class HorizontalPager extends Component {
     const { data, renderPage, style } = this.props;
     const pages = data.map((page, pageId) => {
       const lastPage = pageId === data.length - 1;
-      let containerWidth = this.calculateContainerWidth();
+      const containerWidth = this.calculateContainerWidth();
+      let pageWidth = width;
 
-      // If `showNextPage` is `true` then one page must have width narrower
-      // By nextPageInsetRatio*pageMargin.
-      // To allow rendering of small portion of next page
-      let pageWidth = showNextPage ? (width - (style.nextPageInsetRatio * pageMargin)) : width;
-
-      if (lastPage && showNextPage) {
-        // If page is last in collection, then it should populate whole container,
-        containerWidth = width;
-        pageWidth = width;
+      if (showNextPage && !lastPage) {
+        // If `showNextPage` is `true` then one page must have width narrower
+        // By pageMargin - nextPageInsetSize, to allow rendering of small portion of next page
+        // While keeping pageMargin intact between pages
+        pageWidth = width - pageMargin - style.nextPageInsetSize;
       }
 
       return (
-        <RNView
-          style={[style.page, { width: containerWidth }]}
+        <View
+          style={{ ...style.page, width: containerWidth }}
           key={pageId}
           renderToHardwareTextureAndroid
         >
-          <RNView style={[style.page, { width: pageWidth }]}>
+          <View style={{ ...style.page, width: pageWidth }}>
             {renderPage(page, pageId)}
-          </RNView>
-        </RNView>
+          </View>
+        </View>
       );
     });
     return pages;
+  }
+
+  renderPageIndicator(page, maxIndicatorsCount) {
+    const { style, data } = this.props;
+    const { selectedIndex } = this.state;
+
+    let resolvedStyle = style.pageIndicator;
+
+    if (selectedIndex === page) {
+      // If currently selected index matches index of page indicator that is rendered
+      // then we should apply different styling
+      resolvedStyle = { ...style.pageIndicator, ...style.selectedPageIndicator };
+    } else if (selectedIndex >= maxIndicatorsCount && page === (maxIndicatorsCount - 1)) {
+      // If currently selected index exceeds over number of indicators,
+      // we should treat last indicator as selected one
+      resolvedStyle = { ...style.pageIndicator, ...style.selectedPageIndicator };
+    }
+
+    return (
+      <View
+        style={style.pageIndicatorContainer}
+        key={`pageIndicator${page}`}
+      >
+        <View style={resolvedStyle} />
+      </View>
+    );
+  }
+
+  renderPageIndicators() {
+    const { renderPageIndicators, data, style } = this.props;
+    if (renderPageIndicators === false) {
+      // Do not render page indicators if user explicitly passes 'false'
+      return null;
+    } else if (_.isFunction(renderPageIndicators)) {
+      // If renderPageIndicator is callback, then user has overriden default render method
+      return renderPageIndicators();
+    }
+    // If neither, fallback to default page indicators.
+    const pageIndicators = [];
+    const maxIndicatorsCount = Math.min(data.length, MAX_INDICATOR_COUNT);
+
+    // We're allowing up to 10 page indicators
+    for (let i = 0; i < maxIndicatorsCount; i += 1) {
+      pageIndicators.push(this.renderPageIndicator(i, maxIndicatorsCount));
+    }
+
+    return (
+      <View style={style.pageIndicatorsContainer}>
+        {pageIndicators}
+      </View>
+    );
   }
 
   render() {
@@ -213,7 +273,7 @@ class HorizontalPager extends Component {
     }
 
     return (
-      <RNView
+      <View
         style={style.container}
         onLayout={this.onLayoutContainer}
       >
@@ -234,7 +294,8 @@ class HorizontalPager extends Component {
         >
           {this.renderContent()}
         </ScrollView>
-      </RNView>
+        {this.renderPageIndicators()}
+      </View>
     );
   }
 

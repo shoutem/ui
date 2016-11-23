@@ -7,6 +7,8 @@ import { INCLUDE, createVariations, createSharedStyle } from '@shoutem/theme';
 
 const window = Dimensions.get('window');
 
+const GALLERY_DOT_SIZE = 8;
+
 const Colors = {
   DARK: '#333333',
   DARKER: '#222222',
@@ -1186,7 +1188,30 @@ export default () => ({
       flex: 1,
       backgroundColor: 'transparent',
     },
-    nextPageInsetRatio: 2,
+    nextPageInsetSize: 20,
+    pageIndicatorsContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      bottom: 10,
+    },
+    pageIndicatorContainer: {
+      alignItems: 'center',
+    },
+    pageIndicator: {
+      width: GALLERY_DOT_SIZE,
+      height: GALLERY_DOT_SIZE,
+      borderRadius: GALLERY_DOT_SIZE / 2,
+      backgroundColor: Colors.BUTTON_UNDERLAY,
+      marginLeft: GALLERY_DOT_SIZE / 2,
+      marginRight: GALLERY_DOT_SIZE / 2,
+    },
+    selectedPageIndicator: {
+      backgroundColor: Colors.DARK,
+    },
   },
 
   //
@@ -1267,20 +1292,26 @@ export default () => ({
       'shoutem.ui.HorizontalPager': {
         'shoutem.ui.View': {
           'shoutem.ui.View': {
-            lightsOffTransparentAnimation(driver, { layout, options }) {
-              return {
-                backgroundColor: driver.value.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [
-                    Colors.LIGHT_GRAY,
-                    Colors.SHADOW,
-                  ],
-                }),
-                opacity: driver.value.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [1, 0],
-                }),
-              };
+            'shoutem.ui.View': {
+              'shoutem.ui.View': {
+                'shoutem.ui.View': {
+                  lightsOffTransparentAnimation(driver, { layout, options }) {
+                    return {
+                      backgroundColor: driver.value.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [
+                          Colors.LIGHT_GRAY,
+                          Colors.SHADOW,
+                        ],
+                      }),
+                      opacity: driver.value.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [1, 0],
+                      }),
+                    };
+                  },
+                },
+              },
             },
           },
         },

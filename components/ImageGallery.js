@@ -37,9 +37,10 @@ class ImageGallery extends Component {
     onIndexSelected: PropTypes.func,
     // Initially selected page in gallery
     selectedIndex: PropTypes.number,
-    // onModeChanged, callback function triggered when user taps on single photo
+    // onModeChanged(mode), callback function triggered when user taps on single photo
     // Or when user transforms (zooms etc.) image
     // Useful for hiding external controls (i.e. navigation bar)
+    // Mode can be `gallery` or `imagePreview`
     onModeChanged: PropTypes.func,
     // Style prop used to override default (theme) styling
     style: PropTypes.object,
@@ -64,12 +65,14 @@ class ImageGallery extends Component {
     this.resetCurrentImageTransformation = this.resetCurrentImageTransformation.bind(this);
     this.resetSurroundingImageTransformations = this.resetSurroundingImageTransformations.bind(this);
     this.getImageTransformer = this.getImageTransformer.bind(this);
-    this.updateImageTransformedStatus = this.updateImageTransformedStatus.bind(this);
+    this.updateImageSwitchingStatus = this.updateImageSwitchingStatus.bind(this);
+    this.setImagePreviewMode = this.setImagePreviewMode.bind(this);
+    this.setGalleryMode = this.setGalleryMode.bind(this);
     this.state = {
       selectedIndex: this.props.selectedIndex || 0,
       collapsed: true,
-      controlsVisible: true,
-      imageTransformed: true,
+      mode: 'gallery',
+      imageSwitchingEnabled: true,
       pageMargin: this.props.pageMargin || 0,
     };
   }
@@ -118,67 +121,78 @@ class ImageGallery extends Component {
     }
   }
 
-  updateImageTransformedStatus() {
-    const { imageTransformed, selectedIndex } = this.state;
-    const transformer = this.getImageTransformer(selectedIndex);
+  updateImageSwitchingStatus() {
+    const { imageSwitchingEnabled, selectedIndex } = this.state;
 
-    if (transformer) {
-      const space = transformer.getAvailableTranslateSpace();
+    const imageTransformer = this.getImageTransformer(selectedIndex);
+    if (!imageTransformer) {
+      return;
+    }
 
-      if (!space) {
-        return;
-      }
+    const translationSpace = imageTransformer.getAvailableTranslateSpace();
+    if (!translationSpace) {
+      return;
+    }
 
-      if ((space.right > 0 && space.left > 0) && imageTransformed) {
-        this.setState({ imageTransformed: false });
-      }
+    const imageBoundaryReached = (translationSpace.right <= 0 || translationSpace.left <= 0);
 
-      if ((space.right <= 0 || space.left <= 0) && !imageTransformed) {
-        this.setState({ imageTransformed: true });
-      }
+    if (imageSwitchingEnabled !== imageBoundaryReached) {
+      // We want to allow switching between gallery images only if
+      // the image is at its left of right boundary. This happens if the
+      // image is fully zoomed out, or if the image is zoomed in but the
+      // user moved it to one of its boundaries.
+      this.setState({
+        imageSwitchingEnabled: imageBoundaryReached,
+      });
     }
   }
 
-  onViewTransformed(event) {
-    const { controlsVisible } = this.state;
+  setImagePreviewMode() {
     const { onModeChanged } = this.props;
 
-    if (event.scale > 1.0 && controlsVisible) {
-      // If controls are visible and image is transformed,
-      // We should hide controls and trigger animation
+    if (_.isFunction(onModeChanged)) {
+      onModeChanged('imagePreview');
+    }
+
+    this.timingDriver.runTimer(1);
+    this.setState({ mode: 'imagePreview' });
+  }
+
+  setGalleryMode() {
+    const { onModeChanged } = this.props;
+
+    this.timingDriver.runTimer(0, () => {
       if (_.isFunction(onModeChanged)) {
-        onModeChanged(true);
+        onModeChanged('gallery');
       }
-      this.timingDriver.runTimer(1);
-      this.setState({ controlsVisible: false });
-    } else if (!controlsVisible) {
-      this.updateImageTransformedStatus();
+    });
+
+    this.setState({ mode: 'gallery' });
+  }
+
+  onViewTransformed(event) {
+    const { mode } = this.state;
+
+    if (event.scale > 1.0 && mode === 'gallery') {
+      // If controls are visible and image is transformed,
+      // We should switch to image preview mode
+      this.setImagePreviewMode();
+    } else if (mode === 'imagePreview') {
+      this.updateImageSwitchingStatus();
     }
   }
 
   onSingleTapConfirmed() {
-    const { controlsVisible } = this.state;
-    const { onModeChanged } = this.props;
+    const { mode } = this.state;
 
-    if (!controlsVisible) {
-      // If controls are not visible and user taps on image
-      // We should reset current image transformation (set scale to 1.0)
-      this.timingDriver.runTimer(0, () => {
-        if (_.isFunction(onModeChanged)) {
-          onModeChanged(false);
-        }
-      });
+    if (mode === 'imagePreview') {
+      // If controls are not visible and user taps on image, we should switch to
+      // Gallery mode and reset current image transformation (set scale to 1.0)
       this.resetCurrentImageTransformation();
+      this.setGalleryMode();
     } else {
-      if (_.isFunction(onModeChanged)) {
-        onModeChanged(true);
-      }
-      this.timingDriver.runTimer(1);
+      this.setImagePreviewMode();
     }
-    // And toggle visibility of controls
-    this.setState({
-      controlsVisible: !controlsVisible,
-    });
   }
 
   renderDescription(description) {
@@ -200,7 +214,6 @@ class ImageGallery extends Component {
 
     return (
       <View
-        renderToHardwareTextureAndroid
         style={style.fixedDescription}
         driver={this.timingDriver}
         animationName="lightsOffTransparent"
@@ -226,7 +239,6 @@ class ImageGallery extends Component {
 
     return (
       <View
-        renderToHardwareTextureAndroid
         style={style.fixedTitle}
         driver={this.timingDriver}
         animationName="lightsOffTransparent"
@@ -247,11 +259,15 @@ class ImageGallery extends Component {
     return null;
   }
 
+  resetImageTransformer(transformer) {
+    transformer.updateTransform({ scale: 1, translateX: 0, translateY: 0 });
+  }
+
   resetCurrentImageTransformation() {
     const { selectedIndex } = this.state;
     const transformer = this.getImageTransformer(selectedIndex);
     if (transformer) {
-      transformer.updateTransform({ scale: 1, translateX: 0, translateY: 0 });
+      this.resetImageTransformer(transformer);
     }
   }
 
@@ -259,17 +275,17 @@ class ImageGallery extends Component {
     const { selectedIndex } = this.state;
     let transformer = this.getImageTransformer(selectedIndex - 1);
     if (transformer) {
-      transformer.updateTransform({ scale: 1, translateX: 0, translateY: 0 });
+      this.resetImageTransformer(transformer);
     }
     transformer = this.getImageTransformer(selectedIndex + 1);
     if (transformer) {
-      transformer.updateTransform({ scale: 1, translateX: 0, translateY: 0 });
+      this.resetImageTransformer(transformer);
     }
   }
 
   renderPage(page, pageId) {
     const { style } = this.props;
-    const { imageTransformed } = this.state;
+    const { imageSwitchingEnabled } = this.state;
     const image = _.get(page, 'source.uri');
     const title = _.get(page, 'title');
     const description = _.get(page, 'description');
@@ -282,14 +298,13 @@ class ImageGallery extends Component {
       <View
         style={style.page}
         key={pageId}
-        renderToHardwareTextureAndroid
       >
         <Image
           source={{ uri: image }}
           style={{ flex: 1 }}
           onViewTransformed={this.onViewTransformed}
           onSingleTapConfirmed={this.onSingleTapConfirmed}
-          enableTranslate={!imageTransformed}
+          enableTranslate={!imageSwitchingEnabled}
           ref={((ref) => { this.imageRefs.set(pageId, ref); })}
         />
         { this.renderTitle(title) }
@@ -299,12 +314,11 @@ class ImageGallery extends Component {
   }
 
   render() {
-    const { data } = this.props;
-    const { imageTransformed, selectedIndex, pageMargin } = this.state;
+    const { data, renderPageIndicators } = this.props;
+    const { imageSwitchingEnabled, selectedIndex, pageMargin } = this.state;
 
     return (
       <View
-        renderToHardwareTextureAndroid
         styleName="flexible"
         driver={this.timingDriver}
         animationName="lightsOff"
@@ -314,10 +328,11 @@ class ImageGallery extends Component {
           onIndexSelected={this.onIndexSelected}
           selectedIndex={selectedIndex}
           renderPage={this.renderPage}
-          scrollEnabled={imageTransformed}
+          scrollEnabled={imageSwitchingEnabled}
           bounces
           pageMargin={pageMargin}
           showNextPage={false}
+          renderPageIndicators={false}
         />
       </View>
     );

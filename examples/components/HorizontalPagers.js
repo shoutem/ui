@@ -5,7 +5,6 @@ import {
   View,
   HorizontalPager,
   Tile,
-  Overlay,
   Icon,
   Image,
   Subtitle,
@@ -30,10 +29,8 @@ export function HorizontalPagers() {
                   styleName="large-wide"
                   source={{ uri: page.source.uri }}
                 >
-                  <Overlay styleName="fill-parent">
                   <Subtitle numberOfLines={2}>{page.title}</Subtitle>
                   <Caption>{page.description}</Caption>
-                  </Overlay>
                 </Image>
               </Tile>
             );
