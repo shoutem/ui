@@ -32,10 +32,9 @@ class DropDownMenu extends Component {
      */
     options: React.PropTypes.array.isRequired,
     /**
-     * Selected option, option to be shown.
-     * It is required but conditionally, handled in componentWillReceiveProps.
+     * Selected option that will be shown.
      */
-    selectedOption: React.PropTypes.any,
+    selectedOption: React.PropTypes.any.isRequired,
     /**
      * Key name that represents option's string value,
      * and it will be displayed to the user in the UI
@@ -76,31 +75,22 @@ class DropDownMenu extends Component {
     this.timingDriver = new TimingDriver();
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { options, selectedOption } = nextProps;
-    if (_.size(options) > 0 && _.indexOf(options, selectedOption) === -1) {
-      // If options are empty array, selectedOption does not have to be set.
+  getSelectedOption() {
+    const { options, selectedOption } = this.props;
+    if (_.indexOf(options, selectedOption) === -1) {
       console.warn(
         `Invalid \`selectedOption\` ${JSON.stringify(selectedOption)}, ` +
-        'DropDownMenu `selectedOption` must be member of `options`.' +
-        'If you have not set "options" item reference as "selectedOption", ' +
-        'but different (same value) reference, this warning will be thrown.'
+        'DropDownMenu `selectedOption` must be a member of `options`.' +
+        'Check that you are using the same reference in both `options` and `selectedOption`.'
       );
+      return;
     }
+    return selectedOption;
   }
 
   onOptionLayout(event) {
     const { height } = event.nativeEvent.layout;
     this.setState({ optionHeight: height });
-  }
-
-  getValue() {
-    const {
-      selectedOption,
-      valueProperty,
-    } = this.state;
-
-    return selectedOption[valueProperty];
   }
 
   collapse() {
@@ -142,8 +132,9 @@ class DropDownMenu extends Component {
   }
 
   renderSelectedOption() {
-    const { style, titleProperty, selectedOption } = this.props;
+    const { style, titleProperty } = this.props;
 
+    const selectedOption = this.getSelectedOption();
     return selectedOption ? (
       <Button onPress={this.collapse} style={style.selectedOption}>
         <Text>{selectedOption[titleProperty]}</Text>
@@ -188,11 +179,11 @@ class DropDownMenu extends Component {
     const { collapsed } = this.state;
     const { titleProperty, options, style } = this.props;
 
-    if (!options) {
+    const button = this.renderSelectedOption();
+    if (_.size(options) === 0 || !button) {
       return null;
     }
 
-    const button = this.renderSelectedOption();
     const listViewStyle = this.resolveListViewStyle();
     const dataSource = this.ds.cloneWithRows(options.filter((option) => option[titleProperty]));
 
