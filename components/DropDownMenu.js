@@ -66,6 +66,7 @@ class DropDownMenu extends Component {
     this.close = this.close.bind(this);
     this.emitOnOptionSelectedEvent = this.emitOnOptionSelectedEvent.bind(this);
     this.renderRow = this.renderRow.bind(this);
+    this.selectOption = this.selectOption.bind(this);
     this.onOptionLayout = this.onOptionLayout.bind(this);
     this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
   }
@@ -101,6 +102,13 @@ class DropDownMenu extends Component {
     this.setState({ collapsed: true });
     this.scrollDriver = new ScrollDriver();
     this.timingDriver.runTimer(1);
+  }
+
+  selectOption(option) {
+    this.close();
+    if (option !== this.props.selectedOption) {
+      this.emitOnOptionSelectedEvent(option);
+    }
   }
 
   close() {
@@ -150,10 +158,7 @@ class DropDownMenu extends Component {
     // start to fade in option when option is scrolled in
     const fadeInStart = optionPosition - (visibleOptions - 0.5) * optionHeight;
     const fadeInEnd = optionPosition - (visibleOptions - 1.5) * optionHeight;
-    const onPress = () => {
-      this.close();
-      this.emitOnOptionSelectedEvent(option);
-    };
+    const onPress = () => this.selectOption(option);
     return (
       <TouchableOpacity onPress={onPress} style={style.modalItem} onLayout={this.onOptionLayout}>
         <FadeOut
