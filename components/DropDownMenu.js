@@ -50,17 +50,17 @@ class DropDownMenu extends Component {
      */
     visibleOptions: React.PropTypes.number,
     style: React.PropTypes.object,
-  }
+  };
 
   static defaultProps = {
     visibleOptions: 8,
-  }
+  };
 
   constructor(props) {
     super(props);
     this.state = {
       optionHeight: 0,
-      selectedOption: props.selectedOption,
+      collapsed: false,
     };
     this.collapse = this.collapse.bind(this);
     this.close = this.close.bind(this);
@@ -190,7 +190,7 @@ class DropDownMenu extends Component {
       <View renderToHardwareTextureAndroid>
         {button}
         <Modal
-          visible={collapsed || false}
+          visible={collapsed}
           onRequestClose={this.close}
           transparent
         >
