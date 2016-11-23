@@ -81,8 +81,8 @@ class DropDownMenu extends Component {
     if (_.size(options) > 0 && _.indexOf(options, selectedOption) === -1) {
       // If options are empty array, selectedOption does not have to be set.
       console.warn(
-        `Invalid "selectedOption" ${JSON.stringify(selectedOption)}, ` +
-        'DropDownMenu "selectedOption" must be member of "options".' +
+        `Invalid \`selectedOption\` ${JSON.stringify(selectedOption)}, ` +
+        'DropDownMenu `selectedOption` must be member of `options`.' +
         'If you have not set "options" item reference as "selectedOption", ' +
         'but different (same value) reference, this warning will be thrown.'
       );
