@@ -1189,6 +1189,13 @@ export default () => ({
       backgroundColor: 'transparent',
     },
     nextPageInsetSize: 20,
+  },
+
+  //
+  // PageIndicators
+  //
+
+  'shoutem.ui.PageIndicators': {
     pageIndicatorsContainer: {
       flexDirection: 'row',
       alignItems: 'center',

@@ -14,8 +14,7 @@ import { connectStyle } from '@shoutem/theme';
 
 import { View } from './View';
 import { Spinner } from './Spinner';
-
-const MAX_INDICATOR_COUNT = 10;
+import { PageIndicators } from './PageIndicators';
 
 /**
  * Renders a horizontal pager which renders pages by using
@@ -45,12 +44,9 @@ class HorizontalPager extends Component {
     pageMargin: PropTypes.number,
     // Callback function which renders single page
     renderPage: PropTypes.func,
-    // Callback function that can be used to override rendering of default page indicators
-    // Or boolean value to use default page indicators (true), or to disable rendering (false)
-    renderPageIndicators: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.bool,
-    ]),
+    // Callback function that can be used to override rendering of overlay over pages
+    // Defaults to rendering of page indicators
+    renderOverlay: PropTypes.func,
     // Callback function that can be used to override rendering of default Placeholder
     // That appears when content is loading
     renderPlaceholder: PropTypes.func,
@@ -95,8 +91,7 @@ class HorizontalPager extends Component {
     this.renderContent = this.renderContent.bind(this);
     this.scrollToPage = this.scrollToPage.bind(this);
     this.calculateContainerWidth = this.calculateContainerWidth.bind(this);
-    this.renderPageIndicator = this.renderPageIndicator.bind(this);
-    this.renderPageIndicators = this.renderPageIndicators.bind(this);
+    this.renderOverlay = this.renderOverlay.bind(this);
   }
 
   componentDidMount() {
@@ -118,7 +113,7 @@ class HorizontalPager extends Component {
     const { initialSelectedIndex } = this.state;
 
     this.setState({ width }, () =>
-      this.scrollToPage(initialSelectedIndex)
+      this.scrollToPage(initialSelectedIndex),
     );
   }
 
@@ -211,54 +206,19 @@ class HorizontalPager extends Component {
     return pages;
   }
 
-  renderPageIndicator(page, maxIndicatorsCount) {
-    const { style, data } = this.props;
+  renderOverlay() {
+    const { renderOverlay, data } = this.props;
     const { selectedIndex } = this.state;
 
-    let resolvedStyle = style.pageIndicator;
-
-    if (selectedIndex === page) {
-      // If currently selected index matches index of page indicator that is rendered
-      // then we should apply different styling
-      resolvedStyle = { ...style.pageIndicator, ...style.selectedPageIndicator };
-    } else if (selectedIndex >= maxIndicatorsCount && page === (maxIndicatorsCount - 1)) {
-      // If currently selected index exceeds over number of indicators,
-      // we should treat last indicator as selected one
-      resolvedStyle = { ...style.pageIndicator, ...style.selectedPageIndicator };
+    if (_.isFunction(renderOverlay)) {
+      return renderOverlay(selectedIndex, data);
     }
 
     return (
-      <View
-        style={style.pageIndicatorContainer}
-        key={`pageIndicator${page}`}
-      >
-        <View style={resolvedStyle} />
-      </View>
-    );
-  }
-
-  renderPageIndicators() {
-    const { renderPageIndicators, data, style } = this.props;
-    if (renderPageIndicators === false) {
-      // Do not render page indicators if user explicitly passes 'false'
-      return null;
-    } else if (_.isFunction(renderPageIndicators)) {
-      // If renderPageIndicator is callback, then user has overriden default render method
-      return renderPageIndicators();
-    }
-    // If neither, fallback to default page indicators.
-    const pageIndicators = [];
-    const maxIndicatorsCount = Math.min(data.length, MAX_INDICATOR_COUNT);
-
-    // We're allowing up to 10 page indicators
-    for (let i = 0; i < maxIndicatorsCount; i += 1) {
-      pageIndicators.push(this.renderPageIndicator(i, maxIndicatorsCount));
-    }
-
-    return (
-      <View style={style.pageIndicatorsContainer}>
-        {pageIndicators}
-      </View>
+      <PageIndicators
+        count={data.length}
+        activeIndex={selectedIndex}
+      />
     );
   }
 
@@ -294,7 +254,7 @@ class HorizontalPager extends Component {
         >
           {this.renderContent()}
         </ScrollView>
-        {this.renderPageIndicators()}
+        {this.renderOverlay()}
       </View>
     );
   }

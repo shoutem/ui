@@ -44,8 +44,12 @@ class ImageGallery extends Component {
     onModeChanged: PropTypes.func,
     // Style prop used to override default (theme) styling
     style: PropTypes.object,
-    // pageMargin
+    // Margin between pages (visible only when swiping between pages)
+    // Defaults to 0
     pageMargin: PropTypes.number,
+    // showPageIndicators defines whether the page indicators will be rendered
+    // Defaults to false
+    showPageIndicators: PropTypes.bool,
   };
 
   timingDriver = new TimingDriver();
@@ -62,7 +66,6 @@ class ImageGallery extends Component {
     this.renderDescription = this.renderDescription.bind(this);
     this.onViewTransformed = this.onViewTransformed.bind(this);
     this.onSingleTapConfirmed = this.onSingleTapConfirmed.bind(this);
-    this.resetCurrentImageTransformation = this.resetCurrentImageTransformation.bind(this);
     this.resetSurroundingImageTransformations = this.resetSurroundingImageTransformations.bind(this);
     this.getImageTransformer = this.getImageTransformer.bind(this);
     this.updateImageSwitchingStatus = this.updateImageSwitchingStatus.bind(this);
@@ -150,24 +153,25 @@ class ImageGallery extends Component {
   setImagePreviewMode() {
     const { onModeChanged } = this.props;
 
-    if (_.isFunction(onModeChanged)) {
-      onModeChanged('imagePreview');
-    }
-
-    this.timingDriver.runTimer(1);
     this.setState({ mode: 'imagePreview' });
+
+    this.timingDriver.runTimer(1, () => {
+      if (_.isFunction(onModeChanged)) {
+        onModeChanged('imagePreview');
+      }
+    });
   }
 
   setGalleryMode() {
     const { onModeChanged } = this.props;
+
+    this.setState({ mode: 'gallery' });
 
     this.timingDriver.runTimer(0, () => {
       if (_.isFunction(onModeChanged)) {
         onModeChanged('gallery');
       }
     });
-
-    this.setState({ mode: 'gallery' });
   }
 
   onViewTransformed(event) {
@@ -186,9 +190,8 @@ class ImageGallery extends Component {
     const { mode } = this.state;
 
     if (mode === 'imagePreview') {
-      // If controls are not visible and user taps on image, we should switch to
-      // Gallery mode and reset current image transformation (set scale to 1.0)
-      this.resetCurrentImageTransformation();
+      // If controls are not visible and user taps on image
+      // We should switch to gallery mode
       this.setGalleryMode();
     } else {
       this.setImagePreviewMode();
@@ -263,14 +266,6 @@ class ImageGallery extends Component {
     transformer.updateTransform({ scale: 1, translateX: 0, translateY: 0 });
   }
 
-  resetCurrentImageTransformation() {
-    const { selectedIndex } = this.state;
-    const transformer = this.getImageTransformer(selectedIndex);
-    if (transformer) {
-      this.resetImageTransformer(transformer);
-    }
-  }
-
   resetSurroundingImageTransformations() {
     const { selectedIndex } = this.state;
     let transformer = this.getImageTransformer(selectedIndex - 1);
@@ -314,7 +309,7 @@ class ImageGallery extends Component {
   }
 
   render() {
-    const { data, renderPageIndicators } = this.props;
+    const { data, showPageIndicators } = this.props;
     const { imageSwitchingEnabled, selectedIndex, pageMargin } = this.state;
 
     return (
@@ -332,7 +327,7 @@ class ImageGallery extends Component {
           bounces
           pageMargin={pageMargin}
           showNextPage={false}
-          renderPageIndicators={false}
+          renderOverlay={showPageIndicators ? undefined : () => {}}
         />
       </View>
     );

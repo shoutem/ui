@@ -27,11 +27,15 @@ class InlineGallery extends Component {
     selectedIndex: PropTypes.number,
     // Style, applied to Image component
     style: PropTypes.object,
-    // PageMargin, defaults to `0`
+    // Margin between pages (visible only when swiping between pages)
+    // Defaults to 0
     pageMargin: PropTypes.number,
     // Prop that reduces page size by pageMargin, allowing 'sneak peak' of next page
     // Defaults to false
     showNextPage: PropTypes.bool,
+    // showPageIndicators defines whether the page indicators will be rendered
+    // Defaults to false
+    showPageIndicators: PropTypes.bool,
   };
 
   constructor(props) {
@@ -95,7 +99,7 @@ class InlineGallery extends Component {
   }
 
   render() {
-    const { data, selectedIndex } = this.props;
+    const { data, selectedIndex, showPageIndicators } = this.props;
     const { pageMargin, showNextPage } = this.state;
 
     return (
@@ -110,6 +114,7 @@ class InlineGallery extends Component {
           renderPage={this.renderPage}
           pageMargin={pageMargin}
           showNextPage={showNextPage}
+          renderOverlay={showPageIndicators ? undefined : () => {}}
         />
       </View>
     );
