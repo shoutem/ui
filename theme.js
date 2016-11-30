@@ -1147,6 +1147,11 @@ export default () => ({
       borderBottomColor: Colors.NAVIGATION_BAR_BORDER,
       borderBottomWidth: StyleSheet.hairlineWidth,
     },
+
+    statusBar: {
+      backgroundColor: 'rgba(0, 0, 0, 0.2)',
+      transluscent: true,
+    },
   },
   'shoutem.ui.navigation.CardStack': {
     cardStack: {},
