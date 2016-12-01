@@ -1246,8 +1246,8 @@ export default () => ({
   // ImageGallery
   //
 
-  imageGalleryAnimations: {
-    lightsOffTransparentAnimation(driver, { layout, options }) {
+  galleryOverlayAnimations: {
+    fadeOutAnimation(driver, { layout, options }) {
       return {
         backgroundColor: driver.value.interpolate({
           inputRange: [0, 1],
@@ -1262,25 +1262,24 @@ export default () => ({
         }),
       };
     },
-    lightsOffAnimation(driver, { layout, options }) {
-      return {
-        backgroundColor: driver.value.interpolate({
-          inputRange: [0, 1],
-          outputRange: [
-            Colors.LIGHT_GRAY,
-            Colors.IMAGE_PREVIEW_BACKGROUND,
-          ],
-        }),
-      };
-    },
   },
 
   'shoutem.ui.ImageGallery': {
     [INCLUDE]: ['guttersPadding'],
     pageMargin: 0,
     container: {
-      [INCLUDE]: ['imageGalleryAnimations'],
       flex: 1,
+      lightsOffAnimation(driver, { layout, options }) {
+        return {
+          backgroundColor: driver.value.interpolate({
+            inputRange: [0, 1],
+            outputRange: [
+              Colors.LIGHT_GRAY,
+              Colors.IMAGE_PREVIEW_BACKGROUND,
+            ],
+          }),
+        };
+      },
     },
     page: {
       flex: 1,
@@ -1290,7 +1289,7 @@ export default () => ({
     title: {
       container: {
         // Top position will most likely be 0 or 70
-        [INCLUDE]: ['imageGalleryAnimations'],
+        [INCLUDE]: ['galleryOverlayAnimations'],
         position: 'absolute',
         backgroundColor: Colors.LIGHT_GRAY,
         paddingTop: MEDIUM_GUTTER,
@@ -1307,7 +1306,7 @@ export default () => ({
     },
     description: {
       container: {
-        [INCLUDE]: ['imageGalleryAnimations'],
+        [INCLUDE]: ['galleryOverlayAnimations'],
         position: 'absolute',
         backgroundColor: Colors.LIGHT_GRAY,
         paddingTop: SMALL_GUTTER,

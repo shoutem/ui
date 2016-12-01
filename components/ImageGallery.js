@@ -232,7 +232,7 @@ class ImageGallery extends Component {
       <View
         style={style.description.container}
         driver={this.timingDriver}
-        animationName="lightsOffTransparent"
+        animationName="fadeOut"
       >
         <TouchableOpacity onPress={collapsed ? this.collapseDescription : this.expandDescription}>
           {description.length >= DESCRIPTION_LENGTH_TRIM_LIMIT ? descriptionIcon : null}
@@ -255,7 +255,7 @@ class ImageGallery extends Component {
       <View
         style={style.title.container}
         driver={this.timingDriver}
-        animationName="lightsOffTransparent"
+        animationName="fadeOut"
       >
         <Subtitle style={style.title.text} numberOfLines={2}>{title}</Subtitle>
       </View>
