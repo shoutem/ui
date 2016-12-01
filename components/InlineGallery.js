@@ -31,9 +31,13 @@ class InlineGallery extends Component {
     // Prop that reduces page size by pageMargin, allowing 'sneak peak' of next page
     // Defaults to false
     showNextPage: PropTypes.bool,
-    // Callback function that can be used to override rendering of overlay over pages
-    // Such as page indicators etc.
+    // Callback function that can be used to render overlay over pages
+    // For example page indicators using `PageIndicators` component
+    // renderOverlay(selectedIndex, data)
     renderOverlay: PropTypes.func,
+    // Callback function that can be used to define placeholder
+    // that appears when content is loading
+    renderPlaceholder: PropTypes.func,
   };
 
   static defaultProps = {

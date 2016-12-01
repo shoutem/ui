@@ -42,8 +42,9 @@ class HorizontalPager extends Component {
     pageMargin: PropTypes.number,
     // Callback function which renders single page
     renderPage: PropTypes.func,
-    // Callback function that can be used to override rendering of overlay over pages
-    // Defaults to rendering of page indicators
+    // Callback function that can be used to render overlay over pages
+    // For example page indicators using `PageIndicators` component
+    // renderOverlay(selectedIndex, data)
     renderOverlay: PropTypes.func,
     // Callback function that can be used to define placeholder
     // that appears when content is loading

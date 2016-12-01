@@ -17,7 +17,7 @@ class PageIndicators extends Component {
     // Count: number defining how many page indicators will be rendered
     count: PropTypes.number,
     // maxCount defining highest number of page indicators that can be rendered
-    // If `count` is higher than `maxIndicatorCount`, then `maxIndicatorCount` number of indicators
+    // If `count` is higher than `maxCount`, then `maxCount` number of indicators
     // will be rendered. Defaults to 10
     maxCount: PropTypes.number,
     // Style prop used to override default (theme) styling

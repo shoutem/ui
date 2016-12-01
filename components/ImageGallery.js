@@ -47,8 +47,9 @@ class ImageGallery extends Component {
     onModeChanged: PropTypes.func,
     // Style prop used to override default (theme) styling
     style: PropTypes.object,
-    // Callback function that can be used to override rendering of overlay over pages
-    // Defaults to rendering of page indicators
+    // Callback function that can be used to render overlay over pages
+    // For example page indicators using `PageIndicators` component
+    // renderOverlay(selectedIndex, data)
     renderOverlay: PropTypes.func,
     // Callback function that can be used to define placeholder
     // that appears when content is loading
