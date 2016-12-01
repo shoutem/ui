@@ -105,7 +105,7 @@ react-native run-android
 
 ## UI Toolkit
 
-Shoutem UI is a part of the Shoutem UI Toolkit that enables you to build professionally looking React Native apps with ease.
+Shoutem UI is a part of the [Shoutem UI Toolkit](https://shoutem.github.io/ui/) that enables you to build professional looking React Native apps with ease.
 
 It consists of three libraries:
 
