@@ -13,8 +13,6 @@ import _ from 'lodash';
 import { connectStyle } from '@shoutem/theme';
 
 import { View } from './View';
-import { Spinner } from './Spinner';
-import { PageIndicators } from './PageIndicators';
 
 /**
  * Renders a horizontal pager which renders pages by using
@@ -47,8 +45,8 @@ class HorizontalPager extends Component {
     // Callback function that can be used to override rendering of overlay over pages
     // Defaults to rendering of page indicators
     renderOverlay: PropTypes.func,
-    // Callback function that can be used to override rendering of default Placeholder
-    // That appears when content is loading
+    // Callback function that can be used to define placeholder
+    // that appears when content is loading
     renderPlaceholder: PropTypes.func,
     // Initially selected page in gallery
     selectedIndex: PropTypes.number,
@@ -64,15 +62,6 @@ class HorizontalPager extends Component {
     pageMargin: 0,
     selectedIndex: 0,
     showNextPage: false,
-    renderPlaceholder: () => {
-      return (
-        <View styleName="flexible vertical v-center">
-          <View styleName="horizontal h-center">
-            <Spinner />
-          </View>
-        </View>
-      );
-    },
   }
 
   constructor(props) {
@@ -196,8 +185,12 @@ class HorizontalPager extends Component {
           style={{ ...style.page, width: containerWidth }}
           key={pageId}
           renderToHardwareTextureAndroid
+          virtual
         >
-          <View style={{ ...style.page, width: pageWidth }}>
+          <View
+            virtual
+            style={{ ...style.page, width: pageWidth }}
+          >
             {renderPage(page, pageId)}
           </View>
         </View>
@@ -213,13 +206,6 @@ class HorizontalPager extends Component {
     if (_.isFunction(renderOverlay)) {
       return renderOverlay(selectedIndex, data);
     }
-
-    return (
-      <PageIndicators
-        count={data.length}
-        activeIndex={selectedIndex}
-      />
-    );
   }
 
   render() {
@@ -236,6 +222,7 @@ class HorizontalPager extends Component {
       <View
         style={style.container}
         onLayout={this.onLayoutContainer}
+        virtual
       >
         <ScrollView
           ref={(scroller) => { this.scroller = scroller; }}

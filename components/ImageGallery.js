@@ -17,8 +17,11 @@ import { Subtitle } from './Text';
 import { View } from './View';
 import { TouchableOpacity } from './TouchableOpacity';
 import { HorizontalPager } from './HorizontalPager';
+import { LoadingIndicator } from './LoadingIndicator';
 
 const DESCRIPTION_LENGTH_TRIM_LIMIT = 90;
+const IMAGE_PREVIEW_MODE = 'imagePreview';
+const IMAGE_GALLERY_MODE = 'gallery';
 
 class ImageGallery extends Component {
   static propTypes = {
@@ -44,13 +47,23 @@ class ImageGallery extends Component {
     onModeChanged: PropTypes.func,
     // Style prop used to override default (theme) styling
     style: PropTypes.object,
-    // Margin between pages (visible only when swiping between pages)
-    // Defaults to 0
-    pageMargin: PropTypes.number,
-    // showPageIndicators defines whether the page indicators will be rendered
-    // Defaults to false
-    showPageIndicators: PropTypes.bool,
+    // Callback function that can be used to override rendering of overlay over pages
+    // Defaults to rendering of page indicators
+    renderOverlay: PropTypes.func,
+    // Callback function that can be used to define placeholder
+    // that appears when content is loading
+    renderPlaceholder: PropTypes.func,
   };
+
+  static defaultProps = {
+    selectedIndex: 0,
+    showNextPage: false,
+    renderPlaceholder: () => {
+      return (
+        <LoadingIndicator />
+      );
+    },
+  }
 
   timingDriver = new TimingDriver();
   imageRefs = new Map();
@@ -74,9 +87,8 @@ class ImageGallery extends Component {
     this.state = {
       selectedIndex: this.props.selectedIndex || 0,
       collapsed: true,
-      mode: 'gallery',
+      mode: IMAGE_GALLERY_MODE,
       imageSwitchingEnabled: true,
-      pageMargin: this.props.pageMargin || 0,
     };
   }
 
@@ -153,11 +165,11 @@ class ImageGallery extends Component {
   setImagePreviewMode() {
     const { onModeChanged } = this.props;
 
-    this.setState({ mode: 'imagePreview' });
+    this.setState({ mode: IMAGE_PREVIEW_MODE });
 
     this.timingDriver.runTimer(1, () => {
       if (_.isFunction(onModeChanged)) {
-        onModeChanged('imagePreview');
+        onModeChanged(IMAGE_PREVIEW_MODE);
       }
     });
   }
@@ -165,11 +177,11 @@ class ImageGallery extends Component {
   setGalleryMode() {
     const { onModeChanged } = this.props;
 
-    this.setState({ mode: 'gallery' });
+    this.setState({ mode: IMAGE_GALLERY_MODE });
 
     this.timingDriver.runTimer(0, () => {
       if (_.isFunction(onModeChanged)) {
-        onModeChanged('gallery');
+        onModeChanged(IMAGE_GALLERY_MODE);
       }
     });
   }
@@ -177,11 +189,11 @@ class ImageGallery extends Component {
   onViewTransformed(event) {
     const { mode } = this.state;
 
-    if (event.scale > 1.0 && mode === 'gallery') {
+    if (event.scale > 1.0 && mode === IMAGE_GALLERY_MODE) {
       // If controls are visible and image is transformed,
       // We should switch to image preview mode
       this.setImagePreviewMode();
-    } else if (mode === 'imagePreview') {
+    } else if (mode === IMAGE_PREVIEW_MODE) {
       this.updateImageSwitchingStatus();
     }
   }
@@ -189,7 +201,7 @@ class ImageGallery extends Component {
   onSingleTapConfirmed() {
     const { mode } = this.state;
 
-    if (mode === 'imagePreview') {
+    if (mode === IMAGE_PREVIEW_MODE) {
       // If controls are not visible and user taps on image
       // We should switch to gallery mode
       this.setGalleryMode();
@@ -208,7 +220,7 @@ class ImageGallery extends Component {
 
     const descriptionText = (
       <Subtitle
-        style={style.description}
+        style={style.description.text}
         numberOfLines={collapsed ? 2 : null}
       >
         {description}
@@ -217,22 +229,20 @@ class ImageGallery extends Component {
 
     return (
       <View
-        style={style.fixedDescription}
+        style={style.description.container}
         driver={this.timingDriver}
         animationName="lightsOffTransparent"
       >
         <TouchableOpacity onPress={collapsed ? this.collapseDescription : this.expandDescription}>
           {description.length >= DESCRIPTION_LENGTH_TRIM_LIMIT ? descriptionIcon : null}
         </TouchableOpacity>
-        <View style={style.innerDescription}>
-          <ScrollView
-            onScroll={this.onDescriptionScroll}
-            scrollEventThrottle={200}
-            style={style.descriptionScroll}
-          >
-            {descriptionText}
-          </ScrollView>
-        </View>
+        <ScrollView
+          onScroll={this.onDescriptionScroll}
+          scrollEventThrottle={200}
+          style={style.description.scroll}
+        >
+          {descriptionText}
+        </ScrollView>
       </View>
     );
   }
@@ -242,11 +252,11 @@ class ImageGallery extends Component {
 
     return (
       <View
-        style={style.fixedTitle}
+        style={style.title.container}
         driver={this.timingDriver}
         animationName="lightsOffTransparent"
       >
-        <Subtitle style={style.title} numberOfLines={2}>{title}</Subtitle>
+        <Subtitle style={style.title.text} numberOfLines={2}>{title}</Subtitle>
       </View>
     );
   }
@@ -309,8 +319,8 @@ class ImageGallery extends Component {
   }
 
   render() {
-    const { data, showPageIndicators } = this.props;
-    const { imageSwitchingEnabled, selectedIndex, pageMargin } = this.state;
+    const { data, renderOverlay, renderPlaceholder, style } = this.props;
+    const { imageSwitchingEnabled, selectedIndex } = this.state;
 
     return (
       <View
@@ -325,9 +335,10 @@ class ImageGallery extends Component {
           renderPage={this.renderPage}
           scrollEnabled={imageSwitchingEnabled}
           bounces
-          pageMargin={pageMargin}
+          pageMargin={style.pageMargin}
           showNextPage={false}
-          renderOverlay={showPageIndicators ? undefined : () => {}}
+          renderOverlay={renderOverlay}
+          renderPlaceholder={renderPlaceholder}
         />
       </View>
     );

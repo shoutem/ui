@@ -7,6 +7,7 @@ import { View } from './View';
 import { TouchableOpacity } from './TouchableOpacity';
 import { Image } from './Image';
 import { HorizontalPager } from './HorizontalPager';
+import { LoadingIndicator } from './LoadingIndicator';
 
 class InlineGallery extends Component {
   static propTypes = {
@@ -27,16 +28,21 @@ class InlineGallery extends Component {
     selectedIndex: PropTypes.number,
     // Style, applied to Image component
     style: PropTypes.object,
-    // Margin between pages (visible only when swiping between pages)
-    // Defaults to 0
-    pageMargin: PropTypes.number,
     // Prop that reduces page size by pageMargin, allowing 'sneak peak' of next page
     // Defaults to false
     showNextPage: PropTypes.bool,
-    // showPageIndicators defines whether the page indicators will be rendered
-    // Defaults to false
-    showPageIndicators: PropTypes.bool,
+    // Callback function that can be used to override rendering of overlay over pages
+    // Such as page indicators etc.
+    renderOverlay: PropTypes.func,
   };
+
+  static defaultProps = {
+    renderPlaceholder: () => {
+      return (
+        <LoadingIndicator />
+      );
+    },
+  }
 
   constructor(props) {
     super(props);
@@ -45,7 +51,6 @@ class InlineGallery extends Component {
     this.onIndexSelected = this.onIndexSelected.bind(this);
     this.state = {
       selectedIndex: 0,
-      pageMargin: this.props.pageMargin || 0,
       showNextPage: this.props.showNextPage || false,
     };
   }
@@ -82,12 +87,15 @@ class InlineGallery extends Component {
       return;
     }
 
+    const resolvedStyle = { ...style };
+    delete resolvedStyle.pageMargin;
+
     return (
       <TouchableOpacity
         onPress={this.onPress}
         key={id}
       >
-        <View style={style}>
+        <View style={resolvedStyle}>
           <Image
             source={{ uri: source }}
             style={{ flex: 1 }}
@@ -99,8 +107,8 @@ class InlineGallery extends Component {
   }
 
   render() {
-    const { data, selectedIndex, showPageIndicators } = this.props;
-    const { pageMargin, showNextPage } = this.state;
+    const { data, selectedIndex, renderOverlay, renderPlaceholder, style } = this.props;
+    const { showNextPage } = this.state;
 
     return (
       <View
@@ -112,9 +120,10 @@ class InlineGallery extends Component {
           onIndexSelected={this.onIndexSelected}
           selectedIndex={selectedIndex}
           renderPage={this.renderPage}
-          pageMargin={pageMargin}
+          pageMargin={style.pageMargin}
           showNextPage={showNextPage}
-          renderOverlay={showPageIndicators ? undefined : () => {}}
+          renderOverlay={renderOverlay}
+          renderPlaceholder={renderPlaceholder}
         />
       </View>
     );

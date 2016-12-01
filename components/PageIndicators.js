@@ -16,16 +16,16 @@ class PageIndicators extends Component {
     activeIndex: PropTypes.number,
     // Count: number defining how many page indicators will be rendered
     count: PropTypes.number,
-    // maxIndicatorCount defining highest number of page indicators that can be rendered
+    // maxCount defining highest number of page indicators that can be rendered
     // If `count` is higher than `maxIndicatorCount`, then `maxIndicatorCount` number of indicators
     // will be rendered. Defaults to 10
-    maxIndicatorCount: PropTypes.number,
+    maxCount: PropTypes.number,
     // Style prop used to override default (theme) styling
     style: PropTypes.object,
   };
 
   static defaultProps = {
-    maxIndicatorCount: 10,
+    maxCount: 10,
   }
 
   constructor(props) {
@@ -33,44 +33,42 @@ class PageIndicators extends Component {
     this.renderPageIndicator = this.renderPageIndicator.bind(this);
   }
 
-  renderPageIndicator(page, maxIndicatorsCount) {
-    const { style, activeIndex } = this.props;
-
-    let resolvedStyle = style.pageIndicator;
-
-    if (activeIndex === page) {
-      // If currently selected index matches index of page indicator that is rendered
-      // then we should apply different styling
-      resolvedStyle = { ...style.pageIndicator, ...style.selectedPageIndicator };
-    } else if (activeIndex >= maxIndicatorsCount && page === (maxIndicatorsCount - 1)) {
-      // If currently selected index exceeds over number of indicators,
-      // we should treat last indicator as selected one
-      resolvedStyle = { ...style.pageIndicator, ...style.selectedPageIndicator };
-    }
-
+  renderPageIndicator(index, count, activeIndex, indicatorStyle) {
+    const { style } = this.props;
     return (
       <View
-        style={style.pageIndicatorContainer}
-        key={`pageIndicator${page}`}
+        style={style.indicatorContainer}
+        key={`pageIndicator${index}`}
       >
-        <View style={resolvedStyle} />
+        <View styleName={indicatorStyle} />
       </View>
     );
   }
 
   render() {
-    const { style, count, maxIndicatorCount } = this.props;
+    const { style, count, maxCount, activeIndex } = this.props;
 
     const pageIndicators = [];
-    const maxIndicatorsCount = Math.min(count, maxIndicatorCount);
+    const maxIndicatorsCount = Math.min(count, maxCount);
 
-    // We're allowing up to 10 page indicators
     for (let i = 0; i < maxIndicatorsCount; i += 1) {
-      pageIndicators.push(this.renderPageIndicator(i, maxIndicatorsCount));
+      let indicatorStyle = '';
+
+      if (activeIndex === i) {
+        // If currently selected index matches index of page indicator that is rendered
+        // then we should apply different styling
+        indicatorStyle = 'selected';
+      } else if (activeIndex >= i && (maxIndicatorsCount - 1) === i) {
+        // If currently selected index exceeds over number of indicators,
+        // we should treat last indicator as selected one
+        indicatorStyle = 'selected';
+      }
+
+      pageIndicators.push(this.renderPageIndicator(i, maxIndicatorsCount, activeIndex, indicatorStyle));
     }
 
     return (
-      <View style={style.pageIndicatorsContainer}>
+      <View style={style.container}>
         {pageIndicators}
       </View>
     );
