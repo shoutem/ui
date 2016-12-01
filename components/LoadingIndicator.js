@@ -10,7 +10,6 @@ import { Spinner } from './Spinner';
 /**
  * Renders a loading indicator (spinner) that fits into available space (container)
  */
-
 class LoadingIndicator extends Component {
   render() {
     return (
@@ -23,7 +22,7 @@ class LoadingIndicator extends Component {
   }
 }
 
-const StyledLoadingIndicator = connectStyle('shoutem.ui.LoadingIndicator', {})(LoadingIndicator);
+const StyledLoadingIndicator = connectStyle('shoutem.ui.LoadingIndicator')(LoadingIndicator);
 
 export {
   StyledLoadingIndicator as LoadingIndicator,

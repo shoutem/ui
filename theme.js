@@ -1245,9 +1245,43 @@ export default () => ({
   //
   // ImageGallery
   //
+
+  imageGalleryAnimations: {
+    lightsOffTransparentAnimation(driver, { layout, options }) {
+      return {
+        backgroundColor: driver.value.interpolate({
+          inputRange: [0, 1],
+          outputRange: [
+            Colors.LIGHT_GRAY,
+            Colors.IMAGE_PREVIEW_BACKGROUND,
+          ],
+        }),
+        opacity: driver.value.interpolate({
+          inputRange: [0, 1],
+          outputRange: [1, 0],
+        }),
+      };
+    },
+    lightsOffAnimation(driver, { layout, options }) {
+      return {
+        backgroundColor: driver.value.interpolate({
+          inputRange: [0, 1],
+          outputRange: [
+            Colors.LIGHT_GRAY,
+            Colors.IMAGE_PREVIEW_BACKGROUND,
+          ],
+        }),
+      };
+    },
+  },
+
   'shoutem.ui.ImageGallery': {
     [INCLUDE]: ['guttersPadding'],
     pageMargin: 0,
+    container: {
+      [INCLUDE]: ['imageGalleryAnimations'],
+      flex: 1,
+    },
     page: {
       flex: 1,
       justifyContent: 'center',
@@ -1256,6 +1290,7 @@ export default () => ({
     title: {
       container: {
         // Top position will most likely be 0 or 70
+        [INCLUDE]: ['imageGalleryAnimations'],
         position: 'absolute',
         backgroundColor: Colors.LIGHT_GRAY,
         paddingTop: MEDIUM_GUTTER,
@@ -1268,10 +1303,11 @@ export default () => ({
       text: {
         color: Colors.DARK,
         textAlign: 'center',
-      }
+      },
     },
     description: {
       container: {
+        [INCLUDE]: ['imageGalleryAnimations'],
         position: 'absolute',
         backgroundColor: Colors.LIGHT_GRAY,
         paddingTop: SMALL_GUTTER,
@@ -1288,40 +1324,5 @@ export default () => ({
         textAlign: 'center',
       },
     },
-    'shoutem.ui.View': {
-      lightsOffAnimation(driver, { layout, options }) {
-        return {
-          backgroundColor: driver.value.interpolate({
-            inputRange: [0, 1],
-            outputRange: [
-              Colors.LIGHT_GRAY,
-              Colors.IMAGE_PREVIEW_BACKGROUND,
-            ],
-          }),
-        };
-      },
-      'shoutem.ui.HorizontalPager': {
-        'shoutem.ui.View': {
-          'shoutem.ui.View': {
-            lightsOffTransparentAnimation(driver, { layout, options }) {
-              return {
-                backgroundColor: driver.value.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [
-                    Colors.LIGHT_GRAY,
-                    Colors.IMAGE_PREVIEW_BACKGROUND,
-                  ],
-                }),
-                opacity: driver.value.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [1, 0],
-                }),
-              };
-            },
-          },
-        },
-      },
-    },
   },
-
 });

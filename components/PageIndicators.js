@@ -9,7 +9,6 @@ import { View } from './View';
 /**
  * Renders Page indicators (dots)
  */
-
 class PageIndicators extends Component {
   static propTypes = {
     // ActiveIndex: number defining which page indicator will be rendered as active (selected)
@@ -76,7 +75,7 @@ class PageIndicators extends Component {
 
 }
 
-const StyledPageIndicators = connectStyle('shoutem.ui.PageIndicators', {})(PageIndicators);
+const StyledPageIndicators = connectStyle('shoutem.ui.PageIndicators')(PageIndicators);
 
 export {
   StyledPageIndicators as PageIndicators,

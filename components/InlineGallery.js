@@ -134,7 +134,7 @@ class InlineGallery extends Component {
   }
 }
 
-const StyledInlineGallery = connectStyle('shoutem.ui.InlineGallery', {})(InlineGallery);
+const StyledInlineGallery = connectStyle('shoutem.ui.InlineGallery')(InlineGallery);
 
 export {
   StyledInlineGallery as InlineGallery,

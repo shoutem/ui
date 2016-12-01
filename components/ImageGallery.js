@@ -325,7 +325,7 @@ class ImageGallery extends Component {
 
     return (
       <View
-        styleName="flexible"
+        style={style.container}
         driver={this.timingDriver}
         animationName="lightsOff"
       >
@@ -346,7 +346,7 @@ class ImageGallery extends Component {
   }
 }
 
-const StyledImageGallery = connectStyle('shoutem.ui.ImageGallery', {})(ImageGallery);
+const StyledImageGallery = connectStyle('shoutem.ui.ImageGallery')(ImageGallery);
 
 export {
   StyledImageGallery as ImageGallery,

@@ -25,7 +25,6 @@ import { View } from './View';
  * ScrollView and ViewPagerAndroid for this matter.
  *
  */
-
 class HorizontalPager extends Component {
   static propTypes = {
     // Prop defining whether the Pager will bounce back
@@ -249,7 +248,7 @@ class HorizontalPager extends Component {
 
 }
 
-const StyledHorizontalPager = connectStyle('shoutem.ui.HorizontalPager', {})(HorizontalPager);
+const StyledHorizontalPager = connectStyle('shoutem.ui.HorizontalPager')(HorizontalPager);
 
 export {
   StyledHorizontalPager as HorizontalPager,
