@@ -30,7 +30,7 @@ class NavigationBar extends Component {
 
   static contextTypes = {
     animationDriver: DriverShape,
-    scene: React.PropTypes.object.isRequired,
+    getScene: React.PropTypes.func.isRequired,
     setNextNavBarProps: React.PropTypes.func.isRequired,
     clearNavBarProps: React.PropTypes.func.isRequired,
   };
@@ -51,12 +51,14 @@ class NavigationBar extends Component {
 
   componentWillUnmount() {
     // The parent screen is being unmounted, we can cleanup now
-    const { scene, clearNavBarProps } = this.context;
+    const { getScene, clearNavBarProps } = this.context;
+    const scene = getScene();
     clearNavBarProps(scene.route);
   }
 
   setNextNavBarProps(props) {
-    const { scene, animationDriver, setNextNavBarProps } = this.context;
+    const { getScene, animationDriver, setNextNavBarProps } = this.context;
+    const scene = getScene();
     setNextNavBarProps(scene.route, {
       driver: animationDriver,
       ...props,
