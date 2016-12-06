@@ -55,6 +55,7 @@ export class Examples extends Component {
         <DropDownMenu
           styleName="horizontal"
           options={examples}
+          selectedOption={this.state.selectedExample}
           onOptionSelected={(example) => this.setState({ selectedExample: example })}
           titleProperty="title"
           valueProperty="component"

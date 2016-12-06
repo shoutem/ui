@@ -1,12 +1,13 @@
 import { combineReducers } from 'redux';
 import * as NavigationStateUtils from 'NavigationStateUtils';
 
-import { NAV_PUSH, NAV_POP, NAV_JUMP_TO_KEY, NAV_JUMP_TO_INDEX, NAV_RESET } from './actions';
+const NAV_PUSH = 'NAV_PUSH';
+const NAV_POP = 'NAV_POP';
 
 const initialNavState = {
   index: 0,
   routes: [
-    { key: 'RestaurantsList', title: 'Restaurants' },
+    { key: 'RestaurantsList' },
   ],
 };
 
@@ -20,26 +21,27 @@ function navigationState(state = initialNavState, action) {
       if (state.index === 0 || state.routes.length === 1) return state;
       return NavigationStateUtils.pop(state);
 
-    case NAV_JUMP_TO_KEY:
-      return NavigationStateUtils.jumpTo(state, action.key);
-
-    case NAV_JUMP_TO_INDEX:
-      return NavigationStateUtils.jumpToIndex(state, action.index);
-
-    case NAV_RESET:
-      return {
-        ...state,
-        index: action.index,
-        routes: action.routes,
-      };
-
     default:
       return state;
   }
 }
 
-const appReducers = combineReducers({
+export default combineReducers({
   navigationState,
 });
 
-export default appReducers;
+export function navigatePush(route, props) {
+  return {
+    type: NAV_PUSH,
+    state: {
+      ...route,
+      props,
+    },
+  };
+}
+
+export function navigatePop() {
+  return {
+    type: NAV_POP,
+  };
+}

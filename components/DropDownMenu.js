@@ -1,7 +1,8 @@
 import React, {
   Component,
 } from 'react';
-import { Modal, ListView } from 'react-native';
+import { Modal, ListView, } from 'react-native';
+import _ from 'lodash';
 
 import { Button } from './Button';
 import { Icon } from './Icon';
@@ -19,8 +20,6 @@ import {
   ZoomOut,
 } from '@shoutem/animation';
 
-import _ from 'lodash';
-
 class DropDownMenu extends Component {
   static propTypes = {
     /**
@@ -32,9 +31,9 @@ class DropDownMenu extends Component {
      */
     options: React.PropTypes.array.isRequired,
     /**
-     * Initially selected option
+     * Selected option that will be shown.
      */
-    selectedOption: React.PropTypes.any,
+    selectedOption: React.PropTypes.any.isRequired,
     /**
      * Key name that represents option's string value,
      * and it will be displayed to the user in the UI
@@ -49,78 +48,48 @@ class DropDownMenu extends Component {
      */
     visibleOptions: React.PropTypes.number,
     style: React.PropTypes.object,
-  }
+  };
 
   static defaultProps = {
     visibleOptions: 8,
-  }
+  };
 
   constructor(props) {
     super(props);
     this.state = {
       optionHeight: 0,
-      selectedOption: props.selectedOption,
+      collapsed: false,
     };
     this.collapse = this.collapse.bind(this);
     this.close = this.close.bind(this);
     this.emitOnOptionSelectedEvent = this.emitOnOptionSelectedEvent.bind(this);
     this.renderRow = this.renderRow.bind(this);
+    this.selectOption = this.selectOption.bind(this);
     this.onOptionLayout = this.onOptionLayout.bind(this);
     this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
   }
 
   componentWillMount() {
-    this.autoSelect(this.props.options);
     this.scrollDriver = new ScrollDriver();
     this.timingDriver = new TimingDriver();
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { selectedOption } = this.state;
-    if (selectedOption !== nextProps.selectedOption && nextProps.selectedOption) {
-      // Select the option when the selectedOption prop changes
-      this.selectOption(nextProps.selectedOption);
-    } else if (!selectedOption || nextProps.options !== this.props.options) {
-      // Automatically select the first option if there is no selected option
-      // or when options change
-      this.autoSelect(nextProps.options);
+  getSelectedOption() {
+    const { options, selectedOption } = this.props;
+    if (_.indexOf(options, selectedOption) === -1) {
+      console.warn(
+        `Invalid \`selectedOption\` ${JSON.stringify(selectedOption)}, ` +
+        'DropDownMenu `selectedOption` must be a member of `options`.' +
+        'Check that you are using the same reference in both `options` and `selectedOption`.'
+      );
+      return;
     }
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return (nextProps.options !== this.props.options) ||
-      (nextState !== this.state);
+    return selectedOption;
   }
 
   onOptionLayout(event) {
     const { height } = event.nativeEvent.layout;
     this.setState({ optionHeight: height });
-  }
-
-  getValue() {
-    const {
-      selectedOption,
-      valueProperty,
-    } = this.state;
-
-    return selectedOption[valueProperty];
-  }
-
-  getSelectedOption() {
-    return this.state.selectedOption;
-  }
-
-  selectOption(option) {
-    this.setState({ selectedOption: option }, this.emitOnOptionSelectedEvent);
-  }
-
-  /**
-   * Selects the first option by default.
-   */
-  autoSelect(options = []) {
-    if (_.size(options) > 0) {
-      this.selectOption(options[0]);
-    }
   }
 
   collapse() {
@@ -129,20 +98,26 @@ class DropDownMenu extends Component {
     this.timingDriver.runTimer(1);
   }
 
+  selectOption(option) {
+    this.close();
+    if (option !== this.props.selectedOption) {
+      this.emitOnOptionSelectedEvent(option);
+    }
+  }
+
   close() {
     this.timingDriver.runTimer(0, () => this.setState({ collapsed: false }));
   }
 
-  emitOnOptionSelectedEvent() {
+  emitOnOptionSelectedEvent(option) {
     if (this.props.onOptionSelected) {
-      this.props.onOptionSelected(this.state.selectedOption);
+      this.props.onOptionSelected(option);
     }
   }
 
   resolveListViewStyle() {
     const listViewHeight = this.calculateListViewHeight();
-
-    return { flex: 0, height: listViewHeight };
+    return { flex: 0, maxHeight: listViewHeight };
   }
 
   calculateListViewHeight() {
@@ -156,8 +131,8 @@ class DropDownMenu extends Component {
 
   renderSelectedOption() {
     const { style, titleProperty } = this.props;
-    const { selectedOption } = this.state;
 
+    const selectedOption = this.getSelectedOption();
     return selectedOption ? (
       <Button onPress={this.collapse} style={style.selectedOption}>
         <Text>{selectedOption[titleProperty]}</Text>
@@ -177,10 +152,7 @@ class DropDownMenu extends Component {
     // start to fade in option when option is scrolled in
     const fadeInStart = optionPosition - (visibleOptions - 0.5) * optionHeight;
     const fadeInEnd = optionPosition - (visibleOptions - 1.5) * optionHeight;
-    const onPress = () => {
-      this.close();
-      this.selectOption(option);
-    };
+    const onPress = () => this.selectOption(option);
     return (
       <TouchableOpacity onPress={onPress} style={style.modalItem} onLayout={this.onOptionLayout}>
         <FadeOut
@@ -205,11 +177,11 @@ class DropDownMenu extends Component {
     const { collapsed } = this.state;
     const { titleProperty, options, style } = this.props;
 
-    if (!options) {
+    const button = this.renderSelectedOption();
+    if (_.size(options) === 0 || !button) {
       return null;
     }
 
-    const button = this.renderSelectedOption();
     const listViewStyle = this.resolveListViewStyle();
     const dataSource = this.ds.cloneWithRows(options.filter((option) => option[titleProperty]));
 
@@ -217,7 +189,7 @@ class DropDownMenu extends Component {
       <View renderToHardwareTextureAndroid>
         {button}
         <Modal
-          visible={collapsed || false}
+          visible={collapsed}
           onRequestClose={this.close}
           transparent
         >
