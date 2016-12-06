@@ -14,7 +14,7 @@ const linkCommands = nativeDependencies.map(dependency => `react-native link ${d
 
 console.log('[@shoutem/ui] - linking native dependencies');
 
-const linkingProcess = execSync(linkCommands.join(' && '), (error, stdout, stderr) => {
+execSync(linkCommands.join(' && '), (error, stdout, stderr) => {
   console.log(stdout);
   console.log(stderr);
   if (error !== null) {
@@ -23,6 +23,3 @@ const linkingProcess = execSync(linkCommands.join(' && '), (error, stdout, stder
   }
   console.log('[@shoutem/ui] - native dependencies linked');
 });
-
-linkingProcess.stdout.pipe(process.stdout);
-linkingProcess.stderr.pipe(process.stderr);
