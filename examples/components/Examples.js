@@ -45,9 +45,11 @@ export class Examples extends Component {
     const SelectedComponent = selectedExample.component;
     return (
       <Screen>
+        <Divider />
         <DropDownMenu
           styleName="horizontal"
           options={examples}
+          selectedOption={this.state.selectedExample}
           onOptionSelected={(example) => this.setState({ selectedExample: example })}
           titleProperty="title"
           valueProperty="component"

@@ -1,7 +1,8 @@
 import React, {
   Component,
 } from 'react';
-import { Modal, ListView } from 'react-native';
+import { Modal, ListView, } from 'react-native';
+import _ from 'lodash';
 
 import { Button } from './Button';
 import { Icon } from './Icon';
@@ -18,8 +19,6 @@ import {
   FadeOut,
   ZoomOut,
 } from '@shoutem/animation';
-
-import _ from 'lodash';
 
 class DropDownMenu extends Component {
   static propTypes = {
@@ -118,8 +117,7 @@ class DropDownMenu extends Component {
 
   resolveListViewStyle() {
     const listViewHeight = this.calculateListViewHeight();
-
-    return { flex: 0, height: listViewHeight };
+    return { flex: 0, maxHeight: listViewHeight };
   }
 
   calculateListViewHeight() {
