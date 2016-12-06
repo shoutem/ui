@@ -1,6 +1,6 @@
 'use strict';
 
-const exec = require('child_process').exec;
+const execSync = require('child_process').execSync;
 const process = require('process');
 
 // TODO (Ivan): Read native dependencies from package.json
@@ -14,7 +14,7 @@ const linkCommands = nativeDependencies.map(dependency => `react-native link ${d
 
 console.log('[@shoutem/ui] - linking native dependencies');
 
-const linkingProcess = exec(linkCommands.join(' && '), (error, stdout, stderr) => {
+const linkingProcess = execSync(linkCommands.join(' && '), (error, stdout, stderr) => {
   console.log(stdout);
   console.log(stderr);
   if (error !== null) {
