@@ -3,11 +3,11 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 
-import reducers from './app/navigation/reducers';
+import reducer from './app/redux';
 import App from './app/App';
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
-const store = createStoreWithMiddleware(reducers);
+const store = createStoreWithMiddleware(reducer);
 
 export default class Root extends Component {
   render() {

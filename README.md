@@ -26,24 +26,16 @@ To see how Shoutem UI works, you can:
 project](https://github.com/exponentjs/shoutem-example/blob/master/main.js)
 for example usage. Otherwise, follow the steps below.**
 
-Create new React Native project:
+Create new React Native project and locate to it:
 
 ```bash
-$ react-native init HelloWorld
+$ react-native init HelloWorld && cd HelloWorld
 ```
 
-Locate to project and install `@shoutem/ui` in your project:
+Install `@shoutem/ui` in your project:
 
 ```bash
-$ cd HelloWorld
-$ npm install --save @shoutem/ui
-```
-
-Run `react-native` to link fonts that the toolkit is using (skip this if
-you are using Exponent):
-
-```bash
-$ react-native link
+$ react-native install @shoutem/ui
 ```
 
 Now, simply copy the following to your `index.ios.js` files of the React Native project:
@@ -105,7 +97,7 @@ react-native run-android
 
 ## UI Toolkit
 
-Shoutem UI is a part of the Shoutem UI Toolkit that enables you to build professionally looking React Native apps with ease.
+Shoutem UI is a part of the [Shoutem UI Toolkit](https://shoutem.github.io/ui/) that enables you to build professional looking React Native apps with ease.
 
 It consists of three libraries:
 
