@@ -1,10 +1,10 @@
 {
   "name": "@shoutem/ui",
-  "version": "0.10.0-beta.1",
+  "version": "0.10.0-rc.6",
   "description": "Styleable set of components for React Native applications",
   "dependencies": {
-    "@shoutem/animation": "^0.8.6",
-    "@shoutem/theme": "^0.8.5",
+    "@shoutem/animation": "^0.8.10",
+    "@shoutem/theme": "^0.8.8",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "buffer": "^4.5.1",
     "events": "1.1.0",
