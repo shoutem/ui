@@ -36,7 +36,6 @@ export { HorizontalPager } from './components/HorizontalPager';
 export { LoadingIndicator } from './components/LoadingIndicator';
 export { PageIndicators } from './components/PageIndicators';
 export { RichMedia } from './components/RichMedia';
-export { MapView, InlineMap } from './components/Map/';
 
 export {
   Heading,

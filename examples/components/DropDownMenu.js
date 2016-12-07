@@ -30,6 +30,7 @@ const options = [
 
 export class DropDownMenus extends Component {
   constructor() {
+    super();
     this.state = {
       selectedOption: options[0],
     }
