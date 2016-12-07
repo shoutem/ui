@@ -7,7 +7,6 @@ const process = require('process');
 const nativeDependencies = [
   'react-native-vector-icons',
   'react-native-share',
-  'react-native-maps'
 ];
 
 const linkCommands = nativeDependencies.map(dependency => `react-native link ${dependency}`);
