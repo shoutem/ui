@@ -6,7 +6,7 @@ Shoutem UI is a set of styleable components that enables you to build beautiful 
 
 ```
 $ npm install --save @shoutem/ui
-$ rnpm link
+$ react-native link # No need to run this with Exponent
 ```
 
 ## Docs
@@ -22,23 +22,21 @@ To see how Shoutem UI works, you can:
 
 ### Examples component
 
-Create new React Native project:
+**If you are using Exponent, see [this
+project](https://github.com/exponentjs/shoutem-example/blob/master/main.js)
+for example usage. Otherwise, follow the steps below.**
+
+Create new React Native project and locate to it:
 
 ```bash
-$ react-native init HelloWorld
+$ react-native init HelloWorld && cd HelloWorld
 ```
 
-Locate to project and install `@shoutem/ui` in your project:
+Install `@shoutem/ui` in your project:
 
 ```bash
-$ cd HelloWorld
 $ npm install --save @shoutem/ui
-```
-
-Run `rnpm` to link fonts that the toolkit is using:
-
-```bash
-$ rnpm link
+$ react-native link
 ```
 
 Now, simply copy the following to your `index.ios.js` files of the React Native project:
@@ -88,7 +86,7 @@ Install and link dependencies:
 
 ```bash
 npm install
-rnpm link
+react-native link
 ```
 
 Finally, run the app!
@@ -100,12 +98,12 @@ react-native run-android
 
 ## UI Toolkit
 
-Shoutem UI is a part of the Shoutem UI Toolkit that enables you to build professionally looking React Native apps with ease.  
+Shoutem UI is a part of the [Shoutem UI Toolkit](https://shoutem.github.io/ui/) that enables you to build professional looking React Native apps with ease.
 
 It consists of three libraries:
 
 - [@shoutem/ui](https://github.com/shoutem/ui): beautiful and customizable UI components
-- [@shoutem/theme](https://github.com/shoutem/theme): “CSS-way” of styling entire app 
+- [@shoutem/theme](https://github.com/shoutem/theme): “CSS-way” of styling entire app
 - [@shoutem/animation](https://github.com/shoutem/animation): declarative way of applying ready-made  animations
 
 ## License
