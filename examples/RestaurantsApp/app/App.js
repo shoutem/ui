@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import {
-  RootCardStack,
+  CardStack,
   NavigationBar,
 } from '@shoutem/ui/navigation';
 
@@ -46,7 +46,7 @@ class App extends Component {
     const { navigationState, onNavigateBack } = this.props;
 
     return (
-      <RootCardStack
+      <CardStack
         navigationState={navigationState}
         onNavigateBack={onNavigateBack}
         renderNavBar={this.renderNavBar}
