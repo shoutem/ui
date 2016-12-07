@@ -12,7 +12,6 @@
     "htmlparser2": "^3.9.0",
     "lodash": "^4.15.0",
     "react-native-lightbox": "git+https://github.com/shoutem/react-native-lightbox#master",
-    "react-native-maps": "^0.8.2",
     "react-native-share": "^1.0.13",
     "react-native-transformable-image": "ldn0x7dc/react-native-transformable-image#master",
     "react-native-view-transformer": "ldn0x7dc/react-native-view-transformer#master",
