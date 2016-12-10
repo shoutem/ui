@@ -19,6 +19,8 @@ class InlineGallery extends Component {
         }),
       }),
     ).isRequired,
+    // Default source: A static image to display while loading the image source
+    defaultSource: PropTypes.number,
     // Callback function called when user taps on single item (image) in gallery
     onPress: PropTypes.func,
     // Callback function called when user swipes between pages (images)
@@ -46,6 +48,7 @@ class InlineGallery extends Component {
         <LoadingIndicator />
       );
     },
+    defaultSource: require('../assets/images/image-fallback.png'),
   }
 
   constructor(props) {
@@ -84,7 +87,7 @@ class InlineGallery extends Component {
   }
 
   renderPage(page, id) {
-    const { style } = this.props;
+    const { style, defaultSource } = this.props;
     const source = _.get(page, 'source.uri');
 
     if (!source) {
@@ -102,8 +105,8 @@ class InlineGallery extends Component {
         <View style={resolvedStyle}>
           <Image
             source={{ uri: source }}
-            style={{ flex: 1 }}
-            defaultSource={require('../assets/images/image-fallback.png')}
+            styleName="fill-parent"
+            defaultSource={defaultSource}
           />
         </View>
       </TouchableOpacity>
@@ -114,10 +117,13 @@ class InlineGallery extends Component {
     const { data, selectedIndex, renderOverlay, renderPlaceholder, style } = this.props;
     const { showNextPage } = this.state;
 
+    const resolvedStyle = { ...style };
+    delete resolvedStyle.pageMargin;
+
     return (
       <View
         renderToHardwareTextureAndroid
-        styleName="flexible"
+        style={resolvedStyle}
       >
         <HorizontalPager
           data={data}
