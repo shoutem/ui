@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { ScrollView } from 'react-native';
 import {
   Image,
   ListView,
@@ -8,11 +7,21 @@ import {
   Subtitle,
   TouchableOpacity,
   Screen,
+  Divider,
 } from '@shoutem/ui';
+
+import {
+  NavigationBar,
+} from '@shoutem/ui/navigation';
+
 import { connect } from 'react-redux';
-import { navigatePush } from './navigation/actions';
+import { navigatePush } from './redux';
 
 class RestaurantsList extends Component {
+  static propTypes = {
+    onButtonPress: React.PropTypes.func,
+  };
+
   constructor(props) {
     super(props);
     this.renderRow = this.renderRow.bind(this);
@@ -36,31 +45,31 @@ class RestaurantsList extends Component {
             <Subtitle styleName="sm-gutter-horizontal">{restaurant.address}</Subtitle>
           </Tile>
         </Image>
+        <Divider styleName="line" />
       </TouchableOpacity>
     );
   }
 
   render() {
     return (
-      <ScrollView>
-        <Screen style={{ marginTop: 70 }}>
-          <ListView
-            data={this.getRestaurants()}
-            renderRow={restaurant => this.renderRow(restaurant)}
-          />
-        </Screen>
-      </ScrollView>
+      <Screen>
+        <NavigationBar title="All Restaurants" />
+
+        <ListView
+          data={this.getRestaurants()}
+          renderRow={restaurant => this.renderRow(restaurant)}
+        />
+      </Screen>
     );
   }
 }
 
-RestaurantsList.propTypes = {
-  onButtonPress: React.PropTypes.func,
-};
-
 const mapDispatchToProps = (dispatch) => ({
   onButtonPress: (restaurant) => {
-    dispatch(navigatePush({ key: 'RestaurantDetails', title: 'Details' }, { restaurant }));
+    dispatch(navigatePush({
+      key: 'RestaurantDetails',
+      title: 'Details',
+    }, { restaurant }));
   },
 });
 
