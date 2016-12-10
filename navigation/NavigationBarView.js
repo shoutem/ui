@@ -19,7 +19,6 @@ import {
 } from '@shoutem/animation';
 
 import composeChildren from './composeChildren';
-import { NavigationBarStyleName } from './NavigationBar';
 
 const {
   Header: NavigationHeader,
@@ -30,6 +29,16 @@ const navigationHeaderStyle = {
   borderBottomColor: 'transparent',
   borderBottomWidth: 0,
 };
+
+/** @constant string NavigationBarStyleName
+ * Both NavigationBar and NavigationBarView are connected to style with same name because
+ * they represent same component. If NavigationBar is not connected to style then it can not be
+ * customized on the screen. Further more, if NavigationBarView is not connected to style then
+ * navigation bar does not have default style when not NavigationBar not passed to the screen.
+ * On the end we want to style a same component with same name in the theme no matter on
+ * internal implementation.
+ */
+export const NavigationBarStyleName = 'shoutem.ui.navigation.NavigationBar';
 
 /**
  * A navigation bar component that work together with

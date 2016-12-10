@@ -1,19 +1,9 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 
-import { NavigationBarView } from './NavigationBarView';
+import { NavigationBarView,NavigationBarStyleName } from './NavigationBarView';
 import { DriverShape } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
-
-/** @constant string NavigationBarStyleName
- * Both NavigationBar and NavigationBarView are connected to style with same name because
- * they represent same component. If NavigationBar is not connected to style then it can not be
- * customized on the screen. Further more, if NavigationBarView is not connected to style then
- * navigation bar does not have default style when not NavigationBar not passed to the screen.
- * On the end we want to style a same component with same name in the theme no matter on
- * internal implementation.
- */
-export const NavigationBarStyleName = 'shoutem.ui.navigation.NavigationBar';
 
 /**
  * A NavigationBar component that can be used to define
@@ -81,6 +71,10 @@ class NavigationBar extends Component {
   }
 }
 
+/**
+ * @see {@link NavigationBarStyleName}
+ * NavigationBarView style name is related to NavigationBar style name, it must be the same name.
+ */
 const StyledNavigationBar = connectStyle(NavigationBarStyleName)(NavigationBar);
 
 export {
