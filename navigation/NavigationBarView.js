@@ -19,6 +19,7 @@ import {
 } from '@shoutem/animation';
 
 import composeChildren from './composeChildren';
+import { NavigationBarStyleName } from './NavigationBar';
 
 const {
   Header: NavigationHeader,
@@ -348,9 +349,11 @@ class NavigationBarView extends Component {
 const AnimatedNavigationBarView = connectAnimation(composeChildren(NavigationBarView), undefined, {
   createAnimatedComponent: false,
 });
-const StyledNavigationBarView = connectStyle('shoutem.ui.navigation.NavigationBar')(
-  AnimatedNavigationBarView
-);
+/**
+ * @see {@link NavigationBarStyleName}
+ * NavigationBarView style name is related to NavigationBar style name, it must be the same name.
+ */
+const StyledNavigationBarView = connectStyle(NavigationBarStyleName)(AnimatedNavigationBarView);
 
 export {
   StyledNavigationBarView as NavigationBarView,

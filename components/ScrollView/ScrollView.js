@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { ScrollView as RNScrollView } from 'react-native';
+import { connectStyle } from '@shoutem/theme';
 
 import { ScrollDriver, DriverShape } from '@shoutem/animation';
 
 import { ScrollDriverProvider } from './ScrollDriverProvider.js';
 
-export class ScrollView extends Component {
+class ScrollView extends Component {
   static propTypes = {
     ...RNScrollView.propTypes,
   };
@@ -64,4 +65,10 @@ export class ScrollView extends Component {
       />
     );
   }
+}
+
+const StyledScrollView = connectStyle('shoutem.ui.ScrollView')(ScrollView);
+
+export {
+  StyledScrollView as ScrollView,
 }
