@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 
-import { NavigationBarView,NavigationBarStyleName } from './NavigationBarView';
+import { NavigationBarView, NavigationBarStyleName } from './NavigationBarView';
 import { DriverShape } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
 
