@@ -1339,6 +1339,14 @@ export default () => ({
       height: (345 / 375) * window.width,
     },
 
+    imageContainer: {
+
+    },
+
+    image: {
+
+    },
+
     pager: {
       pageMargin: 20,
     },

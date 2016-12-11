@@ -243,11 +243,15 @@ class HorizontalPager extends Component {
         >
           {this.renderContent()}
         </ScrollView>
-        {this.renderOverlay()}
+        <View
+          styleName="fill-parent"
+          pointerEvents="none"
+        >
+          {this.renderOverlay()}
+        </View>
       </View>
     );
   }
-
 }
 
 const StyledHorizontalPager = connectStyle('shoutem.ui.HorizontalPager')(HorizontalPager);
