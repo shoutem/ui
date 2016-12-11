@@ -30,6 +30,16 @@ const navigationHeaderStyle = {
   borderBottomWidth: 0,
 };
 
+/** @constant string NavigationBarStyleName
+ * Both NavigationBar and NavigationBarView are connected to style with same name because
+ * they represent same component. If NavigationBar is not connected to style then it can not be
+ * customized on the screen. Further more, if NavigationBarView is not connected to style then
+ * navigation bar does not have default style when not NavigationBar not passed to the screen.
+ * On the end we want to style a same component with same name in the theme no matter on
+ * internal implementation.
+ */
+export const NavigationBarStyleName = 'shoutem.ui.navigation.NavigationBar';
+
 /**
  * A navigation bar component that work together with
  * the CardStack, and NavigationBar components.
@@ -348,9 +358,11 @@ class NavigationBarView extends Component {
 const AnimatedNavigationBarView = connectAnimation(composeChildren(NavigationBarView), undefined, {
   createAnimatedComponent: false,
 });
-const StyledNavigationBarView = connectStyle('shoutem.ui.navigation.NavigationBar')(
-  AnimatedNavigationBarView
-);
+/**
+ * @see {@link NavigationBarStyleName}
+ * NavigationBarView style name is related to NavigationBar style name, it must be the same name.
+ */
+const StyledNavigationBarView = connectStyle(NavigationBarStyleName)(AnimatedNavigationBarView);
 
 export {
   StyledNavigationBarView as NavigationBarView,

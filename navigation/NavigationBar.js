@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 
-import { NavigationBarView } from './NavigationBarView';
+import { NavigationBarView, NavigationBarStyleName } from './NavigationBarView';
 import { DriverShape } from '@shoutem/animation';
+import { connectStyle } from '@shoutem/theme';
 
 /**
  * A NavigationBar component that can be used to define
@@ -70,6 +71,12 @@ class NavigationBar extends Component {
   }
 }
 
+/**
+ * @see {@link NavigationBarStyleName}
+ * NavigationBarView style name is related to NavigationBar style name, it must be the same name.
+ */
+const StyledNavigationBar = connectStyle(NavigationBarStyleName)(NavigationBar);
+
 export {
-  NavigationBar,
+   StyledNavigationBar as NavigationBar,
 };
