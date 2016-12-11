@@ -6,6 +6,7 @@ import React, {
 import {
   ScrollView,
   InteractionManager,
+  LayoutAnimation,
 } from 'react-native';
 
 import _ from 'lodash';
@@ -85,6 +86,7 @@ class HorizontalPager extends Component {
 
   componentDidMount() {
     InteractionManager.runAfterInteractions(() => {
+      LayoutAnimation.easeInEaseOut();
       this.setState({ shouldRenderContent: true });
     });
   }
@@ -241,11 +243,15 @@ class HorizontalPager extends Component {
         >
           {this.renderContent()}
         </ScrollView>
-        {this.renderOverlay()}
+        <View
+          styleName="fill-parent"
+          pointerEvents="none"
+        >
+          {this.renderOverlay()}
+        </View>
       </View>
     );
   }
-
 }
 
 const StyledHorizontalPager = connectStyle('shoutem.ui.HorizontalPager')(HorizontalPager);
