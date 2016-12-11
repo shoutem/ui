@@ -1323,20 +1323,25 @@ export default () => ({
   // InlineGallery
   //
   'shoutem.ui.InlineGallery': {
-    '*': {
-      flex: 1,
-    },
-
     '.large-wide': {
-      height: (238 / 375) * window.width,
+      container: {
+        height: (238 / 375) * window.width,
+      },
     },
 
     '.large-ultra-wide': {
-      height: (130 / 375) * window.width,
+      container: {
+        height: (130 / 375) * window.width,
+      },
     },
 
-    height: (345 / 375) * window.width,
-    pageMargin: 0,
+    container: {
+      height: (345 / 375) * window.width,
+    },
+
+    pager: {
+      pageMargin: 20,
+    },
   },
 
   //

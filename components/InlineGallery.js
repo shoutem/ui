@@ -48,7 +48,6 @@ class InlineGallery extends Component {
         <LoadingIndicator />
       );
     },
-    defaultSource: require('../assets/images/image-fallback.png'),
   }
 
   constructor(props) {
@@ -87,26 +86,22 @@ class InlineGallery extends Component {
   }
 
   renderPage(page, id) {
-    const { style, defaultSource } = this.props;
+    const { style } = this.props;
     const source = _.get(page, 'source.uri');
 
     if (!source) {
       return;
     }
 
-    const resolvedStyle = { ...style };
-    delete resolvedStyle.pageMargin;
-
     return (
       <TouchableOpacity
         onPress={this.onPress}
         key={id}
       >
-        <View style={resolvedStyle}>
+        <View styleName="flexible"}>
           <Image
             source={{ uri: source }}
             styleName="fill-parent"
-            defaultSource={defaultSource}
           />
         </View>
       </TouchableOpacity>
@@ -117,20 +112,17 @@ class InlineGallery extends Component {
     const { data, selectedIndex, renderOverlay, renderPlaceholder, style } = this.props;
     const { showNextPage } = this.state;
 
-    const resolvedStyle = { ...style };
-    delete resolvedStyle.pageMargin;
-
     return (
       <View
         renderToHardwareTextureAndroid
-        style={resolvedStyle}
+        style={style.container}
       >
         <HorizontalPager
           data={data}
           onIndexSelected={this.onIndexSelected}
           selectedIndex={selectedIndex}
           renderPage={this.renderPage}
-          pageMargin={style.pageMargin}
+          pageMargin={style.pager.pageMargin}
           showNextPage={showNextPage}
           renderOverlay={renderOverlay}
           renderPlaceholder={renderPlaceholder}
