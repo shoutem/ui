@@ -19,8 +19,6 @@ class InlineGallery extends Component {
         }),
       }),
     ).isRequired,
-    // Default source: A static image to display while loading the image source
-    defaultSource: PropTypes.number,
     // Callback function called when user taps on single item (image) in gallery
     onPress: PropTypes.func,
     // Callback function called when user swipes between pages (images)
@@ -98,7 +96,7 @@ class InlineGallery extends Component {
         onPress={this.onPress}
         key={id}
       >
-        <View styleName="flexible"}>
+        <View style={style.container}>
           <Image
             source={{ uri: source }}
             styleName="fill-parent"
