@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
+import tinyColor from 'tinycolor2';
 
 import {
+  Platform,
   StatusBar,
   Animated,
   NavigationExperimental,
 } from 'react-native';
 
 import { connectStyle } from '@shoutem/theme';
-import { connectAnimation } from '@shoutem/animation';
+import {
+  connectAnimation,
+  isAnimatedStyleValue,
+  getAnimatedStyleValue,
+  addAnimatedValueListener,
+  removeAnimatedValueListener,
+} from '@shoutem/animation';
 
 import composeChildren from './composeChildren';
 import { LinearGradient } from '../components/LinearGradient';
@@ -22,6 +30,16 @@ const navigationHeaderStyle = {
   borderBottomColor: 'transparent',
   borderBottomWidth: 0,
 };
+
+/** @constant string NavigationBarStyleName
+ * Both NavigationBar and NavigationBarView are connected to style with same name because
+ * they represent same component. If NavigationBar is not connected to style then it can not be
+ * customized on the screen. Further more, if NavigationBarView is not connected to style then
+ * navigation bar does not have default style when not NavigationBar not passed to the screen.
+ * On the end we want to style a same component with same name in the theme no matter on
+ * internal implementation.
+ */
+export const NavigationBarStyleName = 'shoutem.ui.navigation.NavigationBar';
 
 /**
  * A navigation bar component that work together with
@@ -71,6 +89,21 @@ class NavigationBarView extends Component {
     setRenderedNavBarProps: React.PropTypes.func.isRequired,
   };
 
+  componentWillMount() {
+    this.setStatusBarStyle(this.props.style);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.style !== nextProps.style) {
+      this.cleanupStatusBarStyleListeners();
+      this.setStatusBarStyle(nextProps.style);
+    }
+  }
+
+  componentWillUnmount() {
+    this.cleanupStatusBarStyleListeners();
+  }
+
   /**
    * Gets the next navigation bar props for a given scene.
    *
@@ -101,14 +134,7 @@ class NavigationBarView extends Component {
    */
   getColor(props, colorName) {
     const color = _.get(props, `style.container.${colorName}`, 'white');
-
-    // If this is an animated value, we want to convert it to
-    // a plain object in order to get its current value.
-    if (color.toJSON) {
-      return color.toJSON();
-    }
-
-    return color;
+    return getAnimatedStyleValue(color);
   }
 
   /**
@@ -127,6 +153,75 @@ class NavigationBarView extends Component {
     const nextColor = this.getColor(nextProps, colorName);
 
     return [previousColor, currentColor, nextColor];
+  }
+
+  /**
+   * Determine the iOS status bar style based on the backgroundColor
+   * of the navigation bar.
+   *
+   * @param color The navigation bar background color.
+   */
+  setStatusBarStyleForBackgroundColor(color) {
+    const colorValue = getAnimatedStyleValue(color);
+    const barStyle = tinyColor(colorValue).isDark() ? 'light-content' : 'default';
+    StatusBar.setBarStyle(barStyle);
+  }
+
+  /**
+   * Set the status bar style based on the style values provided
+   * to this component.
+   *
+   * @param style The component style.
+   * @param style.statusBar The status bar style.
+   */
+  setStatusBarStyle(style = {}) {
+    const statusBarStyle = style.statusBar || {};
+    if (Platform.OS === 'ios') {
+      if (statusBarStyle.barStyle) {
+        // Use the status bar style, if present
+        StatusBar.setBarStyle(statusBarStyle.barStyle);
+      } else {
+        // Determine the bar style based on the background color
+        // as a fallback if the style is not specified explicitly.
+        const backgroundColor = _.get(style, 'container.backgroundColor');
+        if (isAnimatedStyleValue(backgroundColor)) {
+          // If the backgroundColor is animated, we want to listen for
+          // color changes, so that we can update the bar style as the
+          // animation runs.
+          this.backgroundListenerId = addAnimatedValueListener(backgroundColor, () =>
+            this.setStatusBarStyleForBackgroundColor(backgroundColor)
+          );
+        }
+
+        // Set the bar style based on the current background color value
+        this.setStatusBarStyleForBackgroundColor(backgroundColor);
+      }
+    } else {
+      if (!_.isUndefined(statusBarStyle.backgroundColor)) {
+        StatusBar.setBackgroundColor(statusBarStyle.backgroundColor);
+      }
+
+      if (!_.isUndefined(statusBarStyle.transluscent)) {
+        StatusBar.setTranslucent(statusBarStyle.transluscent);
+      }
+    }
+  }
+
+  /**
+   * Stop listening to animated style changes required to determine
+   * the status bar style.
+   */
+  cleanupStatusBarStyleListeners() {
+    if (this.backgroundListenerId) {
+      // Stop listening to background color changes on the
+      // old style. The listeners will be registered again,
+      // if necessary in `setStatusBarStyle`.
+      removeAnimatedValueListener(
+        this.props.style.container.backgroundColor,
+        this.backgroundListenerId
+      );
+      this.backgroundListenerId = null;
+    }
   }
 
   /**
@@ -174,7 +269,7 @@ class NavigationBarView extends Component {
     const { position, scene, scenes } = this.props;
     const { index } = scene;
 
-    const positionValue = position.toJSON();
+    const positionValue = getAnimatedStyleValue(position);
     if (positionValue === index) {
       // We are not in a transition, do not override the
       // default style to allow any custom animations that
@@ -253,8 +348,7 @@ class NavigationBarView extends Component {
 
     return (
       <Animated.View style={[style.container, this.interpolateNavBarStyle()]}>
-        <LinearGradient animationName={this.props.animationName} />
-        <StatusBar translucent />
+		<LinearGradient animationName={this.props.animationName} />
         <NavigationHeader
           {...this.createNavigationHeaderProps()}
         />
@@ -266,9 +360,11 @@ class NavigationBarView extends Component {
 const AnimatedNavigationBarView = connectAnimation(composeChildren(NavigationBarView), undefined, {
   createAnimatedComponent: false,
 });
-const StyledNavigationBarView = connectStyle('shoutem.ui.navigation.NavigationBar')(
-  AnimatedNavigationBarView
-);
+/**
+ * @see {@link NavigationBarStyleName}
+ * NavigationBarView style name is related to NavigationBar style name, it must be the same name.
+ */
+const StyledNavigationBarView = connectStyle(NavigationBarStyleName)(AnimatedNavigationBarView);
 
 export {
   StyledNavigationBarView as NavigationBarView,

@@ -10,13 +10,23 @@ export class SceneProvider extends Component {
   };
 
   static childContextTypes = {
-    scene: React.PropTypes.object.isRequired,
+    getScene: React.PropTypes.func.isRequired,
   };
+
+  constructor(props, context) {
+    super(props, context);
+
+    this.getScene = this.getScene.bind(this);
+  }
 
   getChildContext() {
     return {
-      scene: this.props.scene,
+      getScene: this.getScene,
     };
+  }
+
+  getScene() {
+    return this.props.scene;
   }
 
   render() {
