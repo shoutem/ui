@@ -339,6 +339,23 @@ class NavigationBarView extends Component {
     return headerProps;
   }
 
+  renderLinearGradient() {
+    const { style, animationName } = this.props;
+    const animation = _.has(style.gradient, `${animationName}Animation`) ?
+      animationName : '';
+
+    if (style.gradient) {
+      return (
+        <LinearGradient
+          animationName={animation}
+          style={style.gradient}
+        />
+      );
+    }
+
+    return null;
+  }
+
   render() {
     const { scene, style } = this.props;
 
@@ -348,7 +365,7 @@ class NavigationBarView extends Component {
 
     return (
       <Animated.View style={[style.container, this.interpolateNavBarStyle()]}>
-		<LinearGradient animationName={this.props.animationName} />
+        {this.renderLinearGradient()}
         <NavigationHeader
           {...this.createNavigationHeaderProps()}
         />
