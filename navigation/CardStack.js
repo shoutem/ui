@@ -29,7 +29,7 @@ class CardStack extends Component {
 
   static contextTypes = {
     getNextNavBarProps: React.PropTypes.func,
-    scene: React.PropTypes.object,
+    getScene: React.PropTypes.func,
   };
 
   static childContextTypes = {
@@ -39,8 +39,6 @@ class CardStack extends Component {
 
     setRenderedNavBarProps: React.PropTypes.func,
     getRenderedNavBarProps: React.PropTypes.func,
-
-    scene: React.PropTypes.object,
   };
 
   constructor(props, context) {
@@ -98,8 +96,9 @@ class CardStack extends Component {
 
   getNextNavBarProps(route = {}) {
     let props = this.nextNavBarProps[route.key] || {};
-    const { getNextNavBarProps, scene } = this.context;
-    if (getNextNavBarProps && scene) {
+    const { getNextNavBarProps, getScene } = this.context;
+    if (getNextNavBarProps && getScene) {
+      const scene = getScene();
       const parentProps = getNextNavBarProps(scene.route);
       if (parentProps.child) {
         delete parentProps.child;
