@@ -22,8 +22,8 @@ function getVimeoVideoId(url) {
   return false;
 }
 
-function getYouTubeEmbedUrl(id) {
-  return `https://www.youtube.com/embed/${id}?showinfo=0`;
+function getYouTubeEmbedUrl(id, youtubeParams) {
+  return `https://www.youtube.com/embed/${id}?${youtubeParams}`;
 }
 
 function getVimeoEmbedUrl(id) {
@@ -35,8 +35,9 @@ function getVimeoEmbedUrl(id) {
  * url in embedded form if necessary
  */
 export default class VideoSourceReader {
-  constructor(source) {
+  constructor(source, youtubeParams = 'showinfo=0') {
     this.source = source;
+    this.youtubeParams = youtubeParams;
     this.isYouTube = !!getYouTubeVideoId(source);
     this.isVimeo = !!getVimeoVideoId(source);
   }
@@ -47,7 +48,7 @@ export default class VideoSourceReader {
 
   getUrl() {
     if (this.isYouTube) {
-      return getYouTubeEmbedUrl(getYouTubeVideoId(this.source));
+      return getYouTubeEmbedUrl(getYouTubeVideoId(this.source), this.youtubeParams);
     } else if (this.isVimeo) {
       return getVimeoEmbedUrl(getVimeoVideoId(this.source));
     }

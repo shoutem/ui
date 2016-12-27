@@ -14,14 +14,15 @@ import VideoSourceReader from './VideoSourceReader';
 const propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
+  youtubeParams: PropTypes.string,
   source: PropTypes.shape({
     uri: PropTypes.string,
   }),
   style: PropTypes.object,
 };
 
-function createSourceObject(source) {
-  const sourceReader = new VideoSourceReader(source.uri);
+function createSourceObject(source, youtubeParams) {
+  const sourceReader = new VideoSourceReader(source.uri, youtubeParams);
   const url = sourceReader.getUrl();
 
   if (sourceReader.isEmbeddableVideo()) {
@@ -55,12 +56,13 @@ function Video({
   height,
   source,
   style,
+  youtubeParams,
 }) {
   return (
     <View style={style.container}>
       <WebView
         style={{ width, height }}
-        source={createSourceObject(source)}
+        source={createSourceObject(source, youtubeParams)}
         scrollEnabled={false}
       />
     </View>
