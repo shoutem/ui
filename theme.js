@@ -981,7 +981,7 @@ export default () => ({
   '.inline': {
     container: {
       width: window.width,
-        position: 'relative',
+      position: 'relative',
     }
   },
 
