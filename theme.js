@@ -978,6 +978,13 @@ export default () => ({
       },
     },
 
+  '.inline': {
+    container: {
+      width: window.width,
+      position: 'relative',
+    }
+  },
+
     'shoutem.ui.Title': {
       solidifyAnimation(driver) {
         return {
