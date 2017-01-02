@@ -1282,15 +1282,15 @@ export default () => ({
 
   'shoutem.ui.HorizontalPager': {
     container: {
-      flex: 1,
+      flexGrow: 1,
     },
     scrollView: {
-      flex: 1,
+      flexGrow: 1,
       backgroundColor: 'transparent',
-      overflow: 'visible',
+      overflow: 'scroll',
     },
     page: {
-      flex: 1,
+      flexGrow: 1,
       backgroundColor: 'transparent',
     },
     nextPageInsetSize: 20,
@@ -1383,9 +1383,9 @@ export default () => ({
 
   'shoutem.ui.ImageGallery': {
     [INCLUDE]: ['guttersPadding'],
-    pageMargin: 0,
+    pageMargin: 20,
     container: {
-      flex: 1,
+      flexGrow: 1,
       lightsOffAnimation(driver, { layout, options }) {
         return {
           backgroundColor: driver.value.interpolate({
@@ -1399,7 +1399,7 @@ export default () => ({
       },
     },
     page: {
-      flex: 1,
+      flexGrow: 1,
       justifyContent: 'center',
       overflow: 'hidden',
     },
