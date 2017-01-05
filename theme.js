@@ -1227,7 +1227,7 @@ export default () => ({
 
   'shoutem.ui.DropDownMenu': {
     '.horizontal': {
-      selectedOption: {
+      horizontalContainer: {
         height: 40,
         justifyContent: 'center',
         backgroundColor: Colors.LIGHT_GRAY,
@@ -1238,7 +1238,10 @@ export default () => ({
       },
     },
 
+    visibleOptions: 8,
+
     selectedOption: {
+      // Button
       [INCLUDE]: ['actionButton', 'tightButton', 'clearButton'],
     },
 
