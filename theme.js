@@ -978,6 +978,13 @@ export default () => ({
       },
     },
 
+  '.inline': {
+    container: {
+      width: window.width,
+      position: 'relative',
+    }
+  },
+
     'shoutem.ui.Title': {
       solidifyAnimation(driver) {
         return {
@@ -1220,7 +1227,7 @@ export default () => ({
 
   'shoutem.ui.DropDownMenu': {
     '.horizontal': {
-      selectedOption: {
+      horizontalContainer: {
         height: 40,
         justifyContent: 'center',
         backgroundColor: Colors.LIGHT_GRAY,
@@ -1231,7 +1238,10 @@ export default () => ({
       },
     },
 
+    visibleOptions: 8,
+
     selectedOption: {
+      // Button
       [INCLUDE]: ['actionButton', 'tightButton', 'clearButton'],
     },
 
@@ -1275,15 +1285,15 @@ export default () => ({
 
   'shoutem.ui.HorizontalPager': {
     container: {
-      flex: 1,
+      flexGrow: 1,
     },
     scrollView: {
-      flex: 1,
+      flexGrow: 1,
       backgroundColor: 'transparent',
-      overflow: 'visible',
+      overflow: 'scroll',
     },
     page: {
-      flex: 1,
+      flexGrow: 1,
       backgroundColor: 'transparent',
     },
     nextPageInsetSize: 20,
@@ -1376,9 +1386,9 @@ export default () => ({
 
   'shoutem.ui.ImageGallery': {
     [INCLUDE]: ['guttersPadding'],
-    pageMargin: 0,
+    pageMargin: 20,
     container: {
-      flex: 1,
+      flexGrow: 1,
       lightsOffAnimation(driver, { layout, options }) {
         return {
           backgroundColor: driver.value.interpolate({
@@ -1392,7 +1402,7 @@ export default () => ({
       },
     },
     page: {
-      flex: 1,
+      flexGrow: 1,
       justifyContent: 'center',
       overflow: 'hidden',
     },
