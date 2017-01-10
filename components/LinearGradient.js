@@ -1,23 +1,22 @@
 import React from 'react';
 import RNLinearGradient from 'react-native-linear-gradient';
-
+import _ from 'lodash';
 import { connectAnimation } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
+
+const RNLinearGradientPropsKeys = Object.keys(RNLinearGradient.propTypes);
 
 class LinearGradient extends React.Component {
   render () {
     const { props } = this;
 
-    const style = { ...props.style };
-    delete style.colors;
-    delete style.locations;
+    const style = { ..._.omit(props.style, RNLinearGradientPropsKeys)};
 
     return (
       <RNLinearGradient
         {...props}
+        {..._.pick(style, RNLinearGradientPropsKeys)}
         style={style}
-        colors={props.style.colors || []}
-        locations={props.style.locations || []}
       >
         {props.children}
       </RNLinearGradient>
