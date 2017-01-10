@@ -51,6 +51,7 @@ export class Examples extends Component {
     const SelectedComponent = selectedExample.component;
     return (
       <Screen>
+        <Divider />
         <DropDownMenu
           styleName="horizontal"
           options={examples}
