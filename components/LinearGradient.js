@@ -10,12 +10,12 @@ class LinearGradient extends React.Component {
   render () {
     const { props } = this;
 
-    const style = { ..._.omit(props.style, RNLinearGradientPropsKeys)};
+    const style = { ..._.omit(props.style, RNLinearGradientPropsKeys) };
 
     return (
       <RNLinearGradient
         {...props}
-        {..._.pick(style, RNLinearGradientPropsKeys)}
+        {..._.pick(props.style, RNLinearGradientPropsKeys)}
         style={style}
       >
         {props.children}
