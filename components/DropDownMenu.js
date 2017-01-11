@@ -44,15 +44,15 @@ class DropDownMenu extends Component {
      */
     valueProperty: React.PropTypes.string.isRequired,
     /**
-     * Number of options shown without scroll
+     * Number of options shown without scroll.
+     * Can be set trough DropDown style.visibleOptions.
+     * Prop definition overrides style.
      */
     visibleOptions: React.PropTypes.number,
     style: React.PropTypes.object,
   };
 
-  static defaultProps = {
-    visibleOptions: 8,
-  };
+  static DEFAULT_VISIBLE_OPTIONS = 8;
 
   constructor(props) {
     super(props);
@@ -72,6 +72,11 @@ class DropDownMenu extends Component {
   componentWillMount() {
     this.scrollDriver = new ScrollDriver();
     this.timingDriver = new TimingDriver();
+  }
+
+  getVisibleOptions() {
+    const { visibleOptions, style } = this.props;
+    return visibleOptions || style.visibleOptions || DropDownMenu.DEFAULT_VISIBLE_OPTIONS;
   }
 
   getSelectedOption() {
@@ -122,11 +127,12 @@ class DropDownMenu extends Component {
 
   calculateListViewHeight() {
     const { optionHeight } = this.state;
-    const { options, visibleOptions } = this.props;
+    const { options } = this.props;
+    const visibleOptions = this.getVisibleOptions();
     const optionsSize = _.size(options);
 
     return optionsSize > visibleOptions ?
-    visibleOptions * optionHeight : optionsSize * optionHeight;
+      visibleOptions * optionHeight : optionsSize * optionHeight;
   }
 
   renderSelectedOption() {
@@ -134,19 +140,21 @@ class DropDownMenu extends Component {
 
     const selectedOption = this.getSelectedOption();
     return selectedOption ? (
-      <Button onPress={this.collapse} style={style.selectedOption}>
-        <Text>{selectedOption[titleProperty]}</Text>
-        <Icon name="drop-down" />
-      </Button>
-    ) : null;
+        <View style={style.horizontalContainer}>
+          <Button onPress={this.collapse} style={style.selectedOption}>
+            <Text>{selectedOption[titleProperty]}</Text>
+            <Icon name="drop-down" />
+          </Button>
+        </View>
+      ) : null;
   }
 
   renderRow(option, sectionId, rowId) {
     const {
       style,
       titleProperty,
-      visibleOptions,
     } = this.props;
+    const visibleOptions = this.getVisibleOptions();
     const { optionHeight } = this.state;
     const optionPosition = rowId * optionHeight;
     // start to fade in option when option is scrolled in
