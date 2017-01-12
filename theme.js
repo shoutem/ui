@@ -1094,18 +1094,15 @@ export default () => ({
         [INCLUDE]: ['fillParent'],
         colors: [Colors.CLEAR, 'rgba(0, 0, 0, 0.15)', Colors.CLEAR],
         locations: [0.0, 0.25, 1.0],
+        solidifyAnimation(driver) {
+          return {
+            opacity: driver.value.interpolate({
+              inputRange: [250, 300],
+              outputRange: [1, 0],
+            }),
+          };
+        }
       },
-    },
-
-    gradient: {
-      solidifyAnimation(driver) {
-        return {
-          opacity: driver.value.interpolate({
-            inputRange: [250, 300],
-            outputRange: [1, 0],
-          }),
-        };
-      }
     },
 
     'shoutem.ui.View': {
