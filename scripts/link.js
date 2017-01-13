@@ -10,7 +10,8 @@ const nativeDependencies = [
   'react-native-share',
 ];
 
-const linkCommands = nativeDependencies.map(dependency => `react-native link ${dependency}`);
+const reactNativeLocalCli = `node node_modules/react-native/local-cli/cli.js`;
+const linkCommands = nativeDependencies.map(dependency => `${reactNativeLocalCli} link ${dependency}`);
 
 console.log('[@shoutem/ui] - linking native dependencies');
 
