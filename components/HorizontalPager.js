@@ -57,12 +57,18 @@ class HorizontalPager extends Component {
     style: PropTypes.object,
     // Prop that reduces page size by pageMargin, allowing 'sneak peak' of next page
     showNextPage: PropTypes.bool,
+    // Always render only central (currently loaded) page plus `surroundingPagesToLoad`
+    // to the left and to the right. If currently rendered page is out of bounds,
+    // empty `View` (with set dimensions for proper scrolling) will be rendered
+    // Defaults to 2.
+    surroundingPagesToLoad: PropTypes.number
   };
 
   static defaultProps = {
     pageMargin: 0,
     selectedIndex: 0,
     showNextPage: false,
+    surroundingPagesToLoad: 2,
   }
 
   constructor(props) {
@@ -168,8 +174,8 @@ class HorizontalPager extends Component {
   }
 
   renderContent() {
-    const { width, pageMargin, showNextPage } = this.state;
-    const { data, renderPage, style } = this.props;
+    const { width, pageMargin, showNextPage, selectedIndex } = this.state;
+    const { data, renderPage, style, surroundingPagesToLoad } = this.props;
     const pages = data.map((page, pageId) => {
       const lastPage = pageId === data.length - 1;
       const containerWidth = this.calculateContainerWidth();
@@ -182,6 +188,20 @@ class HorizontalPager extends Component {
         pageWidth = width - pageMargin - style.nextPageInsetSize;
       }
 
+      // If `selectedIndex` is <= `surroundingPagesToLoad` then `minPageIndex` that should be
+      // rendered is 0, otherwise `minPageIndex` that should be rendered is
+      // `selectedIndex - surroundingPagesToLoad`
+      const minPageIndex = selectedIndex <= surroundingPagesToLoad ?
+                          0 :
+                          selectedIndex - surroundingPagesToLoad;
+      // And similar, `maxPageIndex` that should be rendered is data.length
+      // or `selectedIndex` + surroundingPagesToLoad
+      // Note: additional -1 below at two places due to zero based array
+      // and the fact that `selectedIndex = 0` actually represents first image in `data` array
+      const maxPageIndex = selectedIndex >= (data.length - surroundingPagesToLoad - 1) ?
+                          data.length - 1 :
+                          selectedIndex + surroundingPagesToLoad;
+
       return (
         <View
           style={{ ...style.page, width: containerWidth }}
@@ -193,7 +213,7 @@ class HorizontalPager extends Component {
             virtual
             style={{ ...style.page, width: pageWidth }}
           >
-            {renderPage(page, pageId)}
+            {pageId >= minPageIndex && pageId <= maxPageIndex && renderPage(page, pageId)}
           </View>
         </View>
       );
