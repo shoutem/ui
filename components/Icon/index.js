@@ -7,17 +7,16 @@ const icons = {
   Fallback: RubiconIcon,
 };
 
-function setDefaultIconFont(fontFamily) {
-  icons.Default = fontFamily
-}
-
 function Icon(props) {
   const DefaultIcon = icons.Default || icons.Fallback;
   return <DefaultIcon {...props} />
 }
 
+Icon.setIconFont = function (fontFamily) {
+  icons.default = createIcon(fontFamily);
+};
+
 export {
   Icon,
   createIcon,
-  setDefaultIconFont,
 }
