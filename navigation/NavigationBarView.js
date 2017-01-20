@@ -29,6 +29,7 @@ const navigationHeaderStyle = {
   backgroundColor: 'transparent',
   borderBottomColor: 'transparent',
   borderBottomWidth: 0,
+  elevation: 0, // Elevation add side gutter to NavBar
 };
 
 /** @constant string NavigationBarStyleName
