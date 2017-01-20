@@ -80,6 +80,7 @@ class HorizontalPager extends Component {
       pageMargin: this.props.pageMargin,
       showNextPage: this.props.showNextPage,
       shouldRenderContent: false,
+      scrolledToInitialIndex: false,
     };
     this.calculateIndex = this.calculateIndex.bind(this);
     this.onHorizontalScroll = this.onHorizontalScroll.bind(this);
@@ -107,21 +108,39 @@ class HorizontalPager extends Component {
 
   onLayoutContainer(event) {
     const { width } = event.nativeEvent.layout;
-    const { initialSelectedIndex } = this.state;
+    const { initialSelectedIndex, scrolledToInitialIndex } = this.state;
 
-    this.setState({ width }, () =>
-      this.scrollToPage(initialSelectedIndex),
-    );
+    this.setState({ width }, () => {
+      // By checking has the pager scrolled to initial index, we're avoiding weird issue
+      // where pager would scroll back to initial index after swiping to other index
+      if (!scrolledToInitialIndex) {
+        this.scrollToPage(initialSelectedIndex);
+      }
+    });
   }
 
   onHorizontalScroll(event) {
-    const { selectedIndex } = this.state;
+    const { selectedIndex, scrolledToInitialIndex, initialSelectedIndex } = this.state;
     const { onIndexSelected } = this.props;
     const contentOffset = event.nativeEvent.contentOffset;
 
     const newSelectedIndex = this.calculateIndex(contentOffset);
 
-    if (selectedIndex !== newSelectedIndex) {
+    // We're firing onIndexSelected(initialSelectedIndex) event if scrolling
+    // to `initialSelectedIndex` has finished
+    if (initialSelectedIndex === newSelectedIndex && !scrolledToInitialIndex) {
+      if (_.isFunction(onIndexSelected)) {
+        onIndexSelected(initialSelectedIndex);
+      }
+      this.setState({
+        selectedIndex: initialSelectedIndex,
+        scrolledToInitialIndex: true,
+      });
+    }
+
+    // And anytime when new index is selected (by swipe gesture)
+    // when initial scrolling has finished
+    if (selectedIndex !== newSelectedIndex && scrolledToInitialIndex) {
       if (_.isFunction(onIndexSelected)) {
         onIndexSelected(newSelectedIndex);
       }
