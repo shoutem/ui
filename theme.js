@@ -1,6 +1,7 @@
 import {
   Dimensions,
   StyleSheet,
+  NavigationExperimental,
 } from 'react-native';
 
 import { INCLUDE, createVariations, createSharedStyle } from '@shoutem/theme';
@@ -1089,6 +1090,22 @@ export default () => ({
       },
     },
 
+    '.fade': {
+      gradient: {
+        [INCLUDE]: ['fillParent'],
+        colors: [Colors.CLEAR, 'rgba(0, 0, 0, 0.15)', Colors.CLEAR],
+        locations: [0.0, 0.25, 1.0],
+        solidifyAnimation(driver) {
+          return {
+            opacity: driver.value.interpolate({
+              inputRange: [250, 300],
+              outputRange: [1, 0],
+            }),
+          };
+        }
+      },
+    },
+
     'shoutem.ui.View': {
       '.container': {
         flex: 1,
@@ -1168,6 +1185,53 @@ export default () => ({
     },
   },
   'shoutem.ui.navigation.CardStack': {
+    '.without-transitions': {
+      interpolateCardStyle(props) {
+        const {
+          navigationState,
+          scene,
+        } = props;
+
+        const focused = navigationState.index === scene.index;
+        const opacity = focused ? 1 : 0;
+        const translate = focused ? 0 : 1000000;
+        return {
+          opacity,
+          transform: [
+            { translateX: translate },
+            { translateY: translate },
+          ],
+        };
+      },
+    },
+
+    '.root': {
+      'shoutem.ui.navigation.NavigationBar': {
+        navigationHeader: {
+          marginTop: 0,
+        },
+      },
+    },
+
+    'shoutem.ui.navigation.NavigationBar': {
+      '.clear': {
+        navigationHeader: {
+          marginTop: 0,
+        },
+        container: {
+          position: 'absolute',
+          top: NavigationExperimental.Header.HEIGHT,
+          left: 0,
+          right: 0,
+          height: NavigationExperimental.Header.HEIGHT,
+        }
+      },
+
+      navigationHeader: {
+        marginTop: NavigationExperimental.Header.HEIGHT,
+      },
+    },
+
     cardStack: {},
     card: {},
   },

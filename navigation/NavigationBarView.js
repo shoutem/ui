@@ -19,6 +19,7 @@ import {
 } from '@shoutem/animation';
 
 import composeChildren from './composeChildren';
+import { LinearGradient } from '../components/LinearGradient';
 
 const {
   Header: NavigationHeader,
@@ -28,6 +29,7 @@ const navigationHeaderStyle = {
   backgroundColor: 'transparent',
   borderBottomColor: 'transparent',
   borderBottomWidth: 0,
+  elevation: 0, // Elevation add side gutter to NavBar
 };
 
 /** @constant string NavigationBarStyleName
@@ -338,6 +340,23 @@ class NavigationBarView extends Component {
     return headerProps;
   }
 
+  renderLinearGradient() {
+    const { style, animationName } = this.props;
+    const animation = _.has(style.gradient, `${animationName}Animation`) ?
+      animationName : '';
+
+    if (style.gradient) {
+      return (
+        <LinearGradient
+          animationName={animation}
+          style={style.gradient}
+        />
+      );
+    }
+
+    return null;
+  }
+
   render() {
     const { scene, style } = this.props;
 
@@ -347,6 +366,7 @@ class NavigationBarView extends Component {
 
     return (
       <Animated.View style={[style.container, this.interpolateNavBarStyle()]}>
+        {this.renderLinearGradient()}
         <NavigationHeader
           {...this.createNavigationHeaderProps()}
         />
