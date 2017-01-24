@@ -936,6 +936,11 @@ export default () => ({
   //
   // Other
   //
+  hoverNavigationBar: {
+    navigationHeader: {
+      paddingTop: 0,
+    },
+  },
   clearNavigationBar: {
     ...createSharedStyle([...textComponents, 'shoutem.ui.Icon'], {
       color: Colors.LIGHT,
@@ -1080,8 +1085,12 @@ export default () => ({
     },
   },
   'shoutem.ui.navigation.NavigationBar': {
+    '.hover': {
+      [INCLUDE]: ['hoverNavigationBar'],
+    },
+
     '.clear': {
-      [INCLUDE]: ['clearNavigationBar'],
+      [INCLUDE]: ['clearNavigationBar', 'hoverNavigationBar'],
     },
 
     '.no-border': {
@@ -1173,7 +1182,16 @@ export default () => ({
       };
     },
 
+    navigationHeader: {
+      paddingTop: 0,
+    },
+
     container: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      height: NAVIGATION_BAR_HEIGHT,
       backgroundColor: Colors.NAVIGATION_BAR_BACKGROUND,
       borderBottomColor: Colors.NAVIGATION_BAR_BORDER,
       borderBottomWidth: StyleSheet.hairlineWidth,
