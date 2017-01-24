@@ -1,3 +1,6 @@
+
+import _ from 'lodash';
+
 function getYouTubeVideoId(url) {
   const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\??v?=?))([^#&\?]*).*/;
   const match = url.match(regExp);
@@ -22,8 +25,9 @@ function getVimeoVideoId(url) {
   return false;
 }
 
-function getYouTubeEmbedUrl(id, youtubeParams) {
-  return `https://www.youtube.com/embed/${id}?${youtubeParams}`;
+function getYouTubeEmbedUrl(id, playerParams) {
+  this.playerParams = _.reduce(playerParams);
+  return `https://www.youtube.com/embed/${id}?${playerParams}`;
 }
 
 function getVimeoEmbedUrl(id) {
@@ -34,10 +38,11 @@ function getVimeoEmbedUrl(id) {
  * Reads the video source and provides the video
  * url in embedded form if necessary
  */
+
 export default class VideoSourceReader {
-  constructor(source, youtubeParams = 'showinfo=0') {
+  constructor(source, playerParams = 'showinfo=0') {
     this.source = source;
-    this.youtubeParams = youtubeParams;
+    this.playerParams = playerParams;
     this.isYouTube = !!getYouTubeVideoId(source);
     this.isVimeo = !!getVimeoVideoId(source);
   }
@@ -48,7 +53,7 @@ export default class VideoSourceReader {
 
   getUrl() {
     if (this.isYouTube) {
-      return getYouTubeEmbedUrl(getYouTubeVideoId(this.source), this.youtubeParams);
+      return getYouTubeEmbedUrl(getYouTubeVideoId(this.source), this.playerParams);
     } else if (this.isVimeo) {
       return getVimeoEmbedUrl(getVimeoVideoId(this.source));
     }
