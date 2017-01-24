@@ -1,3 +1,4 @@
+import React from 'react';
 import createIcon from './createIcon';
 
 const RubiconIcon = createIcon('rubicon-icon-font');
@@ -13,7 +14,7 @@ function Icon(props) {
 }
 
 Icon.setIconFont = function (fontFamily) {
-  icons.default = createIcon(fontFamily);
+  icons.Default = createIcon(fontFamily);
 };
 
 export {
