@@ -1,6 +1,7 @@
 import {
   Dimensions,
   StyleSheet,
+  NavigationExperimental,
 } from 'react-native';
 
 import { INCLUDE, createVariations, createSharedStyle } from '@shoutem/theme';
@@ -43,7 +44,7 @@ const MEDIUM_GUTTER = 15;
 const LARGE_GUTTER = 30;
 const EXTRA_LARGE_GUTTER = 45;
 
-const NAVIGATION_BAR_HEIGHT = 70;
+const NAVIGATION_BAR_HEIGHT = NavigationExperimental.Header.HEIGHT;
 const RICH_MEDIA_IMAGE_HEIGHT = 200;
 const RICH_MEDIA_VIDEO_HEIGHT = 200;
 
@@ -935,6 +936,11 @@ export default () => ({
   //
   // Other
   //
+  hoverNavigationBar: {
+    navigationHeader: {
+      paddingTop: 0,
+    },
+  },
   clearNavigationBar: {
     ...createSharedStyle([...textComponents, 'shoutem.ui.Icon'], {
       color: Colors.LIGHT,
@@ -1079,13 +1085,33 @@ export default () => ({
     },
   },
   'shoutem.ui.navigation.NavigationBar': {
+    '.hover': {
+      [INCLUDE]: ['hoverNavigationBar'],
+    },
+
     '.clear': {
-      [INCLUDE]: ['clearNavigationBar'],
+      [INCLUDE]: ['clearNavigationBar', 'hoverNavigationBar'],
     },
 
     '.no-border': {
       container: {
         borderBottomWidth: 0,
+      },
+    },
+
+    '.fade': {
+      gradient: {
+        [INCLUDE]: ['fillParent'],
+        colors: [Colors.CLEAR, 'rgba(0, 0, 0, 0.15)', Colors.CLEAR],
+        locations: [0.0, 0.25, 1.0],
+        solidifyAnimation(driver) {
+          return {
+            opacity: driver.value.interpolate({
+              inputRange: [250, 300],
+              outputRange: [1, 0],
+            }),
+          };
+        }
       },
     },
 
@@ -1156,7 +1182,16 @@ export default () => ({
       };
     },
 
+    navigationHeader: {
+      paddingTop: 0,
+    },
+
     container: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      height: NAVIGATION_BAR_HEIGHT,
       backgroundColor: Colors.NAVIGATION_BAR_BACKGROUND,
       borderBottomColor: Colors.NAVIGATION_BAR_BORDER,
       borderBottomWidth: StyleSheet.hairlineWidth,
@@ -1168,6 +1203,53 @@ export default () => ({
     },
   },
   'shoutem.ui.navigation.CardStack': {
+    '.without-transitions': {
+      interpolateCardStyle(props) {
+        const {
+          navigationState,
+          scene,
+        } = props;
+
+        const focused = navigationState.index === scene.index;
+        const opacity = focused ? 1 : 0;
+        const translate = focused ? 0 : 1000000;
+        return {
+          opacity,
+          transform: [
+            { translateX: translate },
+            { translateY: translate },
+          ],
+        };
+      },
+    },
+
+    '.root': {
+      'shoutem.ui.navigation.NavigationBar': {
+        navigationHeader: {
+          marginTop: 0,
+        },
+      },
+    },
+
+    'shoutem.ui.navigation.NavigationBar': {
+      '.clear': {
+        navigationHeader: {
+          marginTop: 0,
+        },
+        container: {
+          position: 'absolute',
+          top: NAVIGATION_BAR_HEIGHT,
+          left: 0,
+          right: 0,
+          height: NAVIGATION_BAR_HEIGHT,
+        }
+      },
+
+      navigationHeader: {
+        marginTop: NAVIGATION_BAR_HEIGHT,
+      },
+    },
+
     cardStack: {},
     card: {},
   },

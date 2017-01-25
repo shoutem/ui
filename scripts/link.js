@@ -6,6 +6,7 @@ const process = require('process');
 // TODO (Ivan): Read native dependencies from package.json
 const nativeDependencies = [
   'react-native-vector-icons',
+  'react-native-linear-gradient',
   'react-native-share',
 ];
 
