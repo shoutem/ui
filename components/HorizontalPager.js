@@ -15,6 +15,20 @@ import { connectStyle } from '@shoutem/theme';
 
 import { View } from './View';
 
+function isPageIndexValid(pageBeingRenderedId, selectedIndex, length, surroundingPagesToLoad) {
+  // If `selectedIndex` is <= `surroundingPagesToLoad` then `minPageIndex` that should be
+  // rendered is 0, otherwise `minPageIndex` that should be rendered is
+  // `selectedIndex - surroundingPagesToLoad`
+  const minPageIndex = selectedIndex <= surroundingPagesToLoad ?
+                      0 : selectedIndex - surroundingPagesToLoad;
+  // And similar, `maxPageIndex` that should be rendered is data.length
+  // or `selectedIndex` + surroundingPagesToLoad
+  const maxPageIndex = selectedIndex >= (length - surroundingPagesToLoad - 1) ?
+                      length - 1 : selectedIndex + surroundingPagesToLoad;
+
+  return pageBeingRenderedId >= minPageIndex && pageBeingRenderedId <= maxPageIndex;
+}
+
 /**
  * Renders a horizontal pager which renders pages by using
  * the renderPage function with provided data.
@@ -207,20 +221,6 @@ class HorizontalPager extends Component {
         pageWidth = width - pageMargin - style.nextPageInsetSize;
       }
 
-      // If `selectedIndex` is <= `surroundingPagesToLoad` then `minPageIndex` that should be
-      // rendered is 0, otherwise `minPageIndex` that should be rendered is
-      // `selectedIndex - surroundingPagesToLoad`
-      const minPageIndex = selectedIndex <= surroundingPagesToLoad ?
-                          0 :
-                          selectedIndex - surroundingPagesToLoad;
-      // And similar, `maxPageIndex` that should be rendered is data.length
-      // or `selectedIndex` + surroundingPagesToLoad
-      // Note: additional -1 below at two places due to zero based array
-      // and the fact that `selectedIndex = 0` actually represents first image in `data` array
-      const maxPageIndex = selectedIndex >= (data.length - surroundingPagesToLoad - 1) ?
-                          data.length - 1 :
-                          selectedIndex + surroundingPagesToLoad;
-
       return (
         <View
           style={{ ...style.page, width: containerWidth }}
@@ -232,7 +232,7 @@ class HorizontalPager extends Component {
             virtual
             style={{ ...style.page, width: pageWidth }}
           >
-            {pageId >= minPageIndex && pageId <= maxPageIndex && renderPage(page, pageId)}
+            {isPageIndexValid(pageId, selectedIndex, data.length, surroundingPagesToLoad) && renderPage(page, pageId)}
           </View>
         </View>
       );
