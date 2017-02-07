@@ -44,6 +44,13 @@ class DropDownMenu extends Component {
      */
     valueProperty: React.PropTypes.string.isRequired,
     /**
+     * Icon name or component to render on opening button
+     */
+    icon: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.element,
+    ]),
+    /**
      * Number of options shown without scroll.
      * Can be set trough DropDown style.visibleOptions.
      * Prop definition overrides style.
@@ -137,13 +144,14 @@ class DropDownMenu extends Component {
 
   renderSelectedOption() {
     const { style, titleProperty } = this.props;
+    const getIcon = (icon = drop-down) => (_.isString(icon) ? <Icon name={icon} /> : <icon />)
 
     const selectedOption = this.getSelectedOption();
     return selectedOption ? (
         <View style={style.horizontalContainer}>
           <Button onPress={this.collapse} style={style.selectedOption}>
             <Text>{selectedOption[titleProperty]}</Text>
-            <Icon name="drop-down" />
+            {getIcon(this.props.icon)}
           </Button>
         </View>
       ) : null;
