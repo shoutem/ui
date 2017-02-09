@@ -15,20 +15,6 @@ import { connectStyle } from '@shoutem/theme';
 
 import { View } from './View';
 
-function isPageIndexValid(pageBeingRenderedId, selectedIndex, length, surroundingPagesToLoad) {
-  // If `selectedIndex` is <= `surroundingPagesToLoad` then `minPageIndex` that should be
-  // rendered is 0, otherwise `minPageIndex` that should be rendered is
-  // `selectedIndex - surroundingPagesToLoad`
-  const minPageIndex = selectedIndex <= surroundingPagesToLoad ?
-                      0 : selectedIndex - surroundingPagesToLoad;
-  // And similar, `maxPageIndex` that should be rendered is data.length
-  // or `selectedIndex` + surroundingPagesToLoad
-  const maxPageIndex = selectedIndex >= (length - surroundingPagesToLoad - 1) ?
-                      length - 1 : selectedIndex + surroundingPagesToLoad;
-
-  return pageBeingRenderedId >= minPageIndex && pageBeingRenderedId <= maxPageIndex;
-}
-
 /**
  * Renders a horizontal pager which renders pages by using
  * the renderPage function with provided data.
@@ -75,7 +61,7 @@ class HorizontalPager extends Component {
     // to the left and to the right. If currently rendered page is out of bounds,
     // empty `View` (with set dimensions for proper scrolling) will be rendered
     // Defaults to 2.
-    surroundingPagesToLoad: PropTypes.number
+    surroundingPagesToLoad: PropTypes.number,
   };
 
   static defaultProps = {
@@ -103,6 +89,7 @@ class HorizontalPager extends Component {
     this.scrollToPage = this.scrollToPage.bind(this);
     this.calculateContainerWidth = this.calculateContainerWidth.bind(this);
     this.renderOverlay = this.renderOverlay.bind(this);
+    this.isPageIndexValid = this.isPageIndexValid.bind(this);
   }
 
   componentDidMount() {
@@ -206,9 +193,25 @@ class HorizontalPager extends Component {
     return newSelectedIndex;
   }
 
+  isPageIndexValid(pageId) {
+    const { data, surroundingPagesToLoad } = this.props;
+    const { selectedIndex } = this.state;
+    // If `selectedIndex` is <= `surroundingPagesToLoad` then `minPageIndex` that should be
+    // rendered is 0, otherwise `minPageIndex` that should be rendered is
+    // `selectedIndex - surroundingPagesToLoad`
+    const minPageIndex = selectedIndex <= surroundingPagesToLoad ?
+                        0 : selectedIndex - surroundingPagesToLoad;
+    // And similar, `maxPageIndex` that should be rendered is data.length
+    // or `selectedIndex` + surroundingPagesToLoad
+    const maxPageIndex = selectedIndex >= (data.length - surroundingPagesToLoad - 1) ?
+                        data.length - 1 : selectedIndex + surroundingPagesToLoad;
+
+    return pageId >= minPageIndex && pageId <= maxPageIndex;
+  }
+
   renderContent() {
-    const { width, pageMargin, showNextPage, selectedIndex } = this.state;
-    const { data, renderPage, style, surroundingPagesToLoad } = this.props;
+    const { width, pageMargin, showNextPage } = this.state;
+    const { data, renderPage, style } = this.props;
     const pages = data.map((page, pageId) => {
       const lastPage = pageId === data.length - 1;
       const containerWidth = this.calculateContainerWidth();
@@ -232,7 +235,7 @@ class HorizontalPager extends Component {
             virtual
             style={{ ...style.page, width: pageWidth }}
           >
-            {isPageIndexValid(pageId, selectedIndex, data.length, surroundingPagesToLoad) && renderPage(page, pageId)}
+            {this.isPageIndexValid(pageId) && renderPage(page, pageId)}
           </View>
         </View>
       );
