@@ -35,7 +35,7 @@ class Image extends Component {
         source: defaultSource || require('../assets/images/transparent.png'),
         // Fixes a bug with local image resizing on Android:
         // https://github.com/facebook/react-native/issues/4598#issuecomment-162328501
-        style: { ...props.style, width: null },
+        style: { width: null, height: null, ...props.style },
       };
     }
 
