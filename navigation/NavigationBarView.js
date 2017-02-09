@@ -16,6 +16,7 @@ import {
   getAnimatedStyleValue,
   addAnimatedValueListener,
   removeAnimatedValueListener,
+  TimingDriver,
 } from '@shoutem/animation';
 
 import composeChildren from './composeChildren';
@@ -73,6 +74,7 @@ class NavigationBarView extends Component {
       link: React.PropTypes.string,
     }),
     style: React.PropTypes.object,
+    useNativeAnimations: React.PropTypes.bool,
   };
 
   static defaultProps = {
@@ -129,11 +131,11 @@ class NavigationBarView extends Component {
   /**
    * Gets a navigation bar color for props.
    *
-   * @param props The props to get the color from.
    * @param colorName The color property name to get.
+   * @param props The props to get the color from.
    * @returns {*} The background color.
    */
-  getColor(props, colorName) {
+  getColor(colorName, props) {
     const color = _.get(props, `style.container.${colorName}`, 'white');
     return getAnimatedStyleValue(color);
   }
@@ -142,18 +144,12 @@ class NavigationBarView extends Component {
    * Returns the array of previous, current, and next color by getting
    * the color with the given name from the props.
    *
-   * @param previousProps The props with the previous color.
-   * @param currentProps The props with the current color.
-   * @param nextProps The props with the next color.
    * @param colorName The name of the color property to get.
+   * @param props The props to extract the color from.
    * @return {*[]} The colors array.
    */
-  getColors(previousProps, currentProps, nextProps, colorName) {
-    const previousColor = this.getColor(previousProps, colorName);
-    const currentColor = this.getColor(currentProps, colorName);
-    const nextColor = this.getColor(nextProps, colorName);
-
-    return [previousColor, currentColor, nextColor];
+  getColors(colorName, ...props) {
+    return _.map(props, _.partial(this.getColor, colorName));
   }
 
   /**
@@ -261,6 +257,36 @@ class NavigationBarView extends Component {
   }
 
   /**
+   * Creates a NavBar interpolation by using timed animations
+   * instead of relying on the navigation position animated value.
+   * This is a workaround in situations when native animations are
+   * used, because color animations are not supported by native
+   * animation driver at the moment.
+   *
+   * @param previousProps The props of the previous scene.
+   * @param currentProps The props of the current scene.
+   * @returns {*} The interpolated style.
+   */
+  createFallbackNavBarInterpolation(previousProps, currentProps) {
+    // Use 250ms as transition duration
+    const driver = new TimingDriver({ duration: 250 });
+    driver.runTimer(1);
+
+    return {
+      backgroundColor: driver.value.interpolate({
+        inputRange: [0, 1],
+        outputRange: this.getColors('backgroundColor', previousProps, currentProps),
+        extrapolate: 'clamp',
+      }),
+      borderBottomColor: driver.value.interpolate({
+        inputRange: [0, 1],
+        outputRange: this.getColors('borderBottomColor', previousProps, currentProps),
+        extrapolate: 'clamp',
+      }),
+    };
+  }
+
+  /**
    * Creates the interpolated style in order to animate the
    * navigation bar transition between the current one, and
    * the surrounding scenes.
@@ -282,19 +308,29 @@ class NavigationBarView extends Component {
     // from the parent component. This is necessary to perform the
     // animations to the final state of the navigation bar. Otherwise
     // we are often getting various delays and flickers during transitions.
-    const previousProps = this.resolveSceneProps(scenes[index - 1]);
     const currentProps = this.resolveSceneProps(scene);
+    if (this.props.useNativeAnimations) {
+      // Some animations are not yet implemented in native, so we
+      // create JS animations here instead.
+
+      // The position will start at the index of the active scene,
+      // and the index will be the index of the scene that will become active.
+      const previousProps = this.resolveSceneProps(scenes[positionValue]);
+      return this.createFallbackNavBarInterpolation(previousProps, currentProps);
+    }
+
+    const previousProps = this.resolveSceneProps(scenes[index - 1]);
     const nextProps = this.resolveSceneProps(scenes[index + 1]);
 
     return {
       backgroundColor: position.interpolate({
         inputRange: [index - 1, index, index + 1],
-        outputRange: this.getColors(previousProps, currentProps, nextProps, 'backgroundColor'),
+        outputRange: this.getColors('backgroundColor', previousProps, currentProps, nextProps),
         extrapolate: 'clamp',
       }),
       borderBottomColor: position.interpolate({
         inputRange: [index - 1, index, index + 1],
-        outputRange: this.getColors(previousProps, currentProps, nextProps, 'borderBottomColor'),
+        outputRange: this.getColors('borderBottomColor', previousProps, currentProps, nextProps),
         extrapolate: 'clamp',
       }),
     };
