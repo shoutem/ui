@@ -2757,6 +2757,74 @@
       "setIdx": 0,
       "setId": 1,
       "iconIdx": 64
+    },
+    {
+      "icon": {
+        "paths": [
+          "M298.772 554.667c-23.622 0-42.772-18.938-42.772-42.667v0c0-23.564 19.446-42.667 42.772-42.667h426.456c23.622 0 42.772 18.938 42.772 42.667v0c0 23.564-19.446 42.667-42.772 42.667h-426.456z"
+        ],
+        "attrs": [
+          {}
+        ],
+        "grid": 24,
+        "tags": [
+          "Minus button"
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "colorPermutations": {
+          "68686818585851": [
+            {}
+          ]
+        }
+      },
+      "attrs": [
+        {}
+      ],
+      "properties": {
+        "order": 257,
+        "id": 66,
+        "name": "minus-button",
+        "prevSize": 48,
+        "code": 59713
+      },
+      "setIdx": 0,
+      "setId": 1,
+      "iconIdx": 65
+    },
+    {
+      "icon": {
+        "paths": [
+          "M554.667 554.667v170.675c0 23.56-18.938 42.658-42.667 42.658v0c-23.564 0-42.667-18.932-42.667-42.658v-170.675h-170.675c-23.56 0-42.658-18.938-42.658-42.667v0c0-23.564 18.932-42.667 42.658-42.667h170.675v-170.675c0-23.56 18.938-42.658 42.667-42.658v0c23.564 0 42.667 18.932 42.667 42.658v170.675h170.675c23.56 0 42.658 18.938 42.658 42.667v0c0 23.564-18.932 42.667-42.658 42.667h-170.675z"
+        ],
+        "attrs": [
+          {}
+        ],
+        "grid": 24,
+        "tags": [
+          "Plus button"
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "colorPermutations": {
+          "68686818585851": [
+            {}
+          ]
+        }
+      },
+      "attrs": [
+        {}
+      ],
+      "properties": {
+        "order": 256,
+        "id": 65,
+        "name": "plus-button",
+        "prevSize": 48,
+        "code": 59714
+      },
+      "setIdx": 0,
+      "setId": 1,
+      "iconIdx": 66
     }
   ],
   "height": 1024,
@@ -2786,7 +2854,6 @@
         "baseline": 6.25,
         "whitespace": 50
       },
-
       "embed": false,
       "showMetadata": true,
       "showSelector": true,
