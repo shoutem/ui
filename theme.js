@@ -1307,6 +1307,48 @@ export default () => ({
     color: Colors.TEXT,
   },
 
+  'shoutem.ui.Switch': {
+    container: {
+      backgroundColor: Colors.DARK,
+      borderRadius: 15,
+      height: 18,
+      marginVertical: 7,
+      paddingHorizontal: 2,
+      paddingVertical: 2,
+      width: 32,
+
+      muteAnimation(driver) {
+        return {
+          backgroundColor: driver.value.interpolate({
+            inputRange: [0, 1],
+            outputRange: ['rgba(0, 0, 0, 0.4)', 'rgba(0, 0, 0, 1)'],
+          }),
+        };
+      }
+    },
+
+    thumb: {
+      backgroundColor: Colors.LIGHT,
+      borderRadius: 7,
+      height: 14,
+      width: 14,
+
+      turnAnimation(driver, { layout, animationOptions }) {
+        const { x, width } = layout;
+        return {
+          transform: [
+            {
+              translateX: driver.value.interpolate({
+                inputRange: [0, 1],
+                outputRange: [0, animationOptions.containerWidth - width - 2 * x],
+              }),
+            },
+          ],
+        };
+      },
+    },
+  },
+
   'shoutem.ui.DropDownMenu': {
     '.horizontal': {
       horizontalContainer: {

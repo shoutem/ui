@@ -26,6 +26,7 @@ export { Icon, createIcon } from './components/Icon';
 export { TextInput } from './components/TextInput';
 
 export { Spinner } from './components/Spinner';
+export { Switch } from './components/Switch';
 
 export { Video } from './components/Video';
 export { Image } from './components/Image';
