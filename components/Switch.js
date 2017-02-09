@@ -67,7 +67,7 @@ class Switch extends Component {
           style={style.container}
         >
           <View
-            animationName="translate"
+            animationName="turn"
             animationOptions={{ containerWidth: style.container.width }}
             driver={this.timingDriver}
             style={style.thumb}

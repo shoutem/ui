@@ -1333,7 +1333,7 @@ export default () => ({
       height: 14,
       width: 14,
 
-      translateAnimation(driver, { layout, animationOptions }) {
+      turnAnimation(driver, { layout, animationOptions }) {
         const { x, width } = layout;
         return {
           transform: [
