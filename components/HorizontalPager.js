@@ -57,12 +57,18 @@ class HorizontalPager extends Component {
     style: PropTypes.object,
     // Prop that reduces page size by pageMargin, allowing 'sneak peak' of next page
     showNextPage: PropTypes.bool,
+    // Always render only central (currently loaded) page plus `surroundingPagesToLoad`
+    // to the left and to the right. If currently rendered page is out of bounds,
+    // empty `View` (with set dimensions for proper scrolling) will be rendered
+    // Defaults to 2.
+    surroundingPagesToLoad: PropTypes.number,
   };
 
   static defaultProps = {
     pageMargin: 0,
     selectedIndex: 0,
     showNextPage: false,
+    surroundingPagesToLoad: 2,
   }
 
   constructor(props) {
@@ -74,6 +80,7 @@ class HorizontalPager extends Component {
       pageMargin: this.props.pageMargin,
       showNextPage: this.props.showNextPage,
       shouldRenderContent: false,
+      scrolledToInitialIndex: false,
     };
     this.calculateIndex = this.calculateIndex.bind(this);
     this.onHorizontalScroll = this.onHorizontalScroll.bind(this);
@@ -82,6 +89,7 @@ class HorizontalPager extends Component {
     this.scrollToPage = this.scrollToPage.bind(this);
     this.calculateContainerWidth = this.calculateContainerWidth.bind(this);
     this.renderOverlay = this.renderOverlay.bind(this);
+    this.isPageIndexValid = this.isPageIndexValid.bind(this);
   }
 
   componentDidMount() {
@@ -101,21 +109,39 @@ class HorizontalPager extends Component {
 
   onLayoutContainer(event) {
     const { width } = event.nativeEvent.layout;
-    const { initialSelectedIndex } = this.state;
+    const { initialSelectedIndex, scrolledToInitialIndex } = this.state;
 
-    this.setState({ width }, () =>
-      this.scrollToPage(initialSelectedIndex),
-    );
+    this.setState({ width }, () => {
+      // By checking has the pager scrolled to initial index, we're avoiding weird issue
+      // where pager would scroll back to initial index after swiping to other index
+      if (!scrolledToInitialIndex) {
+        this.scrollToPage(initialSelectedIndex);
+      }
+    });
   }
 
   onHorizontalScroll(event) {
-    const { selectedIndex } = this.state;
+    const { selectedIndex, scrolledToInitialIndex, initialSelectedIndex } = this.state;
     const { onIndexSelected } = this.props;
     const contentOffset = event.nativeEvent.contentOffset;
 
     const newSelectedIndex = this.calculateIndex(contentOffset);
 
-    if (selectedIndex !== newSelectedIndex) {
+    // We're firing onIndexSelected(initialSelectedIndex) event if scrolling
+    // to `initialSelectedIndex` has finished
+    if (initialSelectedIndex === newSelectedIndex && !scrolledToInitialIndex) {
+      if (_.isFunction(onIndexSelected)) {
+        onIndexSelected(initialSelectedIndex);
+      }
+      this.setState({
+        selectedIndex: initialSelectedIndex,
+        scrolledToInitialIndex: true,
+      });
+    }
+
+    // And anytime when new index is selected (by swipe gesture)
+    // when initial scrolling has finished
+    if (selectedIndex !== newSelectedIndex && scrolledToInitialIndex) {
       if (_.isFunction(onIndexSelected)) {
         onIndexSelected(newSelectedIndex);
       }
@@ -167,6 +193,22 @@ class HorizontalPager extends Component {
     return newSelectedIndex;
   }
 
+  isPageIndexValid(pageId) {
+    const { data, surroundingPagesToLoad } = this.props;
+    const { selectedIndex } = this.state;
+    // If `selectedIndex` is <= `surroundingPagesToLoad` then `minPageIndex` that should be
+    // rendered is 0, otherwise `minPageIndex` that should be rendered is
+    // `selectedIndex - surroundingPagesToLoad`
+    const minPageIndex = selectedIndex <= surroundingPagesToLoad ?
+                        0 : selectedIndex - surroundingPagesToLoad;
+    // And similar, `maxPageIndex` that should be rendered is data.length
+    // or `selectedIndex` + surroundingPagesToLoad
+    const maxPageIndex = selectedIndex >= (data.length - surroundingPagesToLoad - 1) ?
+                        data.length - 1 : selectedIndex + surroundingPagesToLoad;
+
+    return pageId >= minPageIndex && pageId <= maxPageIndex;
+  }
+
   renderContent() {
     const { width, pageMargin, showNextPage } = this.state;
     const { data, renderPage, style } = this.props;
@@ -193,7 +235,7 @@ class HorizontalPager extends Component {
             virtual
             style={{ ...style.page, width: pageWidth }}
           >
-            {renderPage(page, pageId)}
+            {this.isPageIndexValid(pageId) && renderPage(page, pageId)}
           </View>
         </View>
       );
