@@ -2,13 +2,25 @@ import React, {
   Component,
   PropTypes,
 } from 'react';
+import {
+  Platform,
+  InteractionManager
+} from 'react-native';
+
 import { View } from '../View';
+import { Spinner } from '../Spinner';
 import { connectStyle } from '@shoutem/theme';
 import HypermediaComposer from './HypermediaComposer';
 import createDOM from './createDom';
 
 const DEFAULT_IMAGE_HEIGHT = 200;
 const DEFAULT_VIDEO_HEIGHT = 200;
+
+function shouldDelayDomParsing() {
+  // DOM parsing is slow on Android, so we are
+  // delaying it after the navigation transition.
+  return Platform.OS === 'android';
+}
 
 /**
  * Displays content in the html body as a composition of
@@ -17,10 +29,18 @@ const DEFAULT_VIDEO_HEIGHT = 200;
 class RichMedia extends Component {
   state = {
     dom: null,
+    isLoading: shouldDelayDomParsing(),
   };
 
   componentDidMount() {
-    this.updateDomState();
+    if (shouldDelayDomParsing()) {
+      InteractionManager.runAfterInteractions(() => {
+        this.setState({ isLoading: false });
+        this.updateDomState()
+      });
+    } else {
+      this.updateDomState();
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -54,10 +74,20 @@ class RichMedia extends Component {
       style,
       openUrl,
     } = this.props;
-    const { dom } = this.state;
+    const { dom, isLoading } = this.state;
+
+    if (isLoading) {
+      return (
+        <View styleName="md-gutter">
+          <Spinner styleName="sm-gutter" />
+        </View>
+      );
+    }
 
     if (!dom) {
-      return null;
+      // Returning null here doesn't unmount
+      // the spinner on Android
+      return [];
     }
 
     return (
