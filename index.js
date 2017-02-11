@@ -21,18 +21,22 @@ export { GridRow } from './components/GridRow';
 
 export { TouchableOpacity } from './components/TouchableOpacity';
 export { Button } from './components/Button';
-export { Icon } from './components/Icon';
+export { Icon, createIcon } from './components/Icon';
 
 export { TextInput } from './components/TextInput';
 
 export { Spinner } from './components/Spinner';
+export { Switch } from './components/Switch';
 
 export { Video } from './components/Video';
 export { Image } from './components/Image';
 export { ImagePreview } from './components/ImagePreview';
 export { ImageGallery } from './components/ImageGallery';
+export { InlineGallery } from './components/InlineGallery';
+export { HorizontalPager } from './components/HorizontalPager';
+export { LoadingIndicator } from './components/LoadingIndicator';
+export { PageIndicators } from './components/PageIndicators';
 export { RichMedia } from './components/RichMedia';
-export { MapView, InlineMap } from './components/Map/';
 
 export {
   Heading,

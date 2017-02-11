@@ -13,16 +13,30 @@ import {
   Screen,
 } from '@shoutem/ui';
 
+import {
+  NavigationBar,
+} from '@shoutem/ui/navigation';
+
 export default class RestaurantDetails extends Component {
+  static propTypes = {
+    restaurant: React.PropTypes.object,
+  };
+
   render() {
     const { restaurant } = this.props;
 
     return (
-      <Screen styleName="paper">
+      <Screen styleName="paper full-screen">
+        <NavigationBar
+          title={restaurant.name}
+          styleName="clear"
+          animationName="solidify"
+        />
+
         <ScrollView>
           <Image
-            animationName="hero"
             styleName="large-portrait hero"
+            animationName="hero"
             source={{ uri: restaurant.image && restaurant.image.url }}
             key={restaurant.name}
           >
@@ -33,7 +47,7 @@ export default class RestaurantDetails extends Component {
           </Image>
 
           <Screen styleName="paper">
-            <Text styleName="md-gutter">{restaurant.description}</Text>
+            <Text styleName="md-gutter multiline">{restaurant.description}</Text>
 
             <Divider styleName="line" />
 
@@ -41,9 +55,9 @@ export default class RestaurantDetails extends Component {
               <Icon name="laptop" />
               <View styleName="vertical">
                 <Subtitle>Visit webpage</Subtitle>
-                <Text>{restaurant.url}</Text>
+                <Text numberOfLines={1}>{restaurant.url}</Text>
               </View>
-              <Icon name="right-arrow" />
+              <Icon styleName="disclosure" name="right-arrow" />
             </Row>
 
             <Divider styleName="line" />
@@ -52,9 +66,9 @@ export default class RestaurantDetails extends Component {
               <Icon name="pin" />
               <View styleName="vertical">
                 <Subtitle>Address</Subtitle>
-                <Text>{restaurant.address}</Text>
+                <Text numberOfLines={1}>{restaurant.address}</Text>
               </View>
-              <Icon name="right-arrow" />
+              <Icon styleName="disclosure" name="right-arrow" />
             </Row>
 
             <Divider styleName="line" />
@@ -63,7 +77,7 @@ export default class RestaurantDetails extends Component {
               <Icon name="email" />
               <View styleName="vertical">
                 <Subtitle>Email</Subtitle>
-                <Text>{restaurant.mail}</Text>
+                <Text numberOfLines={1}>{restaurant.mail}</Text>
               </View>
             </Row>
 
@@ -74,7 +88,3 @@ export default class RestaurantDetails extends Component {
     );
   }
 }
-
-RestaurantDetails.propTypes = {
-  restaurant: React.PropTypes.object,
-};

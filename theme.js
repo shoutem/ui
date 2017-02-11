@@ -1,11 +1,14 @@
 import {
   Dimensions,
   StyleSheet,
+  NavigationExperimental,
 } from 'react-native';
 
 import { INCLUDE, createVariations, createSharedStyle } from '@shoutem/theme';
 
 const window = Dimensions.get('window');
+
+const GALLERY_DOT_SIZE = 8;
 
 const Colors = {
   DARK: '#333333',
@@ -24,8 +27,10 @@ const Colors = {
   DIVIDER_LINE: '#eeeeee',
   DIVIDER_BORDER: 'rgba(51, 51, 51, 0.1)',
   NAVIGATION_TINT: '#333333',
+  NAVIGATION_BAR_BACKGROUND: '#ffffff',
   NAVIGATION_BAR_BORDER: 'rgba(20, 20, 20, 0.2)',
   NAVIGATION_BAR_TEXT: 'black',
+  IMAGE_PREVIEW_BACKGROUND: '#000000',
 
   TEXT: '#666666',
   TITLE: '#222222',
@@ -39,7 +44,7 @@ const MEDIUM_GUTTER = 15;
 const LARGE_GUTTER = 30;
 const EXTRA_LARGE_GUTTER = 45;
 
-const NAVIGATION_BAR_HEIGHT = 70;
+const NAVIGATION_BAR_HEIGHT = NavigationExperimental.Header.HEIGHT;
 const RICH_MEDIA_IMAGE_HEIGHT = 200;
 const RICH_MEDIA_VIDEO_HEIGHT = 200;
 
@@ -123,8 +128,8 @@ export default () => ({
 
   multilineTextStyle: {
     '.v-center': {
-        // Compensate for lineHeight, because
-        // textAlignVertical is not supported on iOS
+      // Compensate for lineHeight, because
+      // textAlignVertical is not supported on iOS
       marginTop: -4,
       marginBottom: 4,
     },
@@ -300,7 +305,7 @@ export default () => ({
       backgroundColor: Colors.OVERLAY,
     },
 
-    heroAnimation(driver, { layout, options }) {
+    heroAnimation(driver, { layout }) {
       return {
         transform: [
           {
@@ -557,7 +562,7 @@ export default () => ({
       [INCLUDE]: ['textCentricTile'],
     },
 
-    heroAnimation(driver, { layout, options }) {
+    heroAnimation(driver, { layout }) {
       return {
         opacity: driver.value.interpolate({
           inputRange: [-0.2 * layout.height, 0, layout.height],
@@ -674,7 +679,6 @@ export default () => ({
   },
 
   actionButton: {
-    marginTop: 9,
     'shoutem.ui.Text': {
       [INCLUDE]: ['defaultFont'],
       fontSize: 15,
@@ -872,16 +876,20 @@ export default () => ({
       height: RICH_MEDIA_IMAGE_HEIGHT,
     },
     p: {
-      [INCLUDE]: ['shoutem.ui.Text', 'richMediaTextStyle'],
+      [INCLUDE]: ['shoutem.ui.Text'],
     },
     div: {
-      [INCLUDE]: ['shoutem.ui.Text', 'richMediaTextStyle'],
+      [INCLUDE]: ['shoutem.ui.Text'],
     },
     container: {
       margin: MEDIUM_GUTTER,
     },
   },
   'shoutem.ui.Spinner'; {
+    color: Colors.SPINNER,
+  },
+
+  'shoutem.ui.Spinner': {
     color: Colors.SPINNER,
   },
 
@@ -931,6 +939,11 @@ export default () => ({
   //
   // Other
   //
+  hoverNavigationBar: {
+    navigationHeader: {
+      paddingTop: 0,
+    },
+  },
   clearNavigationBar: {
     ...createSharedStyle([...textComponents, 'shoutem.ui.Icon'], {
       color: Colors.LIGHT,
@@ -953,7 +966,7 @@ export default () => ({
     },
   },
   navigationBarTextAnimations: {
-    solidifyAnimation(driver, { layout, animationOptions }) {
+    solidifyAnimation(driver) {
       return {
         color: driver.value.interpolate({
           inputRange: [250, 300],
@@ -974,8 +987,15 @@ export default () => ({
       },
     },
 
+  '.inline': {
+    container: {
+      width: window.width,
+      position: 'relative',
+    }
+  },
+
     'shoutem.ui.Title': {
-      solidifyAnimation(driver, { layout, animationOptions }) {
+      solidifyAnimation(driver) {
         return {
           color: driver.value.interpolate({
             inputRange: [250, 300],
@@ -1011,7 +1031,7 @@ export default () => ({
       },
     },
 
-    solidifyAnimation(driver, { layout, animationOptions }) {
+    solidifyAnimation(driver) {
       return {
         container: {
           backgroundColor: driver.value.interpolate({
@@ -1031,7 +1051,7 @@ export default () => ({
     container: {
       [INCLUDE]: ['fillParent'],
       height: 70,
-      backgroundColor: 'white',
+      backgroundColor: Colors.NAVIGATION_BAR_BACKGROUND,
       borderBottomColor: Colors.NAVIGATION_BAR_BORDER,
       borderBottomWidth: 1,
       padding: 15,
@@ -1066,6 +1086,175 @@ export default () => ({
       alignItems: 'flex-end',
       flex: 1,
     },
+  },
+  'shoutem.ui.navigation.NavigationBar': {
+    '.hover': {
+      [INCLUDE]: ['hoverNavigationBar'],
+    },
+
+    '.clear': {
+      [INCLUDE]: ['clearNavigationBar', 'hoverNavigationBar'],
+    },
+
+    '.no-border': {
+      container: {
+        borderBottomWidth: 0,
+      },
+    },
+
+    '.fade': {
+      gradient: {
+        [INCLUDE]: ['fillParent'],
+        colors: [Colors.CLEAR, 'rgba(0, 0, 0, 0.15)', Colors.CLEAR],
+        locations: [0.0, 0.25, 1.0],
+        solidifyAnimation(driver) {
+          return {
+            opacity: driver.value.interpolate({
+              inputRange: [250, 300],
+              outputRange: [1, 0],
+            }),
+          };
+        }
+      },
+    },
+
+    'shoutem.ui.View': {
+      '.container': {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 9,
+      },
+    },
+
+    'shoutem.ui.Title': {
+      solidifyAnimation(driver) {
+        return {
+          color: driver.value.interpolate({
+            inputRange: [250, 300],
+            outputRange: [Colors.CLEAR, Colors.NAVIGATION_BAR_TEXT],
+            extrapolate: 'clamp',
+          }),
+        };
+      },
+
+      flex: 1,
+      textAlign: 'center',
+      fontSize: 15,
+      lineHeight: 18,
+    },
+
+    'shoutem.ui.Icon': {
+      [INCLUDE]: ['navigationBarTextAnimations'],
+      color: Colors.NAVIGATION_BAR_TEXT,
+      fontSize: 24,
+    },
+
+    'shoutem.ui.Text': {
+      [INCLUDE]: ['navigationBarTextAnimations'],
+      color: Colors.NAVIGATION_BAR_TEXT,
+      fontSize: 15,
+    },
+
+    'shoutem.ui.Button': {
+      [INCLUDE]: ['clearButton', 'tightButton', 'actionButton'],
+      'shoutem.ui.Icon': {
+        [INCLUDE]: ['navigationBarTextAnimations'],
+        marginVertical: 9,
+      },
+      'shoutem.ui.Text': {
+        [INCLUDE]: ['navigationBarTextAnimations'],
+      },
+    },
+
+    solidifyAnimation(driver) {
+      return {
+        container: {
+          backgroundColor: driver.value.interpolate({
+            inputRange: [250, 300],
+            outputRange: [Colors.CLEAR, Colors.BACKGROUND],
+            extrapolate: 'clamp',
+          }),
+          borderBottomColor: driver.value.interpolate({
+            inputRange: [250, 300],
+            outputRange: [Colors.CLEAR, Colors.NAVIGATION_BAR_BORDER],
+            extrapolate: 'clamp',
+          }),
+        },
+      };
+    },
+
+    navigationHeader: {
+      paddingTop: 0,
+    },
+
+    container: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      height: NAVIGATION_BAR_HEIGHT,
+      backgroundColor: Colors.NAVIGATION_BAR_BACKGROUND,
+      borderBottomColor: Colors.NAVIGATION_BAR_BORDER,
+      borderBottomWidth: StyleSheet.hairlineWidth,
+    },
+
+    statusBar: {
+      backgroundColor: 'rgba(0, 0, 0, 0.2)',
+      transluscent: true,
+    },
+  },
+  'shoutem.ui.navigation.CardStack': {
+    '.without-transitions': {
+      interpolateCardStyle(props) {
+        const {
+          navigationState,
+          scene,
+        } = props;
+
+        const focused = navigationState.index === scene.index;
+        const opacity = focused ? 1 : 0;
+        const translate = focused ? 0 : 1000000;
+        return {
+          opacity,
+          transform: [
+            { translateX: translate },
+            { translateY: translate },
+          ],
+        };
+      },
+    },
+
+    '.root': {
+      'shoutem.ui.navigation.NavigationBar': {
+        navigationHeader: {
+          marginTop: 0,
+        },
+      },
+    },
+
+    'shoutem.ui.navigation.NavigationBar': {
+      '.clear': {
+        navigationHeader: {
+          marginTop: 0,
+        },
+        container: {
+          position: 'absolute',
+          top: NAVIGATION_BAR_HEIGHT,
+          left: 0,
+          right: 0,
+          height: NAVIGATION_BAR_HEIGHT,
+        }
+      },
+
+      navigationHeader: {
+        marginTop: NAVIGATION_BAR_HEIGHT,
+      },
+    },
+
+    cardStack: {},
+    card: {},
   },
 
   sectionHeaderDivider: {
@@ -1121,9 +1310,51 @@ export default () => ({
     color: Colors.TEXT,
   },
 
+  'shoutem.ui.Switch': {
+    container: {
+      backgroundColor: Colors.DARK,
+      borderRadius: 15,
+      height: 18,
+      marginVertical: 7,
+      paddingHorizontal: 2,
+      paddingVertical: 2,
+      width: 32,
+
+      muteAnimation(driver) {
+        return {
+          backgroundColor: driver.value.interpolate({
+            inputRange: [0, 1],
+            outputRange: ['rgba(0, 0, 0, 0.4)', 'rgba(0, 0, 0, 1)'],
+          }),
+        };
+      }
+    },
+
+    thumb: {
+      backgroundColor: Colors.LIGHT,
+      borderRadius: 7,
+      height: 14,
+      width: 14,
+
+      turnAnimation(driver, { layout, animationOptions }) {
+        const { x, width } = layout;
+        return {
+          transform: [
+            {
+              translateX: driver.value.interpolate({
+                inputRange: [0, 1],
+                outputRange: [0, animationOptions.containerWidth - width - 2 * x],
+              }),
+            },
+          ],
+        };
+      },
+    },
+  },
+
   'shoutem.ui.DropDownMenu': {
     '.horizontal': {
-      selectedOption: {
+      horizontalContainer: {
         height: 40,
         justifyContent: 'center',
         backgroundColor: Colors.LIGHT_GRAY,
@@ -1134,7 +1365,10 @@ export default () => ({
       },
     },
 
+    visibleOptions: 8,
+
     selectedOption: {
+      // Button
       [INCLUDE]: ['actionButton', 'tightButton', 'clearButton'],
     },
 
@@ -1169,6 +1403,172 @@ export default () => ({
       },
 
       flex: 1,
+    },
+  },
+
+  //
+  // HorizontalPager
+  //
+
+  'shoutem.ui.HorizontalPager': {
+    container: {
+      flexGrow: 1,
+    },
+    scrollView: {
+      flexGrow: 1,
+      backgroundColor: 'transparent',
+      overflow: 'scroll',
+    },
+    page: {
+      flexGrow: 1,
+      backgroundColor: 'transparent',
+    },
+    nextPageInsetSize: 20,
+  },
+
+  //
+  // PageIndicators
+  //
+
+  'shoutem.ui.PageIndicators': {
+    container: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      bottom: 10,
+    },
+    indicatorContainer: {
+      alignItems: 'center',
+      'shoutem.ui.View': {
+        width: GALLERY_DOT_SIZE,
+        height: GALLERY_DOT_SIZE,
+        borderRadius: GALLERY_DOT_SIZE / 2,
+        backgroundColor: Colors.BUTTON_UNDERLAY,
+        marginLeft: GALLERY_DOT_SIZE / 2,
+        marginRight: GALLERY_DOT_SIZE / 2,
+        '.selected': {
+          backgroundColor: Colors.DARK,
+        },
+      },
+    },
+  },
+
+  //
+  // InlineGallery
+  //
+  'shoutem.ui.InlineGallery': {
+    '.large-wide': {
+      container: {
+        height: (238 / 375) * window.width,
+      },
+    },
+
+    '.large-ultra-wide': {
+      container: {
+        height: (130 / 375) * window.width,
+      },
+    },
+
+    container: {
+      height: (345 / 375) * window.width,
+    },
+
+    imageContainer: {
+
+    },
+
+    image: {
+
+    },
+
+    pager: {
+      pageMargin: 20,
+    },
+  },
+
+  //
+  // ImageGallery
+  //
+
+  galleryOverlayAnimations: {
+    fadeOutAnimation(driver, { layout, options }) {
+      return {
+        backgroundColor: driver.value.interpolate({
+          inputRange: [0, 1],
+          outputRange: [
+            Colors.LIGHT_GRAY,
+            Colors.IMAGE_PREVIEW_BACKGROUND,
+          ],
+        }),
+        opacity: driver.value.interpolate({
+          inputRange: [0, 1],
+          outputRange: [1, 0],
+        }),
+      };
+    },
+  },
+
+  'shoutem.ui.ImageGallery': {
+    [INCLUDE]: ['guttersPadding'],
+    pageMargin: 20,
+    container: {
+      flexGrow: 1,
+      lightsOffAnimation(driver, { layout, options }) {
+        return {
+          backgroundColor: driver.value.interpolate({
+            inputRange: [0, 1],
+            outputRange: [
+              Colors.LIGHT_GRAY,
+              Colors.IMAGE_PREVIEW_BACKGROUND,
+            ],
+          }),
+        };
+      },
+    },
+    page: {
+      flexGrow: 1,
+      justifyContent: 'center',
+      overflow: 'hidden',
+    },
+    title: {
+      container: {
+        // Top position will most likely be 0 or 70
+        [INCLUDE]: ['galleryOverlayAnimations'],
+        position: 'absolute',
+        backgroundColor: Colors.LIGHT_GRAY,
+        paddingTop: MEDIUM_GUTTER,
+        paddingHorizontal: MEDIUM_GUTTER,
+        height: 60,
+        top: 0,
+        left: 0,
+        right: 0,
+      },
+      text: {
+        color: Colors.DARK,
+        textAlign: 'center',
+      },
+    },
+    description: {
+      container: {
+        [INCLUDE]: ['galleryOverlayAnimations'],
+        position: 'absolute',
+        backgroundColor: Colors.LIGHT_GRAY,
+        paddingTop: SMALL_GUTTER,
+        bottom: 0,
+        left: 0,
+        right: 0,
+      },
+      scroll: {
+        maxHeight: 200,
+        padding: MEDIUM_GUTTER,
+      },
+      text: {
+        color: Colors.DARK,
+        textAlign: 'center',
+      },
     },
   },
 });

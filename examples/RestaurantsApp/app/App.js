@@ -1,91 +1,62 @@
 import React, { Component } from 'react';
-import { NavigationExperimental } from 'react-native';
-import {
-  NavigationBar,
-  Title,
-  Button,
-  Icon,
-  View,
-} from '@shoutem/ui';
 import { connect } from 'react-redux';
 
-import { navigatePop } from './navigation/actions';
+import {
+  CardStack,
+  NavigationBar,
+} from '@shoutem/ui/navigation';
+
+import { navigatePop } from './redux';
 import RestaurantsList from './RestaurantsList';
 import RestaurantDetails from './RestaurantDetails';
 
-const {
-	Transitioner: NavigationTransitioner,
-	Card: NavigationCard,
-} = NavigationExperimental;
-
-// Stylenames for navigation bar depend on which scene is rendered
-const styles = {
-  navigationBar: 'container',
-};
-
 class App extends Component {
+  static propTypes = {
+    onNavigateBack: React.PropTypes.func.isRequired,
+    navigationState: React.PropTypes.object,
+    scene: React.PropTypes.object,
+  };
+
+  constructor(props) {
+    super(props);
+
+    this.renderNavBar = this.renderNavBar.bind(this);
+    this.renderScene = this.renderScene.bind(this);
+  }
+
   renderScene(props) {
     const { route } = props.scene;
 
-    switch (route.key) {
-      case 'RestaurantsList':
-        styles.navigationBar = 'container';
-        return <RestaurantsList />;
-      case 'RestaurantDetails':
-        styles.navigationBar = 'container';
-        return <RestaurantDetails {...route.props} />;
-      default:
-        return <RestaurantsList />;
-    }
+    let Screen = route.key === 'RestaurantDetails' ? RestaurantDetails : RestaurantsList;
+    return (<Screen {...route.props} />);
+  }
+
+  renderNavBar(props) {
+    const { onNavigateBack } = this.props;
+
+    return (
+      <NavigationBar.View
+        {...props}
+        onNavigateBack={onNavigateBack}
+      />
+    );
   }
 
   render() {
-    const { navigationState, backAction } = this.props;
+    const { navigationState, onNavigateBack } = this.props;
 
     return (
-      <NavigationTransitioner
+      <CardStack
         navigationState={navigationState}
-        render={props => {
-          const title = <Title numberOfLines={1}>{props.scene.route.title}</Title>;
-
-          return (
-            <View styleName="flexible">
-              <NavigationCard
-                {...props}
-                renderScene={this.renderScene}
-                key={props.scene.route.key}
-              />
-              <NavigationBar
-                centerComponent={title}
-                styleName={styles.navigationBar}
-                leftComponent={
-                  props.scene.index === 0 ? null :
-                    <Button onPress={backAction}>
-                      <Icon name="back" />
-                    </Button>
-                }
-              />
-            </View>
-          );
-        }}
+        onNavigateBack={onNavigateBack}
+        renderNavBar={this.renderNavBar}
+        renderScene={this.renderScene}
       />
     );
   }
 }
 
-App.propTypes = {
-  backAction: React.PropTypes.func.isRequired,
-  navigationState: React.PropTypes.object,
-  scene: React.PropTypes.object,
-};
-
 export default connect(
-  state => ({
-    navigationState: state.navigationState,
-  }),
-  dispatch => ({
-    backAction: () => {
-      dispatch(navigatePop());
-    },
-  })
+  state => ({ navigationState: state.navigationState }),
+  { onNavigateBack: navigatePop }
 )(App);

@@ -61,11 +61,11 @@ class NavigationBar extends Component {
     rightComponent: React.PropTypes.node,
     style: React.PropTypes.object,
     id: React.PropTypes.string,
-  }
+  };
 
   static defaultProps = {
     id: 'default',
-  }
+  };
 
   render() {
     const {

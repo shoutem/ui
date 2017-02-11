@@ -1,25 +1,24 @@
 import React, { Component } from 'react';
 import { ScrollView as RNScrollView } from 'react-native';
+import { connectStyle } from '@shoutem/theme';
 
 import { ScrollDriver, DriverShape } from '@shoutem/animation';
 
-import { connectStyle } from '@shoutem/theme';
-
 import { ScrollDriverProvider } from './ScrollDriverProvider.js';
 
-export class ScrollView extends Component {
+class ScrollView extends Component {
   static propTypes = {
     ...RNScrollView.propTypes,
-  }
+  };
 
   static contextTypes = {
     animationDriver: DriverShape,
     driverProvider: React.PropTypes.object,
-  }
+  };
 
   static childContextTypes = {
     animationDriver: DriverShape,
-  }
+  };
 
   static DriverProvider = ScrollDriverProvider;
 
@@ -36,7 +35,7 @@ export class ScrollView extends Component {
 
   componentWillMount() {
     const { driverProvider } = this.context;
-    const { primary } = this.props
+    const { primary } = this.props;
     if (driverProvider) {
       driverProvider.setAnimationDriver(this.animationDriver, primary);
     }
@@ -68,4 +67,8 @@ export class ScrollView extends Component {
   }
 }
 
-const StyledScrollView = connectStyle('shoutem.ui.ScrollView', ScrollView);
+const StyledScrollView = connectStyle('shoutem.ui.ScrollView')(ScrollView);
+
+export {
+  StyledScrollView as ScrollView,
+}
