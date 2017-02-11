@@ -1,10 +1,10 @@
 {
   "name": "@shoutem/ui",
-  "version": "0.10.9",
+  "version": "0.10.10",
   "description": "Styleable set of components for React Native applications",
   "dependencies": {
     "@shoutem/animation": "^0.8.10",
-    "@shoutem/theme": "^0.8.8",
+    "@shoutem/theme": "^0.8.10",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "buffer": "^4.5.1",
     "events": "1.1.0",
@@ -12,11 +12,11 @@
     "htmlparser2": "^3.9.0",
     "lodash": "^4.15.0",
     "react-native-lightbox": "git+https://github.com/shoutem/react-native-lightbox#master",
-    "react-native-linear-gradient": "^1.5.15",
-    "react-native-share": "^1.0.13",
+    "react-native-linear-gradient": "^2.0.0",
+    "react-native-share": "^1.0.19",
     "react-native-transformable-image": "ldn0x7dc/react-native-transformable-image#master",
     "react-native-view-transformer": "ldn0x7dc/react-native-view-transformer#master",
-    "react-native-vector-icons": "^2.0.3",
+    "react-native-vector-icons": "^4.0.0",
     "stream": "0.0.2",
     "tinycolor2": "^1.3.0"
   },
