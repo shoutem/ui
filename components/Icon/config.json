@@ -2838,7 +2838,7 @@
         "isMulticolor2": false,
         "grid": 24,
         "tags": [
-          "Close search"
+          "Clear text"
         ],
         "colorPermutations": {
           "68686818585851": [
@@ -2852,7 +2852,7 @@
       "properties": {
         "order": 258,
         "id": 67,
-        "name": "close-search",
+        "name": "clear-text",
         "prevSize": 48,
         "code": 59715
       },
