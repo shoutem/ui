@@ -885,10 +885,6 @@ export default () => ({
       margin: MEDIUM_GUTTER,
     },
   },
-  'shoutem.ui.Spinner'; {
-    color: Colors.SPINNER,
-  },
-
   'shoutem.ui.Spinner': {
     color: Colors.SPINNER,
   },
