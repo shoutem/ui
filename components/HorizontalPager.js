@@ -29,6 +29,8 @@ import { View } from './View';
  */
 class HorizontalPager extends Component {
   static propTypes = {
+    // Prop defining if the scrollToPage is animated or not
+    animated: PropTypes.bool,
     // Prop defining whether the Pager will bounce back
     // when user tries to swipe beyond end of content (iOS only)
     bounces: PropTypes.bool,
@@ -66,6 +68,7 @@ class HorizontalPager extends Component {
   };
 
   static defaultProps = {
+    animated: true,
     pageMargin: 0,
     selectedIndex: 0,
     showNextPage: false,
@@ -173,11 +176,12 @@ class HorizontalPager extends Component {
 
   scrollToPage(page) {
     const { width } = this.state;
+    const { animated } = this.props;
 
     if (this.scroller && width && page) {
       this.scroller.scrollTo({
         x: page * this.calculateContainerWidth(),
-        animated: false,
+        animated,
       });
     }
   }
