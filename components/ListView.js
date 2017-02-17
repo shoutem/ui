@@ -38,7 +38,7 @@ class ListDataSource {
    */
   groupItemsIntoSections(data) {
     let prevSectionId;
-    return data.reduce((sections, item) => {
+    return _.reduce(date, (sections, item) => {
       const sectionId = this.getSectionId(item);
       if (prevSectionId !== sectionId) {
         prevSectionId = sectionId;
@@ -67,7 +67,8 @@ class ListView extends React.Component {
   static propTypes = {
     autoHideHeader: React.PropTypes.bool,
     style: React.PropTypes.object,
-    data: React.PropTypes.array,
+    data: React.PropTypes.oneOfType([
+      React.PropTypes.object, React.PropTypes.array]),
     loading: React.PropTypes.bool,
     onLoadMore: React.PropTypes.func,
     onRefresh: React.PropTypes.func,
