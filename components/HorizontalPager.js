@@ -81,6 +81,7 @@ class HorizontalPager extends Component {
       showNextPage: this.props.showNextPage,
       shouldRenderContent: false,
       scrolledToInitialIndex: false,
+      scrollValue: new Animated.Value(this.props.selectedIndex),
     };
     this.calculateIndex = this.calculateIndex.bind(this);
     this.onHorizontalScroll = this.onHorizontalScroll.bind(this);
@@ -90,6 +91,7 @@ class HorizontalPager extends Component {
     this.calculateContainerWidth = this.calculateContainerWidth.bind(this);
     this.renderOverlay = this.renderOverlay.bind(this);
     this.isPageIndexValid = this.isPageIndexValid.bind(this);
+    this.goToPage = this.goToPage.bind(this);
   }
 
   componentDidMount() {
@@ -121,7 +123,13 @@ class HorizontalPager extends Component {
   }
 
   onHorizontalScroll(event) {
-    const { selectedIndex, scrolledToInitialIndex, initialSelectedIndex } = this.state;
+    const {
+      selectedIndex,
+      scrolledToInitialIndex,
+      initialSelectedIndex,
+      scrollValue,
+      width,
+    } = this.state;
     const { onIndexSelected } = this.props;
     const contentOffset = event.nativeEvent.contentOffset;
 
@@ -136,6 +144,7 @@ class HorizontalPager extends Component {
       this.setState({
         selectedIndex: initialSelectedIndex,
         scrolledToInitialIndex: true,
+        scrollValue: scrollValue(contentOffset.x / width),
       });
     }
 
@@ -243,12 +252,30 @@ class HorizontalPager extends Component {
     return pages;
   }
 
+  goToPage(pageNumber) {
+    const offset = pageNumber * this.state.width;
+    if (this.scrollView) {
+      this.scroller.scrollTo({x: offset, y: 0, animated: true, });
+    }
+    this.setState({
+      selectedIndex: pageNumber,
+    })
+    // const selectedIndex = this.state.selectedIndex;
+    // this.updateSceneKeys({
+    //   page: pageNumber,
+    //   callback: this._onChangeTab.bind(this, currentPage, pageNumber),
+    // });
+  },
+
   renderOverlay() {
     const { renderOverlay, data } = this.props;
-    const { selectedIndex } = this.state;
+    const {
+      scrollValue,
+      selectedIndex,
+    } = this.state;
 
     if (_.isFunction(renderOverlay)) {
-      return renderOverlay(selectedIndex, data);
+      return renderOverlay(selectedIndex, data, scrollValue, index => this.goToPage(index));
     }
   }
 
