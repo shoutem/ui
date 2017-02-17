@@ -178,7 +178,7 @@ class HorizontalPager extends Component {
     const { width } = this.state;
     const { animated } = this.props;
 
-    if (!this.scroller || !width || !page) {
+    if (!_.isNil(this.scroller) || _.isNil(!width) || _.isNil(!page)) {
       this.scroller.scrollTo({
         x: page * this.calculateContainerWidth(),
         animated,
