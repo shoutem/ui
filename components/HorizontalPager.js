@@ -265,7 +265,7 @@ class HorizontalPager extends Component {
     //   page: pageNumber,
     //   callback: this._onChangeTab.bind(this, currentPage, pageNumber),
     // });
-  },
+  }
 
   renderOverlay() {
     const { renderOverlay, data } = this.props;
