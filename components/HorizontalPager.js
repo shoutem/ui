@@ -4,6 +4,7 @@ import React, {
 } from 'react';
 
 import {
+  Animated,
   ScrollView,
   InteractionManager,
   LayoutAnimation,
@@ -91,7 +92,6 @@ class HorizontalPager extends Component {
     this.calculateContainerWidth = this.calculateContainerWidth.bind(this);
     this.renderOverlay = this.renderOverlay.bind(this);
     this.isPageIndexValid = this.isPageIndexValid.bind(this);
-    this.goToPage = this.goToPage.bind(this);
   }
 
   componentDidMount() {
@@ -133,6 +133,7 @@ class HorizontalPager extends Component {
     const { onIndexSelected } = this.props;
     const contentOffset = event.nativeEvent.contentOffset;
 
+    scrollValue.setValue(contentOffset.x / width);
     const newSelectedIndex = this.calculateIndex(contentOffset);
 
     // We're firing onIndexSelected(initialSelectedIndex) event if scrolling
@@ -144,7 +145,6 @@ class HorizontalPager extends Component {
       this.setState({
         selectedIndex: initialSelectedIndex,
         scrolledToInitialIndex: true,
-        scrollValue: scrollValue(contentOffset.x / width),
       });
     }
 
@@ -252,30 +252,23 @@ class HorizontalPager extends Component {
     return pages;
   }
 
-  goToPage(pageNumber) {
-    const offset = pageNumber * this.state.width;
-    if (this.scrollView) {
-      this.scroller.scrollTo({x: offset, y: 0, animated: true, });
-    }
-    this.setState({
-      selectedIndex: pageNumber,
-    })
-    // const selectedIndex = this.state.selectedIndex;
-    // this.updateSceneKeys({
-    //   page: pageNumber,
-    //   callback: this._onChangeTab.bind(this, currentPage, pageNumber),
-    // });
-  }
-
   renderOverlay() {
-    const { renderOverlay, data } = this.props;
+    const {
+      data,
+      renderOverlay,
+    } = this.props;
     const {
       scrollValue,
       selectedIndex,
     } = this.state;
-
+    const overlayProps = {
+      data,
+      scrollToPage: this.scrollToPage,
+      scrollValue,
+      selectedIndex,
+    };
     if (_.isFunction(renderOverlay)) {
-      return renderOverlay(selectedIndex, data, scrollValue, index => this.goToPage(index));
+      return renderOverlay(overlayProps);
     }
   }
 
@@ -312,12 +305,7 @@ class HorizontalPager extends Component {
         >
           {this.renderContent()}
         </ScrollView>
-        <View
-          styleName="fill-parent"
-          pointerEvents="none"
-        >
-          {this.renderOverlay()}
-        </View>
+        {this.renderOverlay()}
       </View>
     );
   }
