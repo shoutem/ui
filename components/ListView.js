@@ -38,7 +38,7 @@ class ListDataSource {
    */
   groupItemsIntoSections(data) {
     let prevSectionId;
-    return _.reduce(date, (sections, item) => {
+    return _.reduce(data, (sections, item) => {
       const sectionId = this.getSectionId(item);
       if (prevSectionId !== sectionId) {
         prevSectionId = sectionId;
