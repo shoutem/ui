@@ -31,6 +31,8 @@ class HorizontalPager extends Component {
   static propTypes = {
     // Prop defining if the scrollToPage is animated or not
     animated: PropTypes.bool,
+    // Callback function called on onScroll of ScrollView with the offset in parameter
+    onScroll: PropTypes.func,
     // Prop defining whether the Pager will bounce back
     // when user tries to swipe beyond end of content (iOS only)
     bounces: PropTypes.bool,
@@ -149,6 +151,11 @@ class HorizontalPager extends Component {
         selectedIndex: initialSelectedIndex,
         scrolledToInitialIndex: true,
       });
+
+      // We're calling onScroll function of props with scrollValue in parameter
+      if (_.isFunction(onScroll)) {
+        onScroll(contentOffset.x / width)
+      }
     }
 
     // And anytime when new index is selected (by swipe gesture)
