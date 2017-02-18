@@ -112,6 +112,10 @@ class HorizontalPager extends Component {
     if (this.props.scrollEnabled && !nextProps.scrollEnabled) {
       this.scrollToPage(selectedIndex);
     }
+
+    if (selectedIndex !== nextProps.selectedIndex) {
+      this.scrollToPage(nextProps.selectedIndex);
+    }
   }
 
   onLayoutContainer(event) {
