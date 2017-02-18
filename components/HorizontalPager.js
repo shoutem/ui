@@ -68,7 +68,7 @@ class HorizontalPager extends Component {
   };
 
   static defaultProps = {
-    animated: true,
+    animated: false,
     pageMargin: 0,
     selectedIndex: 0,
     showNextPage: false,
@@ -257,22 +257,11 @@ class HorizontalPager extends Component {
   }
 
   renderOverlay() {
-    const {
-      data,
-      renderOverlay,
-    } = this.props;
-    const {
-      scrollValue,
-      selectedIndex,
-    } = this.state;
-    const overlayProps = {
-      data,
-      scrollToPage: this.scrollToPage,
-      scrollValue,
-      selectedIndex,
-    };
+    const { renderOverlay, data } = this.props;
+    const { selectedIndex } = this.state;
+
     if (_.isFunction(renderOverlay)) {
-      return renderOverlay(overlayProps);
+      return renderOverlay(selectedIndex, data);
     }
   }
 
