@@ -4,7 +4,7 @@ import React, {
 } from 'react';
 import {
   Platform,
-  InteractionManager
+  InteractionManager,
 } from 'react-native';
 
 import { View } from '../View';
@@ -36,7 +36,7 @@ class RichMedia extends Component {
     if (shouldDelayDomParsing()) {
       InteractionManager.runAfterInteractions(() => {
         this.setState({ isLoading: false });
-        this.updateDomState()
+        this.updateDomState();
       });
     } else {
       this.updateDomState();
@@ -85,9 +85,12 @@ class RichMedia extends Component {
     }
 
     if (!dom) {
-      // Returning null here doesn't unmount
-      // the spinner on Android
-      return [];
+      // Returning null here doesn't unmount the spinner
+      // on Android, but returning an empty array works.
+      // Unfortunately, empty array cannot be returned on iOS...
+      // The Android issue is probably related to this:
+      // https://github.com/facebook/react-native/issues/8968
+      return (Platform.OS === 'android') ? [] : null;
     }
 
     return (
