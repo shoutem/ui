@@ -31,8 +31,8 @@ class HorizontalPager extends Component {
   static propTypes = {
     // Prop defining if the scrollToPage is animated or not
     animated: PropTypes.bool,
-    // Callback function called on onScroll of ScrollView with the offset in parameter
-    onScroll: PropTypes.func,
+    // Animated.Value from 'react-native' lib, it'll be updated at each scroll with the offset value
+    scrollValue: PropTypes.object,
     // Prop defining whether the Pager will bounce back
     // when user tries to swipe beyond end of content (iOS only)
     bounces: PropTypes.bool,
@@ -87,7 +87,6 @@ class HorizontalPager extends Component {
       showNextPage: this.props.showNextPage,
       shouldRenderContent: false,
       scrolledToInitialIndex: false,
-      scrollValue: new Animated.Value(this.props.selectedIndex),
     };
     this.calculateIndex = this.calculateIndex.bind(this);
     this.onHorizontalScroll = this.onHorizontalScroll.bind(this);
@@ -136,16 +135,15 @@ class HorizontalPager extends Component {
       selectedIndex,
       scrolledToInitialIndex,
       initialSelectedIndex,
-      scrollValue,
       width,
     } = this.state;
     const {
       onIndexSelected,
       onScroll,
+      scrollValue,
     } = this.props;
     const contentOffset = event.nativeEvent.contentOffset;
 
-    scrollValue.setValue(contentOffset.x / width);
     const newSelectedIndex = this.calculateIndex(contentOffset);
 
     // We're firing onIndexSelected(initialSelectedIndex) event if scrolling
@@ -158,11 +156,6 @@ class HorizontalPager extends Component {
         selectedIndex: initialSelectedIndex,
         scrolledToInitialIndex: true,
       });
-
-      // We're calling onScroll function of props with scrollValue in parameter
-      if (_.isFunction(onScroll)) {
-        onScroll(contentOffset.x / width)
-      }
     }
 
     // And anytime when new index is selected (by swipe gesture)
@@ -174,6 +167,11 @@ class HorizontalPager extends Component {
       this.setState({
         selectedIndex: newSelectedIndex,
       });
+    }
+
+    // We're setting the value of the prop scrollValue
+    if (!_.isNil(scrollValue)) {
+      scrollValue.setValue(contentOffset.x / width);
     }
   }
 
