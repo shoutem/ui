@@ -887,6 +887,7 @@ export default () => ({
   },
 
   'shoutem.ui.Spinner': {
+    [INCLUDE]: ['guttersMargin'],
     color: Colors.SPINNER,
   },
 

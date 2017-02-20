@@ -59,15 +59,8 @@ class ImageGallery extends Component {
   static defaultProps = {
     selectedIndex: 0,
     showNextPage: false,
-    renderPlaceholder: () => {
-      return (
-        <LoadingIndicator />
-      );
-    },
-  }
-
-  timingDriver = new TimingDriver();
-  imageRefs = new Map();
+    renderPlaceholder: () => <LoadingIndicator />,
+  };
 
   constructor(props) {
     super(props);
@@ -80,11 +73,15 @@ class ImageGallery extends Component {
     this.renderDescription = this.renderDescription.bind(this);
     this.onViewTransformed = this.onViewTransformed.bind(this);
     this.onSingleTapConfirmed = this.onSingleTapConfirmed.bind(this);
-    this.resetSurroundingImageTransformations = this.resetSurroundingImageTransformations.bind(this);
+    this.resetSurroundingImageTransformations =
+      this.resetSurroundingImageTransformations.bind(this);
     this.getImageTransformer = this.getImageTransformer.bind(this);
     this.updateImageSwitchingStatus = this.updateImageSwitchingStatus.bind(this);
     this.setImagePreviewMode = this.setImagePreviewMode.bind(this);
     this.setGalleryMode = this.setGalleryMode.bind(this);
+
+    this.timingDriver = new TimingDriver();
+    this.imageRefs = new Map();
     this.state = {
       selectedIndex: this.props.selectedIndex || 0,
       collapsed: true,
@@ -215,7 +212,9 @@ class ImageGallery extends Component {
     const { collapsed } = this.state;
     const { style } = this.props;
 
-    if (!description) return;
+    if (!description) {
+      return null;
+    }
 
     const descriptionIcon = collapsed ? <Icon name="up-arrow" /> : <Icon name="down-arrow" />;
 
@@ -297,7 +296,7 @@ class ImageGallery extends Component {
     const description = _.get(page, 'description');
 
     if (!image) {
-      return;
+      return null;
     }
 
     return (
@@ -313,8 +312,8 @@ class ImageGallery extends Component {
           enableTranslate={!imageSwitchingEnabled}
           ref={((ref) => { this.imageRefs.set(pageId, ref); })}
         />
-        { this.renderTitle(title) }
-        { this.renderDescription(description) }
+        {this.renderTitle(title)}
+        {this.renderDescription(description)}
       </View>
     );
   }
