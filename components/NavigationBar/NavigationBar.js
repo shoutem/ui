@@ -30,7 +30,6 @@ function setStatusBarStyle(backgroundColor) {
 
   function setStyle(bgColor) {
     if (Platform.OS === 'android') {
-      StatusBar.setTranslucent(true);
       StatusBar.setBackgroundColor('rgba(0, 0, 0, 0.2)');
     } else {
       const barStyle = chooseBarStyle(bgColor);
@@ -81,7 +80,7 @@ class NavigationBar extends Component {
     // Key must be set to render new screen NavigationBar
     return (
       <Animated.View style={style.container} key={id}>
-        <StatusBar translucent />
+        <StatusBar />
         <View style={style.componentsContainer}>
           <View style={style.leftComponent}>{leftComponent}</View>
           <View style={style.centerComponent}>{centerComponent}</View>
