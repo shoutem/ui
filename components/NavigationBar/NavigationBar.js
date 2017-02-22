@@ -60,6 +60,7 @@ class NavigationBar extends Component {
     centerComponent: React.PropTypes.node,
     rightComponent: React.PropTypes.node,
     style: React.PropTypes.object,
+    customStyle: React.PropTypes.object,
     id: React.PropTypes.string,
   };
 
@@ -73,6 +74,7 @@ class NavigationBar extends Component {
       rightComponent,
       centerComponent,
       style,
+      customStyle = {},
       id,
     } = this.props;
 
@@ -80,12 +82,12 @@ class NavigationBar extends Component {
     setStatusBarStyle(backgroundColor);
     // Key must be set to render new screen NavigationBar
     return (
-      <Animated.View style={style.container} key={id}>
+      <Animated.View style={[style.container, customStyle.container]} key={id}>
         <StatusBar translucent />
-        <View style={style.componentsContainer}>
-          <View style={style.leftComponent}>{leftComponent}</View>
-          <View style={style.centerComponent}>{centerComponent}</View>
-          <View style={style.rightComponent}>{rightComponent}</View>
+        <View style={[style.componentsContainer, customStyle.componentsContainer]}>
+          <View style={[style.leftComponent, customStyle.leftComponent]}>{leftComponent}</View>
+          <View style={[style.centerComponent, customStyle.centerComponent]}>{centerComponent}</View>
+          <View style={[style.rightComponent, customStyle.rightComponent]}>{rightComponent}</View>
         </View>
       </Animated.View>
     );
