@@ -985,12 +985,12 @@ export default () => ({
       },
     },
 
-  '.inline': {
-    container: {
-      width: window.width,
-      position: 'relative',
-    }
-  },
+    '.inline': {
+      container: {
+        width: window.width,
+        position: 'relative',
+      },
+    },
 
     'shoutem.ui.Title': {
       solidifyAnimation(driver) {
@@ -1112,7 +1112,7 @@ export default () => ({
               outputRange: [1, 0],
             }),
           };
-        }
+        },
       },
     },
 
@@ -1243,7 +1243,7 @@ export default () => ({
           left: 0,
           right: 0,
           height: NAVIGATION_BAR_HEIGHT,
-        }
+        },
       },
 
       navigationHeader: {
@@ -1307,7 +1307,7 @@ export default () => ({
         height: 39,
         paddingVertical: 9,
       },
-    }
+    },
   },
 
   'shoutem.ui.TextInput': {
@@ -1340,7 +1340,7 @@ export default () => ({
             outputRange: ['rgba(0, 0, 0, 0.4)', 'rgba(0, 0, 0, 1)'],
           }),
         };
-      }
+      },
     },
 
     thumb: {
