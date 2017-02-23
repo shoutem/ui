@@ -887,6 +887,7 @@ export default () => ({
   },
 
   'shoutem.ui.Spinner': {
+    [INCLUDE]: ['guttersMargin'],
     color: Colors.SPINNER,
   },
 
@@ -1294,6 +1295,21 @@ export default () => ({
   //
   // Form components
   //
+  'shoutem.ui.FormGroup': {
+    'shoutem.ui.View': {
+      'shoutem.ui.Caption': {
+        backgroundColor: Colors.LIGHT,
+        paddingHorizontal: MEDIUM_GUTTER,
+        paddingTop: 12,
+      },
+
+      'shoutem.ui.TextInput': {
+        height: 39,
+        paddingVertical: 9,
+      },
+    }
+  },
+
   'shoutem.ui.TextInput': {
     [INCLUDE]: ['commonVariants', 'guttersMargin'],
     selectionColor: Colors.TEXT,

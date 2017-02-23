@@ -23,6 +23,7 @@ export { TouchableOpacity } from './components/TouchableOpacity';
 export { Button } from './components/Button';
 export { Icon, createIcon } from './components/Icon';
 
+export { FormGroup } from './components/FormGroup';
 export { TextInput } from './components/TextInput';
 
 export { Spinner } from './components/Spinner';

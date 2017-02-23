@@ -61,17 +61,19 @@ class Switch extends Component {
         onPress={this.onSwitchPressed}
         styleName="clear"
       >
-        <View
-          animationName="mute"
-          driver={this.timingDriver}
-          style={style.container}
-        >
+        <View>
           <View
-            animationName="turn"
-            animationOptions={{ containerWidth: style.container.width }}
+            animationName="mute"
             driver={this.timingDriver}
-            style={style.thumb}
-          />
+            style={style.container}
+          >
+            <View
+              animationName="turn"
+              animationOptions={{ containerWidth: style.container.width }}
+              driver={this.timingDriver}
+              style={style.thumb}
+            />
+          </View>
         </View>
       </TouchableWithoutFeedback>
     );
