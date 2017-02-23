@@ -17,6 +17,7 @@
     "react-native-transformable-image": "ldn0x7dc/react-native-transformable-image#master",
     "react-native-view-transformer": "ldn0x7dc/react-native-view-transformer#master",
     "react-native-vector-icons": "^2.0.3",
+    "react-native-photo-view": "^1.2.0",
     "stream": "0.0.2",
     "tinycolor2": "^1.3.0"
   },
