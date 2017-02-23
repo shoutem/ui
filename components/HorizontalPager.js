@@ -54,7 +54,10 @@ class HorizontalPager extends Component {
     // Prop that forces enables or disables swiping
     scrollEnabled: PropTypes.bool,
     // Style prop used to override default (theme) styling
-    style: PropTypes.object,
+    style: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.array
+    ]),
     // Prop that reduces page size by pageMargin, allowing 'sneak peak' of next page
     showNextPage: PropTypes.bool,
     // Always render only central (currently loaded) page plus `surroundingPagesToLoad`

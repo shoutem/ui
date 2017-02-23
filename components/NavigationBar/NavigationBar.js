@@ -59,7 +59,10 @@ class NavigationBar extends Component {
     leftComponent: React.PropTypes.node,
     centerComponent: React.PropTypes.node,
     rightComponent: React.PropTypes.node,
-    style: React.PropTypes.object,
+    style: React.PropTypes.oneOfType([
+      React.PropTypes.object,
+      React.PropTypes.array
+    ]),
     customStyle: React.PropTypes.object,
     id: React.PropTypes.string,
   };

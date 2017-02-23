@@ -17,7 +17,10 @@ const propTypes = {
   source: PropTypes.shape({
     uri: PropTypes.string,
   }),
-  style: PropTypes.object,
+  style: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.array
+    ]),
 };
 
 function createSourceObject(source) {

@@ -66,7 +66,10 @@ class ListDataSource {
 class ListView extends React.Component {
   static propTypes = {
     autoHideHeader: React.PropTypes.bool,
-    style: React.PropTypes.object,
+    style: React.PropTypes.oneOfType([
+      React.PropTypes.object,
+      React.PropTypes.array
+    ]),
     data: React.PropTypes.oneOfType([
       React.PropTypes.object, React.PropTypes.array]),
     loading: React.PropTypes.bool,

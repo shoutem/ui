@@ -49,7 +49,10 @@ class DropDownMenu extends Component {
      * Prop definition overrides style.
      */
     visibleOptions: React.PropTypes.number,
-    style: React.PropTypes.object,
+    style: React.PropTypes.oneOfType([
+      React.PropTypes.object,
+      React.PropTypes.array
+    ]),
   };
 
   static DEFAULT_VISIBLE_OPTIONS = 8;
