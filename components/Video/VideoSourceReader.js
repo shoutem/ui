@@ -1,5 +1,6 @@
 
 import _ from 'lodash';
+import { stringify } from 'qs';
 
 function getYouTubeVideoId(url) {
   const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\??v?=?))([^#&\?]*).*/;
@@ -26,8 +27,8 @@ function getVimeoVideoId(url) {
 }
 
 function getYouTubeEmbedUrl(id, playerParams) {
-  this.playerParams = _.reduce(playerParams);
-  return `https://www.youtube.com/embed/${id}?${playerParams}`;
+  const serializedParams = stringify(playerParams)
+  return `https://www.youtube.com/embed/${id}?${serializedParams}`;
 }
 
 function getVimeoEmbedUrl(id) {
@@ -40,7 +41,7 @@ function getVimeoEmbedUrl(id) {
  */
 
 export default class VideoSourceReader {
-  constructor(source, playerParams = 'showinfo=0') {
+  constructor(source, playerParams) {
     this.source = source;
     this.playerParams = playerParams;
     this.isYouTube = !!getYouTubeVideoId(source);

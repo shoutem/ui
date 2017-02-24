@@ -14,11 +14,18 @@ import VideoSourceReader from './VideoSourceReader';
 const propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
+  // `playerParams` currently only works for Youtube
   playerParams: PropTypes.object,
   source: PropTypes.shape({
     uri: PropTypes.string,
   }),
   style: PropTypes.object,
+};
+
+const defaultProps = {
+  playerParams: {
+    showinfo: 0,
+  },
 };
 
 function createSourceObject(source, playerParams) {
@@ -70,6 +77,7 @@ function Video({
 }
 
 Video.propTypes = propTypes;
+Video.defaultProps = defaultProps;
 
 const AnimatedVideo = connectAnimation(Video);
 const StyledVideo = connectStyle('shoutem.ui.Video', {})(AnimatedVideo);
