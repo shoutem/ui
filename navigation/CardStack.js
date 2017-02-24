@@ -21,6 +21,9 @@ class CardStack extends Component {
   static propTypes = {
     ...RNCardStack.propTypes,
     renderNavBar: React.PropTypes.func,
+    // Controls whether native animation driver will be used
+    // for screen transitions or not.
+    useNativeAnimations: React.PropTypes.bool,
     style: React.PropTypes.shape({
       cardStack: RNCardStack.propTypes.style,
       card: React.PropTypes.any,
@@ -174,8 +177,13 @@ class CardStack extends Component {
   render() {
     const style = this.props.style || {};
 
+    // NOTE: explicitly providing enableGestures in props may
+    // override the value of the useNativeAnimations prop, because
+    // the native animations are currently controlled through the
+    // enableGestures prop in RN CardStack.
     return (
       <RNCardStack
+        enableGestures={!this.props.useNativeAnimations}
         {...this.props}
         style={style.cardStack}
         cardStyle={style.card}
