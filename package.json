@@ -11,6 +11,7 @@
     "html-entities": "^1.2.0",
     "htmlparser2": "^3.9.0",
     "lodash": "^4.15.0",
+    "qs": "^4.0.0",
     "react-native-lightbox": "git+https://github.com/shoutem/react-native-lightbox#master",
     "react-native-linear-gradient": "^1.5.15",
     "react-native-share": "^1.0.13",
