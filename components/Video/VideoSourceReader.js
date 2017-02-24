@@ -1,5 +1,3 @@
-
-import _ from 'lodash';
 import { stringify } from 'qs';
 
 function getYouTubeVideoId(url) {
