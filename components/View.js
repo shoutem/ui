@@ -1,19 +1,42 @@
 import React, { Component } from 'react';
 import { View as RNView } from 'react-native';
+import _ from 'lodash';
 
 import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
 
+import { LinearGradient } from '../components/LinearGradient';
+
 class View extends Component {
   render() {
+    const style = { ...this.props.style };
+    let gradient = null;
+
+    if (style.backgroundGradient) {
+      gradient = (
+        <LinearGradient
+          styleName="fill-parent"
+          style={style.backgroundGradient}
+        />
+      );
+
+      // This is not a valid RN View style
+      delete style.backgroundGradient;
+    }
+
+
     return (
-      <RNView {...this.props} />
+      <RNView {...this.props} style={style}>
+        {gradient}
+        {this.props.children}
+      </RNView>
     );
   }
 }
 
 View.propTypes = {
   ...RNView.propTypes,
+  style: React.PropTypes.object,
 };
 
 const AnimatedView = connectAnimation(View);

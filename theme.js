@@ -985,12 +985,12 @@ export default () => ({
       },
     },
 
-  '.inline': {
-    container: {
-      width: window.width,
-      position: 'relative',
-    }
-  },
+    '.inline': {
+      container: {
+        width: window.width,
+        position: 'relative',
+      },
+    },
 
     'shoutem.ui.Title': {
       solidifyAnimation(driver) {
@@ -1076,6 +1076,7 @@ export default () => ({
     },
 
     centerComponent: {
+      alignSelf: 'center',
       alignItems: 'center',
       flex: 1,
     },
@@ -1112,7 +1113,7 @@ export default () => ({
               outputRange: [1, 0],
             }),
           };
-        }
+        },
       },
     },
 
@@ -1243,7 +1244,7 @@ export default () => ({
           left: 0,
           right: 0,
           height: NAVIGATION_BAR_HEIGHT,
-        }
+        },
       },
 
       navigationHeader: {
@@ -1307,7 +1308,7 @@ export default () => ({
         height: 39,
         paddingVertical: 9,
       },
-    }
+    },
   },
 
   'shoutem.ui.TextInput': {
@@ -1340,7 +1341,7 @@ export default () => ({
             outputRange: ['rgba(0, 0, 0, 0.4)', 'rgba(0, 0, 0, 1)'],
           }),
         };
-      }
+      },
     },
 
     thumb: {
@@ -1505,83 +1506,94 @@ export default () => ({
   //
   // ImageGallery
   //
-
-  galleryOverlayAnimations: {
-    fadeOutAnimation(driver, { layout, options }) {
-      return {
-        backgroundColor: driver.value.interpolate({
-          inputRange: [0, 1],
-          outputRange: [
-            Colors.LIGHT_GRAY,
-            Colors.IMAGE_PREVIEW_BACKGROUND,
-          ],
-        }),
-        opacity: driver.value.interpolate({
-          inputRange: [0, 1],
-          outputRange: [1, 0],
-        }),
-      };
-    },
-  },
-
   'shoutem.ui.ImageGallery': {
     [INCLUDE]: ['guttersPadding'],
     pageMargin: 20,
     container: {
       flexGrow: 1,
-      lightsOffAnimation(driver, { layout, options }) {
-        return {
-          backgroundColor: driver.value.interpolate({
-            inputRange: [0, 1],
-            outputRange: [
-              Colors.LIGHT_GRAY,
-              Colors.IMAGE_PREVIEW_BACKGROUND,
-            ],
-          }),
-        };
-      },
+      backgroundColor: Colors.IMAGE_PREVIEW_BACKGROUND,
     },
     page: {
       flexGrow: 1,
       justifyContent: 'center',
       overflow: 'hidden',
     },
+  },
+
+  'shoutem.ui.ImageGalleryOverlay': {
+    '.full-screen': {
+      title: {
+        container: {
+          // We want the title background gradient to be
+          // visible underneath the navigation bar, but the
+          // title text should be rendered below the
+          // navigation bar.
+          paddingTop: 70 + MEDIUM_GUTTER,
+        },
+      },
+    },
+
+    container: {
+      [INCLUDE]: ['fillParent'],
+    },
     title: {
       container: {
-        // Top position will most likely be 0 or 70
-        [INCLUDE]: ['galleryOverlayAnimations'],
         position: 'absolute',
-        backgroundColor: Colors.LIGHT_GRAY,
-        paddingTop: MEDIUM_GUTTER,
-        paddingHorizontal: MEDIUM_GUTTER,
-        height: 60,
         top: 0,
         left: 0,
         right: 0,
+        paddingTop: MEDIUM_GUTTER,
+        paddingHorizontal: MEDIUM_GUTTER,
+
+        backgroundGradient: {
+          colors: ['rgba(0, 0, 0, 0.6)', 'rgba(0, 0, 0, 0.0)'],
+          locations: [0.17, 1.0],
+        },
       },
       text: {
-        color: Colors.DARK,
+        color: Colors.LIGHT,
         textAlign: 'center',
       },
     },
     description: {
       container: {
-        [INCLUDE]: ['galleryOverlayAnimations'],
+        '.expanded': {
+          paddingTop: EXTRA_LARGE_GUTTER,
+
+          backgroundGradient: {
+            colors: ['rgba(0, 0, 0, 0.0)', 'rgba(0, 0, 0, 0.8)'],
+            locations: [0.36, 1.0],
+          },
+        },
+        '.collapsed': {
+          paddingTop: MEDIUM_GUTTER,
+
+          backgroundGradient: {
+            colors: ['rgba(0, 0, 0, 0.0)', 'rgba(0, 0, 0, 0.6)'],
+            locations: [0.02, 1.0],
+          },
+        },
+
         position: 'absolute',
-        backgroundColor: Colors.LIGHT_GRAY,
-        paddingTop: SMALL_GUTTER,
         bottom: 0,
         left: 0,
         right: 0,
       },
+
       scroll: {
         maxHeight: 200,
         padding: MEDIUM_GUTTER,
       },
       text: {
-        color: Colors.DARK,
+        color: Colors.LIGHT,
         textAlign: 'center',
       },
+    },
+  },
+
+  'shoutem.ui.LinearGradient': {
+    '.fill-parent': {
+      [INCLUDE]: ['fillParent'],
     },
   },
 });
