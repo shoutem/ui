@@ -3,9 +3,9 @@ import PhotoView from 'react-native-photo-view';
 
 import { connectStyle } from '@shoutem/theme';
 
-import { BaseImageGallery } from './BaseImageGallery';
+import { ImageGalleryBase } from './ImageGalleryBase';
 
-class ImageGallery extends BaseImageGallery {
+class ImageGallery extends ImageGalleryBase {
   renderImage(imageProps, imageData, imageIndex) {
     const { selectedIndex } = this.state;
 

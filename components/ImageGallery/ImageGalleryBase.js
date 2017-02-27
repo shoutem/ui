@@ -9,10 +9,19 @@ import {
   Image,
 } from '../../index';
 
+/**
+ * The image preview mode is the mode in which
+ * the user can zoom in/out and pan the image around.
+ */
 const IMAGE_PREVIEW_MODE = 'imagePreview';
+/**
+ * The gallery mode is the mode in which
+ * the user can scroll between images, and can see
+ * additional info about each image.
+ */
 const IMAGE_GALLERY_MODE = 'gallery';
 
-export class BaseImageGallery extends Component {
+export class ImageGalleryBase extends Component {
   static propTypes = {
     // Array containing objects with gallery data (shape defined below)
     data: PropTypes.arrayOf(
@@ -60,8 +69,6 @@ export class BaseImageGallery extends Component {
     this.renderPage = this.renderPage.bind(this);
     this.onIndexSelected = this.onIndexSelected.bind(this);
     this.onImageTap = this.onImageTap.bind(this);
-    this.setImagePreviewMode = this.setImagePreviewMode.bind(this);
-    this.setGalleryMode = this.setGalleryMode.bind(this);
 
     this.state = {
       selectedIndex: this.props.selectedIndex || 0,
@@ -73,12 +80,12 @@ export class BaseImageGallery extends Component {
   onImageTap() {
     const { mode } = this.state;
 
+    // We are toggling between image preview and
+    // gallery modes when the user taps on an image.
     if (mode === IMAGE_PREVIEW_MODE) {
-      // If controls are not visible and user taps on image
-      // We should switch to gallery mode
-      this.setGalleryMode();
+      this.setMode(IMAGE_GALLERY_MODE);
     } else {
-      this.setImagePreviewMode();
+      this.setMode(IMAGE_PREVIEW_MODE);
     }
   }
 
@@ -93,31 +100,15 @@ export class BaseImageGallery extends Component {
     });
   }
 
-  /**
-   * Sets the image preview mode, this is the mode in which
-   * the user can zoom in/out and pan the image around.
-   */
-  setImagePreviewMode() {
+  setMode(mode) {
     const { onModeChanged } = this.props;
+    if (this.state.mode === mode) {
+      return;
+    }
 
-    this.setState({ mode: IMAGE_PREVIEW_MODE }, () => {
+    this.setState({ mode }, () => {
       if (_.isFunction(onModeChanged)) {
-        onModeChanged(IMAGE_PREVIEW_MODE);
-      }
-    });
-  }
-
-  /**
-   * Sets the gallery mode. This is the mode in which
-   * the user can scroll between images, and can see
-   * additional info about each image.
-   */
-  setGalleryMode() {
-    const { onModeChanged } = this.props;
-
-    this.setState({ mode: IMAGE_GALLERY_MODE }, () => {
-      if (_.isFunction(onModeChanged)) {
-        onModeChanged(IMAGE_GALLERY_MODE);
+        onModeChanged(mode);
       }
     });
   }
@@ -141,7 +132,7 @@ export class BaseImageGallery extends Component {
       source: { uri: image },
       style: { flex: 1 },
     };
-    const transformedImageProps = transformImageProps ?
+    const transformedImageProps = _.isFunction(transformImageProps) ?
       transformImageProps(imageProps) :
       imageProps;
 
