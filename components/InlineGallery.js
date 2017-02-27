@@ -6,7 +6,7 @@ import { connectStyle } from '@shoutem/theme';
 import { View } from './View';
 import { TouchableOpacity } from './TouchableOpacity';
 import { Image } from './Image';
-import { HorizontalPager } from './HorizontalPager';
+import { HorizontalPager } from './HorizontalPager/HorizontalPager';
 import { LoadingIndicator } from './LoadingIndicator';
 
 class InlineGallery extends Component {
@@ -33,7 +33,7 @@ class InlineGallery extends Component {
     showNextPage: PropTypes.bool,
     // Callback function that can be used to render overlay over pages
     // For example page indicators using `PageIndicators` component
-    // renderOverlay(selectedIndex, data)
+    // renderOverlay(imageData, imageIndex)
     renderOverlay: PropTypes.func,
     // Callback function that can be used to define placeholder
     // that appears when content is loading
@@ -41,12 +41,8 @@ class InlineGallery extends Component {
   };
 
   static defaultProps = {
-    renderPlaceholder: () => {
-      return (
-        <LoadingIndicator />
-      );
-    },
-  }
+    renderPlaceholder: () => (<LoadingIndicator />),
+  };
 
   constructor(props) {
     super(props);
@@ -77,24 +73,18 @@ class InlineGallery extends Component {
     }
   }
 
-  getSelectedIndex() {
-    const { selectedIndex } = this.state;
-
-    return selectedIndex;
-  }
-
-  renderPage(page, id) {
+  renderPage(pageData, pageIndex) {
     const { style, onPress } = this.props;
-    const source = _.get(page, 'source.uri');
+    const source = _.get(pageData, 'source.uri');
 
     if (!source) {
-      return;
+      return null;
     }
 
     return (
       <TouchableOpacity
         onPress={this.onPress}
-        key={id}
+        key={pageIndex}
         styleName="flexible"
         style={style.imageContainer}
         disabled={!onPress}

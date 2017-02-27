@@ -1,0 +1,1 @@
+export { HorizontalPager } from './HorizontalPager';
