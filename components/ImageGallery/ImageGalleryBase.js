@@ -9,19 +9,24 @@ import {
   Image,
 } from '../../index';
 
-/**
- * The image preview mode is the mode in which
- * the user can zoom in/out and pan the image around.
- */
-export const IMAGE_PREVIEW_MODE = 'imagePreview';
-/**
- * The gallery mode is the mode in which
- * the user can scroll between images, and can see
- * additional info about each image.
- */
-export const IMAGE_GALLERY_MODE = 'gallery';
+
+const IMAGE_PREVIEW_MODE = 'imagePreview';
+const IMAGE_GALLERY_MODE = 'gallery';
 
 export class ImageGalleryBase extends Component {
+  /**
+   * The image preview mode is the mode in which
+   * the user can zoom in/out and pan the image around.
+   */
+  static IMAGE_PREVIEW_MODE = IMAGE_PREVIEW_MODE;
+
+  /**
+   * The gallery mode is the mode in which
+   * the user can scroll between images, and can see
+   * additional info about each image.
+   */
+  static IMAGE_GALLERY_MODE = IMAGE_GALLERY_MODE;
+
   static propTypes = {
     // Array containing objects with gallery data (shape defined below)
     data: PropTypes.arrayOf(

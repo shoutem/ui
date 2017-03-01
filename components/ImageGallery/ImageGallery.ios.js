@@ -7,6 +7,9 @@ import { connectStyle } from '@shoutem/theme';
 import { ImageGalleryBase } from './ImageGalleryBase';
 
 class ImageGallery extends ImageGalleryBase {
+  static IMAGE_PREVIEW_MODE = ImageGalleryBase.IMAGE_PREVIEW_MODE;
+  static IMAGE_GALLERY_MODE = ImageGalleryBase.IMAGE_GALLERY_MODE;
+
   constructor(props) {
     super(props);
 
