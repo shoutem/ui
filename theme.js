@@ -876,10 +876,10 @@ export default () => ({
       height: RICH_MEDIA_IMAGE_HEIGHT,
     },
     p: {
-      [INCLUDE]: ['shoutem.ui.Text'],
+      [INCLUDE]: ['shoutem.ui.Text', 'richMediaTextStyle'],
     },
     div: {
-      [INCLUDE]: ['shoutem.ui.Text'],
+      [INCLUDE]: ['shoutem.ui.Text', 'richMediaTextStyle'],
     },
     container: {
       margin: MEDIUM_GUTTER,
