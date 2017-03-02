@@ -9,19 +9,24 @@ import {
   Image,
 } from '../../index';
 
-/**
- * The image preview mode is the mode in which
- * the user can zoom in/out and pan the image around.
- */
+
 const IMAGE_PREVIEW_MODE = 'imagePreview';
-/**
- * The gallery mode is the mode in which
- * the user can scroll between images, and can see
- * additional info about each image.
- */
 const IMAGE_GALLERY_MODE = 'gallery';
 
 export class ImageGalleryBase extends Component {
+  /**
+   * The image preview mode is the mode in which
+   * the user can zoom in/out and pan the image around.
+   */
+  static IMAGE_PREVIEW_MODE = IMAGE_PREVIEW_MODE;
+
+  /**
+   * The gallery mode is the mode in which
+   * the user can scroll between images, and can see
+   * additional info about each image.
+   */
+  static IMAGE_GALLERY_MODE = IMAGE_GALLERY_MODE;
+
   static propTypes = {
     // Array containing objects with gallery data (shape defined below)
     data: PropTypes.arrayOf(
@@ -72,6 +77,7 @@ export class ImageGalleryBase extends Component {
 
     this.state = {
       selectedIndex: this.props.selectedIndex || 0,
+      imageSwitchingEnabled: true,
       collapsed: true,
       mode: IMAGE_GALLERY_MODE,
     };
@@ -157,7 +163,7 @@ export class ImageGalleryBase extends Component {
 
   render() {
     const { data, renderOverlay, renderPlaceholder, style } = this.props;
-    const { selectedIndex } = this.state;
+    const { selectedIndex, imageSwitchingEnabled } = this.state;
 
     return (
       <View
@@ -174,6 +180,7 @@ export class ImageGalleryBase extends Component {
           showNextPage={false}
           renderOverlay={renderOverlay}
           renderPlaceholder={renderPlaceholder}
+          scrollEnabled={imageSwitchingEnabled}
         />
       </View>
     );

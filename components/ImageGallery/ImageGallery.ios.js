@@ -7,9 +7,13 @@ import { connectStyle } from '@shoutem/theme';
 import { ImageGalleryBase } from './ImageGalleryBase';
 
 class ImageGallery extends ImageGalleryBase {
+  static IMAGE_PREVIEW_MODE = ImageGalleryBase.IMAGE_PREVIEW_MODE;
+  static IMAGE_GALLERY_MODE = ImageGalleryBase.IMAGE_GALLERY_MODE;
+
   constructor(props) {
     super(props);
 
+    this.onViewTransformed = this.onViewTransformed.bind(this);
     this.imageRefs = new Map();
   }
 
@@ -41,6 +45,36 @@ class ImageGallery extends ImageGalleryBase {
     this.resetImageTransformer(this.getImageTransformer(index + 1));
   }
 
+  updateImageSwitchingStatus() {
+    const { imageSwitchingEnabled, selectedIndex } = this.state;
+
+    const imageTransformer = this.getImageTransformer(selectedIndex);
+    if (!imageTransformer) {
+      return;
+    }
+
+    const translationSpace = imageTransformer.getAvailableTranslateSpace();
+    if (!translationSpace) {
+      return;
+    }
+
+    const imageBoundaryReached = (translationSpace.right <= 0 || translationSpace.left <= 0);
+
+    if (imageSwitchingEnabled !== imageBoundaryReached) {
+      // We want to allow switching between gallery images only if
+      // the image is at its left or right boundary. This happens if the
+      // image is fully zoomed out, or if the image is zoomed in but the
+      // user moved it to one of its boundaries.
+      this.setState({
+        imageSwitchingEnabled: imageBoundaryReached,
+      });
+    }
+  }
+
+  onViewTransformed() {
+    this.updateImageSwitchingStatus();
+  }
+
   onIndexSelected(newIndex) {
     super.onIndexSelected(newIndex);
 
@@ -53,9 +87,13 @@ class ImageGallery extends ImageGalleryBase {
   }
 
   renderImage(imageProps, imageData, imageIndex) {
+    const { imageSwitchingEnabled } = this.state;
+
     const iosProps = {
       ...imageProps,
       onSingleTapConfirmed: this.onImageTap,
+      onViewTransformed: this.onViewTransformed,
+      enableTranslate: !imageSwitchingEnabled,
       ref: transformer => {
         this.imageRefs.set(imageIndex, transformer);
       },

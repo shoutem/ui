@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import {
+  ScrollView,
+} from 'react-native';
 
 import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
@@ -9,7 +12,6 @@ import {
   Caption,
   Icon,
   TouchableOpacity,
-  ScrollView,
 } from './../index';
 
 const DESCRIPTION_LENGTH_TRIM_LIMIT = 90;
@@ -31,18 +33,32 @@ class ImageGalleryOverlay extends Component {
 
     this.collapseDescription = this.collapseDescription.bind(this);
     this.expandDescription = this.expandDescription.bind(this);
+    this.onDescriptionScroll = this.onDescriptionScroll.bind(this);
 
     this.state = {
       isDescriptionCollapsed: true,
     };
   }
 
+  onDescriptionScroll(event) {
+    const { isDescriptionCollapsed } = this.state;
+    const offsetY = event.nativeEvent.contentOffset.y;
+
+    // We are expanding and collapsing the description when
+    // the user swipes the description in the correct direction.
+    if (isDescriptionCollapsed && (offsetY > 0)) {
+      this.expandDescription();
+    } else if (!isDescriptionCollapsed && (offsetY < 0)) {
+      this.collapseDescription();
+    }
+  }
+
   collapseDescription() {
-    this.setState({ isDescriptionCollapsed: false });
+    this.setState({ isDescriptionCollapsed: true });
   }
 
   expandDescription() {
-    this.setState({ isDescriptionCollapsed: true });
+    this.setState({ isDescriptionCollapsed: false });
   }
 
   renderTitle(title) {
@@ -84,7 +100,7 @@ class ImageGalleryOverlay extends Component {
         style={style.description.container}
       >
         <TouchableOpacity
-          onPress={collapsed ? this.collapseDescription : this.expandDescription}
+          onPress={collapsed ? this.expandDescription : this.collapseDescription}
           hitSlop={{
             top: 10,
             right: 10,
@@ -94,7 +110,11 @@ class ImageGalleryOverlay extends Component {
         >
           {description.length >= DESCRIPTION_LENGTH_TRIM_LIMIT ? descriptionIcon : null}
         </TouchableOpacity>
-        <ScrollView style={style.description.scroll}>
+        <ScrollView
+          style={style.description.scroll}
+          onScroll={this.onDescriptionScroll}
+          scrollEventThrottle={1000}
+        >
           {descriptionText}
         </ScrollView>
       </View>
