@@ -44,7 +44,7 @@ class ImageGalleryOverlay extends Component {
     const { isDescriptionCollapsed } = this.state;
     const offsetY = event.nativeEvent.contentOffset.y;
 
-    // We are expanding an collapsing the description when
+    // We are expanding and collapsing the description when
     // the user swipes the description in the correct direction.
     if (isDescriptionCollapsed && (offsetY > 0)) {
       this.expandDescription();
