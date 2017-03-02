@@ -62,7 +62,7 @@ class ImageGallery extends ImageGalleryBase {
 
     if (imageSwitchingEnabled !== imageBoundaryReached) {
       // We want to allow switching between gallery images only if
-      // the image is at its left of right boundary. This happens if the
+      // the image is at its left or right boundary. This happens if the
       // image is fully zoomed out, or if the image is zoomed in but the
       // user moved it to one of its boundaries.
       this.setState({
