@@ -71,6 +71,21 @@ class NavigationBar extends Component {
   }
 }
 
+
+/**
+ * A ChildNavigationBar is component that can be used to override
+ * the global NavigationBar props of child CardStack.
+ * This component has no UI, it only servers as a
+ * communication channel for dispatching props to the global navigation bar.
+ * It is the same as NavigationBar component with an exception it has
+ * child prop set to true and is not connected to theme
+ */
+class ChildNavigationBar extends NavigationBar {
+  static defaultProps = {
+    child: true,
+  }
+}
+
 /**
  * @see {@link NavigationBarStyleName}
  * NavigationBarView style name is related to NavigationBar style name, it must be the same name.
@@ -78,5 +93,6 @@ class NavigationBar extends Component {
 const StyledNavigationBar = connectStyle(NavigationBarStyleName)(NavigationBar);
 
 export {
-   StyledNavigationBar as NavigationBar,
+  ChildNavigationBar,
+  StyledNavigationBar as NavigationBar,
 };
