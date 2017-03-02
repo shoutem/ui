@@ -8,7 +8,7 @@ import { connectStyle } from '@shoutem/theme';
 /**
  * A NavigationBar component that can be used to define
  * the global NavigationBar props. This component has no
- * UI, it only servers as a communication channel for
+ * UI, it only serves as a communication channel for
  * dispatching props to the global navigation bar.
  */
 class NavigationBar extends Component {
@@ -75,10 +75,12 @@ class NavigationBar extends Component {
 /**
  * A ChildNavigationBar is component that can be used to override
  * the global NavigationBar props of child CardStack.
- * This component has no UI, it only servers as a
+ * This component has no UI, it only serves as a
  * communication channel for dispatching props to the global navigation bar.
  * It is the same as NavigationBar component with an exception it has
- * child prop set to true and is not connected to theme
+ * child prop set to true and is not connected to theme, because connectStyle
+ * would always pass style prop to it and that would result NavigationBar having
+ * wrong style.
  */
 class ChildNavigationBar extends NavigationBar {
   static defaultProps = {
