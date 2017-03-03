@@ -1421,6 +1421,10 @@ export default () => ({
   },
 
   //
+  // Media
+  //
+
+  //
   // HorizontalPager
   //
 
@@ -1594,6 +1598,15 @@ export default () => ({
   'shoutem.ui.LinearGradient': {
     '.fill-parent': {
       [INCLUDE]: ['fillParent'],
+    },
+  },
+
+  'shoutem.ui.Lightbox': {
+    'shoutem.ui.Image': {
+      '.preview': {
+        flex: 1,
+        resizeMode: 'contain',
+      },
     },
   },
 });
