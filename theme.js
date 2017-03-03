@@ -1421,10 +1421,6 @@ export default () => ({
   },
 
   //
-  // Media
-  //
-
-  //
   // HorizontalPager
   //
 
