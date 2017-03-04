@@ -18,6 +18,7 @@ import { Videos } from './Videos';
 import { InlineGalleries } from './InlineGalleries';
 import { ImageGalleries } from './ImageGalleries';
 import { HorizontalPagers } from './HorizontalPagers';
+import { ShareButtons } from './ShareButton';
 
 const examples = [
   { title: 'Typography', component: Typography },
@@ -36,6 +37,7 @@ const examples = [
   { title: 'Inline Galleries', component: InlineGalleries },
   { title: 'Image Gallery', component: ImageGalleries },
   { title: 'Horizontal Pagers', component: HorizontalPagers },
+  { title: 'Share Button', component: ShareButtons },
 ];
 
 export class Examples extends Component {
