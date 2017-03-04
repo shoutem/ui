@@ -1035,9 +1035,7 @@ export default () => ({
     },
 
     'shoutem.ui.ShareButton': {
-      'shoutem.ui.Button': {
-        [INCLUDE]: ['navigationBarButton'],
-      },
+      [INCLUDE]: ['navigationBarButton'],
     },
 
     solidifyAnimation(driver) {

@@ -2,31 +2,35 @@ import React, {
   Component,
 } from 'react';
 
-import Share from 'react-native-share';
+import { Alert } from 'react-native';
 
-import { Button } from './Button';
-import { Icon } from './Icon';
+import Share from 'react-native-share';
 
 import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
 
-const onShare = (title, message, url) =>
-  Share.open({
-    title,
-    message,
-    url,
-  }).catch((error) => {
-    console.log(error);
-  });
+import { Button } from './Button';
+import { Icon } from './Icon';
 
-const { string } = React.PropTypes;
+const USER_CANCELLED_ERROR = 'User did not share';
+
+const { func, string } = React.PropTypes;
+
+const showErrorMessage = (message) => {
+  Alert.alert(
+    'Sharing error',
+    message,
+  );
+};
 
 class ShareButton extends Component {
   static propTypes = {
     // Animation name for share icon
-    iconAnimation: string,
+    animationName: string,
     // Message to share
     message: string,
+    // Called when there was a sharing error
+    onError: func,
     // Title
     title: string,
     // Url to share
@@ -35,14 +39,36 @@ class ShareButton extends Component {
 
   constructor(props) {
     super(props);
+
+    this.onShare = this.onShare.bind(this);
+  }
+
+  onShare() {
+    const { onError, title, message, url } = this.props;
+
+    Share.open({
+      title,
+      message,
+      url,
+    }).catch((error) => {
+      if (onError) {
+        return onError(error);
+      } else if (error.error === USER_CANCELLED_ERROR) {
+        return;
+      }
+      showErrorMessage(error.error);
+    });
   }
 
   render() {
-    const { iconAnimation, title, message, url } = this.props;
+    const { animationName } = this.props;
 
     return (
-      <Button onPress={() => onShare(title, message, url)}>
-        <Icon name="share" animationName={iconAnimation} />
+      <Button
+        virtual
+        onPress={this.onShare}
+      >
+        <Icon name="share" animationName={animationName} />
       </Button>
     );
   }

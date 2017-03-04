@@ -34,7 +34,7 @@ const composers = {
         return (
           <View virtual styleName="container">
             <ShareButton
-              iconAnimation={navBarProps.animationName}
+              animationName={navBarProps.animationName}
               title={title || navBarProps.title}
               message={text}
               url={link}

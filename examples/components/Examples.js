@@ -37,7 +37,6 @@ const examples = [
   { title: 'Inline Galleries', component: InlineGalleries },
   { title: 'Image Gallery', component: ImageGalleries },
   { title: 'Horizontal Pagers', component: HorizontalPagers },
-  { title: 'Share Button', component: ShareButtons },
 ];
 
 export class Examples extends Component {
