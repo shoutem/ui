@@ -18,7 +18,6 @@ import { Videos } from './Videos';
 import { InlineGalleries } from './InlineGalleries';
 import { ImageGalleries } from './ImageGalleries';
 import { HorizontalPagers } from './HorizontalPagers';
-import { ShareButtons } from './ShareButton';
 
 const examples = [
   { title: 'Typography', component: Typography },
