@@ -974,6 +974,18 @@ export default () => ({
       };
     },
   },
+
+  navigationBarButton: {
+    [INCLUDE]: ['clearButton', 'tightButton', 'actionButton'],
+    'shoutem.ui.Icon': {
+      [INCLUDE]: ['navigationBarTextAnimations'],
+      marginVertical: 9,
+    },
+    'shoutem.ui.Text': {
+      [INCLUDE]: ['navigationBarTextAnimations'],
+    },
+  },
+
   'shoutem.ui.NavigationBar': {
     '.clear': {
       [INCLUDE]: ['clearNavigationBar'],
@@ -1019,14 +1031,7 @@ export default () => ({
     },
 
     'shoutem.ui.Button': {
-      [INCLUDE]: ['clearButton', 'tightButton', 'actionButton'],
-      'shoutem.ui.Icon': {
-        [INCLUDE]: ['navigationBarTextAnimations'],
-        marginVertical: 9,
-      },
-      'shoutem.ui.Text': {
-        [INCLUDE]: ['navigationBarTextAnimations'],
-      },
+      [INCLUDE]: ['navigationBarButton'],
     },
 
     solidifyAnimation(driver) {
