@@ -16,10 +16,14 @@ const USER_CANCELLED_ERROR = 'User did not share';
 
 const { func, string } = React.PropTypes;
 
-const showErrorMessage = (message) => {
+const showErrorMessage = (error) => {
+  if (error.error === USER_CANCELLED_ERROR) {
+    return;
+  }
+
   Alert.alert(
     'Sharing error',
-    message,
+    error.error,
   );
 };
 
@@ -37,6 +41,10 @@ class ShareButton extends Component {
     url: string,
   };
 
+  static defaultProps = {
+    onError: showErrorMessage,
+  };
+
   constructor(props) {
     super(props);
 
@@ -51,12 +59,7 @@ class ShareButton extends Component {
       message,
       url,
     }).catch((error) => {
-      if (onError) {
-        return onError(error);
-      } else if (error.error === USER_CANCELLED_ERROR) {
-        return;
-      }
-      showErrorMessage(error.error);
+      onError(error);
     });
   }
 
@@ -65,7 +68,6 @@ class ShareButton extends Component {
 
     return (
       <Button
-        virtual
         onPress={this.onShare}
       >
         <Icon name="share" animationName={animationName} />
@@ -75,7 +77,8 @@ class ShareButton extends Component {
 }
 
 const AnimatedShareButton = connectAnimation(ShareButton);
-const StyledShareButton = connectStyle('shoutem.ui.ShareButton')(AnimatedShareButton);
+const StyledShareButton = connectStyle('shoutem.ui.ShareButton', {}, () => {},
+  { virtual: true })(AnimatedShareButton);
 
 export {
   StyledShareButton as ShareButton,
