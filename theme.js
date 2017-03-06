@@ -1596,4 +1596,13 @@ export default () => ({
       [INCLUDE]: ['fillParent'],
     },
   },
+
+  'shoutem.ui.Lightbox': {
+    'shoutem.ui.Image': {
+      '.preview': {
+        flex: 1,
+        resizeMode: 'contain',
+      },
+    },
+  },
 });
