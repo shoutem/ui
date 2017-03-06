@@ -7,7 +7,6 @@ import { Alert } from 'react-native';
 import Share from 'react-native-share';
 
 import { connectStyle } from '@shoutem/theme';
-import { connectAnimation } from '@shoutem/animation';
 
 import { Button } from './Button';
 import { Icon } from './Icon';
@@ -76,9 +75,8 @@ class ShareButton extends Component {
   }
 }
 
-const AnimatedShareButton = connectAnimation(ShareButton);
 const StyledShareButton = connectStyle('shoutem.ui.ShareButton', {}, () => {},
-  { virtual: true })(AnimatedShareButton);
+  { virtual: true })(ShareButton);
 
 export {
   StyledShareButton as ShareButton,
