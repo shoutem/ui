@@ -75,6 +75,8 @@ class ShareButton extends Component {
   }
 }
 
+// The ShareButton is virtual and not connected to animation because it's a conceptual
+// wrapper around a Button. It has no styles or animations of its own
 const StyledShareButton = connectStyle('shoutem.ui.ShareButton', {}, () => {},
   { virtual: true })(ShareButton);
 
