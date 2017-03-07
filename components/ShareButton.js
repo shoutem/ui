@@ -7,7 +7,6 @@ import { Alert } from 'react-native';
 import Share from 'react-native-share';
 
 import { connectStyle } from '@shoutem/theme';
-import { connectAnimation } from '@shoutem/animation';
 
 import { Button } from './Button';
 import { Icon } from './Icon';
@@ -27,6 +26,14 @@ const showErrorMessage = (error) => {
   );
 };
 
+/**
+ * The ShareButton is a virtual component that wraps a button with a share icon.
+ * It puts the sharing logic in one place. It's used in the navigation bar in the toolkit,
+ * but it can be reused anywhere.
+ *
+ * It should have the style of its underlying button. That's why it's not connected to style
+ * or animation.
+ */
 class ShareButton extends Component {
   static propTypes = {
     // Animation name for share icon
@@ -76,9 +83,8 @@ class ShareButton extends Component {
   }
 }
 
-const AnimatedShareButton = connectAnimation(ShareButton);
 const StyledShareButton = connectStyle('shoutem.ui.ShareButton', {}, () => {},
-  { virtual: true })(AnimatedShareButton);
+  { virtual: true })(ShareButton);
 
 export {
   StyledShareButton as ShareButton,
