@@ -26,6 +26,14 @@ const showErrorMessage = (error) => {
   );
 };
 
+/**
+ * The ShareButton is a virtual component that wraps a button with a share icon.
+ * It puts the sharing logic in one place. It's used in the navigation bar in the toolkit,
+ * but it can be reused anywhere.
+ *
+ * It should have the style of its underlying button. That's why it's not connected to style
+ * or animation.
+ */
 class ShareButton extends Component {
   static propTypes = {
     // Animation name for share icon
@@ -75,8 +83,6 @@ class ShareButton extends Component {
   }
 }
 
-// The ShareButton is virtual and not connected to animation because it's a conceptual
-// wrapper around a Button. It has no styles or animations of its own
 const StyledShareButton = connectStyle('shoutem.ui.ShareButton', {}, () => {},
   { virtual: true })(ShareButton);
 
