@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import { NavigationExperimental, InteractionManager } from 'react-native';
+import {
+  InteractionManager,
+  Platform,
+} from 'react-native';
 
 import {
   ScrollView,
+  View,
 } from '@shoutem/ui';
 import { connectStyle } from '@shoutem/theme';
 
@@ -28,6 +32,17 @@ class CardStack extends Component {
       cardStack: RNCardStack.propTypes.style,
       card: React.PropTypes.any,
     }),
+    inlineNavigationBar: React.PropTypes.bool,
+  };
+
+  static defaultProps = {
+    // Use native animations on Android by default, transitions
+    // are slow on Android without this.
+    useNativeAnimations: Platform.OS === 'android',
+    // Overflow doesn't work on Android at the moment, so we
+    // are rendering the navigation bar together with the scene
+    // to support transparent navigation bars above screen content
+    inlineNavigationBar: Platform.OS === 'android',
   };
 
   static contextTypes = {
@@ -115,7 +130,11 @@ class CardStack extends Component {
       }
     }
 
-    return { ...props };
+    return {
+      ...props,
+      useNativeAnimations: this.props.useNativeAnimations,
+      inline: this.props.inlineNavigationBar,
+    };
   }
 
   setRenderedNavBarProps(route = {}, props) {
@@ -134,7 +153,11 @@ class CardStack extends Component {
   }
 
   refreshNavBar() {
-    InteractionManager.runAfterInteractions(() => this.forceUpdate());
+    if (this.props.useNativeAnimations) {
+      this.forceUpdate();
+    } else {
+      InteractionManager.runAfterInteractions(() => this.forceUpdate());
+    }
   }
 
   renderNavBar(props) {
@@ -148,6 +171,13 @@ class CardStack extends Component {
 
     if (navBarProps.hidden || navBarProps.child) {
       return null;
+    }
+
+    const { inlineNavigationBar } = this.props;
+    if (inlineNavigationBar) {
+      // Apply an inline style name to the navigation bar
+      navBarProps.styleName = navBarProps.styleName ?
+        `${navBarProps.styleName} inline` : 'inline';
     }
 
     // Expose the animation driver to child components of the
@@ -165,17 +195,27 @@ class CardStack extends Component {
     // primary scroll component of the screen to all other
     // screen children. The scene provider provides the current
     // navigation scene to child components through the context.
-    return (
+    const scene = (
       <ScrollView.DriverProvider>
         <SceneProvider scene={props.scene}>
           {this.props.renderScene(props)}
         </SceneProvider>
       </ScrollView.DriverProvider>
     );
+
+    const style = this.props.style || {};
+    const { inlineNavigationBar } = this.props;
+    return inlineNavigationBar ? (
+      <View style={style.sceneContainer}>
+        {scene}
+        {this.renderNavBar(props)}
+      </View>
+    ) : scene;
   }
 
   render() {
     const style = this.props.style || {};
+    const { inlineNavigationBar } = this.props;
 
     // NOTE: explicitly providing enableGestures in props may
     // override the value of the useNativeAnimations prop, because
@@ -187,7 +227,7 @@ class CardStack extends Component {
         {...this.props}
         style={style.cardStack}
         cardStyle={style.card}
-        renderHeader={this.renderNavBar}
+        renderHeader={inlineNavigationBar ? null : this.renderNavBar}
         renderScene={this.renderScene}
         interpolateCardStyle={style.interpolateCardStyle}
       />

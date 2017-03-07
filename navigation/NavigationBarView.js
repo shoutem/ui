@@ -75,6 +75,9 @@ class NavigationBarView extends Component {
     }),
     style: React.PropTypes.object,
     useNativeAnimations: React.PropTypes.bool,
+    // Whether the navigation bar is rendered inline
+    // with the screen.
+    inline: React.PropTypes.bool,
   };
 
   static defaultProps = {
@@ -301,6 +304,11 @@ class NavigationBarView extends Component {
       // We are not in a transition, do not override the
       // default style to allow any custom animations that
       // the screen may want to perform on the NavigationBar
+      return {};
+    } else if (this.props.inline) {
+      // The navigation bar is rendered inline with the screen,
+      // it will be animated together with the screen, so there
+      // is no need for custom animations in this case.
       return {};
     }
 
