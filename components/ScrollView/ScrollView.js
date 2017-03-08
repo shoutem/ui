@@ -59,9 +59,9 @@ class ScrollView extends Component {
 
     return (
       <Animated.ScrollView
-        {...props}
         contentContainerStyle={contentContainerStyle}
         {...animationDriver.scrollViewProps}
+        {...props}
       />
     );
   }
