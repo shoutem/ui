@@ -110,7 +110,7 @@ class HorizontalPager extends Component {
     const { selectedIndex } = this.state;
 
     if (this.props.scrollEnabled && !nextProps.scrollEnabled) {
-      this.scrollToPage(this.state.selectedIndex);
+      this.scrollToPage(selectedIndex);
     }
   }
 
@@ -133,16 +133,10 @@ class HorizontalPager extends Component {
 
   onHorizontalScroll(event) {
     const {
-      initialSelectedIndex,
-      scrolledToInitialIndex,
       scrollValue,
       selectedIndex,
-      width,
     } = this.state;
-    const {
-      onIndexSelected,
-      onScroll,
-    } = this.props;
+    const { onIndexSelected } = this.props;
 
     const contentOffset = event.nativeEvent.contentOffset;
 
@@ -164,8 +158,8 @@ class HorizontalPager extends Component {
     }
 
     // We're setting the value of the prop scrollValue
-    if (!_.isNil(scrollValue)) {
-      scrollValue.setValue(contentOffset.x / width);
+    if (scrollValue) {
+      scrollValue.setValue(contentOffset.x / this.calculateContainerWidth());
     }
   }
 
@@ -188,7 +182,7 @@ class HorizontalPager extends Component {
     const { width } = this.state;
     const { animated } = this.props;
 
-    if (this.scroller || width || page) {
+    if (this.scroller && width && page) {
       this.scroller.scrollTo({
         x: page * this.calculateContainerWidth(),
         animated,
