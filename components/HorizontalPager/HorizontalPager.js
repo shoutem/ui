@@ -132,12 +132,8 @@ class HorizontalPager extends Component {
   }
 
   onHorizontalScroll(event) {
-    const {
-      scrollValue,
-      selectedIndex,
-    } = this.state;
+    const { selectedIndex, scrollValue } = this.state;
     const { onIndexSelected } = this.props;
-
     const contentOffset = event.nativeEvent.contentOffset;
 
     const newSelectedIndex = this.calculateIndex(contentOffset);
