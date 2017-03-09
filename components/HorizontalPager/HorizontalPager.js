@@ -35,8 +35,6 @@ class HorizontalPager extends Component {
   static propTypes = {
     // Prop defining if the scrollToPage is animated or not
     animated: PropTypes.bool,
-    // Animated.Value from 'react-native' lib, it'll be updated at each scroll with the offset value
-    scrollValue: PropTypes.object,
     // Prop defining whether the Pager will bounce back
     // when user tries to swipe beyond end of content (iOS only)
     bounces: PropTypes.bool,
@@ -90,6 +88,7 @@ class HorizontalPager extends Component {
       selectedIndex: this.props.selectedIndex,
       initialSelectedIndex: this.props.selectedIndex,
       pageMargin: this.props.pageMargin,
+      scrollValue: new Animated.Value(this.props.selectedIndex),
       showNextPage: this.props.showNextPage,
       shouldRenderContent: false,
       scrolledToInitialIndex: false,
@@ -97,6 +96,7 @@ class HorizontalPager extends Component {
     this.onHorizontalScroll = this.onHorizontalScroll.bind(this);
     this.onLayoutContainer = this.onLayoutContainer.bind(this);
     this.onScrollViewRef = this.onScrollViewRef.bind(this);
+    this.scrollToPage = this.scrollToPage.bind(this);
   }
 
   componentDidMount() {
@@ -110,11 +110,7 @@ class HorizontalPager extends Component {
     const { selectedIndex } = this.state;
 
     if (this.props.scrollEnabled && !nextProps.scrollEnabled) {
-      this.scrollToPage(selectedIndex);
-    }
-
-    if (selectedIndex !== nextProps.selectedIndex) {
-      this.scrollToPage(nextProps.selectedIndex);
+      this.scrollToPage(this.state.selectedIndex);
     }
   }
 
@@ -137,15 +133,15 @@ class HorizontalPager extends Component {
 
   onHorizontalScroll(event) {
     const {
-      selectedIndex,
-      scrolledToInitialIndex,
       initialSelectedIndex,
+      scrolledToInitialIndex,
+      scrollValue,
+      selectedIndex,
       width,
     } = this.state;
     const {
       onIndexSelected,
       onScroll,
-      scrollValue,
     } = this.props;
 
     const contentOffset = event.nativeEvent.contentOffset;
@@ -192,7 +188,7 @@ class HorizontalPager extends Component {
     const { width } = this.state;
     const { animated } = this.props;
 
-    if (!_.isNil(this.scroller) || _.isNil(!width) || _.isNil(!page)) {
+    if (this.scroller || width || page) {
       this.scroller.scrollTo({
         x: page * this.calculateContainerWidth(),
         animated,
@@ -287,10 +283,9 @@ class HorizontalPager extends Component {
 
   renderOverlay() {
     const { renderOverlay, data } = this.props;
-    const { selectedIndex } = this.state;
-
+    const { scrollValue, selectedIndex } = this.state;
     if (_.isFunction(renderOverlay)) {
-      return renderOverlay(data, selectedIndex);
+      return renderOverlay(data, selectedIndex, this.scrollToPage, scrollValue);
     }
 
     return null;
