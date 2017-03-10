@@ -4,6 +4,8 @@ import React, {
 
 import { Stage } from './Stage';
 import {
+  Caption,
+  FormGroup,
   Switch,
   View,
   TextInput,
@@ -32,6 +34,14 @@ export class FormComponents extends Component {
             placeholder="Password"
             secureTextEntry
           />
+        </Stage>
+        <Stage title="Input with label">
+          <FormGroup styleName="stretch">
+            <Caption>Name</Caption>
+            <TextInput
+              placeholder="Username or Emaill"
+            />
+          </FormGroup>
         </Stage>
         <Stage title="Switch">
           <Switch
