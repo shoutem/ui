@@ -49,6 +49,10 @@ class DropDownMenu extends Component {
      * Prop definition overrides style.
      */
     visibleOptions: React.PropTypes.number,
+    /**
+     * Header property
+     */
+    header: React.PropTypes.string,
     style: React.PropTypes.oneOfType([
       React.PropTypes.object,
       React.PropTypes.array
@@ -186,7 +190,7 @@ class DropDownMenu extends Component {
 
   render() {
     const { collapsed } = this.state;
-    const { titleProperty, options, style } = this.props;
+    const { titleProperty, options, style, header, } = this.props;
 
     const button = this.renderSelectedOption();
     if (_.size(options) === 0 || !button) {
@@ -207,6 +211,7 @@ class DropDownMenu extends Component {
           <ZoomOut driver={this.timingDriver} maxFactor={1.1} style={{ flex: 1 }}>
             <FadeIn driver={this.timingDriver} style={{ flex: 1 }}>
               <View style={style.modal} styleName="vertical">
+                {header && <Title style={style.header}>{header}</Title>}
                 <ListView
                   dataSource={dataSource}
                   renderRow={this.renderRow}
