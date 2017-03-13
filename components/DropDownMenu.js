@@ -149,7 +149,12 @@ class DropDownMenu extends Component {
     return selectedOption ? (
         <View style={style.horizontalContainer}>
           <Button onPress={this.collapse} style={style.selectedOption}>
-            <Text style={style.selectedOptionTitle}>{selectedOption[titleProperty]}</Text>
+            <Text
+              numberOfLines={1}
+              style={style.selectedOptionTitle}
+            >
+              {selectedOption[titleProperty]}
+            </Text>
             <Icon name="drop-down" />
           </Button>
         </View>
