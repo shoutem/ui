@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import _ from 'lodash';
 import tinyColor from 'tinycolor2';
 
@@ -56,7 +56,7 @@ export const NavigationBarStyleName = 'shoutem.ui.navigation.NavigationBar';
  * during the lifetime of a screen, instead of defining them
  * only before the screen is opened through route props.
  */
-class NavigationBarView extends Component {
+class NavigationBarView extends PureComponent {
   static propTypes = {
     ...NavigationHeader.propTypes,
     /**
@@ -78,6 +78,8 @@ class NavigationBarView extends Component {
     // Whether the navigation bar is rendered inline
     // with the screen.
     inline: React.PropTypes.bool,
+    hidden: React.PropTypes.bool,
+    child: React.PropTypes.bool,
   };
 
   static defaultProps = {
@@ -88,11 +90,8 @@ class NavigationBarView extends Component {
   };
 
   static contextTypes = {
-    resolveStyle: React.PropTypes.func.isRequired,
-    getNextNavBarProps: React.PropTypes.func.isRequired,
-
-    getRenderedNavBarProps: React.PropTypes.func.isRequired,
-    setRenderedNavBarProps: React.PropTypes.func.isRequired,
+    transformProps: React.PropTypes.func.isRequired,
+    getNavBarProps: React.PropTypes.func.isRequired,
   };
 
   componentWillMount() {
@@ -116,19 +115,8 @@ class NavigationBarView extends Component {
    * @param scene The scene to get the props for.
    * @returns {*} The navigation bar props.
    */
-  getNextNavBarProps(scene = {}) {
-    return this.context.getNextNavBarProps(scene.route);
-  }
-
-  /**
-   * Gets the current navigation bar props of the
-   * already rendered scene.
-   *
-   * @param scene The scene to get the props for.
-   * @returns {*} The navigation bar props.
-   */
-  getRenderedProps(scene = {}) {
-    return this.context.getRenderedNavBarProps(scene.route);
+  getNavBarProps(scene = {}) {
+    return this.context.getNavBarProps(scene.route);
   }
 
   /**
@@ -232,31 +220,12 @@ class NavigationBarView extends Component {
    * currently only resolve the style by using the functions provided by
    * the parent StyledComponent.
    *
-   * @param props The props to resolve.
+   * @param scene The scene to resolve the props for.
    * @returns {*} The resolved props.
    */
-  resolveNextProps(props) {
-    const { resolveStyle } = this.context;
-
-    const style = resolveStyle(props);
-    return {
-      ...props,
-      style,
-    };
-  }
-
   resolveSceneProps(scene) {
-    const VERSION_KEY = '.version';
-
-    const nextProps = this.getNextNavBarProps(scene);
-    const renderedProps = this.getRenderedProps(scene);
-    if (renderedProps[VERSION_KEY]) {
-      // Return the rendered props, if the next props have been
-      // rendered at least once.
-      return renderedProps;
-    }
-
-    return this.resolveNextProps(nextProps);
+    const nextProps = this.getNavBarProps(scene);
+    return this.context.transformProps(nextProps);
   }
 
   /**
@@ -358,9 +327,7 @@ class NavigationBarView extends Component {
     });
   }
 
-  createNavigationHeaderProps() {
-    const { style } = this.props;
-
+  createNavigationHeaderProps(style) {
     const headerProps = {
       ...this.props,
       style: [navigationHeaderStyle, style.navigationHeader],
@@ -402,22 +369,33 @@ class NavigationBarView extends Component {
   }
 
   render() {
-    const { scene, style } = this.props;
+    const { scene } = this.props;
+    const { style, hidden, child } = this.resolveSceneProps(scene);
 
-    // Report our current props, so that next/previous scenes may
-    // use them for their animations.
-    this.context.setRenderedNavBarProps(scene.route, this.props);
+    if (hidden || child) {
+      // Navigation bar is explicitly hidden, or it just
+      // overrides props of a child navigation bar.
+      return null;
+    }
 
     return (
       <Animated.View style={[style.container, this.interpolateNavBarStyle()]}>
         {this.renderLinearGradient()}
         <NavigationHeader
-          {...this.createNavigationHeaderProps()}
+          {...this.createNavigationHeaderProps(style)}
         />
       </Animated.View>
     );
   }
 }
+
+const mapPropsToStyleNames = (styleNames, props) => {
+  if (props.inline) {
+    return [...styleNames, 'inline'];
+  }
+
+  return styleNames;
+};
 
 const AnimatedNavigationBarView = connectAnimation(composeChildren(NavigationBarView), undefined, {
   createAnimatedComponent: false,
@@ -426,7 +404,8 @@ const AnimatedNavigationBarView = connectAnimation(composeChildren(NavigationBar
  * @see {@link NavigationBarStyleName}
  * NavigationBarView style name is related to NavigationBar style name, it must be the same name.
  */
-const StyledNavigationBarView = connectStyle(NavigationBarStyleName)(AnimatedNavigationBarView);
+const StyledNavigationBarView =
+  connectStyle(NavigationBarStyleName, undefined, mapPropsToStyleNames)(AnimatedNavigationBarView);
 
 export {
   StyledNavigationBarView as NavigationBarView,

@@ -32,14 +32,14 @@ class NavigationBar extends Component {
   static contextTypes = {
     animationDriver: DriverShape,
     getScene: React.PropTypes.func.isRequired,
-    setNextNavBarProps: React.PropTypes.func.isRequired,
+    setNavBarProps: React.PropTypes.func.isRequired,
     clearNavBarProps: React.PropTypes.func.isRequired,
   };
 
   constructor(props, context) {
     super(props, context);
 
-    this.setNextNavBarProps(props);
+    this.setNavBarProps(props);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -47,7 +47,7 @@ class NavigationBar extends Component {
       return;
     }
 
-    this.setNextNavBarProps(nextProps);
+    this.setNavBarProps(nextProps);
   }
 
   componentWillUnmount() {
@@ -57,10 +57,10 @@ class NavigationBar extends Component {
     clearNavBarProps(scene.route);
   }
 
-  setNextNavBarProps(props) {
-    const { getScene, animationDriver, setNextNavBarProps } = this.context;
+  setNavBarProps(props) {
+    const { getScene, animationDriver, setNavBarProps } = this.context;
     const scene = getScene();
-    setNextNavBarProps(scene.route, {
+    setNavBarProps(scene.route, {
       driver: animationDriver,
       ...props,
     });
