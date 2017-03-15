@@ -16,12 +16,6 @@ import createDOM from './createDom';
 const DEFAULT_IMAGE_HEIGHT = 200;
 const DEFAULT_VIDEO_HEIGHT = 200;
 
-function shouldDelayDomParsing() {
-  // DOM parsing is slow on Android, so we are
-  // delaying it after the navigation transition.
-  return Platform.OS === 'android';
-}
-
 /**
  * Displays content in the html body as a composition of
  * react native components.
@@ -29,18 +23,14 @@ function shouldDelayDomParsing() {
 class RichMedia extends Component {
   state = {
     dom: null,
-    isLoading: shouldDelayDomParsing(),
+    isLoading: true,
   };
 
   componentDidMount() {
-    if (shouldDelayDomParsing()) {
-      InteractionManager.runAfterInteractions(() => {
-        this.setState({ isLoading: false });
-        this.updateDomState();
-      });
-    } else {
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({ isLoading: false });
       this.updateDomState();
-    }
+    });
   }
 
   componentWillReceiveProps(nextProps) {
