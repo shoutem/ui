@@ -39,6 +39,7 @@ export { HorizontalPager } from './components/HorizontalPager';
 export { LoadingIndicator } from './components/LoadingIndicator';
 export { PageIndicators } from './components/PageIndicators';
 export { RichMedia } from './components/RichMedia';
+export { ShareButton } from './components/ShareButton';
 
 export {
   Heading,
@@ -54,6 +55,6 @@ export { Card } from './components/Card';
 export { Row } from './components/Row';
 export { Tile } from './components/Tile';
 
-export { default as Lightbox } from 'react-native-lightbox';
+export { Lightbox } from './components/Lightbox';
 
 export { Examples } from './examples/components';
