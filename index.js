@@ -23,19 +23,23 @@ export { TouchableOpacity } from './components/TouchableOpacity';
 export { Button } from './components/Button';
 export { Icon, createIcon } from './components/Icon';
 
+export { FormGroup } from './components/FormGroup';
 export { TextInput } from './components/TextInput';
 
 export { Spinner } from './components/Spinner';
+export { Switch } from './components/Switch';
 
 export { Video } from './components/Video';
 export { Image } from './components/Image';
 export { ImagePreview } from './components/ImagePreview';
 export { ImageGallery } from './components/ImageGallery';
 export { InlineGallery } from './components/InlineGallery';
+export { ImageGalleryOverlay } from './components/ImageGalleryOverlay';
 export { HorizontalPager } from './components/HorizontalPager';
 export { LoadingIndicator } from './components/LoadingIndicator';
 export { PageIndicators } from './components/PageIndicators';
 export { RichMedia } from './components/RichMedia';
+export { ShareButton } from './components/ShareButton';
 
 export {
   Heading,
@@ -51,6 +55,6 @@ export { Card } from './components/Card';
 export { Row } from './components/Row';
 export { Tile } from './components/Tile';
 
-export { default as Lightbox } from 'react-native-lightbox';
+export { Lightbox } from './components/Lightbox';
 
 export { Examples } from './examples/components';

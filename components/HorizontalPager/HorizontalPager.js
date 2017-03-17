@@ -13,7 +13,11 @@ import _ from 'lodash';
 
 import { connectStyle } from '@shoutem/theme';
 
-import { View } from './View';
+import {
+  View,
+} from '../../index';
+
+import { Page } from './Page';
 
 /**
  * Renders a horizontal pager which renders pages by using
@@ -40,11 +44,12 @@ class HorizontalPager extends Component {
     onIndexSelected: PropTypes.func,
     // Page margin, margin visible between pages, during swipe gesture.
     pageMargin: PropTypes.number,
-    // Callback function which renders single page
+    // A function which renders a single page
+    // renderPage(pageData, pageIndex)
     renderPage: PropTypes.func,
     // Callback function that can be used to render overlay over pages
     // For example page indicators using `PageIndicators` component
-    // renderOverlay(selectedIndex, data)
+    // renderOverlay(pageData, pageIndex, layout)
     renderOverlay: PropTypes.func,
     // Callback function that can be used to define placeholder
     // that appears when content is loading
@@ -57,31 +62,35 @@ class HorizontalPager extends Component {
     style: PropTypes.object,
     // Prop that reduces page size by pageMargin, allowing 'sneak peak' of next page
     showNextPage: PropTypes.bool,
+    // Always render only central (currently loaded) page plus `surroundingPagesToLoad`
+    // to the left and to the right. If currently rendered page is out of bounds,
+    // empty `View` (with set dimensions for proper scrolling) will be rendered
+    // Defaults to 2.
+    surroundingPagesToLoad: PropTypes.number,
   };
 
   static defaultProps = {
     pageMargin: 0,
     selectedIndex: 0,
     showNextPage: false,
-  }
+    surroundingPagesToLoad: 2,
+  };
 
   constructor(props) {
     super(props);
     this.state = {
       width: 0,
+      height: 0,
       selectedIndex: this.props.selectedIndex,
       initialSelectedIndex: this.props.selectedIndex,
       pageMargin: this.props.pageMargin,
       showNextPage: this.props.showNextPage,
       shouldRenderContent: false,
+      scrolledToInitialIndex: false,
     };
-    this.calculateIndex = this.calculateIndex.bind(this);
     this.onHorizontalScroll = this.onHorizontalScroll.bind(this);
     this.onLayoutContainer = this.onLayoutContainer.bind(this);
-    this.renderContent = this.renderContent.bind(this);
-    this.scrollToPage = this.scrollToPage.bind(this);
-    this.calculateContainerWidth = this.calculateContainerWidth.bind(this);
-    this.renderOverlay = this.renderOverlay.bind(this);
+    this.onScrollViewRef = this.onScrollViewRef.bind(this);
   }
 
   componentDidMount() {
@@ -100,12 +109,20 @@ class HorizontalPager extends Component {
   }
 
   onLayoutContainer(event) {
-    const { width } = event.nativeEvent.layout;
-    const { initialSelectedIndex } = this.state;
+    const { width, height } = event.nativeEvent.layout;
+    const { scrolledToInitialIndex } = this.state;
 
-    this.setState({ width }, () =>
-      this.scrollToPage(initialSelectedIndex),
-    );
+    if ((this.state.width === width) && (this.state.height === height)) {
+      return;
+    }
+
+    this.setState({ width, height }, () => {
+      // By checking has the pager scrolled to initial index, we're avoiding weird issue
+      // where pager would scroll back to initial index after swiping to other index
+      if (!scrolledToInitialIndex) {
+        requestAnimationFrame(() => this.scrollToInitialPage());
+      }
+    });
   }
 
   onHorizontalScroll(event) {
@@ -114,15 +131,25 @@ class HorizontalPager extends Component {
     const contentOffset = event.nativeEvent.contentOffset;
 
     const newSelectedIndex = this.calculateIndex(contentOffset);
+    if (selectedIndex === newSelectedIndex) {
+      // Nothing to do, we are already at the new index
+      return;
+    }
 
+    // Handle the swipes between pages performed by the user
     if (selectedIndex !== newSelectedIndex) {
-      if (_.isFunction(onIndexSelected)) {
-        onIndexSelected(newSelectedIndex);
-      }
       this.setState({
         selectedIndex: newSelectedIndex,
+      }, () => {
+        if (_.isFunction(onIndexSelected)) {
+          onIndexSelected(newSelectedIndex);
+        }
       });
     }
+  }
+
+  onScrollViewRef(scroller) {
+    this.scroller = scroller;
   }
 
   calculateContainerWidth() {
@@ -147,6 +174,21 @@ class HorizontalPager extends Component {
     }
   }
 
+  scrollToInitialPage() {
+    const { onIndexSelected } = this.props;
+    const { initialSelectedIndex } = this.state;
+
+    this.scrollToPage(initialSelectedIndex);
+    this.setState({
+      selectedIndex: initialSelectedIndex,
+      scrolledToInitialIndex: true,
+    }, () => {
+      if (_.isFunction(onIndexSelected)) {
+        onIndexSelected(initialSelectedIndex);
+      }
+    });
+  }
+
   calculateIndex(contentOffset) {
     const { width, selectedIndex, pageMargin } = this.state;
     const { data } = this.props;
@@ -167,11 +209,26 @@ class HorizontalPager extends Component {
     return newSelectedIndex;
   }
 
-  renderContent() {
-    const { width, pageMargin, showNextPage } = this.state;
+  shouldRenderPage(index) {
+    const { data, surroundingPagesToLoad } = this.props;
+    const { selectedIndex } = this.state;
+
+    // We are rendering max surroundingPagesToLoad around the current index
+    const minPageIndex = (selectedIndex <= surroundingPagesToLoad) ?
+      0 : selectedIndex - surroundingPagesToLoad;
+
+    const maxPageIndex = (selectedIndex >= (data.length - surroundingPagesToLoad - 1)) ?
+      data.length - 1 : selectedIndex + surroundingPagesToLoad;
+
+    return (index >= minPageIndex) && (index <= maxPageIndex);
+  }
+
+  renderPages() {
+    const { width, height, pageMargin, showNextPage, selectedIndex } = this.state;
     const { data, renderPage, style } = this.props;
-    const pages = data.map((page, pageId) => {
-      const lastPage = pageId === data.length - 1;
+
+    const pages = data.map((pageData, pageIndex) => {
+      const lastPage = pageIndex === data.length - 1;
       const containerWidth = this.calculateContainerWidth();
       let pageWidth = width;
 
@@ -182,19 +239,20 @@ class HorizontalPager extends Component {
         pageWidth = width - pageMargin - style.nextPageInsetSize;
       }
 
-      return (
-        <View
-          style={{ ...style.page, width: containerWidth }}
-          key={pageId}
-          renderToHardwareTextureAndroid
-          virtual
+      const isPageActive = (selectedIndex === pageIndex);
+      const pageContent = this.shouldRenderPage(pageIndex) && (
+        <Page
+          isActive={isPageActive}
+          width={pageWidth}
+          style={style.page}
         >
-          <View
-            virtual
-            style={{ ...style.page, width: pageWidth }}
-          >
-            {renderPage(page, pageId)}
-          </View>
+          {renderPage(pageData, pageIndex, { width, height })}
+        </Page>
+      );
+
+      return (
+        <View key={pageIndex} style={{ width: containerWidth }}>
+          {pageContent}
         </View>
       );
     });
@@ -206,8 +264,10 @@ class HorizontalPager extends Component {
     const { selectedIndex } = this.state;
 
     if (_.isFunction(renderOverlay)) {
-      return renderOverlay(selectedIndex, data);
+      return renderOverlay(data, selectedIndex);
     }
+
+    return null;
   }
 
   render() {
@@ -227,7 +287,7 @@ class HorizontalPager extends Component {
         virtual
       >
         <ScrollView
-          ref={(scroller) => { this.scroller = scroller; }}
+          ref={this.onScrollViewRef}
           style={[style.scrollView, { width: this.calculateContainerWidth() }]}
           horizontal
           pagingEnabled
@@ -241,12 +301,9 @@ class HorizontalPager extends Component {
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
         >
-          {this.renderContent()}
+          {this.renderPages()}
         </ScrollView>
-        <View
-          styleName="fill-parent"
-          pointerEvents="none"
-        >
+        <View styleName="fill-parent" pointerEvents="box-none">
           {this.renderOverlay()}
         </View>
       </View>

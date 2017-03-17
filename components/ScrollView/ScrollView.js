@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView as RNScrollView } from 'react-native';
+import { Animated } from 'react-native';
 import { connectStyle } from '@shoutem/theme';
 
 import { ScrollDriver, DriverShape } from '@shoutem/animation';
@@ -8,7 +8,7 @@ import { ScrollDriverProvider } from './ScrollDriverProvider.js';
 
 class ScrollView extends Component {
   static propTypes = {
-    ...RNScrollView.propTypes,
+    ...Animated.ScrollView.propTypes,
   };
 
   static contextTypes = {
@@ -58,10 +58,10 @@ class ScrollView extends Component {
     delete style.contentContainerStyle;
 
     return (
-      <RNScrollView
-        {...props}
+      <Animated.ScrollView
         contentContainerStyle={contentContainerStyle}
         {...animationDriver.scrollViewProps}
+        {...props}
       />
     );
   }
@@ -71,4 +71,4 @@ const StyledScrollView = connectStyle('shoutem.ui.ScrollView')(ScrollView);
 
 export {
   StyledScrollView as ScrollView,
-}
+};

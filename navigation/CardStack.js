@@ -1,8 +1,12 @@
-import React, { Component } from 'react';
-import { NavigationExperimental, InteractionManager } from 'react-native';
+import React, { PureComponent } from 'react';
+import {
+  InteractionManager,
+  Platform,
+} from 'react-native';
 
 import {
   ScrollView,
+  View,
 } from '@shoutem/ui';
 import { connectStyle } from '@shoutem/theme';
 
@@ -10,100 +14,93 @@ import { SceneProvider } from './SceneProvider';
 
 import { RNCardStack } from './RNCardStack';
 
-export const VERSION_KEY = '.version';
-
 /**
  * A card navigation stack. This component renders a navigation
  * bar and facilitates the communication between the navigation
  * bar view, and various application screens.
  */
-class CardStack extends Component {
+class CardStack extends PureComponent {
   static propTypes = {
     ...RNCardStack.propTypes,
     renderNavBar: React.PropTypes.func,
+    // Controls whether native animation driver will be used
+    // for screen transitions or not.
+    useNativeAnimations: React.PropTypes.bool,
+    inlineNavigationBar: React.PropTypes.bool,
     style: React.PropTypes.shape({
       cardStack: RNCardStack.propTypes.style,
       card: React.PropTypes.any,
     }),
   };
 
+  static defaultProps = {
+    // Use native animations on Android by default, transitions
+    // are slow on Android without this.
+    useNativeAnimations: Platform.OS === 'android',
+    // Overflow doesn't work on Android at the moment, so we
+    // are rendering the navigation bar together with the scene
+    // to support transparent navigation bars above screen content
+    inlineNavigationBar: Platform.OS === 'android',
+  };
+
   static contextTypes = {
-    getNextNavBarProps: React.PropTypes.func,
+    getNavBarProps: React.PropTypes.func,
     getScene: React.PropTypes.func,
   };
 
   static childContextTypes = {
-    setNextNavBarProps: React.PropTypes.func,
-    getNextNavBarProps: React.PropTypes.func,
+    setNavBarProps: React.PropTypes.func,
+    getNavBarProps: React.PropTypes.func,
     clearNavBarProps: React.PropTypes.func,
-
-    setRenderedNavBarProps: React.PropTypes.func,
-    getRenderedNavBarProps: React.PropTypes.func,
   };
 
   constructor(props, context) {
     super(props, context);
     this.renderNavBar = this.renderNavBar.bind(this);
     this.renderScene = this.renderScene.bind(this);
-    this.getNextNavBarProps = this.getNextNavBarProps.bind(this);
-    this.setNextNavBarProps = this.setNextNavBarProps.bind(this);
+    this.getNavBarProps = this.getNavBarProps.bind(this);
+    this.setNavBarProps = this.setNavBarProps.bind(this);
     this.clearNavBarProps = this.clearNavBarProps.bind(this);
-    this.getRenderedNavBarProps = this.getRenderedNavBarProps.bind(this);
-    this.setRenderedNavBarProps = this.setRenderedNavBarProps.bind(this);
     this.refreshNavBar = this.refreshNavBar.bind(this);
 
     /**
      * A map where the key is the route key, and the value is
-     * the navigation bar props object for that route. Next
-     * navigation bar props represent the navigation bar props that
-     * will be rendered during the next render cycle.
+     * the navigation bar props object for that route.
      */
-    this.nextNavBarProps = {};
-    /**
-     * A map of the rendered navigation bar props organized in the
-     * same way as the nextNavBarProps above. This map represents
-     * the props that were last rendered for a given route.
-     */
-    this.renderedNavBarProps = {};
+    this.navBarProps = {};
   }
 
   getChildContext() {
     return {
-      getNextNavBarProps: this.getNextNavBarProps,
-      setNextNavBarProps: this.setNextNavBarProps,
+      getNavBarProps: this.getNavBarProps,
+      setNavBarProps: this.setNavBarProps,
       clearNavBarProps: this.clearNavBarProps,
-
-      getRenderedNavBarProps: this.getRenderedNavBarProps,
-      setRenderedNavBarProps: this.setRenderedNavBarProps,
     };
   }
 
-  setNextNavBarProps(route = {}, props) {
+  setNavBarProps(route = {}, props) {
     const key = route.key;
-    const currentProps = this.getNextNavBarProps(route);
-    const version = currentProps[VERSION_KEY] || 0;
+    const currentProps = this.getNavBarProps(route);
 
     // Merge the props, so that we may set them partially
     // in cases when there are multiple screens in the hierarchy.
-    this.nextNavBarProps[key] = {
+    this.navBarProps[key] = {
       ...currentProps,
       ...props,
-      [VERSION_KEY]: version + 1,
     };
 
     this.refreshNavBar();
   }
 
-  getNextNavBarProps(route = {}) {
-    let props = this.nextNavBarProps[route.key] || {};
-    const { getNextNavBarProps, getScene } = this.context;
-    if (getNextNavBarProps && getScene) {
+  getNavBarProps(route = {}) {
+    let props = this.navBarProps[route.key] || {};
+    const { getNavBarProps, getScene } = this.context;
+    if (getNavBarProps && getScene) {
       const scene = getScene();
-      const parentProps = getNextNavBarProps(scene.route);
+      const parentProps = getNavBarProps(scene.route);
       if (parentProps.child) {
         delete parentProps.child;
         delete parentProps.driver;
-        delete parentProps[VERSION_KEY];
         props = {
           ...props,
           ...parentProps,
@@ -112,40 +109,35 @@ class CardStack extends Component {
       }
     }
 
-    return { ...props };
-  }
-
-  setRenderedNavBarProps(route = {}, props) {
-    this.renderedNavBarProps[route.key] = props;
-  }
-
-  getRenderedNavBarProps(route = {}) {
-    const props = this.renderedNavBarProps[route.key] || {};
-    return props;
+    const { useNativeAnimations, inlineNavigationBar } = this.props;
+    return {
+      ...props,
+      useNativeAnimations,
+      inline: inlineNavigationBar,
+    };
   }
 
   clearNavBarProps(route = {}) {
     const key = route.key;
-    delete this.nextNavBarProps[key];
-    delete this.renderedNavBarProps[key];
+    delete this.navBarProps[key];
   }
 
   refreshNavBar() {
-    InteractionManager.runAfterInteractions(() => this.forceUpdate());
+    if (this.props.useNativeAnimations) {
+      requestAnimationFrame(() => this.forceUpdate());
+    } else {
+      InteractionManager.runAfterInteractions(() => this.forceUpdate());
+    }
   }
 
   renderNavBar(props) {
     const { scene } = props;
-    const nextProps = this.getNextNavBarProps(scene.route);
+    const nextProps = this.getNavBarProps(scene.route);
 
     const navBarProps = {
       ...props,
       ...nextProps,
     };
-
-    if (navBarProps.hidden || navBarProps.child) {
-      return null;
-    }
 
     // Expose the animation driver to child components of the
     // navigation bar, so that we can animate them without
@@ -162,24 +154,39 @@ class CardStack extends Component {
     // primary scroll component of the screen to all other
     // screen children. The scene provider provides the current
     // navigation scene to child components through the context.
-    return (
+    const scene = (
       <ScrollView.DriverProvider>
         <SceneProvider scene={props.scene}>
           {this.props.renderScene(props)}
         </SceneProvider>
       </ScrollView.DriverProvider>
     );
+
+    const style = this.props.style || {};
+    const { inlineNavigationBar } = this.props;
+    return inlineNavigationBar ? (
+      <View style={style.sceneContainer}>
+        {scene}
+        {this.renderNavBar(props)}
+      </View>
+    ) : scene;
   }
 
   render() {
     const style = this.props.style || {};
+    const { inlineNavigationBar } = this.props;
 
+    // NOTE: explicitly providing enableGestures in props may
+    // override the value of the useNativeAnimations prop, because
+    // the native animations are currently controlled through the
+    // enableGestures prop in RN CardStack.
     return (
       <RNCardStack
+        enableGestures={!this.props.useNativeAnimations}
         {...this.props}
         style={style.cardStack}
         cardStyle={style.card}
-        renderHeader={this.renderNavBar}
+        renderHeader={inlineNavigationBar ? null : this.renderNavBar}
         renderScene={this.renderScene}
         interpolateCardStyle={style.interpolateCardStyle}
       />

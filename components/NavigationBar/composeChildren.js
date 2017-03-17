@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import { Button } from '../Button';
 import { Title } from '../Text';
 import { Icon } from '../Icon';
+import { ShareButton } from '../ShareButton';
 
-import Share from 'react-native-share';
 import * as _ from 'lodash';
 
 const composers = {
@@ -20,23 +20,16 @@ const composers = {
       return;
     }
 
-    const onShare = () =>
-      Share.open({
-        title: value.title || props.title,
-        message: value.text,
-        url: value.link,
-      }, (sharingError) => {
-        console.error(sharingError);
-      });
+    const { title, text, link } = value;
 
     return {
       rightComponent: (
-        <Button onPress={onShare}>
-          <Icon
-            name="share"
-            animationName={props.animationName}
-          />
-        </Button>
+        <ShareButton
+          animationName={props.animationName}
+          title={title || props.title}
+          message={text}
+          url={link}
+        />
       ),
     };
   },
