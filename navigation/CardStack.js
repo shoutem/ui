@@ -4,6 +4,8 @@ import {
   Platform,
 } from 'react-native';
 
+import _ from 'lodash';
+
 import {
   ScrollView,
   View,
@@ -101,10 +103,7 @@ class CardStack extends PureComponent {
       if (parentProps.child) {
         delete parentProps.child;
         delete parentProps.driver;
-        props = {
-          ...props,
-          ...parentProps,
-        };
+        props = _.merge({}, props, parentProps);
         delete props.child;
       }
     }
