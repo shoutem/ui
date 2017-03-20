@@ -1,7 +1,7 @@
 import React, {
   Component,
 } from 'react';
-import { Modal, ListView, } from 'react-native';
+import { Modal, ListView, Animated } from 'react-native';
 import _ from 'lodash';
 
 import { Button } from './Button';
@@ -19,6 +19,8 @@ import {
   FadeOut,
   ZoomOut,
 } from '@shoutem/animation';
+
+const AnimatedListView = Animated.createAnimatedComponent(ListView);
 
 class DropDownMenu extends Component {
   static propTypes = {
@@ -70,8 +72,8 @@ class DropDownMenu extends Component {
   }
 
   componentWillMount() {
-    this.scrollDriver = new ScrollDriver();
-    this.timingDriver = new TimingDriver();
+    this.scrollDriver = new ScrollDriver({ useNativeDriver: true });
+    this.timingDriver = new TimingDriver({ useNativeDriver: true });
   }
 
   getVisibleOptions() {
@@ -204,7 +206,7 @@ class DropDownMenu extends Component {
           <ZoomOut driver={this.timingDriver} maxFactor={1.1} style={{ flex: 1 }}>
             <FadeIn driver={this.timingDriver} style={{ flex: 1 }}>
               <View style={style.modal} styleName="vertical">
-                <ListView
+                <AnimatedListView
                   dataSource={dataSource}
                   renderRow={this.renderRow}
                   style={listViewStyle}
