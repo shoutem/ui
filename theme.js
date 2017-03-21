@@ -141,7 +141,14 @@ const defaultVariables = {
   sectionHeaderBackgroundColor: '#F2F2F2',
 };
 
-export default (variables = defaultVariables) => ({
+export defaultVariables;
+
+export default (customVariables = {}) => {
+  const variables = {
+    ...defaultVariables,
+    ...customVariables,
+  };
+  return {
   //
   // Common
   //
@@ -2020,4 +2027,5 @@ export default (variables = defaultVariables) => ({
       },
     },
   },
-});
+};
+  };
