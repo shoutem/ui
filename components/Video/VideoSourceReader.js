@@ -25,7 +25,7 @@ function getVimeoVideoId(url) {
 }
 
 function getYouTubeEmbedUrl(id, playerParams) {
-  const serializedParams = stringify(playerParams)
+  const serializedParams = stringify(playerParams);
   return `https://www.youtube.com/embed/${id}?${serializedParams}`;
 }
 
