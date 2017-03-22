@@ -4,6 +4,11 @@ import { View } from '../../components/View';
 import { Stage } from './Stage';
 import { DropDownMenu } from '../../components/DropDownMenu';
 
+import {
+  Caption,
+  FormGroup,
+} from '../../index';
+
 const options = [
   {
     name: 'Lifestyle',
@@ -28,22 +33,28 @@ const options = [
 
 ];
 
+const emptyOption = { id: '', name: 'Select'};
+const optionsWithEmptyOption = [emptyOption, ...options];
+
 export class DropDownMenus extends Component {
   constructor() {
     super();
     this.state = {
       selectedOption: options[0],
-    }
+      selectedOptionForformGroupDropdown: emptyOption,
+    };
   }
 
   render() {
+    const { selectedOption, selectedOptionForFormGroupDropdown } = this.state;
+
     return (
       <View styleName="vertical collapsed">
         <Stage title="Dropdown">
           <DropDownMenu
             options={options}
-            selectedOption={this.state.selectedOption}
-            onOptionSelected={(option) => this.setState({ selectedOption: option })}
+            selectedOption={selectedOption}
+            onOptionSelected={option => this.setState({ selectedOption: option })}
             titleProperty={"name"}
             valueProperty={"id"}
           />
@@ -52,11 +63,35 @@ export class DropDownMenus extends Component {
           <DropDownMenu
             styleName="horizontal"
             options={options}
-            selectedOption={this.state.selectedOption}
-            onOptionSelected={(option) => this.setState({ selectedOption: option })}
+            selectedOption={selectedOption}
+            onOptionSelected={option => this.setState({ selectedOption: option })}
             titleProperty={"name"}
             valueProperty={"id"}
           />
+        </Stage>
+        <Stage title="Dropdown (large)">
+          <DropDownMenu
+            styleName="large"
+            options={options}
+            selectedOption={selectedOption}
+            onOptionSelected={option => this.setState({ selectedOption: option })}
+            titleProperty={"name"}
+            valueProperty={"id"}
+          />
+        </Stage>
+        <Stage title="Dropdown (inside a form group)">
+          <FormGroup>
+            <Caption>CATEGORY</Caption>
+            <DropDownMenu
+              styleName={selectedOptionForFormGroupDropdown.id ? '' : 'empty'}
+              options={optionsWithEmptyOption}
+              selectedOption={selectedOptionForFormGroupDropdown}
+              onOptionSelected={option =>
+                this.setState({ selectedOptionForFormGroupDropdown: option })}
+              titleProperty={"name"}
+              valueProperty={"id"}
+            />
+          </FormGroup>
         </Stage>
       </View>
     );
