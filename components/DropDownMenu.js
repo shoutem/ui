@@ -204,7 +204,7 @@ class DropDownMenu extends Component {
           transparent
         >
           <ZoomOut driver={this.timingDriver} maxFactor={1.1} style={{ flex: 1 }}>
-            <FadeIn driver={this.timingDriver} style={{ flex: 1 }}>
+            <FadeIn driver={this.timingDriver} style={{ flex: 1, opacity: 0 }}>
               <View style={style.modal} styleName="vertical">
                 <AnimatedListView
                   dataSource={dataSource}
