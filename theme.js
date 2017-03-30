@@ -1289,7 +1289,6 @@ export default (variables = defaultVariables) => ({
     },
 
     centerComponent: {
-      alignSelf: 'center',
       alignItems: 'center',
       flex: 1,
     },
