@@ -860,6 +860,12 @@ export default (variables = defaultVariables) => ({
     activeOpacity: 0.8,
   },
 
+  'shoutem.ui.TouchableNativeFeedback': {
+    [INCLUDE]: ['commonVariants'],
+  },
+
+  'shoutem.ui.Touchable': {},
+
   tightButton: {
     'shoutem.ui.Icon': {
       marginRight: 0,
