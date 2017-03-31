@@ -105,10 +105,10 @@ const defaultVariables = {
     fontFamily: 'Rubik-Regular',
     fontStyle: 'normal',
     fontWeight: 'normal',
-    color: '#666666',
+    color: '#222222',
     fontSize: 15,
   },
-  navBarIconsColor: '#AEAEAE',
+  navBarIconsColor: '#222222',
   featuredNavBarTitleColor: '#ffffff',
   featuredNavBarIconsColor: '#ffffff',
 
