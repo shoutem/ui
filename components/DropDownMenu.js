@@ -6,8 +6,7 @@ import _ from 'lodash';
 
 import { Button } from './Button';
 import { Icon } from './Icon';
-import { Text } from './Text';
-import { Title } from './Title';
+import { Text, Title } from './Text';
 import { View } from './View';
 import { TouchableOpacity } from './TouchableOpacity';
 
