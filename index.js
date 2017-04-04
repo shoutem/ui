@@ -20,6 +20,8 @@ export { ListView } from './components/ListView';
 export { GridRow } from './components/GridRow';
 
 export { TouchableOpacity } from './components/TouchableOpacity';
+export { TouchableNativeFeedback } from './components/TouchableNativeFeedback';
+export { Touchable } from './components/Touchable';
 export { Button } from './components/Button';
 export { Icon, createIcon } from './components/Icon';
 

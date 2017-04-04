@@ -44,7 +44,7 @@ export class ScrollDriverProvider extends Component {
     } else if (context.driverProvider) {
       this.animationDriver = context.animationDriver;
     } else if (!this.animationDriver) {
-      this.animationDriver = new ScrollDriver();
+      this.animationDriver = new ScrollDriver({ useNativeDriver: true });
     }
   }
 

@@ -14,6 +14,8 @@ import VideoSourceReader from './VideoSourceReader';
 const propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
+  // `playerParams` currently only works for Youtube
+  playerParams: PropTypes.object,
   source: PropTypes.shape({
     uri: PropTypes.string,
   }),
@@ -23,8 +25,14 @@ const propTypes = {
     ]),
 };
 
-function createSourceObject(source) {
-  const sourceReader = new VideoSourceReader(source.uri);
+const defaultProps = {
+  playerParams: {
+    showinfo: 0,
+  },
+};
+
+function createSourceObject(source, playerParams) {
+  const sourceReader = new VideoSourceReader(source.uri, playerParams);
   const url = sourceReader.getUrl();
 
   if (sourceReader.isEmbeddableVideo()) {
@@ -58,12 +66,13 @@ function Video({
   height,
   source,
   style,
+  playerParams,
 }) {
   return (
     <View style={style.container}>
       <WebView
         style={{ width, height }}
-        source={createSourceObject(source)}
+        source={createSourceObject(source, playerParams)}
         scrollEnabled={false}
       />
     </View>
@@ -71,6 +80,7 @@ function Video({
 }
 
 Video.propTypes = propTypes;
+Video.defaultProps = defaultProps;
 
 const AnimatedVideo = connectAnimation(Video);
 const StyledVideo = connectStyle('shoutem.ui.Video', {})(AnimatedVideo);
