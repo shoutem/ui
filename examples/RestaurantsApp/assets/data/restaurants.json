@@ -2,42 +2,42 @@
   "name": "Gaspar Brasserie",
   "address": "185 Sutter St, San Francisco, CA 94109",
   "description": "Gaspar is a delightful French restaurant in San Francisco’s Financial District that is inspired by the romantic, bustling Paris of old.\n\nLocated near famed Union Square, our richly-designed interiors make you feel as if you are truly in Paris and provide the perfect setting for enjoying our exquisite classic and modern French fare such as Duck Leg Confit and always popular Steak Frites.\n\nGaspar is a delightful French restaurant in San Francisco’s Financial District that is inspired by the romantic, bustling Paris of old. Located near famed Union Square, our richly-designed interiors make you feel as if you are truly in Paris and provide the perfect setting for enjoying our exquisite classic and modern French fare such as Duck Leg Confit and always popular Steak Frites.",
-  "url": "gasparbrasserie.com",
-  "image": { "url": "https://shoutem.github.io/restaurants/restaurant-1.jpg" },
+  "url": "https://gasparbrasserie.com",
+  "image": { "url": "https://shoutem.github.io/static/getting-started/restaurant-1.jpg" },
   "mail": "info@gasparbrasserie.com"
 }, {
   "name": "Chalk Point Kitchen",
   "address": "527 Broome St, New York, NY 10013",
   "description": "Situated in the heart of SoHo, at 527 Broome Street (between Thompson and Sullivan) Chalk Point Kitchen is a 60 seat “market to table” owned by Lower East Side restaurateur, Matt Levine and his indieFORK team.",
-  "url": "",
-  "image": { "url": "https://shoutem.github.io/restaurants/restaurant-2.jpg" },
-  "mail": ""
+  "url": "https://www.chalkpointkitchen.com/",
+  "image": { "url": "https://shoutem.github.io/static/getting-started/restaurant-2.jpg" },
+  "mail": "FeedMe@ChalkPointKitchen.com"
 }, {
   "name": "Kyoto Amber Upper East",
   "address": "225 Mulberry St, New York, NY 10012",
-  "description": "",
-  "url": "",
-  "image": { "url": "https://shoutem.github.io/restaurants/restaurant-3.jpg" },
-  "mail": ""
+  "description": "High quality, freshness, craveable flavors are just a few of the many qualities you will find by ordering online from us.\n\nAfter years of experience we have created the original and distinctive style that makes us stand out from other restaurants. Our mouthwatering dishes will definitely offer your palette flavors that are both unique and delicious.",
+  "url": "http://ambertogo.com/",
+  "image": { "url": "https://shoutem.github.io/static/getting-started/restaurant-3.jpg" },
+  "mail": "info@ambertogo.com"
 }, {
   "name": "Sushi Academy",
-  "address": "",
-  "description": "",
-  "url": "",
-  "image": { "url": "https://shoutem.github.io/restaurants/restaurant-4.jpg" },
-  "mail": ""
+  "address": "11310 Nebraska Ave. #1, Los Angeles, CA 90025",
+  "description": "The educational philosophy of the California Sushi Academy crosses borders, race and gender to bring greater Japanese cultural understanding and appreciation through the culinary experience.",
+  "url": "https://www.sushi-academy.com",
+  "image": { "url": "https://shoutem.github.io/static/getting-started/restaurant-4.jpg" },
+  "mail": "email@sushi-academy.com"
 }, {
   "name": "Sushibo",
   "address": "",
-  "description": "",
-  "url": "",
-  "image": { "url": "https://shoutem.github.io/restaurants/restaurant-5.jpg" },
-  "mail": ""
+  "description": "Our passion for authentic, fresh Japanese cooking has brought us to connect with an extensive base of clients, as well as hotels and several businesses all around the city.\n\nAs a healthy and nutritious food, due to its low fat levels and high protein content, our sushi is made fresh daily in our kitchen.",
+  "url": "http://www.sushibo.cat/en/",
+  "image": { "url": "https://shoutem.github.io/static/getting-started/restaurant-5.jpg" },
+  "mail": "info@sushibo.cat"
 }, {
   "name": "Mastergrill",
-  "address": "",
-  "description": "",
-  "url": "",
-  "image": { "url": "https://shoutem.github.io/restaurants/restaurant-6.jpg" },
-  "mail": ""
+  "address": "34-09 College Point Blvd., Flushing, NY 11354",
+  "description": "A carnivore’s nirvana, Master Grill entertains families with nightly live music. And given the restaurant’s 1,000 seats, there’s plenty of space for high-energy little ones to boogie. The international food and salad bar is always a hit.",
+  "url": "https://mastergrillny.com",
+  "image": { "url": "https://shoutem.github.io/static/getting-started/restaurant-6.jpg" },
+  "mail": "info@mastergrillny.com"
 }]

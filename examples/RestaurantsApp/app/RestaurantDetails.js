@@ -29,7 +29,7 @@ export default class RestaurantDetails extends Component {
       <Screen styleName="paper full-screen">
         <NavigationBar
           title={restaurant.name}
-          styleName="clear"
+          styleName="clear hide-title"
           animationName="solidify"
         />
 

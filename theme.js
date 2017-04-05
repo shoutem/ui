@@ -1096,6 +1096,13 @@ export default (variables = defaultVariables) => ({
   //
   clearNavigationBar: {
     [INCLUDE]: ['imageOverlayText'],
+
+    '.no-title': {
+      'shoutem.ui.Title': {
+        color: Colors.CLEAR,
+      },
+    },
+
     'shoutem.ui.Button': {
       [INCLUDE]: ['clearButton'],
       'shoutem.ui.Icon': {
