@@ -1271,7 +1271,8 @@ export default (variables = defaultVariables) => ({
       backgroundColor: variables.navBarBackground,
       borderBottomColor: variables.navBarBorderColor,
       borderBottomWidth: 1,
-      padding: 15,
+      // Leave space for the status bar on iOS
+      paddingTop: Platform.OS === 'ios' ? 20 : 0,
     },
 
     componentsContainer: {
@@ -1282,14 +1283,8 @@ export default (variables = defaultVariables) => ({
       backgroundColor: 'transparent',
     },
 
-    component: {
-      height: 24,
-      marginBottom: -8,
-      alignSelf: 'flex-end',
-      flex: 1,
-    },
-
     leftComponent: {
+      alignSelf: 'center',
       alignItems: 'flex-start',
       flex: 1,
     },
@@ -1298,9 +1293,11 @@ export default (variables = defaultVariables) => ({
       alignSelf: 'center',
       alignItems: 'center',
       flex: 1,
+      marginBottom: 0,
     },
 
     rightComponent: {
+      alignSelf: 'center',
       alignItems: 'flex-end',
       flex: 1,
     },
