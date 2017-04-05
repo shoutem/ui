@@ -52,7 +52,7 @@ function dimensionRelativeToIphone(dimension, actualRefVal = window.width) {
   return getSizeRelativeToReference(dimension, 375, actualRefVal);
 }
 
-const defaultVariables = {
+export const defaultThemeVariables = {
   featuredColor: '#659CEC',
   backgroundColor: '#f2f2f2',
   paperColor: '#FFFFFF',
@@ -141,7 +141,7 @@ const defaultVariables = {
   sectionHeaderBackgroundColor: '#F2F2F2',
 };
 
-export default (variables = defaultVariables) => ({
+export default (variables = defaultThemeVariables) => ({
   //
   // Common
   //
