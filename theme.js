@@ -131,11 +131,11 @@ const defaultVariables = {
     fontSize: 12,
     color: '#222222',
   },
-  primaryButtonBackgroundColor: '#659CEC',
-  primaryButtonBorderColor: '#659CEC',
-  secondaryButtonTextColor: '#659CEC',
-  secondaryButtonBackgroundColor: '#ffffff',
-  secondaryButtonBorderColor: '#659CEC',
+  primaryButtonBackgroundColor: '#ffffff',
+  primaryButtonBorderColor: '#ffffff',
+  secondaryButtonTextColor: '#ffffff',
+  secondaryButtonBackgroundColor: '#2c2c2c',
+  secondaryButtonBorderColor: '#2c2c2c',
 
   lineColor: '#e5e5e5',
   sectionHeaderBackgroundColor: '#F2F2F2',
@@ -917,9 +917,7 @@ export default (variables = defaultVariables) => ({
     '.textual': {
       // Use default text as button text style
       // Text like button, without background color and margins
-      [INCLUDE]: ['textualButton'],
-      [INCLUDE]: ['clearButton'],
-      [INCLUDE]: ['tightButton'],
+      [INCLUDE]: ['tightButton', 'clearButton', 'textualButton'],
     },
 
     '.secondary': {

@@ -18,7 +18,7 @@ export function Buttons() {
       </Stage>
 
       <Stage title="Button / Text only / Dark">
-        <Button styleName="dark">
+        <Button styleName="secondary">
           <Text>CHECK IN HERE</Text>
         </Button>
       </Stage>
@@ -31,7 +31,7 @@ export function Buttons() {
       </Stage>
 
       <Stage title="Button / Icon + Text / Dark">
-        <Button styleName="dark">
+        <Button styleName="secondary">
           <Icon name="add-event" />
           <Text>ADD TO CALENDAR</Text>
         </Button>
@@ -43,7 +43,7 @@ export function Buttons() {
             <Text>REMOVE</Text>
           </Button>
 
-          <Button styleName="confirmation dark">
+          <Button styleName="confirmation secondary">
             <Text>UPDATE</Text>
           </Button>
         </View>
@@ -56,13 +56,13 @@ export function Buttons() {
       </Stage>
 
       <Stage title="Button / Navbar">
-        <Button styleName="tight clear">
+        <Button styleName="textual">
           <Icon name="add-to-favorites-full" />
         </Button>
       </Stage>
 
       <Stage title="Button / Vertical / Icon + Text">
-        <Button styleName="stacked clear">
+        <Button styleName="stacked textual">
           <Icon name="tweet" />
           <Text>Text description</Text>
         </Button>
