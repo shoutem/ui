@@ -1637,7 +1637,15 @@ export default (variables = defaultThemeVariables) => ({
 
     selectedOption: {
       // Button
-      [INCLUDE]: ['tightButton', 'clearButton', 'textualButton'],
+      [INCLUDE]: ['clearButton', 'textualButton'],
+
+      'shoutem.ui.Icon': {
+        marginRight: 0,
+      },
+
+      'shoutem.ui.Text': {
+        marginRight: 0,
+      },
     },
 
     modal: {
