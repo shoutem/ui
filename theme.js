@@ -1064,6 +1064,8 @@ export default (variables = defaultThemeVariables) => ({
       backgroundColor: variables.backgroundColor,
     },
 
+    headerContainer: {},
+
     refreshControl: {
       tintColor: inverseColorBrightnessForAmount(variables.backgroundColor, 15),
     },
