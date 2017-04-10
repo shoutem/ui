@@ -19,7 +19,10 @@ const propTypes = {
   source: PropTypes.shape({
     uri: PropTypes.string,
   }),
-  style: PropTypes.object,
+  style: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.array
+    ]),
 };
 
 const defaultProps = {

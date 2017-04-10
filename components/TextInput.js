@@ -26,7 +26,10 @@ class TextInput extends Component {
 
 TextInput.propTypes = {
   ...RNTextInput.propTypes,
-  style: React.PropTypes.object,
+  style: React.PropTypes.oneOfType([
+    React.PropTypes.object,
+    React.PropTypes.array
+  ]),
 };
 
 const AnimatedTextInput = connectAnimation(TextInput);

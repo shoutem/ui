@@ -104,7 +104,10 @@ RichMedia.defaultProps = {
 RichMedia.propTypes = {
   body: PropTypes.string,
   onError: PropTypes.func,
-  style: PropTypes.object,
+  style: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.array
+    ]),
   openUrl: PropTypes.func,
   renderElement: PropTypes.func,
   renderText: PropTypes.func,

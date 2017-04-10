@@ -6,7 +6,7 @@ import _ from 'lodash';
 
 import { Button } from './Button';
 import { Icon } from './Icon';
-import { Text } from './Text';
+import { Text, Title } from './Text';
 import { View } from './View';
 import { TouchableOpacity } from './TouchableOpacity';
 
@@ -51,7 +51,14 @@ class DropDownMenu extends Component {
      * Prop definition overrides style.
      */
     visibleOptions: React.PropTypes.number,
-    style: React.PropTypes.object,
+    /**
+     * Header property
+     */
+    header: React.PropTypes.string,
+    style: React.PropTypes.oneOfType([
+      React.PropTypes.object,
+      React.PropTypes.array
+    ]),
   };
 
   static DEFAULT_VISIBLE_OPTIONS = 8;
@@ -144,7 +151,12 @@ class DropDownMenu extends Component {
     return selectedOption ? (
         <View style={style.horizontalContainer}>
           <Button onPress={this.collapse} style={style.selectedOption}>
-            <Text>{selectedOption[titleProperty]}</Text>
+            <Text
+              numberOfLines={1}
+              style={style.selectedOptionTitle}
+            >
+              {selectedOption[titleProperty]}
+            </Text>
             <Icon name="drop-down" />
           </Button>
         </View>
@@ -185,7 +197,7 @@ class DropDownMenu extends Component {
 
   render() {
     const { collapsed } = this.state;
-    const { titleProperty, options, style } = this.props;
+    const { titleProperty, options, style, header, } = this.props;
 
     const button = this.renderSelectedOption();
     if (_.size(options) === 0 || !button) {
@@ -206,6 +218,7 @@ class DropDownMenu extends Component {
           <ZoomOut driver={this.timingDriver} maxFactor={1.1} style={{ flex: 1 }}>
             <FadeIn driver={this.timingDriver} style={{ flex: 1 }}>
               <View style={style.modal} styleName="vertical">
+                {header && <Title style={style.header}>{header}</Title>}
                 <AnimatedListView
                   dataSource={dataSource}
                   renderRow={this.renderRow}
