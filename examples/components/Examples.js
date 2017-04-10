@@ -15,9 +15,6 @@ import { FormComponents } from './FormComponents';
 import { Headers } from './Headers';
 import { NavigationBars } from './NavigationBars';
 import { Videos } from './Videos';
-// import { InlineGalleries } from './InlineGalleries';
-// import { ImageGalleries } from './ImageGalleries';
-// import { HorizontalPagers } from './HorizontalPagers';
 
 const examples = [
   { title: 'Typography', component: Typography },
@@ -33,9 +30,6 @@ const examples = [
   { title: 'Images', component: Images },
   { title: 'Video', component: Videos },
   { title: 'Form Components', component: FormComponents },
-  // { title: 'Inline Galleries', component: InlineGalleries },
-  // { title: 'Image Gallery', component: ImageGalleries },
-  // { title: 'Horizontal Pagers', component: HorizontalPagers },
 ];
 
 export class Examples extends Component {
