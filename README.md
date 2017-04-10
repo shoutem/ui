@@ -13,6 +13,10 @@ $ react-native link # No need to run this with Exponent
 
 All the documentation is available on the [Developer portal](http://shoutem.github.io/docs/ui-toolkit/introduction).
 
+## Community
+
+Join [our community](https://www.facebook.com/groups/shoutem.community/) on Facebook. Also, feel free to ask a question on Stack Overflow using ["shoutem" tag](http://stackoverflow.com/tags/shoutem).
+
 ## Examples
 
 To see how Shoutem UI works, you can:
