@@ -821,8 +821,9 @@ export default (variables = defaultThemeVariables) => ({
   'shoutem.ui.Overlay': {
     [INCLUDE]: ['guttersPadding'],
 
-    ...createSharedStyle(textComponents, {
+    ...createSharedStyle([...textComponents, 'shoutem.ui.Icon'], {
       textAlign: 'center',
+      color: variables.tagOverlayTextColor,
     }),
 
     ...createSharedStyle(viewComponents, {

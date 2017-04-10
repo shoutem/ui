@@ -30,7 +30,7 @@ export function Headers() {
           <Title styleName="md-gutter-top">COOL BLACK AND WHITE STYLISH WATCHES</Title>
           <Subtitle styleName="line-through sm-gutter-top">$280.00</Subtitle>
           <Heading>$250.00</Heading>
-          <Button styleName="dark md-gutter-top"><Icon name="cart" /><Text>ADD TO BASKET</Text></Button>
+          <Button styleName="secondary md-gutter-top"><Icon name="cart" /><Text>ADD TO BASKET</Text></Button>
         </Tile>
       </Stage>
 
@@ -39,14 +39,14 @@ export function Headers() {
           <Title>MIKE PATTON TEAMING WITH JOHN KAADA</Title>
           <Subtitle styleName="line-through sm-gutter-top">150.00</Subtitle>
           <Heading>99.99</Heading>
-          <Button styleName="dark md-gutter-top"><Text>CLAIM COUPON</Text></Button>
+          <Button styleName="secondary md-gutter-top"><Text>CLAIM COUPON</Text></Button>
         </Tile>
       </Stage>
 
       <Stage title="Header / Products item">
         <Tile styleName="text-centric">
           <Title styleName="md-gutter-bottom">SMOKED SALMON, CLASSIC CONDIMENTS, BRIOCHE</Title>
-          <Overlay styleName="solid-dark">
+          <Overlay>
             <Subtitle styleName="sm-gutter-horizontal">$18.30</Subtitle>
           </Overlay>
         </Tile>

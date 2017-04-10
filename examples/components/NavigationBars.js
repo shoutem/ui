@@ -102,7 +102,11 @@ export function NavigationBars() {
       <Stage title="Navbar + Drawer">
         <NavBarStageContainer>
           <NavigationBar
-            leftComponent={<Icon name="sidebar" />}
+            leftComponent={(
+              <Button>
+                <Icon name="close" />
+              </Button>
+            )}
             centerComponent={<Title>TITLE</Title>}
           />
         </NavBarStageContainer>
@@ -110,7 +114,11 @@ export function NavigationBars() {
       <Stage title="Navbar + Picker">
         <NavBarStageContainer>
           <NavigationBar
-            leftComponent={<Icon name="sidebar" />}
+            leftComponent={(
+              <Button>
+                <Icon name="sidebar" />
+              </Button>
+            )}
             centerComponent={<Title>TITLE</Title>}
             rightComponent={<DropDownMenu
               options={navBarDropDownOptions}
@@ -124,7 +132,11 @@ export function NavigationBars() {
       <Stage title="Navbar + Action">
         <NavBarStageContainer>
           <NavigationBar
-            leftComponent={<Icon name="sidebar" />}
+            leftComponent={(
+              <Button>
+                <Icon name="sidebar" />
+              </Button>
+            )}
             centerComponent={<Title>TITLE</Title>}
             rightComponent={(
               <Button styleName="clear">
@@ -137,7 +149,11 @@ export function NavigationBars() {
       <Stage title="Navbar + Icon">
         <NavBarStageContainer>
           <NavigationBar
-            leftComponent={<Icon name="sidebar" />}
+            leftComponent={(
+              <Button>
+                <Icon name="sidebar" />
+              </Button>
+            )}
             centerComponent={<Title>TITLE</Title>}
             rightComponent={(
               <Button>
@@ -150,7 +166,11 @@ export function NavigationBars() {
       <Stage title="Navbar (Sublevel) + Icon">
         <NavBarStageContainer>
           <NavigationBar
-            hasHistory
+            leftComponent={(
+              <Button>
+                <Icon name="back" />
+              </Button>
+            )}
             title="TITLE"
             share={{
               link: 'http://shoutem.github.io',
@@ -164,7 +184,11 @@ export function NavigationBars() {
         <NavBarStageContainer>
           <NavigationBar
             styleName="no-border"
-            hasHistory
+            leftComponent={(
+              <Button>
+                <Icon name="back" />
+              </Button>
+            )}
             title="TITLE"
             share={{
               link: 'http://shoutem.github.io',
@@ -177,7 +201,11 @@ export function NavigationBars() {
       <Stage title="Navbar (Sublevel) + Action">
         <NavBarStageContainer>
           <NavigationBar
-            hasHistory
+            leftComponent={(
+              <Button>
+                <Icon name="back" />
+              </Button>
+            )}
             title="TITLE"
             rightComponent={(
               <Button styleName="clear">
@@ -259,7 +287,11 @@ export function NavigationBars() {
         <NavBarStageContainer style={{ backgroundColor: '#1a70d5', }}>
           <NavigationBar
             styleName="clear"
-            hasHistory
+            leftComponent={(
+              <Button>
+                <Icon name="back" />
+              </Button>
+            )}
             title="TITLE"
             share={{
               link: 'http://shoutem.github.io',
