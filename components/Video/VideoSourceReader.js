@@ -1,3 +1,5 @@
+import { stringify } from 'qs';
+
 function getYouTubeVideoId(url) {
   const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\??v?=?))([^#&\?]*).*/;
   const match = url.match(regExp);
@@ -22,8 +24,9 @@ function getVimeoVideoId(url) {
   return false;
 }
 
-function getYouTubeEmbedUrl(id) {
-  return `https://www.youtube.com/embed/${id}`;
+function getYouTubeEmbedUrl(id, playerParams) {
+  const serializedParams = stringify(playerParams);
+  return `https://www.youtube.com/embed/${id}?${serializedParams}`;
 }
 
 function getVimeoEmbedUrl(id) {
@@ -34,9 +37,11 @@ function getVimeoEmbedUrl(id) {
  * Reads the video source and provides the video
  * url in embedded form if necessary
  */
+
 export default class VideoSourceReader {
-  constructor(source) {
+  constructor(source, playerParams) {
     this.source = source;
+    this.playerParams = playerParams;
     this.isYouTube = !!getYouTubeVideoId(source);
     this.isVimeo = !!getVimeoVideoId(source);
   }
@@ -47,7 +52,7 @@ export default class VideoSourceReader {
 
   getUrl() {
     if (this.isYouTube) {
-      return getYouTubeEmbedUrl(getYouTubeVideoId(this.source));
+      return getYouTubeEmbedUrl(getYouTubeVideoId(this.source), this.playerParams);
     } else if (this.isVimeo) {
       return getVimeoEmbedUrl(getVimeoVideoId(this.source));
     }

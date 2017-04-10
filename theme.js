@@ -52,7 +52,7 @@ function dimensionRelativeToIphone(dimension, actualRefVal = window.width) {
   return getSizeRelativeToReference(dimension, 375, actualRefVal);
 }
 
-const defaultVariables = {
+export const defaultThemeVariables = {
   featuredColor: '#659CEC',
   backgroundColor: '#f2f2f2',
   paperColor: '#FFFFFF',
@@ -105,10 +105,10 @@ const defaultVariables = {
     fontFamily: 'Rubik-Regular',
     fontStyle: 'normal',
     fontWeight: 'normal',
-    color: '#666666',
+    color: '#222222',
     fontSize: 15,
   },
-  navBarIconsColor: '#AEAEAE',
+  navBarIconsColor: '#222222',
   featuredNavBarTitleColor: '#ffffff',
   featuredNavBarIconsColor: '#ffffff',
 
@@ -131,17 +131,17 @@ const defaultVariables = {
     fontSize: 12,
     color: '#222222',
   },
-  primaryButtonBackgroundColor: '#659CEC',
-  primaryButtonBorderColor: '#659CEC',
-  secondaryButtonTextColor: '#659CEC',
-  secondaryButtonBackgroundColor: '#ffffff',
-  secondaryButtonBorderColor: '#659CEC',
+  primaryButtonBackgroundColor: '#ffffff',
+  primaryButtonBorderColor: '#ffffff',
+  secondaryButtonTextColor: '#ffffff',
+  secondaryButtonBackgroundColor: '#2c2c2c',
+  secondaryButtonBorderColor: '#2c2c2c',
 
   lineColor: '#e5e5e5',
   sectionHeaderBackgroundColor: '#F2F2F2',
 };
 
-export default (variables = defaultVariables) => ({
+export default (variables = defaultThemeVariables) => ({
   //
   // Common
   //
@@ -821,8 +821,9 @@ export default (variables = defaultVariables) => ({
   'shoutem.ui.Overlay': {
     [INCLUDE]: ['guttersPadding'],
 
-    ...createSharedStyle(textComponents, {
+    ...createSharedStyle([...textComponents, 'shoutem.ui.Icon'], {
       textAlign: 'center',
+      color: variables.tagOverlayTextColor,
     }),
 
     ...createSharedStyle(viewComponents, {
@@ -859,6 +860,12 @@ export default (variables = defaultVariables) => ({
 
     activeOpacity: 0.8,
   },
+
+  'shoutem.ui.TouchableNativeFeedback': {
+    [INCLUDE]: ['commonVariants'],
+  },
+
+  'shoutem.ui.Touchable': {},
 
   tightButton: {
     'shoutem.ui.Icon': {
@@ -911,9 +918,7 @@ export default (variables = defaultVariables) => ({
     '.textual': {
       // Use default text as button text style
       // Text like button, without background color and margins
-      [INCLUDE]: ['textualButton'],
-      [INCLUDE]: ['clearButton'],
-      [INCLUDE]: ['tightButton'],
+      [INCLUDE]: ['tightButton', 'clearButton', 'textualButton'],
     },
 
     '.secondary': {
@@ -1060,6 +1065,8 @@ export default (variables = defaultVariables) => ({
       backgroundColor: variables.backgroundColor,
     },
 
+    headerContainer: {},
+
     refreshControl: {
       tintColor: inverseColorBrightnessForAmount(variables.backgroundColor, 15),
     },
@@ -1092,6 +1099,13 @@ export default (variables = defaultVariables) => ({
   //
   clearNavigationBar: {
     [INCLUDE]: ['imageOverlayText'],
+
+    '.no-title': {
+      'shoutem.ui.Title': {
+        color: Colors.CLEAR,
+      },
+    },
+
     'shoutem.ui.Button': {
       [INCLUDE]: ['clearButton'],
       'shoutem.ui.Icon': {
@@ -1265,7 +1279,8 @@ export default (variables = defaultVariables) => ({
       backgroundColor: variables.navBarBackground,
       borderBottomColor: variables.navBarBorderColor,
       borderBottomWidth: 1,
-      padding: 15,
+      // Leave space for the status bar on iOS
+      paddingTop: Platform.OS === 'ios' ? 20 : 0,
     },
 
     componentsContainer: {
@@ -1276,14 +1291,8 @@ export default (variables = defaultVariables) => ({
       backgroundColor: 'transparent',
     },
 
-    component: {
-      height: 24,
-      marginBottom: -8,
-      alignSelf: 'flex-end',
-      flex: 1,
-    },
-
     leftComponent: {
+      alignSelf: 'center',
       alignItems: 'flex-start',
       flex: 1,
     },
@@ -1292,9 +1301,11 @@ export default (variables = defaultVariables) => ({
       alignSelf: 'center',
       alignItems: 'center',
       flex: 1,
+      marginBottom: 0,
     },
 
     rightComponent: {
+      alignSelf: 'center',
       alignItems: 'flex-end',
       flex: 1,
     },
@@ -1629,7 +1640,15 @@ export default (variables = defaultVariables) => ({
 
     selectedOption: {
       // Button
-      [INCLUDE]: ['tightButton', 'clearButton', 'textualButton'],
+      [INCLUDE]: ['clearButton', 'textualButton'],
+
+      'shoutem.ui.Icon': {
+        marginRight: 0,
+      },
+
+      'shoutem.ui.Text': {
+        marginRight: 0,
+      },
     },
 
     modal: {
