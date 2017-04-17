@@ -80,7 +80,7 @@ class ListView extends React.Component {
     // TODO(Braco) - add render separator
   };
 
-  isMounted = true;
+  _isMounted = true;
 
   constructor(props, context) {
     super(props, context);
@@ -126,7 +126,7 @@ class ListView extends React.Component {
       // Reset the global network indicator state
       StatusBar.setNetworkActivityIndicatorVisible(false);
     }
-    this.isMounted = false;
+    this._isMounted = false;
   }
 
   onRefresh() {
@@ -137,7 +137,7 @@ class ListView extends React.Component {
     if (this.props.onRefresh) {
       const callback = this.props.onRefresh();
       const setIdle = () => {
-        if(this.isMounted) {
+        if(this._isMounted) {
           this.setState({
             status: Status.IDLE,
           });
