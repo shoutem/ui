@@ -132,7 +132,16 @@ class ListView extends React.Component {
     });
 
     if (this.props.onRefresh) {
-      this.props.onRefresh();
+      const callback = this.props.onRefresh();
+      const setIdle = () => {
+        this.setState({
+          status: Status.IDLE,
+        });
+      };
+
+      if(typeof callback === 'object' && typeof callback.then === 'function') {
+        callback.then(setIdle, setIdle);
+      }
     }
   }
 
