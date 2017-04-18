@@ -1491,12 +1491,40 @@ export default (variables = defaultThemeVariables) => ({
       'shoutem.ui.Caption': {
         backgroundColor: variables.paperColor,
         paddingHorizontal: MEDIUM_GUTTER,
-        paddingTop: 12,
+        paddingTop: 10,
       },
 
       'shoutem.ui.TextInput': {
         height: 39,
         paddingVertical: 9,
+      },
+
+      'shoutem.ui.DropDownMenu': {
+        horizontalContainer: {
+          alignItems: 'flex-start',
+          backgroundColor: variables.paperColor,
+          height: 39,
+          paddingHorizontal: MEDIUM_GUTTER,
+          paddingVertical: 9,
+        },
+
+        selectedOption: {
+          'shoutem.ui.Icon': {
+            color: variables.paperColor,
+          },
+
+          'shoutem.ui.Text': {
+            margin: 0,
+          },
+        },
+
+        '.empty': {
+          selectedOption: {
+            'shoutem.ui.Text': {
+              color: changeColorAlpha(variables.text.color, 0.5),
+            },
+          },
+        },
       },
     },
   },
@@ -1632,6 +1660,35 @@ export default (variables = defaultThemeVariables) => ({
         horizontalContainer: {
           [INCLUDE]: ['dimmedFeaturedBackground'],
           borderBottomWidth: 0,
+        },
+      },
+    },
+
+    '.large': {
+      horizontalContainer: {
+        alignItems: 'flex-end',
+        borderColor: variables.shadowColor,
+        borderWidth: 1,
+        borderRightWidth: 0,
+        height: 40,
+        width: 175,
+      },
+
+      selectedOption: {
+        'shoutem.ui.Text': {
+          flex: 1,
+          textAlign: 'center',
+        },
+
+        'shoutem.ui.Icon': {
+          backgroundColor: variables.secondaryButtonBackgroundColor,
+          borderColor: variables.secondaryButtonBorderColor,
+          borderRadius: 2,
+          borderWidth: 1,
+          color: variables.secondaryButtonTextColor,
+          height: 40,
+          paddingVertical: 8,
+          width: 40,
         },
       },
     },
