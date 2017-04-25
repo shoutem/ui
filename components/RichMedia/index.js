@@ -1,4 +1,14 @@
-import RichMedia, { Display, richMediaConnectStyle } from './components/RichMedia';
+import RichMedia, {
+  Display,
+  richMediaConnectStyle,
+  customizeRenderElement,
+  ElementPropTypes,
+  hasBlockElement,
+  mapComponentProps,
+  mapElementProps,
+  renderChildElements,
+  renderChildren,
+} from './components/RichMedia';
 import RichMediaGallery from './components/RichMediaGallery';
 import RichMediaImage from './components/RichMediaImage';
 import Inline, { InlineSettings } from './elements/Inline';
@@ -47,6 +57,15 @@ RichMedia.registerElement('div', richMediaConnectStyle('div')(Block));
 
 export {
   RichMedia,
+  Display,
+  richMediaConnectStyle,
+  customizeRenderElement,
+  ElementPropTypes,
+  hasBlockElement,
+  mapComponentProps,
+  mapElementProps,
+  renderChildElements,
+  renderChildren,
 
   // Elements
   Inline,
