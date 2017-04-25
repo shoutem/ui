@@ -1254,6 +1254,12 @@ export default (variables = defaultThemeVariables) => ({
     '.clear': {
       [INCLUDE]: ['clearNavigationBar'],
     },
+    '.inline': {
+      container: {
+        width: window.width,
+        position: 'relative',
+      },
+    },
     'shoutem.ui.Title': {
       solidifyAnimation(driver) {
         return {
