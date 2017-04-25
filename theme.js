@@ -1258,7 +1258,7 @@ export default (variables = defaultThemeVariables) => ({
       container: {
         width: window.width,
         position: 'relative',
-      }
+      },
     },
     'shoutem.ui.Title': {
       solidifyAnimation(driver) {
