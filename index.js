@@ -40,7 +40,7 @@ export { ImageGalleryOverlay } from './components/ImageGalleryOverlay';
 export { HorizontalPager } from './components/HorizontalPager';
 export { LoadingIndicator } from './components/LoadingIndicator';
 export { PageIndicators } from './components/PageIndicators';
-export { RichMedia } from './components/RichMedia';
+export RichMedia from './components/RichMedia';
 export { ShareButton } from './components/ShareButton';
 
 export {
