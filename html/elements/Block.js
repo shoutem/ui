@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from '@shoutem/ui';
-import { ElementPropTypes, mapComponentProps, mapElementProps } from '../components/RichMedia';
+import { ElementPropTypes, mapComponentProps, mapElementProps } from '../RichMedia';
 import { Inline } from './Inline';
 
 /**

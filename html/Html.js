@@ -4,28 +4,20 @@ import _ from 'lodash';
 import { View } from '@shoutem/ui';
 import { connectStyle } from '@shoutem/theme';
 
-import { parseHtml } from '../services/HtmlParser';
+import { parseHtml } from './services/HtmlParser';
 import {
   registerElement,
+  getElement,
   getElementDisplay,
   getElementProperty,
-} from '../services/ElementRegistry';
-
-/**
- * HTML elements have different display settings that affect React Native composition.
- * Use INLINE display for Text components that are stacked horizontally.
- * Use BLOCK display for any components that are stacked vertically.
- */
-export const Display = {
-  INLINE: 1,
-  BLOCK: 2,
-};
+  Display,
+} from './services/ElementRegistry';
 
 const defaultElementSettings = {
   display: Display.BLOCK,
 };
 
-class RichMedia extends Component {
+class Html extends Component {
   static propTypes = {
     html: React.PropTypes.string.isRequired,
     renderElement: React.PropTypes.func,
@@ -50,6 +42,11 @@ class RichMedia extends Component {
     registerElement(elementTag, { ...elementSettings, component });
   }
 
+  static getElement(tag) {
+    // TODO - standardize ElementRegistry getElement
+    return getElement({ tag });
+  }
+
   constructor(props, context) {
     super(props, context);
     this.renderElement = this.renderElement.bind(this);
@@ -70,7 +67,7 @@ class RichMedia extends Component {
       renderedElement = this.props.renderElement(element, this.renderElement);
     }
 
-    // Custom renderElement for the specific RichMedia implementation
+    // Custom renderElement for the specific Html implementation
     // has advantage over the "global". If custom renderElement rendered
     // a component that component will be used, otherwise fallback to "global".
     if (!renderedElement) {
@@ -111,13 +108,13 @@ export const ElementPropTypes = {
   ]),
 };
 
-export default connectStyle('shoutem.ui.RichMedia')(RichMedia);
+export default connectStyle('shoutem.ui.Html')(Html);
 
 
 /* Helpers */
 
 export const richMediaConnectStyle = function (elementTag) {
-  return Component => connectStyle(`shoutem.ui.RichMedia.${elementTag}`)(Component);
+  return Component => connectStyle(`shoutem.ui.Html.${elementTag}`)(Component);
 };
 
 export const isBlockElement = function (element) {

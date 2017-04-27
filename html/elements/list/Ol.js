@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text } from '@shoutem/ui';
 import renderItems from './helpers/renderItems';
 import pickLiChildElements from './helpers/pickLiChildElements';
-import { ElementPropTypes, mapComponentProps, mapElementProps } from '../../components/RichMedia';
+import { ElementPropTypes, mapComponentProps, mapElementProps } from '../../RichMedia';
 import { connectStyle } from '@shoutem/theme';
 import Li from './Li';
 

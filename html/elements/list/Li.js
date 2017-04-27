@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from '@shoutem/ui';
 import { connectStyle } from '@shoutem/theme';
-import { ElementPropTypes } from '../../components/RichMedia';
+import { ElementPropTypes } from '../../RichMedia';
 import { Inline } from '../Inline';
 
 /**
