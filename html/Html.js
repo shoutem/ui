@@ -19,7 +19,7 @@ const defaultElementSettings = {
 
 class Html extends Component {
   static propTypes = {
-    html: React.PropTypes.string.isRequired,
+    body: React.PropTypes.string.isRequired,
     renderElement: React.PropTypes.func,
     style: React.PropTypes.object,
   };
@@ -85,9 +85,9 @@ class Html extends Component {
   }
 
   render() {
-    const { html, style } = this.props;
+    const { body, style } = this.props;
 
-    const htmlTree = parseHtml(html);
+    const htmlTree = parseHtml(body);
     const htmlRootElement = htmlTree.getRootNode();
 
     return (
