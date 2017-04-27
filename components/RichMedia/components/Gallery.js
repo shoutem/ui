@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { InlineGallery } from '@shoutem/ui';
 import { connectStyle } from '@shoutem/theme';
 
-class RichMediaGallery extends Component {
+export default class RichMediaGallery extends Component {
   static propTypes = {
     ...InlineGallery.propTypes,
+    handlePhotoPress: React.PropTypes.func,
   };
 
   constructor(props) {
@@ -15,23 +16,23 @@ class RichMediaGallery extends Component {
     };
 
     this.onIndexSelected = this.onIndexSelected.bind(this);
-    this.onPhotoPress = this.onPhotoPress.bind(this);
+    this.handlePhotoPress = this.handlePhotoPress.bind(this);
   }
 
   onIndexSelected(selectedIndex) {
     this.setState({ selectedIndex });
   }
 
-  onPhotoPress() {
-    const { data, onPhotoPress } = this.props;
+  handlePhotoPress() {
+    const { data, handlePhotoPress } = this.props;
     const { selectedIndex } = this.state;
 
-    if (!onPhotoPress) {
-      console.log('There is no "onPhotoPress" handler for RichMediaGallery photo.');
+    if (!handlePhotoPress) {
+      console.log('There is no "handlePhotoPress" handler for RichMediaGallery photo.');
       return;
     }
 
-    onPhotoPress(data, selectedIndex);
+    handlePhotoPress(data, selectedIndex);
   }
 
   render() {
@@ -39,7 +40,7 @@ class RichMediaGallery extends Component {
 
     return (
       <InlineGallery
-        onPress={this.onPhotoPress}
+        onPress={this.handlePhotoPress}
         onIndexSelected={this.onIndexSelected}
         selectedIndex={selectedIndex}
         {...this.props}
@@ -47,5 +48,3 @@ class RichMediaGallery extends Component {
     );
   }
 }
-
-export default connectStyle('shoutem.ui.RichMedia.Gallery')(RichMediaGallery);
