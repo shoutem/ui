@@ -1,6 +1,7 @@
 import React from 'react';
-import { View } from '@shoutem/ui';
 import { connectStyle } from '@shoutem/theme';
+
+import { View } from '../../../components/View';
 import { ElementPropTypes } from '../../Html';
 import { Inline } from '../Inline';
 

@@ -1,7 +1,8 @@
 import React from 'react';
+import { connectStyle } from '@shoutem/theme';
+
 import { ElementPropTypes, mapComponentProps, mapElementProps } from '../Html';
 import { Inline } from './Inline';
-import { connectStyle } from '@shoutem/theme';
 
 class A extends React.Component {
   static propTypes = {
