@@ -1750,71 +1750,167 @@ export default (variables = defaultThemeVariables) => ({
   },
 
   //
-  // Media
+  // Html
   //
-  'shoutem.ui.RichMedia': {
-    b: {
+  'shoutem.ui.Html': {
+    container: {
+      backgroundColor: variables.paperColor,
+      padding: MEDIUM_GUTTER,
+    },
+  },
+
+  textBlock: {
+    container: {
+      marginBottom: 20,
+    },
+    text: {
+    },
+  },
+
+  // RichMedia Inline elements
+  'shoutem.ui.Html.b': {
+    [INCLUDE]: ['textBlock'],
+    text: {
       [INCLUDE]: ['boldTextStyle'],
     },
-    strong: {
+  },
+  'shoutem.ui.Html.strong': {
+    [INCLUDE]: ['textBlock'],
+    container: {
+    },
+    text: {
       [INCLUDE]: ['boldTextStyle'],
     },
-    i: {
+  },
+  'shoutem.ui.Html.i': {
+    [INCLUDE]: ['textBlock'],
+    text: {
       [INCLUDE]: ['italicTextStyle'],
     },
-    em: {
+  },
+  'shoutem.ui.Html.em': {
+    [INCLUDE]: ['textBlock'],
+    text: {
       [INCLUDE]: ['italicTextStyle'],
     },
-    pre: {
+  },
+  'shoutem.ui.Html.pre': {
+    [INCLUDE]: ['textBlock'],
+    text: {
       [INCLUDE]: ['codeTextStyle'],
     },
-    code: {
+  },
+  'shoutem.ui.Html.code': {
+    [INCLUDE]: ['textBlock'],
+    text: {
       [INCLUDE]: ['codeTextStyle'],
     },
-    a: {
-      fontWeight: '500',
-      color: 'blue',
-    },
-    h1: {
+  },
+  'shoutem.ui.Html.a': {
+    [INCLUDE]: ['textBlock'],
+    text: {},
+  },
+
+  // TextBlock elements
+  'shoutem.ui.Html.h1': {
+    [INCLUDE]: ['textBlock'],
+    container: {},
+    text: {
       color: '#000',
       fontSize: 28,
     },
-    h2: {
+  },
+  'shoutem.ui.Html.h2': {
+    [INCLUDE]: ['textBlock'],
+    container: {},
+    text: {
       color: '#000',
       fontSize: 24,
     },
-    h3: {
+  },
+  'shoutem.ui.Html.h3': {
+    [INCLUDE]: ['textBlock'],
+    container: {},
+    text: {
       fontWeight: '900',
       color: '#000',
       fontSize: 18,
     },
-    h4: {
+  },
+  'shoutem.ui.Html.h4': {
+    [INCLUDE]: ['textBlock'],
+    container: {},
+    text: {
       fontWeight: '700',
       color: '#000',
       fontSize: 16,
     },
-    h5: {
+  },
+  'shoutem.ui.Html.h5': {
+    [INCLUDE]: ['textBlock'],
+    container: {},
+    text: {
       fontWeight: '500',
       color: '#000',
       fontSize: 14,
     },
-    video: {
-      height: 200,
-    },
-    img: {
-      height: 200,
-    },
-    p: {
-      [INCLUDE]: ['shoutem.ui.Text', 'multilineTextStyle'],
-    },
-    div: {
-      [INCLUDE]: ['shoutem.ui.Text', 'multilineTextStyle'],
-    },
-    container: {
-      backgroundColor: variables.paperColor,
-      margin: MEDIUM_GUTTER,
+  },
+  'shoutem.ui.Html.h6': {
+    [INCLUDE]: ['textBlock'],
+    container: {},
+    text: {
+      fontWeight: '500',
+      color: '#000',
+      fontSize: 14,
     },
   },
+  'shoutem.ui.Html.p': {
+    [INCLUDE]: ['textBlock'],
+    container: {
+    },
+    text: {
+      [INCLUDE]: ['shoutem.ui.Text', 'multilineTextStyle'],
+    },
+  },
+  'shoutem.ui.Html.div': {
+    [INCLUDE]: ['textBlock'],
+  },
+
+  // RichMedia lists
+  'shoutem.ui.Html.ul': {
+    container: {},
+    prefix: {}, // Not implemented yet
+  },
+  'shoutem.ui.Html.ol': {
+    container: {},
+    prefix: {},
+  },
+  'shoutem.ui.Html.li': {
+    flexDirection: 'row',
+  },
+
+  // RichMedia containers
+  'shoutem.ui.Html.section': {},
+  'shoutem.ui.Html.header': {},
+  'shoutem.ui.Html.content': {},
+  'shoutem.ui.Html.article': {},
+  'shoutem.ui.Html.footer': {},
+
+  // RichMedia functional
+  'shoutem.ui.Html.video': {
+    // TODO - Create video element
+  },
+  'shoutem.ui.Html.img': {
+    resizeMode: 'contain',
+    alignSelf: 'center',
+    // Image height is calculated to respect
+    // image ratio depending on width.
+    // If both width and height are defined
+    // image dimensions are fixed.
+    width: 300,
+  },
+
+  // End of RichMedia elements
 
   'shoutem.ui.Video': {
     container: {
