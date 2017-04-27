@@ -7,7 +7,7 @@ import { Inline } from './Inline';
  * Should be used for the block HTML elements.
  * The Block behaves the same as the HTML block element,
  * it moves the content into a new line.
- * @param props {Object}
+ * @param props {Object} Element attributes
  * @returns {Component}
  * @constructor
  */

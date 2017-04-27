@@ -79,7 +79,7 @@ function renderGroupedChildren(groupedChildren, renderElement) {
  * If any child is not inline, the display will be block.
  * A container element is added around the children only when
  * inline element is used as a block element.
- * @param props {Object}
+ * @param props {Object} Element attributes
  * @returns {component}
  * @constructor
  */
