@@ -4,23 +4,23 @@ import _ from 'lodash';
  * Contains RN element class (description) for corresponding element tag.
  * @type {{ elementTag: { component, display, mapAttributes } }} - elementTag: ElementClass
  */
-const ElementsClassMap = {};
+const ElementRegistry = {};
 
-export function addElementClass(elementTag, elementClass) {
-  ElementsClassMap[elementTag] = elementClass;
+export function registerElement(elementTag, elementClass) {
+  ElementRegistry[elementTag] = elementClass;
 }
 
-export function getElementClass(element) {
+export function getElement(element) {
   const { tag } = element;
-  return ElementsClassMap[tag];
+  return ElementRegistry[tag];
 }
 
-export function getElementClassAttribute(element, attribute) {
-  return _.get(getElementClass(element), attribute);
+export function getElementProperty(element, property) {
+  return _.get(getElement(element), property);
 }
 
 export function getElementDisplay(element) {
-  const display = getElementClassAttribute(element, 'display');
+  const display = getElementProperty(element, 'display');
 
   if (!display) {
     console.warn(`Element ${element.tag} doesn't have defined "display" attribute.`);
