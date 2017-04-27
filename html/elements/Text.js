@@ -1,5 +1,5 @@
 import React from 'react';
-import { ElementPropTypes, mapComponentProps, mapElementProps } from '../components/RichMedia';
+import { ElementPropTypes, mapComponentProps, mapElementProps } from '../RichMedia';
 import { Text } from 'react-native';
 
 function removeNewLines(childElements) {

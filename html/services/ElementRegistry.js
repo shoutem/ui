@@ -2,9 +2,19 @@ import _ from 'lodash';
 
 /**
  * Contains RN element class (description) for corresponding element tag.
- * @type {{ elementTag: { component, display, mapAttributes } }} - elementTag: ElementClass
+ * @type {{ elementTag: { display } }} - elementTag: ElementClass
  */
 const ElementRegistry = {};
+
+/**
+ * HTML elements have different display settings that affect React Native composition.
+ * Use INLINE display for Text components that are stacked horizontally.
+ * Use BLOCK display for any components that are stacked vertically.
+ */
+export const Display = {
+  INLINE: 1,
+  BLOCK: 2,
+};
 
 export function registerElement(elementTag, elementClass) {
   ElementRegistry[elementTag] = elementClass;

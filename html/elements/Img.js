@@ -1,7 +1,7 @@
 import React from 'react';
-import { ElementPropTypes } from '../components/RichMedia';
+import { ElementPropTypes } from '../RichMedia';
 import RichMediaImage from '../components/RichMediaImage';
-import { mapComponentProps, mapElementProps } from '../components/RichMedia';
+import { mapComponentProps, mapElementProps } from '../RichMedia';
 import { connectStyle } from '@shoutem/theme';
 
 function Img({ src, style }) {

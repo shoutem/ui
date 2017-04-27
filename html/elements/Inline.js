@@ -9,7 +9,7 @@ import {
   mapComponentProps,
   mapElementProps,
   renderChildElements,
-} from '../components/RichMedia';
+} from '../RichMedia';
 
 export const blockDisplayIfAnyChildIsBlock = function (element) {
   return hasBlockElement(element.childElements) ? Display.BLOCK : Display.INLINE;
