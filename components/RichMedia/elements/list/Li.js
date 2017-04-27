@@ -5,9 +5,9 @@ import { ElementPropTypes } from '../../components/RichMedia';
 import { Inline } from '../Inline';
 
 /**
- * Li always have parent component that must take care for props.
- * It is not planned to pick props from element.
- * @param childElements {Array} List of elements
+ * Li parent must take care of Li props.
+ * By default Li doesn't take props from parsed Li element.
+ * @param childElements {Array}
  * @param renderElement {Function}
  * @param prefix {Component}
  * @param style {Object}
