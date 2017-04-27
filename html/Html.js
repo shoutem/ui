@@ -25,9 +25,9 @@ class Html extends Component {
   };
 
   /**
-   * Create Element class for given element name and add it to the ElementClassMap.
+   * Create Element class for given element tag and add it to the ElementClassMap.
    * Use the settings to additionally describe a Element class.
-   * @param elementTag {string} HTML element name
+   * @param elementTag {string} HTML element tag
    * @param component {Component} React Native Component
    * @param settings {Object} Default settings override
    *   Most times a developer will only want to override one setting,
@@ -127,13 +127,15 @@ export const hasBlockElement = function (elements) {
 };
 
 /**
- * Map wrapped component props.
+ * Use to create an enhanced component that mapS
+ * element (description) to the wrapped component props.
+ * Element is default property that Html renderElement provides to the components.
  * @param mapFunctions {Array}
- *  List of functions that destruct element description as the component props.
+ *  List of functions that map element description to the component props.
  * @returns {function({element, renderElement}): Component}
  *  Returns HOC that will map component props with provided map functions.
  */
-export const mapComponentProps = function (...mapFunctions) {
+export const combineMappers = function (...mapFunctions) {
   return WrappedComponent => props => {
     // eslint-disable-next-line prefer-arrow-callback
     const customizedProps = _.reduce(mapFunctions, function (result, mapFunction) {
@@ -167,6 +169,12 @@ export const renderChildElements = function (childElements, renderElement) {
   return React.Children.toArray(childElements.map(renderElement));
 };
 
+/**
+ * Render and map elements to the children prop.
+ * @param element {Element}
+ * @param renderElement {Function}
+ * @returns {Object} Props with children prop
+ */
 export const renderChildren = function ({ element, renderElement }) {
   const { childElements } = element;
   return {

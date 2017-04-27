@@ -9,7 +9,7 @@ import {
   isBlockElement,
   hasBlockElement,
   ElementPropTypes,
-  mapComponentProps,
+  combineMappers,
   mapElementProps,
   renderChildElements,
 } from '../Html';
@@ -115,4 +115,4 @@ Inline.propTypes = {
   onPress: React.PropTypes.func,
 };
 
-export default mapComponentProps(mapElementProps)(Inline);
+export default combineMappers(mapElementProps)(Inline);

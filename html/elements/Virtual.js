@@ -1,9 +1,9 @@
 import { View } from 'react-native';
 
 import {
-  mapComponentProps,
+  combineMappers,
   mapElementProps,
   renderChildren,
 } from '../Html';
 
-export default mapComponentProps(mapElementProps, renderChildren)(View);
+export default combineMappers(mapElementProps, renderChildren)(View);

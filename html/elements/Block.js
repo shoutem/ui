@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { View } from '../../components/View';
-import { ElementPropTypes, mapComponentProps, mapElementProps } from '../Html';
+import { ElementPropTypes, combineMappers, mapElementProps } from '../Html';
 import { Inline } from './Inline';
 
 /**
@@ -26,4 +26,4 @@ Block.propTypes = {
   ...ElementPropTypes,
 };
 
-export default mapComponentProps(mapElementProps)(Block);
+export default combineMappers(mapElementProps)(Block);
