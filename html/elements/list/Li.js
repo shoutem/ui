@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from '@shoutem/ui';
 import { connectStyle } from '@shoutem/theme';
-import { ElementPropTypes } from '../../RichMedia';
+import { ElementPropTypes } from '../../Html';
 import { Inline } from '../Inline';
 
 /**
@@ -30,4 +30,4 @@ Li.propTypes = {
   prefix: React.PropTypes.element,
 };
 
-export default connectStyle('shoutem.ui.RichMedia.li')(Li);
+export default connectStyle('shoutem.ui.Html.li')(Li);
