@@ -11,6 +11,11 @@ import {
   getElementProperty,
 } from '../services/ElementRegistry';
 
+/**
+ * HTML elements have different display settings that affect React Native composition.
+ * Use INLINE display for Text components that are stacked horizontally.
+ * Use BLOCK display for any components that are stacked vertically.
+ */
 export const Display = {
   INLINE: 1,
   BLOCK: 2,
@@ -32,11 +37,12 @@ class RichMedia extends Component {
    * Use the settings to additionally describe a Element class.
    * @param elementTag {string} HTML element name
    * @param component {Component} React Native Component
-   * @param settings {{ display }}} Default settings override
+   * @param settings {Object} Default settings override
    *   Most times a developer will only want to override one setting,
    *   that's why settings are merged with defaultElementSettings.
-   *   Use mapProps to transform parsed attributes passed to the component.
-   *   Use display to describe component display. Can be a function to dynamically resolve display.
+   * @param settings.display {Display || Function}
+   *   Describe component display.
+   *   Can be a function to dynamically resolve display.
    */
   static registerElement(elementTag, component, settings = {}) {
     const elementSettings = _.assign({}, defaultElementSettings, settings);
@@ -50,8 +56,12 @@ class RichMedia extends Component {
   }
 
   /**
-   * @param element {Element} Html parsed element
-   * @returns {Component} To render
+   * Render HTML element as React Native component.
+   * This method is passed to both custom renderElement and
+   * element corresponding component. It is also used to render children
+   * and should be passed down the tree so that children can be rendered.
+   * @param element {Element} Parsed HTML element
+   * @returns {Component} The element rendered as a React Native component
    */
   renderElement(element) {
     let renderedElement;
@@ -60,6 +70,9 @@ class RichMedia extends Component {
       renderedElement = this.props.renderElement(element, this.renderElement);
     }
 
+    // Custom renderElement for the specific RichMedia implementation
+    // has advantage over the "global". If custom renderElement rendered
+    // a component that component will be used, otherwise fallback to "global".
     if (!renderedElement) {
       const ElementComponent = getElementProperty(element, 'component');
 
@@ -119,7 +132,9 @@ export const hasBlockElement = function (elements) {
 /**
  * Map wrapped component props.
  * @param mapFunctions {Array}
+ *  List of functions that destruct element description as the component props.
  * @returns {function({element, renderElement}): Component}
+ *  Returns HOC that will map component props with provided map functions.
  */
 export const mapComponentProps = function (...mapFunctions) {
   return WrappedComponent => props => {
@@ -136,9 +151,9 @@ export const mapComponentProps = function (...mapFunctions) {
 };
 
 /**
- *
+ * Destruct an element description to the component props format.
  * @param props {{ element, renderElement }}
- * @returns {{children: *}}
+ * @returns {Object}
  */
 export const mapElementProps = function ({ element, style }) {
   const { childElements, attributes, tag } = element;
@@ -162,6 +177,14 @@ export const renderChildren = function ({ element, renderElement }) {
   };
 };
 
+/**
+ * Extend the original renderElement with a customizer.
+ * If the customizer doesn't render a element, renderElement will be used.
+ * It can be used to customize renderElement from certain element node.
+ * @param customizer {Function}
+ * @param renderElement {Function}
+ * @returns {Component}
+ */
 export const customizeRenderElement = function (customizer, renderElement) {
   return function (element) {
     const renderedElement = customizer(element);
