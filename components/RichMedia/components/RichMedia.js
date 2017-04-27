@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { parseHtml } from '../services/HtmlParser';
-import {
-  addElementClass,
-  getElementDisplay,
-  getElementClassAttribute,
-} from '../services/ElementClassMap';
+import _ from 'lodash';
+
 import { View } from '@shoutem/ui';
 import { connectStyle } from '@shoutem/theme';
-import _ from 'lodash';
+
+import { parseHtml } from '../services/HtmlParser';
+import {
+  registerElement,
+  getElementDisplay,
+  getElementProperty,
+} from '../services/ElementRegistry';
 
 export const Display = {
   INLINE: 1,
@@ -39,7 +41,7 @@ class RichMedia extends Component {
   static registerElement(elementTag, component, settings = {}) {
     const elementSettings = _.assign({}, defaultElementSettings, settings);
 
-    addElementClass(elementTag, { ...elementSettings, component });
+    registerElement(elementTag, { ...elementSettings, component });
   }
 
   constructor(props, context) {
@@ -59,7 +61,7 @@ class RichMedia extends Component {
     }
 
     if (!renderedElement) {
-      const ElementComponent = getElementClassAttribute(element, 'component');
+      const ElementComponent = getElementProperty(element, 'component');
 
       if (!ElementComponent) {
         console.log('Can not find component for element: ', element.tag);
