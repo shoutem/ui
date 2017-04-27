@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { InlineGallery } from '@shoutem/ui';
-import { connectStyle } from '@shoutem/theme';
 
-export default class RichMediaGallery extends Component {
+/**
+ * Use to render a HTML gallery component.
+ * Style interface correspond to InlineGallery from @shoutem/ui.
+ */
+export default class Gallery extends Component {
   static propTypes = {
     ...InlineGallery.propTypes,
     handlePhotoPress: React.PropTypes.func,
