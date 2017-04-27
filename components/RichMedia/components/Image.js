@@ -4,12 +4,12 @@ import { Image as RNImage } from 'react-native';
 import { connectStyle } from '@shoutem/theme';
 
 /**
- * Remote images must have width and height to display.
- * To get best layout, correct image dimensions are needed.
- * Image is not going to be shown before dimensions are determined.
- * RichMediaImage requests Image dimension.
+ * Remote images must have width and height to display correctly.
+ * To get the best layout, correct image dimensions are needed.
+ * Image is not going to be shown before dimensions are determined,
+ * this component will determine the Image dimensions before rendering an image.
  */
-class RichMediaImage extends Component {
+export default class RichMediaImage extends Component {
   static propTypes = {
     ...RNImage.propTypes,
   };
@@ -31,7 +31,8 @@ class RichMediaImage extends Component {
   }
 
   imageSizeLoadFailed() {
-    // TODO
+    // TODO - handle properly
+    console.log('Could not load image size for image: ', this.props.source.uri);
   }
 
   render() {
@@ -39,7 +40,7 @@ class RichMediaImage extends Component {
     const { width, height } = this.state;
     const imageWidth = style.width;
 
-    if (!height && (!style.height || !imageWidth)) {
+    if ((!height && (!style.height || !imageWidth)) || !width) {
       return null;
     }
 
@@ -56,5 +57,3 @@ class RichMediaImage extends Component {
     );
   }
 }
-
-export default connectStyle('shoutem.ui.RichMedia.Image')(RichMediaImage);
