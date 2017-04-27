@@ -4,6 +4,12 @@ import { Inline } from './Inline';
 import { connectStyle } from '@shoutem/theme';
 
 class A extends React.Component {
+  static propTypes = {
+    ...ElementPropTypes,
+    onLinkPress: React.PropTypes.func,
+    href: React.PropTypes.string,
+  };
+
   constructor(props, context) {
     super(props, context);
     this.onPress = this.onPress.bind(this);
@@ -21,15 +27,11 @@ class A extends React.Component {
   }
 
   render() {
-    // Because the "A" has dynamic display nature
-    // it can not use the TouchableOpacity component to wrap children.
+    // Because the anchor has dynamic display nature
+    // it can not use the TouchableOpacity component to wrap the children.
     // The TouchableOpacity component can not be nested within the "Text" component.
     return <Inline {...this.props} onPress={this.onPress} />;
   }
 }
-
-A.propTypes = {
-  ...ElementPropTypes,
-};
 
 export default connectStyle('shoutem.ui.RichMedia.a')(mapComponentProps(mapElementProps)(A));
