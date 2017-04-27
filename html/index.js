@@ -6,7 +6,7 @@ import {
   getElement,
 } from './services/ElementRegistry';
 import Html, {
-  richMediaConnectStyle,
+  connectElementStyle,
   customizeRenderElement,
   ElementPropTypes,
   hasBlockElement,
@@ -26,22 +26,22 @@ import Img from './elements/Img';
 import A from './elements/A';
 
 // Text elements with primary inline display
-Html.registerElement('em', richMediaConnectStyle('em')(Inline), InlineSettings);
-Html.registerElement('i', richMediaConnectStyle('i')(Inline), InlineSettings);
-Html.registerElement('strong', richMediaConnectStyle('strong')(Inline), InlineSettings);
-Html.registerElement('b', richMediaConnectStyle('b')(Inline), InlineSettings);
-Html.registerElement('span', richMediaConnectStyle('span')(Inline), InlineSettings);
+Html.registerElement('em', connectElementStyle('em')(Inline), InlineSettings);
+Html.registerElement('i', connectElementStyle('i')(Inline), InlineSettings);
+Html.registerElement('strong', connectElementStyle('strong')(Inline), InlineSettings);
+Html.registerElement('b', connectElementStyle('b')(Inline), InlineSettings);
+Html.registerElement('span', connectElementStyle('span')(Inline), InlineSettings);
 
 // Functional
-Html.registerElement('a', richMediaConnectStyle('a')(A), InlineSettings);
+Html.registerElement('a', connectElementStyle('a')(A), InlineSettings);
 Html.registerElement('img', Img);
 
 // Containers
-Html.registerElement('header', richMediaConnectStyle('header')(Virtual));
-Html.registerElement('content', richMediaConnectStyle('content')(Virtual));
-Html.registerElement('article', richMediaConnectStyle('article')(Virtual));
-Html.registerElement('footer', richMediaConnectStyle('footer')(Virtual));
-Html.registerElement('section', richMediaConnectStyle('section')(Virtual));
+Html.registerElement('header', connectElementStyle('header')(Virtual));
+Html.registerElement('content', connectElementStyle('content')(Virtual));
+Html.registerElement('article', connectElementStyle('article')(Virtual));
+Html.registerElement('footer', connectElementStyle('footer')(Virtual));
+Html.registerElement('section', connectElementStyle('section')(Virtual));
 
 // List
 Html.registerElement('ul', Ul);
@@ -51,18 +51,18 @@ Html.registerElement('ol', Ol);
 Html.registerElement('text', Text, { display: Display.INLINE });
 
 // Text elements with block display
-Html.registerElement('h1', richMediaConnectStyle('h1')(Block));
-Html.registerElement('h2', richMediaConnectStyle('h2')(Block));
-Html.registerElement('h3', richMediaConnectStyle('h3')(Block));
-Html.registerElement('h4', richMediaConnectStyle('h4')(Block));
-Html.registerElement('h5', richMediaConnectStyle('h5')(Block));
-Html.registerElement('h6', richMediaConnectStyle('h6')(Block));
-Html.registerElement('p', richMediaConnectStyle('p')(Block));
-Html.registerElement('div', richMediaConnectStyle('div')(Block));
+Html.registerElement('h1', connectElementStyle('h1')(Block));
+Html.registerElement('h2', connectElementStyle('h2')(Block));
+Html.registerElement('h3', connectElementStyle('h3')(Block));
+Html.registerElement('h4', connectElementStyle('h4')(Block));
+Html.registerElement('h5', connectElementStyle('h5')(Block));
+Html.registerElement('h6', connectElementStyle('h6')(Block));
+Html.registerElement('p', connectElementStyle('p')(Block));
+Html.registerElement('div', connectElementStyle('div')(Block));
 
 export {
   Html,
-  richMediaConnectStyle,
+  connectElementStyle,
   customizeRenderElement,
   ElementPropTypes,
   hasBlockElement,

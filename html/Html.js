@@ -113,7 +113,7 @@ export default connectStyle('shoutem.ui.Html')(Html);
 
 /* Helpers */
 
-export const richMediaConnectStyle = function (elementTag) {
+export const connectElementStyle = function (elementTag) {
   return Component => connectStyle(`shoutem.ui.Html.${elementTag}`)(Component);
 };
 
