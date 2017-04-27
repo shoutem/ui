@@ -1,9 +1,11 @@
 import React from 'react';
-import { View, Text } from '@shoutem/ui';
+import { connectStyle } from '@shoutem/theme';
+
+import { View } from '../../../components/View';
+import { Text } from '../../../components/Text';
 import renderItems from './helpers/renderItems';
 import pickLiChildElements from './helpers/pickLiChildElements';
 import { ElementPropTypes, mapComponentProps, mapElementProps } from '../../Html';
-import { connectStyle } from '@shoutem/theme';
 import Li from './Li';
 
 function createPrefixCreator(type, prefixStyle) {

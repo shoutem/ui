@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Image } from '@shoutem/ui';
 import { Image as RNImage } from 'react-native';
 import { connectStyle } from '@shoutem/theme';
+
+import { Image } from '../../components/Image';
 
 /**
  * Remote images must have width and height to display correctly.

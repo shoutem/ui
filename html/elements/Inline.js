@@ -1,6 +1,9 @@
 import React from 'react';
 import _ from 'lodash';
-import { View, Text, TouchableOpacity } from '@shoutem/ui';
+
+import { View } from '../../components/View';
+import { Text } from '../../components/Text';
+import { TouchableOpacity } from '../../components/TouchableOpacity';
 import { Display } from '../services/ElementRegistry';
 import {
   isBlockElement,

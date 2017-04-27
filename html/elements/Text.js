@@ -1,6 +1,7 @@
 import React from 'react';
-import { ElementPropTypes, mapComponentProps, mapElementProps } from '../Html';
 import { Text } from 'react-native';
+
+import { ElementPropTypes, mapComponentProps, mapElementProps } from '../Html';
 
 function removeNewLines(childElements) {
   return childElements.filter(child => child !== '\n');

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { InlineGallery } from '@shoutem/ui';
+
+import { InlineGallery } from '../../components/InlineGallery';
 
 /**
  * Use to render a HTML gallery component.
