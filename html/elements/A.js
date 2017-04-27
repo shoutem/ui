@@ -1,5 +1,5 @@
 import React from 'react';
-import { ElementPropTypes, mapComponentProps, mapElementProps } from '../RichMedia';
+import { ElementPropTypes, mapComponentProps, mapElementProps } from '../Html';
 import { Inline } from './Inline';
 import { connectStyle } from '@shoutem/theme';
 
@@ -34,4 +34,4 @@ class A extends React.Component {
   }
 }
 
-export default connectStyle('shoutem.ui.RichMedia.a')(mapComponentProps(mapElementProps)(A));
+export default connectStyle('shoutem.ui.Html.a')(mapComponentProps(mapElementProps)(A));

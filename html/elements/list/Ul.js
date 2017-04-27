@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from '@shoutem/ui';
 import { connectStyle } from '@shoutem/theme';
-import { ElementPropTypes, mapComponentProps, mapElementProps } from '../../RichMedia';
+import { ElementPropTypes, mapComponentProps, mapElementProps } from '../../Html';
 import renderItems from './helpers/renderItems';
 import pickLiChildElements from './helpers/pickLiChildElements';
 import Li from './Li';
@@ -21,4 +21,4 @@ Ul.propTypes = {
   style: React.PropTypes.object,
 };
 
-export default connectStyle('shoutem.ui.RichMedia.ul')(mapComponentProps(mapElementProps)(Ul));
+export default connectStyle('shoutem.ui.Html.ul')(mapComponentProps(mapElementProps)(Ul));

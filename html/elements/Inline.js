@@ -1,15 +1,15 @@
 import React from 'react';
 import _ from 'lodash';
 import { View, Text, TouchableOpacity } from '@shoutem/ui';
+import { Display } from '../services/ElementRegistry';
 import {
   isBlockElement,
   hasBlockElement,
   ElementPropTypes,
-  Display,
   mapComponentProps,
   mapElementProps,
   renderChildElements,
-} from '../RichMedia';
+} from '../Html';
 
 export const blockDisplayIfAnyChildIsBlock = function (element) {
   return hasBlockElement(element.childElements) ? Display.BLOCK : Display.INLINE;

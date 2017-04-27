@@ -2,7 +2,7 @@ import {
   mapComponentProps,
   mapElementProps,
   renderChildren,
-} from '../RichMedia';
+} from '../Html';
 import { View } from 'react-native';
 
 export default mapComponentProps(mapElementProps, renderChildren)(View);

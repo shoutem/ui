@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text } from '@shoutem/ui';
 import renderItems from './helpers/renderItems';
 import pickLiChildElements from './helpers/pickLiChildElements';
-import { ElementPropTypes, mapComponentProps, mapElementProps } from '../../RichMedia';
+import { ElementPropTypes, mapComponentProps, mapElementProps } from '../../Html';
 import { connectStyle } from '@shoutem/theme';
 import Li from './Li';
 
@@ -28,4 +28,4 @@ Ol.propTypes = {
   type: React.PropTypes.string,
 };
 
-export default connectStyle('shoutem.ui.RichMedia.ol')(mapComponentProps(mapElementProps)(Ol));
+export default connectStyle('shoutem.ui.Html.ol')(mapComponentProps(mapElementProps)(Ol));

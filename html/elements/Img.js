@@ -1,14 +1,14 @@
 import React from 'react';
-import { ElementPropTypes } from '../RichMedia';
-import RichMediaImage from '../components/RichMediaImage';
-import { mapComponentProps, mapElementProps } from '../RichMedia';
+import { ElementPropTypes } from '../Html';
+import Image from '../components/Image';
+import { mapComponentProps, mapElementProps } from '../Html';
 import { connectStyle } from '@shoutem/theme';
 
 function Img({ src, style }) {
   const source = { uri: src };
 
   return (
-    <RichMediaImage
+    <Image
       source={source}
       style={style}
     />
@@ -16,8 +16,8 @@ function Img({ src, style }) {
 }
 
 Img.propTypes = {
-  ...RichMediaImage.propTypes,
+  ...Image.propTypes,
   ...ElementPropTypes,
 };
 
-export default connectStyle('shoutem.ui.RichMedia.img')(mapComponentProps(mapElementProps)(Img));
+export default connectStyle('shoutem.ui.Html.img')(mapComponentProps(mapElementProps)(Img));
