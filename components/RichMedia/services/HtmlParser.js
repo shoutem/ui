@@ -25,7 +25,7 @@ function createElementNode(tag, attributes = {}, childElements = [], parent) {
 
 /**
  * Use to create (save) a HTML tree copy out of element nodes
- * when recursively going through the HTML tree,
+ * by recursively going through the HTML tree,
  * from a root node to the last child of the tree.
  */
 class HtmlTree {
@@ -35,7 +35,7 @@ class HtmlTree {
    *   because the HTML can have multiple root elements which is not supported by the RN.
    */
   constructor(rootTag = 'div') {
-    this.rootNode = createElementNode(rootTag); // TODO - confirm if root view is needed
+    this.rootNode = createElementNode(rootTag);
     this.activeNode = this.rootNode;
     this.openTag = this.openTag.bind(this);
     this.appendText = this.appendText.bind(this);
