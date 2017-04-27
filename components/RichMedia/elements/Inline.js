@@ -8,10 +8,10 @@ import {
   Display,
   mapComponentProps,
   mapElementProps,
+  renderChildElements,
 } from '../components/RichMedia';
 
 export const blockDisplayIfAnyChildIsBlock = function (element) {
-  console.log(element)
   return hasBlockElement(element.childElements) ? Display.BLOCK : Display.INLINE;
 };
 
@@ -56,15 +56,15 @@ function groupInlineNodes(childElements) {
 }
 
 /**
- * @param groupedChildren {Array}
+ * @param groupedChildren {Array} List of elements or elements array
  * @param renderElement {Function}
- * @returns {Array}
+ * @returns {Children} React Children
  */
 function renderGroupedChildren(groupedChildren, renderElement) {
   // eslint-disable-next-line prefer-arrow-callback
   const renderedChildren = groupedChildren.map(function (child) {
     if (_.isArray(child)) {
-      return React.Children.toArray(child.map(renderElement));
+      return renderChildElements(child, renderElement);
     }
     return renderElement(child);
   });
@@ -73,11 +73,12 @@ function renderGroupedChildren(groupedChildren, renderElement) {
 }
 
 /**
- * Should be used for the inline HTML elements.
+ * Should be used for inline HTML elements.
  * Because of specific RN behavior, the inline component will remain inline
  * only if every child (recursively) is inline as well.
  * If any child is not inline, the display will be block.
- * Container style is applied only when inline is used as BlockElement.
+ * A container element is added around the children only when
+ * inline element is used as a block element.
  * @param props {Object}
  * @returns {component}
  * @constructor
