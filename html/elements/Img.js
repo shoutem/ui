@@ -1,7 +1,7 @@
 import React from 'react';
 import { ElementPropTypes } from '../Html';
 import Image from '../components/Image';
-import { mapComponentProps, mapElementProps } from '../Html';
+import { combineMappers, mapElementProps } from '../Html';
 import { connectStyle } from '@shoutem/theme';
 
 function Img({ src, style }) {
@@ -20,4 +20,4 @@ Img.propTypes = {
   ...ElementPropTypes,
 };
 
-export default connectStyle('shoutem.ui.Html.img')(mapComponentProps(mapElementProps)(Img));
+export default connectStyle('shoutem.ui.Html.img')(combineMappers(mapElementProps)(Img));

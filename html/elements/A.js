@@ -1,7 +1,7 @@
 import React from 'react';
 import { connectStyle } from '@shoutem/theme';
 
-import { ElementPropTypes, mapComponentProps, mapElementProps } from '../Html';
+import { ElementPropTypes, combineMappers, mapElementProps } from '../Html';
 import { Inline } from './Inline';
 
 class A extends React.Component {
@@ -35,4 +35,4 @@ class A extends React.Component {
   }
 }
 
-export default connectStyle('shoutem.ui.Html.a')(mapComponentProps(mapElementProps)(A));
+export default connectStyle('shoutem.ui.Html.a')(combineMappers(mapElementProps)(A));

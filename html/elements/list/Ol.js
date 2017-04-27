@@ -5,7 +5,7 @@ import { View } from '../../../components/View';
 import { Text } from '../../../components/Text';
 import renderItems from './helpers/renderItems';
 import pickLiChildElements from './helpers/pickLiChildElements';
-import { ElementPropTypes, mapComponentProps, mapElementProps } from '../../Html';
+import { ElementPropTypes, combineMappers, mapElementProps } from '../../Html';
 import Li from './Li';
 
 function createPrefixCreator(type, prefixStyle) {
@@ -30,4 +30,4 @@ Ol.propTypes = {
   type: React.PropTypes.string,
 };
 
-export default connectStyle('shoutem.ui.Html.ol')(mapComponentProps(mapElementProps)(Ol));
+export default connectStyle('shoutem.ui.Html.ol')(combineMappers(mapElementProps)(Ol));

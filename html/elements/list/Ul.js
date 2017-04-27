@@ -2,7 +2,7 @@ import React from 'react';
 import { connectStyle } from '@shoutem/theme';
 
 import { View } from '../../../components/View';
-import { ElementPropTypes, mapComponentProps, mapElementProps } from '../../Html';
+import { ElementPropTypes, combineMappers, mapElementProps } from '../../Html';
 import renderItems from './helpers/renderItems';
 import pickLiChildElements from './helpers/pickLiChildElements';
 import Li from './Li';
@@ -22,4 +22,4 @@ Ul.propTypes = {
   style: React.PropTypes.object,
 };
 
-export default connectStyle('shoutem.ui.Html.ul')(mapComponentProps(mapElementProps)(Ul));
+export default connectStyle('shoutem.ui.Html.ul')(combineMappers(mapElementProps)(Ul));
