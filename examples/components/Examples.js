@@ -10,7 +10,7 @@ import { Tiles } from './Tiles';
 import { Spinners } from './Spinners';
 import { Buttons } from './Buttons';
 import { Images } from './Images';
-import { DropDownMenus } from './DropDownMenu';
+import { DropDownMenus } from './DropDownMenus';
 import { FormComponents } from './FormComponents';
 import { Headers } from './Headers';
 import { NavigationBars } from './NavigationBars';
