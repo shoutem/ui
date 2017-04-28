@@ -41,7 +41,7 @@ export class DropDownMenus extends Component {
     super();
     this.state = {
       selectedOption: options[0],
-      selectedOptionForformGroupDropdown: emptyOption,
+      selectedOptionForFormGroupDropdown: emptyOption,
     };
   }
 
