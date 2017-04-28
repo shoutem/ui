@@ -53,18 +53,30 @@ class Html extends Component {
   }
 
   /**
+   * Get element style from the Html instance style.
+   * @param element {Element}
+   * @returns {Object|undefined}
+   */
+  getElementStyle({ tag }) {
+    const { style } = this.props;
+    return _.get(style, tag);
+  }
+
+  /**
    * Render HTML element as React Native component.
    * This method is passed to both custom renderElement and
    * element corresponding component. It is also used to render children
    * and should be passed down the tree so that children can be rendered.
+   * If Html has style named by element tag it will be passed to rendered element.
    * @param element {Element} Parsed HTML element
    * @returns {Component} The element rendered as a React Native component
    */
   renderElement(element) {
+    const elementStyle = this.getElementStyle(element);
     let renderedElement;
 
     if (this.props.renderElement) {
-      renderedElement = this.props.renderElement(element, this.renderElement);
+      renderedElement = this.props.renderElement(element, elementStyle, this.renderElement);
     }
 
     // Custom renderElement for the specific Html implementation
@@ -78,7 +90,13 @@ class Html extends Component {
         return null;
       }
 
-      renderedElement = <ElementComponent element={element} renderElement={this.renderElement} />;
+      renderedElement = (
+        <ElementComponent
+          element={element}
+          style={elementStyle}
+          renderElement={this.renderElement}
+        />
+      );
     }
 
     return renderedElement;
@@ -112,11 +130,6 @@ export default connectStyle('shoutem.ui.Html')(Html);
 
 
 /* Helpers */
-
-export const connectElementStyle = function (elementTag) {
-  return Component => connectStyle(`shoutem.ui.Html.${elementTag}`)(Component);
-};
-
 export const isBlockElement = function (element) {
   // eslint-disable-next-line no-use-before-define
   return getElementDisplay(element, 'display') === Display.BLOCK;
@@ -158,7 +171,7 @@ export const mapElementProps = function ({ element, style }) {
   const { childElements, attributes, tag } = element;
   return {
     ...attributes,
-    style, // Do not map style
+    style,
     childElements,
     htmlInlineStyle: attributes.style,
     elementTag: tag,
