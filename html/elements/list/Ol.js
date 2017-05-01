@@ -1,5 +1,4 @@
 import React from 'react';
-import { connectStyle } from '@shoutem/theme';
 
 import { View } from '../../../components/View';
 import { Text } from '../../../components/Text';
@@ -30,4 +29,4 @@ Ol.propTypes = {
   type: React.PropTypes.string,
 };
 
-export default connectStyle('shoutem.ui.Html.ol')(combineMappers(mapElementProps)(Ol));
+export default combineMappers(mapElementProps)(Ol);
