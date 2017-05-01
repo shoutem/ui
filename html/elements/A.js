@@ -1,5 +1,6 @@
 import React from 'react';
 import { Linking } from 'react-native';
+import { connectStyle } from '@shoutem/theme';
 
 import { ElementPropTypes, combineMappers, mapElementProps } from '../Html';
 import { Inline } from './Inline';
@@ -46,6 +47,12 @@ function openLinkPress(Component) {
   }
 }
 
-const EnhancedA = openLinkPress(A);
+// Named export to customize Anchor
+const Anchor = combineMappers(mapElementProps)(A);
+export {
+  Anchor as A,
+}
 
-export default combineMappers(mapElementProps)(EnhancedA);
+// Default export with added link press handle
+const EnhancedA = openLinkPress(A);
+export default connectStyle('shoutem.ui.Html.a')(combineMappers(mapElementProps)(EnhancedA));
