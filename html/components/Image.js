@@ -39,6 +39,12 @@ export default class HtmlImage extends Component {
   render() {
     const { children, style } = this.props;
     const { width, height } = this.state;
+
+    if (!style) {
+      console.warn('Invalid Html image style. Html image requires style.width.');
+      return null;
+    }
+
     const imageWidth = style.width;
 
     if ((!height && (!style.height || !imageWidth)) || !width) {
