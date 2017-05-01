@@ -1,8 +1,8 @@
 import React from 'react';
+
 import { ElementPropTypes } from '../Html';
 import Image from '../components/Image';
 import { combineMappers, mapElementProps } from '../Html';
-import { connectStyle } from '@shoutem/theme';
 
 function Img({ src, style }) {
   const source = { uri: src };
@@ -20,4 +20,4 @@ Img.propTypes = {
   ...ElementPropTypes,
 };
 
-export default connectStyle('shoutem.ui.Html.img')(combineMappers(mapElementProps)(Img));
+export default combineMappers(mapElementProps)(Img);

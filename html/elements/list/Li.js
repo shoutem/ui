@@ -1,5 +1,4 @@
 import React from 'react';
-import { connectStyle } from '@shoutem/theme';
 
 import { View } from '../../../components/View';
 import { ElementPropTypes } from '../../Html';
@@ -31,4 +30,4 @@ Li.propTypes = {
   prefix: React.PropTypes.element,
 };
 
-export default connectStyle('shoutem.ui.Html.li')(Li);
+export default Li;

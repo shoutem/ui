@@ -1,6 +1,5 @@
 import React from 'react';
 import { Linking } from 'react-native';
-import { connectStyle } from '@shoutem/theme';
 
 import { ElementPropTypes, combineMappers, mapElementProps } from '../Html';
 import { Inline } from './Inline';
@@ -49,4 +48,4 @@ function openLinkPress(Component) {
 
 const EnhancedA = openLinkPress(A);
 
-export default connectStyle('shoutem.ui.Html.a')(combineMappers(mapElementProps)(EnhancedA));
+export default combineMappers(mapElementProps)(EnhancedA);

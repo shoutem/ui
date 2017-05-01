@@ -1,5 +1,4 @@
 import React from 'react';
-import { connectStyle } from '@shoutem/theme';
 
 import { View } from '../../../components/View';
 import { ElementPropTypes, combineMappers, mapElementProps } from '../../Html';
@@ -22,4 +21,4 @@ Ul.propTypes = {
   style: React.PropTypes.object,
 };
 
-export default connectStyle('shoutem.ui.Html.ul')(combineMappers(mapElementProps)(Ul));
+export default combineMappers(mapElementProps)(Ul);
