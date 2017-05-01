@@ -1,4 +1,5 @@
 import React from 'react';
+import { Linking } from 'react-native';
 import { connectStyle } from '@shoutem/theme';
 
 import { ElementPropTypes, combineMappers, mapElementProps } from '../Html';
@@ -7,7 +8,7 @@ import { Inline } from './Inline';
 class A extends React.Component {
   static propTypes = {
     ...ElementPropTypes,
-    onLinkPress: React.PropTypes.func,
+    handleLinkPress: React.PropTypes.func,
     href: React.PropTypes.string,
   };
 
@@ -17,14 +18,14 @@ class A extends React.Component {
   }
 
   onPress() {
-    const { href, onLinkPress } = this.props;
+    const { href, handleLinkPress } = this.props;
 
-    if (!onLinkPress) {
-      console.log('No "onLinkPress" handle defined on the "a" element.');
+    if (!handleLinkPress) {
+      console.log('No "handleLinkPress" handle defined on the anchor element.');
       return;
     }
 
-    onLinkPress(href);
+    handleLinkPress(href);
   }
 
   render() {
@@ -35,4 +36,17 @@ class A extends React.Component {
   }
 }
 
-export default connectStyle('shoutem.ui.Html.a')(combineMappers(mapElementProps)(A));
+function openLinkPress(Component) {
+  return function (props) {
+    function handleLinkPress(href) {
+      Linking.openURL(href)
+        .catch(err => console.log('An error occurred', err));
+    }
+
+    return <Component {...props} handleLinkPress={handleLinkPress} />;
+  }
+}
+
+const EnhancedA = openLinkPress(A);
+
+export default connectStyle('shoutem.ui.Html.a')(combineMappers(mapElementProps)(EnhancedA));
