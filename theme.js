@@ -1750,72 +1750,163 @@ export default (variables = defaultThemeVariables) => ({
   },
 
   //
-  // Media
+  // Html
   //
-  'shoutem.ui.RichMedia': {
-    b: {
-      [INCLUDE]: ['boldTextStyle'],
+  textBlock: {
+    container: {
+      marginBottom: 20,
     },
-    strong: {
-      [INCLUDE]: ['boldTextStyle'],
+    text: {
     },
-    i: {
-      [INCLUDE]: ['italicTextStyle'],
-    },
-    em: {
-      [INCLUDE]: ['italicTextStyle'],
-    },
-    pre: {
-      [INCLUDE]: ['codeTextStyle'],
-    },
-    code: {
-      [INCLUDE]: ['codeTextStyle'],
-    },
-    a: {
-      fontWeight: '500',
-      color: 'blue',
-    },
-    h1: {
-      color: '#000',
-      fontSize: 28,
-    },
-    h2: {
-      color: '#000',
-      fontSize: 24,
-    },
-    h3: {
-      fontWeight: '900',
-      color: '#000',
-      fontSize: 18,
-    },
-    h4: {
-      fontWeight: '700',
-      color: '#000',
-      fontSize: 16,
-    },
-    h5: {
-      fontWeight: '500',
-      color: '#000',
-      fontSize: 14,
-    },
-    video: {
-      height: 200,
-    },
-    img: {
-      height: 200,
-    },
-    p: {
-      [INCLUDE]: ['shoutem.ui.Text', 'multilineTextStyle'],
-    },
-    div: {
-      [INCLUDE]: ['shoutem.ui.Text', 'multilineTextStyle'],
-    },
+  },
+  'shoutem.ui.Html': {
     container: {
       backgroundColor: variables.paperColor,
-      margin: MEDIUM_GUTTER,
+      padding: MEDIUM_GUTTER,
+    },
+    // HTML Inline elements
+    b: {
+      [INCLUDE]: ['textBlock'],
+      text: {
+        [INCLUDE]: ['boldTextStyle'],
+      },
+    },
+    strong: {
+      [INCLUDE]: ['textBlock'],
+      container: {},
+      text: {
+        [INCLUDE]: ['boldTextStyle'],
+      },
+    },
+    i: {
+      [INCLUDE]: ['textBlock'],
+      text: {
+        [INCLUDE]: ['italicTextStyle'],
+      },
+    },
+    em: {
+      [INCLUDE]: ['textBlock'],
+      text: {
+        [INCLUDE]: ['italicTextStyle'],
+      },
+    },
+    pre: {
+      [INCLUDE]: ['textBlock'],
+      text: {
+        [INCLUDE]: ['codeTextStyle'],
+      },
+    },
+    code: {
+      [INCLUDE]: ['textBlock'],
+      text: {
+        [INCLUDE]: ['codeTextStyle'],
+      },
+    },
+    a: {
+      [INCLUDE]: ['textBlock'],
+      text: {},
+    },
+
+    // TextBlock elements
+    h1: {
+      [INCLUDE]: ['textBlock'],
+      container: {},
+      text: {
+        color: '#000',
+        fontSize: 28,
+      },
+    },
+    h2: {
+      [INCLUDE]: ['textBlock'],
+      container: {},
+      text: {
+        color: '#000',
+        fontSize: 24,
+      },
+    },
+    h3: {
+      [INCLUDE]: ['textBlock'],
+      container: {},
+      text: {
+        fontWeight: '900',
+        color: '#000',
+        fontSize: 18,
+      },
+    },
+    h4: {
+      [INCLUDE]: ['textBlock'],
+      container: {},
+      text: {
+        fontWeight: '700',
+        color: '#000',
+        fontSize: 16,
+      },
+    },
+    h5: {
+      [INCLUDE]: ['textBlock'],
+      container: {},
+      text: {
+        fontWeight: '500',
+        color: '#000',
+        fontSize: 14,
+      },
+    },
+    h6: {
+      [INCLUDE]: ['textBlock'],
+      container: {},
+      text: {
+        fontWeight: '500',
+        color: '#000',
+        fontSize: 14,
+      },
+    },
+    p: {
+      [INCLUDE]: ['textBlock'],
+      container: {},
+      text: {
+        [INCLUDE]: ['shoutem.ui.Text', 'multilineTextStyle'],
+      },
+    },
+    div: {
+      [INCLUDE]: ['textBlock'],
+    },
+
+    // HTML lists
+    ul: {
+      container: {},
+      prefix: {}, // Not implemented yet
+    },
+    ol: {
+      container: {},
+      prefix: {},
+    },
+    li: {
+      flexDirection: 'row',
+    },
+
+    // HTML containers
+    section: {},
+    header: {},
+    content: {},
+    article: {},
+    footer: {},
+
+    // HTML functional
+    video: {
+      // TODO - Create video element
+    },
+    img: {
+      resizeMode: 'contain',
+      alignSelf: 'center',
+      // Image height is calculated to respect
+      // image ratio depending on width.
+      // If both width and height are defined
+      // image dimensions are fixed.
+      width: 300,
     },
   },
 
+  // Media
   'shoutem.ui.Video': {
     container: {
       backgroundColor: variables.paperColor,
