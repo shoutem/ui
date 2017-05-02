@@ -5,7 +5,6 @@ import { ElementPropTypes } from '../../Html';
 import { Inline } from '../Inline';
 
 /**
- * Li parent must take care of Li props.
  * By default Li doesn't take props from parsed Li element.
  * @param childElements {Array}
  * @param renderElement {Function}
