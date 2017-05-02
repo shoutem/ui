@@ -130,11 +130,20 @@ export default connectStyle('shoutem.ui.Html')(Html);
 
 
 /* Helpers */
+
+/**
+ * @param element {Element}
+ * @returns {boolean}
+ */
 export const isBlockElement = function (element) {
   // eslint-disable-next-line no-use-before-define
   return getElementDisplay(element, 'display') === Display.BLOCK;
 };
 
+/**
+ * @param elements {Array}
+ * @returns {boolean}
+ */
 export const hasBlockElement = function (elements) {
   return _.some(elements, isBlockElement);
 };
@@ -178,6 +187,11 @@ export const mapElementProps = function ({ element, style }) {
   };
 };
 
+/**
+ * @param childElements {Array}
+ * @param renderElement {Function}
+ * @returns {Children}
+ */
 export const renderChildElements = function (childElements, renderElement) {
   return React.Children.toArray(childElements.map(renderElement));
 };
