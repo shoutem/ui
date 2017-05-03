@@ -213,18 +213,22 @@ class ListView extends React.Component {
   }
 
   createRenderHeader(renderHeader, autoHideHeader) {
-    const headerProps = {};
     if (!renderHeader) {
       return;
     }
 
+    const { style } = this.props;
+    const headerContainerProps = {
+      style: style.headerContainer,
+    };
+
     if (autoHideHeader) {
-      headerProps.onLayout = this.autoHideHeader;
+      headerContainerProps.onLayout = this.autoHideHeader;
     }
 
     // eslint-disable-next-line consistent-return
     return () => (
-      <View {...headerProps}>{renderHeader()}</View>
+      <View {...headerContainerProps}>{renderHeader()}</View>
     );
   }
 

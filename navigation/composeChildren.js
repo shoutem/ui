@@ -5,6 +5,7 @@ import _ from 'lodash';
 import {
   View,
   Button,
+  ShareButton,
   Title,
   Icon,
 } from '../index';
@@ -26,22 +27,18 @@ const composers = {
       return undefined;
     }
 
-    const onShare = () =>
-      Share.open({
-        title: value.title || navBarProps.title,
-        message: value.text,
-        url: value.link,
-      }, (sharingError) => {
-        console.error(sharingError);
-      });
+    const { title, text, link } = value;
 
     return {
       renderRightComponent() {
         return (
           <View virtual styleName="container">
-            <Button onPress={onShare}>
-              <Icon name="share" animationName={navBarProps.animationName} />
-            </Button>
+            <ShareButton
+              animationName={navBarProps.animationName}
+              title={title || navBarProps.title}
+              message={text}
+              url={link}
+            />
           </View>
         );
       },

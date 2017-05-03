@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View as RNView } from 'react-native';
-import _ from 'lodash';
 
 import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';

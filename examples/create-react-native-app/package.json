@@ -1,0 +1,30 @@
+{
+  "name": "create-react-native-app",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "jest-expo": "^0.3.0",
+    "react-native-scripts": "0.0.27",
+    "react-test-renderer": "~15.4.1"
+  },
+  "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
+  "scripts": {
+    "start": "react-native-scripts start",
+    "eject": "react-native-scripts eject",
+    "android": "react-native-scripts android",
+    "ios": "react-native-scripts ios",
+    "test": "node node_modules/jest/bin/jest.js --watch"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!|@shoutem/*)"
+    ]
+  },
+  "dependencies": {
+    "@shoutem/ui": "*",
+    "expo": "^15.1.0",
+    "react": "~15.4.0",
+    "react-native": "0.42.3"
+  }
+}
