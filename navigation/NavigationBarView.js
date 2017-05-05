@@ -6,8 +6,8 @@ import {
   Platform,
   StatusBar,
   Animated,
-  NavigationExperimental,
 } from 'react-native';
+import  {Header as NavigationHeader} from 'react-navigation';
 
 import { connectStyle } from '@shoutem/theme';
 import {
@@ -22,9 +22,6 @@ import {
 import composeChildren from './composeChildren';
 import { LinearGradient } from '../components/LinearGradient';
 
-const {
-  Header: NavigationHeader,
-} = NavigationExperimental;
 
 const navigationHeaderStyle = {
   backgroundColor: 'transparent',

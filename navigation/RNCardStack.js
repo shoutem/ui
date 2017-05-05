@@ -1,9 +1,8 @@
 import React from 'react';
-import { NavigationExperimental } from 'react-native';
-import NavigationCardStackStyleInterpolator from 'react-native/Libraries/CustomComponents/NavigationExperimental/NavigationCardStackStyleInterpolator';
-import NavigationCardStackPanResponder from 'react-native/Libraries/CustomComponents/NavigationExperimental/NavigationCardStackPanResponder';
+import { CardStack, Card } from 'react-navigation';
+import NavigationCardStackStyleInterpolator from 'react-navigation/lib/views/CardStackStyleInterpolator';
+import NavigationCardStackPanResponder from 'react-native/lib/views/CardStackPanResponder';
 
-const { CardStack, Card } = NavigationExperimental;
 
 const isVertical = props => props.direction === 'vertical';
 

@@ -14,10 +14,11 @@
     "qs": "^4.0.0",
     "react-native-lightbox": "shoutem/react-native-lightbox#4e58b9b1aca166142d69b161ff511efc3358ff9f",
     "react-native-linear-gradient": "^2.0.0",
+    "react-native-photo-view": "^1.2.0",
     "react-native-share": "^1.0.19",
     "react-native-transformable-image": "shoutem/react-native-transformable-image#7d15395ec3857571711a12bc08f24f3a96ff1cde",
     "react-native-vector-icons": "^4.0.0",
-    "react-native-photo-view": "^1.2.0",
+    "react-navigation": "^1.0.0-beta.7",
     "stream": "0.0.2",
     "tinycolor2": "^1.3.0"
   },
