@@ -1,7 +1,7 @@
 import React from 'react';
 import { CardStack, Card } from 'react-navigation';
 import NavigationCardStackStyleInterpolator from 'react-navigation/lib/views/CardStackStyleInterpolator';
-import NavigationCardStackPanResponder from 'react-native/lib/views/CardStackPanResponder';
+import NavigationCardStackPanResponder from 'react-navigation/lib/views/CardStackPanResponder';
 
 // TODO: Use built-in interpolator and panresponder functions, after v1.0.0-beta.7 the panresponder is removed
 
