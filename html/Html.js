@@ -124,10 +124,10 @@ class Html extends Component {
   }
 
   render() {
-    const { style } = this.props;
+    const { style, body } = this.props;
     const { htmlTree, isLoading } = this.state;
 
-    if (isLoading) {
+    if (isLoading && body) {
       return (
         <View styleName="md-gutter">
           <Spinner styleName="sm-gutter" />
