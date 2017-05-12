@@ -53,13 +53,11 @@ class Html extends Component {
     this.renderElement = this.renderElement.bind(this);
     this.state = {
       htmlTree: null,
-      isLoading: true,
     };
   }
 
   componentDidMount() {
     InteractionManager.runAfterInteractions(() => {
-      this.setState({ isLoading: false });
       this.updateHtmlTree();
     });
   }
@@ -125,23 +123,20 @@ class Html extends Component {
 
   render() {
     const { style, body } = this.props;
-    const { htmlTree, isLoading } = this.state;
+    const { htmlTree } = this.state;
 
-    if (isLoading && body) {
+    if (!body) {
+      return null;
+    }
+
+    if (!htmlTree) {
+      // Either still processing the Html or
+      // waiting for layout animations to complete
       return (
         <View styleName="md-gutter">
           <Spinner styleName="sm-gutter" />
         </View>
       );
-    }
-
-    if (!htmlTree) {
-      // Returning null here doesn't unmount the spinner
-      // on Android, but returning an empty array works.
-      // Unfortunately, empty array cannot be returned on iOS...
-      // The Android issue is probably related to this:
-      // https://github.com/facebook/react-native/issues/8968
-      return (Platform.OS === 'android') ? [] : null;
     }
 
     const htmlRootElement = htmlTree.getRootNode();
