@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { Platform, InteractionManager } from 'react-native';
 import _ from 'lodash';
 
-import { View } from '@shoutem/ui';
+import { View, Spinner } from '@shoutem/ui';
 import { connectStyle } from '@shoutem/theme';
 
 import { parseHtml } from './services/HtmlParser';
@@ -50,6 +51,26 @@ class Html extends Component {
   constructor(props, context) {
     super(props, context);
     this.renderElement = this.renderElement.bind(this);
+    this.state = {
+      htmlTree: null,
+      isLoading: true,
+    };
+  }
+
+  componentDidMount() {
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({ isLoading: false });
+      this.updateHtmlTree();
+    });
+  }
+
+  updateHtmlTree() {
+    const { body } = this.props;
+
+    if (body) {
+      const htmlTree = parseHtml(body);
+      this.setState({ htmlTree });
+    }
   }
 
   /**
@@ -103,9 +124,26 @@ class Html extends Component {
   }
 
   render() {
-    const { body, style } = this.props;
+    const { style, body } = this.props;
+    const { htmlTree, isLoading } = this.state;
 
-    const htmlTree = parseHtml(body);
+    if (isLoading && body) {
+      return (
+        <View styleName="md-gutter">
+          <Spinner styleName="sm-gutter" />
+        </View>
+      );
+    }
+
+    if (!htmlTree) {
+      // Returning null here doesn't unmount the spinner
+      // on Android, but returning an empty array works.
+      // Unfortunately, empty array cannot be returned on iOS...
+      // The Android issue is probably related to this:
+      // https://github.com/facebook/react-native/issues/8968
+      return (Platform.OS === 'android') ? [] : null;
+    }
+
     const htmlRootElement = htmlTree.getRootNode();
 
     return (
