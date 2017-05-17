@@ -224,7 +224,7 @@ class DropDownMenu extends Component {
   }
 }
 
-const StyledDropDownMenu = connectStyle('shoutem.ui.DropDownMenu', {})(DropDownMenu);
+const StyledDropDownMenu = connectStyle('shoutem.ui.DropDownMenu')(DropDownMenu);
 
 export {
   StyledDropDownMenu as DropDownMenu,

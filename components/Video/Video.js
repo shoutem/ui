@@ -81,7 +81,7 @@ class Video extends React.Component {
 }
 
 const AnimatedVideo = connectAnimation(Video);
-const StyledVideo = connectStyle('shoutem.ui.Video', {})(AnimatedVideo);
+const StyledVideo = connectStyle('shoutem.ui.Video')(AnimatedVideo);
 
 export {
   StyledVideo as Video,
