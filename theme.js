@@ -17,30 +17,18 @@ import {
 
 const window = Dimensions.get('window');
 
-const Colors = {
-  CLEAR: 'transparent',
-  INDICATOR: '#222222',
-};
-
 const STATUS_BAR_OFFSET = (Platform.OS === 'android' ? -StatusBar.currentConfig : 0);
 const NAVIGATION_BAR_HEIGHT = NavigationExperimental.Header.HEIGHT;
 
-const GALLERY_DOT_SIZE = 8;
-
-const SMALL_GUTTER = 5;
-const MEDIUM_GUTTER = 15;
-const LARGE_GUTTER = 30;
-const EXTRA_LARGE_GUTTER = 45;
-
-const sizeVariants = ['', 'left', 'right', 'top', 'bottom', 'horizontal', 'vertical'];
-const textComponents = [
+export const sizeVariants = ['', 'left', 'right', 'top', 'bottom', 'horizontal', 'vertical'];
+export const textComponents = [
   'shoutem.ui.Heading',
   'shoutem.ui.Title',
   'shoutem.ui.Subtitle',
   'shoutem.ui.Text',
   'shoutem.ui.Caption',
 ];
-const viewComponents = [
+export const viewComponents = [
   'shoutem.ui.View',
   'shoutem.ui.Tile',
   'shoutem.ui.Card',
@@ -139,6 +127,13 @@ export const defaultThemeVariables = {
 
   lineColor: '#e5e5e5',
   sectionHeaderBackgroundColor: '#F2F2F2',
+  indicatorColor: '#222222',
+
+  smallGutter: 5,
+  mediumGutter: 15,
+  largeGutter: 30,
+  extraLargeGutter: 45,
+  galleryDotSize: 8,
 };
 
 export default (variables = defaultThemeVariables) => ({
@@ -146,24 +141,24 @@ export default (variables = defaultThemeVariables) => ({
   // Common
   //
   guttersPadding: {
-    ...createVariations('.sm-gutter', sizeVariants, 'padding', SMALL_GUTTER),
-    ...createVariations('.md-gutter', sizeVariants, 'padding', MEDIUM_GUTTER),
-    ...createVariations('.lg-gutter', sizeVariants, 'padding', LARGE_GUTTER),
-    ...createVariations('.xl-gutter', sizeVariants, 'padding', EXTRA_LARGE_GUTTER),
+    ...createVariations('.sm-gutter', sizeVariants, 'padding', variables.smallGutter),
+    ...createVariations('.md-gutter', sizeVariants, 'padding', variables.mediumGutter),
+    ...createVariations('.lg-gutter', sizeVariants, 'padding', variables.largeGutter),
+    ...createVariations('.xl-gutter', sizeVariants, 'padding', variables.extraLargeGutter),
   },
 
   guttersMargin: {
-    ...createVariations('.sm-gutter', sizeVariants, 'margin', SMALL_GUTTER),
-    ...createVariations('.md-gutter', sizeVariants, 'margin', MEDIUM_GUTTER),
-    ...createVariations('.lg-gutter', sizeVariants, 'margin', LARGE_GUTTER),
-    ...createVariations('.xl-gutter', sizeVariants, 'margin', EXTRA_LARGE_GUTTER),
+    ...createVariations('.sm-gutter', sizeVariants, 'margin', variables.smallGutter),
+    ...createVariations('.md-gutter', sizeVariants, 'margin', variables.mediumGutter),
+    ...createVariations('.lg-gutter', sizeVariants, 'margin', variables.largeGutter),
+    ...createVariations('.xl-gutter', sizeVariants, 'margin', variables.extraLargeGutter),
   },
 
   commonVariants: {
     '.rounded-corners': {
       borderRadius: 2,
       borderWidth: 0,
-      borderColor: Colors.CLEAR,
+      borderColor: 'transparent',
     },
 
     '.flexible': {
@@ -320,7 +315,7 @@ export default (variables = defaultThemeVariables) => ({
       opacity: 0.5,
     },
 
-    backgroundColor: Colors.CLEAR,
+    backgroundColor: 'transparent',
   },
 
 
@@ -365,7 +360,7 @@ export default (variables = defaultThemeVariables) => ({
   indicator: {
     // Adds opacity to default color
     // TODO - document!
-    color: changeColorAlpha(Colors.INDICATOR, 0.5),
+    color: changeColorAlpha(variables.indicatorColor, 0.5),
   },
 
   //
@@ -634,7 +629,7 @@ export default (variables = defaultThemeVariables) => ({
     ...createSharedStyle(textComponents, { flex: 1 }),
 
     'shoutem.ui.Image': {
-      marginRight: MEDIUM_GUTTER,
+      marginRight: variables.mediumGutter,
     },
 
     'shoutem.ui.Icon': {
@@ -644,13 +639,13 @@ export default (variables = defaultThemeVariables) => ({
         marginLeft: 4,
       },
 
-      marginRight: MEDIUM_GUTTER,
+      marginRight: variables.mediumGutter,
     },
 
     'shoutem.ui.Button': {
       '.right-icon': {
         [INCLUDE]: ['tightButton', 'clearButton'],
-        marginLeft: MEDIUM_GUTTER,
+        marginLeft: variables.mediumGutter,
       },
     },
 
@@ -661,8 +656,8 @@ export default (variables = defaultThemeVariables) => ({
         width: 6,
         height: 6,
         borderRadius: 3,
-        borderColor: Colors.INDICATOR,
-        backgroundColor: Colors.INDICATOR,
+        borderColor: variables.indicatorColor,
+        backgroundColor: variables.indicatorColor,
         marginLeft: -10,
         marginRight: 4,
       },
@@ -670,11 +665,11 @@ export default (variables = defaultThemeVariables) => ({
       '.vertical': {
         '*': {
           // Add a small gutter below each view
-          marginBottom: SMALL_GUTTER,
+          marginBottom: variables.smallGutter,
         },
 
         // Compensate for the last view
-        marginBottom: -SMALL_GUTTER,
+        marginBottom: -variables.smallGutter,
       },
 
       flex: 1,
@@ -695,21 +690,21 @@ export default (variables = defaultThemeVariables) => ({
     justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: variables.paperColor,
-    paddingHorizontal: MEDIUM_GUTTER,
-    paddingVertical: MEDIUM_GUTTER,
+    paddingHorizontal: variables.mediumGutter,
+    paddingVertical: variables.mediumGutter,
   },
 
   textCentricTile: {
     'shoutem.ui.View': {
       '.actions': {
         position: 'absolute',
-        top: MEDIUM_GUTTER,
-        right: MEDIUM_GUTTER,
+        top: variables.mediumGutter,
+        right: variables.mediumGutter,
       },
     },
 
     '*': {
-      marginBottom: SMALL_GUTTER,
+      marginBottom: variables.smallGutter,
     },
 
     ...createSharedStyle(textComponents, {
@@ -723,8 +718,8 @@ export default (variables = defaultThemeVariables) => ({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 25,
-    paddingTop: EXTRA_LARGE_GUTTER,
-    paddingBottom: EXTRA_LARGE_GUTTER - SMALL_GUTTER,
+    paddingTop: variables.extraLargeGutter,
+    paddingBottom: variables.extraLargeGutter - variables.smallGutter,
   },
 
   'shoutem.ui.Tile': {
@@ -733,32 +728,32 @@ export default (variables = defaultThemeVariables) => ({
     'shoutem.ui.View': {
       '.content': {
         '*': {
-          marginBottom: MEDIUM_GUTTER - SMALL_GUTTER,
+          marginBottom: variables.mediumGutter - variables.smallGutter,
         },
 
         alignSelf: 'stretch',
-        paddingTop: MEDIUM_GUTTER,
-        paddingBottom: SMALL_GUTTER,
-        paddingHorizontal: MEDIUM_GUTTER,
+        paddingTop: variables.mediumGutter,
+        paddingBottom: variables.smallGutter,
+        paddingHorizontal: variables.mediumGutter,
       },
     },
 
     '.clear': {
-      backgroundColor: Colors.CLEAR,
+      backgroundColor: 'transparent',
     },
 
     '.small': {
       'shoutem.ui.View': {
         '.content': {
           '*': {
-            marginBottom: SMALL_GUTTER,
+            marginBottom: variables.smallGutter,
           },
 
           alignSelf: 'stretch',
-          paddingTop: MEDIUM_GUTTER,
+          paddingTop: variables.mediumGutter,
           paddingBottom: 0,
           paddingHorizontal: 0,
-          marginBottom: -SMALL_GUTTER,
+          marginBottom: -variables.smallGutter,
         },
       },
 
@@ -799,7 +794,7 @@ export default (variables = defaultThemeVariables) => ({
 
     'shoutem.ui.View.content': {
       'shoutem.ui.Subtitle': {
-        marginBottom: MEDIUM_GUTTER,
+        marginBottom: variables.mediumGutter,
       },
 
       flex: 1,
@@ -846,9 +841,9 @@ export default (variables = defaultThemeVariables) => ({
 
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 2 * SMALL_GUTTER,
-    paddingBottom: 2 * SMALL_GUTTER,
-    paddingHorizontal: MEDIUM_GUTTER,
+    paddingTop: 2 * variables.smallGutter,
+    paddingBottom: 2 * variables.smallGutter,
+    paddingHorizontal: variables.mediumGutter,
     backgroundColor: variables.tagOverlayColor,
   },
 
@@ -888,7 +883,7 @@ export default (variables = defaultThemeVariables) => ({
   },
 
   clearButton: {
-    backgroundColor: Colors.CLEAR,
+    backgroundColor: 'transparent',
     borderWidth: 0,
     borderRadius: 0,
   },
@@ -953,7 +948,7 @@ export default (variables = defaultThemeVariables) => ({
 
       // Medium gutter on both sides, 25 between buttons
       flex: 1,
-      marginHorizontal: MEDIUM_GUTTER,
+      marginHorizontal: variables.mediumGutter,
     },
 
     '.full-width': {
@@ -971,7 +966,7 @@ export default (variables = defaultThemeVariables) => ({
     // Vertically stacked icon and text
     '.stacked': {
       'shoutem.ui.Icon': {
-        marginVertical: MEDIUM_GUTTER,
+        marginVertical: variables.mediumGutter,
         marginRight: 0,
       },
 
@@ -1018,8 +1013,8 @@ export default (variables = defaultThemeVariables) => ({
     borderRadius: 2,
     borderWidth: 1,
     borderColor: variables.primaryButtonBorderColor,
-    paddingLeft: MEDIUM_GUTTER,
-    paddingRight: SMALL_GUTTER,
+    paddingLeft: variables.mediumGutter,
+    paddingRight: variables.smallGutter,
   },
 
   //
@@ -1035,10 +1030,10 @@ export default (variables = defaultThemeVariables) => ({
       position: 'absolute',
       left: 0,
       right: 0,
-      bottom: MEDIUM_GUTTER,
+      bottom: variables.mediumGutter,
     },
 
-    backgroundColor: Colors.CLEAR,
+    backgroundColor: 'transparent',
     color: variables.primaryButtonText.color,
     textAlign: 'center',
     textAlignVertical: 'center',
@@ -1080,7 +1075,7 @@ export default (variables = defaultThemeVariables) => ({
     '*': {
       flex: 1,
       alignSelf: 'stretch',
-      marginLeft: SMALL_GUTTER,
+      marginLeft: variables.smallGutter,
       marginRight: 0,
       marginTop: 0,
       marginBottom: 0,
@@ -1090,8 +1085,8 @@ export default (variables = defaultThemeVariables) => ({
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
-    paddingRight: SMALL_GUTTER,
-    paddingTop: SMALL_GUTTER,
+    paddingRight: variables.smallGutter,
+    paddingTop: variables.smallGutter,
   },
 
   //
@@ -1102,7 +1097,7 @@ export default (variables = defaultThemeVariables) => ({
 
     '.no-title': {
       'shoutem.ui.Title': {
-        color: Colors.CLEAR,
+        color: 'transparent',
       },
     },
 
@@ -1224,7 +1219,7 @@ export default (variables = defaultThemeVariables) => ({
           borderBottomColor: driver.interpolate({
             // Animate to approx title top offset
             inputRange: [0, 45],
-            outputRange: [Colors.CLEAR, variables.navBarBorderColor],
+            outputRange: ['transparent', variables.navBarBorderColor],
             extrapolate: 'clamp',
           }),
           borderBottomWidth: 1,
@@ -1237,12 +1232,12 @@ export default (variables = defaultThemeVariables) => ({
         container: {
           backgroundColor: driver.interpolate({
             inputRange: [250, 300],
-            outputRange: [Colors.CLEAR, variables.navBarBackground],
+            outputRange: ['transparent', variables.navBarBackground],
             extrapolate: 'clamp',
           }),
           borderBottomColor: driver.interpolate({
             inputRange: [250, 300],
-            outputRange: [Colors.CLEAR, variables.navBarBorderColor],
+            outputRange: ['transparent', variables.navBarBorderColor],
             extrapolate: 'clamp',
           }),
         },
@@ -1265,7 +1260,7 @@ export default (variables = defaultThemeVariables) => ({
         return {
           color: driver.interpolate({
             inputRange: [250, 300],
-            outputRange: [Colors.CLEAR, variables.navBarText.color],
+            outputRange: ['transparent', variables.navBarText.color],
             extrapolate: 'clamp',
           }),
         };
@@ -1324,7 +1319,7 @@ export default (variables = defaultThemeVariables) => ({
       // due to overflow issues.
       gradient: {
         [INCLUDE]: ['fillParent'],
-        colors: [Colors.CLEAR, 'rgba(0, 0, 0, 0.15)', Colors.CLEAR],
+        colors: ['transparent', 'rgba(0, 0, 0, 0.15)', 'transparent'],
         locations: [0.0, 0.25, 1.0],
         solidifyAnimation(driver) {
           return {
@@ -1375,7 +1370,7 @@ export default (variables = defaultThemeVariables) => ({
         return {
           color: driver.interpolate({
             inputRange: [250, 300],
-            outputRange: [Colors.CLEAR, variables.navBarText.color],
+            outputRange: ['transparent', variables.navBarText.color],
             extrapolate: 'clamp',
           }),
         };
@@ -1456,8 +1451,8 @@ export default (variables = defaultThemeVariables) => ({
   sectionHeaderDivider: {
     'shoutem.ui.Caption': {
       marginTop: -1,
-      marginBottom: SMALL_GUTTER,
-      marginHorizontal: MEDIUM_GUTTER,
+      marginBottom: variables.smallGutter,
+      marginHorizontal: variables.mediumGutter,
     },
 
     paddingTop: 23,
@@ -1496,7 +1491,7 @@ export default (variables = defaultThemeVariables) => ({
     'shoutem.ui.View': {
       'shoutem.ui.Caption': {
         backgroundColor: variables.paperColor,
-        paddingHorizontal: MEDIUM_GUTTER,
+        paddingHorizontal: variables.mediumGutter,
         paddingTop: 10,
       },
 
@@ -1510,7 +1505,7 @@ export default (variables = defaultThemeVariables) => ({
           alignItems: 'flex-start',
           backgroundColor: variables.paperColor,
           height: 39,
-          paddingHorizontal: MEDIUM_GUTTER,
+          paddingHorizontal: variables.mediumGutter,
           paddingVertical: 9,
         },
 
@@ -1542,7 +1537,7 @@ export default (variables = defaultThemeVariables) => ({
     placeholderTextColor: changeColorAlpha(variables.text.color, 0.5),
     backgroundColor: variables.paperColor,
     height: 55,
-    paddingHorizontal: MEDIUM_GUTTER,
+    paddingHorizontal: variables.mediumGutter,
     paddingVertical: 18,
     ...variables.text,
   },
@@ -1762,7 +1757,7 @@ export default (variables = defaultThemeVariables) => ({
   'shoutem.ui.Html': {
     container: {
       backgroundColor: variables.paperColor,
-      padding: MEDIUM_GUTTER,
+      padding: variables.mediumGutter,
     },
     // HTML Inline elements
     b: {
@@ -1952,15 +1947,15 @@ export default (variables = defaultThemeVariables) => ({
     indicatorContainer: {
       alignItems: 'center',
       'shoutem.ui.View': {
-        width: GALLERY_DOT_SIZE,
-        height: GALLERY_DOT_SIZE,
-        borderRadius: GALLERY_DOT_SIZE / 2,
+        width: variables.galleryDotSize,
+        height: variables.galleryDotSize,
+        borderRadius: variables.galleryDotSize / 2,
         // TODO - confirm opacity
-        backgroundColor: changeColorAlpha(Colors.INDICATOR, 0.7),
-        marginLeft: GALLERY_DOT_SIZE / 2,
-        marginRight: GALLERY_DOT_SIZE / 2,
+        backgroundColor: changeColorAlpha(variables.indicatorColor, 0.7),
+        marginLeft: variables.galleryDotSize / 2,
+        marginRight: variables.galleryDotSize / 2,
         '.selected': {
-          backgroundColor: Colors.INDICATOR,
+          backgroundColor: variables.indicatorColor,
         },
       },
     },
@@ -2031,7 +2026,7 @@ export default (variables = defaultThemeVariables) => ({
           // visible underneath the navigation bar, but the
           // title text should be rendered below the
           // navigation bar.
-          paddingTop: 70 + MEDIUM_GUTTER,
+          paddingTop: 70 + variables.mediumGutter,
         },
       },
     },
@@ -2045,8 +2040,8 @@ export default (variables = defaultThemeVariables) => ({
         top: 0,
         left: 0,
         right: 0,
-        paddingTop: MEDIUM_GUTTER,
-        paddingHorizontal: MEDIUM_GUTTER,
+        paddingTop: variables.mediumGutter,
+        paddingHorizontal: variables.mediumGutter,
 
         backgroundGradient: {
           colors: ['rgba(0, 0, 0, 0.6)', 'rgba(0, 0, 0, 0.0)'],
@@ -2061,7 +2056,7 @@ export default (variables = defaultThemeVariables) => ({
     description: {
       container: {
         '.expanded': {
-          paddingTop: EXTRA_LARGE_GUTTER,
+          paddingTop: variables.extraLargeGutter,
 
           backgroundGradient: {
             colors: ['rgba(0, 0, 0, 0.0)', 'rgba(0, 0, 0, 0.8)'],
@@ -2069,7 +2064,7 @@ export default (variables = defaultThemeVariables) => ({
           },
         },
         '.collapsed': {
-          paddingTop: MEDIUM_GUTTER,
+          paddingTop: variables.mediumGutter,
 
           backgroundGradient: {
             colors: ['rgba(0, 0, 0, 0.0)', 'rgba(0, 0, 0, 0.6)'],
@@ -2085,7 +2080,7 @@ export default (variables = defaultThemeVariables) => ({
 
       scroll: {
         maxHeight: 200,
-        padding: MEDIUM_GUTTER,
+        padding: variables.mediumGutter,
       },
       text: {
         color: variables.imageOverlayTextColor,
