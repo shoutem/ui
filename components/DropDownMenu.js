@@ -102,7 +102,7 @@ class DropDownMenu extends Component {
   collapse() {
     this.setState({ collapsed: true });
     this.scrollDriver = new ScrollDriver();
-    this.timingDriver.runTimer(1);
+    this.timingDriver.toValue(1);
   }
 
   selectOption(option) {
@@ -113,7 +113,7 @@ class DropDownMenu extends Component {
   }
 
   close() {
-    this.timingDriver.runTimer(0, () => this.setState({ collapsed: false }));
+    this.timingDriver.toValue(0, () => this.setState({ collapsed: false }));
   }
 
   emitOnOptionSelectedEvent(option) {

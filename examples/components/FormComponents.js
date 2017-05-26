@@ -16,7 +16,7 @@ export class FormComponents extends Component {
     super();
     this.state = {
       switchOn: false,
-    }
+    };
   }
 
   render() {

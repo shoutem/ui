@@ -1566,6 +1566,11 @@ export default (variables = defaultThemeVariables) => ({
           'shoutem.ui.Text': {
             margin: 0,
           },
+
+          flex: 1,
+          alignSelf: 'stretch',
+          justifyContent: 'flex-start',
+          padding: 0,
         },
 
         '.empty': {
