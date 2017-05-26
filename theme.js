@@ -449,7 +449,7 @@ export default (variables = defaultThemeVariables) => ({
 
       'shoutem.ui.Icon': {
         color: inverseColorBrightnessForAmount(variables.paperColor, 30),
-      }
+      },
     },
 
     'shoutem.ui.Tile': {
@@ -584,7 +584,7 @@ export default (variables = defaultThemeVariables) => ({
     },
 
     '.muted': {
-      opacity: 0.3
+      opacity: 0.3,
     },
 
     '.featured': {
@@ -1177,7 +1177,7 @@ export default (variables = defaultThemeVariables) => ({
               color: variables.featuredColor,
             },
           },
-        }
+        },
       },
 
       'shoutem.ui.DropDownMenu': {
@@ -1236,7 +1236,7 @@ export default (variables = defaultThemeVariables) => ({
         '.badge': {
           top: 5,
           right: 5,
-        }
+        },
       },
       paddingHorizontal: 9,
     },
@@ -2028,7 +2028,7 @@ export default (variables = defaultThemeVariables) => ({
             backgroundColor: changeColorAlpha('#ffffff', 0.7),
           },
         },
-      }
+      },
     },
 
     container: {
