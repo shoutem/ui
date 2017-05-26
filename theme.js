@@ -455,6 +455,12 @@ export default (variables = defaultThemeVariables) => ({
     'shoutem.ui.Tile': {
       [INCLUDE]: ['textCentricTile', 'fillParent', 'imageOverlayText'],
 
+      'shoutem.ui.Button': {
+        '.clear': {
+          [INCLUDE]: ['imageOverlayText'],
+        },
+      },
+
       backgroundColor: variables.imageOverlayColor,
     },
 
