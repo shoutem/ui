@@ -1667,8 +1667,8 @@ export default (variables = defaultThemeVariables) => ({
           backgroundColor: driver.interpolate({
             inputRange: [0, 1],
             outputRange: [
-              changeColorAlpha(variables.text.color, 0.4),
-              changeColorAlpha(variables.text.color, 1),
+              inverseColorBrightnessForAmount(variables.paperColor, 15),
+              changeColorAlpha(variables.secondaryButtonBackgroundColor, 1),
             ],
           }),
         };
