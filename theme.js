@@ -1746,6 +1746,7 @@ export default (variables = defaultThemeVariables) => ({
         'shoutem.ui.Text': {
           flex: 1,
           textAlign: 'center',
+          margin: 0,
         },
 
         'shoutem.ui.Icon': {
@@ -1758,6 +1759,10 @@ export default (variables = defaultThemeVariables) => ({
           paddingVertical: 8,
           width: 40,
         },
+
+        padding: 0,
+        // Compensate to cover the top border
+        marginTop: -1,
       },
     },
 
