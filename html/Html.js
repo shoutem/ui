@@ -78,7 +78,7 @@ class Html extends Component {
    */
   getElementStyle({ tag }) {
     const { style } = this.props;
-    return _.get(style, tag);
+    return _.get(style, tag, {});
   }
 
   /**
