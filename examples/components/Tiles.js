@@ -66,7 +66,7 @@ export function Tiles() {
           source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-11.png' }}
         >
           <Tile>
-            <Overlay><Heading>-20%</Heading></Overlay>
+            <Overlay styleName="image-overlay"><Heading>-20%</Heading></Overlay>
             <Title styleName="md-gutter-top">COOL BLACK AND WHITE STYLISH WATCHES</Title>
             <Subtitle styleName="line-through sm-gutter-top">$280.00</Subtitle>
             <Heading>$250.00</Heading>
@@ -132,7 +132,7 @@ export function Tiles() {
         >
           <Tile>
             <Title styleName="md-gutter-bottom">SMOKED SALMON, CLASSIC CONDIMENTS, BRIOCHE</Title>
-            <Overlay styleName="solid-bright">
+            <Overlay>
               <Subtitle styleName="sm-gutter-horizontal">$18.30</Subtitle>
             </Overlay>
           </Tile>
@@ -145,7 +145,7 @@ export function Tiles() {
           source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-3.png' }}
         >
           <Tile>
-            <View styleName="actions">
+            <View virtual styleName="actions">
               <Button styleName="tight clear"><Icon name="add-to-favorites" /></Button>
             </View>
             <Title>HOW TO MAINTAIN YOUR MENTAL HEALTH IN 2016</Title>
@@ -161,7 +161,7 @@ export function Tiles() {
         >
           <Tile>
             <Title styleName="md-gutter-bottom">SMOKED SALMON, CLASSIC CONDIMENTS, BRIOCHE</Title>
-            <Overlay styleName="solid-bright">
+            <Overlay>
               <Subtitle styleName="sm-gutter-horizontal">$18.30</Subtitle>
             </Overlay>
           </Tile>
@@ -188,7 +188,7 @@ export function Tiles() {
           source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-11.png' }}
         >
           <Tile>
-            <Overlay><Heading>-20%</Heading></Overlay>
+            <Overlay styleName="image-overlay"><Heading>-20%</Heading></Overlay>
             <Title styleName="md-gutter-top">COOL BLACK AND WHITE STYLISH WATCHES</Title>
             <Subtitle styleName="line-through sm-gutter-top">$280.00</Subtitle>
             <Heading>$250.00</Heading>
@@ -204,7 +204,7 @@ export function Tiles() {
         >
           <Tile>
             <Title styleName="md-gutter-bottom">SMOKED SALMON, CLASSIC CONDIMENTS, BRIOCHE</Title>
-            <Overlay styleName="solid-bright">
+            <Overlay>
               <Subtitle styleName="sm-gutter-horizontal">$18.30</Subtitle>
             </Overlay>
           </Tile>
@@ -231,7 +231,7 @@ export function Tiles() {
           source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-11.png' }}
         >
           <Tile>
-            <Overlay><Heading>-20%</Heading></Overlay>
+            <Overlay styleName="image-overlay"><Heading>-20%</Heading></Overlay>
             <Title styleName="md-gutter-top">COOL BLACK AND WHITE STYLISH WATCHES</Title>
             <Subtitle styleName="line-through sm-gutter-top">$280.00</Subtitle>
             <Heading>$250.00</Heading>

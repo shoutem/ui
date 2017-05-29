@@ -834,7 +834,7 @@ export default (variables = defaultThemeVariables) => ({
   'shoutem.ui.Overlay': {
     [INCLUDE]: ['guttersPadding'],
 
-    ...createSharedStyle(textComponents, {
+    ...createSharedStyle([...textComponents, 'shoutem.ui.Icon'], {
       textAlign: 'center',
       color: variables.tagOverlayTextColor,
     }),
@@ -845,6 +845,14 @@ export default (variables = defaultThemeVariables) => ({
         color: variables.tagOverlayTextColor,
       }),
     }),
+
+    '.image-overlay': {
+      ...createSharedStyle([...textComponents, 'shoutem.ui.Icon'], {
+        color: variables.imageOverlayTextColor,
+      }),
+
+      backgroundColor: changeColorAlpha(variables.imageOverlayColor, 0.5),
+    },
 
     '.rounded-small': {
       width: 38,
