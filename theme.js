@@ -1541,6 +1541,7 @@ export default (variables = defaultThemeVariables) => ({
       'shoutem.ui.Caption': {
         backgroundColor: variables.paperColor,
         paddingHorizontal: variables.mediumGutter,
+        color: changeColorAlpha(variables.caption.color, 0.5),
         paddingTop: 10,
       },
 
@@ -1593,6 +1594,7 @@ export default (variables = defaultThemeVariables) => ({
     height: 55,
     paddingHorizontal: variables.mediumGutter,
     paddingVertical: 18,
+    underlineColorAndroid: 'transparent',
     ...variables.text,
   },
 
