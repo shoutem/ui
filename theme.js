@@ -358,8 +358,6 @@ export default (variables = defaultThemeVariables) => ({
   // Indicators
   //
   indicator: {
-    // Adds opacity to default color
-    // TODO - document!
     color: variables.text.color,
   },
 
