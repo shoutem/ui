@@ -256,9 +256,21 @@ export default (variables = defaultThemeVariables) => ({
   },
 
   imageOverlayText: {
-    ...createSharedStyle([...textComponents, 'shoutem.ui.Icon'], {
+    ...createSharedStyle(textComponents, {
       color: variables.imageOverlayTextColor,
     }),
+
+    'shoutem.ui.Icon': {
+      '.indicator': {
+        color: variables.imageOverlayTextColor,
+      },
+
+      '.scroll-indicator': {
+        color: variables.imageOverlayTextColor,
+      },
+
+      color: variables.imageOverlayTextColor,
+    },
   },
 
   boldTextStyle: {
