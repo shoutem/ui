@@ -1287,6 +1287,8 @@ export default (variables = defaultThemeVariables) => ({
       borderBottomWidth: 1,
       // Leave space for the status bar on iOS
       paddingTop: Platform.OS === 'ios' ? 20 : 0,
+      paddingLeft: 15,
+      paddingRight: 15,
     },
 
     componentsContainer: {
