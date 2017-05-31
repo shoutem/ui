@@ -1131,7 +1131,7 @@ export default (variables = defaultThemeVariables) => ({
 
     '.no-title': {
       'shoutem.ui.Title': {
-        color: 'transparent',
+        opacity: 0,
       },
     },
 
