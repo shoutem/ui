@@ -12,6 +12,7 @@ class TextInput extends Component {
     };
     delete style.placeholderTextColor;
     delete style.selectionColor;
+    delete style.underlineColorAndroid;
 
     return (
       <RNTextInput
@@ -19,6 +20,7 @@ class TextInput extends Component {
         style={style}
         placeholderTextColor={props.style.placeholderTextColor}
         selectionColor={props.style.selectionColor}
+        underlineColorAndroid={props.style.underlineColorAndroid}
       />
     );
   }

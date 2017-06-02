@@ -92,7 +92,7 @@ class NavigationBar extends Component {
 }
 
 const AnimatedNavigationBar = connectAnimation(composeChildren(NavigationBar));
-const StyledNavigationBar = connectStyle('shoutem.ui.NavigationBar', {})(AnimatedNavigationBar);
+const StyledNavigationBar = connectStyle('shoutem.ui.NavigationBar')(AnimatedNavigationBar);
 
 export {
   StyledNavigationBar as NavigationBar,

@@ -50,7 +50,7 @@ class Switch extends Component {
   }
 
   setValue(value) {
-    this.timingDriver.runTimer(value ? 1 : 0);
+    this.timingDriver.toValue(value ? 1 : 0);
   }
 
   render() {

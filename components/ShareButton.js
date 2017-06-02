@@ -83,7 +83,7 @@ class ShareButton extends Component {
   }
 }
 
-const StyledShareButton = connectStyle('shoutem.ui.ShareButton', {}, () => {},
+const StyledShareButton = connectStyle('shoutem.ui.ShareButton', undefined, undefined,
   { virtual: true })(ShareButton);
 
 export {
