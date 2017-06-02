@@ -33,7 +33,7 @@ export function Rows() {
 
       <Stage title="Small list item + Icon">
         <Row styleName="small">
-          <Icon name="add-to-favorites" />
+          <Icon name="add-to-favorites-off" />
           <Text>Add to favorites</Text>
         </Row>
       </Stage>

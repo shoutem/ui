@@ -103,7 +103,7 @@ class ImagePreview extends Component {
 
 ImagePreview.propTypes = propTypes;
 
-const StyledImagePreview = connectStyle('shoutem.ui.ImagePreview', {})(ImagePreview);
+const StyledImagePreview = connectStyle('shoutem.ui.ImagePreview')(ImagePreview);
 
 export {
   StyledImagePreview as ImagePreview,

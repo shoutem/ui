@@ -10,14 +10,14 @@ const icons = {
 
 function Icon(props) {
   const DefaultIcon = icons.Default || icons.Fallback;
-  return <DefaultIcon {...props} />
+  return (<DefaultIcon {...props} />);
 }
 
-Icon.setIconFont = function (fontFamily) {
+Icon.setIconFont = fontFamily => {
   icons.Default = createIcon(fontFamily);
 };
 
 export {
   Icon,
   createIcon,
-}
+};
