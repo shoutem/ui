@@ -6,7 +6,7 @@ Shoutem UI is a set of styleable components that enables you to build beautiful 
 
 ```
 $ npm install --save @shoutem/ui
-$ react-native link # No need to run this with Exponent
+$ react-native link # No need to run this with Create React Native App / Expo
 ```
 
 ## Docs
