@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-
-import { NavigationBarView, NavigationBarStyleName } from './NavigationBarView';
 import { DriverShape } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
+import { NavigationBarView, NavigationBarStyleName } from './NavigationBarView';
 
 /**
  * A NavigationBar component that can be used to define
@@ -38,7 +37,6 @@ class NavigationBar extends Component {
 
   constructor(props, context) {
     super(props, context);
-
     this.setNavBarProps(props);
   }
 

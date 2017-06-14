@@ -7,6 +7,8 @@ import {
   StatusBar,
   Animated,
   NavigationExperimental,
+  Image,
+  Dimensions,
 } from 'react-native';
 
 import { connectStyle } from '@shoutem/theme';
@@ -31,6 +33,17 @@ const navigationHeaderStyle = {
   borderBottomColor: 'transparent',
   borderBottomWidth: 0,
   elevation: 0, // Elevation add side gutter to NavBar
+};
+
+const navigationHeaderBackgroundImageStyle = {
+  flex: 1,
+  flexGrow: 1,
+  left: 0,
+  height: NavigationHeader.HEIGHT,
+  position: 'absolute',
+  right: 0,
+  top: 0,
+  width: Dimensions.get('window').width,
 };
 
 /** @constant string NavigationBarStyleName
@@ -176,9 +189,9 @@ class NavigationBarView extends PureComponent {
           // If the backgroundColor is animated, we want to listen for
           // color changes, so that we can update the bar style as the
           // animation runs.
-          this.backgroundListenerId = addAnimatedValueListener(backgroundColor, () =>
-            this.setStatusBarStyleForBackgroundColor(backgroundColor)
-          );
+          this.backgroundListenerId = addAnimatedValueListener(backgroundColor, () => {
+            this.setStatusBarStyleForBackgroundColor(backgroundColor);
+          });
         }
 
         // Set the bar style based on the current background color value
@@ -206,7 +219,7 @@ class NavigationBarView extends PureComponent {
       // if necessary in `setStatusBarStyle`.
       removeAnimatedValueListener(
         this.props.style.container.backgroundColor,
-        this.backgroundListenerId
+        this.backgroundListenerId,
       );
       this.backgroundListenerId = null;
     }
@@ -328,6 +341,10 @@ class NavigationBarView extends PureComponent {
   }
 
   createNavigationHeaderProps(style) {
+    if (this.props.navigationBarImage || NavigationBarView.navigationBarImage) {
+      this.props.backgroundColor = 'transparent';
+    }
+
     const headerProps = {
       ...this.props,
       style: [navigationHeaderStyle, style.navigationHeader],
@@ -368,6 +385,29 @@ class NavigationBarView extends PureComponent {
     return null;
   }
 
+  renderBackgroundImage() {
+    let { navigationBarImage } = this.props;
+    if (!navigationBarImage && NavigationBarView.navigationBarImage) {
+      navigationBarImage = NavigationBarView.navigationBarImage;
+    }
+
+    console.log('PROP: ', this.props.navigationBarImage);
+    console.log('STATIC: ', NavigationBarView.navigationBarImage);
+
+    if (navigationBarImage) {
+      return (
+        <Image
+          source={{ uri: navigationBarImage }}
+          style={navigationHeaderBackgroundImageStyle}
+          resizeMode="cover"
+          resizeMethod="resize"
+        />
+      );
+    }
+
+    return null;
+  }
+
   render() {
     const { scene } = this.props;
     const { style, hidden, child } = this.resolveSceneProps(scene);
@@ -380,6 +420,7 @@ class NavigationBarView extends PureComponent {
 
     return (
       <Animated.View style={[style.container, this.interpolateNavBarStyle()]}>
+        {this.renderBackgroundImage()}
         {this.renderLinearGradient()}
         <NavigationHeader
           {...this.createNavigationHeaderProps(style)}
