@@ -1,1 +1,0 @@
-export { RichMedia } from './RichMedia';
