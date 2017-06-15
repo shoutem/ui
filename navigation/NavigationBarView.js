@@ -361,11 +361,6 @@ class NavigationBarView extends PureComponent {
         this.createHeaderComponentRenderer(headerProps.renderRightComponent);
     }
 
-    // if (headerProps.renderBackgroundImage) {
-    //   headerProps.renderBackgroundImage =
-    //     this.createHeaderComponentRenderer(headerProps.renderBackgroundImage);
-    // }
-
     return headerProps;
   }
 
