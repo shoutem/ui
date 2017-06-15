@@ -1,65 +1,6 @@
 import React, { Component } from 'react';
-import Share from 'react-native-share';
 import _ from 'lodash';
-
-import {
-  View,
-  Button,
-  ShareButton,
-  Title,
-  Icon,
-} from '../index';
-
-const composers = {
-  title: (value, navBarProps) => ({
-    renderTitleComponent() {
-      return (
-        <View virtual styleName="container">
-          <Title animationName={navBarProps.animationName} numberOfLines={1}>
-            {value || ''}
-          </Title>
-        </View>
-      );
-    },
-  }),
-  share: (value, navBarProps) => {
-    if (!value.link) {
-      return undefined;
-    }
-
-    const { title, text, link } = value;
-
-    return {
-      renderRightComponent() {
-        return (
-          <View virtual styleName="container">
-            <ShareButton
-              animationName={navBarProps.animationName}
-              title={title || navBarProps.title}
-              message={text}
-              url={link}
-            />
-          </View>
-        );
-      },
-    };
-  },
-  scene: (value, navBarProps) => ({
-    renderLeftComponent: (sceneProps) => {
-      if (sceneProps.scene.index === 0 || !sceneProps.onNavigateBack) {
-        return null;
-      }
-
-      return (
-        <View virtual styleName="container">
-          <Button onPress={sceneProps.onNavigateBack}>
-            <Icon name="back" animationName={navBarProps.animationName} />
-          </Button>
-        </View>
-      );
-    },
-  }),
-};
+import { Composers } from './children-composers';
 
 /**
  * Merge customizer that ignores undefined values.
@@ -78,9 +19,12 @@ function skipUndefined(objValue, srcValue) {
 const composeChildren = NavigationBarComponent => class extends Component {
   render() {
     const newProps = {};
-    _.forEach(this.props, (value, key) => {
-      if (_.isFunction(composers[key])) {
-        _.assign(newProps, composers[key](value, this.props));
+    _.forEach(Composers, (composer) => {
+      if (composer.canCompose(this.props)) {
+        const composerResult = composer.compose(this.props);
+        if (composerResult) {
+          _.assign(newProps, composerResult);
+        }
       }
     });
 

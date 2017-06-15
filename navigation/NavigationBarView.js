@@ -341,10 +341,6 @@ class NavigationBarView extends PureComponent {
   }
 
   createNavigationHeaderProps(style) {
-    if (this.props.navigationBarImage || NavigationBarView.navigationBarImage) {
-      this.props.backgroundColor = 'transparent';
-    }
-
     const headerProps = {
       ...this.props,
       style: [navigationHeaderStyle, style.navigationHeader],
@@ -364,6 +360,11 @@ class NavigationBarView extends PureComponent {
       headerProps.renderRightComponent =
         this.createHeaderComponentRenderer(headerProps.renderRightComponent);
     }
+
+    // if (headerProps.renderBackgroundImage) {
+    //   headerProps.renderBackgroundImage =
+    //     this.createHeaderComponentRenderer(headerProps.renderBackgroundImage);
+    // }
 
     return headerProps;
   }
@@ -386,25 +387,11 @@ class NavigationBarView extends PureComponent {
   }
 
   renderBackgroundImage() {
-    let { navigationBarImage } = this.props;
-    if (!navigationBarImage && NavigationBarView.navigationBarImage) {
-      navigationBarImage = NavigationBarView.navigationBarImage;
+    const { renderBackgroundImage } = this.props;
+    if (renderBackgroundImage && _.isFunction(renderBackgroundImage)) {
+      this.props.backgroundColor = 'transparent';
+      return renderBackgroundImage();
     }
-
-    console.log('PROP: ', this.props.navigationBarImage);
-    console.log('STATIC: ', NavigationBarView.navigationBarImage);
-
-    if (navigationBarImage) {
-      return (
-        <Image
-          source={{ uri: navigationBarImage }}
-          style={navigationHeaderBackgroundImageStyle}
-          resizeMode="cover"
-          resizeMethod="resize"
-        />
-      );
-    }
-
     return null;
   }
 
