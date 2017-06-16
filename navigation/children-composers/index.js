@@ -3,9 +3,11 @@ import TitleComposer from './title.composer';
 import ShareComposer from './share.composer';
 import SceneComposer from './scene.composer';
 
-export const Composers = [
+const ChildrenComposers = [
   NavBarComposer,
   TitleComposer,
   ShareComposer,
   SceneComposer,
 ];
+
+export default ChildrenComposers;
