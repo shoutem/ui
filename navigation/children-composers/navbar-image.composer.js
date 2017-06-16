@@ -21,7 +21,7 @@ const navigationHeaderBackgroundImageStyle = {
   width: Dimensions.get('window').width,
 };
 
-export const NavBarComposer = {
+const NavBarComposer = {
   canCompose() {
     return (!!NavigationBar.globalNavigationBarImage);
   },
@@ -38,3 +38,5 @@ export const NavBarComposer = {
     } };
   },
 };
+
+export default NavBarComposer;

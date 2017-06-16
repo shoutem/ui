@@ -15,7 +15,7 @@ function canShowTitle(showTitle) {
   return !!showTitle;
 }
 
-export const TitleComposer = {
+const TitleComposer = {
   canCompose(navBarProps) {
     const value = navBarProps.title;
     return (!!value && canShowTitle(NavigationBar.showTitle));
@@ -33,3 +33,5 @@ export const TitleComposer = {
     } };
   },
 };
+
+export default TitleComposer;

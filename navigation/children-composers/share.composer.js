@@ -4,7 +4,7 @@ import {
   ShareButton,
 } from '../../index';
 
-export const ShareComposer = {
+const ShareComposer = {
   canCompose(navBarProps) {
     const value = navBarProps.share;
     return (value && value.link);
@@ -27,3 +27,5 @@ export const ShareComposer = {
     } };
   },
 };
+
+export default ShareComposer;

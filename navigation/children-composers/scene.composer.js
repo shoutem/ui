@@ -5,7 +5,7 @@ import {
   Icon,
 } from '../../index';
 
-export const SceneComposer = {
+const SceneComposer = {
   propName: 'scene',
   canCompose(navBarProps) {
     if (navBarProps.scene.index === 0 || !navBarProps.onNavigateBack) {
@@ -25,3 +25,5 @@ export const SceneComposer = {
     } };
   },
 };
+
+export default SceneComposer;
