@@ -1464,6 +1464,24 @@ export default (variables = defaultThemeVariables) => ({
       right: 0,
       height: NAVIGATION_BAR_HEIGHT,
     },
+    // @todo Currently, only prepared for real implementation. Needs theme update.
+    navigationBarImage: {
+      flex: 1,
+      flexGrow: 1,
+      left: 0,
+      solidifyOpacityAnimation(driver) {
+        return {
+          opacity: driver.interpolate({
+            inputRange: [250, 300],
+            outputRange: [0, 1],
+            extrapolate: 'clamp',
+          }),
+        };
+      },
+      position: 'absolute',
+      right: 0,
+      top: 0,
+    },
   },
 
   'shoutem.ui.navigation.CardStack': {

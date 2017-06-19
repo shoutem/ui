@@ -5,7 +5,6 @@ import ChildrenComposers from './children-composers';
 // eslint-disable-next-line react/prefer-stateless-function
 const composeChildren = NavigationBarComponent => class extends Component {
   render() {
-    console.log(ChildrenComposers);
     _.forEach(ChildrenComposers, (composer) => {
       if (composer.canCompose(this.props)) {
         const composerResult = composer.compose(this.props);
@@ -14,7 +13,6 @@ const composeChildren = NavigationBarComponent => class extends Component {
         }
       }
     });
-    console.log(this.props);
     return <NavigationBarComponent {...this.props} />;
   }
 };

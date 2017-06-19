@@ -35,17 +35,6 @@ const navigationHeaderStyle = {
   elevation: 0, // Elevation add side gutter to NavBar
 };
 
-const navigationHeaderBackgroundImageStyle = {
-  flex: 1,
-  flexGrow: 1,
-  left: 0,
-  height: NavigationHeader.HEIGHT,
-  position: 'absolute',
-  right: 0,
-  top: 0,
-  width: Dimensions.get('window').width,
-};
-
 /** @constant string NavigationBarStyleName
  * Both NavigationBar and NavigationBarView are connected to style with same name because
  * they represent same component. If NavigationBar is not connected to style then it can not be
@@ -385,7 +374,7 @@ class NavigationBarView extends PureComponent {
     const { renderBackgroundImage } = this.props;
     if (renderBackgroundImage && _.isFunction(renderBackgroundImage)) {
       this.props.backgroundColor = 'transparent';
-      return renderBackgroundImage();
+      return renderBackgroundImage(this.props);
     }
     return null;
   }
