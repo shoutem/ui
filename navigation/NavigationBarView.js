@@ -7,8 +7,6 @@ import {
   StatusBar,
   Animated,
   NavigationExperimental,
-  Image,
-  Dimensions,
 } from 'react-native';
 
 import { connectStyle } from '@shoutem/theme';
@@ -372,7 +370,7 @@ class NavigationBarView extends PureComponent {
 
   renderBackgroundImage() {
     const { renderBackgroundImage } = this.props;
-    if (renderBackgroundImage && _.isFunction(renderBackgroundImage)) {
+    if (renderBackgroundImage) {
       this.props.backgroundColor = 'transparent';
       return renderBackgroundImage(this.props);
     }

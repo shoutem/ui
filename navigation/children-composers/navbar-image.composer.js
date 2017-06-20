@@ -32,6 +32,8 @@ const navigationHeaderBackgroundImageStyle = {
   },
 };
 
+const imageFitContainer = navBarProps => (NavigationBar.fitContainer || navBarProps.fitContainer);
+
 const interpolateNavBarProps = (navBarProps) => {
   const newProps = {};
   const { animationName } = navBarProps;
@@ -41,26 +43,26 @@ const interpolateNavBarProps = (navBarProps) => {
       animationName: 'solidifyOpacity',
     });
   }
+  _.assign(newProps, {
+    resizeMode: imageFitContainer(navBarProps) ? 'cover' : 'contain',
+    resizeMethod: imageFitContainer(navBarProps) ? 'scale' : 'auto',
+  });
   return newProps;
 };
 
 const NavBarComposer = {
   canCompose(navBarProps) {
-    return (!!NavigationBar.globalNavigationBarImage || !!navBarProps.navigationBarImage);
+    return (!!(NavigationBar.globalNavigationBarImage || navBarProps.navigationBarImage));
   },
   compose(navBarProps) {
     return { renderBackgroundImage() {
-      let navigationBarImage = NavigationBar.globalNavigationBarImage;
-      if (navBarProps && navBarProps.navigationBarImage) {
-        navigationBarImage = navBarProps.navigationBarImage;
-      }
+      const navigationBarImage =
+        (NavigationBar.globalNavigationBarImage || navBarProps.navigationBarImage);
 
       const NavBarImage = (
         <Image
           source={{ uri: navigationBarImage }}
           style={navigationHeaderBackgroundImageStyle}
-          resizeMode="cover"
-          resizeMethod="resize"
           {...interpolateNavBarProps(navBarProps)}
         />
       );
