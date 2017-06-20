@@ -50,24 +50,29 @@ const interpolateNavBarProps = (navBarProps) => {
   return newProps;
 };
 
+const createNavBarComposer = navBarProps =>
+  () => {
+    const navigationBarImage =
+      (NavigationBar.globalNavigationBarImage || navBarProps.navigationBarImage);
+
+    const NavBarImage = (
+      <Image
+        source={{ uri: navigationBarImage }}
+        style={navigationHeaderBackgroundImageStyle}
+        {...interpolateNavBarProps(navBarProps)}
+      />
+    );
+    return NavBarImage;
+  };
+
 const NavBarComposer = {
   canCompose(navBarProps) {
     return (!!(NavigationBar.globalNavigationBarImage || navBarProps.navigationBarImage));
   },
   compose(navBarProps) {
-    return { renderBackgroundImage() {
-      const navigationBarImage =
-        (NavigationBar.globalNavigationBarImage || navBarProps.navigationBarImage);
-
-      const NavBarImage = (
-        <Image
-          source={{ uri: navigationBarImage }}
-          style={navigationHeaderBackgroundImageStyle}
-          {...interpolateNavBarProps(navBarProps)}
-        />
-      );
-      return NavBarImage;
-    } };
+    return {
+      renderBackgroundImage: createNavBarComposer(navBarProps),
+    };
   },
 };
 

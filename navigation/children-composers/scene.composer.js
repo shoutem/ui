@@ -5,6 +5,15 @@ import {
   Icon,
 } from '../../index';
 
+const createSceneComposer = navBarProps =>
+  sceneProps => (
+    <View virtual styleName="container">
+      <Button onPress={sceneProps.onNavigateBack}>
+        <Icon name="back" animationName={navBarProps.animationName} />
+      </Button>
+    </View>
+  );
+
 const SceneComposer = {
   propName: 'scene',
   canCompose(navBarProps) {
@@ -14,15 +23,9 @@ const SceneComposer = {
     return true;
   },
   compose(navBarProps) {
-    return { renderLeftComponent(sceneProps) {
-      return (
-        <View virtual styleName="container">
-          <Button onPress={sceneProps.onNavigateBack}>
-            <Icon name="back" animationName={navBarProps.animationName} />
-          </Button>
-        </View>
-      );
-    } };
+    return {
+      renderLeftComponent: createSceneComposer(navBarProps),
+    };
   },
 };
 
