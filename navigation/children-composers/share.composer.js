@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import {
   View,
   ShareButton,
@@ -6,12 +7,10 @@ import {
 
 const ShareComposer = {
   canCompose(navBarProps) {
-    const value = navBarProps.share;
-    return (value && value.link);
+    return _.get(navBarProps, 'share.link');
   },
   compose(navBarProps) {
-    const value = navBarProps.share;
-    const { title, text, link } = value;
+    const { title, text, link } = navBarProps.share;
 
     return { renderRightComponent() {
       return (
