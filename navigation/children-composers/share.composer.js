@@ -5,20 +5,19 @@ import {
   ShareButton,
 } from '../../index';
 
-const createShareComposer = navBarProps =>
-  () => {
-    const { title, text, link } = navBarProps.share;
-    return (
-      <View virtual styleName="container">
-        <ShareButton
-          animationName={navBarProps.animationName}
-          title={title || navBarProps.title}
-          message={text}
-          url={link}
-        />
-      </View>
-    );
-  };
+const createShareComposer = navBarProps => () => {
+  const { title, text, link } = navBarProps.share;
+  return (
+    <View virtual styleName="container">
+      <ShareButton
+        animationName={navBarProps.animationName}
+        title={title || navBarProps.title}
+        message={text}
+        url={link}
+      />
+    </View>
+  );
+};
 
 const ShareComposer = {
   canCompose(navBarProps) {

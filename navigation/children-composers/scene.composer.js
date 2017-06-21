@@ -5,14 +5,13 @@ import {
   Icon,
 } from '../../index';
 
-const createSceneComposer = navBarProps =>
-  sceneProps => (
-    <View virtual styleName="container">
-      <Button onPress={sceneProps.onNavigateBack}>
-        <Icon name="back" animationName={navBarProps.animationName} />
-      </Button>
-    </View>
-  );
+const createSceneComposer = navBarProps => sceneProps => (
+  <View virtual styleName="container">
+    <Button onPress={sceneProps.onNavigateBack}>
+      <Icon name="back" animationName={navBarProps.animationName} />
+    </Button>
+  </View>
+);
 
 const SceneComposer = {
   propName: 'scene',

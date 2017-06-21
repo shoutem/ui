@@ -47,23 +47,23 @@ const interpolateNavBarProps = (navBarProps) => {
     resizeMode: imageFitContainer(navBarProps) ? 'cover' : 'contain',
     resizeMethod: imageFitContainer(navBarProps) ? 'scale' : 'auto',
   });
+  console.log('image fit container ', imageFitContainer(navBarProps));
   return newProps;
 };
 
-const createNavBarComposer = navBarProps =>
-  () => {
-    const navigationBarImage =
-      (NavigationBar.globalNavigationBarImage || navBarProps.navigationBarImage);
+const createNavBarComposer = navBarProps => () => {
+  const navigationBarImage =
+    (NavigationBar.globalNavigationBarImage || navBarProps.navigationBarImage);
 
-    const NavBarImage = (
-      <Image
-        source={{ uri: navigationBarImage }}
-        style={navigationHeaderBackgroundImageStyle}
-        {...interpolateNavBarProps(navBarProps)}
-      />
-    );
-    return NavBarImage;
-  };
+  const NavBarImage = (
+    <Image
+      source={{ uri: navigationBarImage }}
+      style={navigationHeaderBackgroundImageStyle}
+      {...interpolateNavBarProps(navBarProps)}
+    />
+  );
+  return NavBarImage;
+};
 
 const NavBarComposer = {
   canCompose(navBarProps) {
