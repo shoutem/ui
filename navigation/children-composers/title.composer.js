@@ -4,18 +4,23 @@ import {
   View,
   Title,
 } from '../../index';
-// import { NavigationBar } from '../NavigationBar';
+import { NavigationBar } from '../NavigationBar';
+
+function hasBackgroundImage(navBarProps) {
+  return (NavigationBar.globalNavigationBarImage || navBarProps.navigationBarImage);
+}
 
 /**
  * Check if title should be displayed or now
  * @param {bool} showTitle
  */
-function canShowTitle(navBarProps, showTitle) {
-  if (_.isUndefined(showTitle)) return true;
-  if (navBarProps.navigationBarImage && (showTitle === false)) {
+function canShowTitle(navBarProps) {
+  if (!hasBackgroundImage(navBarProps)) {
+    return true;
+  } else if (hasBackgroundImage(navBarProps) && (NavigationBar.showTitle === false)) {
     return false;
   }
-  return !!showTitle;
+  return NavigationBar.showTitle;
 }
 
 const createTitleComposer = navBarProps => () => {
@@ -32,7 +37,7 @@ const createTitleComposer = navBarProps => () => {
 const TitleComposer = {
   canCompose(navBarProps) {
     const value = navBarProps.title;
-    return (!!value && canShowTitle(navBarProps, navBarProps.showTitle));
+    return (!!value && canShowTitle(navBarProps));
   },
   compose(navBarProps) {
     return {
