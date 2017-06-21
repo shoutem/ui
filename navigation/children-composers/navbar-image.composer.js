@@ -47,7 +47,6 @@ const interpolateNavBarProps = (navBarProps) => {
     resizeMode: imageFitContainer(navBarProps) ? 'cover' : 'contain',
     resizeMethod: imageFitContainer(navBarProps) ? 'scale' : 'auto',
   });
-  console.log('image fit container ', imageFitContainer(navBarProps));
   return newProps;
 };
 
