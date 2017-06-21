@@ -15,6 +15,10 @@ import {
   getSizeRelativeToReference,
 } from '@shoutem/theme';
 
+const {
+  Header: NavigationHeader,
+} = NavigationExperimental;
+
 const window = Dimensions.get('window');
 
 const STATUS_BAR_OFFSET = (Platform.OS === 'android' ? -StatusBar.currentConfig : 0);
@@ -1468,6 +1472,7 @@ export default (variables = defaultThemeVariables) => ({
     navigationBarImage: {
       flex: 1,
       flexGrow: 1,
+      height: NavigationHeader.HEIGHT,
       left: 0,
       solidifyOpacityAnimation(driver) {
         return {
@@ -1481,6 +1486,7 @@ export default (variables = defaultThemeVariables) => ({
       position: 'absolute',
       right: 0,
       top: 0,
+      width: window.width,
     },
   },
 
