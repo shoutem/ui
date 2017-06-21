@@ -14,7 +14,6 @@ const createSceneComposer = navBarProps => sceneProps => (
 );
 
 const SceneComposer = {
-  propName: 'scene',
   canCompose(navBarProps) {
     if (navBarProps.scene.index === 0 || !navBarProps.onNavigateBack) {
       return false;
