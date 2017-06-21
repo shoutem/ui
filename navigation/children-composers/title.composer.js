@@ -4,7 +4,7 @@ import {
   View,
   Title,
 } from '../../index';
-import { NavigationBar } from '../NavigationBar';
+// import { NavigationBar } from '../NavigationBar';
 
 /**
  * Check if title should be displayed or now
@@ -12,8 +12,9 @@ import { NavigationBar } from '../NavigationBar';
  */
 function canShowTitle(navBarProps, showTitle) {
   if (_.isUndefined(showTitle)) return true;
-  if ((NavigationBar.globalNavigationBarImage || navBarProps.navigationBarImage) &&
-      (showTitle === false)) return false;
+  if (navBarProps.navigationBarImage && (showTitle === false)) {
+    return false;
+  }
   return !!showTitle;
 }
 
@@ -32,7 +33,7 @@ const createTitleComposer = navBarProps =>
 const TitleComposer = {
   canCompose(navBarProps) {
     const value = navBarProps.title;
-    return (!!value && canShowTitle(navBarProps, NavigationBar.showTitle));
+    return (!!value && canShowTitle(navBarProps, navBarProps.showTitle));
   },
   compose(navBarProps) {
     return {
