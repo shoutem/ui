@@ -17,7 +17,7 @@ function hasBackgroundImage(navBarProps) {
 function canShowTitle(navBarProps) {
   if (!hasBackgroundImage(navBarProps)) {
     return true;
-  } else if (hasBackgroundImage(navBarProps) && (NavigationBar.showTitle === false)) {
+  } else if (NavigationBar.showTitle === false) {
     return false;
   }
   return NavigationBar.showTitle;

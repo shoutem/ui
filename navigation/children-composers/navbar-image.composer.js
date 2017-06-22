@@ -10,18 +10,17 @@ const interpolateNavBarStyle = navBarProps => (
 );
 
 const interpolateNavBarProps = (navBarProps) => {
-  const newProps = {};
   const { animationName } = navBarProps;
+  const newProps = {
+    resizeMode: imageFitContainer(navBarProps) ? 'cover' : 'contain',
+    resizeMethod: imageFitContainer(navBarProps) ? 'scale' : 'auto',
+  };
 
   if (animationName) {
     _.assign(newProps, {
       animationName: 'solidifyOpacity',
     });
   }
-  _.assign(newProps, {
-    resizeMode: imageFitContainer(navBarProps) ? 'cover' : 'contain',
-    resizeMethod: imageFitContainer(navBarProps) ? 'scale' : 'auto',
-  });
   return newProps;
 };
 
@@ -29,19 +28,18 @@ const createNavBarComposer = navBarProps => () => {
   const navigationBarImage =
     (NavigationBar.globalNavigationBarImage || navBarProps.navigationBarImage);
 
-  const NavBarImage = (
+  return (
     <Image
       source={{ uri: navigationBarImage }}
       style={interpolateNavBarStyle(navBarProps)}
       {...interpolateNavBarProps(navBarProps)}
     />
   );
-  return NavBarImage;
 };
 
 const NavBarComposer = {
   canCompose(navBarProps) {
-    return (!!(NavigationBar.globalNavigationBarImage || navBarProps.navigationBarImage));
+    return !!(NavigationBar.globalNavigationBarImage || navBarProps.navigationBarImage);
   },
   compose(navBarProps) {
     return {

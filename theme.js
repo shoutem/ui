@@ -1468,7 +1468,6 @@ export default (variables = defaultThemeVariables) => ({
       right: 0,
       height: NAVIGATION_BAR_HEIGHT,
     },
-    // @todo Currently, only prepared for real implementation. Needs theme update.
     navigationBarImage: {
       flex: 1,
       flexGrow: 1,
