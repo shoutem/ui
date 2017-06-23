@@ -5,7 +5,7 @@ import {
   Icon,
 } from '../../index';
 
-const createSceneComposer = navBarProps => sceneProps => (
+const createBackButton = navBarProps => sceneProps => (
   <View virtual styleName="container">
     <Button onPress={sceneProps.onNavigateBack}>
       <Icon name="back" animationName={navBarProps.animationName} />
@@ -19,7 +19,7 @@ const SceneComposer = {
   },
   compose(navBarProps) {
     return {
-      renderLeftComponent: createSceneComposer(navBarProps),
+      renderLeftComponent: createBackButton(navBarProps),
     };
   },
 };

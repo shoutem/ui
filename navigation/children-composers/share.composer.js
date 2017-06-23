@@ -5,7 +5,7 @@ import {
   ShareButton,
 } from '../../index';
 
-const createShareComposer = navBarProps => () => {
+const createShareButton = navBarProps => () => {
   const { title, text, link } = navBarProps.share;
   return (
     <View virtual styleName="container">
@@ -25,7 +25,7 @@ const ShareComposer = {
   },
   compose(navBarProps) {
     return {
-      renderRightComponent: createShareComposer(navBarProps),
+      renderRightComponent: createShareButton(navBarProps),
     };
   },
 };

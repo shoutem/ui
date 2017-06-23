@@ -24,7 +24,7 @@ const interpolateNavBarProps = (navBarProps) => {
   return newProps;
 };
 
-const createNavBarComposer = navBarProps => () => {
+const createNavBarBackgroundImage = navBarProps => () => {
   const navigationBarImage =
     (NavigationBar.globalNavigationBarImage || navBarProps.navigationBarImage);
 
@@ -43,7 +43,7 @@ const NavBarComposer = {
   },
   compose(navBarProps) {
     return {
-      renderBackgroundImage: createNavBarComposer(navBarProps),
+      renderBackgroundImage: createNavBarBackgroundImage(navBarProps),
     };
   },
 };

@@ -23,7 +23,7 @@ function canShowTitle(navBarProps) {
   return NavigationBar.showTitle;
 }
 
-const createTitleComposer = navBarProps => () => {
+const createTitle = navBarProps => () => {
   const value = navBarProps.title;
   return (
     <View virtual styleName="container">
@@ -41,7 +41,7 @@ const TitleComposer = {
   },
   compose(navBarProps) {
     return {
-      renderTitleComponent: createTitleComposer(navBarProps),
+      renderTitleComponent: createTitle(navBarProps),
     };
   },
 };
