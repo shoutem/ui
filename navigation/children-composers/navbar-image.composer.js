@@ -18,7 +18,7 @@ const interpolateNavBarProps = (navBarProps) => {
 
   if (animationName) {
     _.assign(newProps, {
-      animationName: 'solidifyOpacity',
+      animationName,
     });
   }
   return newProps;
