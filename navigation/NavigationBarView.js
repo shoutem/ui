@@ -176,9 +176,9 @@ class NavigationBarView extends PureComponent {
           // If the backgroundColor is animated, we want to listen for
           // color changes, so that we can update the bar style as the
           // animation runs.
-          this.backgroundListenerId = addAnimatedValueListener(backgroundColor, () =>
-            this.setStatusBarStyleForBackgroundColor(backgroundColor)
-          );
+          this.backgroundListenerId = addAnimatedValueListener(backgroundColor, () => {
+            this.setStatusBarStyleForBackgroundColor(backgroundColor);
+          });
         }
 
         // Set the bar style based on the current background color value
@@ -206,7 +206,7 @@ class NavigationBarView extends PureComponent {
       // if necessary in `setStatusBarStyle`.
       removeAnimatedValueListener(
         this.props.style.container.backgroundColor,
-        this.backgroundListenerId
+        this.backgroundListenerId,
       );
       this.backgroundListenerId = null;
     }
@@ -368,6 +368,15 @@ class NavigationBarView extends PureComponent {
     return null;
   }
 
+  renderBackgroundImage() {
+    const { renderBackgroundImage } = this.props;
+    if (renderBackgroundImage) {
+      this.props.backgroundColor = 'transparent';
+      return renderBackgroundImage(this.props);
+    }
+    return null;
+  }
+
   render() {
     const { scene } = this.props;
     const { style, hidden, child } = this.resolveSceneProps(scene);
@@ -380,6 +389,7 @@ class NavigationBarView extends PureComponent {
 
     return (
       <Animated.View style={[style.container, this.interpolateNavBarStyle()]}>
+        {this.renderBackgroundImage()}
         {this.renderLinearGradient()}
         <NavigationHeader
           {...this.createNavigationHeaderProps(style)}
