@@ -1473,7 +1473,7 @@ export default (variables = defaultThemeVariables) => ({
       flexGrow: 1,
       height: NavigationHeader.HEIGHT,
       left: 0,
-      solidifyOpacityAnimation(driver) {
+      solidifyAnimation(driver) {
         return {
           opacity: driver.interpolate({
             inputRange: [250, 300],

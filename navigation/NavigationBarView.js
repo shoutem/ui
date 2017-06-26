@@ -368,11 +368,10 @@ class NavigationBarView extends PureComponent {
     return null;
   }
 
-  renderBackgroundImage() {
-    const { renderBackgroundImage } = this.props;
-    if (renderBackgroundImage) {
-      this.props.backgroundColor = 'transparent';
-      return renderBackgroundImage(this.props);
+  renderBackground() {
+    const { renderBackground } = this.props;
+    if (renderBackground) {
+      return renderBackground(this.props);
     }
     return null;
   }
@@ -389,7 +388,7 @@ class NavigationBarView extends PureComponent {
 
     return (
       <Animated.View style={[style.container, this.interpolateNavBarStyle()]}>
-        {this.renderBackgroundImage()}
+        {this.renderBackground()}
         {this.renderLinearGradient()}
         <NavigationHeader
           {...this.createNavigationHeaderProps(style)}

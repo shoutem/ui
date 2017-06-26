@@ -18,7 +18,7 @@ const interpolateNavBarProps = (navBarProps) => {
 
   if (animationName) {
     _.assign(newProps, {
-      animationName: 'solidifyOpacity',
+      animationName,
     });
   }
   return newProps;
@@ -43,7 +43,7 @@ const NavBarComposer = {
   },
   compose(navBarProps) {
     return {
-      renderBackgroundImage: createNavBarBackgroundImage(navBarProps),
+      renderBackground: createNavBarBackgroundImage(navBarProps),
     };
   },
 };
