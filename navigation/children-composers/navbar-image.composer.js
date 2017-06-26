@@ -43,7 +43,7 @@ const NavBarComposer = {
   },
   compose(navBarProps) {
     return {
-      renderBackgroundImage: createNavBarBackgroundImage(navBarProps),
+      renderBackground: createNavBarBackgroundImage(navBarProps),
     };
   },
 };
