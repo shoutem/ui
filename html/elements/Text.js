@@ -1,14 +1,27 @@
 import React from 'react';
 import { Text } from 'react-native';
+import _ from 'lodash';
 
 import { ElementPropTypes, combineMappers, mapElementProps } from '../Html';
 
-function removeNewLines(childElements) {
-  return childElements.filter(child => child !== '\n');
+function isWhiteSpaceWrappedWithText(element) {
+  return _.size(element.childElements) === 1 && isWhiteSpaceString(element.childElements[0]);
+}
+
+function isWhiteSpaceString(element) {
+  return _.isString(element) && element.trim().length === 0;
+}
+
+function isWhiteSpace(element) {
+  return isWhiteSpaceString(element) || isWhiteSpaceWrappedWithText(element);
+}
+
+export function removeWhiteSpace(childElements) {
+  return childElements.filter(child => !isWhiteSpace(child));
 }
 
 export function TextElement(props) {
-  const textualChildElements = removeNewLines(props.childElements);
+  const textualChildElements = removeWhiteSpace(props.childElements);
 
   if (textualChildElements.length === 0) {
     // Even if there is no children to render, the Text must be rendered
