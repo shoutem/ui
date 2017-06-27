@@ -3,6 +3,7 @@ import _ from 'lodash';
 
 import { View } from '../../components/View';
 import { Text } from '../../components/Text';
+import { removeWhiteSpace } from './Text';
 import { TouchableOpacity } from '../../components/TouchableOpacity';
 import { Display } from '../services/ElementRegistry';
 import {
@@ -93,7 +94,8 @@ export const Inline = function (props) {
     return null;
   }
 
-  const children = groupInlineNodes(childElements);
+  const trimmedChildren = removeWhiteSpace(childElements);
+  const children = groupInlineNodes(trimmedChildren);
   const renderedChildren = renderGroupedChildren(children, renderElement);
 
   if (isInline(children)) {
