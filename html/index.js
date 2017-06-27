@@ -20,7 +20,7 @@ import Inline, { InlineSettings } from './elements/Inline';
 import Virtual from './elements/Virtual';
 import Block from './elements/Block';
 import Text from './elements/Text';
-import { Ul, Ol, Li } from './elements/list';
+import { Ul, Ol, Li, Bullet, Number } from './elements/list';
 import Img from './elements/Img';
 import A from './elements/A';
 
@@ -45,6 +45,9 @@ Html.registerElement('section', Virtual);
 // List
 Html.registerElement('ul', Ul);
 Html.registerElement('ol', Ol);
+Html.registerElement('li', Li);
+Html.registerElement('bullet', Bullet, { display: Display.INLINE });
+Html.registerElement('number', Number, { display: Display.INLINE });
 
 // Text base
 Html.registerElement('text', Text, { display: Display.INLINE });
