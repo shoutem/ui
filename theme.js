@@ -1482,6 +1482,9 @@ export default (variables = defaultThemeVariables) => ({
           }),
         };
       },
+      boxingAnimation() {
+        return {};
+      },
       position: 'absolute',
       right: 0,
       top: 0,
