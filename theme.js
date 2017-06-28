@@ -1482,6 +1482,9 @@ export default (variables = defaultThemeVariables) => ({
           }),
         };
       },
+      boxingAnimation() {
+        return {};
+      },
       position: 'absolute',
       right: 0,
       top: 0,
@@ -1983,14 +1986,23 @@ export default (variables = defaultThemeVariables) => ({
     // HTML lists
     ul: {
       container: {},
-      prefix: {}, // Not implemented yet
     },
     ol: {
       container: {},
-      prefix: {},
     },
-    li: {
-      flexDirection: 'row',
+    number: {
+      // Font should be monospace so that item content has same offset
+      // Can not apply width to the Text for some reason
+      fontFamily: Platform.OS === 'ios' ? 'Menlo-Regular' : 'monospace',
+      fontSize: 12,
+    },
+    bullet: {
+    },
+    li: { // Inline element
+      container: {
+      },
+      text: {
+      },
     },
 
     // HTML containers

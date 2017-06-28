@@ -3,6 +3,7 @@ import _ from 'lodash';
 
 import { View } from '../../components/View';
 import { Text } from '../../components/Text';
+import { removeWhiteSpace } from './Text';
 import { TouchableOpacity } from '../../components/TouchableOpacity';
 import { Display } from '../services/ElementRegistry';
 import {
@@ -93,7 +94,15 @@ export const Inline = function (props) {
     return null;
   }
 
-  const children = groupInlineNodes(childElements);
+  // Browsers ignore white space (new lines) around element tags,
+  // we need to remove it here manually so it doesn't get rendered by RN.
+  const trimmedChildren = removeWhiteSpace(childElements);
+
+  // Group inline elements, such as text, so that
+  // it gets shown in the same line. Like concatenation.
+  // Block elements are standalone because they break the line.
+  const children = groupInlineNodes(trimmedChildren);
+
   const renderedChildren = renderGroupedChildren(children, renderElement);
 
   if (isInline(children)) {
