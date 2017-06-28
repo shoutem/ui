@@ -94,8 +94,8 @@ export const Inline = function (props) {
     return null;
   }
 
-  // Remove empty white space lines used in code
-  // just to move new element in the new line.
+  // Browsers ignore white space (new lines) around element tags,
+  // we need to remove it here manually so it doesn't get rendered by RN.
   const trimmedChildren = removeWhiteSpace(childElements);
 
   // Group inline elements, such as text, so that
