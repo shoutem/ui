@@ -23,6 +23,7 @@ import Text from './elements/Text';
 import { Ul, Ol, Li, Bullet, Number } from './elements/list';
 import Img from './elements/Img';
 import A from './elements/A';
+import Br from './elements/Br';
 
 // Text elements with primary inline display
 Html.registerElement('em', Inline, InlineSettings);
@@ -34,6 +35,7 @@ Html.registerElement('span', Inline, InlineSettings);
 // Functional
 Html.registerElement('a', A, InlineSettings);
 Html.registerElement('img', Img);
+Html.registerElement('br', Br, InlineSettings);
 
 // Containers
 Html.registerElement('header', Virtual);
