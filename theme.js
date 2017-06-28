@@ -1482,6 +1482,21 @@ export default (variables = defaultThemeVariables) => ({
           }),
         };
       },
+      boxingAnimation() {
+        return {};
+      },
+      heroAnimation() {
+        return {};
+      },
+      muteAnimation() {
+        return {};
+      },
+      turnAnimation() {
+        return {};
+      },
+      lightsOffAnimation() {
+        return {};
+      },
       position: 'absolute',
       right: 0,
       top: 0,
