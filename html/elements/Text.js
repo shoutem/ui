@@ -21,6 +21,8 @@ export function removeWhiteSpace(childElements) {
 }
 
 export function TextElement(props) {
+  // Remove empty white space lines used just to move element in new line.
+  // Use "p" or "br" to add new line.
   const textualChildElements = removeWhiteSpace(props.childElements);
 
   if (textualChildElements.length === 0) {

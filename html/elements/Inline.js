@@ -94,8 +94,15 @@ export const Inline = function (props) {
     return null;
   }
 
+  // Remove empty white space lines used in code
+  // just to move new element in the new line.
   const trimmedChildren = removeWhiteSpace(childElements);
+
+  // Group inline elements, such as text, so that
+  // it gets shown in the same line. Like concatenation.
+  // Block elements are standalone because they break the line.
   const children = groupInlineNodes(trimmedChildren);
+
   const renderedChildren = renderGroupedChildren(children, renderElement);
 
   if (isInline(children)) {
