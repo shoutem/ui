@@ -34,7 +34,7 @@ export function TextElement(props) {
 
   // Must be the RN Text so that style inheritance chain
   // doesn't break with additional layer.
-  return <Text {...props}> {textualChildElements} </Text>;
+  return <Text {...props}>{textualChildElements}</Text>;
 }
 
 TextElement.propTypes = {
