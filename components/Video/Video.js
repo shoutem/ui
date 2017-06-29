@@ -22,7 +22,7 @@ function createSourceObject(source, playerParams) {
   }
 
   const HTML = `
-    <video width="100%" height="auto" controls  >
+    <video width="100%" height="auto" poster="${poster}" controls  >
        <source src="${url}" >
      </video>
   `;
@@ -51,6 +51,7 @@ class Video extends React.Component {
       uri: PropTypes.string,
     }),
     style: PropTypes.object,
+    poster: PropTypes.string,
   };
 
   static defaultProps = {
