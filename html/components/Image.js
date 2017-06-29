@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Image as RNImage } from 'react-native';
 import { connectStyle } from '@shoutem/theme';
+import _ from 'lodash';
 
 import { Image } from '../../components/Image';
+import { Lightbox } from '../../components/Lightbox';
 
 /**
  * Remote images must have width and height to display correctly.
@@ -54,6 +56,21 @@ export default class HtmlImage extends Component {
     const imageHeight = style.height || (imageWidth / width) * height;
     const { source } = this.props;
 
+    if (_.isEmpty(children)) {
+      // Showing image in the content as element, can be opened (zoomed).
+      return (
+        <Lightbox
+          activeProps={{ styleName: 'preview' }}
+        >
+          <Image
+            {...this.props}
+            source={{ width: imageWidth, height: imageHeight, ...source }}
+          />
+        </Lightbox>
+      );
+    }
+
+    // Showing image as background, can't be opened (zoomed).
     return (
       <Image
         {...this.props}
