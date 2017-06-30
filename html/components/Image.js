@@ -15,6 +15,11 @@ import { Lightbox } from '../../components/Lightbox';
 export default class HtmlImage extends Component {
   static propTypes = {
     ...RNImage.propTypes,
+    zoomable: React.PropTypes.bool,
+  };
+
+  static defaultProps = {
+    zoomable: true,
   };
 
   constructor(props) {
@@ -47,17 +52,22 @@ export default class HtmlImage extends Component {
       return null;
     }
 
-    const imageWidth = style.width;
 
-    if ((!height && (!style.height || !imageWidth)) || !width) {
+    if ((!height && (!style.height || !style.width)) || !width) {
       return null;
     }
 
-    const imageHeight = style.height || (imageWidth / width) * height;
-    const { source } = this.props;
+    // Do not enlarge image.
+    // If image is smaller then image style width,
+    // width that fits the screen best, use actual image width.
+    const imageWidth = width >= style.width ? style.width : width;
 
-    if (_.isEmpty(children)) {
-      // Showing image in the content as element, can be opened (zoomed).
+    const imageHeight = style.height || (imageWidth / width) * height;
+    const { source, zoomable } = this.props;
+
+    if (_.isEmpty(children) && zoomable) {
+      // Showing image as part of the content, can be opened (zoomed).
+      // Not background image (if it has any children)
       return (
         <Lightbox
           activeProps={{ styleName: 'preview' }}
