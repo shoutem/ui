@@ -14,6 +14,7 @@ function Video({ src, thumbnail_url, style }) {
     <Image
       source={{ uri: thumbnail_url }}
       style={style.container}
+      keepRatio={false}
     >
       <View styleName="fill-parent">
         <UIVideo source={{ uri: src }} poster={thumbnail_url} />
