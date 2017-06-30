@@ -16,10 +16,12 @@ export default class HtmlImage extends Component {
   static propTypes = {
     ...RNImage.propTypes,
     zoomable: React.PropTypes.bool,
+    keepRatio: React.PropTypes.bool,
   };
 
   static defaultProps = {
     zoomable: true,
+    keepRatio: true,
   };
 
   constructor(props) {
@@ -44,14 +46,13 @@ export default class HtmlImage extends Component {
   }
 
   render() {
-    const { children, style } = this.props;
+    const { children, style, keepRatio } = this.props;
     const { width, height } = this.state;
 
     if (!style) {
       console.warn('Invalid Html image style. Html image requires style.width.');
       return null;
     }
-
 
     if ((!height && (!style.height || !style.width)) || !width) {
       return null;
@@ -60,7 +61,7 @@ export default class HtmlImage extends Component {
     // Do not enlarge image.
     // If image is smaller then image style width,
     // width that fits the screen best, use actual image width.
-    const imageWidth = width >= style.width ? style.width : width;
+    const imageWidth = keepRatio && width < style.width ? width : style.width;
 
     const imageHeight = style.height || (imageWidth / width) * height;
     const { source, zoomable } = this.props;
