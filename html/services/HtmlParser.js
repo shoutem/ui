@@ -104,7 +104,10 @@ export function parseHtml(html, rootTag = 'div') {
     onclosetag: htmlTree.closeTag,
   });
 
-  parser.write(html.trim());
+  // The browsers ignores new lines so we are striping them.
+  const strippedHtml = html.replace(/\n/g, '').trim();
+
+  parser.write(strippedHtml);
   parser.end();
 
   return htmlTree;
