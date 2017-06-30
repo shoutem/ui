@@ -11,7 +11,7 @@ import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
 import VideoSourceReader from './VideoSourceReader';
 
-function createSourceObject(source, playerParams) {
+function createSourceObject(source, playerParams, poster) {
   const sourceReader = new VideoSourceReader(source.uri, playerParams);
   const url = sourceReader.getUrl();
 
@@ -67,13 +67,14 @@ class Video extends React.Component {
       source,
       style,
       playerParams,
+      poster,
     } = this.props;
 
     return (
       <View style={style.container}>
         <WebView
           style={{width, height}}
-          source={createSourceObject(source, playerParams)}
+          source={createSourceObject(source, playerParams, poster)}
           scrollEnabled={false}
         />
       </View>
