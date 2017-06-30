@@ -3,7 +3,8 @@ import _ from 'lodash';
 
 import { View } from '../../components/View';
 import { Text } from '../../components/Text';
-import { removeWhiteSpace } from './Text';
+import { removeWhiteSpace, isText } from './Text';
+import { isImg } from './Img';
 import { TouchableOpacity } from '../../components/TouchableOpacity';
 import { Display } from '../services/ElementRegistry';
 import {
@@ -31,8 +32,40 @@ function isInline(groupedChildren) {
 }
 
 /**
+ * Get the leaf child of the element
+ * @param element
+ * @returns {*}
+ */
+function getLeafChild(element) {
+  if (!element) {
+    return;
+  }
+  if (_.isString(element) || _.size(element.childElements) === 0) {
+    return element;
+  }
+  return getLeafChild(_.last(element.childElements));
+}
+
+/**
+ * Handle element that breaks the line.
+ * It will add br before the image element.
+ * @param elements Elements to render in the Inline component
+ * @param inlineElements Grouped inline elements
+ * @param nextBlockElement The element which caused the line break
+ */
+function breakLineHandle(elements, inlineElements = [], nextBlockElement) {
+  const lastElement = getLeafChild(_.last(inlineElements));
+
+  if (isImg(nextBlockElement) && isText(lastElement)) {
+    inlineElements.push({ tag: 'br' });
+  }
+
+  elements.push(nextBlockElement);
+}
+
+/**
  * Group connected (in a sequence) inline elements into array,
- * leave block elements.
+ * handle block elements with onBreakLine.
  *
  * For example:
  *  [i,i,i,b,i] => [[i,i,i], b, [i]]
@@ -40,7 +73,7 @@ function isInline(groupedChildren) {
  * @param childElements {Array}
  * @returns {Array}
  */
-function groupInlineNodes(childElements) {
+function groupInlineNodes(childElements, onBreakLine) {
   // eslint-disable-next-line prefer-arrow-callback
   return childElements.reduce(function (result, elem) {
     let last = _.last(result);
@@ -52,7 +85,7 @@ function groupInlineNodes(childElements) {
       }
       last.push(elem);
     } else {
-      result.push(elem);
+      onBreakLine(result, last, elem);
     }
 
     return result;
@@ -60,7 +93,9 @@ function groupInlineNodes(childElements) {
 }
 
 /**
- * @param groupedChildren {Array} List of elements or elements array
+ * @param groupedChildren {Array}
+ *  List of elements and arrays of grouped inline elements.
+ *  Check {@link groupInlineNodes}
  * @param renderElement {Function}
  * @returns {Children} React Children
  */
@@ -68,7 +103,9 @@ function renderGroupedChildren(groupedChildren, renderElement) {
   // eslint-disable-next-line prefer-arrow-callback
   const renderedChildren = groupedChildren.map(function (child) {
     if (_.isArray(child)) {
-      return renderChildElements(child, renderElement);
+      // Inline elements must be wrapped with text to stay in the same line.
+      // Inline elements are grouped in the array, see {@link groupInlineNodes}
+      return <Text>{renderChildElements(child, renderElement)}</Text>;
     }
     return renderElement(child);
   });
@@ -76,6 +113,10 @@ function renderGroupedChildren(groupedChildren, renderElement) {
   return React.Children.toArray(renderedChildren);
 }
 
+// TODO
+// Refactr Inline to the Class component.
+// Implement groupInlineNodes as a method.
+// Add shouldBreakLine prop to get even more flexibility.
 /**
  * Should be used for inline HTML elements.
  * Because of specific RN behavior, the inline component will remain inline
@@ -88,7 +129,7 @@ function renderGroupedChildren(groupedChildren, renderElement) {
  * @constructor
  */
 export const Inline = function (props) {
-  const { childElements, style, renderElement, onPress } = props;
+  const { childElements, style, renderElement, onPress, onBreakLine } = props;
 
   if (childElements.length < 1) {
     return null;
@@ -101,7 +142,7 @@ export const Inline = function (props) {
   // Group inline elements, such as text, so that
   // it gets shown in the same line. Like concatenation.
   // Block elements are standalone because they break the line.
-  const children = groupInlineNodes(trimmedChildren);
+  const children = groupInlineNodes(trimmedChildren, onBreakLine);
 
   const renderedChildren = renderGroupedChildren(children, renderElement);
 
@@ -117,11 +158,16 @@ Inline.defaultProps = {
   style: {},
 };
 
-export const InlineSettings = { display: blockDisplayIfAnyChildIsBlock };
-
 Inline.propTypes = {
   ...ElementPropTypes,
   onPress: React.PropTypes.func,
+  onBreakLine: React.PropTypes.func,
 };
+
+Inline.defaultProps = {
+  onBreakLine: breakLineHandle,
+};
+
+export const InlineSettings = { display: blockDisplayIfAnyChildIsBlock };
 
 export default combineMappers(mapElementProps)(Inline);
