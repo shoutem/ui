@@ -1,6 +1,7 @@
 import React from 'react';
 import { Linking } from 'react-native';
 import { connectStyle } from '@shoutem/theme';
+import _ from 'lodash';
 
 import { ElementPropTypes, combineMappers, mapElementProps } from '../Html';
 import { Inline } from './Inline';
@@ -15,6 +16,7 @@ class A extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.onPress = this.onPress.bind(this);
+    this.renderElement = this.renderElement.bind(this);
   }
 
   onPress() {
@@ -28,11 +30,22 @@ class A extends React.Component {
     handleLinkPress(href);
   }
 
+  renderElement(element, style) {
+    const { renderElement } = this.props;
+
+    if (element.tag === 'img') {
+      const notZoomableImage = _.merge({}, element, { attributes: { zoomable: false } });
+      return renderElement(notZoomableImage, style, renderElement);
+    }
+
+    return renderElement(element, style, renderElement);
+  }
+
   render() {
     // Because the anchor has dynamic display nature
     // it can not use the TouchableOpacity component to wrap the children.
     // The TouchableOpacity component can not be nested within the "Text" component.
-    return <Inline {...this.props} onPress={this.onPress} />;
+    return <Inline {...this.props} onPress={this.onPress} renderElement={this.renderElement} />;
   }
 }
 
