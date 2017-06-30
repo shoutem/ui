@@ -39,7 +39,7 @@ export const viewComponents = [
   'shoutem.ui.Row',
 ];
 
-function dimensionRelativeToIphone(dimension, actualRefVal = window.width) {
+export function dimensionRelativeToIphone(dimension, actualRefVal = window.width) {
   // 375 is iPhone width
   return getSizeRelativeToReference(dimension, 375, actualRefVal);
 }
@@ -2014,7 +2014,15 @@ export default (variables = defaultThemeVariables) => ({
 
     // HTML functional
     video: {
-      // TODO - Create video element
+      container: {
+        // html/components/Image
+        // Used to keep video ratio by thumbnail.
+        // Must have width.
+        width: 300,
+        resizeMode: 'contain',
+        alignSelf: 'center',
+        marginBottom: 20,
+      },
     },
     img: {
       resizeMode: 'contain',
@@ -2024,19 +2032,6 @@ export default (variables = defaultThemeVariables) => ({
       // If both width and height are defined
       // image dimensions are fixed.
       width: 300,
-    },
-
-    'se-attachment': {
-      gallery: {
-        container: {
-          height: dimensionRelativeToIphone(130),
-        },
-      },
-      video: {
-        container: {
-          width: 300,
-        },
-      },
     },
   },
 

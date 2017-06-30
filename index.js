@@ -1,10 +1,10 @@
 import { setDefaultThemeStyle } from './init';
-import getTheme, { defaultThemeVariables } from './theme';
+import getTheme, { defaultThemeVariables, dimensionRelativeToIphone } from './theme';
 
 setDefaultThemeStyle();
 
 // Theme
-export { getTheme, defaultThemeVariables };
+export { getTheme, defaultThemeVariables, dimensionRelativeToIphone };
 
 // Components
 export { View } from './components/View';
