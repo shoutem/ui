@@ -16,6 +16,11 @@ function isWhiteSpace(element) {
   return isWhiteSpaceString(element) || isWhiteSpaceWrappedWithText(element);
 }
 
+export function isText(element) {
+  const elementTag = _.get(element, 'tag');
+  return _.isString(element) || elementTag === 'text';
+}
+
 export function removeWhiteSpace(childElements) {
   return childElements.filter(child => !isWhiteSpace(child));
 }
