@@ -73,6 +73,11 @@ class HtmlTree {
    * @param text
    */
   appendText(text) {
+    // The browsers ignore new lines so we are skipping them as well.
+    const trimmedText = text.trim();
+    if (trimmedText.length === 0) {
+      return;
+    }
     this.addChild('text', undefined, [decodeHtmlEntities(text)]);
   }
 
@@ -104,10 +109,7 @@ export function parseHtml(html, rootTag = 'div') {
     onclosetag: htmlTree.closeTag,
   });
 
-  // The browsers ignores new lines so we are striping them.
-  const strippedHtml = html.replace(/\n/g, '').trim();
-
-  parser.write(strippedHtml);
+  parser.write(html);
   parser.end();
 
   return htmlTree;
