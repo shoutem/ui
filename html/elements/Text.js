@@ -16,6 +16,11 @@ function isWhiteSpace(element) {
   return isWhiteSpaceString(element) || isWhiteSpaceWrappedWithText(element);
 }
 
+export function isText(element) {
+  const elementTag = _.get(element, 'tag');
+  return _.isString(element) || elementTag === 'text';
+}
+
 export function removeWhiteSpace(childElements) {
   return childElements.filter(child => !isWhiteSpace(child));
 }
@@ -34,7 +39,7 @@ export function TextElement(props) {
 
   // Must be the RN Text so that style inheritance chain
   // doesn't break with additional layer.
-  return <Text {...props}> {textualChildElements} </Text>;
+  return <Text {...props}>{textualChildElements}</Text>;
 }
 
 TextElement.propTypes = {

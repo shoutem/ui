@@ -1,7 +1,7 @@
 import React from 'react';
+import _ from 'lodash';
 
-import { View } from '../../components/View';
-import { ElementPropTypes, combineMappers, mapElementProps } from '../Html';
+import { ElementPropTypes, combineMappers, mapElementProps, isBlockElement } from '../Html';
 import { Inline } from './Inline';
 
 /**
@@ -13,13 +13,15 @@ import { Inline } from './Inline';
  * @constructor
  */
 export function Block(props) {
-  const { style } = props;
+  const { style, childElements } = props;
+  const lastChild = _.last(childElements);
 
-  return (
-    <View style={style.container}>
-      <Inline {...props} />
-    </View>
-  );
+  // Wrapper is a block element that contains another block elements as the last leaf child.
+  // In this case, the wrapper element doesn't need the bottom margin because
+  // the last leaf child will add the margin.
+  const styleName = isBlockElement(lastChild) ? 'wrapper' : undefined;
+
+  return <Inline {...props} styleName={styleName} block />;
 }
 
 Block.propTypes = {
