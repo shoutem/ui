@@ -16,12 +16,12 @@ export default class HtmlImage extends Component {
   static propTypes = {
     ...RNImage.propTypes,
     lightbox: React.PropTypes.bool,
-    allowUpScale: React.PropTypes.bool,
+    allowUpscale: React.PropTypes.bool,
   };
 
   static defaultProps = {
     lightbox: true,
-    allowUpScale: false,
+    allowUpscale: false,
   };
 
   constructor(props) {
@@ -46,7 +46,7 @@ export default class HtmlImage extends Component {
   }
 
   render() {
-    const { children, style, allowUpScale } = this.props;
+    const { children, style, allowUpscale } = this.props;
     const { width, height } = this.state;
 
     if (!style) {
@@ -55,16 +55,14 @@ export default class HtmlImage extends Component {
     }
 
     // Image can not be rendered without width and height.
-    // This condition makes sure that the Image has all the needed props
-    // for at least one scale mode to resolve the width and the height.
-    if ((!height && (!style.height || !style.width)) || !width) {
+    if (!height || !width) {
       return null;
     }
 
     // Do not enlarge image.
     // If image is smaller then image style width,
     // width that fits the screen best, use actual image width.
-    const imageWidth = allowUpScale ? style.width : _.min([width, style.width]);
+    const imageWidth = allowUpscale && style.width ? style.width : _.min([width, style.width]);
 
     const imageHeight = style.height || (imageWidth / width) * height;
     const { source, lightbox } = this.props;
