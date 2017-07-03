@@ -1999,9 +1999,11 @@ export default (variables = defaultThemeVariables) => ({
     bullet: {
     },
     li: { // Inline element
+      [INCLUDE]: ['textBlock'],
       container: {
-      },
-      text: {
+        '.block': {
+          marginBottom: 10,
+        },
       },
     },
 
