@@ -36,7 +36,7 @@ class A extends React.Component {
 
     if (isImg(element)) {
       // In the A element image can not be previewed because it opens a link.
-      const inlineImage = _.merge({}, element, { attributes: { allowLightbox: false } });
+      const inlineImage = _.merge({}, element, { attributes: { lightbox: false } });
       return renderElement(inlineImage, style, renderElement);
     }
 
