@@ -19,7 +19,7 @@ export function Block(props) {
   // Wrapper is a block element that contains another block elements as the last leaf child.
   // In this case, the wrapper element doesn't need the bottom margin because
   // the last leaf child will add the margin.
-  const styleName = isBlockElement(lastChild) ? 'wrapper' : undefined;
+  const styleName = lastChild && isBlockElement(lastChild) ? 'wrapper' : undefined;
 
   return <Inline {...props} styleName={styleName} block />;
 }
