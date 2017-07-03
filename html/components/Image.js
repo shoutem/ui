@@ -71,7 +71,8 @@ export default class HtmlImage extends Component {
       // Not background image (if it has any children)
       return (
         <Lightbox
-          activeProps={{ styleName: 'preview' }}
+          activeProps={{ styleName: 'preview wrapper' }}
+          styleName="wrapper"
         >
           <Image
             {...this.props}

@@ -2029,10 +2029,13 @@ export default (variables = defaultThemeVariables) => ({
     img: {
       resizeMode: 'contain',
       alignSelf: 'center',
+      marginBottom: 20,
       // Image height is calculated to respect
       // image ratio depending on width.
       // If both width and height are defined
       // image dimensions are fixed.
+      // If image width is smaller then style width
+      // it will not rescale.
       width: 300,
     },
   },
