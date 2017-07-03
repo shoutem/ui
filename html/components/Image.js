@@ -15,13 +15,13 @@ import { Lightbox } from '../../components/Lightbox';
 export default class HtmlImage extends Component {
   static propTypes = {
     ...RNImage.propTypes,
-    zoomable: React.PropTypes.bool,
-    keepRatio: React.PropTypes.bool,
+    lightbox: React.PropTypes.bool,
+    allowUpScale: React.PropTypes.bool,
   };
 
   static defaultProps = {
-    zoomable: true,
-    keepRatio: true,
+    lightbox: true,
+    allowUpScale: false,
   };
 
   constructor(props) {
@@ -46,7 +46,7 @@ export default class HtmlImage extends Component {
   }
 
   render() {
-    const { children, style, keepRatio } = this.props;
+    const { children, style, allowUpScale } = this.props;
     const { width, height } = this.state;
 
     if (!style) {
@@ -54,6 +54,9 @@ export default class HtmlImage extends Component {
       return null;
     }
 
+    // Image can not be rendered without width and height.
+    // This condition makes sure that the Image has all the needed props
+    // for at least one scale mode to resolve the width and the height.
     if ((!height && (!style.height || !style.width)) || !width) {
       return null;
     }
@@ -61,12 +64,12 @@ export default class HtmlImage extends Component {
     // Do not enlarge image.
     // If image is smaller then image style width,
     // width that fits the screen best, use actual image width.
-    const imageWidth = keepRatio && width < style.width ? width : style.width;
+    const imageWidth = allowUpScale ? style.width : _.min([width, style.width]);
 
     const imageHeight = style.height || (imageWidth / width) * height;
-    const { source, zoomable } = this.props;
+    const { source, lightbox } = this.props;
 
-    if (_.isEmpty(children) && zoomable) {
+    if (_.isEmpty(children) && lightbox) {
       // Showing image as part of the content, can be opened (zoomed).
       // Not background image (if it has any children)
       return (

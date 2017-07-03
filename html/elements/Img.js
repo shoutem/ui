@@ -9,14 +9,14 @@ export function isImg(element) {
   return _.get(element, 'tag') === 'img';
 }
 
-function Img({ src, style, zoomable }) {
+function Img({ src, style, lightbox }) {
   const source = { uri: src };
 
   return (
     <Image
       source={source}
       style={style}
-      zoomable={zoomable}
+      lightbox={lightbox}
     />
   );
 }

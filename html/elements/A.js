@@ -4,6 +4,7 @@ import { connectStyle } from '@shoutem/theme';
 import _ from 'lodash';
 
 import { ElementPropTypes, combineMappers, mapElementProps } from '../Html';
+import { isImg } from '../elements/Img';
 import { Inline } from './Inline';
 
 class A extends React.Component {
@@ -33,9 +34,10 @@ class A extends React.Component {
   renderElement(element, style) {
     const { renderElement } = this.props;
 
-    if (element.tag === 'img') {
-      const notZoomableImage = _.merge({}, element, { attributes: { zoomable: false } });
-      return renderElement(notZoomableImage, style, renderElement);
+    if (isImg(element)) {
+      // In the A element image can not be previewed because it opens a link.
+      const inlineImage = _.merge({}, element, { attributes: { allowLightbox: false } });
+      return renderElement(inlineImage, style, renderElement);
     }
 
     return renderElement(element, style, renderElement);

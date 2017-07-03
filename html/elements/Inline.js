@@ -36,14 +36,14 @@ function onlyInlineChildren(groupedChildren) {
  * @param element
  * @returns {*}
  */
-function getLeafChild(element) {
+function getRightmostLeafChild(element) {
   if (!element) {
     return;
   }
   if (_.isString(element) || _.size(element.childElements) === 0) {
     return element;
   }
-  return getLeafChild(_.last(element.childElements));
+  return getRightmostLeafChild(_.last(element.childElements));
 }
 
 /**
@@ -53,8 +53,8 @@ function getLeafChild(element) {
  * @param inlineElements Grouped inline elements
  * @param nextBlockElement The element which caused the line break
  */
-function breakLineHandle(elements, inlineElements = [], nextBlockElement) {
-  const lastElement = getLeafChild(_.last(inlineElements));
+function handleLineBreak(elements, inlineElements = [], nextBlockElement) {
+  const lastElement = getRightmostLeafChild(_.last(inlineElements));
 
   if (isImg(nextBlockElement) && isText(lastElement)) {
     inlineElements.push({ tag: 'br' });
@@ -65,7 +65,7 @@ function breakLineHandle(elements, inlineElements = [], nextBlockElement) {
 
 /**
  * Group connected (in a sequence) inline elements into array,
- * handle block elements with onBreakLine.
+ * handle block elements with onLineBreak.
  *
  * For example:
  *  [i,i,i,b,i] => [[i,i,i], b, [i]]
@@ -73,7 +73,7 @@ function breakLineHandle(elements, inlineElements = [], nextBlockElement) {
  * @param childElements {Array}
  * @returns {Array}
  */
-function groupInlineNodes(childElements, onBreakLine) {
+function groupInlineNodes(childElements, onLineBreak) {
   // eslint-disable-next-line prefer-arrow-callback
   return childElements.reduce(function (result, elem) {
     let last = _.last(result);
@@ -85,7 +85,7 @@ function groupInlineNodes(childElements, onBreakLine) {
       }
       last.push(elem);
     } else {
-      onBreakLine(result, last, elem);
+      onLineBreak(result, last, elem);
     }
 
     return result;
@@ -130,7 +130,7 @@ function renderGroupedChildren(groupedChildren, renderElement) {
  * @constructor
  */
 export const Inline = function (props) {
-  const { childElements, style, renderElement, onPress, onBreakLine, styleName, block } = props;
+  const { childElements, style, renderElement, onPress, onLineBreak, styleName, block } = props;
 
   if (childElements.length < 1) {
     return null;
@@ -143,7 +143,7 @@ export const Inline = function (props) {
   // Group inline elements, such as text, so that
   // it gets shown in the same line. Like concatenation.
   // Block elements are standalone because they break the line.
-  const children = groupInlineNodes(trimmedChildren, onBreakLine);
+  const children = groupInlineNodes(trimmedChildren, onLineBreak);
 
   let content = renderGroupedChildren(children, renderElement);
 
@@ -175,11 +175,11 @@ Inline.defaultProps = {
 Inline.propTypes = {
   ...ElementPropTypes,
   onPress: React.PropTypes.func,
-  onBreakLine: React.PropTypes.func,
+  onLineBreak: React.PropTypes.func,
 };
 
 Inline.defaultProps = {
-  onBreakLine: breakLineHandle,
+  onLineBreak: handleLineBreak,
 };
 
 export const InlineSettings = { display: blockDisplayIfAnyChildIsBlock };
