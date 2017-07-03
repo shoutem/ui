@@ -78,7 +78,7 @@ class Html extends Component {
    */
   getElementStyle({ tag }) {
     const { style } = this.props;
-    return _.get(style, tag);
+    return _.get(style, tag, {});
   }
 
   /**
@@ -101,7 +101,9 @@ class Html extends Component {
     // Custom renderElement for the specific Html implementation
     // has advantage over the "global". If custom renderElement rendered
     // a component that component will be used, otherwise fallback to "global".
-    if (!renderedElement) {
+    // Render element must be undefined to fallback to default,
+    // null is a valid RN type to render.
+    if (_.isUndefined(renderedElement)) {
       const ElementComponent = getElementProperty(element, 'component');
 
       if (!ElementComponent) {

@@ -11,24 +11,7 @@ import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
 import VideoSourceReader from './VideoSourceReader';
 
-const propTypes = {
-  width: PropTypes.number,
-  height: PropTypes.number,
-  // `playerParams` currently only works for Youtube
-  playerParams: PropTypes.object,
-  source: PropTypes.shape({
-    uri: PropTypes.string,
-  }),
-  style: PropTypes.object,
-};
-
-const defaultProps = {
-  playerParams: {
-    showinfo: 0,
-  },
-};
-
-function createSourceObject(source, playerParams) {
+function createSourceObject(source, playerParams, poster) {
   const sourceReader = new VideoSourceReader(source.uri, playerParams);
   const url = sourceReader.getUrl();
 
@@ -39,7 +22,7 @@ function createSourceObject(source, playerParams) {
   }
 
   const HTML = `
-    <video width="100%" height="auto" controls  >
+    <video width="100%" height="auto" poster="${poster}" controls  >
        <source src="${url}" >
      </video>
   `;
@@ -58,29 +41,49 @@ function createSourceObject(source, playerParams) {
  *
  * @returns {*}
  */
-function Video({
-  width,
-  height,
-  source,
-  style,
-  playerParams,
-}) {
-  return (
-    <View style={style.container}>
-      <WebView
-        style={{ width, height }}
-        source={createSourceObject(source, playerParams)}
-        scrollEnabled={false}
-      />
-    </View>
-  );
+class Video extends React.Component {
+  static propTypes = {
+    width: PropTypes.number,
+    height: PropTypes.number,
+    // `playerParams` currently only works for Youtube
+    playerParams: PropTypes.object,
+    source: PropTypes.shape({
+      uri: PropTypes.string,
+    }),
+    style: PropTypes.object,
+    poster: PropTypes.string,
+  };
+
+  static defaultProps = {
+    playerParams: {
+      showinfo: 0,
+    },
+  };
+
+  render() {
+    const {
+      width,
+      height,
+      source,
+      style,
+      playerParams,
+      poster,
+    } = this.props;
+
+    return (
+      <View style={style.container}>
+        <WebView
+          style={{width, height}}
+          source={createSourceObject(source, playerParams, poster)}
+          scrollEnabled={false}
+        />
+      </View>
+    );
+  }
 }
 
-Video.propTypes = propTypes;
-Video.defaultProps = defaultProps;
-
 const AnimatedVideo = connectAnimation(Video);
-const StyledVideo = connectStyle('shoutem.ui.Video', {})(AnimatedVideo);
+const StyledVideo = connectStyle('shoutem.ui.Video')(AnimatedVideo);
 
 export {
   StyledVideo as Video,

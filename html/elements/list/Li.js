@@ -12,15 +12,16 @@ import { Inline } from '../Inline';
  * @param style {Object}
  * @returns {Component}
  */
-function Li({ childElements, renderElement, prefix, style }) {
+function Li({ element, renderElement, style }) {
+  const { childElements, attributes: { key } } = element;
   return (
-    <View style={style}>
-      {prefix || null}
-      <Inline
-        childElements={childElements}
-        renderElement={renderElement}
-      />
-    </View>
+    <Inline
+      style={style}
+      key={key}
+      childElements={childElements}
+      renderElement={renderElement}
+      block
+    />
   );
 }
 

@@ -16,7 +16,7 @@ export class FormComponents extends Component {
     super();
     this.state = {
       switchOn: false,
-    }
+    };
   }
 
   render() {
@@ -26,18 +26,20 @@ export class FormComponents extends Component {
       <View styleName="vertical collapsed">
         <Stage title="TextInput / Full width">
           <TextInput
+            styleName="stretch"
             placeholder="Username or Email"
           />
         </Stage>
         <Stage title="TextInput  / Full width secure entry">
           <TextInput
+            styleName="stretch"
             placeholder="Password"
             secureTextEntry
           />
         </Stage>
         <Stage title="Input with label">
           <FormGroup styleName="stretch">
-            <Caption>Name</Caption>
+            <Caption>NAME</Caption>
             <TextInput
               placeholder="Username or Emaill"
             />

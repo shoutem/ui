@@ -73,7 +73,12 @@ class HtmlTree {
    * @param text
    */
   appendText(text) {
-    this.addChild('text', undefined, [decodeHtmlEntities(text)]);
+    const trimmedText = text.trim();
+    if (trimmedText.length === 0) {
+      // Whitespace around element tags is ignored
+      return;
+    }
+    this.addChild('text', undefined, [decodeHtmlEntities(trimmedText)]);
   }
 
   getParent() {
@@ -104,7 +109,10 @@ export function parseHtml(html, rootTag = 'div') {
     onclosetag: htmlTree.closeTag,
   });
 
-  parser.write(html.trim());
+  // The browsers ignore new lines so we are skipping them as well.
+  const strippedHtml = html.replace(/\n/g, ' ').trim();
+
+  parser.write(strippedHtml);
   parser.end();
 
   return htmlTree;

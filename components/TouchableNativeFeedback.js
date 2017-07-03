@@ -3,34 +3,37 @@ import { TouchableNativeFeedback as RNTouchableNativeFeedback } from 'react-nati
 
 import { connectStyle } from '@shoutem/theme';
 
-function TouchableNativeFeedback(props) {
-  // Remove the props that are not valid
-  // style keys.
-  const style = {
-    ...props.style,
+class TouchableNativeFeedback extends React.Component {
+  static propTypes = {
+    ...RNTouchableNativeFeedback.propTypes,
+    style: PropTypes.shape({
+      background: PropTypes.object,
+      useForeground: PropTypes.bool,
+    }),
   };
-  delete style.background;
-  delete style.useForeground;
 
-  return (
-    <RNTouchableNativeFeedback
-      {...props}
-      style={style}
-      background={props.style.background}
-      useForeground={props.style.useForeground}
-    >
-      {props.children}
-    </RNTouchableNativeFeedback>
-  );
+  render() {
+    const props = this.props;
+    // Remove the props that are not valid
+    // style keys.
+    const style = {
+      ...props.style,
+    };
+    delete style.background;
+    delete style.useForeground;
+
+    return (
+      <RNTouchableNativeFeedback
+        {...props}
+        style={style}
+        background={props.style.background}
+        useForeground={props.style.useForeground}
+      >
+        {props.children}
+      </RNTouchableNativeFeedback>
+    );
+  }
 }
-
-TouchableNativeFeedback.propTypes = {
-  ...RNTouchableNativeFeedback.propTypes,
-  style: PropTypes.shape({
-    background: PropTypes.object,
-    useForeground: PropTypes.bool,
-  }),
-};
 
 const StyledTouchableNativeFeedback =
   connectStyle('shoutem.ui.TouchableNativeFeedback')(TouchableNativeFeedback);

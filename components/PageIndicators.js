@@ -63,7 +63,9 @@ class PageIndicators extends Component {
         indicatorStyle = 'selected';
       }
 
-      pageIndicators.push(this.renderPageIndicator(i, maxIndicatorsCount, activeIndex, indicatorStyle));
+      pageIndicators.push(
+        this.renderPageIndicator(i, maxIndicatorsCount, activeIndex, indicatorStyle)
+      );
     }
 
     return (

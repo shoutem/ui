@@ -80,7 +80,7 @@ export class DropDownMenus extends Component {
           />
         </Stage>
         <Stage title="Dropdown (inside a form group)">
-          <FormGroup>
+          <FormGroup styleName="stretch">
             <Caption>CATEGORY</Caption>
             <DropDownMenu
               styleName={selectedOptionForFormGroupDropdown.id ? '' : 'empty'}

@@ -57,7 +57,7 @@ export function Buttons() {
 
       <Stage title="Button / Navbar">
         <Button styleName="textual">
-          <Icon name="add-to-favorites-full" />
+          <Icon name="add-to-favorites-on" />
         </Button>
       </Stage>
 
@@ -71,11 +71,11 @@ export function Buttons() {
       <Stage title="Button / Full width - Normal">
         <View styleName="horizontal flexible">
           <Button styleName="full-width muted">
-            <Icon name="add-to-favorites-full" />
+            <Icon name="add-to-favorites-on" />
             <Text>LIKE</Text>
           </Button>
           <Button styleName="full-width muted">
-            <Icon name="comment-full" />
+            <Icon name="comment" />
             <Text>COMMENT</Text>
           </Button>
         </View>
@@ -84,11 +84,11 @@ export function Buttons() {
       <Stage title="Button / Full width - Active (Feed)">
         <View styleName="horizontal flexible">
           <Button styleName="full-width">
-            <Icon name="add-to-favorites-full" />
+            <Icon name="add-to-favorites-on" />
             <Text>LIKE</Text>
           </Button>
           <Button styleName="full-width">
-            <Icon name="comment-full" />
+            <Icon name="comment" />
             <Text>COMMENT</Text>
           </Button>
         </View>

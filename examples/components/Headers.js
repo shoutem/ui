@@ -26,7 +26,7 @@ export function Headers() {
 
       <Stage title="Header / Shop item">
         <Tile styleName="text-centric">
-          <Overlay><Heading>-20%</Heading></Overlay>
+          <Overlay styleName="image-overlay"><Heading>-20%</Heading></Overlay>
           <Title styleName="md-gutter-top">COOL BLACK AND WHITE STYLISH WATCHES</Title>
           <Subtitle styleName="line-through sm-gutter-top">$280.00</Subtitle>
           <Heading>$250.00</Heading>
@@ -46,7 +46,7 @@ export function Headers() {
       <Stage title="Header / Products item">
         <Tile styleName="text-centric">
           <Title styleName="md-gutter-bottom">SMOKED SALMON, CLASSIC CONDIMENTS, BRIOCHE</Title>
-          <Overlay>
+          <Overlay styleName="image-overlay">
             <Subtitle styleName="sm-gutter-horizontal">$18.30</Subtitle>
           </Overlay>
         </Tile>
