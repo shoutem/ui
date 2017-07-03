@@ -1,7 +1,7 @@
 import React from 'react';
+import _ from 'lodash';
 
-import { View } from '../../components/View';
-import { ElementPropTypes, combineMappers, mapElementProps } from '../Html';
+import { ElementPropTypes, combineMappers, mapElementProps, isBlockElement } from '../Html';
 import { Inline } from './Inline';
 
 /**
@@ -13,13 +13,12 @@ import { Inline } from './Inline';
  * @constructor
  */
 export function Block(props) {
-  const { style } = props;
+  const { style, childElements } = props;
+  const lastChild = _.last(childElements);
 
-  return (
-    <View style={style.container}>
-      <Inline {...props} />
-    </View>
-  );
+  const styleName = isBlockElement(lastChild) ? 'wrapper' : undefined;
+
+  return <Inline {...props} styleName={styleName} block />;
 }
 
 Block.propTypes = {

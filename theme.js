@@ -1864,9 +1864,14 @@ export default (variables = defaultThemeVariables) => ({
   //
   // Html
   //
-  textBlock: {
+  textBlock: { // Inline element
     container: {
-      marginBottom: 20,
+      '.wrapper': {
+        marginBottom: 0,
+      },
+      '.block': {
+        marginBottom: 20,
+      },
     },
     text: {
     },

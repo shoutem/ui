@@ -26,7 +26,7 @@ export const blockDisplayIfAnyChildIsBlock = function (element) {
  * @param groupedChildren {Array}
  * @returns {boolean}
  */
-function isInline(groupedChildren) {
+function onlyInlineChildren(groupedChildren) {
   const last = _.last(groupedChildren);
   return groupedChildren.length === 1 && _.isArray(last);
 }
@@ -105,7 +105,8 @@ function renderGroupedChildren(groupedChildren, renderElement) {
     if (_.isArray(child)) {
       // Inline elements must be wrapped with text to stay in the same line.
       // Inline elements are grouped in the array, see {@link groupInlineNodes}
-      return <Text>{renderChildElements(child, renderElement)}</Text>;
+      const renderedChild = renderChildElements(child, renderElement);
+      return _.isEmpty(renderedChild) ? null : <Text>{renderedChild}</Text>;
     }
     return renderElement(child);
   });
@@ -129,7 +130,7 @@ function renderGroupedChildren(groupedChildren, renderElement) {
  * @constructor
  */
 export const Inline = function (props) {
-  const { childElements, style, renderElement, onPress, onBreakLine } = props;
+  const { childElements, style, renderElement, onPress, onBreakLine, styleName, block } = props;
 
   if (childElements.length < 1) {
     return null;
@@ -144,14 +145,26 @@ export const Inline = function (props) {
   // Block elements are standalone because they break the line.
   const children = groupInlineNodes(trimmedChildren, onBreakLine);
 
-  const renderedChildren = renderGroupedChildren(children, renderElement);
+  let content = renderGroupedChildren(children, renderElement);
 
-  if (isInline(children)) {
-    return <Text style={style.text} onPress={onPress}>{renderedChildren}</Text>;
+  if (onlyInlineChildren(children)) {
+    content = (
+      <Text style={style.text} onPress={onPress} styleName={styleName}>
+        {content}
+      </Text>
+    );
+  }
+
+  if (!block) {
+    return content;
   }
 
   const Container = onPress ? TouchableOpacity : View;
-  return <Container style={style.container} onPress={onPress}>{renderedChildren}</Container>;
+  return (
+    <Container style={style.container} onPress={onPress} styleName={`block ${styleName}`}>
+      {content}
+    </Container>
+  );
 };
 
 Inline.defaultProps = {
