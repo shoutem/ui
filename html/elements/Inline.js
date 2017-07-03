@@ -115,7 +115,7 @@ function renderGroupedChildren(groupedChildren, renderElement) {
 }
 
 // TODO
-// Refactr Inline to the Class component.
+// Refactor Inline to be the Class component.
 // Implement groupInlineNodes as a method.
 // Add shouldBreakLine prop to get even more flexibility.
 /**
@@ -153,10 +153,11 @@ export const Inline = function (props) {
         {content}
       </Text>
     );
-  }
 
-  if (!block) {
-    return content;
+    // TODO - standardize block behavior
+    if (!block) {
+      return content;
+    }
   }
 
   const Container = onPress ? TouchableOpacity : View;
