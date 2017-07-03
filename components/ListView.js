@@ -143,7 +143,7 @@ class ListView extends React.Component {
    */
   getPropsToPass() {
     const props = this.props;
-    const mappedProps = _.omit(_.pick(props, scrollViewProps), ['style']);
+    const mappedProps = _.omit(props, ['style']);
 
     // configuration
     // default load more threshold
