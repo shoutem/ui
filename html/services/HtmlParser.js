@@ -24,6 +24,25 @@ function createElementNode(tag, attributes = {}, childElements = [], parent) {
 }
 
 /**
+ * Try to handle new lines as the browsers.
+ * All new lines beside the ones next to the < or > will be replaced with the whitespace.
+ * Those next to the < and > will be replaced with the empty string so that paragraph doesn't
+ * start with the whitespace.
+ * @param html
+ */
+function stripNewLines(html) {
+  return html.replace(/(>\n)|(\n<)|(\n)/g, (match) => {
+      if (/>\n/.test(match)) {
+        return '>';
+      } else if (/\n</.test(match)) {
+        return '<';
+      }
+      return ' ';
+    }
+  ).trim();
+}
+
+/**
  * Use to create (save) a HTML tree copy out of element nodes
  * by recursively going through the HTML tree,
  * from a root node to the last child of the tree.
@@ -78,7 +97,7 @@ class HtmlTree {
       // Whitespace around element tags is ignored
       return;
     }
-    this.addChild('text', undefined, [decodeHtmlEntities(trimmedText)]);
+    this.addChild('text', undefined, [decodeHtmlEntities(text)]);
   }
 
   getParent() {
@@ -110,7 +129,7 @@ export function parseHtml(html, rootTag = 'div') {
   });
 
   // The browsers ignore new lines so we are skipping them as well.
-  const strippedHtml = html.replace(/\n/g, ' ').trim();
+  const strippedHtml = stripNewLines(html);
 
   parser.write(strippedHtml);
   parser.end();
