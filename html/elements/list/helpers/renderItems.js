@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { createElementNode } from '../../../services/HtmlParser';
 
 export default function renderItems(childElements, renderElement, createPrefixElement) {
-  return _.reduce(childElements, (items, element, index) => {
+  const renderedComponents = _.reduce(childElements, (items, element, index) => {
     const { childElements: itemChildElements } = element;
 
     const prefix = createPrefixElement ? createPrefixElement(element, index) : null;
@@ -18,4 +18,6 @@ export default function renderItems(childElements, renderElement, createPrefixEl
     items.push(renderElement(elem));
     return items;
   }, []);
+
+  return React.Children.toArray(renderedComponents);
 }

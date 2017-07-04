@@ -20,6 +20,7 @@ function Li({ element, renderElement, style }) {
       key={key}
       childElements={childElements}
       renderElement={renderElement}
+      block
     />
   );
 }

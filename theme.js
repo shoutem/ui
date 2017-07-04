@@ -39,7 +39,7 @@ export const viewComponents = [
   'shoutem.ui.Row',
 ];
 
-function dimensionRelativeToIphone(dimension, actualRefVal = window.width) {
+export function dimensionRelativeToIphone(dimension, actualRefVal = window.width) {
   // 375 is iPhone width
   return getSizeRelativeToReference(dimension, 375, actualRefVal);
 }
@@ -1864,9 +1864,14 @@ export default (variables = defaultThemeVariables) => ({
   //
   // Html
   //
-  textBlock: {
+  textBlock: { // Inline element
     container: {
-      marginBottom: 20,
+      '.wrapper': {
+        marginBottom: 0,
+      },
+      '.block': {
+        marginBottom: 20,
+      },
     },
     text: {
     },
@@ -1999,9 +2004,11 @@ export default (variables = defaultThemeVariables) => ({
     bullet: {
     },
     li: { // Inline element
+      [INCLUDE]: ['textBlock'],
       container: {
-      },
-      text: {
+        '.block': {
+          marginBottom: 10,
+        },
       },
     },
 
@@ -2014,29 +2021,27 @@ export default (variables = defaultThemeVariables) => ({
 
     // HTML functional
     video: {
-      // TODO - Create video element
+      container: {
+        // html/components/Image
+        // Used to keep video ratio by thumbnail.
+        // Must have width.
+        width: 300,
+        resizeMode: 'contain',
+        alignSelf: 'center',
+        marginBottom: 20,
+      },
     },
     img: {
       resizeMode: 'contain',
       alignSelf: 'center',
+      marginBottom: 20,
       // Image height is calculated to respect
       // image ratio depending on width.
       // If both width and height are defined
       // image dimensions are fixed.
+      // If image width is smaller then style width
+      // it will not rescale.
       width: 300,
-    },
-
-    'se-attachment': {
-      gallery: {
-        container: {
-          height: dimensionRelativeToIphone(130),
-        },
-      },
-      video: {
-        container: {
-          width: 300,
-        },
-      },
     },
   },
 
