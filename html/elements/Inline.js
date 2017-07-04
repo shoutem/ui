@@ -163,7 +163,7 @@ export class Inline extends React.Component {
   render() {
     const { childElements, style, onPress, onLineBreak, styleName, block } = this.props;
 
-    if (childElements.length < 1) {
+    if (_.isEmpty(childElements)) {
       return null;
     }
 
