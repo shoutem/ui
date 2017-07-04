@@ -99,14 +99,14 @@ function groupInlineNodes(childElements, onLineBreak) {
  * @param renderElement {Function}
  * @returns {Children} React Children
  */
-function renderGroupedChildren(groupedChildren, renderElement) {
+function renderGroupedChildren(groupedChildren, renderElement, style) {
   // eslint-disable-next-line prefer-arrow-callback
   const renderedChildren = groupedChildren.map(function (child) {
     if (_.isArray(child)) {
       // Inline elements must be wrapped with text to stay in the same line.
       // Inline elements are grouped in the array, see {@link groupInlineNodes}
       const renderedChild = renderChildElements(child, renderElement);
-      return _.isEmpty(renderedChild) ? null : <Text>{renderedChild}</Text>;
+      return _.isEmpty(renderedChild) ? null : <Text style={style.text}>{renderedChild}</Text>;
     }
     return renderElement(child);
   });
@@ -115,7 +115,6 @@ function renderGroupedChildren(groupedChildren, renderElement) {
 }
 
 // TODO
-// Refactor Inline to be the Class component.
 // Implement groupInlineNodes as a method.
 // Add shouldBreakLine prop to get even more flexibility.
 /**
@@ -129,58 +128,80 @@ function renderGroupedChildren(groupedChildren, renderElement) {
  * @returns {component}
  * @constructor
  */
-export const Inline = function (props) {
-  const { childElements, style, renderElement, onPress, onLineBreak, styleName, block } = props;
+export class Inline extends React.Component {
+  static defaultProps = {
+    style: {},
+  };
 
-  if (childElements.length < 1) {
-    return null;
+  static propTypes = {
+    ...ElementPropTypes,
+    onPress: React.PropTypes.func,
+    onLineBreak: React.PropTypes.func,
+  };
+
+  static defaultProps = {
+    onLineBreak: handleLineBreak,
+  };
+
+  renderGroupedChildren(groupedChildren) {
+    const { style, renderElement } = this.props;
+    // eslint-disable-next-line prefer-arrow-callback
+    const renderedChildren = groupedChildren.map(function (child) {
+      if (_.isArray(child)) {
+        // Inline elements must be wrapped with text to stay in the same line.
+        // Inline elements are grouped in the array, see {@link groupInlineNodes}
+        const renderedChild = renderChildElements(child, renderElement);
+        // It is important to style a text here so that it has the right style.
+        return _.isEmpty(renderedChild) ? null : <Text style={style.text}>{renderedChild}</Text>;
+      }
+      return renderElement(child);
+    });
+
+    return React.Children.toArray(renderedChildren);
   }
 
-  // Browsers ignore white space (new lines) around element tags,
-  // we need to remove it here manually so it doesn't get rendered by RN.
-  const trimmedChildren = removeWhiteSpace(childElements);
+  render() {
+    const { childElements, style, onPress, onLineBreak, styleName, block } = this.props;
 
-  // Group inline elements, such as text, so that
-  // it gets shown in the same line. Like concatenation.
-  // Block elements are standalone because they break the line.
-  const children = groupInlineNodes(trimmedChildren, onLineBreak);
-
-  let content = renderGroupedChildren(children, renderElement);
-
-  if (onlyInlineChildren(children)) {
-    content = (
-      <Text style={style.text} onPress={onPress} styleName={styleName}>
-        {content}
-      </Text>
-    );
-
-    // TODO - standardize block behavior
-    if (!block) {
-      return content;
+    if (childElements.length < 1) {
+      return null;
     }
+
+    // Browsers ignore white space (new lines) around element tags,
+    // we need to remove it here manually so it doesn't get rendered by RN.
+    const trimmedChildren = removeWhiteSpace(childElements);
+
+    // TODO - save prepared children (trimmed and grouped) in the state
+    // Group inline elements, such as text, so that
+    // it gets shown in the same line. Like concatenation.
+    // Block elements are standalone because they break the line.
+    const children = groupInlineNodes(trimmedChildren, onLineBreak);
+
+    let content = this.renderGroupedChildren(children);
+
+    if (onlyInlineChildren(children)) {
+      // Group textual nodes together.
+      // Used for right text wrapping.
+      content = (
+        <Text onPress={onPress} styleName={styleName}>
+          {content}
+        </Text>
+      );
+
+      // TODO - standardize block behavior
+      if (!block) {
+        return content;
+      }
+    }
+
+    const Container = onPress ? TouchableOpacity : View;
+    return (
+      <Container style={style.container} onPress={onPress} styleName={`block ${styleName}`}>
+        {content}
+      </Container>
+    );
   }
-
-  const Container = onPress ? TouchableOpacity : View;
-  return (
-    <Container style={style.container} onPress={onPress} styleName={`block ${styleName}`}>
-      {content}
-    </Container>
-  );
-};
-
-Inline.defaultProps = {
-  style: {},
-};
-
-Inline.propTypes = {
-  ...ElementPropTypes,
-  onPress: React.PropTypes.func,
-  onLineBreak: React.PropTypes.func,
-};
-
-Inline.defaultProps = {
-  onLineBreak: handleLineBreak,
-};
+}
 
 export const InlineSettings = { display: blockDisplayIfAnyChildIsBlock };
 
