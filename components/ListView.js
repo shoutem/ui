@@ -144,7 +144,7 @@ class ListView extends React.Component {
   getPropsToPass() {
     const props = this.props;
     const mappedProps = {
-      ...this.props,
+      ...props,
     };
 
     // configuration
