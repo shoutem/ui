@@ -23,6 +23,11 @@ function createElementNode(tag, attributes = {}, childElements = [], parent) {
   };
 }
 
+// Html new line regex
+const htmlNewLineRegex = new RegExp('(>\\n)|(\\n<)|(\\n)', 'g');
+const newLineAfterClosingTagRegex = new RegExp('>\\n');
+const newLineBeforeOpeningTagRegex = new RegExp('\\n<');
+
 /**
  * Try to handle new lines as the browsers.
  * All new lines beside the ones next to the < or > will be replaced with the whitespace.
@@ -31,10 +36,10 @@ function createElementNode(tag, attributes = {}, childElements = [], parent) {
  * @param html
  */
 function stripNewLines(html) {
-  return html.replace(/(>\n)|(\n<)|(\n)/g, (match) => {
-      if (/>\n/.test(match)) {
+  return html.replace(htmlNewLineRegex, (match) => {
+      if (newLineAfterClosingTagRegex.test(match)) {
         return '>';
-      } else if (/\n</.test(match)) {
+      } else if (newLineBeforeOpeningTagRegex.test(match)) {
         return '<';
       }
       return ' ';
