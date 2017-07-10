@@ -10,14 +10,13 @@ import {
   Divider,
 } from '@shoutem/ui';
 
-import {
-  NavigationBar,
-} from '@shoutem/ui/navigation';
-
 import { connect } from 'react-redux';
-import { navigatePush } from './redux';
 
 class RestaurantsList extends Component {
+  static navigationOptions = {
+    title: 'All Restaurants',
+  }
+
   static propTypes = {
     onButtonPress: React.PropTypes.func,
   };
@@ -53,7 +52,6 @@ class RestaurantsList extends Component {
   render() {
     return (
       <Screen>
-        <NavigationBar title="All Restaurants" />
 
         <ListView
           data={this.getRestaurants()}
@@ -66,10 +64,10 @@ class RestaurantsList extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   onButtonPress: (restaurant) => {
-    dispatch(navigatePush({
-      key: 'RestaurantDetails',
-      title: 'Details',
-    }, { restaurant }));
+    // dispatch(navigatePush({
+    //   key: 'RestaurantDetails',
+    //   title: 'Details',
+    // }, { restaurant }));
   },
 });
 

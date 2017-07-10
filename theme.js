@@ -14,9 +14,7 @@ import {
   getSizeRelativeToReference,
 } from '@shoutem/theme';
 
-const {
-  Header: NavigationHeader,
-} = NavigationExperimental;
+import {Header as NavigationHeader} from 'react-navigation';
 
 const window = Dimensions.get('window');
 

@@ -13,11 +13,11 @@ import {
   Screen,
 } from '@shoutem/ui';
 
-import {
-  NavigationBar,
-} from '@shoutem/ui/navigation';
-
 export default class RestaurantDetails extends Component {
+  static navigationOptions = {
+    title: 'Restaurant',
+  };
+
   static propTypes = {
     restaurant: React.PropTypes.object,
   };
@@ -27,12 +27,6 @@ export default class RestaurantDetails extends Component {
 
     return (
       <Screen styleName="paper full-screen">
-        <NavigationBar
-          title={restaurant.name}
-          styleName="clear hide-title"
-          animationName="solidify"
-        />
-
         <ScrollView>
           <Image
             styleName="large-portrait hero"

@@ -13,12 +13,10 @@ import { Images } from './Images';
 import { DropDownMenus } from './DropDownMenus';
 import { FormComponents } from './FormComponents';
 import { Headers } from './Headers';
-import { NavigationBars } from './NavigationBars';
 import { Videos } from './Videos';
 
 const examples = [
   { title: 'Typography', component: Typography },
-  { title: 'Navigation Bars', component: NavigationBars },
   { title: 'Dropdown Menus', component: DropDownMenus },
   { title: 'Dividers', component: Dividers },
   { title: 'Cards', component: Cards },
