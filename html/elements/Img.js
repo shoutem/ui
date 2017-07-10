@@ -1,16 +1,22 @@
 import React from 'react';
+import _ from 'lodash';
 
 import { ElementPropTypes } from '../Html';
 import Image from '../components/Image';
 import { combineMappers, mapElementProps } from '../Html';
 
-function Img({ src, style }) {
+export function isImg(element) {
+  return _.get(element, 'tag') === 'img';
+}
+
+function Img({ src, style, lightbox }) {
   const source = { uri: src };
 
   return (
     <Image
       source={source}
       style={style}
+      lightbox={lightbox}
     />
   );
 }

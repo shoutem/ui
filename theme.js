@@ -14,6 +14,10 @@ import {
   getSizeRelativeToReference,
 } from '@shoutem/theme';
 
+const {
+  Header: NavigationHeader,
+} = NavigationExperimental;
+
 const window = Dimensions.get('window');
 
 const STATUS_BAR_OFFSET = (Platform.OS === 'android' ? -StatusBar.currentConfig : 0);
@@ -33,7 +37,7 @@ export const viewComponents = [
   'shoutem.ui.Row',
 ];
 
-function dimensionRelativeToIphone(dimension, actualRefVal = window.width) {
+export function dimensionRelativeToIphone(dimension, actualRefVal = window.width) {
   // 375 is iPhone width
   return getSizeRelativeToReference(dimension, 375, actualRefVal);
 }
@@ -1463,6 +1467,28 @@ export default (variables = defaultThemeVariables) => ({
       right: 0,
       height: variables.navBarHeight,
     },
+    navigationBarImage: {
+      flex: 1,
+      flexGrow: 1,
+      height: NavigationHeader.HEIGHT,
+      left: 0,
+      solidifyAnimation(driver) {
+        return {
+          opacity: driver.interpolate({
+            inputRange: [250, 300],
+            outputRange: [0, 1],
+            extrapolate: 'clamp',
+          }),
+        };
+      },
+      boxingAnimation() {
+        return {};
+      },
+      position: 'absolute',
+      right: 0,
+      top: 0,
+      width: window.width,
+    },
   },
 
   'shoutem.ui.navigation.CardStack': {
@@ -1837,9 +1863,14 @@ export default (variables = defaultThemeVariables) => ({
   //
   // Html
   //
-  textBlock: {
+  textBlock: { // Inline element
     container: {
-      marginBottom: 20,
+      '.wrapper': {
+        marginBottom: 0,
+      },
+      '.block': {
+        marginBottom: 20,
+      },
     },
     text: {
     },
@@ -1959,14 +1990,25 @@ export default (variables = defaultThemeVariables) => ({
     // HTML lists
     ul: {
       container: {},
-      prefix: {}, // Not implemented yet
     },
     ol: {
       container: {},
-      prefix: {},
     },
-    li: {
-      flexDirection: 'row',
+    number: {
+      // Font should be monospace so that item content has same offset
+      // Can not apply width to the Text for some reason
+      fontFamily: Platform.OS === 'ios' ? 'Menlo-Regular' : 'monospace',
+      fontSize: 12,
+    },
+    bullet: {
+    },
+    li: { // Inline element
+      [INCLUDE]: ['textBlock'],
+      container: {
+        '.block': {
+          marginBottom: 10,
+        },
+      },
     },
 
     // HTML containers
@@ -1978,29 +2020,27 @@ export default (variables = defaultThemeVariables) => ({
 
     // HTML functional
     video: {
-      // TODO - Create video element
+      container: {
+        // html/components/Image
+        // Used to keep video ratio by thumbnail.
+        // Must have width.
+        width: 300,
+        resizeMode: 'contain',
+        alignSelf: 'center',
+        marginBottom: 20,
+      },
     },
     img: {
       resizeMode: 'contain',
       alignSelf: 'center',
+      marginBottom: 20,
       // Image height is calculated to respect
       // image ratio depending on width.
       // If both width and height are defined
       // image dimensions are fixed.
+      // If image width is smaller then style width
+      // it will not rescale.
       width: 300,
-    },
-
-    'se-attachment': {
-      gallery: {
-        container: {
-          height: dimensionRelativeToIphone(130),
-        },
-      },
-      video: {
-        container: {
-          width: 300,
-        },
-      },
     },
   },
 

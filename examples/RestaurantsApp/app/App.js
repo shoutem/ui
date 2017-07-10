@@ -50,7 +50,7 @@ class App extends Component {
         navigationState={navigationState}
         onNavigateBack={onNavigateBack}
         renderNavBar={this.renderNavBar}
-        renderScene={this.renderScene}
+        scene={this.renderScene}
       />
     );
   }
