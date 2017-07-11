@@ -31,10 +31,9 @@ class RestaurantsList extends Component {
   }
 
   renderRow(restaurant) {
-    const { onButtonPress } = this.props;
-
+    const {navigation} = this.props;
     return (
-      <TouchableOpacity onPress={() => onButtonPress(restaurant)}>
+      <TouchableOpacity onPress={() => navigation.navigate('RestaurantDetails', {restaurant})}>
         <Image
           styleName="large-banner"
           source={{ uri: restaurant.image.url }}
@@ -62,17 +61,5 @@ class RestaurantsList extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  onButtonPress: (restaurant) => {
-    // dispatch(navigatePush({
-    //   key: 'RestaurantDetails',
-    //   title: 'Details',
-    // }, { restaurant }));
-  },
-});
-
-export default connect(
-	undefined,
-	mapDispatchToProps
-)(RestaurantsList);
+export default RestaurantsList;
 
