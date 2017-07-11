@@ -10,8 +10,6 @@ import {
   Divider,
 } from '@shoutem/ui';
 
-import { connect } from 'react-redux';
-
 class RestaurantsList extends Component {
   static navigationOptions = {
     title: 'All Restaurants',
