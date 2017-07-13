@@ -1811,8 +1811,6 @@ export default (variables = defaultThemeVariables) => ({
       },
     },
 
-    visibleOptions: 8,
-
     selectedOption: {
       // Button
       [INCLUDE]: ['clearButton', 'textualButton'],
@@ -1825,7 +1823,9 @@ export default (variables = defaultThemeVariables) => ({
         marginRight: 0,
       },
     },
+  },
 
+  'shoutem.ui.DropDownModal': {
     modal: {
       'shoutem.ui.Button.close': {
         'shoutem.ui.Icon': {
@@ -1859,6 +1859,8 @@ export default (variables = defaultThemeVariables) => ({
 
       flex: 1,
     },
+
+    visibleOptions: 8,
   },
 
   //
