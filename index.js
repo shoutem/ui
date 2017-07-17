@@ -12,7 +12,7 @@ export { Screen } from './components/Screen';
 
 export { NavigationBar } from './components/NavigationBar';
 export { NavigationBarAnimations } from './components/NavigationBar/NavigationBarAnimations';
-export { DropDownMenu } from './components/DropDownMenu';
+export { DropDownMenu, DropDownModal } from './components/DropDownMenu';
 export { Overlay } from './components/Overlay';
 
 export { ScrollView } from './components/ScrollView';
