@@ -134,6 +134,7 @@ export const defaultThemeVariables = {
   indicatorColor: '#222222',
 
   smallGutter: 5,
+  mediumSmallGutter: 10,
   mediumGutter: 15,
   largeGutter: 30,
   extraLargeGutter: 45,
@@ -146,6 +147,7 @@ export default (variables = defaultThemeVariables) => ({
   //
   guttersPadding: {
     ...createVariations('.sm-gutter', sizeVariants, 'padding', variables.smallGutter),
+    ...createVariations('.mds-gutter', sizeVariants, 'padding', variables.mediumSmallGutter),
     ...createVariations('.md-gutter', sizeVariants, 'padding', variables.mediumGutter),
     ...createVariations('.lg-gutter', sizeVariants, 'padding', variables.largeGutter),
     ...createVariations('.xl-gutter', sizeVariants, 'padding', variables.extraLargeGutter),
@@ -153,6 +155,7 @@ export default (variables = defaultThemeVariables) => ({
 
   guttersMargin: {
     ...createVariations('.sm-gutter', sizeVariants, 'margin', variables.smallGutter),
+    ...createVariations('.mds-gutter', sizeVariants, 'margin', variables.mediumSmallGutter),
     ...createVariations('.md-gutter', sizeVariants, 'margin', variables.mediumGutter),
     ...createVariations('.lg-gutter', sizeVariants, 'margin', variables.largeGutter),
     ...createVariations('.xl-gutter', sizeVariants, 'margin', variables.extraLargeGutter),
@@ -843,6 +846,34 @@ export default (variables = defaultThemeVariables) => ({
     shadowColor: variables.shadowColor,
     shadowOpacity: 0.1,
     shadowOffset: { width: 1, height: 1 },
+
+    '.overlapping': {
+      width: window.width - 20,
+      height: dimensionRelativeToIphone(139),
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      marginLeft: variables.smallGutter,
+      marginRight: variables.smallGutter,
+      borderStyle: 'solid',    
+      borderBottomWidth: 1,
+      borderBottomColor: 'lightgrey', 
+      'shoutem.ui.Image': {
+        borderRadius: 2,
+        borderWidth: 0,
+        borderColor: 'transparent',
+      },
+      'shoutem.ui.View': {
+        borderRadius: 2,
+        borderWidth: 0,
+        borderColor: 'transparent',
+        width: dimensionRelativeToIphone(218), 
+        height: dimensionRelativeToIphone(113),
+        position: 'relative',
+        right: dimensionRelativeToIphone(72),
+        backgroundColor: 'white',
+        marginTop: variables.mediumGutter,
+      }
+    }
   },
 
   'shoutem.ui.Overlay': {
