@@ -134,7 +134,6 @@ export const defaultThemeVariables = {
   indicatorColor: '#222222',
 
   smallGutter: 5,
-  mediumSmallGutter: 10,
   mediumGutter: 15,
   largeGutter: 30,
   extraLargeGutter: 45,
@@ -147,7 +146,6 @@ export default (variables = defaultThemeVariables) => ({
   //
   guttersPadding: {
     ...createVariations('.sm-gutter', sizeVariants, 'padding', variables.smallGutter),
-    ...createVariations('.mds-gutter', sizeVariants, 'padding', variables.mediumSmallGutter),
     ...createVariations('.md-gutter', sizeVariants, 'padding', variables.mediumGutter),
     ...createVariations('.lg-gutter', sizeVariants, 'padding', variables.largeGutter),
     ...createVariations('.xl-gutter', sizeVariants, 'padding', variables.extraLargeGutter),
@@ -413,6 +411,11 @@ export default (variables = defaultThemeVariables) => ({
     '.medium-wide': {
       width: dimensionRelativeToIphone(180),
       height: dimensionRelativeToIphone(85),
+    },
+
+    '.medium-portrait': {
+      width: dimensionRelativeToIphone(209),
+      height: dimensionRelativeToIphone(139),
     },
 
     '.medium-square': {
@@ -827,14 +830,17 @@ export default (variables = defaultThemeVariables) => ({
   'shoutem.ui.Card': {
     [INCLUDE]: ['commonVariants'],
 
-    'shoutem.ui.View.content': {
-      'shoutem.ui.Subtitle': {
-        marginBottom: variables.mediumGutter,
+    'shoutem.ui.View': {
+      '.content': {
+        'shoutem.ui.Subtitle': {
+          marginBottom: 10,
+        },
       },
 
       flex: 1,
       alignSelf: 'stretch',
       padding: 10,
+      backgroundColor: variables.paperColor,
     },
 
     width: dimensionRelativeToIphone(180),
@@ -847,33 +853,21 @@ export default (variables = defaultThemeVariables) => ({
     shadowOpacity: 0.1,
     shadowOffset: { width: 1, height: 1 },
 
-    '.overlapping': {
-      width: window.width - 20,
-      height: dimensionRelativeToIphone(139),
+    '.horizontal': {
+      width: null,
       flexDirection: 'row',
       justifyContent: 'flex-start',
-      marginLeft: variables.smallGutter,
-      marginRight: variables.smallGutter,
-      borderStyle: 'solid',    
-      borderBottomWidth: 1,
-      borderBottomColor: 'lightgrey', 
-      'shoutem.ui.Image': {
-        borderRadius: 2,
-        borderWidth: 0,
-        borderColor: 'transparent',
-      },
+      margin: variables.mediumGutter - variables.smallGutter,
+      marginTop: variables.smallGutter,
+      marginBottom: variables.smallGutter,
+
       'shoutem.ui.View': {
-        borderRadius: 2,
-        borderWidth: 0,
-        borderColor: 'transparent',
-        width: dimensionRelativeToIphone(218), 
-        height: dimensionRelativeToIphone(113),
-        position: 'relative',
-        right: dimensionRelativeToIphone(72),
-        backgroundColor: 'white',
-        marginTop: variables.mediumGutter,
-      }
-    }
+        '.pull-left': {
+          marginVertical: variables.mediumGutter,
+          marginLeft: -dimensionRelativeToIphone(72),
+        },
+      },
+    },
   },
 
   'shoutem.ui.Overlay': {
