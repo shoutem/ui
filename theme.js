@@ -860,7 +860,7 @@ export default (variables = defaultThemeVariables) => ({
         },
       },
 
-      // width needs to be reset so alignSelf stretch could be applies
+      // width needs to be reset so alignSelf stretch could be applied
       width: null,
       flexDirection: 'row',
       justifyContent: 'flex-start',
