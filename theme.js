@@ -853,20 +853,20 @@ export default (variables = defaultThemeVariables) => ({
     shadowOffset: { width: 1, height: 1 },
 
     '.horizontal': {
-      // width needs to be reset so alignSelf stretch could be applied
-      width: null,
-      flexDirection: 'row',
-      justifyContent: 'flex-start',
-      margin: 10,
-      marginTop: variables.smallGutter,
-      marginBottom: variables.smallGutter,
-
       'shoutem.ui.View': {
         '.pull-left': {
           marginVertical: variables.mediumGutter,
           marginLeft: -dimensionRelativeToIphone(72),
         },
       },
+
+      // width needs to be reset so alignSelf stretch could be applies
+      width: null,
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      margin: 10,
+      marginTop: variables.smallGutter,
+      marginBottom: variables.smallGutter,
     },
   },
 
