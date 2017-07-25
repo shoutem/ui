@@ -1043,7 +1043,7 @@ export default (variables = defaultThemeVariables) => ({
         fontFamily: 'Rubik-Medium',
       },
 
-      width: 120,
+      width: dimensionRelativeToIphone(120),
       height: 82,
       flexDirection: 'column',
     },
