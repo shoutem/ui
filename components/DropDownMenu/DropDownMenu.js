@@ -2,19 +2,23 @@ import React, {
   Component,
 } from 'react';
 import _ from 'lodash';
-
-import { Button } from '../Button';
-import { Icon } from '../Icon';
-import { Text } from '../Text';
-import { View } from '../View';
-import { DropDownModal } from './ModalMenu';
-
 import { connectStyle } from '@shoutem/theme';
+import {
+  Button,
+  Icon,
+  Text,
+  View,
+} from '../../index';
+
+import { DropDownModal } from './DropDownModal';
 
 const modalSpecificProps = ['visible', 'onClose'];
 const dropDownMenuPropTypes = { ..._.omit(DropDownModal.propTypes, modalSpecificProps) };
 
-export class DropDown extends Component {
+class DropDownMenu extends Component {
+  /**
+  * @see DropDownModal.propTypes
+  */
   static propTypes = {
     ...dropDownMenuPropTypes,
   };
@@ -85,7 +89,7 @@ export class DropDown extends Component {
   }
 }
 
-const StyledDropDownMenu = connectStyle('shoutem.ui.DropDownMenu')(DropDown);
+const StyledDropDownMenu = connectStyle('shoutem.ui.DropDownMenu')(DropDownMenu);
 
 export {
   StyledDropDownMenu as DropDownMenu,

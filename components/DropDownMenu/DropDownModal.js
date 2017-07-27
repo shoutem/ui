@@ -4,9 +4,7 @@ import React, {
 import {
   Modal,
   ListView,
-  Animated,
   LayoutAnimation,
-  InteractionManager,
   Dimensions,
 } from 'react-native';
 import _ from 'lodash';
@@ -21,16 +19,14 @@ import { TouchableOpacity } from '../TouchableOpacity';
 import { connectStyle, changeColorAlpha } from '@shoutem/theme';
 
 import {
-  ScrollDriver,
   TimingDriver,
   FadeIn,
   ZoomOut,
 } from '@shoutem/animation';
 
 const window = Dimensions.get('window');
-const AnimatedListView = Animated.createAnimatedComponent(ListView);
 
-export class ModalMenu extends Component {
+class DropDownModal extends Component {
   static propTypes = {
     /**
      * Callback that is called when dropdown option is selected
@@ -76,6 +72,11 @@ export class ModalMenu extends Component {
     style: React.PropTypes.object,
   };
 
+  static defaultProps = {
+    renderOption: (option, titleProperty) => (
+      <Text>{option[titleProperty].toUpperCase()}</Text>),
+  };
+
   static DEFAULT_VISIBLE_OPTIONS = 8;
 
   constructor(props) {
@@ -95,7 +96,6 @@ export class ModalMenu extends Component {
 
   componentWillMount() {
     this.timingDriver = new TimingDriver();
-    this.scrollDriver = new ScrollDriver();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -103,12 +103,9 @@ export class ModalMenu extends Component {
     const { visible: isVisible } = nextProps;
 
     if (!wasVisible && isVisible) {
-      this.scrollDriver = new ScrollDriver();
-      InteractionManager.runAfterInteractions(() => {
-        this.timingDriver.toValue(1, () => {
-          LayoutAnimation.easeInEaseOut();
-          this.setState({ shouldRenderModalContent: true });
-        });
+      this.timingDriver.toValue(1, () => {
+        LayoutAnimation.easeInEaseOut();
+        this.setState({ shouldRenderModalContent: true });
       });
     }
   }
@@ -120,7 +117,7 @@ export class ModalMenu extends Component {
 
   getVisibleOptions() {
     const { visibleOptions, style } = this.props;
-    return visibleOptions || style.visibleOptions || ModalMenu.DEFAULT_VISIBLE_OPTIONS;
+    return visibleOptions || style.visibleOptions || DropDownModal.DEFAULT_VISIBLE_OPTIONS;
   }
 
   selectOption(option) {
@@ -171,36 +168,47 @@ export class ModalMenu extends Component {
     const { backgroundColor } = style.modal;
     const { optionHeight } = this.state;
 
+    // We divide the modal screen per key areas to which we apply a layer of gradient
+    // Screen ratio is represented in (0 - 1) format, where the ratio of 1 represents the entire
+    // screen height. Screen is then divided into 5 areas, marking the following elements ->
+    // Buffer area, where the layer is filled with default background color of the modal window,
+    // with no transparency. This area is applied above and below the list. Gradient area,
+    // where we apply the gradient transitioning the layer transparency from 1 -> 0. This
+    // section corrseponds to one list option height. Transparency area, where the layer is
+    // completely transparent, allowing us to see list options. Screen is then divided in the
+    // following fashion
+    //  -> Buffer area -> Gradient area -> Transparency area -> Gradient Area -> Buffer Area
+
     const listViewHeight = this.calculateListViewHeight();
     const screenHeight = window.height;
     const gradientHeight = optionHeight;
     const transparencyHeight = listViewHeight - optionHeight * 2;
     const bufferHeight = (screenHeight - listViewHeight) / 2;
-    const gradientBreakpoints = [
-      0,
-      bufferHeight / screenHeight,
-      (bufferHeight + gradientHeight) / screenHeight,
-      (bufferHeight + gradientHeight + transparencyHeight) / screenHeight,
-      (bufferHeight + listViewHeight) / screenHeight,
-      1,
-    ];
 
-    const bufferColor = changeColorAlpha(backgroundColor, 1);
+    const bufferColor = backgroundColor;
     const invertedColor = changeColorAlpha(backgroundColor, 0);
+
+    // This config array holds the appropriate screen segment ratios per calculcations above
+    // Every screen segment has it's corresponding color to transition to.
+
+    const gradientConfig = [
+      { location: 0, color: bufferColor },
+      { location: bufferHeight / screenHeight, color: backgroundColor },
+      { location: (bufferHeight + gradientHeight) / screenHeight, color: invertedColor },
+      {
+        location: (bufferHeight + gradientHeight + transparencyHeight) / screenHeight,
+        color: invertedColor,
+      },
+      { location: (bufferHeight + listViewHeight) / screenHeight, color: backgroundColor },
+      { location: 1, color: bufferColor },
+    ];
 
     return (
       <LinearGradient
         pointerEvents="none"
         styleName="fill-parent"
-        locations={gradientBreakpoints}
-        colors={[
-          bufferColor,
-          backgroundColor,
-          invertedColor,
-          invertedColor,
-          backgroundColor,
-          bufferColor,
-        ]}
+        locations={_.map(gradientConfig, breakpoint => breakpoint.location)}
+        colors={_.map(gradientConfig, breakpoint => breakpoint.color)}
       />
     );
   }
@@ -212,13 +220,7 @@ export class ModalMenu extends Component {
       renderOption,
     } = this.props;
 
-    const defaultItem = (
-      <Text>
-        {option[titleProperty].toUpperCase()}
-      </Text>
-    );
-    const optionItem = renderOption ? renderOption(option) :
-      defaultItem;
+    const optionItem = renderOption(option, titleProperty);
     const onPress = () => this.selectOption(option);
 
     return (
@@ -248,13 +250,12 @@ export class ModalMenu extends Component {
           <FadeIn driver={this.timingDriver} style={{ flex: 1 }}>
             <View style={style.modal} styleName="vertical">
               {shouldRenderModalContent ?
-                <AnimatedListView
+                <ListView
                   scrollRenderAheadDistance={50}
                   dataSource={dataSource}
                   renderRow={this.renderRow}
                   style={listViewStyle}
                   renderFooter={this.renderFooter}
-                  {...this.scrollDriver.scrollViewProps}
                 /> : null}
               {this.renderGradient()}
               <Button onPress={this.close} styleName="clear close">
@@ -269,4 +270,8 @@ export class ModalMenu extends Component {
   }
 }
 
-export const DropDownModal = connectStyle('shoutem.ui.DropDownModal')(ModalMenu);
+const StyledModal = connectStyle('shoutem.ui.DropDownModal')(DropDownModal);
+
+export {
+  StyledModal as DropDownModal,
+};
