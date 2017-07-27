@@ -99,7 +99,12 @@ class NavigationBarView extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.style !== nextProps.style) {
+    if (this.props.inline || this.props.style !== nextProps.style) {
+      // We need to refresh the status bar style each
+      // time the inline navigation bar gets new props.
+      // This is because there will be multiple instances
+      // of the navigation bar, and the style will not change
+      // when the active instance is swapped out.
       this.cleanupStatusBarStyleListeners();
       this.setStatusBarStyle(nextProps.style);
     }

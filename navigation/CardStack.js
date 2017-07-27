@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import {
   InteractionManager,
-  Platform,
 } from 'react-native';
 
 import _ from 'lodash';
@@ -28,6 +27,9 @@ class CardStack extends PureComponent {
     // Controls whether native animation driver will be used
     // for screen transitions or not.
     useNativeAnimations: React.PropTypes.bool,
+    // Controls whether the navigation bar should be rendered,
+    // together with the screen, or should it be global for the
+    // entire app.
     inlineNavigationBar: React.PropTypes.bool,
     style: React.PropTypes.shape({
       cardStack: RNCardStack.propTypes.style,
@@ -36,13 +38,8 @@ class CardStack extends PureComponent {
   };
 
   static defaultProps = {
-    // Use native animations on Android by default, transitions
-    // are slow on Android without this.
-    useNativeAnimations: Platform.OS === 'android',
-    // Overflow doesn't work on Android at the moment, so we
-    // are rendering the navigation bar together with the scene
-    // to support transparent navigation bars above screen content
-    inlineNavigationBar: Platform.OS === 'android',
+    useNativeAnimations: true,
+    inlineNavigationBar: true,
   };
 
   static contextTypes = {

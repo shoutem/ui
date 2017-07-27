@@ -412,6 +412,11 @@ export default (variables = defaultThemeVariables) => ({
       height: dimensionRelativeToIphone(85),
     },
 
+    '.medium-portrait': {
+      width: dimensionRelativeToIphone(209),
+      height: dimensionRelativeToIphone(139),
+    },
+
     '.medium-square': {
       width: dimensionRelativeToIphone(145),
       height: dimensionRelativeToIphone(145),
@@ -824,14 +829,17 @@ export default (variables = defaultThemeVariables) => ({
   'shoutem.ui.Card': {
     [INCLUDE]: ['commonVariants'],
 
-    'shoutem.ui.View.content': {
-      'shoutem.ui.Subtitle': {
-        marginBottom: variables.mediumGutter,
+    'shoutem.ui.View': {
+      '.content': {
+        'shoutem.ui.Subtitle': {
+          marginBottom: 10,
+        },
       },
 
       flex: 1,
       alignSelf: 'stretch',
       padding: 10,
+      backgroundColor: variables.paperColor,
     },
 
     width: dimensionRelativeToIphone(180),
@@ -843,6 +851,23 @@ export default (variables = defaultThemeVariables) => ({
     shadowColor: variables.shadowColor,
     shadowOpacity: 0.1,
     shadowOffset: { width: 1, height: 1 },
+
+    '.horizontal': {
+      'shoutem.ui.View': {
+        '.pull-left': {
+          marginVertical: variables.mediumGutter,
+          marginLeft: -dimensionRelativeToIphone(72),
+        },
+      },
+
+      // width needs to be reset so alignSelf stretch could be applied
+      width: null,
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      margin: 10,
+      marginTop: variables.smallGutter,
+      marginBottom: variables.smallGutter,
+    },
   },
 
   'shoutem.ui.Overlay': {
@@ -1018,7 +1043,7 @@ export default (variables = defaultThemeVariables) => ({
         fontFamily: 'Rubik-Medium',
       },
 
-      width: 120,
+      width: dimensionRelativeToIphone(120),
       height: 82,
       flexDirection: 'column',
     },
