@@ -191,17 +191,25 @@ class DropDownModal extends Component {
     // This config array holds the appropriate screen segment ratios per calculcations above
     // Every screen segment has it's corresponding color to transition to.
 
-    const gradientConfig = [
-      { location: 0, color: bufferColor },
-      { location: bufferHeight / screenHeight, color: backgroundColor },
-      { location: (bufferHeight + gradientHeight) / screenHeight, color: invertedColor },
-      {
-        location: (bufferHeight + gradientHeight + transparencyHeight) / screenHeight,
-        color: invertedColor,
-      },
-      { location: (bufferHeight + listViewHeight) / screenHeight, color: backgroundColor },
-      { location: 1, color: bufferColor },
-    ];
+    const gradientConfig = [{
+      location: 0,
+      color: bufferColor
+    },{
+      location: bufferHeight / screenHeight,
+      color: backgroundColor
+    },{
+      location: (bufferHeight + gradientHeight) / screenHeight,
+      color: invertedColor
+    },{
+      location: (bufferHeight + gradientHeight + transparencyHeight) / screenHeight,
+      color: invertedColor,
+    },{
+      location: (bufferHeight + listViewHeight) / screenHeight,
+      color: backgroundColor
+    },{
+      location: 1,
+      color: bufferColor
+    }];
 
     return (
       <LinearGradient
