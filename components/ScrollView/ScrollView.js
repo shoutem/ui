@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Animated } from 'react-native';
 import { connectStyle } from '@shoutem/theme';
+import _ from 'lodash';
 
 import { ScrollDriver, DriverShape } from '@shoutem/animation';
 
@@ -68,6 +69,30 @@ class ScrollView extends Component {
 }
 
 const StyledScrollView = connectStyle('shoutem.ui.ScrollView')(ScrollView);
+
+function getNativeScrollViewComponent(context, path) {
+  return _.get(context, path);
+}
+
+StyledScrollView.prototype.scrollTo = function scrollTo(coordinates) {
+  // this.wrappedInstance.wrappedInstance -> instance of Animated.ScrollView
+  // more info about _component: https://stackoverflow.com/questions/42051368/scrollto-is-undefined-on-animated-scrollview
+  const scrollView =
+    getNativeScrollViewComponent(this, 'wrappedInstance.wrappedInstance._component');
+  if (scrollView) {
+    scrollView.scrollTo(coordinates);
+  }
+};
+
+StyledScrollView.prototype.scrollToEnd = function scrollToEnd(animation) {
+  // this.wrappedInstance.wrappedInstance -> instance of Animated.ScrollView
+  // more info about _component: https://stackoverflow.com/questions/42051368/scrollto-is-undefined-on-animated-scrollview
+  const scrollView =
+    getNativeScrollViewComponent(this, 'wrappedInstance.wrappedInstance._component');
+  if (scrollView) {
+    scrollView.scrollToEnd(animation);
+  }
+};
 
 export {
   StyledScrollView as ScrollView,
