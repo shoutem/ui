@@ -318,13 +318,13 @@ const StyledListView = connectStyle('shoutem.ui.ListView', {
   },
 })(ListView);
 
-function getNativeListViewComponent(context, path) {
-  return _.get(context, path);
+function getRNListViewComponent(context) {
+  return _.get(context, 'wrappedInstance.listView');
 }
 
 StyledListView.prototype.scrollTo = function scrollTo(coordinates) {
   const listView =
-    getNativeListViewComponent(this, 'wrappedInstance.listView');
+    getRNListViewComponent(this);
   if (listView) {
     listView.scrollTo(coordinates);
   }
@@ -332,7 +332,7 @@ StyledListView.prototype.scrollTo = function scrollTo(coordinates) {
 
 StyledListView.prototype.scrollToEnd = function scrollToEnd(animation) {
   const listView =
-    getNativeListViewComponent(this, 'wrappedInstance.listView');
+    getRNListViewComponent(this);
   if (listView) {
     listView.scrollToEnd(animation);
   }
