@@ -323,16 +323,14 @@ function getRNListViewComponent(context) {
 }
 
 StyledListView.prototype.scrollTo = function scrollTo(coordinates) {
-  const listView =
-    getRNListViewComponent(this);
+  const listView = getRNListViewComponent(this);
   if (listView) {
     listView.scrollTo(coordinates);
   }
 };
 
 StyledListView.prototype.scrollToEnd = function scrollToEnd(animation) {
-  const listView =
-    getRNListViewComponent(this);
+  const listView = getRNListViewComponent(this);
   if (listView) {
     listView.scrollToEnd(animation);
   }

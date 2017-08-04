@@ -77,8 +77,7 @@ function getRNScrollViewComponent(context) {
 StyledScrollView.prototype.scrollTo = function scrollTo(coordinates) {
   // this.wrappedInstance.wrappedInstance -> instance of Animated.ScrollView
   // more info about _component: https://stackoverflow.com/questions/42051368/scrollto-is-undefined-on-animated-scrollview
-  const scrollView =
-    getRNScrollViewComponent(this);
+  const scrollView = getRNScrollViewComponent(this);
   if (scrollView) {
     scrollView.scrollTo(coordinates);
   }
@@ -87,8 +86,7 @@ StyledScrollView.prototype.scrollTo = function scrollTo(coordinates) {
 StyledScrollView.prototype.scrollToEnd = function scrollToEnd(animation) {
   // this.wrappedInstance.wrappedInstance -> instance of Animated.ScrollView
   // more info about _component: https://stackoverflow.com/questions/42051368/scrollto-is-undefined-on-animated-scrollview
-  const scrollView =
-    getRNScrollViewComponent(this);
+  const scrollView = getRNScrollViewComponent(this);
   if (scrollView) {
     scrollView.scrollToEnd(animation);
   }
