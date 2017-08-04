@@ -6,8 +6,8 @@ import {
   Platform,
   StatusBar,
   Animated,
-  NavigationExperimental,
 } from 'react-native';
+import NavigationExperimental from 'react-native-navigation-experimental-compat';
 
 import { connectStyle } from '@shoutem/theme';
 import {

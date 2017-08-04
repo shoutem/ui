@@ -1,7 +1,7 @@
 import React from 'react';
-import { NavigationExperimental } from 'react-native';
-import NavigationCardStackStyleInterpolator from 'react-native/Libraries/CustomComponents/NavigationExperimental/NavigationCardStackStyleInterpolator';
-import NavigationCardStackPanResponder from 'react-native/Libraries/CustomComponents/NavigationExperimental/NavigationCardStackPanResponder';
+import NavigationExperimental from 'react-native-navigation-experimental-compat';
+import NavigationCardStackStyleInterpolator from 'react-native-navigation-experimental-compat/src/NavigationCardStackStyleInterpolator';
+import NavigationCardStackPanResponder from 'react-native-navigation-experimental-compat/src/NavigationCardStackPanResponder';
 
 const { CardStack, Card } = NavigationExperimental;
 
