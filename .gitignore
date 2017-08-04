@@ -1,3 +1,10 @@
 .idea
 node_modules
 *.tgz
+
+# IDE files and folders
+.vscode
+jsconfig.json
+
+# Mac OS X folder attributes file
+.DS_Store
