@@ -71,12 +71,15 @@ class ScrollView extends Component {
 const StyledScrollView = connectStyle('shoutem.ui.ScrollView')(ScrollView);
 
 function getRNScrollViewComponent(context) {
+  // wrappedInstance.wrappedInstance._component:
+  //   1st wrappedInstance -> StyledScrollView
+  //   2nd wrappedInstance -> ScrollView (Shoutem UI)
+  //   _component -> Animated.ScrollView
+  // more info about _component: https://stackoverflow.com/questions/42051368/scrollto-is-undefined-on-animated-scrollview
   return _.get(context, 'wrappedInstance.wrappedInstance._component');
 }
 
 StyledScrollView.prototype.scrollTo = function scrollTo(coordinates) {
-  // this.wrappedInstance.wrappedInstance -> instance of Animated.ScrollView
-  // more info about _component: https://stackoverflow.com/questions/42051368/scrollto-is-undefined-on-animated-scrollview
   const scrollView = getRNScrollViewComponent(this);
   if (scrollView) {
     scrollView.scrollTo(coordinates);
@@ -84,8 +87,6 @@ StyledScrollView.prototype.scrollTo = function scrollTo(coordinates) {
 };
 
 StyledScrollView.prototype.scrollToEnd = function scrollToEnd(animation) {
-  // this.wrappedInstance.wrappedInstance -> instance of Animated.ScrollView
-  // more info about _component: https://stackoverflow.com/questions/42051368/scrollto-is-undefined-on-animated-scrollview
   const scrollView = getRNScrollViewComponent(this);
   if (scrollView) {
     scrollView.scrollToEnd(animation);
