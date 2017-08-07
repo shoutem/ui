@@ -1,10 +1,10 @@
 import {
   Dimensions,
   StyleSheet,
-  NavigationExperimental,
   Platform,
   StatusBar,
 } from 'react-native';
+import NavigationExperimental from 'react-native-navigation-experimental-compat';
 
 import {
   INCLUDE,
