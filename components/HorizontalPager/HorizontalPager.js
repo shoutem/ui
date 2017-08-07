@@ -239,6 +239,9 @@ class HorizontalPager extends Component {
         pageWidth = width - pageMargin - style.nextPageInsetSize;
       }
 
+      // Fixes where multiple pages appear at once on initial load (if surroundingPagesToLoad > 0)
+      if (!containerWidth) return null;
+
       const isPageActive = (selectedIndex === pageIndex);
       const pageContent = this.shouldRenderPage(pageIndex) && (
         <Page
