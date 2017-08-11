@@ -26,6 +26,7 @@ class ScrollView extends Component {
   constructor(props, context) {
     super(props, context);
     this.animationDriver = props.driver || new ScrollDriver({ useNativeDriver: true });
+    this.setWrappedInstance = this.setWrappedInstance.bind(this);
   }
 
   getChildContext() {
@@ -50,6 +51,10 @@ class ScrollView extends Component {
     }
   }
 
+  setWrappedInstance(component) {
+    this.wrappedInstance = component;
+  }
+
   render() {
     const { props, animationDriver } = this;
     const { style = {} } = props;
@@ -60,6 +65,7 @@ class ScrollView extends Component {
 
     return (
       <Animated.ScrollView
+        ref={this.setWrappedInstance}
         contentContainerStyle={contentContainerStyle}
         {...animationDriver.scrollViewProps}
         {...props}
