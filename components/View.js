@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { View as RNView } from 'react-native';
 
@@ -35,7 +36,7 @@ class View extends Component {
 
 View.propTypes = {
   ...RNView.propTypes,
-  style: React.PropTypes.object,
+  style: PropTypes.object,
 };
 
 const AnimatedView = connectAnimation(View);

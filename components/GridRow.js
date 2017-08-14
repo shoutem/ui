@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Children } from 'react';
 import { View as RNView } from 'react-native';
 import _ from 'lodash';
@@ -35,7 +36,7 @@ class GridRow extends React.Component {
 }
 
 GridRow.propTypes = {
-  columns: React.PropTypes.number.isRequired,
+  columns: PropTypes.number.isRequired,
   ...RNView.propTypes,
 };
 

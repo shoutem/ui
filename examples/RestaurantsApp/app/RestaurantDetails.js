@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {
   ScrollView,
@@ -19,7 +20,7 @@ import {
 
 export default class RestaurantDetails extends Component {
   static propTypes = {
-    restaurant: React.PropTypes.object,
+    restaurant: PropTypes.object,
   };
 
   render() {

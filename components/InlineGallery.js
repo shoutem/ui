@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 import _ from 'lodash';
 import { connectStyle } from '@shoutem/theme';
@@ -14,8 +15,8 @@ class InlineGallery extends Component {
     // Array containing objects with image data (shape defined below)
     data: PropTypes.arrayOf(
       PropTypes.shape({
-        source: React.PropTypes.shape({
-          uri: React.PropTypes.string,
+        source: PropTypes.shape({
+          uri: PropTypes.string,
         }),
       }),
     ).isRequired,

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, {
   Component,
 } from 'react';
@@ -9,7 +10,7 @@ import { connectStyle } from '@shoutem/theme';
 import { Button } from './Button';
 import { Icon } from './Icon';
 
-const { string } = React.PropTypes;
+const { string } = PropTypes;
 
 /**
  * The ShareButton is a virtual component that wraps a button with a share icon.

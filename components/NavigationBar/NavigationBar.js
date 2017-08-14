@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {
   StatusBar,
@@ -55,11 +56,11 @@ function setStatusBarStyle(backgroundColor) {
 // eslint-disable-next-line react/prefer-stateless-function
 class NavigationBar extends Component {
   static propTypes = {
-    leftComponent: React.PropTypes.node,
-    centerComponent: React.PropTypes.node,
-    rightComponent: React.PropTypes.node,
-    style: React.PropTypes.object,
-    id: React.PropTypes.string,
+    leftComponent: PropTypes.node,
+    centerComponent: PropTypes.node,
+    rightComponent: PropTypes.node,
+    style: PropTypes.object,
+    id: PropTypes.string,
   };
 
   static defaultProps = {

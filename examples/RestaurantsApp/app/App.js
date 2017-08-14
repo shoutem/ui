@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -12,9 +13,9 @@ import RestaurantDetails from './RestaurantDetails';
 
 class App extends Component {
   static propTypes = {
-    onNavigateBack: React.PropTypes.func.isRequired,
-    navigationState: React.PropTypes.object,
-    scene: React.PropTypes.object,
+    onNavigateBack: PropTypes.func.isRequired,
+    navigationState: PropTypes.object,
+    scene: PropTypes.object,
   };
 
   constructor(props) {

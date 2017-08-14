@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Platform, InteractionManager } from 'react-native';
 import _ from 'lodash';
@@ -20,9 +21,9 @@ const defaultElementSettings = {
 
 class Html extends Component {
   static propTypes = {
-    body: React.PropTypes.string.isRequired,
-    renderElement: React.PropTypes.func,
-    style: React.PropTypes.object,
+    body: PropTypes.string.isRequired,
+    renderElement: PropTypes.func,
+    style: PropTypes.object,
   };
 
   /**
@@ -152,12 +153,12 @@ class Html extends Component {
 }
 
 export const ElementPropTypes = {
-  childElements: React.PropTypes.array,
-  renderElement: React.PropTypes.func,
-  inlineStyle: React.PropTypes.string,
-  children: React.PropTypes.oneOfType([
-    React.PropTypes.arrayOf(React.PropTypes.node),
-    React.PropTypes.node,
+  childElements: PropTypes.array,
+  renderElement: PropTypes.func,
+  inlineStyle: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
   ]),
 };
 
