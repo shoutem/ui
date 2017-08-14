@@ -5,6 +5,8 @@ import { connectAnimation } from '@shoutem/animation';
 
 import { View } from './View';
 
+import ViewPropTypes from 'ViewPropTypes';
+
 class FormGroup extends Component {
   render() {
     return (
@@ -16,7 +18,7 @@ class FormGroup extends Component {
 }
 
 FormGroup.propTypes = {
-  ...View.propTypes
+  ...ViewPropTypes
 };
 
 const AnimatedFormGroup = connectAnimation(FormGroup);
