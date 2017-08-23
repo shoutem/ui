@@ -6,9 +6,9 @@ import { connectAnimation } from '@shoutem/animation';
 
 class TextInput extends Component {
   render() {
-    const { props } = this;
+    const { inputRef, ...props } = this.props;
     const style = {
-      ...props.style,
+      ...props.style
     };
     delete style.placeholderTextColor;
     delete style.selectionColor;
@@ -18,6 +18,7 @@ class TextInput extends Component {
       <RNTextInput
         {...props}
         style={style}
+        ref={inputRef}
         placeholderTextColor={props.style.placeholderTextColor}
         selectionColor={props.style.selectionColor}
         underlineColorAndroid={props.style.underlineColorAndroid}
@@ -29,11 +30,10 @@ class TextInput extends Component {
 TextInput.propTypes = {
   ...RNTextInput.propTypes,
   style: React.PropTypes.object,
+  inputRef: React.PropTypes.func
 };
 
 const AnimatedTextInput = connectAnimation(TextInput);
 const StyledTextInput = connectStyle('shoutem.ui.TextInput')(AnimatedTextInput);
 
-export {
-  StyledTextInput as TextInput,
-};
+export { StyledTextInput as TextInput };
