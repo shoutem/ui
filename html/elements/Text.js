@@ -5,7 +5,7 @@ import { AllHtmlEntities as Entities } from 'html-entities';
 
 import { ElementPropTypes, combineMappers, mapElementProps } from '../Html';
 
-const entities = new Entities();
+const html = new Entities();
 
 function isWhiteSpaceWrappedWithText(element) {
   return _.size(element.childElements) === 1 && isWhiteSpaceString(element.childElements[0]);
@@ -29,7 +29,7 @@ export function removeWhiteSpace(childElements) {
 }
 
 export function decodeHtmlEntities(childElements) {
-  return _.map(childElements, (element) => _.isString(element) ? entities.decode(element) : element);
+  return _.map(childElements, (element) => _.isString(element) ? html.decode(element) : element);
 }
 
 export function TextElement(props) {
