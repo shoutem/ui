@@ -1,16 +1,17 @@
 import React, { Children, Component } from 'react';
+import { PropTypes } from 'prop-types';
 
 /**
  * Provides the current navigation scene to child components.
  */
 export class SceneProvider extends Component {
   static propTypes = {
-    children: React.PropTypes.node,
-    scene: React.PropTypes.object.isRequired,
+    children: PropTypes.node,
+    scene: PropTypes.object.isRequired,
   };
 
   static childContextTypes = {
-    getScene: React.PropTypes.func.isRequired,
+    getScene: PropTypes.func.isRequired,
   };
 
   constructor(props, context) {

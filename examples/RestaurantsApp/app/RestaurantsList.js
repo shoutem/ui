@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 import {
   Image,
   ListView,
@@ -19,7 +20,7 @@ import { navigatePush } from './redux';
 
 class RestaurantsList extends Component {
   static propTypes = {
-    onButtonPress: React.PropTypes.func,
+    onButtonPress: PropTypes.func,
   };
 
   constructor(props) {

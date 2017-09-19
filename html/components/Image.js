@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 import { Image as RNImage } from 'react-native';
 import { connectStyle } from '@shoutem/theme';
 import _ from 'lodash';
@@ -15,8 +16,8 @@ import { Lightbox } from '../../components/Lightbox';
 export default class HtmlImage extends Component {
   static propTypes = {
     ...RNImage.propTypes,
-    lightbox: React.PropTypes.bool,
-    allowUpscale: React.PropTypes.bool,
+    lightbox: PropTypes.bool,
+    allowUpscale: PropTypes.bool,
   };
 
   static defaultProps = {

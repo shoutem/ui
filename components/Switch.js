@@ -1,6 +1,7 @@
 import React, {
   Component,
 } from 'react';
+import { PropTypes } from 'prop-types';
 
 import { TouchableWithoutFeedback } from 'react-native';
 
@@ -9,7 +10,7 @@ import { View } from '@shoutem/ui';
 import { connectStyle } from '@shoutem/theme';
 import { connectAnimation, TimingDriver } from '@shoutem/animation';
 
-const { bool, func, object, shape } = React.PropTypes;
+const { bool, func, object, shape } = PropTypes;
 
 class Switch extends Component {
   static propTypes = {

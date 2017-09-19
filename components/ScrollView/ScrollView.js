@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 import { Animated } from 'react-native';
 import { connectStyle } from '@shoutem/theme';
 import _ from 'lodash';
@@ -14,7 +15,7 @@ class ScrollView extends Component {
 
   static contextTypes = {
     animationDriver: DriverShape,
-    driverProvider: React.PropTypes.object,
+    driverProvider: PropTypes.object,
   };
 
   static childContextTypes = {

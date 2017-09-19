@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   ScrollView,
 } from 'react-native';
+import { PropTypes } from 'prop-types';
 
 import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
@@ -23,9 +24,9 @@ const DESCRIPTION_LENGTH_TRIM_LIMIT = 90;
  */
 class ImageGalleryOverlay extends Component {
   static propTypes = {
-    title: React.PropTypes.string,
-    description: React.PropTypes.string,
-    style: React.PropTypes.object,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    style: PropTypes.object,
   };
 
   constructor(props) {

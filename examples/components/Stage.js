@@ -1,4 +1,5 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
 
 import { View, Text } from 'react-native';
 
@@ -14,8 +15,8 @@ function Stage({ title, children }) {
 }
 
 Stage.propTypes = {
-  title: React.PropTypes.string,
-  children: React.PropTypes.node,
+  title: PropTypes.string,
+  children: PropTypes.node,
 };
 
 const styles =  {

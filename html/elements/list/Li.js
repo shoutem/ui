@@ -1,4 +1,5 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
 
 import { View } from '../../../components/View';
 import { ElementPropTypes } from '../../Html';
@@ -27,7 +28,7 @@ function Li({ element, renderElement, style }) {
 
 Li.propTypes = {
   ...ElementPropTypes,
-  prefix: React.PropTypes.element,
+  prefix: PropTypes.element,
 };
 
 export default Li;

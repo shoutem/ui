@@ -1,4 +1,5 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
 import { Linking } from 'react-native';
 import { connectStyle } from '@shoutem/theme';
 import _ from 'lodash';
@@ -10,8 +11,8 @@ import { Inline } from './Inline';
 class A extends React.Component {
   static propTypes = {
     ...ElementPropTypes,
-    handleLinkPress: React.PropTypes.func,
-    href: React.PropTypes.string,
+    handleLinkPress: PropTypes.func,
+    href: PropTypes.string,
   };
 
   constructor(props, context) {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
 import { Html } from '../html';
 
 export default function RichMedia({ body }) {
@@ -7,5 +8,5 @@ export default function RichMedia({ body }) {
 }
 
 RichMedia.propTypes = {
-  body: React.PropTypes.string.isRequired,
+  body: PropTypes.string.isRequired,
 };

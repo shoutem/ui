@@ -1,4 +1,5 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
 import _ from 'lodash';
 
 import { View } from '../../components/View';
@@ -135,8 +136,8 @@ export class Inline extends React.Component {
 
   static propTypes = {
     ...ElementPropTypes,
-    onPress: React.PropTypes.func,
-    onLineBreak: React.PropTypes.func,
+    onPress: PropTypes.func,
+    onLineBreak: PropTypes.func,
   };
 
   static defaultProps = {

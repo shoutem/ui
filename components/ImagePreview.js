@@ -1,5 +1,4 @@
 import React, {
-  PropTypes,
   Component,
 } from 'react';
 import {
@@ -8,6 +7,7 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
+import { PropTypes } from 'prop-types';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 

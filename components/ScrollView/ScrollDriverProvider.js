@@ -1,4 +1,5 @@
 import React, { Component, Children } from 'react';
+import { PropTypes } from 'prop-types';
 import { DriverShape, ScrollDriver } from '@shoutem/animation';
 import * as _ from 'lodash';
 /**
@@ -9,7 +10,7 @@ import * as _ from 'lodash';
  */
 export class ScrollDriverProvider extends Component {
   static childContextTypes = {
-    driverProvider: React.PropTypes.object,
+    driverProvider: PropTypes.object,
     animationDriver: DriverShape,
   };
 
@@ -18,7 +19,7 @@ export class ScrollDriverProvider extends Component {
   };
 
   static propTypes = {
-    children: React.PropTypes.node,
+    children: PropTypes.node,
     driver: DriverShape,
   };
 
