@@ -1,5 +1,5 @@
 import React, { Component, Children } from 'react';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 import { DriverShape, ScrollDriver } from '@shoutem/animation';
 import * as _ from 'lodash';
 /**

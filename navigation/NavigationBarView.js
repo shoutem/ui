@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import tinyColor from 'tinycolor2';
 

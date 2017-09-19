@@ -1,7 +1,7 @@
 import React, {
   Component,
 } from 'react';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 
 import { connectStyle } from '@shoutem/theme';
 import { View } from './View';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 import { View } from '../../components/View';
 import { Video as UIVideo } from '../../components/Video';
 import Image from '../components/Image';

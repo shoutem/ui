@@ -1,5 +1,5 @@
 import React, { Children, Component } from 'react';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 
 /**
  * Provides the current navigation scene to child components.

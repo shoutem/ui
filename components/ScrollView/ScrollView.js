@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 import { Animated } from 'react-native';
 import { connectStyle } from '@shoutem/theme';
 import _ from 'lodash';

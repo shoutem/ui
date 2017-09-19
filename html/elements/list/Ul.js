@@ -1,5 +1,5 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 import { Text } from '@shoutem/ui';
 
 import { View } from '../../../components/View';
