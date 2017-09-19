@@ -5,6 +5,7 @@ import {
   Platform,
   View,
 } from 'react-native';
+import PropTypes from 'prop-types';
 
 import _ from 'lodash';
 
