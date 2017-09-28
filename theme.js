@@ -338,30 +338,30 @@ export default (variables = defaultThemeVariables) => ({
   'shoutem.ui.Heading': {
     [INCLUDE]: ['text'],
 
-    ...variables.heading,
     lineHeight: 30,
+    ...variables.heading,
   },
 
   'shoutem.ui.Title': {
     [INCLUDE]: ['text'],
 
-    ...variables.title,
     lineHeight: 25,
+    ...variables.title,
   },
 
   'shoutem.ui.Subtitle': {
     [INCLUDE]: ['text'],
 
-    ...variables.subtitle,
     lineHeight: 18,
+    ...variables.subtitle,
   },
 
   'shoutem.ui.Caption': {
     [INCLUDE]: ['text'],
 
-    ...variables.caption,
     lineHeight: 16,
     letterSpacing: 0.5,
+    ...variables.caption,
   },
 
   'shoutem.ui.Text': {
