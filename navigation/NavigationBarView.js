@@ -74,7 +74,10 @@ class NavigationBarView extends PureComponent {
       text: React.PropTypes.string,
       link: React.PropTypes.string,
     }),
-    style: React.PropTypes.object,
+    style: React.PropTypes.oneOfType([
+      React.PropTypes.object,
+      React.PropTypes.number,
+    ]),
     useNativeAnimations: React.PropTypes.bool,
     // Whether the navigation bar is rendered inline
     // with the screen.

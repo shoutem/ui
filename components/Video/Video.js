@@ -51,6 +51,10 @@ class Video extends React.Component {
       uri: PropTypes.string,
     }),
     style: PropTypes.object,
+    style: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.number,
+    ]),
     poster: PropTypes.string,
   };
 
