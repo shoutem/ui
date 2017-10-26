@@ -1741,7 +1741,7 @@ export default (variables = defaultThemeVariables) => ({
     },
 
     thumb: {
-      backgroundColor: '#ffffff',
+      backgroundColor: variables.paperColor,
       borderRadius: 7,
       height: 14,
       width: 14,
