@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import _ from 'lodash';
 import tinyColor from 'tinycolor2';
@@ -63,24 +64,24 @@ class NavigationBarView extends PureComponent {
     /**
      * The title to display in the navigation bar.
      */
-    title: React.PropTypes.string,
+    title: PropTypes.string,
     /**
      * If this prop exists, and has a valid link,
      * a share control will be rendered as the right
      * component of the navigation bar.
      */
-    share: React.PropTypes.shape({
-      title: React.PropTypes.string,
-      text: React.PropTypes.string,
-      link: React.PropTypes.string,
+    share: PropTypes.shape({
+      title: PropTypes.string,
+      text: PropTypes.string,
+      link: PropTypes.string,
     }),
-    style: React.PropTypes.object,
-    useNativeAnimations: React.PropTypes.bool,
+    style: PropTypes.object,
+    useNativeAnimations: PropTypes.bool,
     // Whether the navigation bar is rendered inline
     // with the screen.
-    inline: React.PropTypes.bool,
-    hidden: React.PropTypes.bool,
-    child: React.PropTypes.bool,
+    inline: PropTypes.bool,
+    hidden: PropTypes.bool,
+    child: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -91,8 +92,8 @@ class NavigationBarView extends PureComponent {
   };
 
   static contextTypes = {
-    transformProps: React.PropTypes.func.isRequired,
-    getNavBarProps: React.PropTypes.func.isRequired,
+    transformProps: PropTypes.func.isRequired,
+    getNavBarProps: PropTypes.func.isRequired,
   };
 
   componentWillReceiveProps(nextProps) {

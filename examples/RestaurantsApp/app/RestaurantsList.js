@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {
   Image,
@@ -19,7 +20,7 @@ import { navigatePush } from './redux';
 
 class RestaurantsList extends Component {
   static propTypes = {
-    onButtonPress: React.PropTypes.func,
+    onButtonPress: PropTypes.func,
   };
 
   constructor(props) {

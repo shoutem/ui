@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   ActivityIndicator,
@@ -24,7 +25,7 @@ class Spinner extends React.Component {
 }
 
 Spinner.propTypes = {
-  style: React.PropTypes.object,
+  style: PropTypes.object,
 };
 
 const StyledSpinner = connectStyle('shoutem.ui.Spinner', {

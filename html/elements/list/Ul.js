@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Text } from '@shoutem/ui';
 
@@ -25,7 +26,7 @@ export function Ul({ style, childElements, renderElement }) {
 
 Ul.propTypes = {
   ...ElementPropTypes,
-  style: React.PropTypes.object,
+  style: PropTypes.object,
 };
 
 export default combineMappers(mapElementProps)(Ul);
