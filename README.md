@@ -97,6 +97,12 @@ react-native run-ios
 react-native run-android
 ```
 
+## Using CRNA
+
+Shoutem UI is functional in this environment, but certain UI components that use native components will not work. For example, `LinearGradient` utilizes the `react-native-linear-gradient` package, which has native implementations for linear gradients.
+
+If you need those components, you can eject from the CRNA environment. See the [ejecting guide](https://github.com/react-community/create-react-native-app/blob/master/EJECTING.md) for more details about this option.
+
 ## UI Toolkit
 
 Shoutem UI is a part of the [Shoutem UI Toolkit](https://shoutem.github.io/ui/) that enables you to build professional looking React Native apps with ease.
