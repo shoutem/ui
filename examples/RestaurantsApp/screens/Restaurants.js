@@ -7,11 +7,11 @@ import {
   NavigationBar,
 } from '@shoutem/ui/navigation';
 
-import { navigatePop } from './redux';
+import { navigatePop } from '../redux';
 import RestaurantsList from './RestaurantsList';
 import RestaurantDetails from './RestaurantDetails';
 
-class App extends Component {
+class Restaurants extends Component {
   static propTypes = {
     onNavigateBack: PropTypes.func.isRequired,
     navigationState: PropTypes.object,
@@ -60,4 +60,4 @@ class App extends Component {
 export default connect(
   state => ({ navigationState: state.navigationState }),
   { onNavigateBack: navigatePop }
-)(App);
+)(Restaurants);

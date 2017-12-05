@@ -30,7 +30,7 @@ export class FormComponents extends Component {
             placeholder="Username or Email"
           />
         </Stage>
-        <Stage title="TextInput  / Full width secure entry">
+        <Stage title="TextInput  /  Full width secure entry">
           <TextInput
             styleName="stretch"
             placeholder="Password"
@@ -41,7 +41,7 @@ export class FormComponents extends Component {
           <FormGroup styleName="stretch">
             <Caption>NAME</Caption>
             <TextInput
-              placeholder="Username or Emaill"
+              placeholder="Username or Email"
             />
           </FormGroup>
         </Stage>

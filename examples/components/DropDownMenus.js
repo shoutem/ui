@@ -15,14 +15,6 @@ const options = [
     id: '7',
   },
   {
-    name: 'Lifestyle',
-    id: '7',
-  },
-  {
-    name: 'Food',
-    id: '8',
-  },
-  {
     name: 'Food',
     id: '8',
   },

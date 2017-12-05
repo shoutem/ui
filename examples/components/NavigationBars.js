@@ -84,7 +84,7 @@ export function NavigationBars() {
           />
         </NavBarStageContainer>
       </Stage>
-      <Stage title="Navbar/ Fade (Gradient overlay + Image)">
+      <Stage title="Navbar / Fade (Gradient overlay + Image)">
         <Image
           source={{uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-3.png' }}
           style={{
