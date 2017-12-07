@@ -1,16 +1,7 @@
-// when installing this example before merge into master, first install:
-//    "@shoutem/animation": "github:shoutem/animation#master"
-//    "@shoutem/theme": "github:shoutem/theme#master"
-// then install:
-//    "@shoutem/ui": "github:shoutem/ui#feature/rn-50-update"
-
-import React from 'react';
+import React, { Component } from 'react';
 import { StatusBar } from 'react-native';
-
 import { Font, AppLoading } from 'expo';
 import { View, Examples } from '@shoutem/ui';
-
-console.disableYellowBox = true;
 
 export default class App extends React.Component {
   state = {

@@ -7,6 +7,7 @@ import {
   ListView,
   LayoutAnimation,
   Dimensions,
+  NativeModules,
 } from 'react-native';
 import _ from 'lodash';
 
@@ -211,6 +212,10 @@ class DropDownModal extends Component {
       location: 1,
       color: bufferColor
     }];
+
+    if(!NativeModules.BVLinearGradient){
+      return null;
+    }
 
     return (
       <LinearGradient
