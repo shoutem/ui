@@ -1,16 +1,28 @@
 {
-  "name": "ShoutemRestaurants",
+  "name": "RestaurantsApp",
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start"
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
   },
   "dependencies": {
-    "@shoutem/ui": "^0.12.0-rc.0",
-    "react": "~15.4.1",
-    "react-native": "0.42.2",
-    "react-redux": "^4.4.5",
-    "redux": "^3.5.2",
-    "redux-thunk": "^2.1.0"
+    "@shoutem/animation": "0.12.0",
+    "@shoutem/theme": "0.11.0",
+    "@shoutem/ui": "0.22.0",
+    "react": "16.0.0",
+    "react-native": "0.50.4",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0"
+  },
+  "devDependencies": {
+    "babel-jest": "21.2.0",
+    "babel-preset-react-native": "4.0.0",
+    "jest": "21.2.1",
+    "react-test-renderer": "16.0.0"
+  },
+  "jest": {
+    "preset": "react-native"
   }
 }

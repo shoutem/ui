@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {
   ScrollView,
@@ -19,7 +20,7 @@ import {
 
 export default class RestaurantDetails extends Component {
   static propTypes = {
-    restaurant: React.PropTypes.object,
+    restaurant: PropTypes.object,
   };
 
   render() {
@@ -57,7 +58,6 @@ export default class RestaurantDetails extends Component {
                 <Subtitle>Visit webpage</Subtitle>
                 <Text numberOfLines={1}>{restaurant.url}</Text>
               </View>
-              <Icon styleName="disclosure" name="right-arrow" />
             </Row>
 
             <Divider styleName="line" />
@@ -68,7 +68,6 @@ export default class RestaurantDetails extends Component {
                 <Subtitle>Address</Subtitle>
                 <Text numberOfLines={1}>{restaurant.address}</Text>
               </View>
-              <Icon styleName="disclosure" name="right-arrow" />
             </Row>
 
             <Divider styleName="line" />

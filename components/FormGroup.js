@@ -16,7 +16,7 @@ class FormGroup extends Component {
 }
 
 FormGroup.propTypes = {
-  ...View.propTypes
+  ...View.propTypes,
 };
 
 const AnimatedFormGroup = connectAnimation(FormGroup);

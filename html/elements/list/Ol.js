@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import { View } from '../../../components/View';
@@ -27,8 +28,8 @@ export function Ol({ style, childElements, type, renderElement }) {
 
 Ol.propTypes = {
   ...ElementPropTypes,
-  style: React.PropTypes.object,
-  type: React.PropTypes.string,
+  style: PropTypes.object,
+  type: PropTypes.string,
 };
 
 export default combineMappers(mapElementProps)(Ol);

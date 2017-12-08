@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {
   Image,
@@ -13,13 +14,13 @@ import {
 import {
   NavigationBar,
 } from '@shoutem/ui/navigation';
-
 import { connect } from 'react-redux';
-import { navigatePush } from './redux';
+
+import { navigatePush } from '../redux';
 
 class RestaurantsList extends Component {
   static propTypes = {
-    onButtonPress: React.PropTypes.func,
+    onButtonPress: PropTypes.func,
   };
 
   constructor(props) {
@@ -54,11 +55,10 @@ class RestaurantsList extends Component {
     return (
       <Screen>
         <NavigationBar title="All Restaurants" />
-
-        <ListView
-          data={this.getRestaurants()}
-          renderRow={restaurant => this.renderRow(restaurant)}
-        />
+          <ListView
+            data={this.getRestaurants()}
+            renderRow={restaurant => this.renderRow(restaurant)}
+          />
       </Screen>
     );
   }
@@ -77,4 +77,3 @@ export default connect(
 	undefined,
 	mapDispatchToProps
 )(RestaurantsList);
-
