@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Image as RNImage } from 'react-native';

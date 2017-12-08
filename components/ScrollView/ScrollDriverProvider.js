@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component, Children } from 'react';
 import PropTypes from 'prop-types';
 import { DriverShape, ScrollDriver } from '@shoutem/animation';

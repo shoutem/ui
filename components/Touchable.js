@@ -1,6 +1,6 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Platform } from 'react-native';
-import PropTypes from 'prop-types';
 
 import { connectStyle } from '@shoutem/theme';
 

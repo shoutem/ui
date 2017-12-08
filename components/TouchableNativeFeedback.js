@@ -1,5 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { TouchableNativeFeedback as RNTouchableNativeFeedback } from 'react-native';
 
 import { connectStyle } from '@shoutem/theme';

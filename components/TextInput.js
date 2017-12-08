@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { TextInput as RNTextInput } from 'react-native';
 import PropTypes from 'prop-types';

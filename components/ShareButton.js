@@ -1,31 +1,17 @@
+import PropTypes from 'prop-types';
 import React, {
   Component,
 } from 'react';
 import PropTypes from 'prop-types';
 
-import { Alert } from 'react-native';
-
-import Share from 'react-native-share';
+import { Share, Platform } from 'react-native';
 
 import { connectStyle } from '@shoutem/theme';
 
 import { Button } from './Button';
 import { Icon } from './Icon';
 
-const USER_CANCELLED_ERROR = 'User did not share';
-
-const { func, string } = PropTypes;
-
-const showErrorMessage = (error) => {
-  if (error.error === USER_CANCELLED_ERROR) {
-    return;
-  }
-
-  Alert.alert(
-    'Sharing error',
-    error.error,
-  );
-};
+const { string } = PropTypes;
 
 /**
  * The ShareButton is a virtual component that wraps a button with a share icon.
@@ -41,16 +27,10 @@ class ShareButton extends Component {
     animationName: string,
     // Message to share
     message: string,
-    // Called when there was a sharing error
-    onError: func,
     // Title
     title: string,
     // Url to share
     url: string,
-  };
-
-  static defaultProps = {
-    onError: showErrorMessage,
   };
 
   constructor(props) {
@@ -60,14 +40,14 @@ class ShareButton extends Component {
   }
 
   onShare() {
-    const { onError, title, message, url } = this.props;
+    const { title, message, url } = this.props;
 
-    Share.open({
+    Share.share({
       title,
-      message,
+      // URL property isn't supported on Android, so we are
+      // including it as the message for now
+      message: Platform.OS === 'android' ? url : message,
       url,
-    }).catch((error) => {
-      onError(error);
     });
   }
 
