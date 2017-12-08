@@ -166,6 +166,12 @@ class DropDownModal extends Component {
   }
 
   renderGradient() {
+    // If the native module for Linear Gradient isn't loaded, then the gradient won't
+    // be rendered inside the DropDownModal.
+    if(!NativeModules.BVLinearGradient){
+      return null;
+    }
+
     const { style } = this.props;
     const { backgroundColor } = style.modal;
     const { optionHeight } = this.state;
@@ -212,10 +218,6 @@ class DropDownModal extends Component {
       location: 1,
       color: bufferColor
     }];
-
-    if(!NativeModules.BVLinearGradient){
-      return null;
-    }
 
     return (
       <LinearGradient
