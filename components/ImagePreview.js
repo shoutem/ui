@@ -75,7 +75,6 @@ class ImagePreview extends Component {
               componentWidth={width}
               componentHeight={height}
               source={source}
-              resizeMode={'contain'}
             />
             {closeButton}
           </View>
@@ -91,7 +90,6 @@ class ImagePreview extends Component {
             source={source}
             width={width}
             height={height}
-            resizeMode="contain"
           />
         </TouchableOpacity>
       </View>

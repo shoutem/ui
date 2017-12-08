@@ -386,7 +386,6 @@ export default (variables = defaultThemeVariables) => ({
       height: dimensionRelativeToIphone(25),
       borderRadius: 12.5,
       borderWidth: 0,
-      resizeMode: 'cover',
     },
 
     '.small': {
@@ -399,7 +398,6 @@ export default (variables = defaultThemeVariables) => ({
       height: dimensionRelativeToIphone(145),
       borderRadius: 72.5,
       borderWidth: 0,
-      resizeMode: 'cover',
     },
 
     '.medium': {
@@ -508,7 +506,6 @@ export default (variables = defaultThemeVariables) => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    resizeMode: 'cover',
   },
 
   //
@@ -2053,13 +2050,11 @@ export default (variables = defaultThemeVariables) => ({
         // Used to keep video ratio by thumbnail.
         // Must have width.
         width: 300,
-        resizeMode: 'contain',
         alignSelf: 'center',
         marginBottom: 20,
       },
     },
     img: {
-      resizeMode: 'contain',
       alignSelf: 'center',
       marginBottom: 20,
       // Image height is calculated to respect
@@ -2378,7 +2373,6 @@ export default (variables = defaultThemeVariables) => ({
     'shoutem.ui.Image': {
       '.preview': {
         flex: 1,
-        resizeMode: 'contain',
       },
     },
   },

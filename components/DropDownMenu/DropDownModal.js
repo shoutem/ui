@@ -7,6 +7,7 @@ import {
   ListView,
   LayoutAnimation,
   Dimensions,
+  NativeModules,
 } from 'react-native';
 import _ from 'lodash';
 
@@ -165,6 +166,12 @@ class DropDownModal extends Component {
   }
 
   renderGradient() {
+    // If the native module for Linear Gradient isn't loaded, then the gradient won't
+    // be rendered inside the DropDownModal.
+    if(!NativeModules.BVLinearGradient){
+      return null;
+    }
+
     const { style } = this.props;
     const { backgroundColor } = style.modal;
     const { optionHeight } = this.state;

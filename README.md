@@ -6,7 +6,7 @@ Shoutem UI is a set of styleable components that enables you to build beautiful 
 
 ```
 $ npm install --save @shoutem/ui
-$ react-native link # No need to run this with Exponent
+$ react-native link # No need to run this with Expo
 ```
 
 ## Docs
@@ -26,7 +26,7 @@ To see how Shoutem UI works, you can:
 
 ### Examples component
 
-**If you are using Exponent, see [this
+**If you are using Expo, see [this
 project](https://github.com/exponentjs/shoutem-example/blob/master/main.js)
 for example usage. Otherwise, follow the steps below.**
 
@@ -43,22 +43,19 @@ $ npm install --save @shoutem/ui
 $ react-native link
 ```
 
-Now, simply copy the following to your `index.ios.js` files of the React Native project:
+Now, simply copy the following to your `App.js` files of the React Native project:
 
 ```JavaScript
 import React, { Component } from 'react';
-import { AppRegistry } from 'react-native';
 import { Examples } from '@shoutem/ui';
 
-class HelloWorld extends Component {
+export default class App extends Component<{}> {
   render() {
     return (
       <Examples />
     );
   }
 }
-
-AppRegistry.registerComponent('HelloWorld', () => HelloWorld);
 ```
 
 Finally, run the app!
@@ -114,5 +111,3 @@ It consists of three libraries:
 
 [The BSD License](https://opensource.org/licenses/BSD-3-Clause)
 Copyright (c) 2016-present, [Shoutem](http://shoutem.github.io)
-
-

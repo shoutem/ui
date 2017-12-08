@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import {
-  Image as RNImage,
+  ImageBackground as RNImage,
   Platform,
 } from 'react-native';
 import _ from 'lodash';
