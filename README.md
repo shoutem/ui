@@ -27,7 +27,7 @@ To see how Shoutem UI works, you can:
 ### Examples component
 
 **If you are using Expo, see [this
-project](https://github.com/exponentjs/shoutem-example/blob/master/main.js)
+project](https://github.com/shoutem/ui/blob/develop/examples/create-react-native-app/App.js)
 for example usage. Otherwise, follow the steps below.**
 
 Create new React Native project and locate to it:
