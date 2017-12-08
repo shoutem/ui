@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { View } from '../../../components/View';
 import { Text } from '../../../components/Text';

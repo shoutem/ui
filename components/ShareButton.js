@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, {
   Component,
 } from 'react';
+import PropTypes from 'prop-types';
 
 import { Share, Platform } from 'react-native';
 

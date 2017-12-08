@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { DriverShape } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';

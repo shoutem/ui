@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Platform, InteractionManager } from 'react-native';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import { View, Spinner } from '@shoutem/ui';

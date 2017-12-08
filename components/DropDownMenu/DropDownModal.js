@@ -8,6 +8,7 @@ import {
   LayoutAnimation,
   Dimensions,
 } from 'react-native';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import { Button } from '../Button';

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Image as RNImage } from 'react-native';
 import { connectStyle } from '@shoutem/theme';
 import _ from 'lodash';

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Children } from 'react';
 import { View as RNView } from 'react-native';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import { View } from './View';

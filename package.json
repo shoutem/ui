@@ -6,12 +6,13 @@
     "@shoutem/animation": "~0.11.0",
     "@shoutem/theme": "~0.10.0",
     "babel-plugin-transform-decorators-legacy": "~1.3.4",
-    "buffer": "~4.5.1",
-    "events": "1.1.0",
+    "buffer": "^5.0.7",
+    "events": "^1.1.1",
     "html-entities": "~1.2.0",
     "htmlparser2": "~3.9.0",
-    "lodash": "~4.15.0",
-    "qs": "~4.0.0",
+    "lodash": "^4.17.4",
+    "prop-types": "^15.5.10",
+    "qs": "^6.5.1",
     "react-native-lightbox": "shoutem/react-native-lightbox#4e58b9b1aca166142d69b161ff511efc3358ff9f",
     "react-native-linear-gradient": "~2.2.0",
     "react-native-transformable-image": "shoutem/react-native-transformable-image#7d15395ec3857571711a12bc08f24f3a96ff1cde",
@@ -19,7 +20,7 @@
     "react-native-photo-view": "~1.4.0",
     "react-native-navigation-experimental-compat": "1.0.0",
     "stream": "0.0.2",
-    "tinycolor2": "~1.3.0"
+    "tinycolor2": "^1.4.1"
   },
   "peerDependencies": {
     "react": "^15.0.0",
@@ -27,14 +28,14 @@
   },
   "devDependencies": {
     "babel": "^6.3.26",
-    "babel-preset-react-native": "^1.9.0",
-    "chai": "^3.4.1",
+    "babel-preset-react-native": "^4.0.0",
+    "chai": "^4.1.2",
     "deep-freeze": "0.0.1",
     "enzyme": "^2.0.0-rc1",
-    "mocha": "^2.3.4",
+    "mocha": "^3.5.3",
     "react-addons-test-utils": "^15.3.1",
     "react-dom": "^15.3.1",
-    "react-native-mock": "^0.2.5"
+    "react-native-mock": "^0.3.1"
   },
   "scripts": {
     "test": "mocha -R spec --require test-utils/setup.js --require react-native-mock/mock.js --compilers js:babel-core/register $(find . -name '*.spec.js' ! -ipath '*node_modules*')"
