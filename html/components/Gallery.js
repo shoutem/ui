@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 import { InlineGallery } from '../../components/InlineGallery';
@@ -9,7 +10,7 @@ import { InlineGallery } from '../../components/InlineGallery';
 export default class Gallery extends Component {
   static propTypes = {
     ...InlineGallery.propTypes,
-    handlePhotoPress: React.PropTypes.func,
+    handlePhotoPress: PropTypes.func,
   };
 
   constructor(props) {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 import { View } from '../../index';
@@ -9,10 +10,10 @@ import { View } from '../../index';
  */
 export class Page extends Component {
   static propTypes = {
-    isActive: React.PropTypes.bool.isRequired,
-    width: React.PropTypes.number.isRequired,
-    style: React.PropTypes.object,
-    children: React.PropTypes.node,
+    isActive: PropTypes.bool.isRequired,
+    width: PropTypes.number.isRequired,
+    style: PropTypes.object,
+    children: PropTypes.node,
   };
 
   shouldComponentUpdate(nextProps) {

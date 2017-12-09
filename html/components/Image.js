@@ -1,8 +1,11 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Image as RNImage } from 'react-native';
 import { connectStyle } from '@shoutem/theme';
+import _ from 'lodash';
 
 import { Image } from '../../components/Image';
+import { Lightbox } from '../../components/Lightbox';
 
 /**
  * Remote images must have width and height to display correctly.
@@ -13,6 +16,13 @@ import { Image } from '../../components/Image';
 export default class HtmlImage extends Component {
   static propTypes = {
     ...RNImage.propTypes,
+    lightbox: PropTypes.bool,
+    allowUpscale: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    lightbox: true,
+    allowUpscale: false,
   };
 
   constructor(props) {
@@ -37,7 +47,7 @@ export default class HtmlImage extends Component {
   }
 
   render() {
-    const { children, style } = this.props;
+    const { children, style, allowUpscale } = this.props;
     const { width, height } = this.state;
 
     if (!style) {
@@ -45,15 +55,36 @@ export default class HtmlImage extends Component {
       return null;
     }
 
-    const imageWidth = style.width;
-
-    if ((!height && (!style.height || !imageWidth)) || !width) {
+    // Image can not be rendered without width and height.
+    if (!height || !width) {
       return null;
     }
 
-    const imageHeight = style.height || (imageWidth / width) * height;
-    const { source } = this.props;
+    // Do not enlarge image.
+    // If image is smaller then image style width,
+    // width that fits the screen best, use actual image width.
+    const imageWidth = allowUpscale && style.width ? style.width : _.min([width, style.width]);
 
+    const imageHeight = style.height || (imageWidth / width) * height;
+    const { source, lightbox } = this.props;
+
+    if (_.isEmpty(children) && lightbox) {
+      // Showing image as part of the content, can be opened (zoomed).
+      // Not background image (if it has any children)
+      return (
+        <Lightbox
+          activeProps={{ styleName: 'preview wrapper' }}
+          styleName="wrapper"
+        >
+          <Image
+            {...this.props}
+            source={{ width: imageWidth, height: imageHeight, ...source }}
+          />
+        </Lightbox>
+      );
+    }
+
+    // Showing image as background, can't be opened (zoomed).
     return (
       <Image
         {...this.props}

@@ -1,6 +1,5 @@
-import React, {
-  PropTypes,
-} from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 import {
   View,
@@ -11,7 +10,7 @@ import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
 import VideoSourceReader from './VideoSourceReader';
 
-function createSourceObject(source, playerParams) {
+function createSourceObject(source, playerParams, poster) {
   const sourceReader = new VideoSourceReader(source.uri, playerParams);
   const url = sourceReader.getUrl();
 
@@ -22,7 +21,7 @@ function createSourceObject(source, playerParams) {
   }
 
   const HTML = `
-    <video width="100%" height="auto" controls  >
+    <video width="100%" height="auto" poster="${poster}" controls  >
        <source src="${url}" >
      </video>
   `;
@@ -51,6 +50,7 @@ class Video extends React.Component {
       uri: PropTypes.string,
     }),
     style: PropTypes.object,
+    poster: PropTypes.string,
   };
 
   static defaultProps = {
@@ -66,13 +66,14 @@ class Video extends React.Component {
       source,
       style,
       playerParams,
+      poster,
     } = this.props;
 
     return (
       <View style={style.container}>
         <WebView
           style={{width, height}}
-          source={createSourceObject(source, playerParams)}
+          source={createSourceObject(source, playerParams, poster)}
           scrollEnabled={false}
         />
       </View>

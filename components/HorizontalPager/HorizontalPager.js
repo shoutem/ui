@@ -1,7 +1,5 @@
-import React, {
-  Component,
-  PropTypes,
-} from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 import {
   ScrollView,
@@ -238,6 +236,9 @@ class HorizontalPager extends Component {
         // While keeping pageMargin intact between pages
         pageWidth = width - pageMargin - style.nextPageInsetSize;
       }
+
+      // Fixes where multiple pages appear at once on initial load (if surroundingPagesToLoad > 0)
+      if (!containerWidth) return null;
 
       const isPageActive = (selectedIndex === pageIndex);
       const pageContent = this.shouldRenderPage(pageIndex) && (

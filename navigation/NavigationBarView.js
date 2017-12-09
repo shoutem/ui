@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import _ from 'lodash';
 import tinyColor from 'tinycolor2';
@@ -6,8 +7,9 @@ import {
   Platform,
   StatusBar,
   Animated,
-  NavigationExperimental,
+  InteractionManager,
 } from 'react-native';
+import NavigationExperimental from 'react-native-navigation-experimental-compat';
 
 import { connectStyle } from '@shoutem/theme';
 import {
@@ -62,24 +64,24 @@ class NavigationBarView extends PureComponent {
     /**
      * The title to display in the navigation bar.
      */
-    title: React.PropTypes.string,
+    title: PropTypes.string,
     /**
      * If this prop exists, and has a valid link,
      * a share control will be rendered as the right
      * component of the navigation bar.
      */
-    share: React.PropTypes.shape({
-      title: React.PropTypes.string,
-      text: React.PropTypes.string,
-      link: React.PropTypes.string,
+    share: PropTypes.shape({
+      title: PropTypes.string,
+      text: PropTypes.string,
+      link: PropTypes.string,
     }),
-    style: React.PropTypes.object,
-    useNativeAnimations: React.PropTypes.bool,
+    style: PropTypes.object,
+    useNativeAnimations: PropTypes.bool,
     // Whether the navigation bar is rendered inline
     // with the screen.
-    inline: React.PropTypes.bool,
-    hidden: React.PropTypes.bool,
-    child: React.PropTypes.bool,
+    inline: PropTypes.bool,
+    hidden: PropTypes.bool,
+    child: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -90,18 +92,26 @@ class NavigationBarView extends PureComponent {
   };
 
   static contextTypes = {
-    transformProps: React.PropTypes.func.isRequired,
-    getNavBarProps: React.PropTypes.func.isRequired,
+    transformProps: PropTypes.func.isRequired,
+    getNavBarProps: PropTypes.func.isRequired,
   };
 
-  componentWillMount() {
-    this.setStatusBarStyle(this.props.style);
-  }
-
   componentWillReceiveProps(nextProps) {
-    if (this.props.style !== nextProps.style) {
-      this.cleanupStatusBarStyleListeners();
-      this.setStatusBarStyle(nextProps.style);
+    if (!_.get(nextProps, 'scene.isActive')) {
+      // Ignore inactive scenes
+      return;
+    }
+
+    if (this.props.inline || this.props.style !== nextProps.style) {
+      // We need to refresh the status bar style each
+      // time the inline navigation bar gets new props.
+      // This is because there will be multiple instances
+      // of the navigation bar, and the style will not change
+      // when the active instance is swapped out.
+      InteractionManager.runAfterInteractions(() => {
+        this.cleanupStatusBarStyleListeners();
+        this.setStatusBarStyle(nextProps.style);
+      });
     }
   }
 
@@ -148,11 +158,12 @@ class NavigationBarView extends PureComponent {
    * of the navigation bar.
    *
    * @param color The navigation bar background color.
+   * @param animated If the color change should be animated, iOS only
    */
-  setStatusBarStyleForBackgroundColor(color) {
+  setStatusBarStyleForBackgroundColor(color, animated) {
     const colorValue = getAnimatedStyleValue(color);
     const barStyle = tinyColor(colorValue).isDark() ? 'light-content' : 'default';
-    StatusBar.setBarStyle(barStyle);
+    StatusBar.setBarStyle(barStyle, animated);
   }
 
   /**
@@ -176,13 +187,13 @@ class NavigationBarView extends PureComponent {
           // If the backgroundColor is animated, we want to listen for
           // color changes, so that we can update the bar style as the
           // animation runs.
-          this.backgroundListenerId = addAnimatedValueListener(backgroundColor, () =>
-            this.setStatusBarStyleForBackgroundColor(backgroundColor)
-          );
+          this.backgroundListenerId = addAnimatedValueListener(backgroundColor, () => {
+            this.setStatusBarStyleForBackgroundColor(backgroundColor);
+          });
         }
 
         // Set the bar style based on the current background color value
-        this.setStatusBarStyleForBackgroundColor(backgroundColor);
+        this.setStatusBarStyleForBackgroundColor(backgroundColor, true);
       }
     } else {
       if (!_.isUndefined(statusBarStyle.backgroundColor)) {
@@ -206,7 +217,7 @@ class NavigationBarView extends PureComponent {
       // if necessary in `setStatusBarStyle`.
       removeAnimatedValueListener(
         this.props.style.container.backgroundColor,
-        this.backgroundListenerId
+        this.backgroundListenerId,
       );
       this.backgroundListenerId = null;
     }
@@ -368,6 +379,14 @@ class NavigationBarView extends PureComponent {
     return null;
   }
 
+  renderBackground() {
+    const { renderBackground } = this.props;
+    if (renderBackground) {
+      return renderBackground(this.props);
+    }
+    return null;
+  }
+
   render() {
     const { scene } = this.props;
     const { style, hidden, child } = this.resolveSceneProps(scene);
@@ -380,6 +399,7 @@ class NavigationBarView extends PureComponent {
 
     return (
       <Animated.View style={[style.container, this.interpolateNavBarStyle()]}>
+        {this.renderBackground()}
         {this.renderLinearGradient()}
         <NavigationHeader
           {...this.createNavigationHeaderProps(style)}

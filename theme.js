@@ -1,10 +1,10 @@
 import {
   Dimensions,
   StyleSheet,
-  NavigationExperimental,
   Platform,
   StatusBar,
 } from 'react-native';
+import NavigationExperimental from 'react-native-navigation-experimental-compat';
 
 import {
   INCLUDE,
@@ -14,6 +14,10 @@ import {
   changeColorAlpha,
   getSizeRelativeToReference,
 } from '@shoutem/theme';
+
+const {
+  Header: NavigationHeader,
+} = NavigationExperimental;
 
 const window = Dimensions.get('window');
 
@@ -35,7 +39,7 @@ export const viewComponents = [
   'shoutem.ui.Row',
 ];
 
-function dimensionRelativeToIphone(dimension, actualRefVal = window.width) {
+export function dimensionRelativeToIphone(dimension, actualRefVal = window.width) {
   // 375 is iPhone width
   return getSizeRelativeToReference(dimension, 375, actualRefVal);
 }
@@ -334,30 +338,30 @@ export default (variables = defaultThemeVariables) => ({
   'shoutem.ui.Heading': {
     [INCLUDE]: ['text'],
 
-    ...variables.heading,
     lineHeight: 30,
+    ...variables.heading,
   },
 
   'shoutem.ui.Title': {
     [INCLUDE]: ['text'],
 
-    ...variables.title,
     lineHeight: 25,
+    ...variables.title,
   },
 
   'shoutem.ui.Subtitle': {
     [INCLUDE]: ['text'],
 
-    ...variables.subtitle,
     lineHeight: 18,
+    ...variables.subtitle,
   },
 
   'shoutem.ui.Caption': {
     [INCLUDE]: ['text'],
 
-    ...variables.caption,
     lineHeight: 16,
     letterSpacing: 0.5,
+    ...variables.caption,
   },
 
   'shoutem.ui.Text': {
@@ -382,7 +386,6 @@ export default (variables = defaultThemeVariables) => ({
       height: dimensionRelativeToIphone(25),
       borderRadius: 12.5,
       borderWidth: 0,
-      resizeMode: 'cover',
     },
 
     '.small': {
@@ -395,7 +398,6 @@ export default (variables = defaultThemeVariables) => ({
       height: dimensionRelativeToIphone(145),
       borderRadius: 72.5,
       borderWidth: 0,
-      resizeMode: 'cover',
     },
 
     '.medium': {
@@ -406,6 +408,11 @@ export default (variables = defaultThemeVariables) => ({
     '.medium-wide': {
       width: dimensionRelativeToIphone(180),
       height: dimensionRelativeToIphone(85),
+    },
+
+    '.medium-portrait': {
+      width: dimensionRelativeToIphone(209),
+      height: dimensionRelativeToIphone(139),
     },
 
     '.medium-square': {
@@ -499,7 +506,6 @@ export default (variables = defaultThemeVariables) => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    resizeMode: 'cover',
   },
 
   //
@@ -820,14 +826,17 @@ export default (variables = defaultThemeVariables) => ({
   'shoutem.ui.Card': {
     [INCLUDE]: ['commonVariants'],
 
-    'shoutem.ui.View.content': {
-      'shoutem.ui.Subtitle': {
-        marginBottom: variables.mediumGutter,
+    'shoutem.ui.View': {
+      '.content': {
+        'shoutem.ui.Subtitle': {
+          marginBottom: 10,
+        },
       },
 
       flex: 1,
       alignSelf: 'stretch',
       padding: 10,
+      backgroundColor: variables.paperColor,
     },
 
     width: dimensionRelativeToIphone(180),
@@ -839,6 +848,23 @@ export default (variables = defaultThemeVariables) => ({
     shadowColor: variables.shadowColor,
     shadowOpacity: 0.1,
     shadowOffset: { width: 1, height: 1 },
+
+    '.horizontal': {
+      'shoutem.ui.View': {
+        '.pull-left': {
+          marginVertical: variables.mediumGutter,
+          marginLeft: -dimensionRelativeToIphone(72),
+        },
+      },
+
+      // width needs to be reset so alignSelf stretch could be applied
+      width: null,
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      margin: 10,
+      marginTop: variables.smallGutter,
+      marginBottom: variables.smallGutter,
+    },
   },
 
   'shoutem.ui.Overlay': {
@@ -1014,7 +1040,7 @@ export default (variables = defaultThemeVariables) => ({
         fontFamily: 'Rubik-Medium',
       },
 
-      width: 120,
+      width: dimensionRelativeToIphone(120),
       height: 82,
       flexDirection: 'column',
     },
@@ -1464,6 +1490,28 @@ export default (variables = defaultThemeVariables) => ({
       right: 0,
       height: NAVIGATION_BAR_HEIGHT,
     },
+    navigationBarImage: {
+      flex: 1,
+      flexGrow: 1,
+      height: NavigationHeader.HEIGHT,
+      left: 0,
+      solidifyAnimation(driver) {
+        return {
+          opacity: driver.interpolate({
+            inputRange: [250, 300],
+            outputRange: [0, 1],
+            extrapolate: 'clamp',
+          }),
+        };
+      },
+      boxingAnimation() {
+        return {};
+      },
+      position: 'absolute',
+      right: 0,
+      top: 0,
+      width: window.width,
+    },
   },
 
   'shoutem.ui.navigation.CardStack': {
@@ -1690,7 +1738,7 @@ export default (variables = defaultThemeVariables) => ({
     },
 
     thumb: {
-      backgroundColor: '#ffffff',
+      backgroundColor: variables.paperColor,
       borderRadius: 7,
       height: 14,
       width: 14,
@@ -1785,8 +1833,6 @@ export default (variables = defaultThemeVariables) => ({
       },
     },
 
-    visibleOptions: 8,
-
     selectedOption: {
       // Button
       [INCLUDE]: ['clearButton', 'textualButton'],
@@ -1799,7 +1845,9 @@ export default (variables = defaultThemeVariables) => ({
         marginRight: 0,
       },
     },
+  },
 
+  'shoutem.ui.DropDownModal': {
     modal: {
       'shoutem.ui.Button.close': {
         'shoutem.ui.Icon': {
@@ -1833,14 +1881,21 @@ export default (variables = defaultThemeVariables) => ({
 
       flex: 1,
     },
+
+    visibleOptions: 8,
   },
 
   //
   // Html
   //
-  textBlock: {
+  textBlock: { // Inline element
     container: {
-      marginBottom: 20,
+      '.wrapper': {
+        marginBottom: 0,
+      },
+      '.block': {
+        marginBottom: 20,
+      },
     },
     text: {
     },
@@ -1960,14 +2015,25 @@ export default (variables = defaultThemeVariables) => ({
     // HTML lists
     ul: {
       container: {},
-      prefix: {}, // Not implemented yet
     },
     ol: {
       container: {},
-      prefix: {},
     },
-    li: {
-      flexDirection: 'row',
+    number: {
+      // Font should be monospace so that item content has same offset
+      // Can not apply width to the Text for some reason
+      fontFamily: Platform.OS === 'ios' ? 'Menlo-Regular' : 'monospace',
+      fontSize: 12,
+    },
+    bullet: {
+    },
+    li: { // Inline element
+      [INCLUDE]: ['textBlock'],
+      container: {
+        '.block': {
+          marginBottom: 10,
+        },
+      },
     },
 
     // HTML containers
@@ -1979,29 +2045,25 @@ export default (variables = defaultThemeVariables) => ({
 
     // HTML functional
     video: {
-      // TODO - Create video element
+      container: {
+        // html/components/Image
+        // Used to keep video ratio by thumbnail.
+        // Must have width.
+        width: 300,
+        alignSelf: 'center',
+        marginBottom: 20,
+      },
     },
     img: {
-      resizeMode: 'contain',
       alignSelf: 'center',
+      marginBottom: 20,
       // Image height is calculated to respect
       // image ratio depending on width.
       // If both width and height are defined
       // image dimensions are fixed.
+      // If image width is smaller then style width
+      // it will not rescale.
       width: 300,
-    },
-
-    'se-attachment': {
-      gallery: {
-        container: {
-          height: dimensionRelativeToIphone(130),
-        },
-      },
-      video: {
-        container: {
-          width: 300,
-        },
-      },
     },
   },
 
@@ -2311,7 +2373,6 @@ export default (variables = defaultThemeVariables) => ({
     'shoutem.ui.Image': {
       '.preview': {
         flex: 1,
-        resizeMode: 'contain',
       },
     },
   },

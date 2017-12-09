@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   View,
@@ -65,18 +66,18 @@ class ListDataSource {
 
 class ListView extends React.Component {
   static propTypes = {
-    autoHideHeader: React.PropTypes.bool,
-    style: React.PropTypes.object,
-    data: React.PropTypes.array,
-    loading: React.PropTypes.bool,
-    onLoadMore: React.PropTypes.func,
-    onRefresh: React.PropTypes.func,
-    getSectionId: React.PropTypes.func,
-    renderRow: React.PropTypes.func,
-    renderHeader: React.PropTypes.func,
-    renderFooter: React.PropTypes.func,
-    renderSectionHeader: React.PropTypes.func,
-    scrollDriver: React.PropTypes.object,
+    autoHideHeader: PropTypes.bool,
+    style: PropTypes.object,
+    data: PropTypes.array,
+    loading: PropTypes.bool,
+    onLoadMore: PropTypes.func,
+    onRefresh: PropTypes.func,
+    getSectionId: PropTypes.func,
+    renderRow: PropTypes.func,
+    renderHeader: PropTypes.func,
+    renderFooter: PropTypes.func,
+    renderSectionHeader: PropTypes.func,
+    scrollDriver: PropTypes.object,
     // TODO(Braco) - add render separator
   };
 
@@ -143,7 +144,9 @@ class ListView extends React.Component {
    */
   getPropsToPass() {
     const props = this.props;
-    const mappedProps = _.omit(_.pick(props, scrollViewProps), ['style']);
+    const mappedProps = {
+      ...props,
+    };
 
     // configuration
     // default load more threshold
@@ -315,6 +318,24 @@ const StyledListView = connectStyle('shoutem.ui.ListView', {
     paddingVertical: 25,
   },
 })(ListView);
+
+function getRNListViewComponent(context) {
+  return _.get(context, 'wrappedInstance.listView');
+}
+
+StyledListView.prototype.scrollTo = function scrollTo(coordinates) {
+  const listView = getRNListViewComponent(this);
+  if (listView) {
+    listView.scrollTo(coordinates);
+  }
+};
+
+StyledListView.prototype.scrollToEnd = function scrollToEnd(animation) {
+  const listView = getRNListViewComponent(this);
+  if (listView) {
+    listView.scrollToEnd(animation);
+  }
+};
 
 export {
   StyledListView as ListView,

@@ -11,7 +11,7 @@ export function Videos() {
     <View styleName="vertical collapsed">
       <Stage title={"YouTube video"}>
         <Video
-          source={{uri: "https://www.youtube.com/embed/GCSeAiScMfg"}}
+          source={{uri: "https://www.youtube.com/embed/2zuisMXzyaI"}}
           width={320}
           height={180}
         />
@@ -25,7 +25,7 @@ export function Videos() {
       </Stage>
       <Stage title={"Stream video"}>
         <Video
-          source={{uri: "https://archive.org/download/WebmVp8Vorbis/webmvp8_512kb.mp4"}}
+          source={{uri: "https://archive.org/download/Sintel/sintel-2048-stereo_512kb.mp4"}}
           width={320}
           height={180}
         />

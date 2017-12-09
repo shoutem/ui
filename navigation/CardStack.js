@@ -1,7 +1,7 @@
+import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import {
   InteractionManager,
-  Platform,
 } from 'react-native';
 
 import _ from 'lodash';
@@ -24,36 +24,34 @@ import { RNCardStack } from './RNCardStack';
 class CardStack extends PureComponent {
   static propTypes = {
     ...RNCardStack.propTypes,
-    renderNavBar: React.PropTypes.func,
+    renderNavBar: PropTypes.func,
     // Controls whether native animation driver will be used
     // for screen transitions or not.
-    useNativeAnimations: React.PropTypes.bool,
-    inlineNavigationBar: React.PropTypes.bool,
-    style: React.PropTypes.shape({
+    useNativeAnimations: PropTypes.bool,
+    // Controls whether the navigation bar should be rendered,
+    // together with the screen, or should it be global for the
+    // entire app.
+    inlineNavigationBar: PropTypes.bool,
+    style: PropTypes.shape({
       cardStack: RNCardStack.propTypes.style,
-      card: React.PropTypes.any,
+      card: PropTypes.any,
     }),
   };
 
   static defaultProps = {
-    // Use native animations on Android by default, transitions
-    // are slow on Android without this.
-    useNativeAnimations: Platform.OS === 'android',
-    // Overflow doesn't work on Android at the moment, so we
-    // are rendering the navigation bar together with the scene
-    // to support transparent navigation bars above screen content
-    inlineNavigationBar: Platform.OS === 'android',
+    useNativeAnimations: true,
+    inlineNavigationBar: true,
   };
 
   static contextTypes = {
-    getNavBarProps: React.PropTypes.func,
-    getScene: React.PropTypes.func,
+    getNavBarProps: PropTypes.func,
+    getScene: PropTypes.func,
   };
 
   static childContextTypes = {
-    setNavBarProps: React.PropTypes.func,
-    getNavBarProps: React.PropTypes.func,
-    clearNavBarProps: React.PropTypes.func,
+    setNavBarProps: PropTypes.func,
+    getNavBarProps: PropTypes.func,
+    clearNavBarProps: PropTypes.func,
   };
 
   constructor(props, context) {
