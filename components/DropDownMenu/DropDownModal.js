@@ -265,6 +265,7 @@ class DropDownModal extends Component {
         <ZoomOut driver={this.timingDriver} maxFactor={1.1} style={{ flex: 1 }}>
           <FadeIn driver={this.timingDriver} style={{ flex: 1 }}>
             <View style={style.modal} styleName="vertical">
+              {this.renderGradient()}
               {shouldRenderModalContent ?
                 <ListView
                   scrollRenderAheadDistance={50}
@@ -273,7 +274,6 @@ class DropDownModal extends Component {
                   style={listViewStyle}
                   renderFooter={this.renderFooter}
                 /> : null}
-              {this.renderGradient()}
               <Button onPress={this.close} styleName="clear close">
                 <Icon name="close" />
               </Button>
