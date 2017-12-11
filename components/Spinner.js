@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   ActivityIndicator,
@@ -24,9 +25,9 @@ class Spinner extends React.Component {
 }
 
 Spinner.propTypes = {
-  style: React.PropTypes.oneOfType([
-    React.PropTypes.object,
-    React.PropTypes.number,
+  style: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.number,
   ]),
 };
 

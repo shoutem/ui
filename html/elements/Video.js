@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { View } from '../../components/View';
 import { Video as UIVideo } from '../../components/Video';
@@ -24,9 +25,9 @@ function Video({ src, thumbnailUrl, style }) {
 }
 
 Video.propTypes = {
-  src: React.PropTypes.string,
-  thumbnail_url: React.PropTypes.string,
-  style: React.PropTypes.object,
+  src: PropTypes.string,
+  thumbnail_url: PropTypes.string,
+  style: PropTypes.object,
 };
 
 Video.defaultProps = {

@@ -16,11 +16,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React Native!"
 
-@interface ShoutemRestaurantsTests : XCTestCase
+@interface RestaurantsAppTests : XCTestCase
 
 @end
 
-@implementation ShoutemRestaurantsTests
+@implementation RestaurantsAppTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL(^)(UIView *view))test
 {
@@ -37,7 +37,7 @@
 
 - (void)testRendersWelcomeScreen
 {
-  UIViewController *vc = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+  UIViewController *vc = [[[RCTSharedApplication() delegate] window] rootViewController];
   NSDate *date = [NSDate dateWithTimeIntervalSinceNow:TIMEOUT_SECONDS];
   BOOL foundElement = NO;
 

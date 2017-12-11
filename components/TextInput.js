@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { TextInput as RNTextInput } from 'react-native';
 
@@ -28,9 +29,9 @@ class TextInput extends Component {
 
 TextInput.propTypes = {
   ...RNTextInput.propTypes,
-  style: React.PropTypes.oneOfType([
-    React.PropTypes.object,
-    React.PropTypes.number,
+  style: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.number,
   ]),
 };
 

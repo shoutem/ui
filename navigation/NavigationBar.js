@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import _ from 'lodash';
 import { DriverShape } from '@shoutem/animation';
@@ -18,21 +19,21 @@ class NavigationBar extends Component {
     /**
      * If `true`, the navigation bar will not be rendered.
      */
-    hidden: React.PropTypes.bool,
+    hidden: PropTypes.bool,
     /**
      * Use the child navigation bar instead, if `true`
      * the parent navigation bar will be hidden, and
      * the navigation bar props will be merged with the
      * props of the child navigation bar instead.
      */
-    child: React.PropTypes.bool,
+    child: PropTypes.bool,
   };
 
   static contextTypes = {
     animationDriver: DriverShape,
-    getScene: React.PropTypes.func.isRequired,
-    setNavBarProps: React.PropTypes.func.isRequired,
-    clearNavBarProps: React.PropTypes.func.isRequired,
+    getScene: PropTypes.func.isRequired,
+    setNavBarProps: PropTypes.func.isRequired,
+    clearNavBarProps: PropTypes.func.isRequired,
   };
 
   constructor(props, context) {

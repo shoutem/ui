@@ -1,10 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StatusBar } from 'react-native';
-
 import { Font, AppLoading } from 'expo';
 import { View, Examples } from '@shoutem/ui';
-
-console.disableYellowBox = true;
 
 export default class App extends React.Component {
   state = {

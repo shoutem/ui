@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, {
   Component,
 } from 'react';
@@ -9,7 +10,7 @@ import { View } from '@shoutem/ui';
 import { connectStyle } from '@shoutem/theme';
 import { connectAnimation, TimingDriver } from '@shoutem/animation';
 
-const { bool, func, object, shape } = React.PropTypes;
+const { bool, func, object, shape } = PropTypes;
 
 class Switch extends Component {
   static propTypes = {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Children, Component } from 'react';
 
 /**
@@ -5,12 +6,12 @@ import React, { Children, Component } from 'react';
  */
 export class SceneProvider extends Component {
   static propTypes = {
-    children: React.PropTypes.node,
-    scene: React.PropTypes.object.isRequired,
+    children: PropTypes.node,
+    scene: PropTypes.object.isRequired,
   };
 
   static childContextTypes = {
-    getScene: React.PropTypes.func.isRequired,
+    getScene: PropTypes.func.isRequired,
   };
 
   constructor(props, context) {

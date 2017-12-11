@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-               BuildableName = "ShoutemRestaurants-tvOS.app"
-               BlueprintName = "ShoutemRestaurants-tvOS"
-               ReferencedContainer = "container:ShoutemRestaurants.xcodeproj">
+               BuildableName = "RestaurantsApp-tvOS.app"
+               BlueprintName = "RestaurantsApp-tvOS"
+               ReferencedContainer = "container:RestaurantsApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "ShoutemRestaurants-tvOSTests.xctest"
-               BlueprintName = "ShoutemRestaurants-tvOSTests"
-               ReferencedContainer = "container:ShoutemRestaurants.xcodeproj">
+               BuildableName = "RestaurantsApp-tvOSTests.xctest"
+               BlueprintName = "RestaurantsApp-tvOSTests"
+               ReferencedContainer = "container:RestaurantsApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -61,9 +61,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "ShoutemRestaurants-tvOSTests.xctest"
-               BlueprintName = "ShoutemRestaurants-tvOSTests"
-               ReferencedContainer = "container:ShoutemRestaurants.xcodeproj">
+               BuildableName = "RestaurantsApp-tvOSTests.xctest"
+               BlueprintName = "RestaurantsApp-tvOSTests"
+               ReferencedContainer = "container:RestaurantsApp.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -71,9 +71,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "ShoutemRestaurants-tvOS.app"
-            BlueprintName = "ShoutemRestaurants-tvOS"
-            ReferencedContainer = "container:ShoutemRestaurants.xcodeproj">
+            BuildableName = "RestaurantsApp-tvOS.app"
+            BlueprintName = "RestaurantsApp-tvOS"
+            ReferencedContainer = "container:RestaurantsApp.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "ShoutemRestaurants-tvOS.app"
-            BlueprintName = "ShoutemRestaurants-tvOS"
-            ReferencedContainer = "container:ShoutemRestaurants.xcodeproj">
+            BuildableName = "RestaurantsApp-tvOS.app"
+            BlueprintName = "RestaurantsApp-tvOS"
+            ReferencedContainer = "container:RestaurantsApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -113,9 +113,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "ShoutemRestaurants-tvOS.app"
-            BlueprintName = "ShoutemRestaurants-tvOS"
-            ReferencedContainer = "container:ShoutemRestaurants.xcodeproj">
+            BuildableName = "RestaurantsApp-tvOS.app"
+            BlueprintName = "RestaurantsApp-tvOS"
+            ReferencedContainer = "container:RestaurantsApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

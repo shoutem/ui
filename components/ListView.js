@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   View,
@@ -65,18 +66,18 @@ class ListDataSource {
 
 class ListView extends React.Component {
   static propTypes = {
-    autoHideHeader: React.PropTypes.bool,
-    style: React.PropTypes.object,
-    data: React.PropTypes.array,
-    loading: React.PropTypes.bool,
-    onLoadMore: React.PropTypes.func,
-    onRefresh: React.PropTypes.func,
-    getSectionId: React.PropTypes.func,
-    renderRow: React.PropTypes.func,
-    renderHeader: React.PropTypes.func,
-    renderFooter: React.PropTypes.func,
-    renderSectionHeader: React.PropTypes.func,
-    scrollDriver: React.PropTypes.object,
+    autoHideHeader: PropTypes.bool,
+    style: PropTypes.object,
+    data: PropTypes.array,
+    loading: PropTypes.bool,
+    onLoadMore: PropTypes.func,
+    onRefresh: PropTypes.func,
+    getSectionId: PropTypes.func,
+    renderRow: PropTypes.func,
+    renderHeader: PropTypes.func,
+    renderFooter: PropTypes.func,
+    renderSectionHeader: PropTypes.func,
+    scrollDriver: PropTypes.object,
     // TODO(Braco) - add render separator
   };
 

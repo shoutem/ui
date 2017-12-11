@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, {
   Component,
 } from 'react';
@@ -6,6 +7,7 @@ import {
   ListView,
   LayoutAnimation,
   Dimensions,
+  NativeModules,
 } from 'react-native';
 import _ from 'lodash';
 
@@ -31,47 +33,47 @@ class DropDownModal extends Component {
     /**
      * Callback that is called when dropdown option is selected
      */
-    onOptionSelected: React.PropTypes.func,
+    onOptionSelected: PropTypes.func,
     /**
      * Collection of objects which will be shown as options in DropDownMenu
      */
-    options: React.PropTypes.array.isRequired,
+    options: PropTypes.array.isRequired,
     /**
      * Selected option that will be shown.
      */
-    selectedOption: React.PropTypes.any.isRequired,
+    selectedOption: PropTypes.any.isRequired,
     /**
      * Key name that represents option's string value,
      * and it will be displayed to the user in the UI
      */
-    titleProperty: React.PropTypes.string.isRequired,
+    titleProperty: PropTypes.string.isRequired,
     /**
      * Key name that represents option's value
      */
-    valueProperty: React.PropTypes.string.isRequired,
+    valueProperty: PropTypes.string.isRequired,
     /**
      * Number of options shown without scroll.
      * Can be set trough DropDown style.visibleOptions.
      * Prop definition overrides style.
      */
-    visibleOptions: React.PropTypes.number,
+    visibleOptions: PropTypes.number,
     /**
      * Optional render function, for every item in the list.
      * Input parameter should be shaped as one of the items from the
      * options object
      */
-    renderOption: React.PropTypes.func,
+    renderOption: PropTypes.func,
     /**
      * Visibility flag, controling the modal visibility
      */
-    visible: React.PropTypes.bool,
+    visible: PropTypes.bool,
     /**
      * Callback that is called when modal should be closed
      */
-    onClose: React.PropTypes.func,
-    style: React.PropTypes.oneOfType([
-      React.PropTypes.object,
-      React.PropTypes.number,
+    onClose: PropTypes.func,
+    style: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.number,
     ]),
   };
 
@@ -167,6 +169,12 @@ class DropDownModal extends Component {
   }
 
   renderGradient() {
+    // If the native module for Linear Gradient isn't loaded, then the gradient won't
+    // be rendered inside the DropDownModal.
+    if(!NativeModules.BVLinearGradient){
+      return null;
+    }
+
     const { style } = this.props;
     const { backgroundColor } = style.modal;
     const { optionHeight } = this.state;

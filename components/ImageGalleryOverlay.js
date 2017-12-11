@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {
   ScrollView,
@@ -23,9 +24,9 @@ const DESCRIPTION_LENGTH_TRIM_LIMIT = 90;
  */
 class ImageGalleryOverlay extends Component {
   static propTypes = {
-    title: React.PropTypes.string,
-    description: React.PropTypes.string,
-    style: React.PropTypes.object,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    style: PropTypes.object,
   };
 
   constructor(props) {

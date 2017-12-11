@@ -1,7 +1,5 @@
-import React, {
-  PropTypes,
-  Component,
-} from 'react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import {
   View,
   Modal,
@@ -77,7 +75,6 @@ class ImagePreview extends Component {
               componentWidth={width}
               componentHeight={height}
               source={source}
-              resizeMode={'contain'}
             />
             {closeButton}
           </View>
@@ -93,7 +90,6 @@ class ImagePreview extends Component {
             source={source}
             width={width}
             height={height}
-            resizeMode="contain"
           />
         </TouchableOpacity>
       </View>

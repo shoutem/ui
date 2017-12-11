@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -6,15 +7,15 @@ import {
   NavigationBar,
 } from '@shoutem/ui/navigation';
 
-import { navigatePop } from './redux';
+import { navigatePop } from '../redux';
 import RestaurantsList from './RestaurantsList';
 import RestaurantDetails from './RestaurantDetails';
 
-class App extends Component {
+class Restaurants extends Component {
   static propTypes = {
-    onNavigateBack: React.PropTypes.func.isRequired,
-    navigationState: React.PropTypes.object,
-    scene: React.PropTypes.object,
+    onNavigateBack: PropTypes.func.isRequired,
+    navigationState: PropTypes.object,
+    scene: PropTypes.object,
   };
 
   constructor(props) {
@@ -59,4 +60,4 @@ class App extends Component {
 export default connect(
   state => ({ navigationState: state.navigationState }),
   { onNavigateBack: navigatePop }
-)(App);
+)(Restaurants);
