@@ -27,7 +27,10 @@ function Video({ src, thumbnailUrl, style }) {
 Video.propTypes = {
   src: PropTypes.string,
   thumbnail_url: PropTypes.string,
-  style: PropTypes.object,
+  style: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.number,
+  ]),
 };
 
 Video.defaultProps = {

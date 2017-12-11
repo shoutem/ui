@@ -49,7 +49,6 @@ class Video extends React.Component {
     source: PropTypes.shape({
       uri: PropTypes.string,
     }),
-    style: PropTypes.object,
     style: PropTypes.oneOfType([
       PropTypes.object,
       PropTypes.number,

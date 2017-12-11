@@ -26,7 +26,10 @@ class ImageGalleryOverlay extends Component {
   static propTypes = {
     title: PropTypes.string,
     description: PropTypes.string,
-    style: PropTypes.object,
+    style: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.number,
+    ]),
   };
 
   constructor(props) {

@@ -23,7 +23,10 @@ class Html extends Component {
   static propTypes = {
     body: PropTypes.string.isRequired,
     renderElement: PropTypes.func,
-    style: PropTypes.object,
+    style: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.number,
+    ]),
   };
 
   /**

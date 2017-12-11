@@ -28,7 +28,10 @@ export function Ol({ style, childElements, type, renderElement }) {
 
 Ol.propTypes = {
   ...ElementPropTypes,
-  style: PropTypes.object,
+  style: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.number,
+  ]),
   type: PropTypes.string,
 };
 
