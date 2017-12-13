@@ -19,7 +19,10 @@ const propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
   source: Image.propTypes.source,
-  style: PropTypes.object,
+  style: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.number,
+  ]),
 };
 
 const CLOSE_ICON_NAME = 'clear';

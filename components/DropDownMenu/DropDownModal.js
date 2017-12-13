@@ -71,7 +71,10 @@ class DropDownModal extends Component {
      * Callback that is called when modal should be closed
      */
     onClose: PropTypes.func,
-    style: PropTypes.object,
+    style: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.number,
+    ]),
   };
 
   static defaultProps = {

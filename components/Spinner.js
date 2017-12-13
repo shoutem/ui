@@ -25,7 +25,10 @@ class Spinner extends React.Component {
 }
 
 Spinner.propTypes = {
-  style: PropTypes.object,
+  style: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.number,
+  ]),
 };
 
 const StyledSpinner = connectStyle('shoutem.ui.Spinner', {
