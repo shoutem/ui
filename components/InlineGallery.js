@@ -28,10 +28,7 @@ class InlineGallery extends Component {
     // Initially selected page in gallery
     selectedIndex: PropTypes.number,
     // Style, applied to Image component
-    style: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.number,
-    ]),
+    style: PropTypes.object,
     // Prop that reduces page size by pageMargin, allowing 'sneak peak' of next page
     // Defaults to false
     showNextPage: PropTypes.bool,

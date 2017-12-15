@@ -50,10 +50,7 @@ export class ImageGalleryBase extends Component {
     // Mode can be `gallery` or `imagePreview`
     onModeChanged: PropTypes.func,
     // Style prop used to override default (theme) styling
-    style: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.number,
-    ]),
+    style: PropTypes.object,
     // Renders an overlay over all images
     // For example page indicators using the `PageIndicators` component
     // renderOverlay(imageData, imageIndex)

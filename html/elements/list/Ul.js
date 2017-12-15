@@ -26,10 +26,7 @@ export function Ul({ style, childElements, renderElement }) {
 
 Ul.propTypes = {
   ...ElementPropTypes,
-  style: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.number,
-  ]),
+  style: PropTypes.object,
 };
 
 export default combineMappers(mapElementProps)(Ul);

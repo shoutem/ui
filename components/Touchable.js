@@ -21,10 +21,7 @@ class Touchable extends React.Component {
   static propTypes = {
     ...TouchableOpacity.propTypes,
     ...TouchableNativeFeedback.propTypes,
-    style: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.number,
-    ]),
+    style: PropTypes.object,
   };
 
   render() {

@@ -12,10 +12,7 @@ export class Page extends Component {
   static propTypes = {
     isActive: PropTypes.bool.isRequired,
     width: PropTypes.number.isRequired,
-    style: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.number,
-    ]),
+    style: PropTypes.object,
     children: PropTypes.node,
   };
 

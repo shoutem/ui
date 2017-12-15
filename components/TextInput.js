@@ -29,10 +29,7 @@ class TextInput extends Component {
 
 TextInput.propTypes = {
   ...RNTextInput.propTypes,
-  style: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.number,
-  ]),
+  style: PropTypes.object,
 };
 
 const AnimatedTextInput = connectAnimation(TextInput);

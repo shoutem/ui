@@ -18,10 +18,7 @@ class PageIndicators extends Component {
     // will be rendered. Defaults to 10
     maxCount: PropTypes.number,
     // Style prop used to override default (theme) styling
-    style: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.number,
-    ]),
+    style: PropTypes.object,
   };
 
   static defaultProps = {

@@ -59,10 +59,7 @@ class NavigationBar extends Component {
     leftComponent: PropTypes.node,
     centerComponent: PropTypes.node,
     rightComponent: PropTypes.node,
-    style: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.number,
-    ]),
+    style: PropTypes.object,
     id: PropTypes.string,
   };
 

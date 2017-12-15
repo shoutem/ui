@@ -75,10 +75,7 @@ class NavigationBarView extends PureComponent {
       text: PropTypes.string,
       link: PropTypes.string,
     }),
-    style: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.number,
-    ]),
+    style: PropTypes.object,
     useNativeAnimations: PropTypes.bool,
     // Whether the navigation bar is rendered inline
     // with the screen.

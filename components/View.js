@@ -39,10 +39,7 @@ class View extends Component {
 
 View.propTypes = {
   ...ViewPropTypes,
-  style: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.number,
-  ]),
+  style: PropTypes.object,
 };
 
 const AnimatedView = connectAnimation(View);
