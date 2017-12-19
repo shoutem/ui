@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Children } from 'react';
 import {
   View as RNView,
-  ViewPropTypes as RNViewPropTypes,
+  ViewPropTypes,
 } from 'react-native';
 import _ from 'lodash';
 
@@ -40,7 +40,7 @@ class GridRow extends React.Component {
 
 GridRow.propTypes = {
   columns: PropTypes.number.isRequired,
-  ...RNViewPropTypes,
+  ...ViewPropTypes,
 };
 
 /* eslint-disable no-param-reassign */
