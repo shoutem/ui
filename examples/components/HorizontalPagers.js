@@ -6,7 +6,7 @@ import {
   View,
   HorizontalPager,
   Tile,
-  Image,
+  ImageBackground,
   Subtitle,
   Caption,
 } from '../../index';
@@ -27,7 +27,7 @@ export function HorizontalPagers() {
             ]}
             renderPage={(page) => {
               return (
-                <Image
+                <ImageBackground
                   styleName="large-wide"
                   source={{ uri: page.source.uri }}
                 >
@@ -35,7 +35,7 @@ export function HorizontalPagers() {
                     <Subtitle numberOfLines={2}>{page.title}</Subtitle>
                     <Caption>{page.description}</Caption>
                   </Tile>
-                </Image>
+                </ImageBackground>
               );
             }}
             pageMargin={20}

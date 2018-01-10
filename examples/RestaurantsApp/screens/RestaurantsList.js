@@ -37,7 +37,7 @@ class RestaurantsList extends Component {
 
     return (
       <TouchableOpacity onPress={() => onButtonPress(restaurant)}>
-        <Image
+        <ImageBackground
           styleName="large-banner"
           source={{ uri: restaurant.image.url }}
         >
@@ -45,7 +45,7 @@ class RestaurantsList extends Component {
             <Title styleName="md-gutter-bottom">{restaurant.name}</Title>
             <Subtitle styleName="sm-gutter-horizontal">{restaurant.address}</Subtitle>
           </Tile>
-        </Image>
+        </ImageBackground>
         <Divider styleName="line" />
       </TouchableOpacity>
     );
