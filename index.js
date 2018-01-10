@@ -33,6 +33,7 @@ export { Switch } from './components/Switch';
 
 export { Video } from './components/Video';
 export { Image } from './components/Image';
+export { ImageBackground } from './components/ImageBackground';
 export { ImagePreview } from './components/ImagePreview';
 export { ImageGallery } from './components/ImageGallery';
 export { InlineGallery } from './components/InlineGallery';

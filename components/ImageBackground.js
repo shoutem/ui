@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import {
-  Image as RNImage,
+  ImageBackground as RNImageBackground,
   Platform,
 } from 'react-native';
 import _ from 'lodash';
@@ -17,9 +17,9 @@ const isValidSource = (source) => _.isNumber(source) || (_.isObject(source) && s
  */
 let externalPropsTransformer = null;
 
-class Image extends PureComponent {
+class ImageBackground extends PureComponent {
   static propTypes = {
-    ...RNImage.propTypes,
+    ...RNImageBackground.propTypes,
   };
 
   /**
@@ -95,13 +95,14 @@ class Image extends PureComponent {
     const { transformedProps } = this.state;
 
     return (
-      <RNImage {...transformedProps} />
+      <RNImageBackground {...transformedProps} />
     );
   }
 }
 
-const AnimatedImage = connectAnimation(Image);
+const AnimatedImage = connectAnimation(ImageBackground);
+// We use identical styling to the Image component
 const StyledImage = connectStyle('shoutem.ui.Image')(AnimatedImage);
 export {
-  StyledImage as Image,
+  StyledImage as ImageBackground,
 };
