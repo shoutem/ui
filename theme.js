@@ -464,10 +464,6 @@ export default (variables = defaultThemeVariables) => ({
 
     '.placeholder': {
       backgroundColor: inverseColorBrightnessForAmount(variables.paperColor, 10),
-
-      'shoutem.ui.Icon': {
-        color: inverseColorBrightnessForAmount(variables.paperColor, 30),
-      },
     },
 
     heroAnimation(driver, { layout }) {

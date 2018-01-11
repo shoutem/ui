@@ -102,7 +102,7 @@ class ImageBackground extends PureComponent {
 
 const AnimatedImage = connectAnimation(ImageBackground);
 // We use identical styling to the Image component
-const StyledImage = connectStyle('shoutem.ui.Image')(AnimatedImage);
+const StyledImage = connectStyle('shoutem.ui.ImageBackground')(AnimatedImage);
 export {
   StyledImage as ImageBackground,
 };
