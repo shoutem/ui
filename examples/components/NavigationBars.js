@@ -8,7 +8,7 @@ import {
   NavigationBar,
   Title,
   Text,
-  Image,
+  ImageBackground,
   Button,
   Icon,
   DropDownMenu,
@@ -63,7 +63,7 @@ export function NavigationBars() {
         </NavBarStageContainer>
       </Stage>
       <Stage title="Navbar / Clear (Image)">
-        <Image
+        <ImageBackground
           source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-3.png' }}
           style={{
             width: window.width,
@@ -74,7 +74,7 @@ export function NavigationBars() {
             styleName="clear"
             centerComponent={<Title>TITLE</Title>}
           />
-        </Image>
+        </ImageBackground>
       </Stage>
       <Stage title="Navbar/ Fade (Gradient overlay + Solid color)">
         <NavBarStageContainer style={{ backgroundColor: '#1a70d5', }}>
@@ -85,7 +85,7 @@ export function NavigationBars() {
         </NavBarStageContainer>
       </Stage>
       <Stage title="Navbar / Fade (Gradient overlay + Image)">
-        <Image
+        <ImageBackground
           source={{uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-3.png' }}
           style={{
             width: window.width,
@@ -96,7 +96,7 @@ export function NavigationBars() {
             styleName="fade clear"
             centerComponent={<Title>TITLE</Title>}
           />
-        </Image>
+        </ImageBackground>
       </Stage>
       <Heading styleName="sm-gutter">Navigation bar variations</Heading>
       <Stage title="Navbar + Drawer">

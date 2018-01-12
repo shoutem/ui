@@ -381,6 +381,7 @@ export default (variables = defaultThemeVariables) => ({
   // Images
   //
   imageSizes: {
+    // NOTE: '-avatar' styles do not work with ImageBackground
     '.small-avatar': {
       width: dimensionRelativeToIphone(25),
       height: dimensionRelativeToIphone(25),
@@ -459,6 +460,35 @@ export default (variables = defaultThemeVariables) => ({
     },
   },
   'shoutem.ui.Image': {
+    [INCLUDE]: ['commonVariants', 'imageSizes', 'fill-parent'],
+
+    '.placeholder': {
+      backgroundColor: inverseColorBrightnessForAmount(variables.paperColor, 10),
+    },
+
+    heroAnimation(driver, { layout }) {
+      return {
+        transform: [
+          {
+            scale: driver.interpolate({
+              inputRange: [-0.9 * layout.height, 0],
+              outputRange: [3, 1],
+              extrapolateRight: 'clamp',
+              useNativeDriver: true,
+            }),
+          }, {
+            translateY: driver.interpolate({
+              inputRange: [-100, 100],
+              outputRange: [-50, 50],
+              extrapolateLeft: 'clamp',
+              useNativeDriver: true,
+            }),
+          },
+        ],
+      };
+    },
+  },
+  'shoutem.ui.ImageBackground': {
     [INCLUDE]: ['commonVariants', 'imageSizes', 'fill-parent'],
 
     '.placeholder': {
@@ -2153,15 +2183,27 @@ export default (variables = defaultThemeVariables) => ({
   // InlineGallery
   //
   'shoutem.ui.InlineGallery': {
+    '.large-ultra-wide': {
+      container: {
+        height: dimensionRelativeToIphone(130),
+      },
+    },
+
+    '.large-banner': {
+      container: {
+        height: dimensionRelativeToIphone(200),
+      },
+    },
+
     '.large-wide': {
       container: {
         height: dimensionRelativeToIphone(238),
       },
     },
 
-    '.large-ultra-wide': {
+    '.large-square': {
       container: {
-        height: dimensionRelativeToIphone(130),
+        height: dimensionRelativeToIphone(375),
       },
     },
 
@@ -2313,7 +2355,6 @@ export default (variables = defaultThemeVariables) => ({
   'shoutem.ui.InlineMap': {
     // TODO: why do we need all image sizes and styles here?
     [INCLUDE]: ['imageSizes'],
-
     '.top-aligned': {
       justifyContent: 'flex-start',
     },
