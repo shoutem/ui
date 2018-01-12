@@ -8,7 +8,7 @@ import {
   Text,
   Title,
   View,
-  Image,
+  ImageBackground,
   Divider,
   Tile,
   Screen,
@@ -35,7 +35,7 @@ export default class RestaurantDetails extends Component {
         />
 
         <ScrollView>
-          <Image
+          <ImageBackground
             styleName="large-portrait hero"
             animationName="hero"
             source={{ uri: restaurant.image && restaurant.image.url }}
@@ -45,7 +45,7 @@ export default class RestaurantDetails extends Component {
               <Title>{restaurant.name}</Title>
               <Subtitle>{restaurant.address}</Subtitle>
             </Tile>
-          </Image>
+          </ImageBackground>
 
           <Screen styleName="paper">
             <Text styleName="md-gutter multiline">{restaurant.description}</Text>

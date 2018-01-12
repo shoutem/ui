@@ -6,6 +6,7 @@ import {
   View,
   Tile,
   Image,
+  ImageBackground,
   Text,
   Title,
   Subtitle,
@@ -33,14 +34,14 @@ export function Tiles() {
 
       <Stage title="Tile + Icon">
         <Tile styleName="small clear">
-          <Image
+          <ImageBackground
             styleName="medium-square"
             source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-2.png' }}
           >
             <Overlay styleName="rounded-small">
               <Icon name="play" />
             </Overlay>
-          </Image>
+          </ImageBackground>
           <View styleName="content">
             <Subtitle numberOfLines={2}>When The Morning Dawns - DJ Silver Sample Album</Subtitle>
             <Caption>20 hours ago</Caption>
@@ -49,7 +50,7 @@ export function Tiles() {
       </Stage>
 
       <Stage title="Large (featured) tile">
-        <Image
+        <ImageBackground
           styleName="featured"
           source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-4.png' }}
         >
@@ -57,11 +58,11 @@ export function Tiles() {
             <Title styleName="md-gutter-bottom">MIKE PATTON TEAMING WITH JOHN KAADA FOR COLLAB ALBUM BACTERIA CULT</Title>
             <Caption>Sophia Jackson        21 hours ago</Caption>
           </Tile>
-        </Image>
+        </ImageBackground>
       </Stage>
 
       <Stage title="Large (featured) tile + Button + Sale tag">
-        <Image
+        <ImageBackground
           styleName="featured"
           source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-11.png' }}
         >
@@ -72,11 +73,11 @@ export function Tiles() {
             <Heading>$250.00</Heading>
             <Button styleName="md-gutter-top"><Icon name="cart" /><Text>ADD TO BASKET</Text></Button>
           </Tile>
-        </Image>
+        </ImageBackground>
       </Stage>
 
       <Stage title="Large (featured) tile + Button">
-        <Image
+        <ImageBackground
           styleName="featured"
           source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-9.png' }}
         >
@@ -86,7 +87,7 @@ export function Tiles() {
             <Heading>99.99</Heading>
             <Button styleName="md-gutter-top"><Text>CLAIM COUPON</Text></Button>
           </Tile>
-        </Image>
+        </ImageBackground>
       </Stage>
 
       <Stage title="Large list item">
@@ -107,14 +108,14 @@ export function Tiles() {
 
       <Stage title="Large list item + Icon + Timestamp">
         <Tile>
-          <Image
+          <ImageBackground
             styleName="large-banner"
             source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-7.png' }}
           >
             <Overlay styleName="rounded-small">
               <Icon name="play" />
             </Overlay>
-          </Image>
+          </ImageBackground>
           <View styleName="content">
             <Title>MAUI BY AIR THE BEST WAY AROUND THE ISLAND</Title>
             <View styleName="horizontal space-between">
@@ -126,7 +127,7 @@ export function Tiles() {
       </Stage>
 
       <Stage title="Large list item + Price tag">
-        <Image
+        <ImageBackground
           styleName="large-banner"
           source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-3.png' }}
         >
@@ -136,11 +137,11 @@ export function Tiles() {
               <Subtitle styleName="sm-gutter-horizontal">$18.30</Subtitle>
             </Overlay>
           </Tile>
-        </Image>
+        </ImageBackground>
       </Stage>
 
       <Stage title="Large list item + Action icon">
-        <Image
+        <ImageBackground
           styleName="large-banner"
           source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-3.png' }}
         >
@@ -151,11 +152,11 @@ export function Tiles() {
             <Title>HOW TO MAINTAIN YOUR MENTAL HEALTH IN 2016</Title>
             <Caption>6557 Americo Hills Apt. 118</Caption>
           </Tile>
-        </Image>
+        </ImageBackground>
       </Stage>
 
       <Stage title="Detail square + Price tag">
-        <Image
+        <ImageBackground
           styleName="large-square"
           source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-3.png' }}
         >
@@ -165,11 +166,11 @@ export function Tiles() {
               <Subtitle styleName="sm-gutter-horizontal">$18.30</Subtitle>
             </Overlay>
           </Tile>
-        </Image>
+        </ImageBackground>
       </Stage>
 
       <Stage title="Detail square + Button">
-        <Image
+        <ImageBackground
           styleName="large-square"
           source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-9.png' }}
         >
@@ -179,11 +180,11 @@ export function Tiles() {
             <Heading>99.99</Heading>
             <Button styleName="md-gutter-top"><Text>CLAIM COUPON</Text></Button>
           </Tile>
-        </Image>
+        </ImageBackground>
       </Stage>
 
       <Stage title="Detail square + Button + Sale tag">
-        <Image
+        <ImageBackground
           styleName="large-square"
           source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-11.png' }}
         >
@@ -194,11 +195,11 @@ export function Tiles() {
             <Heading>$250.00</Heading>
             <Button styleName="md-gutter-top"><Icon name="cart" /><Text>ADD TO BASKET</Text></Button>
           </Tile>
-        </Image>
+        </ImageBackground>
       </Stage>
 
       <Stage title="Detail large + Price tag">
-        <Image
+        <ImageBackground
           styleName="large-portrait"
           source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-3.png' }}
         >
@@ -208,11 +209,11 @@ export function Tiles() {
               <Subtitle styleName="sm-gutter-horizontal">$18.30</Subtitle>
             </Overlay>
           </Tile>
-        </Image>
+        </ImageBackground>
       </Stage>
 
       <Stage title="Detail large + Button">
-        <Image
+        <ImageBackground
           styleName="large-portrait"
           source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-9.png' }}
         >
@@ -222,11 +223,11 @@ export function Tiles() {
             <Heading>99.99</Heading>
             <Button styleName="md-gutter-top"><Text>CLAIM COUPON</Text></Button>
           </Tile>
-        </Image>
+        </ImageBackground>
       </Stage>
 
       <Stage title="Detail large + Button + Sale tag">
-        <Image
+        <ImageBackground
           styleName="large-portrait"
           source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-11.png' }}
         >
@@ -237,7 +238,7 @@ export function Tiles() {
             <Heading>$250.00</Heading>
             <Button styleName="md-gutter-top"><Icon name="cart" /><Text>ADD TO BASKET</Text></Button>
           </Tile>
-        </Image>
+        </ImageBackground>
       </Stage>
     </View>
   );
