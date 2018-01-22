@@ -51,7 +51,10 @@ class Html extends Component {
 
   constructor(props, context) {
     super(props, context);
+
+    this.refreshData = this.refreshData.bind(this);
     this.renderElement = this.renderElement.bind(this);
+
     this.state = {
       htmlTree: null,
     };
@@ -59,15 +62,20 @@ class Html extends Component {
 
   componentDidMount() {
     InteractionManager.runAfterInteractions(() => {
-      this.updateHtmlTree();
+      this.refreshData(this.props);
     });
   }
 
-  updateHtmlTree() {
-    const { body } = this.props;
+  componentWillReceiveProps(nextProps) {
+    this.refreshData(nextProps, this.props);
+  }
 
-    if (body) {
-      const htmlTree = parseHtml(body);
+  refreshData(nextProps, props = {}) {
+    const { body: nextBody } = nextProps;
+    const { body } = props;
+
+    if (nextBody && nextBody !== body) {
+      const htmlTree = parseHtml(nextBody);
       this.setState({ htmlTree });
     }
   }
