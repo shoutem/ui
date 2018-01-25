@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Screen,
   Divider,
+  ImageBackground
 } from '@shoutem/ui';
 
 import {
@@ -37,7 +38,7 @@ class RestaurantsList extends Component {
 
     return (
       <TouchableOpacity onPress={() => onButtonPress(restaurant)}>
-        <ImageBackground
+        <Image
           styleName="large-banner"
           source={{ uri: restaurant.image.url }}
         >
@@ -45,7 +46,7 @@ class RestaurantsList extends Component {
             <Title styleName="md-gutter-bottom">{restaurant.name}</Title>
             <Subtitle styleName="sm-gutter-horizontal">{restaurant.address}</Subtitle>
           </Tile>
-        </ImageBackground>
+        </Image>
         <Divider styleName="line" />
       </TouchableOpacity>
     );
