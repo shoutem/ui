@@ -1285,11 +1285,13 @@ export default (variables = defaultThemeVariables) => ({
       [INCLUDE]: ['navigationBarTextAnimations'],
       color: variables.navBarIconsColor,
       fontSize: 24,
+      paddingHorizontal: 9,
     },
 
     'shoutem.ui.Text': {
       [INCLUDE]: ['navigationBarTextAnimations'],
       ...variables.navBarText,
+      paddingHorizontal: 9,
     },
 
     'shoutem.ui.Button': {
@@ -1397,8 +1399,6 @@ export default (variables = defaultThemeVariables) => ({
       borderBottomWidth: 1,
       // Leave space for the status bar on iOS
       paddingTop: Platform.OS === 'ios' ? 20 : 0,
-      paddingLeft: 15,
-      paddingRight: 15,
     },
 
     componentsContainer: {
