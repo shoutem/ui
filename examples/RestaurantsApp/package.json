@@ -7,11 +7,9 @@
     "test": "jest"
   },
   "dependencies": {
-    "@shoutem/animation": "0.12.0",
-    "@shoutem/theme": "0.11.0",
-    "@shoutem/ui": "0.22.0",
+    "@shoutem/ui": "~0.23.0",
     "react": "16.0.0",
-    "react-native": "0.50.4",
+    "react-native": "~0.51.0",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0"
