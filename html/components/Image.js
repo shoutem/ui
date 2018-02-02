@@ -5,6 +5,7 @@ import { connectStyle } from '@shoutem/theme';
 import _ from 'lodash';
 
 import { Image } from '../../components/Image';
+import { ImageBackground } from '../../components/ImageBackground';
 import { Lightbox } from '../../components/Lightbox';
 
 /**
@@ -86,12 +87,12 @@ export default class HtmlImage extends Component {
 
     // Showing image as background, can't be opened (zoomed).
     return (
-      <Image
+      <ImageBackground
         {...this.props}
         source={{ width: imageWidth, height: imageHeight, ...source }}
       >
         {children}
-      </Image>
+      </ImageBackground>
     );
   }
 }
