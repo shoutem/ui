@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {
-  Image,
+  ImageBackground,
   ListView,
   Tile,
   Title,
