@@ -61,10 +61,12 @@ class NavigationBar extends Component {
     rightComponent: PropTypes.node,
     style: PropTypes.object,
     id: PropTypes.string,
+    autoStyleStatusBar: PropTypes.bool,
   };
 
   static defaultProps = {
     id: 'default',
+    autoStyleStatusBar: true,
   };
 
   render() {
@@ -76,8 +78,11 @@ class NavigationBar extends Component {
       id,
     } = this.props;
 
-    const backgroundColor = getBackgroundColor(style);
-    setStatusBarStyle(backgroundColor);
+    if(this.props.autoStyleStatusBar) {
+      const backgroundColor = getBackgroundColor(style);
+      setStatusBarStyle(backgroundColor);
+    }
+
     // Key must be set to render new screen NavigationBar
     return (
       <Animated.View style={style.container} key={id}>
