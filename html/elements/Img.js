@@ -11,11 +11,15 @@ export function isImg(element) {
 
 function Img({ src, style, lightbox }) {
   const source = { uri: src };
+  imgStyle = {
+    ...style,
+    resizeMode: 'contain',
+  }
 
   return (
     <Image
       source={source}
-      style={style}
+      style={imgStyle}
       lightbox={lightbox}
     />
   );

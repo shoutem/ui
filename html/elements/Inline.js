@@ -184,7 +184,7 @@ export class Inline extends React.Component {
       // Group textual nodes together.
       // Used for right text wrapping.
       content = (
-        <Text onPress={onPress} styleName={styleName}>
+        <Text onPress={onPress} styleName={styleName} selectable>
           {content}
         </Text>
       );

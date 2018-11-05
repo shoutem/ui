@@ -1,12 +1,13 @@
 import React from 'react';
 import _ from 'lodash';
 import { NavigationBar } from '../NavigationBar';
-import { Image } from '../../index';
+import { View, Image, Device } from '../../index';
+import { IPHONE_X_NOTCH_PADDING } from '../../const';
 
 const imageFitContainer = navBarProps => (NavigationBar.fitContainer || navBarProps.fitContainer);
 
 const interpolateNavBarStyle = navBarProps => (
-  _.get(navBarProps, 'style.navigationBarImage') || {}
+  _.get(navBarProps, 'style.navigationBarImage', {})
 );
 
 const interpolateNavBarProps = (navBarProps) => {
@@ -27,14 +28,30 @@ const interpolateNavBarProps = (navBarProps) => {
 const createNavBarBackgroundImage = navBarProps => () => {
   const navigationBarImage =
     (NavigationBar.globalNavigationBarImage || navBarProps.navigationBarImage);
-
-  return (
+  const statusBarColor = _.get(navBarProps, 'style.statusBar.backgroundColor', '#000');
+  const statusBarHeight = _.get(navBarProps, 'style.statusBar.height', IPHONE_X_NOTCH_PADDING);
+  const backgroundImage = (
     <Image
       source={{ uri: navigationBarImage }}
       style={interpolateNavBarStyle(navBarProps)}
       {...interpolateNavBarProps(navBarProps)}
     />
   );
+
+  return Device.select({
+    iPhoneX: (
+      <View styleName='fill-parent'>
+        <View
+          style={{
+            height: statusBarHeight,
+            backgroundColor: statusBarColor,
+          }}
+        />
+        {backgroundImage}
+      </View>
+    ),
+    default: backgroundImage,
+  });
 };
 
 const NavBarComposer = {

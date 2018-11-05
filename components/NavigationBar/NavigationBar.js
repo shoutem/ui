@@ -30,10 +30,14 @@ function setStatusBarStyle(backgroundColor) {
   }
 
   function setStyle(bgColor) {
+    const { statusBarColor } = this.props;
+
+    const color = statusBarColor || bgColor;
+
     if (Platform.OS === 'android') {
       StatusBar.setBackgroundColor('rgba(0, 0, 0, 0.2)');
     } else {
-      const barStyle = chooseBarStyle(bgColor);
+      const barStyle = chooseBarStyle(color);
       StatusBar.setBarStyle(barStyle);
     }
   }
@@ -61,11 +65,21 @@ class NavigationBar extends Component {
     rightComponent: PropTypes.node,
     style: PropTypes.object,
     id: PropTypes.string,
+    statusBarColor: PropTypes.string,
   };
 
   static defaultProps = {
     id: 'default',
   };
+
+  renderStatusBar() {
+    const { style } = this.props;
+
+    return Device.select({
+      iPhoneX: (<View style={style.statusBar} />),
+      default: null,
+    });
+  }
 
   render() {
     const {
@@ -81,7 +95,7 @@ class NavigationBar extends Component {
     // Key must be set to render new screen NavigationBar
     return (
       <Animated.View style={style.container} key={id}>
-        <StatusBar />
+        {this.renderStatusBar()}
         <View style={style.componentsContainer}>
           <View style={style.leftComponent}>{leftComponent}</View>
           <View style={style.centerComponent}>{centerComponent}</View>

@@ -1,12 +1,15 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Animated } from 'react-native';
-import { connectStyle } from '@shoutem/theme';
 import _ from 'lodash';
-
+import { connectStyle } from '@shoutem/theme';
 import { ScrollDriver, DriverShape } from '@shoutem/animation';
 
 import { ScrollDriverProvider } from './ScrollDriverProvider.js';
+import { Device } from '../../helpers';
+
+const isTabBarOnScreen = true;
+const IPHONE_X_HOME_INDICATOR_PADDING = isTabBarOnScreen ? 0 : 34;
 
 class ScrollView extends Component {
   static propTypes = {
@@ -56,6 +59,19 @@ class ScrollView extends Component {
     this.wrappedInstance = component;
   }
 
+  addIphoneXPadding(style) {
+    if (typeof style.paddingBottom !== 'number') {
+      style.paddingBottom = 0;
+    }
+
+    style.paddingBottom = Device.select({
+      iPhoneX: style.paddingBottom + IPHONE_X_HOME_INDICATOR_PADDING,
+      default: style.paddingBottom,
+    })
+
+    return style;
+  }
+
   render() {
     const { props, animationDriver } = this;
     const { style = {} } = props;
@@ -67,7 +83,7 @@ class ScrollView extends Component {
     return (
       <Animated.ScrollView
         ref={this.setWrappedInstance}
-        contentContainerStyle={contentContainerStyle}
+        contentContainerStyle={ this.addIphoneXPadding(contentContainerStyle) }
         {...animationDriver.scrollViewProps}
         {...props}
       />

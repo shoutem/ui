@@ -15,14 +15,21 @@ import {
   getSizeRelativeToReference,
 } from '@shoutem/theme';
 
-const {
-  Header: NavigationHeader,
-} = NavigationExperimental;
+import { Device } from './helpers';
+
+import {
+  NAVIGATION_HEADER_HEIGHT,
+  IPHONE_X_NOTCH_PADDING,
+  IPHONE_X_HOMEBAR_SCROLL_PADDING,
+} from './const';
 
 const window = Dimensions.get('window');
 
 const STATUS_BAR_OFFSET = (Platform.OS === 'android' ? -StatusBar.currentConfig : 0);
-const NAVIGATION_BAR_HEIGHT = NavigationExperimental.Header.HEIGHT;
+const NAVIGATION_BAR_HEIGHT = Device.select({
+  iPhoneX: NAVIGATION_HEADER_HEIGHT + IPHONE_X_NOTCH_PADDING,
+  default: NAVIGATION_HEADER_HEIGHT,
+});
 
 export const sizeVariants = ['', 'left', 'right', 'top', 'bottom', 'horizontal', 'vertical'];
 export const textComponents = [
@@ -42,6 +49,18 @@ export const viewComponents = [
 export function dimensionRelativeToIphone(dimension, actualRefVal = window.width) {
   // 375 is iPhone width
   return getSizeRelativeToReference(dimension, 375, actualRefVal);
+}
+
+export function formatLineHeight(fontSize) {
+  // adds required padding to lineHeight to support
+  // different alphabets (Kanji, Greek, etc.)
+
+  if (fontSize < 22) {
+    // minimum lineHeight for different alphabets is 25
+    return 25;
+  }
+
+  return (fontSize + 3);
 }
 
 export const defaultThemeVariables = {
@@ -91,6 +110,7 @@ export const defaultThemeVariables = {
   tagOverlayColor: 'rgba(0, 0, 0, 0.7)',
   tagOverlayTextColor: '#FFFFFF',
 
+  statusBarColor: "#000",
   navBarBackground: '#FFFFFF',
   navBarBorderColor: '#f2f2f2',
   navBarText: {
@@ -338,28 +358,28 @@ export default (variables = defaultThemeVariables) => ({
   'shoutem.ui.Heading': {
     [INCLUDE]: ['text'],
 
-    lineHeight: 30,
+    lineHeight: formatLineHeight(variables.heading.fontSize),
     ...variables.heading,
   },
 
   'shoutem.ui.Title': {
     [INCLUDE]: ['text'],
 
-    lineHeight: 25,
+    lineHeight: formatLineHeight(variables.title.fontSize),
     ...variables.title,
   },
 
   'shoutem.ui.Subtitle': {
     [INCLUDE]: ['text'],
 
-    lineHeight: 18,
+    lineHeight: formatLineHeight(variables.subtitle.fontSize),
     ...variables.subtitle,
   },
 
   'shoutem.ui.Caption': {
     [INCLUDE]: ['text'],
 
-    lineHeight: 16,
+    lineHeight: formatLineHeight(variables.caption.fontSize),
     letterSpacing: 0.5,
     ...variables.caption,
   },
@@ -683,6 +703,15 @@ export default (variables = defaultThemeVariables) => ({
 
     '.paper': {
       backgroundColor: variables.paperColor,
+    },
+
+    'shoutem.ui.ListView': {
+      listContent: {
+        paddingBottom: Device.select({
+          iPhoneX: IPHONE_X_HOMEBAR_SCROLL_PADDING,
+          default: 0,
+        })
+      },
     },
 
     backgroundColor: variables.backgroundColor,
@@ -1387,16 +1416,20 @@ export default (variables = defaultThemeVariables) => ({
       },
 
       color: variables.navBarText.color,
-      fontSize: 15,
-      lineHeight: 18,
+      lineHeight: formatLineHeight(variables.navBarText.fontSize),
+      ...variables.navBarText,
     },
 
+    statusBar: {
+      backgroundColor: variables.statusBarColor,
+      height: IPHONE_X_NOTCH_PADDING,
+    },
     container: {
       [INCLUDE]: ['fillParent'],
-      height: 70,
+      height: NAVIGATION_HEADER_HEIGHT,
       backgroundColor: variables.navBarBackground,
       borderBottomColor: variables.navBarBorderColor,
-      borderBottomWidth: 1,
+      borderBottomWidth: StyleSheet.hairlineWidth,
       // Leave space for the status bar on iOS
       paddingTop: Platform.OS === 'ios' ? 20 : 0,
     },
@@ -1505,7 +1538,7 @@ export default (variables = defaultThemeVariables) => ({
 
       flex: 1,
       textAlign: 'center',
-      lineHeight: 18,
+      lineHeight: formatLineHeight(variables.navBarText.fontSize),
       ...variables.navBarText,
     },
 
@@ -1517,15 +1550,27 @@ export default (variables = defaultThemeVariables) => ({
     },
     navigationHeader: {
       position: 'absolute',
-      top: 0,
+      top: Device.select({
+        iPhoneX: 6,
+        default: Platform.OS === 'android' ? 0 : -4,
+      }),
       left: 0,
       right: 0,
       height: NAVIGATION_BAR_HEIGHT,
     },
+    statusBar: {
+      backgroundColor: variables.statusBarColor,
+      height: IPHONE_X_NOTCH_PADDING,
+    },
+    screenBackground: variables.backgroundColor,
     navigationBarImage: {
+      marginTop: Device.select({
+        iPhoneX: IPHONE_X_NOTCH_PADDING,
+        default: 0,
+      }),
       flex: 1,
       flexGrow: 1,
-      height: NavigationHeader.HEIGHT,
+      height: NAVIGATION_HEADER_HEIGHT,
       left: 0,
       solidifyAnimation(driver) {
         return {

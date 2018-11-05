@@ -21,8 +21,9 @@ import {
   TimingDriver,
 } from '@shoutem/animation';
 
-import composeChildren from './composeChildren';
+import { Device } from '../helpers';
 import { LinearGradient } from '../components/LinearGradient';
+import composeChildren from './composeChildren';
 
 const {
   Header: NavigationHeader,
@@ -119,6 +120,10 @@ class NavigationBarView extends PureComponent {
     this.cleanupStatusBarStyleListeners();
   }
 
+  hasNavigationBarImage(props = this.props) {
+    return !!props.navigationBarImage;
+  }
+
   /**
    * Gets the next navigation bar props for a given scene.
    *
@@ -155,15 +160,55 @@ class NavigationBarView extends PureComponent {
 
   /**
    * Determine the iOS status bar style based on the backgroundColor
-   * of the navigation bar.
+   * of the navigation bar, or the status bar color if provided.
    *
    * @param color The navigation bar background color.
    * @param animated If the color change should be animated, iOS only
    */
-  setStatusBarStyleForBackgroundColor(color, animated) {
+  resolveStatusBarStyle(color, animated) {
     const colorValue = getAnimatedStyleValue(color);
-    const barStyle = tinyColor(colorValue).isDark() ? 'light-content' : 'default';
+    const barStyle = tinyColor(colorValue).isDark() ? 'light-content' : 'dark-content';
+
     StatusBar.setBarStyle(barStyle, animated);
+  }
+
+  setStatusBarStyleIos(statusBarColor, backgroundColor, hasImage) {
+    if (isAnimatedStyleValue(backgroundColor) && !Device.isIphoneX) {
+      // If the backgroundColor is animated, we want to listen for
+      // color changes, so that we can update the bar style as the
+      // animation runs.
+      this.backgroundListenerId = addAnimatedValueListener(backgroundColor, () => {
+        this.resolveStatusBarStyle(backgroundColor);
+      });
+    }
+
+    // Set the bar style based on the current background color value
+    hasImage ?
+      this.resolveStatusBarStyle(statusBarColor, true) :
+      this.resolveStatusBarStyle(backgroundColor, true);
+  }
+
+  setStatusBarStyleAndroid(containerBackgroundColor, backgroundColor, statusBarStyle = {}) {
+    // Android cannot resolve interpolated values for animated status bar
+    // background colors so we fall back to default Android status bar styling
+    if (isAnimatedStyleValue(containerBackgroundColor)) {
+      StatusBar.setBackgroundColor('rgba(0, 0, 0, 0.2)');
+      StatusBar.setBarStyle('default');
+    } else {
+      StatusBar.setBackgroundColor(containerBackgroundColor);
+    }
+
+    if (isAnimatedStyleValue(backgroundColor)) {
+      this.backgroundListenerId = addAnimatedValueListener(backgroundColor, () => {
+        this.resolveStatusBarStyle(backgroundColor);
+      });
+    }
+
+    this.resolveStatusBarStyle(backgroundColor, true);
+
+    if (!_.isUndefined(statusBarStyle.transluscent)) {
+      StatusBar.setTranslucent(statusBarStyle.transluscent);
+    }
   }
 
   /**
@@ -174,36 +219,25 @@ class NavigationBarView extends PureComponent {
    * @param style.statusBar The status bar style.
    */
   setStatusBarStyle(style = {}) {
+    const { styleName } = this.props;
+    const statusBarColor = _.get(style, 'statusBar.backgroundColor', '#000');
     const statusBarStyle = style.statusBar || {};
-    if (Platform.OS === 'ios') {
-      if (statusBarStyle.barStyle) {
-        // Use the status bar style, if present
-        StatusBar.setBarStyle(statusBarStyle.barStyle);
-      } else {
-        // Determine the bar style based on the background color
-        // as a fallback if the style is not specified explicitly.
-        const backgroundColor = _.get(style, 'container.backgroundColor');
-        if (isAnimatedStyleValue(backgroundColor)) {
-          // If the backgroundColor is animated, we want to listen for
-          // color changes, so that we can update the bar style as the
-          // animation runs.
-          this.backgroundListenerId = addAnimatedValueListener(backgroundColor, () => {
-            this.setStatusBarStyleForBackgroundColor(backgroundColor);
-          });
-        }
+    const isTransparent = styleName ? styleName.includes('clear') : false;
+    const hasImage = this.hasNavigationBarImage()
 
-        // Set the bar style based on the current background color value
-        this.setStatusBarStyleForBackgroundColor(backgroundColor, true);
-      }
-    } else {
-      if (!_.isUndefined(statusBarStyle.backgroundColor)) {
-        StatusBar.setBackgroundColor(statusBarStyle.backgroundColor);
-      }
+    // Determine the bar style based on the background color
+    // or status bar color as a fallback if the style is not
+    // specified explicitly.
+    const containerBackgroundColor = _.get(style, 'container.backgroundColor', '#fff');
+    const screenBackgroundColor = _.get(style, 'screenBackground', '#fff');
+    const backgroundColor =
+      isTransparent ?
+      screenBackgroundColor :
+      containerBackgroundColor;
 
-      if (!_.isUndefined(statusBarStyle.transluscent)) {
-        StatusBar.setTranslucent(statusBarStyle.transluscent);
-      }
-    }
+    Platform.OS === 'ios' ?
+      this.setStatusBarStyleIos(statusBarColor, backgroundColor, hasImage) :
+      this.setStatusBarStyleAndroid(containerBackgroundColor, backgroundColor, statusBarStyle);
   }
 
   /**

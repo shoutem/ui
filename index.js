@@ -63,3 +63,13 @@ export { Tile } from './components/Tile';
 export { Lightbox } from './components/Lightbox';
 
 export { Examples } from './examples/components';
+
+export { Device } from './helpers';
+
+// Constants
+export {
+  IPHONE_X_HOME_INDICATOR_PADDING,
+  IPHONE_X_NOTCH_PADDING,
+  NAVIGATION_HEADER_HEIGHT,
+  IPHONE_X_LONG_SIDE,
+} from './const';
