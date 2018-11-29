@@ -15,6 +15,7 @@ import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
 
 import composeChildren from './composeChildren';
+import { Device } from '../../helpers/device-selector';
 
 function getBackgroundColor(style) {
   const styleWithBg = _.find(style, (styleDef) =>
