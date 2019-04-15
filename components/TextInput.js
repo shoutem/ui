@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { TextInput as RNTextInput } from 'react-native';
 
 import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
 
-class TextInput extends Component {
+class TextInput extends PureComponent {
   render() {
     const { props } = this;
     const style = {

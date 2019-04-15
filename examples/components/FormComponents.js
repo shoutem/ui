@@ -1,17 +1,13 @@
-import React, {
-  Component,
-} from 'react';
+import React, { PureComponent } from 'react';
 
+import { Caption } from '../../components/Text';
+import { View } from '../../components/View';
+import { Switch } from '../../components/Switch';
+import { FormGroup } from '../../components/FormGroup';
+import { TextInput } from '../../components/TextInput';
 import { Stage } from './Stage';
-import {
-  Caption,
-  FormGroup,
-  Switch,
-  View,
-  TextInput,
-} from '../../index';
 
-export class FormComponents extends Component {
+export class FormComponents extends PureComponent {
   constructor() {
     super();
     this.state = {

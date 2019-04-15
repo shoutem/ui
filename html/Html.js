@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Platform, InteractionManager } from 'react-native';
 import _ from 'lodash';
 
@@ -19,7 +19,7 @@ const defaultElementSettings = {
   display: Display.BLOCK,
 };
 
-class Html extends Component {
+class Html extends PureComponent {
   static propTypes = {
     body: PropTypes.string.isRequired,
     renderElement: PropTypes.func,

@@ -4,7 +4,7 @@ import {
   Platform,
   StatusBar,
 } from 'react-native';
-import NavigationExperimental from 'react-native-navigation-experimental-compat';
+import { Header as NavigationHeader } from 'react-native-navigation-experimental-compat';
 
 import {
   INCLUDE,
@@ -20,6 +20,7 @@ import { Device } from './helpers';
 import {
   NAVIGATION_HEADER_HEIGHT,
   IPHONE_X_NOTCH_PADDING,
+  IPHONE_XR_NOTCH_PADDING,
   IPHONE_X_HOMEBAR_SCROLL_PADDING,
 } from './const';
 
@@ -28,6 +29,7 @@ const window = Dimensions.get('window');
 const STATUS_BAR_OFFSET = (Platform.OS === 'android' ? -StatusBar.currentConfig : 0);
 const NAVIGATION_BAR_HEIGHT = Device.select({
   iPhoneX: NAVIGATION_HEADER_HEIGHT + IPHONE_X_NOTCH_PADDING,
+  iPhoneXR: NAVIGATION_HEADER_HEIGHT + IPHONE_XR_NOTCH_PADDING,
   default: NAVIGATION_HEADER_HEIGHT,
 });
 
@@ -709,6 +711,7 @@ export default (variables = defaultThemeVariables) => ({
       listContent: {
         paddingBottom: Device.select({
           iPhoneX: IPHONE_X_HOMEBAR_SCROLL_PADDING,
+          iPhoneXR: IPHONE_X_HOMEBAR_SCROLL_PADDING,
           default: 0,
         })
       },
@@ -1422,7 +1425,11 @@ export default (variables = defaultThemeVariables) => ({
 
     statusBar: {
       backgroundColor: variables.statusBarColor,
-      height: IPHONE_X_NOTCH_PADDING,
+      height: Device.select({
+        iPhoneX: IPHONE_X_NOTCH_PADDING,
+        iPhoneXR: IPHONE_XR_NOTCH_PADDING,
+        default: 0,
+      }),
     },
     container: {
       [INCLUDE]: ['fillParent'],
@@ -1552,6 +1559,7 @@ export default (variables = defaultThemeVariables) => ({
       position: 'absolute',
       top: Device.select({
         iPhoneX: 6,
+        iPhoneXR: 8,
         default: Platform.OS === 'android' ? 0 : -4,
       }),
       left: 0,
@@ -1560,12 +1568,17 @@ export default (variables = defaultThemeVariables) => ({
     },
     statusBar: {
       backgroundColor: variables.statusBarColor,
-      height: IPHONE_X_NOTCH_PADDING,
+      height: Device.select({
+        iPhoneX: IPHONE_X_NOTCH_PADDING,
+        iPhoneXR: IPHONE_XR_NOTCH_PADDING,
+        default: 0,
+      }),
     },
     screenBackground: variables.backgroundColor,
     navigationBarImage: {
       marginTop: Device.select({
         iPhoneX: IPHONE_X_NOTCH_PADDING,
+        iPhoneXR: IPHONE_XR_NOTCH_PADDING,
         default: 0,
       }),
       flex: 1,
@@ -1975,6 +1988,11 @@ export default (variables = defaultThemeVariables) => ({
       },
     },
     text: {
+    },
+  },
+  'shoutem.ui.SimpleHtml': {
+    container: {
+      padding: variables.mediumGutter,
     },
   },
   'shoutem.ui.Html': {
@@ -2458,6 +2476,10 @@ export default (variables = defaultThemeVariables) => ({
   },
 
   'shoutem.ui.Lightbox': {
+    '.container': {
+      flex: 1,
+      resizeMode: 'contain',
+    },
     'shoutem.ui.Image': {
       '.preview': {
         flex: 1,

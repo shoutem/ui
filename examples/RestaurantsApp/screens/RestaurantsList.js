@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
+
 import {
   ImageBackground,
   ListView,
@@ -11,20 +13,18 @@ import {
   Divider,
 } from '@shoutem/ui';
 
-import {
-  NavigationBar,
-} from '@shoutem/ui/navigation';
-import { connect } from 'react-redux';
+import { NavigationBar } from 'shoutem.navigation';
 
 import { navigatePush } from '../redux';
 
-class RestaurantsList extends Component {
+class RestaurantsList extends PureComponent {
   static propTypes = {
     onButtonPress: PropTypes.func,
   };
 
   constructor(props) {
     super(props);
+
     this.renderRow = this.renderRow.bind(this);
   }
 
@@ -55,10 +55,10 @@ class RestaurantsList extends Component {
     return (
       <Screen>
         <NavigationBar title="All Restaurants" />
-          <ListView
-            data={this.getRestaurants()}
-            renderRow={restaurant => this.renderRow(restaurant)}
-          />
+        <ListView
+          data={this.getRestaurants()}
+          renderRow={restaurant => this.renderRow(restaurant)}
+        />
       </Screen>
     );
   }

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { TouchableOpacity as RNTouchableOpacity } from 'react-native';
 
 import { connectStyle } from '@shoutem/theme';
 
-class TouchableOpacity extends React.Component {
+class TouchableOpacity extends PureComponent {
   render() {
     const props = this.props;
 

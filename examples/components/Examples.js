@@ -1,6 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
-import { Screen, DropDownMenu, Divider, ScrollView, } from '../../index';
+import { Screen } from '../../components/Screen';
+import { Divider } from '../../components/Divider';
+import { ScrollView } from '../../components/ScrollView';
+import { DropDownMenu } from '../../components/DropDownMenu';
 
 import { Typography } from './Typography';
 import { Dividers } from './Dividers';
@@ -32,7 +35,7 @@ const examples = [
   { title: 'Form Components', component: FormComponents },
 ];
 
-export class Examples extends Component {
+export class Examples extends PureComponent {
   constructor() {
     super();
     this.state = {

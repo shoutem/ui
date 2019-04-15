@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View as RNView,
   ViewPropTypes,
@@ -8,9 +8,9 @@ import {
 import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
 
-import { LinearGradient } from '../components/LinearGradient';
+import { LinearGradient } from './LinearGradient';
 
-class View extends Component {
+class View extends PureComponent {
   render() {
     const style = { ...this.props.style };
     let gradient = null;

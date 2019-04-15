@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
 
 import { View } from './View';
 
-class FormGroup extends Component {
+class FormGroup extends PureComponent {
   render() {
     return (
       <View {...this.props}>

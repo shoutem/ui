@@ -1,6 +1,4 @@
-import React, {
-  Component,
-} from 'react';
+import React, { PureComponent } from 'react';
 
 import { connectStyle } from '@shoutem/theme';
 
@@ -10,7 +8,7 @@ import { Spinner } from './Spinner';
 /**
  * Renders a loading indicator (spinner) that fits into available space (container)
  */
-class LoadingIndicator extends Component {
+class LoadingIndicator extends PureComponent {
   render() {
     return (
       <View styleName="flexible vertical v-center">

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Image as RNImage } from 'react-native';
 import { connectStyle } from '@shoutem/theme';
 import _ from 'lodash';
@@ -14,7 +14,7 @@ import { Lightbox } from '../../components/Lightbox';
  * Image is not going to be shown before dimensions are determined,
  * this component will determine the Image dimensions before rendering an image.
  */
-export default class HtmlImage extends Component {
+export default class HtmlImage extends PureComponent {
   static propTypes = {
     ...RNImage.propTypes,
     lightbox: PropTypes.bool,

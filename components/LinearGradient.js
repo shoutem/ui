@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import RNLinearGradient from 'react-native-linear-gradient';
 import _ from 'lodash';
 import { connectAnimation } from '@shoutem/animation';
@@ -6,7 +6,7 @@ import { connectStyle } from '@shoutem/theme';
 
 const RNLinearGradientPropsKeys = Object.keys(RNLinearGradient.propTypes);
 
-class LinearGradient extends React.Component {
+class LinearGradient extends PureComponent {
   render () {
     const { props } = this;
 

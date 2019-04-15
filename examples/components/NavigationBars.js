@@ -1,18 +1,14 @@
 import React from 'react';
 import { Dimensions } from 'react-native';
 
+import { Text, Title, Heading } from '../../components/Text';
 import { View } from '../../components/View';
+import { Icon } from '../../components/Icon';
+import { Button } from '../../components/Button';
+import { DropDownMenu } from '../../components/DropDownMenu';
+import { NavigationBar } from '../../components/NavigationBar';
+import { ImageBackground } from '../../components/ImageBackground';
 import { Stage } from './Stage';
-import {
-  Heading,
-  NavigationBar,
-  Title,
-  Text,
-  ImageBackground,
-  Button,
-  Icon,
-  DropDownMenu,
-} from '../../index';
 
 const window = Dimensions.get('window');
 

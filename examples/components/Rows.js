@@ -1,16 +1,12 @@
 import React from 'react';
 
+import { Text, Caption, Subtitle } from '../../components/Text';
+import { Row } from '../../components/Row';
+import { Icon } from '../../components/Icon';
+import { View } from '../../components/View';
+import { Image } from '../../components/Image';
+import { Button } from '../../components/Button';
 import { Stage } from './Stage';
-import {
-  View,
-  Row,
-  Text,
-  Subtitle,
-  Caption,
-  Image,
-  Button,
-  Icon,
-} from '../../index';
 
 export function Rows() {
   return (

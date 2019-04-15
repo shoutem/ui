@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { PureComponent } from 'react';
 import {
   ActivityIndicator,
 } from 'react-native';
 
 import { connectStyle } from '@shoutem/theme';
 
-class Spinner extends React.Component {
+class Spinner extends PureComponent {
   render() {
     const { style } = this.props;
     const indicatorStyle = { ...style };

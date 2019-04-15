@@ -1,7 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {
-  Component,
-} from 'react';
+import React, { PureComponent } from 'react';
 import {
   Modal,
   ListView,
@@ -11,6 +9,9 @@ import {
 } from 'react-native';
 import _ from 'lodash';
 
+import { connectStyle, changeColorAlpha } from '@shoutem/theme';
+import { TimingDriver, FadeIn, ZoomOut } from '@shoutem/animation';
+
 import { Button } from '../Button';
 import { Icon } from '../Icon';
 import { Text } from '../Text';
@@ -18,17 +19,9 @@ import { View } from '../View';
 import { LinearGradient } from '../LinearGradient';
 import { TouchableOpacity } from '../TouchableOpacity';
 
-import { connectStyle, changeColorAlpha } from '@shoutem/theme';
-
-import {
-  TimingDriver,
-  FadeIn,
-  ZoomOut,
-} from '@shoutem/animation';
-
 const window = Dimensions.get('window');
 
-class DropDownModal extends Component {
+class DropDownModal extends PureComponent {
   static propTypes = {
     /**
      * Callback that is called when dropdown option is selected

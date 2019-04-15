@@ -1,20 +1,14 @@
 import React from 'react';
 
+import { Text, Caption, Subtitle, Title, Heading } from '../../components/Text';
+import { Icon } from '../../components/Icon';
+import { Tile } from '../../components/Tile';
+import { View } from '../../components/View';
+import { Image } from '../../components/Image';
+import { Button } from '../../components/Button';
+import { Overlay } from '../../components/Overlay';
+import { ImageBackground } from '../../components/ImageBackground';
 import { Stage } from './Stage';
-import {
-  Heading,
-  View,
-  Tile,
-  Image,
-  ImageBackground,
-  Text,
-  Title,
-  Subtitle,
-  Caption,
-  Icon,
-  Overlay,
-  Button,
-} from '../../index';
 
 export function Tiles() {
   return (

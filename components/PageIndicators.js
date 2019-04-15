@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import { connectStyle } from '@shoutem/theme';
+
 import { View } from './View';
 
 /**
  * Renders Page indicators (dots)
  */
-class PageIndicators extends Component {
+class PageIndicators extends PureComponent {
   static propTypes = {
     // ActiveIndex: number defining which page indicator will be rendered as active (selected)
     activeIndex: PropTypes.number,

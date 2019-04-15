@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import { InlineGallery } from '../../components/InlineGallery';
 
@@ -7,7 +7,7 @@ import { InlineGallery } from '../../components/InlineGallery';
  * Use to render a HTML gallery component.
  * Style interface correspond to InlineGallery from @shoutem/ui.
  */
-export default class Gallery extends Component {
+export default class Gallery extends PureComponent {
   static propTypes = {
     ...InlineGallery.propTypes,
     handlePhotoPress: PropTypes.func,

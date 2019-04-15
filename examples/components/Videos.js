@@ -1,10 +1,10 @@
 import React from 'react';
+import { WebView } from 'react-native';
 
 import { View } from '../../components/View';
-import { Stage } from './Stage';
 import { Image } from '../../components/Image';
 import { Video } from '../../components/Video'
-import { WebView } from 'react-native';
+import { Stage } from './Stage';
 
 export function Videos() {
   return (

@@ -1,21 +1,18 @@
-import React, {
-  Component,
-} from 'react';
+import React, { PureComponent } from 'react';
 import _ from 'lodash';
-import { connectStyle } from '@shoutem/theme';
-import {
-  Button,
-  Icon,
-  Text,
-  View,
-} from '../../index';
 
+import { connectStyle } from '@shoutem/theme';
+
+import { Button } from '../Button';
+import { Icon } from '../Icon';
+import { Text } from '../Text';
+import { View } from '../View';
 import { DropDownModal } from './DropDownModal';
 
 const modalSpecificProps = ['visible', 'onClose'];
 const dropDownMenuPropTypes = { ..._.omit(DropDownModal.propTypes, modalSpecificProps) };
 
-class DropDownMenu extends Component {
+class DropDownMenu extends PureComponent {
   /**
   * @see DropDownModal.propTypes
   */

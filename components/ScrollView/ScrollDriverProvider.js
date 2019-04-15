@@ -1,14 +1,16 @@
 import PropTypes from 'prop-types';
-import React, { Component, Children } from 'react';
+import React, { PureComponent, Children } from 'react';
+import _ from 'lodash';
+
 import { DriverShape, ScrollDriver } from '@shoutem/animation';
-import * as _ from 'lodash';
+
 /**
  * Use this component if you want to share animation driver between unreachable siblings.
  * Just wrap their parent component with it. We use it to share an instance of ScrollDriver
  * between Screen and NavigationBar automatically. ScrollView from @shoutem/ui uses it to
  * register its driver.
  */
-export class ScrollDriverProvider extends Component {
+export class ScrollDriverProvider extends PureComponent {
   static childContextTypes = {
     driverProvider: PropTypes.object,
     animationDriver: DriverShape,

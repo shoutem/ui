@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Text as RNText } from 'react-native';
 
 import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
 
-class Text extends Component {
+class Text extends PureComponent {
   render() {
     return (
       <RNText {...this.props} />
