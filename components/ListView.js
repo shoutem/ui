@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Component } from 'react';
 import {
   View,
   ListView as RNListView,
@@ -8,9 +8,11 @@ import {
   Platform,
   ScrollView,
 } from 'react-native';
-import { connectStyle } from '@shoutem/theme';
-import { Spinner } from './Spinner';
 import _ from 'lodash';
+
+import { connectStyle } from '@shoutem/theme';
+
+import { Spinner } from './Spinner';
 
 const scrollViewProps = _.keys(ScrollView.propTypes);
 
@@ -64,7 +66,7 @@ class ListDataSource {
   }
 }
 
-class ListView extends React.Component {
+class ListView extends Component {
   static propTypes = {
     autoHideHeader: PropTypes.bool,
     style: PropTypes.object,

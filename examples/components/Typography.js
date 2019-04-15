@@ -1,15 +1,8 @@
 import React from 'react';
 
+import { Text, Caption, Subtitle, Title, Heading } from '../../components/Text';
 import { View } from '../../components/View';
 import { Stage } from './Stage';
-import {
-  Text,
-  Heading,
-  Title,
-  Subtitle,
-  Description,
-  Caption,
-} from '../../components/Text';
 
 export function Typography() {
   return (

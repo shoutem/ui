@@ -1,18 +1,16 @@
 import PropTypes from 'prop-types';
-import React, {
-  Component,
-} from 'react';
+import React, { PureComponent } from 'react';
 
 import { TouchableWithoutFeedback } from 'react-native';
-
-import { View } from '@shoutem/ui';
 
 import { connectStyle } from '@shoutem/theme';
 import { connectAnimation, TimingDriver } from '@shoutem/animation';
 
+import { View } from './View';
+
 const { bool, func, object, shape } = PropTypes;
 
-class Switch extends Component {
+class Switch extends PureComponent {
   static propTypes = {
     // True when switch is on, false otherwise
     value: bool,

@@ -1,15 +1,12 @@
 import React from 'react';
 import { Dimensions } from 'react-native';
 
+import { Caption, Subtitle } from '../../Text';
+import { View } from '../../components/View';
+import { HorizontalPager } from '../../components/HorizontalPager';
+import { Tile } from '../../Tile';
+import { ImageBackground } from '../../ImageBackground';
 import { Stage } from './Stage';
-import {
-  View,
-  HorizontalPager,
-  Tile,
-  ImageBackground,
-  Subtitle,
-  Caption,
-} from '../../index';
 
 const window = Dimensions.get('window');
 

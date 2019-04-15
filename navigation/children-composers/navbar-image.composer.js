@@ -2,7 +2,6 @@ import React from 'react';
 import _ from 'lodash';
 import { NavigationBar } from '../NavigationBar';
 import { View, Image, Device } from '../../index';
-import { IPHONE_X_NOTCH_PADDING } from '../../const';
 
 const imageFitContainer = navBarProps => (NavigationBar.fitContainer || navBarProps.fitContainer);
 
@@ -29,7 +28,7 @@ const createNavBarBackgroundImage = navBarProps => () => {
   const navigationBarImage =
     (NavigationBar.globalNavigationBarImage || navBarProps.navigationBarImage);
   const statusBarColor = _.get(navBarProps, 'style.statusBar.backgroundColor', '#000');
-  const statusBarHeight = _.get(navBarProps, 'style.statusBar.height', IPHONE_X_NOTCH_PADDING);
+  const statusBarHeight = _.get(navBarProps, 'style.statusBar.height');
   const backgroundImage = (
     <Image
       source={{ uri: navigationBarImage }}

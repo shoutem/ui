@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { TouchableNativeFeedback as RNTouchableNativeFeedback } from 'react-native';
 
 import { connectStyle } from '@shoutem/theme';
 
-class TouchableNativeFeedback extends React.Component {
+class TouchableNativeFeedback extends PureComponent {
   static propTypes = {
     ...RNTouchableNativeFeedback.propTypes,
     style: PropTypes.shape({

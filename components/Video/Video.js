@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { PureComponent } from 'react';
 
 import {
   View,
@@ -8,6 +8,7 @@ import {
 
 import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
+
 import VideoSourceReader from './VideoSourceReader';
 
 function createSourceObject(source, playerParams, poster) {
@@ -40,7 +41,7 @@ function createSourceObject(source, playerParams, poster) {
  *
  * @returns {*}
  */
-class Video extends React.Component {
+class Video extends PureComponent {
   static propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
@@ -75,6 +76,7 @@ class Video extends React.Component {
           style={{width, height}}
           source={createSourceObject(source, playerParams, poster)}
           scrollEnabled={false}
+          originWhitelist={['*']}
         />
       </View>
     );

@@ -1,20 +1,16 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-
+import React, { PureComponent } from 'react';
 import _ from 'lodash';
 
-import {
-  View,
-  HorizontalPager,
-  LoadingIndicator,
-  Image,
-} from '../../index';
-
+import { View } from '../View';
+import { HorizontalPager } from '../HorizontalPager';
+import { LoadingIndicator } from '../LoadingIndicator';
+import { Image } from '../Image';
 
 const IMAGE_PREVIEW_MODE = 'imagePreview';
 const IMAGE_GALLERY_MODE = 'gallery';
 
-export class ImageGalleryBase extends Component {
+export class ImageGalleryBase extends PureComponent {
   /**
    * The image preview mode is the mode in which
    * the user can zoom in/out and pan the image around.

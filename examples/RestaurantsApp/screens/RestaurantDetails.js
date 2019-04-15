@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+
 import {
   ScrollView,
   Icon,
@@ -14,11 +15,9 @@ import {
   Screen,
 } from '@shoutem/ui';
 
-import {
-  NavigationBar,
-} from '@shoutem/ui/navigation';
+import { NavigationBar } from 'shoutem.navigation';
 
-export default class RestaurantDetails extends Component {
+export default class RestaurantDetails extends PureComponent {
   static propTypes = {
     restaurant: PropTypes.object,
   };

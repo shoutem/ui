@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import _ from 'lodash';
 import { connectStyle } from '@shoutem/theme';
@@ -10,7 +10,7 @@ import { Image } from './Image';
 import { HorizontalPager } from './HorizontalPager/HorizontalPager';
 import { LoadingIndicator } from './LoadingIndicator';
 
-class InlineGallery extends Component {
+class InlineGallery extends PureComponent {
   static propTypes = {
     // Array containing objects with image data (shape defined below)
     data: PropTypes.arrayOf(

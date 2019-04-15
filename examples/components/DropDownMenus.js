@@ -1,13 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
+import { Caption } from '../../components/Text';
 import { View } from '../../components/View';
-import { Stage } from './Stage';
+import { FormGroup } from '../../components/FormGroup';
 import { DropDownMenu } from '../../components/DropDownMenu';
-
-import {
-  Caption,
-  FormGroup,
-} from '../../index';
+import { Stage } from './Stage';
 
 const options = [
   {
@@ -28,7 +25,7 @@ const options = [
 const emptyOption = { id: '', name: 'Select'};
 const optionsWithEmptyOption = [emptyOption, ...options];
 
-export class DropDownMenus extends Component {
+export class DropDownMenus extends PureComponent {
   constructor() {
     super();
     this.state = {

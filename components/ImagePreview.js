@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   Modal,
@@ -29,7 +29,7 @@ const CLOSE_ICON_SIZE = 25;
  * Renders an ImagePreview which shows an inline image preview.
  * When clicked, the image is displayed in full screen.
  */
-class ImagePreview extends Component {
+class ImagePreview extends PureComponent {
   constructor(props) {
     super(props);
     this.onPressCloseButton = this.onPressCloseButton.bind(this);

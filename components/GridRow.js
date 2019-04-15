@@ -1,14 +1,15 @@
 import PropTypes from 'prop-types';
-import React, { Children } from 'react';
+import React, { PureComponent, Children } from 'react';
 import {
   View as RNView,
   ViewPropTypes,
 } from 'react-native';
 import _ from 'lodash';
 
-import { View } from './View';
 import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
+
+import { View } from './View';
 
 /**
  * Renders empty placeholder views to fill any empty space
@@ -24,7 +25,7 @@ function renderPlaceholderViews(count) {
 
 // Ref needed
 // eslint-disable-next-line react/prefer-stateless-function
-class GridRow extends React.Component {
+class GridRow extends PureComponent {
   render() {
     const { children, columns } = this.props;
     const missingElementsCount = columns - Children.count(children);

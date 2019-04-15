@@ -1,15 +1,12 @@
 import React from 'react';
 
+import { Caption, Subtitle } from '../../components/Text';
+import { View } from '../../components/View';
+import { Card } from '../../components/Card';
+import { Image } from '../../components/Image';
+import { Icon } from '../../components/Icon';
+import { Button } from '../../components/Button';
 import { Stage } from './Stage';
-import {
-  View,
-  Card,
-  Image,
-  Subtitle,
-  Caption,
-  Icon,
-  Button,
-} from '../../index';
 
 export function Cards() {
   return (
