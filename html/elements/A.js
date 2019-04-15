@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { Linking } from 'react-native';
 import { connectStyle } from '@shoutem/theme';
 import _ from 'lodash';
@@ -8,7 +8,7 @@ import { ElementPropTypes, combineMappers, mapElementProps } from '../Html';
 import { isImg } from '../elements/Img';
 import { Inline } from './Inline';
 
-class A extends React.Component {
+class A extends PureComponent {
   static propTypes = {
     ...ElementPropTypes,
     handleLinkPress: PropTypes.func,

@@ -14,6 +14,7 @@ import Html, {
   renderChildElements,
   renderChildren,
 } from './Html';
+import SimpleHtml from './components/SimpleHtml';
 import Gallery from './components/Gallery';
 import Image from './components/Image';
 import Inline, { InlineSettings } from './elements/Inline';
@@ -97,4 +98,5 @@ export {
   // Components
   Gallery,
   Image,
+  SimpleHtml,
 };

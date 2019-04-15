@@ -1,10 +1,8 @@
 import React from 'react';
 
+import { View } from '../../components/View';
+import { Spinner } from '../../components/Spinner';
 import { Stage } from './Stage';
-import {
-  View,
-  Spinner,
-} from '../../index';
 
 export function Spinners() {
   return (

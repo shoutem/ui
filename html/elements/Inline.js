@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { PureComponent } from 'react';
 import _ from 'lodash';
 
 import { View } from '../../components/View';
@@ -129,7 +129,7 @@ function renderGroupedChildren(groupedChildren, renderElement, style) {
  * @returns {component}
  * @constructor
  */
-export class Inline extends React.Component {
+export class Inline extends PureComponent {
   static defaultProps = {
     style: {},
   };

@@ -1,11 +1,9 @@
 import React from 'react';
 import { Dimensions } from 'react-native';
 
+import { View } from '../../components/View';
+import { ImageGallery } from '../../components/ImageGallery';
 import { Stage } from './Stage';
-import {
-  View,
-  ImageGallery,
-} from '../../index';
 
 const window = Dimensions.get('window');
 

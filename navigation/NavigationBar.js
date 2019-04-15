@@ -49,6 +49,10 @@ class NavigationBar extends Component {
     this.setNavBarProps(nextProps);
   }
 
+  componentDidMount() {
+    console.warn("NavigationBar from '@shoutem/ui/navigation' is deprecated and will soon be removed. Use NavigationBar from '@shoutem/ui' instead.");
+  }
+
   componentWillUnmount() {
     // The parent screen is being unmounted, we can cleanup now
     const { getScene, clearNavBarProps } = this.context;

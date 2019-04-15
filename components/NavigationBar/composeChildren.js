@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import { Button } from '../Button';
 import { Title } from '../Text';
@@ -74,7 +74,7 @@ function skipUndefined(objValue, srcValue) {
 }
 
 // eslint-disable-next-line react/prefer-stateless-function
-const composeChildren = NavigationBarComponent => class extends Component {
+const composeChildren = NavigationBarComponent => class extends PureComponent {
   render() {
     const newProps = {};
     _.forEach(this.props, (value, key) => {

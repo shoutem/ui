@@ -1,20 +1,16 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import {
   ScrollView,
   InteractionManager,
   LayoutAnimation,
 } from 'react-native';
-
 import _ from 'lodash';
 
 import { connectStyle } from '@shoutem/theme';
 
-import {
-  View,
-} from '../../index';
-
+import { View } from '../View';
 import { Page } from './Page';
 
 /**
@@ -28,7 +24,7 @@ import { Page } from './Page';
  * ScrollView and ViewPagerAndroid for this matter.
  *
  */
-class HorizontalPager extends Component {
+class HorizontalPager extends PureComponent {
   static propTypes = {
     // Prop defining whether the Pager will bounce back
     // when user tries to swipe beyond end of content (iOS only)

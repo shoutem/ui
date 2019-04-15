@@ -1,7 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {
-  Component,
-} from 'react';
+import React, { PureComponent } from 'react';
 
 import { Share, Platform } from 'react-native';
 
@@ -20,7 +18,7 @@ const { string } = PropTypes;
  * It should have the style of its underlying button. That's why it's not connected to style
  * or animation.
  */
-class ShareButton extends Component {
+class ShareButton extends PureComponent {
   static propTypes = {
     // Animation name for share icon
     animationName: string,

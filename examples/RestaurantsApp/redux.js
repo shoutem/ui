@@ -1,8 +1,6 @@
 import { combineReducers } from 'redux';
 
-import NavigationExperimental from 'react-native-navigation-experimental-compat';
-
-const NavigationStateUtils = NavigationExperimental.StateUtils;
+import { StateUtils as NavigationStateUtils } from 'react-native-navigation-experimental-compat';
 
 const NAV_PUSH = 'NAV_PUSH';
 const NAV_POP = 'NAV_POP';

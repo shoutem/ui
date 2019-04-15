@@ -43,6 +43,7 @@ export { LoadingIndicator } from './components/LoadingIndicator';
 export { PageIndicators } from './components/PageIndicators';
 export { default as RichMedia } from './components/RichMedia';
 export { Html } from './html';
+export { SimpleHtml } from './html';
 export { ShareButton } from './components/ShareButton';
 export { LinearGradient } from './components/LinearGradient';
 
@@ -70,6 +71,8 @@ export { Device } from './helpers';
 export {
   IPHONE_X_HOME_INDICATOR_PADDING,
   IPHONE_X_NOTCH_PADDING,
+  IPHONE_XR_NOTCH_PADDING,
   NAVIGATION_HEADER_HEIGHT,
   IPHONE_X_LONG_SIDE,
+  IPHONE_XR_LONG_SIDE,
 } from './const';

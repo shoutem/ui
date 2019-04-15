@@ -1,14 +1,12 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { Platform } from 'react-native';
 
 import { connectStyle } from '@shoutem/theme';
 
-import {
-  TouchableOpacity,
-  TouchableNativeFeedback,
-  View,
-} from '../index';
+import { View } from './View';
+import { TouchableOpacity } from './TouchableOpacity';
+import { TouchableNativeFeedback } from './TouchableNativeFeedback';
 
 /**
  * A universal touchable component with a
@@ -17,7 +15,7 @@ import {
  * iOS, and a TouchableNativeFeedback on
  * Android.
  */
-class Touchable extends React.Component {
+class Touchable extends PureComponent {
   static propTypes = {
     ...TouchableOpacity.propTypes,
     ...TouchableNativeFeedback.propTypes,

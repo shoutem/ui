@@ -1,19 +1,14 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import {
-  ScrollView,
-} from 'react-native';
+import React, { PureComponent } from 'react';
+import { ScrollView } from 'react-native';
 
 import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
 
-import {
-  View,
-  Subtitle,
-  Caption,
-  Icon,
-  TouchableOpacity,
-} from './../index';
+import { Caption, Subtitle } from './Text';
+import { Icon } from './Icon';
+import { View } from './View';
+import { TouchableOpacity } from './TouchableOpacity';
 
 const DESCRIPTION_LENGTH_TRIM_LIMIT = 90;
 
@@ -22,7 +17,7 @@ const DESCRIPTION_LENGTH_TRIM_LIMIT = 90;
  * images in a gallery. It can display a title and
  * a description of an image.
  */
-class ImageGalleryOverlay extends Component {
+class ImageGalleryOverlay extends PureComponent {
   static propTypes = {
     title: PropTypes.string,
     description: PropTypes.string,

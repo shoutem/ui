@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Animated } from 'react-native';
 import _ from 'lodash';
+
 import { connectStyle } from '@shoutem/theme';
 import { ScrollDriver, DriverShape } from '@shoutem/animation';
 
@@ -11,7 +12,7 @@ import { Device } from '../../helpers';
 const isTabBarOnScreen = true;
 const IPHONE_X_HOME_INDICATOR_PADDING = isTabBarOnScreen ? 0 : 34;
 
-class ScrollView extends Component {
+class ScrollView extends PureComponent {
   static propTypes = {
     ...Animated.ScrollView.propTypes,
   };

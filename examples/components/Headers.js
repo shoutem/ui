@@ -1,18 +1,12 @@
 import React from 'react';
 
+import { Text, Caption, Subtitle, Title, Heading } from '../../components/Text';
+import { Icon } from '../../components/Icon';
+import { View } from '../../components/View';
+import { Tile } from '../../components/Tile';
+import { Button } from '../../components/Button';
+import { Overlay } from '../../components/Overlay';
 import { Stage } from './Stage';
-import {
-  Heading,
-  View,
-  Tile,
-  Text,
-  Title,
-  Subtitle,
-  Caption,
-  Icon,
-  Overlay,
-  Button,
-} from '../../index';
 
 export function Headers() {
   return (

@@ -173,7 +173,7 @@ class NavigationBarView extends PureComponent {
   }
 
   setStatusBarStyleIos(statusBarColor, backgroundColor, hasImage) {
-    if (isAnimatedStyleValue(backgroundColor) && !Device.isIphoneX) {
+    if (isAnimatedStyleValue(backgroundColor) && !Device.isIphoneX && !Device.isIphoneXR) {
       // If the backgroundColor is animated, we want to listen for
       // color changes, so that we can update the bar style as the
       // animation runs.

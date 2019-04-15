@@ -1,17 +1,14 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
-import {
-  CardStack,
-  NavigationBar,
-} from '@shoutem/ui/navigation';
+import { CardStack, NavigationBar } from 'shoutem.navigation';
 
-import { navigatePop } from '../redux';
 import RestaurantsList from './RestaurantsList';
 import RestaurantDetails from './RestaurantDetails';
+import { navigatePop } from '../redux';
 
-class Restaurants extends Component {
+class Restaurants extends PureComponent {
   static propTypes = {
     onNavigateBack: PropTypes.func.isRequired,
     navigationState: PropTypes.object,
@@ -29,6 +26,7 @@ class Restaurants extends Component {
     const { route } = props.scene;
 
     let Screen = route.key === 'RestaurantDetails' ? RestaurantDetails : RestaurantsList;
+
     return (<Screen {...route.props} />);
   }
 

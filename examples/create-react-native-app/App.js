@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { StatusBar } from 'react-native';
 import { Font, AppLoading } from 'expo';
 import { View, Examples } from '@shoutem/ui';
 
-export default class App extends React.Component {
+export default class App extends PureComponent {
   state = {
     fontsAreLoaded: false,
   };
