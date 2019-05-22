@@ -28,9 +28,9 @@ const window = Dimensions.get('window');
 
 const STATUS_BAR_OFFSET = (Platform.OS === 'android' ? -StatusBar.currentConfig : 0);
 const NAVIGATION_BAR_HEIGHT = Device.select({
-  iPhoneX: NAVIGATION_HEADER_HEIGHT + IPHONE_X_NOTCH_PADDING,
-  iPhoneXR: NAVIGATION_HEADER_HEIGHT + IPHONE_XR_NOTCH_PADDING,
-  default: NAVIGATION_HEADER_HEIGHT,
+  iPhoneX: NAVIGATION_HEADER_HEIGHT + IPHONE_X_NOTCH_PADDING + 14,
+  iPhoneXR: NAVIGATION_HEADER_HEIGHT + IPHONE_XR_NOTCH_PADDING + 14,
+  default: NAVIGATION_HEADER_HEIGHT + 20,
 });
 
 export const sizeVariants = ['', 'left', 'right', 'top', 'bottom', 'horizontal', 'vertical'];
@@ -1433,12 +1433,10 @@ export default (variables = defaultThemeVariables) => ({
     },
     container: {
       [INCLUDE]: ['fillParent'],
-      height: NAVIGATION_HEADER_HEIGHT,
+      height: NAVIGATION_BAR_HEIGHT,
       backgroundColor: variables.navBarBackground,
       borderBottomColor: variables.navBarBorderColor,
       borderBottomWidth: StyleSheet.hairlineWidth,
-      // Leave space for the status bar on iOS
-      paddingTop: Platform.OS === 'ios' ? 20 : 0,
     },
 
     componentsContainer: {
@@ -1583,7 +1581,7 @@ export default (variables = defaultThemeVariables) => ({
       }),
       flex: 1,
       flexGrow: 1,
-      height: NAVIGATION_HEADER_HEIGHT,
+      height: NAVIGATION_BAR_HEIGHT,
       left: 0,
       solidifyAnimation(driver) {
         return {
