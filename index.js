@@ -63,6 +63,10 @@ export { Tile } from './components/Tile';
 
 export { Lightbox } from './components/Lightbox';
 
+export { EmptyStateView } from './components/EmptyStateView';
+export { NumberInput } from './components/NumberInput';
+export { SearchField } from './components/SearchField';
+
 export { Examples } from './examples/components';
 
 export { Device } from './helpers';

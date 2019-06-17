@@ -1,6 +1,6 @@
 {
   "name": "@shoutem/ui",
-  "version": "0.23.20",
+  "version": "0.24.0",
   "description": "Styleable set of components for React Native applications",
   "dependencies": {
     "@shoutem/animation": "~0.12.3",
@@ -12,16 +12,16 @@
     "htmlparser2": "~3.9.0",
     "lodash": "~4.17.4",
     "qs": "~4.0.0",
-    "react-native-render-html": "~4.1.2",
+    "prop-types": "^15.5.10",
     "react-native-lightbox": "shoutem/react-native-lightbox#v0.7.2",
     "react-native-linear-gradient": "~2.4.0",
+    "react-native-navigation-experimental-compat": "shoutem/react-native-navigation-experimental-compat#fbce4b9e478f808634a98dac48901ec6ed4ee9fd",
+    "react-native-photo-view": "shoutem/react-native-photo-view#2f650beba07a263876c54f81a34b5ac2f9b805ce",
+    "react-native-render-html": "~4.1.2",
     "react-native-transformable-image": "shoutem/react-native-transformable-image#v0.0.20",
     "react-native-vector-icons": "~4.3.0",
-    "react-native-photo-view": "shoutem/react-native-photo-view#2f650beba07a263876c54f81a34b5ac2f9b805ce",
-    "react-native-navigation-experimental-compat": "shoutem/react-native-navigation-experimental-compat#fbce4b9e478f808634a98dac48901ec6ed4ee9fd",
     "stream": "0.0.2",
-    "tinycolor2": "~1.3.0",
-    "prop-types": "^15.5.10"
+    "tinycolor2": "~1.3.0"
   },
   "peerDependencies": {
     "react": "^16.0.0",
