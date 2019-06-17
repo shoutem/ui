@@ -5,10 +5,10 @@ import _ from 'lodash';
 import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
 
-import Icon from './Icon';
-import View from './View';
-import Button from './Button';
-import TextInput from './TextInput';
+import { Icon } from './Icon';
+import { View } from './View';
+import { Button } from './Button';
+import { TextInput } from './TextInput';
 
 const { func, number, object, oneOfType, shape, string } = PropTypes;
 

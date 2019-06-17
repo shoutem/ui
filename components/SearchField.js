@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
 
-import Icon from './Icon';
-import View from './View';
-import Button from './Button';
-import TextInput from './TextInput';
+import { Icon } from './Icon';
+import { View } from './View';
+import { Button } from './Button';
+import { TextInput } from './TextInput';
 
 const { func, object, shape, string } = PropTypes;
 

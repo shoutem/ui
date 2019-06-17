@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 
 import { connectStyle } from '@shoutem/theme';
 
-import Icon from './Icon';
-import View from './View';
-import Text from './Text';
-import Button from './Button';
-import Subtitle from './Subtitle';
+import { Icon } from './Icon';
+import { View } from './View';
+import { Button } from './Button';
+import { Subtitle, Text } from './Text';
 
 class EmptyStateView extends PureComponent {
   static defaultProps = {
