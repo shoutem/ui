@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Text } from '@shoutem/ui';
 
 import { View } from '../../../components/View';
+import { Text } from '../../../components/Text';
 import { ElementPropTypes, combineMappers, mapElementProps } from '../../Html';
 import renderItems from './helpers/renderItems';
 import pickLiChildElements from './helpers/pickLiChildElements';
