@@ -1433,12 +1433,21 @@ export default (variables = defaultThemeVariables) => ({
     },
     container: {
       [INCLUDE]: ['fillParent'],
-      height: NAVIGATION_HEADER_HEIGHT,
+      height: NAVIGATION_BAR_HEIGHT,
       backgroundColor: variables.navBarBackground,
       borderBottomColor: variables.navBarBorderColor,
       borderBottomWidth: StyleSheet.hairlineWidth,
       // Leave space for the status bar on iOS
-      paddingTop: Platform.OS === 'ios' ? 20 : 0,
+      paddingTop: Device.select({
+        iPhoneX: 0,
+        iPhoneXR: 0,
+        default: (
+          Platform.OS === 'ios'
+            && !Device.isIphoneX
+            && !Device.isIphoneXR
+            ? 20 : 0
+        ),
+      }),
     },
 
     componentsContainer: {

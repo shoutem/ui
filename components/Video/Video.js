@@ -1,13 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
+import { View } from 'react-native';
+import { WebView } from 'react-native-webview';
 
-import {
-  View,
-  WebView,
-} from 'react-native';
-
-import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
+import { connectStyle } from '@shoutem/theme';
 
 import VideoSourceReader from './VideoSourceReader';
 

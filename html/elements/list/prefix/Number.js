@@ -1,5 +1,7 @@
 import React from 'react';
-import { View, Text } from '@shoutem/ui';
+
+import { View } from '../../../../components/View';
+import { Text } from '../../../../components/Text';
 
 export default function ({ element, style }) {
   const { index } = element.attributes;

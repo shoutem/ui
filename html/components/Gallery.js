@@ -33,7 +33,7 @@ export default class Gallery extends PureComponent {
     const { selectedIndex } = this.state;
 
     if (!handlePhotoPress) {
-      console.log('There is no "handlePhotoPress" handler for RichMediaGallery photo.');
+      console.log('There is no "handlePhotoPress" handler for Gallery photo.');
       return;
     }
 

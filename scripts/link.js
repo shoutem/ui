@@ -9,6 +9,7 @@ const nativeDependencies = [
   'react-native-linear-gradient',
   'react-native-share',
   'react-native-photo-view',
+  'react-native-webview',
 ];
 
 const reactNativeLocalCli = `node node_modules/react-native/local-cli/cli.js`;

@@ -41,7 +41,6 @@ export { ImageGalleryOverlay } from './components/ImageGalleryOverlay';
 export { HorizontalPager } from './components/HorizontalPager';
 export { LoadingIndicator } from './components/LoadingIndicator';
 export { PageIndicators } from './components/PageIndicators';
-export { default as RichMedia } from './components/RichMedia';
 export { Html } from './html';
 export { SimpleHtml } from './html';
 export { ShareButton } from './components/ShareButton';
@@ -62,6 +61,10 @@ export { Row } from './components/Row';
 export { Tile } from './components/Tile';
 
 export { Lightbox } from './components/Lightbox';
+
+export { EmptyStateView } from './components/EmptyStateView';
+export { NumberInput } from './components/NumberInput';
+export { SearchField } from './components/SearchField';
 
 export { Examples } from './examples/components';
 

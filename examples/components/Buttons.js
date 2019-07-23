@@ -66,7 +66,7 @@ export function Buttons() {
         </Button>
       </Stage>
 
-      <Stage title="Button / Full width - Normal">
+      <Stage title="Button / Full width - Muted">
         <View styleName="horizontal flexible">
           <Button styleName="full-width muted">
             <Icon name="add-to-favorites-on" />
@@ -79,7 +79,7 @@ export function Buttons() {
         </View>
       </Stage>
 
-      <Stage title="Button / Full width - Active (Feed)">
+      <Stage title="Button / Full width - Active">
         <View styleName="horizontal flexible">
           <Button styleName="full-width">
             <Icon name="add-to-favorites-on" />

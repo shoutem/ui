@@ -3,9 +3,10 @@ import React, { PureComponent } from 'react';
 import { Platform, InteractionManager } from 'react-native';
 import _ from 'lodash';
 
-import { View, Spinner } from '@shoutem/ui';
 import { connectStyle } from '@shoutem/theme';
 
+import { Spinner } from '../components/Spinner';
+import { View } from '../components/View';
 import { parseHtml } from './services/HtmlParser';
 import {
   registerElement,
