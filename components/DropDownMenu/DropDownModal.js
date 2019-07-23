@@ -2,22 +2,22 @@ import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import {
   Modal,
-  ListView,
   LayoutAnimation,
   Dimensions,
   NativeModules,
 } from 'react-native';
 import _ from 'lodash';
 
-import { connectStyle, changeColorAlpha } from '@shoutem/theme';
 import { TimingDriver, FadeIn, ZoomOut } from '@shoutem/animation';
+import { connectStyle, changeColorAlpha } from '@shoutem/theme';
 
 import { Button } from '../Button';
 import { Icon } from '../Icon';
-import { Text } from '../Text';
-import { View } from '../View';
 import { LinearGradient } from '../LinearGradient';
+import { ListView } from '../ListView';
+import { Text } from '../Text';
 import { TouchableOpacity } from '../TouchableOpacity';
+import { View } from '../View';
 
 const window = Dimensions.get('window');
 
@@ -76,17 +76,18 @@ class DropDownModal extends PureComponent {
 
   constructor(props) {
     super(props);
-    this.state = {
-      optionHeight: 0,
-      shouldRenderModalContent: false,
-    };
+
     this.close = this.close.bind(this);
     this.emitOnOptionSelectedEvent = this.emitOnOptionSelectedEvent.bind(this);
     this.renderGradient = this.renderGradient.bind(this);
     this.renderRow = this.renderRow.bind(this);
     this.selectOption = this.selectOption.bind(this);
     this.onOptionLayout = this.onOptionLayout.bind(this);
-    this.ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+
+    this.state = {
+      optionHeight: 0,
+      shouldRenderModalContent: false,
+    };
   }
 
   componentWillMount() {
@@ -242,12 +243,13 @@ class DropDownModal extends PureComponent {
   render() {
     const { titleProperty, options, style } = this.props;
     const { shouldRenderModalContent } = this.state;
+
     if (_.size(options) === 0) {
       return null;
     }
 
     const listViewStyle = this.resolveListViewStyle();
-    const dataSource = this.ds.cloneWithRows(options.filter((option) => option[titleProperty]));
+    const data = options.filter((option) => option[titleProperty]);
 
     return (
       <Modal
@@ -260,8 +262,7 @@ class DropDownModal extends PureComponent {
             <View style={style.modal} styleName="vertical">
               {shouldRenderModalContent ?
                 <ListView
-                  scrollRenderAheadDistance={50}
-                  dataSource={dataSource}
+                  data={data}
                   renderRow={this.renderRow}
                   style={listViewStyle}
                   renderFooter={this.renderFooter}

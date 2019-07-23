@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text } from '@shoutem/ui';
+
+import { Text } from '../../components/Text';
 
 function Br() {
   return (
