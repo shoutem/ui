@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
-import { CardStack, NavigationBar } from 'shoutem.navigation';
+import { CardStack, NavigationBar } from '@shoutem/ui/navigation';
 
 import RestaurantsList from './RestaurantsList';
 import RestaurantDetails from './RestaurantDetails';
