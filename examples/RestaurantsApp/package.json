@@ -7,18 +7,25 @@
     "test": "jest"
   },
   "dependencies": {
-    "@shoutem/ui": "~0.23.0",
-    "react": "16.0.0",
-    "react-native": "~0.51.0",
+    "@shoutem/ui": "~1.0.0",
+    "react": "16.8.3",
+    "react-native": "^0.59.10",
+    "react-native-webview": "^5.12.1",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0"
   },
+  "resolutions": {
+    "core-js": "2.6.5"
+  },
   "devDependencies": {
-    "babel-jest": "21.2.0",
-    "babel-preset-react-native": "^5.0.1",
-    "jest": "21.2.1",
-    "react-test-renderer": "16.0.0"
+    "@babel/core": "7.5.4",
+    "@babel/plugin-proposal-decorators": "^7.3.0",
+    "@babel/preset-env": "^7.3.4",
+    "babel-jest": "^24.8.0",
+    "jest": "^24.8.0",
+    "metro-react-native-babel-preset": "^0.54.1",
+    "react-test-renderer": "16.8.3"
   },
   "jest": {
     "preset": "react-native"
