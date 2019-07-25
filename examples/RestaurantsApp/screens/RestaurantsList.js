@@ -13,7 +13,7 @@ import {
   Divider,
 } from '@shoutem/ui';
 
-import { NavigationBar } from 'shoutem.navigation';
+import { NavigationBar } from '@shoutem/ui/navigation';
 
 import { navigatePush } from '../redux';
 
