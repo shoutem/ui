@@ -108,7 +108,7 @@ class ListView extends Component {
     mappedProps.contentContainerStyle = props.style.listContent;
 
     // rendering
-    mappedProps.renderHeader = this.createRenderHeader(props.renderHeader, props.autoHideHeader);
+    mappedProps.ListHeaderComponent = this.createRenderHeader(props.renderHeader, props.autoHideHeader);
     mappedProps.renderItem = (data) => props.renderRow(data.item);
     mappedProps.ListFooterComponent = this.renderFooter;
 
