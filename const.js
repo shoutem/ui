@@ -1,4 +1,4 @@
-export const NAVIGATION_HEADER_HEIGHT = 64;
+export const NAVIGATION_HEADER_HEIGHT = 44;
 
 export const IPHONE_X_NOTCH_PADDING = 30;
 export const IPHONE_X_HOME_INDICATOR_PADDING = 34;
@@ -6,3 +6,4 @@ export const IPHONE_X_LONG_SIDE = 812;
 
 export const IPHONE_XR_NOTCH_PADDING = 34;
 export const IPHONE_XR_LONG_SIDE = 896;
+
