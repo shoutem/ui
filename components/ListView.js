@@ -2,7 +2,8 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {
   View,
-  ListView as RNListView,
+  FlatList,
+  SectionList,
   RefreshControl,
   StatusBar,
   Platform,
@@ -12,6 +13,8 @@ import _ from 'lodash';
 
 import { connectStyle } from '@shoutem/theme';
 
+import { Caption } from './Text';
+import { Divider } from './Divider';
 import { Spinner } from './Spinner';
 
 const scrollViewProps = _.keys(ScrollView.propTypes);
@@ -23,49 +26,6 @@ const Status = {
   IDLE: 'idle',
 };
 
-/**
- * Provides dataSource to ListView.
- * Clones items and group them by section if needed.
- */
-class ListDataSource {
-  constructor(config, getSectionId) {
-    this.getSectionId = getSectionId;
-    this.withSections = !!config.sectionHeaderHasChanged;
-    this.dataSource = new RNListView.DataSource(config);
-  }
-
-  /**
-   * Transforms items list ([...items]) to [[...sectionItems], [...sectionItems]]
-   * @param data
-   * @returns {*}
-   */
-  groupItemsIntoSections(data) {
-    let prevSectionId;
-    return data.reduce((sections, item) => {
-      const sectionId = this.getSectionId(item);
-      if (prevSectionId !== sectionId) {
-        prevSectionId = sectionId;
-        sections.push([]);
-      }
-      const lastSectionIndex = sections.length - 1;
-      sections[lastSectionIndex].push(item);
-      return sections;
-    }, []);
-  }
-
-  /**
-   * Transforms items list [<item>, <item>]
-   * @param data
-   * @returns {*}
-   */
-  clone(data) {
-    if (this.withSections) {
-      return this.dataSource.cloneWithRowsAndSections(this.groupItemsIntoSections(data));
-    }
-    return this.dataSource.cloneWithRows(data);
-  }
-}
-
 class ListView extends Component {
   static propTypes = {
     autoHideHeader: PropTypes.bool,
@@ -75,12 +35,14 @@ class ListView extends Component {
     onLoadMore: PropTypes.func,
     onRefresh: PropTypes.func,
     getSectionId: PropTypes.func,
+    sections: PropTypes.object,
     renderRow: PropTypes.func,
     renderHeader: PropTypes.func,
     renderFooter: PropTypes.func,
     renderSectionHeader: PropTypes.func,
     scrollDriver: PropTypes.object,
-    // TODO(Braco) - add render separator
+    hasFeaturedItem: PropTypes.bool,
+    renderFeaturedItem: PropTypes.func,
   };
 
   constructor(props, context) {
@@ -92,25 +54,12 @@ class ListView extends Component {
     this.renderRefreshControl = this.renderRefreshControl.bind(this);
     this.listView = null;
 
-
-    this.listDataSource = new ListDataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2,
-      sectionHeaderHasChanged: props.renderSectionHeader ? (s1, s2) => s1 !== s2 : undefined,
-      getSectionHeaderData: (dataBlob, sectionId) => props.getSectionId(dataBlob[sectionId][0]),
-    }, props.getSectionId);
-
-
     this.state = {
       status: props.loading ? Status.LOADING : Status.IDLE,
-      dataSource: this.listDataSource.clone(props.data),
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.data !== this.props.data) {
-      this.setState({ dataSource: this.listDataSource.clone(nextProps.data) });
-    }
-
     if (nextProps.loading !== this.props.loading) {
       this.setLoading(nextProps.loading);
     }
@@ -153,26 +102,46 @@ class ListView extends Component {
     // configuration
     // default load more threshold
     mappedProps.onEndReachedThreshold = 40;
-    // React native warning
-    // NOTE: In react 0.23 it can't be set to false
-    mappedProps.enableEmptySections = true;
 
     // style
     mappedProps.style = props.style.list;
-
     mappedProps.contentContainerStyle = props.style.listContent;
 
     // rendering
     mappedProps.renderHeader = this.createRenderHeader(props.renderHeader, props.autoHideHeader);
-    mappedProps.renderRow = props.renderRow;
-    mappedProps.renderFooter = this.renderFooter;
-    mappedProps.renderSectionHeader = props.renderSectionHeader;
+    mappedProps.renderItem = (data) => props.renderRow(data.item);
+    mappedProps.ListFooterComponent = this.renderFooter;
+
+    if (props.hasFeaturedItem && !props.sections) {
+      mappedProps.sections = [
+        { data: [props.data[0]], renderItem: (data) => props.renderFeaturedItem(data.item) },
+        { data: props.data.slice(1) },
+      ]
+    }
+
+    if (props.renderSectionHeader) {
+      mappedProps.renderSectionHeader = ({section}) => props.renderSectionHeader(section);
+    }
+    else if (!props.hasFeaturedItem) {
+      mappedProps.renderSectionHeader = ({section}) => this.renderDefaultSectionHeader(section);
+    }
 
     // events
     mappedProps.onEndReached = this.createOnLoadMore();
 
     // data to display
-    mappedProps.dataSource = this.state.dataSource;
+    mappedProps.data = props.data;
+
+    // key extractor
+    mappedProps.keyExtractor = (item, index) => index.toString();
+
+    // sections for SectionList
+    if (props.sections) {
+      mappedProps.sections = props.sections;
+    }
+
+    // is data refreshing
+    mappedProps.refreshing = this.state.refreshing === Status.REFRESHING;
 
     // refresh control
     mappedProps.refreshControl = props.onRefresh && this.renderRefreshControl();
@@ -253,6 +222,16 @@ class ListView extends Component {
     this.listView = listView;
   }
 
+  renderDefaultSectionHeader(section) {
+    const title = _.get(section, 'title', '');
+
+    return (
+      <Divider styleName="section-header">
+        <Caption>{title.toUpperCase()}</Caption>
+      </Divider>
+    );
+  }
+
   renderFooter() {
     const { style, renderFooter } = this.props;
     const { status } = this.state;
@@ -305,7 +284,13 @@ class ListView extends Component {
   }
 
   render() {
-    return <RNListView {...this.getPropsToPass()} />;
+    const { sections, hasFeaturedItem } = this.props;
+
+    if (sections || hasFeaturedItem) {
+      return <SectionList {...this.getPropsToPass()} />;
+    }
+
+    return <FlatList {...this.getPropsToPass()} />;
   }
 }
 

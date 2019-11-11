@@ -1,22 +1,26 @@
 import React, { PureComponent } from 'react';
 import RNLinearGradient from 'react-native-linear-gradient';
 import _ from 'lodash';
+
 import { connectAnimation } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
 
-const RNLinearGradientPropsKeys = Object.keys(RNLinearGradient.propTypes);
+const RNLinearGradientPropsKeys = ['start', 'end', 'colors', 'locations'];
 
 class LinearGradient extends PureComponent {
   render () {
     const { props } = this;
 
-    const style = { ..._.omit(props.style, RNLinearGradientPropsKeys) };
+    const styleWithOmissions = _.omit(props.style, RNLinearGradientPropsKeys);
+    const linearGradientProps = {
+      ...props,
+      ..._.pick(props.style, RNLinearGradientPropsKeys),
+    };
 
     return (
       <RNLinearGradient
-        {...props}
-        {..._.pick(props.style, RNLinearGradientPropsKeys)}
-        style={style}
+        {...linearGradientProps}
+        style={styleWithOmissions}
       >
         {props.children}
       </RNLinearGradient>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { WebView } from 'react-native';
+import { WebView } from 'react-native-webview';
 
 import { View } from '../../components/View';
 import { Image } from '../../components/Image';
@@ -18,9 +18,9 @@ export function Videos() {
       </Stage>
       <Stage title={"Vimeo video"}>
         <Video
+          source={{uri: "https://vimeo.com/182267614"}}
           width={320}
           height={180}
-          source={{uri: "https://vimeo.com/182267614"}}
         />
       </Stage>
       <Stage title={"Stream video"}>

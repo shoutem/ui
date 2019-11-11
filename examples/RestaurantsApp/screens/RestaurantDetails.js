@@ -15,7 +15,7 @@ import {
   Screen,
 } from '@shoutem/ui';
 
-import { NavigationBar } from 'shoutem.navigation';
+import { NavigationBar } from '@shoutem/ui/navigation';
 
 export default class RestaurantDetails extends PureComponent {
   static propTypes = {

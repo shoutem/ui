@@ -1437,6 +1437,18 @@ export default (variables = defaultThemeVariables) => ({
       backgroundColor: variables.navBarBackground,
       borderBottomColor: variables.navBarBorderColor,
       borderBottomWidth: StyleSheet.hairlineWidth,
+
+      // Leave space for the status bar on iOS
+      paddingTop: Device.select({
+        iPhoneX: 0,
+        iPhoneXR: 0,
+        default: (
+          Platform.OS === 'ios'
+            && !Device.isIphoneX
+            && !Device.isIphoneXR
+            ? 20 : 0
+        ),
+      }),
     },
 
     componentsContainer: {
