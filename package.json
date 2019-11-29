@@ -42,14 +42,6 @@
   "scripts": {
     "test": "mocha -R spec --require test-utils/setup.js --require react-native-mock/mock.js --compilers js:babel-core/register $(find . -name '*.spec.js' ! -ipath '*node_modules*')"
   },
-  "rnpm": {
-    "assets": [
-      "fonts"
-    ],
-    "commands": {
-      "postlink": "node ./node_modules/@shoutem/ui/scripts/link.js"
-    }
-  },
   "homepage": "http://shoutem.github.io/docs/ui-toolkit/introduction",
   "bugs": {
     "url": "https://github.com/shoutem/ui/issues"
