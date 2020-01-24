@@ -6,8 +6,10 @@ Shoutem UI is a set of styleable components that enables you to build beautiful 
 
 ```
 $ npm install --save @shoutem/ui
-$ react-native link # No need to run this with Create React Native App / Expo
+$ react-native link @shoutem/ui # No need to run this with Create React Native App / Expo
 ```
+
+We have a prelink hook which will add `@shoutem/ui`'s native dependencies to your root `package.json` in order to support autolinking and pod installation.
 
 ## Docs
 
@@ -40,16 +42,16 @@ Install `@shoutem/ui` in your project:
 
 ```bash
 $ npm install --save @shoutem/ui
-$ react-native link
+$ react-native link @shoutem/ui
 ```
 
 Now, simply copy the following to your `App.js` files of the React Native project:
 
 ```JavaScript
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Examples } from '@shoutem/ui';
 
-export default class App extends Component<{}> {
+export default class App extends PureComponent {
   render() {
     return (
       <Examples />

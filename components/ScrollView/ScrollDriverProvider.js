@@ -27,6 +27,7 @@ export class ScrollDriverProvider extends PureComponent {
 
   constructor(props, context) {
     super(props, context);
+
     this.setupAnimationDriver(props, context);
   }
 
@@ -37,8 +38,8 @@ export class ScrollDriverProvider extends PureComponent {
     };
   }
 
-  componentWillReceiveProps(nextProps, nextContext) {
-    this.setupAnimationDriver(nextProps, nextContext);
+  componentDidUpdate() {
+    this.setupAnimationDriver(this.props, this.context);
   }
 
   setupAnimationDriver(props, context) {

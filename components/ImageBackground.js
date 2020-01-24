@@ -47,17 +47,6 @@ class ImageBackground extends PureComponent {
     super(props);
 
     this.captureNativeComponentRef = this.captureNativeComponentRef.bind(this);
-    this.state = {
-      transformedProps: this.createTransformedProps(props),
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps !== this.props) {
-      this.setState({
-        transformedProps: this.createTransformedProps(nextProps),
-      });
-    }
   }
 
   setNativeProps(nativeProps) {
@@ -92,16 +81,13 @@ class ImageBackground extends PureComponent {
   }
 
   render() {
-    const { transformedProps } = this.state;
-
     return (
-      <RNImageBackground {...transformedProps} />
+      <RNImageBackground {...this.createTransformedProps(this.props)} />
     );
   }
 }
 
 const AnimatedImage = connectAnimation(ImageBackground);
-// We use identical styling to the Image component
 const StyledImage = connectStyle('shoutem.ui.ImageBackground')(AnimatedImage);
 export {
   StyledImage as ImageBackground,

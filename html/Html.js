@@ -50,35 +50,24 @@ class Html extends PureComponent {
     return getElement({ tag });
   }
 
+  static getDerivedStateFromProps(props, state) {
+    const htmlTree = props.body ? parseHtml(props.body) : false;
+
+    if (htmlTree && state.htmlTree === htmlTree) {
+      return state;
+    }
+
+    return { htmlTree };
+  }
+
   constructor(props, context) {
     super(props, context);
 
-    this.refreshData = this.refreshData.bind(this);
     this.renderElement = this.renderElement.bind(this);
 
     this.state = {
       htmlTree: null,
     };
-  }
-
-  componentDidMount() {
-    InteractionManager.runAfterInteractions(() => {
-      this.refreshData(this.props);
-    });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.refreshData(nextProps, this.props);
-  }
-
-  refreshData(nextProps, props = {}) {
-    const { body: nextBody } = nextProps;
-    const { body } = props;
-
-    if (nextBody && nextBody !== body) {
-      const htmlTree = parseHtml(nextBody);
-      this.setState({ htmlTree });
-    }
   }
 
   /**

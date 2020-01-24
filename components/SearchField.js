@@ -71,7 +71,7 @@ class SearchField extends PureComponent {
           style={style.input}
           value={value}
         />
-        {value && (
+        {!!value && (
           <ClearButton
             onPress={() => onChangeText('')}
             style={style}
