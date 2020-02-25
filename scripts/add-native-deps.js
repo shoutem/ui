@@ -1,8 +1,8 @@
 const fs = require('fs-extra');
 const { nativeDependencies } = require('../const');
 
-const ROOT_PACKAGE_JSON_PATH = './package.json';
-const UI_PACKAGE_JSON_PATH = './node_modules/@shoutem/ui/package.json';
+const ROOT_PACKAGE_JSON_PATH = '../../../package.json';
+const UI_PACKAGE_JSON_PATH = './package.json';
 
 function insertNativeDependencies() {
   const rootPackageJson = fs.readJsonSync(ROOT_PACKAGE_JSON_PATH);

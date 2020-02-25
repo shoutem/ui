@@ -15,7 +15,7 @@
     "prop-types": "^15.5.10",
     "react-native-lightbox": "shoutem/react-native-lightbox#v0.7.2",
     "react-native-linear-gradient": "~2.5.6",
-    "react-native-photo-view": "shoutem/react-native-photo-view#ece17646eba33a33d2d276033faa945255ae63af",
+    "react-native-photo-view": "shoutem/react-native-photo-view#0ffa1481f6b6cb8663cb291b7db1d6644440584d",
     "react-native-render-html": "~4.1.2",
     "react-native-transformable-image": "shoutem/react-native-transformable-image#v0.0.20",
     "react-native-vector-icons": "^6.6.0",
@@ -45,7 +45,8 @@
     "react-native-webview"
   ],
   "scripts": {
-    "test": "mocha -R spec --require test-utils/setup.js --require react-native-mock/mock.js --compilers js:babel-core/register $(find . -name '*.spec.js' ! -ipath '*node_modules*')"
+    "test": "mocha -R spec --require test-utils/setup.js --require react-native-mock/mock.js --compilers js:babel-core/register $(find . -name '*.spec.js' ! -ipath '*node_modules*')",
+    "postinstall": "node ./scripts/add-native-deps"
   },
   "homepage": "http://shoutem.github.io/docs/ui-toolkit/introduction",
   "bugs": {

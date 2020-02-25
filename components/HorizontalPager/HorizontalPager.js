@@ -88,6 +88,13 @@ class HorizontalPager extends PureComponent {
     };
   }
 
+  componentDidMount() {
+    InteractionManager.runAfterInteractions(() => {
+      LayoutAnimation.easeInEaseOut();
+      this.setState({ shouldRenderContent: true });
+    });
+  }
+
   componentDidUpdate(prevProps) {
     const { scrollEnabled: scrollIsEnabled } = this.props;
     const { selectedIndex } = this.state;
@@ -97,11 +104,6 @@ class HorizontalPager extends PureComponent {
     if (!scrollIsEnabled && prevProps.scrollEnabled) {
       this.scrollToPage(selectedIndex);
     }
-
-    InteractionManager.runAfterInteractions(() => {
-      LayoutAnimation.easeInEaseOut();
-      this.setState({ shouldRenderContent: true });
-    });
   }
 
   onLayoutContainer(event) {
