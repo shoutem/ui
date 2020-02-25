@@ -45,8 +45,24 @@ class ListView extends Component {
     renderFeaturedItem: PropTypes.func,
   };
 
+  static getDerivedStateFromProps(props, state) {
+    const isLoading = props.loading;
+
+    if (isLoading) {
+      if (state.status !== Status.IDLE) {
+        // We are already in a loading status
+        return state;
+      }
+
+      return { status: Status.LOADING };
+    } else {
+      return { status: Status.IDLE };
+    }
+  }
+
   constructor(props, context) {
     super(props, context);
+
     this.handleListViewRef = this.handleListViewRef.bind(this);
     this.renderFooter = this.renderFooter.bind(this);
     this.autoHideHeader = this.autoHideHeader.bind(this);
@@ -57,12 +73,6 @@ class ListView extends Component {
     this.state = {
       status: props.loading ? Status.LOADING : Status.IDLE,
     };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.loading !== this.props.loading) {
-      this.setLoading(nextProps.loading);
-    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -150,23 +160,6 @@ class ListView extends Component {
     mappedProps.ref = this.handleListViewRef;
 
     return mappedProps;
-  }
-
-  setLoading(loading) {
-    if (loading) {
-      if (this.state.status !== Status.IDLE) {
-        // We are already in a loading status
-        return;
-      }
-
-      this.setState({
-        status: Status.LOADING,
-      });
-    } else {
-      this.setState({
-        status: Status.IDLE,
-      });
-    }
   }
 
   // eslint-disable-next-line consistent-return

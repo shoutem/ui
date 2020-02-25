@@ -4,7 +4,6 @@ import {
   Platform,
   StatusBar,
 } from 'react-native';
-import { Header as NavigationHeader } from 'react-native-navigation-experimental-compat';
 
 import {
   INCLUDE,
@@ -112,7 +111,8 @@ export const defaultThemeVariables = {
   tagOverlayColor: 'rgba(0, 0, 0, 0.7)',
   tagOverlayTextColor: '#FFFFFF',
 
-  statusBarColor: "#000",
+  statusBarColor: '#000',
+  statusBarStyle: 'dark',
   navBarBackground: '#FFFFFF',
   navBarBorderColor: '#f2f2f2',
   navBarText: {
@@ -164,7 +164,7 @@ export const defaultThemeVariables = {
 
 export default (variables = defaultThemeVariables) => ({
   //
-  // Common
+  // Common 
   //
   guttersPadding: {
     ...createVariations('.sm-gutter', sizeVariants, 'padding', variables.smallGutter),
@@ -713,7 +713,7 @@ export default (variables = defaultThemeVariables) => ({
           iPhoneX: IPHONE_X_HOMEBAR_SCROLL_PADDING,
           iPhoneXR: IPHONE_X_HOMEBAR_SCROLL_PADDING,
           default: 0,
-        })
+        }),
       },
     },
 
@@ -1425,6 +1425,7 @@ export default (variables = defaultThemeVariables) => ({
 
     statusBar: {
       backgroundColor: variables.statusBarColor,
+      statusBarStyle: variables.statusBarStyle,
       height: Device.select({
         iPhoneX: IPHONE_X_NOTCH_PADDING,
         iPhoneXR: IPHONE_XR_NOTCH_PADDING,
@@ -1577,6 +1578,7 @@ export default (variables = defaultThemeVariables) => ({
     },
     statusBar: {
       backgroundColor: variables.statusBarColor,
+      statusBarStyle: variables.statusBarStyle,
       height: Device.select({
         iPhoneX: IPHONE_X_NOTCH_PADDING,
         iPhoneXR: IPHONE_XR_NOTCH_PADDING,
@@ -1861,7 +1863,8 @@ export default (variables = defaultThemeVariables) => ({
   'shoutem.ui.DropDownMenu': {
     '.horizontal': {
       horizontalContainer: {
-        height: 40,
+        minHeight: 40,
+        maxHeight: 200,
         justifyContent: 'center',
         backgroundColor: inverseColorBrightnessForAmount(variables.paperColor, 5),
         width: window.width,
@@ -1877,6 +1880,7 @@ export default (variables = defaultThemeVariables) => ({
           ...variables.navBarText,
           color: variables.text.color,
           fontWeight: 'normal',
+          textAlign: 'center',
         },
       },
     },

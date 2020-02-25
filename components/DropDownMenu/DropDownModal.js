@@ -4,7 +4,6 @@ import {
   Modal,
   LayoutAnimation,
   Dimensions,
-  NativeModules,
 } from 'react-native';
 import _ from 'lodash';
 
@@ -86,22 +85,20 @@ class DropDownModal extends PureComponent {
 
     this.state = {
       optionHeight: 0,
-      shouldRenderModalContent: false,
+      modalContentVisible: false,
     };
-  }
 
-  componentWillMount() {
     this.timingDriver = new TimingDriver();
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { visible: wasVisible } = this.props;
-    const { visible: isVisible } = nextProps;
+  componentDidUpdate(prevProps) {
+    const { visible: wasVisible } = prevProps;
+    const { visible: isVisible } = this.props;
 
     if (!wasVisible && isVisible) {
+      this.setState({ modalContentVisible: isVisible });
       this.timingDriver.toValue(1, () => {
         LayoutAnimation.easeInEaseOut();
-        this.setState({ shouldRenderModalContent: true });
       });
     }
   }
@@ -112,13 +109,21 @@ class DropDownModal extends PureComponent {
   }
 
   getVisibleOptions() {
-    const { visibleOptions, style } = this.props;
-    return visibleOptions || style.visibleOptions || DropDownModal.DEFAULT_VISIBLE_OPTIONS;
+    const {
+      visibleOptions,
+      style: { visibleOptions: styleVisibleOptions }
+    } = this.props;
+    const defaultOptions = DropDownModal.DEFAULT_VISIBLE_OPTIONS;
+
+    return visibleOptions || styleVisibleOptions || defaultOptions;
   }
 
   selectOption(option) {
+    const { selectedOption } = this.props;
+
     this.close();
-    if (option !== this.props.selectedOption) {
+
+    if (option !== selectedOption) {
       this.emitOnOptionSelectedEvent(option);
     }
   }
@@ -127,7 +132,7 @@ class DropDownModal extends PureComponent {
     if (this.props.onClose) {
       this.timingDriver.toValue(0, () => {
         this.props.onClose();
-        this.setState({ shouldRenderModalContent: false });
+        this.setState({ modalContentVisible: false });
       });
     }
   }
@@ -140,12 +145,14 @@ class DropDownModal extends PureComponent {
 
   resolveListViewStyle() {
     const listViewHeight = this.calculateListViewHeight();
+
     return { flex: 0, maxHeight: listViewHeight };
   }
 
   calculateListViewHeight() {
     const { optionHeight } = this.state;
     const { options } = this.props;
+
     const visibleOptions = this.getVisibleOptions();
     const optionsSize = _.size(options);
 
@@ -160,12 +167,6 @@ class DropDownModal extends PureComponent {
   }
 
   renderGradient() {
-    // If the native module for Linear Gradient isn't loaded, then the gradient won't
-    // be rendered inside the DropDownModal.
-    if(!NativeModules.BVLinearGradient){
-      return null;
-    }
-
     const { style } = this.props;
     const { backgroundColor } = style.modal;
     const { optionHeight } = this.state;
@@ -241,8 +242,8 @@ class DropDownModal extends PureComponent {
   }
 
   render() {
-    const { titleProperty, options, style } = this.props;
-    const { shouldRenderModalContent } = this.state;
+    const { titleProperty, options, style, visible } = this.props;
+    const { modalContentVisible } = this.state;
 
     if (_.size(options) === 0) {
       return null;
@@ -253,20 +254,21 @@ class DropDownModal extends PureComponent {
 
     return (
       <Modal
-        visible={this.props.visible}
+        visible={visible}
         onRequestClose={this.close}
         transparent
       >
         <ZoomOut driver={this.timingDriver} maxFactor={1.1} style={{ flex: 1 }}>
           <FadeIn driver={this.timingDriver} style={{ flex: 1 }}>
             <View style={style.modal} styleName="vertical">
-              {shouldRenderModalContent ?
+              {modalContentVisible &&
                 <ListView
                   data={data}
                   renderRow={this.renderRow}
                   style={listViewStyle}
                   renderFooter={this.renderFooter}
-                /> : null}
+                />
+              }
               {this.renderGradient()}
               <Button onPress={this.close} styleName="clear close">
                 <Icon name="close" />

@@ -34,12 +34,12 @@ class Switch extends PureComponent {
     this.setValue(props.value);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.value === this.props.value) {
-      return;
-    }
+  componentDidUpdate(prevProps) {
+    const { value: currentValue } = this.props;
 
-    this.setValue(nextProps.value);
+    if (prevProps.value !== currentValue) {
+      this.setValue(currentValue);
+    }
   }
 
   onSwitchPressed() {

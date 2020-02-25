@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@shoutem/ui": "~1.0.0",
+    "react-native-navigation-experimental-compat": "goshakkk/react-native-navigation-experimental-compat#fe6de3323fd13b1a93ed93d688b258fef1052408",
     "react": "16.8.3",
     "react-native": "^0.59.10",
     "react-native-webview": "^5.12.1",
