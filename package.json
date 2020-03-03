@@ -1,6 +1,6 @@
 {
   "name": "@shoutem/ui",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "description": "Styleable set of components for React Native applications",
   "dependencies": {
     "@shoutem/animation": "~0.12.4",

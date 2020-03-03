@@ -7,7 +7,6 @@ import {
   RefreshControl,
   StatusBar,
   Platform,
-  ScrollView,
 } from 'react-native';
 import _ from 'lodash';
 
@@ -16,8 +15,6 @@ import { connectStyle } from '@shoutem/theme';
 import { Caption } from './Text';
 import { Divider } from './Divider';
 import { Spinner } from './Spinner';
-
-const scrollViewProps = _.keys(ScrollView.propTypes);
 
 const Status = {
   LOADING: 'loading',
@@ -55,9 +52,8 @@ class ListView extends Component {
       }
 
       return { status: Status.LOADING };
-    } else {
-      return { status: Status.IDLE };
     }
+    return { status: Status.IDLE };
   }
 
   constructor(props, context) {
@@ -76,9 +72,9 @@ class ListView extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return (nextProps.data !== this.props.data) ||
-      (nextProps.loading !== this.props.loading) ||
-      (nextState.status !== this.state.status);
+    return (nextProps.data !== this.props.data)
+      || (nextProps.loading !== this.props.loading)
+      || (nextState.status !== this.state.status);
   }
 
   componentWillUnmount() {
@@ -104,7 +100,7 @@ class ListView extends Component {
    * @returns {{}}
    */
   getPropsToPass() {
-    const props = this.props;
+    const { props } = this;
     const mappedProps = {
       ...props,
     };
@@ -118,22 +114,21 @@ class ListView extends Component {
     mappedProps.contentContainerStyle = props.style.listContent;
 
     // rendering
-    mappedProps.renderHeader = this.createRenderHeader(props.renderHeader, props.autoHideHeader);
-    mappedProps.renderItem = (data) => props.renderRow(data.item);
+    mappedProps.ListHeaderComponent = this.createListHeaderComponent(props.renderHeader, props.autoHideHeader);
+    mappedProps.renderItem = data => props.renderRow(data.item);
     mappedProps.ListFooterComponent = this.renderFooter;
 
     if (props.hasFeaturedItem && !props.sections) {
       mappedProps.sections = [
-        { data: [props.data[0]], renderItem: (data) => props.renderFeaturedItem(data.item) },
+        { data: [props.data[0]], renderItem: data => props.renderFeaturedItem(data.item) },
         { data: props.data.slice(1) },
-      ]
+      ];
     }
 
     if (props.renderSectionHeader) {
-      mappedProps.renderSectionHeader = ({section}) => props.renderSectionHeader(section);
-    }
-    else if (!props.hasFeaturedItem) {
-      mappedProps.renderSectionHeader = ({section}) => this.renderDefaultSectionHeader(section);
+      mappedProps.renderSectionHeader = ({ section }) => props.renderSectionHeader(section);
+    } else if (!props.hasFeaturedItem) {
+      mappedProps.renderSectionHeader = ({ section }) => this.renderDefaultSectionHeader(section);
     }
 
     // events
@@ -179,7 +174,7 @@ class ListView extends Component {
     this.scrollListView({ y: height, animated: false });
   }
 
-  createRenderHeader(renderHeader, autoHideHeader) {
+  createListHeaderComponent(renderHeader, autoHideHeader) {
     if (!renderHeader) {
       return;
     }
@@ -194,7 +189,7 @@ class ListView extends Component {
     }
 
     // eslint-disable-next-line consistent-return
-    return () => (
+    return (
       <View {...headerContainerProps}>{renderHeader()}</View>
     );
   }
