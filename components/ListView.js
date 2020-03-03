@@ -78,7 +78,11 @@ class ListView extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     return (nextProps.data !== this.props.data) ||
       (nextProps.loading !== this.props.loading) ||
-      (nextState.status !== this.state.status);
+      (nextState.status !== this.state.status) ||
+      (nextProps.renderRow !== this.props.renderRow)  ||
+      (nextProps.renderHeader !== this.props.renderHeader)  ||
+      (nextProps.renderFooter !== this.props.renderFooter)  ||
+      (nextProps.renderSectionHeader !== this.props.renderSectionHeader) ;
   }
 
   componentWillUnmount() {
