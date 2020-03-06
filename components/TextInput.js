@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { PureComponent } from 'react';
+import React, { PureComponent, forwardRef } from 'react';
 import { TextInput as RNTextInput } from 'react-native';
 
 import { connectStyle } from '@shoutem/theme';
@@ -22,6 +22,7 @@ class TextInput extends PureComponent {
         placeholderTextColor={props.style.placeholderTextColor}
         selectionColor={props.style.selectionColor}
         underlineColorAndroid={props.style.underlineColorAndroid}
+        ref={props.forwardedRef}
       />
     );
   }
@@ -34,7 +35,10 @@ TextInput.propTypes = {
 
 const AnimatedTextInput = connectAnimation(TextInput);
 const StyledTextInput = connectStyle('shoutem.ui.TextInput')(AnimatedTextInput);
+const ForwardedTextInput = forwardRef((props, forwardedRef) => (
+  <StyledTextInput {...props} forwardedRef={forwardedRef} />
+))
 
 export {
-  StyledTextInput as TextInput,
+  ForwardedTextInput as TextInput,
 };
