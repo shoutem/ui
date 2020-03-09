@@ -78,8 +78,10 @@ class DropDownModal extends PureComponent {
 
     this.close = this.close.bind(this);
     this.emitOnOptionSelectedEvent = this.emitOnOptionSelectedEvent.bind(this);
+    this.getKeyAreaHeights = this.getKeyAreaHeights.bind(this);
     this.renderGradient = this.renderGradient.bind(this);
     this.renderRow = this.renderRow.bind(this);
+    this.resolveModalStyle = this.resolveModalStyle.bind(this);
     this.selectOption = this.selectOption.bind(this);
     this.onOptionLayout = this.onOptionLayout.bind(this);
 
@@ -149,6 +151,17 @@ class DropDownModal extends PureComponent {
     return { flex: 0, maxHeight: listViewHeight };
   }
 
+  resolveModalStyle() {
+    const { style } = this.props;
+
+    const { bufferHeight } = this.getKeyAreaHeights();
+
+    return {
+      ...style.modal,
+      paddingTop: style.modal.paddingTop + bufferHeight,
+    };
+  }
+
   calculateListViewHeight() {
     const { optionHeight } = this.state;
     const { options } = this.props;
@@ -164,6 +177,24 @@ class DropDownModal extends PureComponent {
     return (
       <View styleName="md-gutter-top" />
     );
+  }
+
+  getKeyAreaHeights() {
+    const { optionHeight } = this.state;
+
+    const listViewHeight = this.calculateListViewHeight();
+    const screenHeight = window.height;
+    const gradientHeight = optionHeight;
+    const transparencyHeight = listViewHeight - optionHeight * 2;
+    const bufferHeight = (screenHeight - listViewHeight) / 2;
+
+    return {
+      listViewHeight,
+      screenHeight,
+      gradientHeight,
+      transparencyHeight,
+      bufferHeight,
+    };
   }
 
   renderGradient() {
@@ -182,11 +213,13 @@ class DropDownModal extends PureComponent {
     // following fashion
     //  -> Buffer area -> Gradient area -> Transparency area -> Gradient Area -> Buffer Area
 
-    const listViewHeight = this.calculateListViewHeight();
-    const screenHeight = window.height;
-    const gradientHeight = optionHeight;
-    const transparencyHeight = listViewHeight - optionHeight * 2;
-    const bufferHeight = (screenHeight - listViewHeight) / 2;
+    const {
+      listViewHeight,
+      screenHeight,
+      gradientHeight,
+      transparencyHeight,
+      bufferHeight,
+    } = this.getKeyAreaHeights();
 
     const bufferColor = backgroundColor;
     const invertedColor = changeColorAlpha(backgroundColor, 0);
@@ -249,6 +282,7 @@ class DropDownModal extends PureComponent {
       return null;
     }
 
+    const modalStyle = this.resolveModalStyle();
     const listViewStyle = this.resolveListViewStyle();
     const data = options.filter((option) => option[titleProperty]);
 
@@ -260,7 +294,7 @@ class DropDownModal extends PureComponent {
       >
         <ZoomOut driver={this.timingDriver} maxFactor={1.1} style={{ flex: 1 }}>
           <FadeIn driver={this.timingDriver} style={{ flex: 1 }}>
-            <View style={style.modal} styleName="vertical">
+            <View style={modalStyle}>
               {modalContentVisible &&
                 <ListView
                   data={data}
