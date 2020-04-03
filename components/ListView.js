@@ -56,6 +56,8 @@ class ListView extends Component {
     return { status: Status.IDLE };
   }
 
+  _isMounted = true;
+
   constructor(props, context) {
     super(props, context);
 
@@ -82,6 +84,7 @@ class ListView extends Component {
       // Reset the global network indicator state
       StatusBar.setNetworkActivityIndicatorVisible(false);
     }
+    this._isMounted = false;
   }
 
   onRefresh() {
@@ -90,7 +93,18 @@ class ListView extends Component {
     });
 
     if (this.props.onRefresh) {
-      this.props.onRefresh();
+      const callback = this.props.onRefresh();
+      const setIdle = () => {
+        if(this._isMounted) {
+          this.setState({
+            status: Status.IDLE,
+          });
+        }
+      };
+
+      if(typeof callback === 'object' && typeof callback.then === 'function') {
+        callback.then(setIdle, setIdle);
+      }
     }
   }
 
