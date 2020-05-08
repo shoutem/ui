@@ -23,6 +23,16 @@ const Status = {
   IDLE: 'idle',
 };
 
+function renderDefaultSectionHeader(section) {
+  const title = _.get(section, 'title', '');
+
+  return (
+    <Divider styleName="section-header">
+      <Caption>{title.toUpperCase()}</Caption>
+    </Divider>
+  );
+}
+
 class ListView extends Component {
   static propTypes = {
     autoHideHeader: PropTypes.bool,
@@ -32,7 +42,7 @@ class ListView extends Component {
     onLoadMore: PropTypes.func,
     onRefresh: PropTypes.func,
     getSectionId: PropTypes.func,
-    sections: PropTypes.object,
+    sections: PropTypes.array,
     renderRow: PropTypes.func,
     renderHeader: PropTypes.func,
     renderFooter: PropTypes.func,
@@ -72,25 +82,35 @@ class ListView extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return (nextProps.data !== this.props.data)
-      || (nextProps.loading !== this.props.loading)
-      || (nextState.status !== this.state.status);
+    const { status } = this.state;
+    const { status: nextStatus } = nextState;
+
+    const { data, loading } = this.props;
+    const { data: nextData, loading: nextLoading } = nextProps;
+
+    return (nextData !== data)
+      || (nextLoading !== loading)
+      || (nextStatus !== status);
   }
 
   componentWillUnmount() {
-    if ((Platform.OS === 'ios') && (this.state.status !== Status.IDLE)) {
+    const { status } = this.state;
+
+    if ((Platform.OS === 'ios') && (status !== Status.IDLE)) {
       // Reset the global network indicator state
       StatusBar.setNetworkActivityIndicatorVisible(false);
     }
   }
 
   onRefresh() {
+    const { onRefresh } = this.props;
+
     this.setState({
       status: Status.REFRESHING,
     });
 
-    if (this.props.onRefresh) {
-      this.props.onRefresh();
+    if (onRefresh) {
+      onRefresh();
     }
   }
 
@@ -100,9 +120,21 @@ class ListView extends Component {
    * @returns {{}}
    */
   getPropsToPass() {
-    const { props } = this;
+    const {
+      style,
+      renderHeader,
+      autoHideHeader,
+      renderRow,
+      hasFeaturedItem,
+      sections,
+      data,
+      renderFeaturedItem,
+      renderSectionHeader,
+      onRefresh,
+    } = this.props;
+    const { refreshing } = this.state;
     const mappedProps = {
-      ...props,
+      ...this.props,
     };
 
     // configuration
@@ -110,46 +142,46 @@ class ListView extends Component {
     mappedProps.onEndReachedThreshold = 40;
 
     // style
-    mappedProps.style = props.style.list;
-    mappedProps.contentContainerStyle = props.style.listContent;
+    mappedProps.style = style.list;
+    mappedProps.contentContainerStyle = style.listContent;
 
     // rendering
-    mappedProps.ListHeaderComponent = this.createListHeaderComponent(props.renderHeader, props.autoHideHeader);
-    mappedProps.renderItem = data => props.renderRow(data.item);
+    mappedProps.ListHeaderComponent = this.createListHeaderComponent(renderHeader, autoHideHeader);
+    mappedProps.renderItem = data => renderRow(data.item);
     mappedProps.ListFooterComponent = this.renderFooter;
 
-    if (props.hasFeaturedItem && !props.sections) {
+    if (hasFeaturedItem && !sections) {
       mappedProps.sections = [
-        { data: [props.data[0]], renderItem: data => props.renderFeaturedItem(data.item) },
-        { data: props.data.slice(1) },
+        { data: [data[0]], renderItem: data => renderFeaturedItem(data.item) },
+        { data: data.slice(1) },
       ];
     }
 
-    if (props.renderSectionHeader) {
-      mappedProps.renderSectionHeader = ({ section }) => props.renderSectionHeader(section);
-    } else if (!props.hasFeaturedItem) {
-      mappedProps.renderSectionHeader = ({ section }) => this.renderDefaultSectionHeader(section);
+    if (renderSectionHeader) {
+      mappedProps.renderSectionHeader = ({ section }) => renderSectionHeader(section);
+    } else if (!hasFeaturedItem) {
+      mappedProps.renderSectionHeader = ({ section }) => renderDefaultSectionHeader(section);
     }
 
     // events
     mappedProps.onEndReached = this.createOnLoadMore();
 
     // data to display
-    mappedProps.data = props.data;
+    mappedProps.data = data;
 
     // key extractor
     mappedProps.keyExtractor = (item, index) => index.toString();
 
     // sections for SectionList
-    if (props.sections) {
-      mappedProps.sections = props.sections;
+    if (sections) {
+      mappedProps.sections = sections;
     }
 
     // is data refreshing
-    mappedProps.refreshing = this.state.refreshing === Status.REFRESHING;
+    mappedProps.refreshing = refreshing === Status.REFRESHING;
 
     // refresh control
-    mappedProps.refreshControl = props.onRefresh && this.renderRefreshControl();
+    mappedProps.refreshControl = onRefresh && this.renderRefreshControl();
 
     // reference
     mappedProps.ref = this.handleListViewRef;
@@ -171,7 +203,7 @@ class ListView extends Component {
   }
 
   autoHideHeader({ nativeEvent: { layout: { height } } }) {
-    this.scrollListView({ y: height, animated: false });
+    this.scrollListView({ offset: height, animated: false });
   }
 
   createListHeaderComponent(renderHeader, autoHideHeader) {
@@ -195,7 +227,7 @@ class ListView extends Component {
   }
 
   scrollListView(scrollOptions) {
-    this.listView.scrollTo(scrollOptions);
+    this.listView.scrollToOffset(scrollOptions);
   }
 
   /**
@@ -208,16 +240,6 @@ class ListView extends Component {
     }
 
     this.listView = listView;
-  }
-
-  renderDefaultSectionHeader(section) {
-    const title = _.get(section, 'title', '');
-
-    return (
-      <Divider styleName="section-header">
-        <Caption>{title.toUpperCase()}</Caption>
-      </Divider>
-    );
   }
 
   renderFooter() {
