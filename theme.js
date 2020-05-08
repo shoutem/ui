@@ -20,7 +20,7 @@ import {
   NAVIGATION_HEADER_HEIGHT,
   IPHONE_X_NOTCH_PADDING,
   IPHONE_XR_NOTCH_PADDING,
-  IPHONE_X_HOMEBAR_SCROLL_PADDING,
+  IPHONE_X_HOME_INDICATOR_PADDING,
 } from './const';
 
 const window = Dimensions.get('window');
@@ -128,9 +128,13 @@ export const defaultThemeVariables = {
 
   mainNavBackground: '#FFFFFF',
   mainNavItemColor: 'rgba(50, 50, 50, 0.4)',
+  mainNavItemIconColor: 'rgba(50, 50, 50, 0.4)',
+  mainNavItemTextColor: 'rgba(50, 50, 50, 0.4)',
   mainNavItemBackground: 'rgba(0, 0, 0, 0)',
   mainNavSelectedItemBackground: '#FFFFFF',
   mainNavSelectedItemColor: '#222222',
+  mainNavSelectedItemIconColor: '#222222',
+  mainNavSelectedItemTextColor: '#222222',
   mainNavSelectedItemBorderColor: '#659CEC',
   mainNavBorderColor: '#e0e0e0',
 
@@ -164,7 +168,7 @@ export const defaultThemeVariables = {
 
 export default (variables = defaultThemeVariables) => ({
   //
-  // Common 
+  // Common
   //
   guttersPadding: {
     ...createVariations('.sm-gutter', sizeVariants, 'padding', variables.smallGutter),
@@ -707,11 +711,19 @@ export default (variables = defaultThemeVariables) => ({
       backgroundColor: variables.paperColor,
     },
 
+    '.with-notch-padding': {
+      paddingBottom: Device.select({
+        iPhoneX: IPHONE_X_HOME_INDICATOR_PADDING,
+        iPhoneXR: IPHONE_X_HOME_INDICATOR_PADDING,
+        default: 0,
+      }),
+    },
+
     'shoutem.ui.ListView': {
       listContent: {
         paddingBottom: Device.select({
-          iPhoneX: IPHONE_X_HOMEBAR_SCROLL_PADDING,
-          iPhoneXR: IPHONE_X_HOMEBAR_SCROLL_PADDING,
+          iPhoneX: IPHONE_X_HOME_INDICATOR_PADDING,
+          iPhoneXR: IPHONE_X_HOME_INDICATOR_PADDING,
           default: 0,
         }),
       },
@@ -2394,6 +2406,49 @@ export default (variables = defaultThemeVariables) => ({
         color: variables.imageOverlayTextColor,
         textAlign: 'center',
       },
+    },
+  },
+
+  // Action Sheet
+
+  'shoutem.ui.ActionSheet': {
+    container: {
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+      flexDirection: 'column',
+      justifyContent: 'flex-end',
+    },
+    contentContainer: {
+      marginHorizontal: 8,
+      paddingBottom: 34,
+      backgroundColor: 'transparent',
+    },
+    segmentContainer: {
+      overflow: 'hidden',
+      backgroundColor: '#FFFFFF',
+      borderRadius: 13,
+    },
+  },
+
+  'shoutem.ui.ActionSheetOption': {
+    container: {
+      paddingHorizontal: 20,
+      paddingVertical: 16,
+      borderBottomWidth: 1,
+      borderColor: 'rgba(130, 130, 130, 0.1)',
+    },
+    text: {
+      fontSize: 15,
+      letterSpacing: 0.38,
+      color: '#000000',
+      lineHeight: 24,
+    },
+    cancelText: {
+      textAlign: 'center',
+      fontWeight: '700',
     },
   },
 
