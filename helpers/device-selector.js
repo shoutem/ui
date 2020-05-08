@@ -45,4 +45,4 @@ export const Device = {
   isIphoneX,
   isIphoneXR,
   select,
-}
+};
