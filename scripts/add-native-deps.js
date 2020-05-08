@@ -25,7 +25,7 @@ function insertNativeDependencies() {
     fs.writeJsonSync(ROOT_PACKAGE_JSON_PATH, newPackageJson, { spaces: 2 });
     console.log('[@shoutem/ui] - native dependencies added to root package.json');
   } catch (e) {
-    console.log('[@shoutem/ui] - skipping adding dependencies to root package.json');
+    console.log(`[@shoutem/ui] - error adding dependencies to root package.json\n${e.message}`);
     return;
   }
 }
