@@ -7,6 +7,7 @@ setDefaultThemeStyle();
 export { getTheme, defaultThemeVariables, dimensionRelativeToIphone };
 
 // Components
+export { ActionSheet } from './components/ActionSheet';
 export { View } from './components/View';
 export { Screen } from './components/Screen';
 
@@ -68,7 +69,7 @@ export { SearchField } from './components/SearchField';
 
 export { Examples } from './examples/components';
 
-export { Device } from './helpers';
+export { Device, Keyboard } from './helpers';
 
 // Constants
 export {
