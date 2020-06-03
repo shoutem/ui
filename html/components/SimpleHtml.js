@@ -111,6 +111,7 @@ class SimpleHtml extends PureComponent {
       imagesMaxWidth: maxWidth,
       staticContentMaxWidth: maxWidth,
       tagsStyles: tagStyles,
+      baseFontStyle: style.baseFont,
       ignoredStyles: ['font-family', 'letter-spacing', 'transform'],
       onLinkPress: this.onLinkPress,
       alterNode: this.alterNode,
