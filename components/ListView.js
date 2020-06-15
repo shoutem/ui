@@ -144,6 +144,10 @@ class ListView extends Component {
     // style
     mappedProps.style = style.list;
     mappedProps.contentContainerStyle = style.listContent;
+    
+    if ((Platform.OS === 'ios') && (parseInt(Platform.Version, 10) === 13)) {
+      mappedProps.scrollIndicatorInsets={ right: 1 };
+    }
 
     // rendering
     mappedProps.ListHeaderComponent = this.createListHeaderComponent(renderHeader, autoHideHeader);
