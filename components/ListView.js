@@ -144,9 +144,9 @@ class ListView extends Component {
     // style
     mappedProps.style = style.list;
     mappedProps.contentContainerStyle = style.listContent;
-    
+
     if ((Platform.OS === 'ios') && (parseInt(Platform.Version, 10) === 13)) {
-      mappedProps.scrollIndicatorInsets={ right: 1 };
+      mappedProps.scrollIndicatorInsets = { right: 1 };
     }
 
     // rendering
@@ -174,7 +174,9 @@ class ListView extends Component {
     mappedProps.data = data;
 
     // key extractor
-    mappedProps.keyExtractor = (item, index) => index.toString();
+    if (!keyExtractor) {
+      mappedProps.keyExtractor = (item, index) => index.toString();
+    }
 
     // sections for SectionList
     if (sections) {
