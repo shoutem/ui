@@ -131,6 +131,7 @@ class ListView extends Component {
       renderFeaturedItem,
       renderSectionHeader,
       onRefresh,
+      keyExtractor,
     } = this.props;
     const { refreshing } = this.state;
     const mappedProps = {
