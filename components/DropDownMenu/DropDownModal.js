@@ -80,8 +80,8 @@ class DropDownModal extends PureComponent {
     this.emitOnOptionSelectedEvent = this.emitOnOptionSelectedEvent.bind(this);
     this.getKeyAreaHeights = this.getKeyAreaHeights.bind(this);
     this.renderGradient = this.renderGradient.bind(this);
+    this.resolveListViewStyle = this.resolveListViewStyle.bind(this);
     this.renderRow = this.renderRow.bind(this);
-    this.resolveModalStyle = this.resolveModalStyle.bind(this);
     this.selectOption = this.selectOption.bind(this);
     this.onOptionLayout = this.onOptionLayout.bind(this);
 
@@ -146,19 +146,21 @@ class DropDownModal extends PureComponent {
   }
 
   resolveListViewStyle() {
-    const listViewHeight = this.calculateListViewHeight();
-
-    return { flex: 0, maxHeight: listViewHeight };
-  }
-
-  resolveModalStyle() {
-    const { style } = this.props;
+    const { style, options } = this.props;
 
     const { bufferHeight } = this.getKeyAreaHeights();
+    const visibleOptions = this.getVisibleOptions();
+
+    const padding = style.modal.paddingVertical ? bufferHeight - style.modal.paddingVertical : bufferHeight;
+    const flex = _.size(options) >= visibleOptions ? 0 : 1;
 
     return {
-      ...style.modal,
-      paddingTop: style.modal.paddingTop + bufferHeight,
+      listContent: {
+        flex,
+        backgroundColor: style.modal.backgroundColor,
+        paddingVertical: Math.min(250, padding),
+        justifyContent: 'center',
+      },
     };
   }
 
@@ -200,7 +202,6 @@ class DropDownModal extends PureComponent {
   renderGradient() {
     const { style } = this.props;
     const { backgroundColor } = style.modal;
-    const { optionHeight } = this.state;
 
     // We divide the modal screen per key areas to which we apply a layer of gradient
     // Screen ratio is represented in (0 - 1) format, where the ratio of 1 represents the entire
@@ -229,22 +230,22 @@ class DropDownModal extends PureComponent {
 
     const gradientConfig = [{
       location: 0,
-      color: bufferColor
-    },{
-      location: bufferHeight / screenHeight,
+      color: changeColorAlpha(bufferColor, 1),
+    }, {
+      location: Math.min(0.25, bufferHeight / screenHeight),
       color: backgroundColor
-    },{
+    }, {
       location: (bufferHeight + gradientHeight) / screenHeight,
       color: invertedColor
-    },{
+    }, {
       location: (bufferHeight + gradientHeight + transparencyHeight) / screenHeight,
       color: invertedColor,
-    },{
-      location: (bufferHeight + listViewHeight) / screenHeight,
+    }, {
+      location: Math.max((bufferHeight + listViewHeight) / screenHeight, 0.75),
       color: backgroundColor
-    },{
+    }, {
       location: 1,
-      color: bufferColor
+      color: changeColorAlpha(bufferColor, 1),
     }];
 
     return (
@@ -282,7 +283,6 @@ class DropDownModal extends PureComponent {
       return null;
     }
 
-    const modalStyle = this.resolveModalStyle();
     const listViewStyle = this.resolveListViewStyle();
     const data = options.filter((option) => option[titleProperty]);
 
@@ -294,7 +294,7 @@ class DropDownModal extends PureComponent {
       >
         <ZoomOut driver={this.timingDriver} maxFactor={1.1} style={{ flex: 1 }}>
           <FadeIn driver={this.timingDriver} style={{ flex: 1 }}>
-            <View style={modalStyle}>
+            <View style={style.modal}>
               {modalContentVisible &&
                 <ListView
                   data={data}
