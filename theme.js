@@ -1993,8 +1993,6 @@ export default (variables = defaultThemeVariables) => ({
         alignSelf: 'stretch',
         ...variables.subtitle,
       },
-
-      flex: 1,
     },
 
     visibleOptions: 8,
