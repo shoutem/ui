@@ -7,6 +7,7 @@ setDefaultThemeStyle();
 export { getTheme, defaultThemeVariables, dimensionRelativeToIphone };
 
 // Components
+export { ActionSheet } from './components/ActionSheet';
 export { View } from './components/View';
 export { Screen } from './components/Screen';
 
@@ -68,14 +69,15 @@ export { SearchField } from './components/SearchField';
 
 export { Examples } from './examples/components';
 
-export { Device } from './helpers';
+export { Device, Keyboard } from './helpers';
 
 // Constants
 export {
   IPHONE_X_HOME_INDICATOR_PADDING,
-  IPHONE_X_NOTCH_PADDING,
-  IPHONE_XR_NOTCH_PADDING,
-  NAVIGATION_HEADER_HEIGHT,
   IPHONE_X_LONG_SIDE,
+  IPHONE_X_NOTCH_PADDING,
   IPHONE_XR_LONG_SIDE,
+  IPHONE_XR_NOTCH_PADDING,
+  nativeDependencies,
+  NAVIGATION_HEADER_HEIGHT,
 } from './const';

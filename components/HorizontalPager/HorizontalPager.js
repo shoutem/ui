@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-
 import {
-  ScrollView,
   InteractionManager,
   LayoutAnimation,
+  ScrollView,
 } from 'react-native';
 import _ from 'lodash';
 
@@ -72,6 +71,11 @@ class HorizontalPager extends PureComponent {
 
   constructor(props) {
     super(props);
+
+    this.onHorizontalScroll = this.onHorizontalScroll.bind(this);
+    this.onLayoutContainer = this.onLayoutContainer.bind(this);
+    this.onScrollViewRef = this.onScrollViewRef.bind(this);
+
     this.state = {
       width: 0,
       height: 0,
@@ -82,9 +86,6 @@ class HorizontalPager extends PureComponent {
       shouldRenderContent: false,
       scrolledToInitialIndex: false,
     };
-    this.onHorizontalScroll = this.onHorizontalScroll.bind(this);
-    this.onLayoutContainer = this.onLayoutContainer.bind(this);
-    this.onScrollViewRef = this.onScrollViewRef.bind(this);
   }
 
   componentDidMount() {
@@ -94,10 +95,13 @@ class HorizontalPager extends PureComponent {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(prevProps) {
+    const { scrollEnabled: scrollIsEnabled } = this.props;
     const { selectedIndex } = this.state;
 
-    if (this.props.scrollEnabled && !nextProps.scrollEnabled) {
+    // if scrolling was disabled, we scroll to the selected index,
+    // since the user can't do it himself anymore
+    if (!scrollIsEnabled && prevProps.scrollEnabled) {
       this.scrollToPage(selectedIndex);
     }
   }
@@ -122,9 +126,10 @@ class HorizontalPager extends PureComponent {
   onHorizontalScroll(event) {
     const { selectedIndex } = this.state;
     const { onIndexSelected } = this.props;
-    const contentOffset = event.nativeEvent.contentOffset;
 
+    const contentOffset = event.nativeEvent.contentOffset;
     const newSelectedIndex = this.calculateIndex(contentOffset);
+
     if (selectedIndex === newSelectedIndex) {
       // Nothing to do, we are already at the new index
       return;

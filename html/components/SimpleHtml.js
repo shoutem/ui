@@ -55,9 +55,9 @@ class SimpleHtml extends PureComponent {
     const paddingValue = style.container.paddingLeft * 2;
     const maxWidth = Dimensions.get('window').width - paddingValue;
     const nodeHeight = _.get(node, 'attribus.height');
-    const nodeRatio = nodeWidth/nodeHeight;
+    const nodeRatio = nodeWidth / nodeHeight;
     const resolvedWidth = (nodeWidth > maxWidth) ? maxWidth : nodeWidth;
-    const resolvedHeight =  Math.round(resolvedWidth*nodeRatio);
+    const resolvedHeight = Math.round(resolvedWidth * nodeRatio);
 
     const nodeStyle = cssStringToObject(styleAttrib);
     const invalidKeys = getEmptyObjectKeys(nodeStyle);
@@ -91,7 +91,7 @@ class SimpleHtml extends PureComponent {
   }
 
   render() {
-    const { style, body, customTagStyles } = this.props;
+    const { style, body, customTagStyles, ...otherProps } = this.props;
 
     const paddingValue = style.container.paddingLeft * 2;
     const maxWidth = Dimensions.get('window').width - paddingValue;
@@ -111,6 +111,7 @@ class SimpleHtml extends PureComponent {
       imagesMaxWidth: maxWidth,
       staticContentMaxWidth: maxWidth,
       tagsStyles: tagStyles,
+      baseFontStyle: style.baseFont,
       ignoredStyles: ['font-family', 'letter-spacing', 'transform'],
       onLinkPress: this.onLinkPress,
       alterNode: this.alterNode,
@@ -119,7 +120,7 @@ class SimpleHtml extends PureComponent {
 
     return (
       <View style={style.container}>
-        <HTML {...htmlProps} />
+        <HTML {...htmlProps} {...otherProps} />
       </View>
     );
   }

@@ -4,7 +4,6 @@ import {
   Platform,
   StatusBar,
 } from 'react-native';
-import { Header as NavigationHeader } from 'react-native-navigation-experimental-compat';
 
 import {
   INCLUDE,
@@ -21,7 +20,7 @@ import {
   NAVIGATION_HEADER_HEIGHT,
   IPHONE_X_NOTCH_PADDING,
   IPHONE_XR_NOTCH_PADDING,
-  IPHONE_X_HOMEBAR_SCROLL_PADDING,
+  IPHONE_X_HOME_INDICATOR_PADDING,
 } from './const';
 
 const window = Dimensions.get('window');
@@ -112,7 +111,8 @@ export const defaultThemeVariables = {
   tagOverlayColor: 'rgba(0, 0, 0, 0.7)',
   tagOverlayTextColor: '#FFFFFF',
 
-  statusBarColor: "#000",
+  statusBarColor: '#000',
+  statusBarStyle: 'dark',
   navBarBackground: '#FFFFFF',
   navBarBorderColor: '#f2f2f2',
   navBarText: {
@@ -128,9 +128,13 @@ export const defaultThemeVariables = {
 
   mainNavBackground: '#FFFFFF',
   mainNavItemColor: 'rgba(50, 50, 50, 0.4)',
+  mainNavItemIconColor: 'rgba(50, 50, 50, 0.4)',
+  mainNavItemTextColor: 'rgba(50, 50, 50, 0.4)',
   mainNavItemBackground: 'rgba(0, 0, 0, 0)',
   mainNavSelectedItemBackground: '#FFFFFF',
   mainNavSelectedItemColor: '#222222',
+  mainNavSelectedItemIconColor: '#222222',
+  mainNavSelectedItemTextColor: '#222222',
   mainNavSelectedItemBorderColor: '#659CEC',
   mainNavBorderColor: '#e0e0e0',
 
@@ -707,13 +711,21 @@ export default (variables = defaultThemeVariables) => ({
       backgroundColor: variables.paperColor,
     },
 
+    '.with-notch-padding': {
+      paddingBottom: Device.select({
+        iPhoneX: IPHONE_X_HOME_INDICATOR_PADDING,
+        iPhoneXR: IPHONE_X_HOME_INDICATOR_PADDING,
+        default: 0,
+      }),
+    },
+
     'shoutem.ui.ListView': {
       listContent: {
         paddingBottom: Device.select({
-          iPhoneX: IPHONE_X_HOMEBAR_SCROLL_PADDING,
-          iPhoneXR: IPHONE_X_HOMEBAR_SCROLL_PADDING,
+          iPhoneX: IPHONE_X_HOME_INDICATOR_PADDING,
+          iPhoneXR: IPHONE_X_HOME_INDICATOR_PADDING,
           default: 0,
-        })
+        }),
       },
     },
 
@@ -1425,6 +1437,7 @@ export default (variables = defaultThemeVariables) => ({
 
     statusBar: {
       backgroundColor: variables.statusBarColor,
+      statusBarStyle: variables.statusBarStyle,
       height: Device.select({
         iPhoneX: IPHONE_X_NOTCH_PADDING,
         iPhoneXR: IPHONE_XR_NOTCH_PADDING,
@@ -1577,6 +1590,7 @@ export default (variables = defaultThemeVariables) => ({
     },
     statusBar: {
       backgroundColor: variables.statusBarColor,
+      statusBarStyle: variables.statusBarStyle,
       height: Device.select({
         iPhoneX: IPHONE_X_NOTCH_PADDING,
         iPhoneXR: IPHONE_XR_NOTCH_PADDING,
@@ -1861,7 +1875,8 @@ export default (variables = defaultThemeVariables) => ({
   'shoutem.ui.DropDownMenu': {
     '.horizontal': {
       horizontalContainer: {
-        height: 40,
+        minHeight: 40,
+        maxHeight: 200,
         justifyContent: 'center',
         backgroundColor: inverseColorBrightnessForAmount(variables.paperColor, 5),
         width: window.width,
@@ -1877,6 +1892,7 @@ export default (variables = defaultThemeVariables) => ({
           ...variables.navBarText,
           color: variables.text.color,
           fontWeight: 'normal',
+          textAlign: 'center',
         },
       },
     },
@@ -1977,8 +1993,6 @@ export default (variables = defaultThemeVariables) => ({
         alignSelf: 'stretch',
         ...variables.subtitle,
       },
-
-      flex: 1,
     },
 
     visibleOptions: 8,
@@ -2390,6 +2404,49 @@ export default (variables = defaultThemeVariables) => ({
         color: variables.imageOverlayTextColor,
         textAlign: 'center',
       },
+    },
+  },
+
+  // Action Sheet
+
+  'shoutem.ui.ActionSheet': {
+    container: {
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+      flexDirection: 'column',
+      justifyContent: 'flex-end',
+    },
+    contentContainer: {
+      marginHorizontal: 8,
+      paddingBottom: 34,
+      backgroundColor: 'transparent',
+    },
+    segmentContainer: {
+      overflow: 'hidden',
+      backgroundColor: '#FFFFFF',
+      borderRadius: 13,
+    },
+  },
+
+  'shoutem.ui.ActionSheetOption': {
+    container: {
+      paddingHorizontal: 20,
+      paddingVertical: 16,
+      borderBottomWidth: 1,
+      borderColor: 'rgba(130, 130, 130, 0.1)',
+    },
+    text: {
+      fontSize: 15,
+      letterSpacing: 0.38,
+      color: '#000000',
+      lineHeight: 24,
+    },
+    cancelText: {
+      textAlign: 'center',
+      fontWeight: '700',
     },
   },
 

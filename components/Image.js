@@ -47,17 +47,6 @@ class Image extends PureComponent {
     super(props);
 
     this.captureNativeComponentRef = this.captureNativeComponentRef.bind(this);
-    this.state = {
-      transformedProps: this.createTransformedProps(props),
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps !== this.props) {
-      this.setState({
-        transformedProps: this.createTransformedProps(nextProps),
-      });
-    }
   }
 
   setNativeProps(nativeProps) {
@@ -92,10 +81,8 @@ class Image extends PureComponent {
   }
 
   render() {
-    const { transformedProps } = this.state;
-
     return (
-      <RNImage {...transformedProps} />
+      <RNImage {...this.createTransformedProps(this.props)} />
     );
   }
 }

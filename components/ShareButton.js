@@ -42,7 +42,7 @@ class ShareButton extends PureComponent {
     Share.share({
       title,
       // URL property isn't supported on Android, so we are
-      // including it as the message for now
+      // including it as the message for now.
       message: Platform.OS === 'android' ? url : message,
       url,
     });
@@ -55,7 +55,7 @@ class ShareButton extends PureComponent {
       <Button
         onPress={this.onShare}
       >
-        <Icon name="share" animationName={animationName} />
+        <Icon name={Platform.OS === 'ios' ? 'share' : 'share-android'} animationName={animationName} />
       </Button>
     );
   }

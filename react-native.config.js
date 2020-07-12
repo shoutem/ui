@@ -1,14 +1,6 @@
+// Autolinking works for iOS only. Android assets folder needs to be updated manually.
 module.exports = {
-    dependency: {
-        platforms: {
-        ios: {},
-        android: {}, 
-        },
-        assets: [
-            "fonts"
-        ],
-        hooks: {
-            postlink: "node node_modules/react-native-code-push/scripts/postlink/run",
-        }
-    },
-};  
+  dependency: {
+    assets: ['fonts'],
+  },
+};

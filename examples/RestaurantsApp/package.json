@@ -7,25 +7,26 @@
     "test": "jest"
   },
   "dependencies": {
-    "@shoutem/ui": "~1.0.0",
-    "react": "16.8.3",
-    "react-native": "^0.59.10",
-    "react-native-webview": "^5.12.1",
-    "react-redux": "^5.0.6",
-    "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0"
-  },
-  "resolutions": {
-    "core-js": "2.6.5"
+    "@shoutem/ui": "2.0.3",
+    "react-native-navigation-experimental-compat": "goshakkk/react-native-navigation-experimental-compat#fe6de3323fd13b1a93ed93d688b258fef1052408",
+    "react": "16.8.6",
+    "react-native": "0.60.6",
+    "react-native-webview": "^7.5.0",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "react-native-linear-gradient": "~2.5.6",
+    "react-native-photo-view": "github:shoutem/react-native-photo-view#0ffa1481f6b6cb8663cb291b7db1d6644440584d",
+    "react-native-vector-icons": "^6.6.0"
   },
   "devDependencies": {
-    "@babel/core": "7.5.4",
-    "@babel/plugin-proposal-decorators": "^7.3.0",
-    "@babel/preset-env": "^7.3.4",
-    "babel-jest": "^24.8.0",
-    "jest": "^24.8.0",
-    "metro-react-native-babel-preset": "^0.54.1",
-    "react-test-renderer": "16.8.3"
+    "@babel/core": "^7.9.6",
+    "@babel/plugin-proposal-decorators": "^7.8.3",
+    "metro-react-native-babel-preset": "^0.59.0",
+    "@babel/preset-env": "^7.9.6",
+    "babel-jest": "^25.5.1",
+    "jest": "^25.5.2",
+    "react-test-renderer": "16.8.6"
   },
   "jest": {
     "preset": "react-native"

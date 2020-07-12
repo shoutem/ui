@@ -30,6 +30,7 @@ class ScrollView extends PureComponent {
 
   constructor(props, context) {
     super(props, context);
+
     this.animationDriver = props.driver || new ScrollDriver({ useNativeDriver: true });
     this.setWrappedInstance = this.setWrappedInstance.bind(this);
   }
@@ -40,19 +41,23 @@ class ScrollView extends PureComponent {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { driverProvider } = this.context;
     const { primary } = this.props;
+
     if (driverProvider) {
       driverProvider.setAnimationDriver(this.animationDriver, primary);
     }
   }
 
-  componentWillReceiveProps(newProps, newContext) {
-    if (newProps.driver && this.animationDriver !== newProps.driver) {
-      this.animationDriver = newProps.driver;
-    } else if (newContext.animationDriver && this.animationDriver !== newContext.animationDriver) {
-      this.animationDriver = newContext.animationDriver;
+  componentDidUpdate() {
+    const { driver } = this.props;
+    const { animationDriver } = this.context;
+
+    if (driver && this.animationDriver !== driver) {
+      this.animationDriver = driver;
+    } else if (animationDriver && this.animationDriver !== animationDriver) {
+      this.animationDriver = animationDriver;
     }
   }
 
