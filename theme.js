@@ -26,7 +26,7 @@ import {
 const window = Dimensions.get('window');
 
 const STATUS_BAR_OFFSET = (Platform.OS === 'android' ? -StatusBar.currentConfig : 0);
-const NAVIGATION_BAR_HEIGHT = Device.select({
+export const NAVIGATION_BAR_HEIGHT = Device.select({
   iPhoneX: NAVIGATION_HEADER_HEIGHT + IPHONE_X_NOTCH_PADDING,
   iPhoneXR: NAVIGATION_HEADER_HEIGHT + IPHONE_XR_NOTCH_PADDING,
   default: NAVIGATION_HEADER_HEIGHT,
