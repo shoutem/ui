@@ -2,12 +2,9 @@ import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import {
   Modal,
-  LayoutAnimation,
   Dimensions,
 } from 'react-native';
 import _ from 'lodash';
-
-import { TimingDriver, FadeIn, ZoomOut } from '@shoutem/animation';
 import { connectStyle, changeColorAlpha } from '@shoutem/theme';
 
 import { Button } from '../Button';
@@ -85,29 +82,19 @@ class DropDownModal extends PureComponent {
     this.selectOption = this.selectOption.bind(this);
     this.onOptionLayout = this.onOptionLayout.bind(this);
 
-    this.state = {
-      optionHeight: 0,
-      modalContentVisible: false,
-    };
-
-    this.timingDriver = new TimingDriver();
-  }
-
-  componentDidUpdate(prevProps) {
-    const { visible: wasVisible } = prevProps;
-    const { visible: isVisible } = this.props;
-
-    if (!wasVisible && isVisible) {
-      this.setState({ modalContentVisible: isVisible });
-      this.timingDriver.toValue(1, () => {
-        LayoutAnimation.easeInEaseOut();
-      });
-    }
+    this.state = { optionHeight: 0 };
   }
 
   onOptionLayout(event) {
     const { height } = event.nativeEvent.layout;
-    this.setState({ optionHeight: height });
+    const { optionHeight } = this.state;
+
+    if (height !== optionHeight) {
+      this.setState({
+        optionHeight: height,
+        listStyle: this.resolveListViewStyle(height),
+      });
+    }
   }
 
   getVisibleOptions() {
@@ -131,11 +118,10 @@ class DropDownModal extends PureComponent {
   }
 
   close() {
-    if (this.props.onClose) {
-      this.timingDriver.toValue(0, () => {
-        this.props.onClose();
-        this.setState({ modalContentVisible: false });
-      });
+    const { onClose } = this.props;
+
+    if (onClose) {
+      onClose();
     }
   }
 
@@ -145,34 +131,31 @@ class DropDownModal extends PureComponent {
     }
   }
 
-  resolveListViewStyle() {
-    const { style, options } = this.props;
+  resolveListViewStyle(height) {
+    const { style } = this.props;
 
-    const { bufferHeight } = this.getKeyAreaHeights();
-    const visibleOptions = this.getVisibleOptions();
-
-    const padding = style.modal.paddingVertical ? bufferHeight - style.modal.paddingVertical : bufferHeight;
-    const flex = _.size(options) >= visibleOptions ? 0 : 1;
+    const { bufferHeight } = this.getKeyAreaHeights(height);
 
     return {
       listContent: {
-        flex,
         backgroundColor: style.modal.backgroundColor,
-        paddingVertical: Math.min(250, padding),
+        paddingVertical: bufferHeight,
         justifyContent: 'center',
       },
     };
   }
 
-  calculateListViewHeight() {
-    const { optionHeight } = this.state;
+  calculateListViewHeight(optionHeight) {
+    const { optionHeight: existingHeight } = this.state;
     const { options } = this.props;
+
+    const resolvedHeight = optionHeight || existingHeight;
 
     const visibleOptions = this.getVisibleOptions();
     const optionsSize = _.size(options);
 
     return optionsSize > visibleOptions ?
-      visibleOptions * optionHeight : optionsSize * optionHeight;
+      visibleOptions * resolvedHeight : optionsSize * resolvedHeight;
   }
 
   renderFooter() {
@@ -181,20 +164,20 @@ class DropDownModal extends PureComponent {
     );
   }
 
-  getKeyAreaHeights() {
+  getKeyAreaHeights(manualOptionHeight) {
     const { optionHeight } = this.state;
+    const { style } = this.props;
 
-    const listViewHeight = this.calculateListViewHeight();
+    const gradientHeight = manualOptionHeight || optionHeight;
+    const listViewHeight = this.calculateListViewHeight(gradientHeight);
     const screenHeight = window.height;
-    const gradientHeight = optionHeight;
-    const transparencyHeight = listViewHeight - optionHeight * 2;
-    const bufferHeight = (screenHeight - listViewHeight) / 2;
+    const paddedScreenHeight = style.modal.paddingVertical ? screenHeight - style.modal.paddingVertical * 2 : screenHeight;
+    const bufferHeight = Math.max((paddedScreenHeight - listViewHeight) / 2, gradientHeight * 2);
 
     return {
       listViewHeight,
       screenHeight,
       gradientHeight,
-      transparencyHeight,
       bufferHeight,
     };
   }
@@ -218,7 +201,6 @@ class DropDownModal extends PureComponent {
       listViewHeight,
       screenHeight,
       gradientHeight,
-      transparencyHeight,
       bufferHeight,
     } = this.getKeyAreaHeights();
 
@@ -232,16 +214,16 @@ class DropDownModal extends PureComponent {
       location: 0,
       color: changeColorAlpha(bufferColor, 1),
     }, {
-      location: Math.min(0.25, bufferHeight / screenHeight),
+      location: Math.max((bufferHeight - gradientHeight) / screenHeight, 0.15),
       color: backgroundColor
     }, {
-      location: (bufferHeight + gradientHeight) / screenHeight,
+      location: Math.max((bufferHeight / screenHeight), 0.2),
       color: invertedColor
     }, {
-      location: (bufferHeight + gradientHeight + transparencyHeight) / screenHeight,
-      color: invertedColor,
+      location: Math.min((bufferHeight + listViewHeight) / screenHeight, 0.8),
+      color: invertedColor
     }, {
-      location: Math.max((bufferHeight + listViewHeight) / screenHeight, 0.75),
+      location: Math.min((bufferHeight + listViewHeight + gradientHeight) / screenHeight, 0.85),
       color: backgroundColor
     }, {
       location: 1,
@@ -277,40 +259,32 @@ class DropDownModal extends PureComponent {
 
   render() {
     const { titleProperty, options, style, visible } = this.props;
-    const { modalContentVisible } = this.state;
+    const { listStyle } = this.state;
 
     if (_.size(options) === 0) {
       return null;
     }
-
-    const listViewStyle = this.resolveListViewStyle();
     const data = options.filter((option) => option[titleProperty]);
 
     return (
       <Modal
         visible={visible}
         onRequestClose={this.close}
+        animationType="fade"
         transparent
       >
-        <ZoomOut driver={this.timingDriver} maxFactor={1.1} style={{ flex: 1 }}>
-          <FadeIn driver={this.timingDriver} style={{ flex: 1 }}>
-            <View style={style.modal}>
-              {modalContentVisible &&
-                <ListView
-                  data={data}
-                  renderRow={this.renderRow}
-                  style={listViewStyle}
-                  renderFooter={this.renderFooter}
-                />
-              }
-              {this.renderGradient()}
-              <Button onPress={this.close} styleName="clear close">
-                <Icon name="close" />
-              </Button>
-            </View>
-          </FadeIn>
-        </ZoomOut>
-
+        <View style={style.modal}>
+          <ListView
+            data={data}
+            renderRow={this.renderRow}
+            style={listStyle}
+            renderFooter={this.renderFooter}
+          />
+          {this.renderGradient()}
+          <Button onPress={this.close} styleName="clear close">
+            <Icon name="close" />
+          </Button>
+        </View>
       </Modal>
     );
   }

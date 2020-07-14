@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   FlatList,
@@ -33,7 +33,7 @@ function renderDefaultSectionHeader(section) {
   );
 }
 
-class ListView extends Component {
+class ListView extends PureComponent {
   static propTypes = {
     autoHideHeader: PropTypes.bool,
     style: PropTypes.object,
@@ -79,18 +79,6 @@ class ListView extends Component {
     this.state = {
       status: props.loading ? Status.LOADING : Status.IDLE,
     };
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    const { status } = this.state;
-    const { status: nextStatus } = nextState;
-
-    const { data, loading } = this.props;
-    const { data: nextData, loading: nextLoading } = nextProps;
-
-    return (nextData !== data)
-      || (nextLoading !== loading)
-      || (nextStatus !== status);
   }
 
   componentWillUnmount() {
