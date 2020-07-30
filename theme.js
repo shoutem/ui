@@ -52,6 +52,8 @@ export function dimensionRelativeToIphone(dimension, actualRefVal = window.width
   return getSizeRelativeToReference(dimension, 375, actualRefVal);
 }
 
+// This function is depricated and replaced with calculateLineHeight. 
+// It remains present here because of the backward compatibility. 
 export function formatLineHeight(fontSize) {
   // adds required padding to lineHeight to support
   // different alphabets (Kanji, Greek, etc.)
@@ -62,6 +64,10 @@ export function formatLineHeight(fontSize) {
   }
 
   return (fontSize + 3);
+}
+
+export function calculateLineHeight(fontSize) {
+  return (fontSize * 1.5);
 }
 
 export const defaultThemeVariables = {
