@@ -3,7 +3,7 @@ import getTheme, {
   defaultThemeVariables,
   dimensionRelativeToIphone,
   calculateLineHeight,
-} from "./theme";
+} from './theme';
 
 setDefaultThemeStyle();
 

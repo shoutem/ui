@@ -52,11 +52,15 @@ export function dimensionRelativeToIphone(dimension, actualRefVal = window.width
   return getSizeRelativeToReference(dimension, 375, actualRefVal);
 }
 
-// This function is depricated and replaced with calculateLineHeight. 
+// This function is deprecated and replaced with calculateLineHeight. 
 // It remains present here because of the backward compatibility. 
 export function formatLineHeight(fontSize) {
   // adds required padding to lineHeight to support
   // different alphabets (Kanji, Greek, etc.)
+
+  console.warn(
+    "formatLineHeight is deprecated and will be removed. Please use calculateLineHeight instead, it can simply be renamed as it takes the same argument and returns the same expected value, but more consistently across all fontSize."
+  );
 
   if (fontSize < 22) {
     // minimum lineHeight for different alphabets is 25
