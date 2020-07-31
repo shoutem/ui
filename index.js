@@ -1,10 +1,19 @@
 import { setDefaultThemeStyle } from './init';
-import getTheme, { defaultThemeVariables, dimensionRelativeToIphone } from './theme';
+import getTheme, {
+  defaultThemeVariables,
+  dimensionRelativeToIphone,
+  calculateLineHeight,
+} from './theme';
 
 setDefaultThemeStyle();
 
 // Theme
-export { getTheme, defaultThemeVariables, dimensionRelativeToIphone };
+export {
+  getTheme,
+  defaultThemeVariables,
+  dimensionRelativeToIphone,
+  calculateLineHeight,
+};
 
 // Components
 export { ActionSheet } from './components/ActionSheet';
