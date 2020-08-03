@@ -1,7 +1,9 @@
-import React from 'react';
-import createIcon from './createIcon';
+import React from "react";
+import createIcon from "./createIcon";
 
-const RubiconIcon = createIcon('rubicon-icon-font');
+export { default as IconSvg } from "./IconSvg";
+
+const RubiconIcon = createIcon("rubicon-icon-font");
 
 const icons = {
   Default: null,
@@ -10,14 +12,11 @@ const icons = {
 
 function Icon(props) {
   const DefaultIcon = icons.Default || icons.Fallback;
-  return (<DefaultIcon {...props} />);
+  return <DefaultIcon {...props} />;
 }
 
-Icon.setIconFont = fontFamily => {
+Icon.setIconFont = (fontFamily) => {
   icons.Default = createIcon(fontFamily);
 };
 
-export {
-  Icon,
-  createIcon,
-};
+export { Icon, createIcon };
