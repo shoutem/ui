@@ -1,9 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { TouchableOpacity, StyleSheet } from "react-native";
-import { gutter } from "~/modules/theme";
+import _ from "lodash";
 import { Icons } from "./assets";
-import { ButtonLabel } from "./Texts";
 
 function IconSvg({
   iconName,
@@ -26,16 +25,9 @@ function IconSvg({
   return (
     <TouchableOpacity
       style={[title && styles.flexButton, styles.button, style]}
-      hitSlop={{
-        top: gutter.large,
-        right: gutter.large,
-        bottom: gutter.large,
-        left: gutter.large,
-      }}
       {...otherProps}
     >
       <Icon {...iconProps} />
-      {title && <ButtonLabel labelStyle={labelStyle}>{title}</ButtonLabel>}
     </TouchableOpacity>
   );
 }
@@ -48,8 +40,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   button: {
-    paddingVertical: gutter.regular,
-    paddingHorizontal: gutter.regular,
     opacity: 1,
   },
 });
