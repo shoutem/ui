@@ -33,7 +33,7 @@ export { TouchableOpacity } from "./components/TouchableOpacity";
 export { TouchableNativeFeedback } from "./components/TouchableNativeFeedback";
 export { Touchable } from "./components/Touchable";
 export { Button } from "./components/Button";
-export { Icon, createIcon, IconSvg } from "./components/Icon";
+export { Icon } from "./components/Icon";
 
 export { FormGroup } from "./components/FormGroup";
 export { TextInput } from "./components/TextInput";
