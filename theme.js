@@ -1099,7 +1099,8 @@ export default (variables = defaultThemeVariables) => ({
 
     '.full-width': {
       'shoutem.ui.Icon': {
-        fontSize: 16,
+        width: 16,
+        height: 16,
       },
 
       flex: 1,
@@ -1138,7 +1139,8 @@ export default (variables = defaultThemeVariables) => ({
 
     'shoutem.ui.Icon': {
       color: variables.primaryButtonText.color,
-      fontSize: 24,
+      width: 24,
+      height: 24,
       marginRight: 10,
     },
 
@@ -1181,9 +1183,8 @@ export default (variables = defaultThemeVariables) => ({
 
     backgroundColor: 'transparent',
     color: variables.primaryButtonText.color,
-    textAlign: 'center',
-    textAlignVertical: 'center',
-    fontSize: 24,
+    width: 24,
+    height: 24,
   },
 
   'shoutem.ui.Spinner': {
@@ -1338,7 +1339,8 @@ export default (variables = defaultThemeVariables) => ({
     'shoutem.ui.Icon': {
       [INCLUDE]: ['navigationBarTextAnimations'],
       color: variables.navBarIconsColor,
-      fontSize: 24,
+      width: 24,
+      height: 24,
       paddingHorizontal: 9,
     },
 
@@ -1823,7 +1825,8 @@ export default (variables = defaultThemeVariables) => ({
 
     searchIcon: {
       color: '#888888',
-      fontSize: 16,
+      width: 16,
+      height: 16,
     },
 
     input: {
@@ -1977,7 +1980,8 @@ export default (variables = defaultThemeVariables) => ({
       'shoutem.ui.Button.close': {
         'shoutem.ui.Icon': {
           color: changeColorAlpha(variables.subtitle.color, 0.5),
-          fontSize: 24,
+          width: 24,
+          height: 24,
         },
 
         position: 'absolute',
