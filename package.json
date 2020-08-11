@@ -1,6 +1,6 @@
 {
   "name": "@shoutem/ui",
-  "version": "2.0.18",
+  "version": "3.0.0",
   "description": "Styleable set of components for React Native applications",
   "dependencies": {
     "@shoutem/animation": "~0.12.4",
@@ -12,11 +12,9 @@
     "fs-extra": "^7.0.1",
     "html-entities": "1.3.1",
     "htmlparser2": "3.10.1",
-    "lodash": "4.17.15",
+    "lodash": "4.17.19",
     "prop-types": "^15.7.2",
     "qs": "6.9.3",
-    "react": "^16.8.6",
-    "react-native": "^0.60.6",
     "react-native-lightbox": "shoutem/react-native-lightbox#v0.7.2",
     "react-native-linear-gradient": "~2.5.6",
     "react-native-photo-view": "shoutem/react-native-photo-view#0ffa1481f6b6cb8663cb291b7db1d6644440584d",
@@ -29,8 +27,8 @@
     "tinycolor2": "1.4.1"
   },
   "peerDependencies": {
-    "react": "^16.8.6",
-    "react-native": ">=0.60.6"
+    "react": "^16.9.0",
+    "react-native": ">=0.61.5"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
@@ -89,8 +87,8 @@
       "name": "Vunovati"
     },
     {
-      "email": "vladimir.vdovic@shoutem.com",
-      "name": "Vladimir-Vdovic"
+      "email": "vlad@definitely-not-vlad.com",
+      "name": "Definitely-Not-Vlad"
     },
     {
       "email": "zeljko@shoutem.com",
