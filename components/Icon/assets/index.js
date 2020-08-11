@@ -46,6 +46,7 @@ import linkedin from "./linkedin.svg";
 import lock from "./lock.svg";
 import loyaltyCard from "./loyalty-card.svg";
 import maps from "./maps.svg";
+import mic from "./mic.svg";
 import micOff from "./mic-off.svg";
 import minusButton from "./minus-button.svg";
 import missing from "./missing.svg";
@@ -143,6 +144,7 @@ export const Icons = {
   lock: lock,
   "loyalty-card": loyaltyCard,
   maps: maps,
+  mic: mic,
   "mic-off": micOff,
   "minus-button": minusButton,
   missing: missing,
