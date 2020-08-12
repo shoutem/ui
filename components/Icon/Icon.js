@@ -5,7 +5,7 @@ import { connectStyle } from "@shoutem/theme";
 import { Icons } from "./assets";
 
 function Icon({ name, style, ...otherProps }) {
-  const { color, fontSize, ...otherStyle } = style;
+  const { color, width, height, ...otherStyle } = style;
 
   const Icon = Icons[name];
 
@@ -18,8 +18,8 @@ function Icon({ name, style, ...otherProps }) {
   return (
     <Icon
       fill={color}
-      width={fontSize}
-      height={fontSize}
+      width={width}
+      height={height}
       style={{ ...otherStyle }}
       {...otherProps}
     />
