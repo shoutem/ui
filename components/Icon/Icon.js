@@ -2,12 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
 import { connectStyle } from "@shoutem/theme";
-import { Icons } from "./assets";
+import { resolveIcon } from "./services";
 
 function Icon({ name, style, ...otherProps }) {
   const { color, width, height, ...otherStyle } = style;
 
-  const Icon = Icons[name];
+  const Icon = resolveIcon(name);
 
   if (!Icon) {
     console.warn(`Icon with ${name} name not found within the provided set`);
