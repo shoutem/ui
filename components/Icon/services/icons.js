@@ -15,7 +15,7 @@ export function registerIcons(config) {
   }
 
   if (isArray) {
-    return _.forEach(config, function (element) {
+    _.forEach(config, (element) => {
       addNewIcon(element);
     });
   } else {
@@ -28,21 +28,25 @@ function addNewIcon(config) {
   const hasIcon = _.has(config, "icon");
 
   if (!hasName || !hasIcon) {
-    return console.warn(`"name" and "icon" keys are required in icon config.`);
+    console.warn(`"name" and "icon" keys are required in icon config.`);
+    return;
   }
 
   const { name, icon } = config;
 
   if (_.hasIn(Icons, name)) {
-    return console.warn(`Icon with name "${name}" already exists. Please try using another name.`);
+    console.warn(`Icon with name "${name}" already exists. Please try using another name.`);
+    return;
   }
 
   if (!_.isString(name)) {
-    return console.warn(`Icon name must be string.`);
+    console.warn(`Icon name must be a string.`);
+    return;
   }
 
   if (!_.isFunction(icon)) {
-    return console.warn(`Icon must be an SVG file imported as a React component.`);
+    console.warn(`Icon must be an SVG file imported as a React component.`);
+    return;
   }
 
   try {
@@ -52,6 +56,6 @@ function addNewIcon(config) {
   }
 }
 
-export function resolveIcon(name) {
+export function getIcon(name) {
   return Icons[name];
 }
