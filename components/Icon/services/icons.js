@@ -27,7 +27,7 @@ function addNewIcon(config) {
   const hasName = _.has(config, "name");
   const hasIcon = _.has(config, "icon");
 
-  if (hasName === false || hasIcon === false) {
+  if (!hasName || !hasIcon) {
     return console.warn(`"name" and "icon" keys are required in icon config.`);
   }
 

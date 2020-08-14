@@ -28,7 +28,6 @@ function Icon({ name, style, ...otherProps }) {
 
 Icon.propTypes = {
   name: PropTypes.string.isRequired,
-  iconProps: PropTypes.object,
   style: PropTypes.any,
 };
 
