@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import autoBind from 'autoBind';
 
 import { connectStyle } from '@shoutem/theme';
 
@@ -9,20 +10,31 @@ import { Button } from './Button';
 import { Subtitle, Text } from './Text';
 
 class EmptyStateView extends PureComponent {
+  static propTypes = {
+    ...EmptyStateView.propTypes,
+    onRetry: PropTypes.func,
+    message: PropTypes.string,
+    icon: PropTypes.string,
+    retryButtonTitle: PropTypes.string,
+  };
+
   static defaultProps = {
-    retryButtonTitle: 'TRY AGAIN',
+    onRetry: undefined,
+    message: undefined,
     icon: 'error',
-  }
+    retryButtonTitle: 'TRY AGAIN',
+  };
 
   constructor(props) {
     super(props);
 
-    this.onRetry = this.onRetry.bind(this);
-    this.renderRetryButton = this.renderRetryButton.bind(this);
+    autoBind(this);
   }
 
   onRetry() {
-    this.props.onRetry();
+    const { onRetry } = this.props;
+
+    onRetry();
   }
 
   renderRetryButton() {
@@ -58,13 +70,6 @@ class EmptyStateView extends PureComponent {
     );
   }
 }
-
-EmptyStateView.propTypes = {
-  ...EmptyStateView.propTypes,
-  onRetry: PropTypes.func,
-  message: PropTypes.string,
-  icon: PropTypes.string,
-};
 
 const StyledView = connectStyle('shoutem.ui.EmptyStateView')(EmptyStateView);
 

@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { View } from '../View';
 
@@ -14,6 +14,11 @@ export class Page extends Component {
     width: PropTypes.number.isRequired,
     style: PropTypes.object,
     children: PropTypes.node,
+  };
+
+  static defaultProps = {
+    style: {},
+    children: undefined,
   };
 
   shouldComponentUpdate(nextProps) {

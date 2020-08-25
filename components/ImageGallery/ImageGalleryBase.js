@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
+import autoBind from 'auto-bind';
 import _ from 'lodash';
 
-import { View } from '../View';
 import { HorizontalPager } from '../HorizontalPager';
-import { LoadingIndicator } from '../LoadingIndicator';
 import { Image } from '../Image';
+import { LoadingIndicator } from '../LoadingIndicator';
+import { View } from '../View';
 
 const IMAGE_PREVIEW_MODE = 'imagePreview';
 const IMAGE_GALLERY_MODE = 'gallery';
@@ -45,6 +46,8 @@ export class ImageGalleryBase extends PureComponent {
     // Useful for hiding external controls (i.e. navigation bar)
     // Mode can be `gallery` or `imagePreview`
     onModeChanged: PropTypes.func,
+    // Prop that reduces page size by pageMargin, allowing 'sneak peak' of next page
+    showNextPage: PropTypes.bool,
     // Style prop used to override default (theme) styling
     style: PropTypes.object,
     // Renders an overlay over all images
@@ -61,20 +64,26 @@ export class ImageGalleryBase extends PureComponent {
   };
 
   static defaultProps = {
+    onIndexSelected: undefined,
     selectedIndex: 0,
+    onModeChanged: undefined,
     showNextPage: false,
+    style: {},
+    renderOverlay: undefined,
+    renderImageOverlay: undefined,
     renderPlaceholder: () => <LoadingIndicator />,
   };
 
   constructor(props) {
     super(props);
-    this.renderPage = this.renderPage.bind(this);
-    this.onIndexSelected = this.onIndexSelected.bind(this);
-    this.onImageTap = this.onImageTap.bind(this);
+
+    autoBind(this);
 
     this.state = {
-      selectedIndex: this.props.selectedIndex || 0,
+      selectedIndex: props.selectedIndex,
       imageSwitchingEnabled: true,
+      // react/no-unused-state this class is meant to be extended and 'collapsed' may be used
+      // eslint-disable-next-line
       collapsed: true,
       mode: IMAGE_GALLERY_MODE,
     };
@@ -94,18 +103,21 @@ export class ImageGalleryBase extends PureComponent {
 
   onIndexSelected(newIndex) {
     const { onIndexSelected } = this.props;
-    this.setState({
-      selectedIndex: newIndex,
-    }, () => {
-      if (_.isFunction(onIndexSelected)) {
-        onIndexSelected(newIndex);
-      }
-    });
+
+    this.setState(
+      { selectedIndex: newIndex },
+      () => {
+        if (_.isFunction(onIndexSelected)) {
+          onIndexSelected(newIndex);
+        }
+      },
+    );
   }
 
   setMode(mode) {
     const { onModeChanged } = this.props;
-    if (this.state.mode === mode) {
+    const { mode: currentMode } = this.state;
+    if (currentMode === mode) {
       return;
     }
 
@@ -116,18 +128,20 @@ export class ImageGalleryBase extends PureComponent {
     });
   }
 
+  // class-methods-use-this this class is meant to be extended and 'this' may be used
+  // eslint-disable-next-line
   renderImage() {
     // Override this to provide platform specific UI
   }
 
   renderPage(pageData, pageIndex) {
-    const { mode, selectedIndex } = this.state;
-    const { style, renderImageOverlay } = this.props;
     const image = _.get(pageData, 'source.uri');
-
     if (!image) {
       return null;
     }
+
+    const { mode, selectedIndex } = this.state;
+    const { style, renderImageOverlay } = this.props;
 
     const isImageVisible = (pageIndex === selectedIndex);
     const transformImageProps = Image.getPropsTransformer();
@@ -135,16 +149,16 @@ export class ImageGalleryBase extends PureComponent {
       source: { uri: image },
       style: { flex: 1 },
     };
-    const transformedImageProps = _.isFunction(transformImageProps) ?
-      transformImageProps(imageProps) :
-      imageProps;
+    const transformedImageProps = _.isFunction(transformImageProps)
+      ? transformImageProps(imageProps)
+      : imageProps;
 
-    const showOverlay = _.isFunction(renderImageOverlay) &&
+    const showOverlay = _.isFunction(renderImageOverlay)
       // Nothing should be rendered above an image if the user is in
       // the preview mode (pinching, and panning the image).
-      (mode !== IMAGE_PREVIEW_MODE) &&
+      && (mode !== IMAGE_PREVIEW_MODE)
       // We are not rendering overlays above images that are not visible
-      isImageVisible;
+      && isImageVisible;
     const overlay = showOverlay && renderImageOverlay(pageData, pageIndex);
 
     return (
@@ -159,7 +173,13 @@ export class ImageGalleryBase extends PureComponent {
   }
 
   render() {
-    const { data, renderOverlay, renderPlaceholder, style } = this.props;
+    const {
+      data,
+      renderOverlay,
+      renderPlaceholder,
+      showNextPage,
+      style,
+    } = this.props;
     const { selectedIndex, imageSwitchingEnabled } = this.state;
 
     return (
@@ -174,7 +194,7 @@ export class ImageGalleryBase extends PureComponent {
           renderPage={this.renderPage}
           bounces
           pageMargin={style.pageMargin}
-          showNextPage={false}
+          showNextPage={showNextPage}
           renderOverlay={renderOverlay}
           renderPlaceholder={renderPlaceholder}
           scrollEnabled={imageSwitchingEnabled}

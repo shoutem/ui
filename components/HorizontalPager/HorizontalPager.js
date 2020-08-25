@@ -1,10 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-import {
-  InteractionManager,
-  LayoutAnimation,
-  ScrollView,
-} from 'react-native';
+import { InteractionManager, LayoutAnimation, ScrollView } from 'react-native';
+import autoBind from 'auto-bind';
 import _ from 'lodash';
 
 import { connectStyle } from '@shoutem/theme';
@@ -39,7 +36,7 @@ class HorizontalPager extends PureComponent {
     pageMargin: PropTypes.number,
     // A function which renders a single page
     // renderPage(pageData, pageIndex)
-    renderPage: PropTypes.func,
+    renderPage: PropTypes.func.isRequired,
     // Callback function that can be used to render overlay over pages
     // For example page indicators using `PageIndicators` component
     // renderOverlay(pageData, pageIndex, layout)
@@ -63,8 +60,14 @@ class HorizontalPager extends PureComponent {
   };
 
   static defaultProps = {
+    bounces: true,
+    onIndexSelected: undefined,
     pageMargin: 0,
+    renderOverlay: undefined,
+    renderPlaceholder: undefined,
     selectedIndex: 0,
+    scrollEnabled: false,
+    style: {},
     showNextPage: false,
     surroundingPagesToLoad: 2,
   };
@@ -72,17 +75,15 @@ class HorizontalPager extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.onHorizontalScroll = this.onHorizontalScroll.bind(this);
-    this.onLayoutContainer = this.onLayoutContainer.bind(this);
-    this.onScrollViewRef = this.onScrollViewRef.bind(this);
+    autoBind(this);
 
     this.state = {
       width: 0,
       height: 0,
-      selectedIndex: this.props.selectedIndex,
-      initialSelectedIndex: this.props.selectedIndex,
-      pageMargin: this.props.pageMargin,
-      showNextPage: this.props.showNextPage,
+      selectedIndex: props.selectedIndex,
+      initialSelectedIndex: props.selectedIndex,
+      pageMargin: props.pageMargin,
+      showNextPage: props.showNextPage,
       shouldRenderContent: false,
       scrolledToInitialIndex: false,
     };
@@ -108,9 +109,9 @@ class HorizontalPager extends PureComponent {
 
   onLayoutContainer(event) {
     const { width, height } = event.nativeEvent.layout;
-    const { scrolledToInitialIndex } = this.state;
+    const { height: currentHeight, width: currentWidth, scrolledToInitialIndex } = this.state;
 
-    if ((this.state.width === width) && (this.state.height === height)) {
+    if ((currentWidth === width) && (currentHeight === height)) {
       return;
     }
 
@@ -124,10 +125,10 @@ class HorizontalPager extends PureComponent {
   }
 
   onHorizontalScroll(event) {
+    const { nativeEvent: { contentOffset } } = event.nativeEvent;
     const { selectedIndex } = this.state;
     const { onIndexSelected } = this.props;
 
-    const contentOffset = event.nativeEvent.contentOffset;
     const newSelectedIndex = this.calculateIndex(contentOffset);
 
     if (selectedIndex === newSelectedIndex) {
@@ -213,18 +214,26 @@ class HorizontalPager extends PureComponent {
     const { selectedIndex } = this.state;
 
     // We are rendering max surroundingPagesToLoad around the current index
-    const minPageIndex = (selectedIndex <= surroundingPagesToLoad) ?
-      0 : selectedIndex - surroundingPagesToLoad;
+    const minPageIndex = (selectedIndex <= surroundingPagesToLoad)
+      ? 0
+      : selectedIndex - surroundingPagesToLoad;
 
-    const maxPageIndex = (selectedIndex >= (data.length - surroundingPagesToLoad - 1)) ?
-      data.length - 1 : selectedIndex + surroundingPagesToLoad;
+    const maxPageIndex = (selectedIndex >= (data.length - surroundingPagesToLoad - 1))
+      ? data.length - 1
+      : selectedIndex + surroundingPagesToLoad;
 
     return (index >= minPageIndex) && (index <= maxPageIndex);
   }
 
   renderPages() {
-    const { width, height, pageMargin, showNextPage, selectedIndex } = this.state;
     const { data, renderPage, style } = this.props;
+    const {
+      width,
+      height,
+      pageMargin,
+      showNextPage,
+      selectedIndex,
+    } = this.state;
 
     const pages = data.map((pageData, pageIndex) => {
       const lastPage = pageIndex === data.length - 1;
@@ -252,11 +261,14 @@ class HorizontalPager extends PureComponent {
         </Page>
       );
 
+      // TODO: create unique key to reduce re-renders on array updates
+      /* eslint-disable react/no-array-index-key */
       return (
         <View key={pageIndex} style={{ width: containerWidth }}>
           {pageContent}
         </View>
       );
+      /* eslint-enable react/no-array-index-key */
     });
     return pages;
   }
@@ -273,7 +285,12 @@ class HorizontalPager extends PureComponent {
   }
 
   render() {
-    const { bounces, scrollEnabled, style, renderPlaceholder } = this.props;
+    const {
+      bounces,
+      scrollEnabled,
+      style,
+      renderPlaceholder,
+    } = this.props;
     const { shouldRenderContent } = this.state;
 
     if (!shouldRenderContent) {

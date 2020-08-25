@@ -1,13 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { PureComponent, Children } from 'react';
-import {
-  View as RNView,
-  ViewPropTypes,
-} from 'react-native';
+import { View as RNView, ViewPropTypes } from 'react-native';
 import _ from 'lodash';
 
-import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
+import { connectStyle } from '@shoutem/theme';
 
 import { View } from './View';
 
@@ -20,12 +17,17 @@ import { View } from './View';
  * @returns {*} Placeholder views
  */
 function renderPlaceholderViews(count) {
-  return _.times(count, (index) => (<View key={`placeholder-${index}`} />));
+  return _.times(count, index => (<View key={`placeholder-${index}`} />));
 }
 
 // Ref needed
 // eslint-disable-next-line react/prefer-stateless-function
 class GridRow extends PureComponent {
+  static propTypes = {
+    columns: PropTypes.number.isRequired,
+    ...ViewPropTypes,
+  };
+
   render() {
     const { children, columns } = this.props;
     const missingElementsCount = columns - Children.count(children);
@@ -38,11 +40,6 @@ class GridRow extends PureComponent {
     );
   }
 }
-
-GridRow.propTypes = {
-  columns: PropTypes.number.isRequired,
-  ...ViewPropTypes,
-};
 
 /* eslint-disable no-param-reassign */
 /**

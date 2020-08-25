@@ -1,11 +1,13 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { Linking } from 'react-native';
-import { connectStyle } from '@shoutem/theme';
+import PropTypes from 'prop-types';
+import autoBind from 'auto-bind';
 import _ from 'lodash';
 
+import { connectStyle } from '@shoutem/theme';
+
 import { ElementPropTypes, combineMappers, mapElementProps } from '../Html';
-import { isImg } from '../elements/Img';
+import { isImg } from './Img';
 import { Inline } from './Inline';
 
 class A extends PureComponent {
@@ -15,8 +17,15 @@ class A extends PureComponent {
     href: PropTypes.string,
   };
 
+  static defaultProps = {
+    handleLinkPress: undefined,
+    href: undefined,
+  };
+
   constructor(props, context) {
     super(props, context);
+
+    autoBind(this);
     this.onPress = this.onPress.bind(this);
     this.renderElement = this.renderElement.bind(this);
   }
@@ -60,14 +69,12 @@ function openLinkPress(Component) {
     }
 
     return <Component {...props} handleLinkPress={handleLinkPress} />;
-  }
+  };
 }
 
 // Named export to customize Anchor
 const Anchor = combineMappers(mapElementProps)(A);
-export {
-  Anchor as A,
-}
+export { Anchor as A };
 
 // Default export with added link press handle
 const EnhancedA = openLinkPress(A);

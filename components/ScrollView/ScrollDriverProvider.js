@@ -1,5 +1,5 @@
+import React, { PureComponent, Children } from 'react'; // eslint-disable-line
 import PropTypes from 'prop-types';
-import React, { PureComponent, Children } from 'react';
 import _ from 'lodash';
 
 import { DriverShape, ScrollDriver } from '@shoutem/animation';
@@ -22,7 +22,12 @@ export class ScrollDriverProvider extends PureComponent {
 
   static propTypes = {
     children: PropTypes.node,
-    driver: DriverShape,
+    driver: DriverShape, // eslint-disable-line
+  };
+
+  static defaultProps = {
+    children: undefined,
+    driver: undefined,
   };
 
   constructor(props, context) {
@@ -64,6 +69,7 @@ export class ScrollDriverProvider extends PureComponent {
 
   render() {
     const { children } = this.props;
-    return children && Children.only(this.props.children);
+
+    return children && Children.only(children);
   }
 }

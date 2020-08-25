@@ -1,31 +1,30 @@
 import React, { PureComponent } from 'react';
 import { TouchableOpacity } from 'react-native';
+import _ from 'lodash';
 
-import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
+import { connectStyle } from '@shoutem/theme';
 
 class Button extends PureComponent {
+  static propTypes = {
+    ...TouchableOpacity.propTypes,
+  };
+
   render() {
-    // The underlayColor is not a valid RN style
-    // property, so we have to unset it here.
-    const style = {
-      ...this.props.style,
-    };
-    delete style.underlayColor;
+    const { style: { underlayColor } } = this.props;
+    // Remove the props that are not valid style keys.
+    const cleanProps = _.omit(this.props, 'style.underlayColor');
+    const { style } = cleanProps;
 
     return (
       <TouchableOpacity
-        {...this.props}
+        {...cleanProps}
         style={style}
-        underlayColor={this.props.style.underlayColor}
+        underlayColor={underlayColor}
       />
     );
   }
 }
-
-Button.propTypes = {
-  ...TouchableOpacity.propTypes,
-};
 
 const AnimatedButton = connectAnimation(Button);
 const StyledButton = connectStyle('shoutem.ui.Button')(AnimatedButton);

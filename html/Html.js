@@ -1,6 +1,5 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-import { Platform, InteractionManager } from 'react-native';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import { connectStyle } from '@shoutem/theme';
@@ -26,6 +25,11 @@ class Html extends PureComponent {
     renderElement: PropTypes.func,
     style: PropTypes.object,
   };
+
+  static defaultProps = {
+    renderElement: undefined,
+    style: {},
+  }
 
   /**
    * Create Element class for given element tag and add it to the ElementClassMap.
@@ -90,11 +94,13 @@ class Html extends PureComponent {
    * @returns {Component} The element rendered as a React Native component
    */
   renderElement(element) {
-    const elementStyle = this.getElementStyle(element);
-    let renderedElement;
+    const { renderElement } = this.props;
 
-    if (this.props.renderElement) {
-      renderedElement = this.props.renderElement(element, elementStyle, this.renderElement);
+    const elementStyle = this.getElementStyle(element);
+
+    let renderedElement;
+    if (renderElement) {
+      renderedElement = renderElement(element, elementStyle, this.renderElement);
     }
 
     // Custom renderElement for the specific Html implementation
@@ -192,7 +198,7 @@ export const hasBlockElement = function (elements) {
  *  Returns HOC that will map component props with provided map functions.
  */
 export const combineMappers = function (...mapFunctions) {
-  return WrappedComponent => props => {
+  return WrappedComponent => (props) => {
     // eslint-disable-next-line prefer-arrow-callback
     const customizedProps = _.reduce(mapFunctions, function (result, mapFunction) {
       return {

@@ -8,6 +8,7 @@ import {
   StatusBar,
   Platform,
 } from 'react-native';
+import autoBind from 'auto-bind';
 import _ from 'lodash';
 
 import { connectStyle } from '@shoutem/theme';
@@ -36,20 +37,40 @@ function renderDefaultSectionHeader(section) {
 class ListView extends PureComponent {
   static propTypes = {
     autoHideHeader: PropTypes.bool,
-    style: PropTypes.object,
     data: PropTypes.array,
+    getSectionId: PropTypes.func,
+    hasFeaturedItem: PropTypes.bool,
+    keyExtractor: PropTypes.func,
     loading: PropTypes.bool,
     onLoadMore: PropTypes.func,
     onRefresh: PropTypes.func,
-    getSectionId: PropTypes.func,
-    sections: PropTypes.array,
-    renderRow: PropTypes.func,
-    renderHeader: PropTypes.func,
+    renderFeaturedItem: PropTypes.func,
     renderFooter: PropTypes.func,
+    renderHeader: PropTypes.func,
+    renderRow: PropTypes.func,
     renderSectionHeader: PropTypes.func,
     scrollDriver: PropTypes.object,
-    hasFeaturedItem: PropTypes.bool,
-    renderFeaturedItem: PropTypes.func,
+    sections: PropTypes.array,
+    style: PropTypes.object,
+  };
+
+  static defaultProps = {
+    autoHideHeader: undefined,
+    data: undefined,
+    getSectionId: undefined,
+    hasFeaturedItem: undefined,
+    keyExtractor: (item, index) => index.toString(),
+    loading: undefined,
+    onLoadMore: undefined,
+    onRefresh: undefined,
+    renderFeaturedItem: undefined,
+    renderFooter: undefined,
+    renderHeader: undefined,
+    renderRow: undefined,
+    renderSectionHeader: undefined,
+    scrollDriver: undefined,
+    sections: undefined,
+    style: {},
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -69,11 +90,8 @@ class ListView extends PureComponent {
   constructor(props, context) {
     super(props, context);
 
-    this.handleListViewRef = this.handleListViewRef.bind(this);
-    this.renderFooter = this.renderFooter.bind(this);
-    this.autoHideHeader = this.autoHideHeader.bind(this);
-    this.onRefresh = this.onRefresh.bind(this);
-    this.renderRefreshControl = this.renderRefreshControl.bind(this);
+    autoBind(this);
+
     this.listView = null;
 
     this.state = {
@@ -163,9 +181,7 @@ class ListView extends PureComponent {
     mappedProps.data = data;
 
     // key extractor
-    if (!keyExtractor) {
-      mappedProps.keyExtractor = (item, index) => index.toString();
-    }
+    mappedProps.keyExtractor = keyExtractor;
 
     // sections for SectionList
     if (sections) {

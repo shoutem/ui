@@ -21,19 +21,19 @@ class ColorAnimation {
   clearToStandard(atAnimatedValue) {
     const defaultAnimatedValue = atAnimatedValue || 150;
     const standardTextColor = this.textColor || 'rgba(0,0,0,1)';
-    const animatedValue = this.animatedValue;
+
     return {
-      color: animatedValue.interpolate({
+      color: this.animatedValue.interpolate({
         inputRange: [0, defaultAnimatedValue],
         outputRange: ['rgba(0,0,0,0)', standardTextColor],
         extrapolate: 'clamp',
       }),
-      backgroundColor: animatedValue.interpolate({
+      backgroundColor: this.animatedValue.interpolate({
         inputRange: [0, defaultAnimatedValue],
         outputRange: ['rgba(0,0,0,0)', 'rgba(255,255,255,1)'],
         extrapolate: 'clamp',
       }),
-      borderBottomColor: animatedValue.interpolate({
+      borderBottomColor: this.animatedValue.interpolate({
         inputRange: [defaultAnimatedValue / 2, defaultAnimatedValue],
         outputRange: ['rgba(0,0,0,0)', 'rgba(51, 51, 51, 0.2)'],
         extrapolate: 'clamp',

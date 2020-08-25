@@ -1,20 +1,20 @@
 import React, { PureComponent } from 'react';
 import { Text as RNText } from 'react-native';
 
-import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
+import { connectStyle } from '@shoutem/theme';
 
 class Text extends PureComponent {
+  static propTypes = {
+    ...RNText.props,
+  };
+
   render() {
     return (
       <RNText {...this.props} />
     );
   }
 }
-
-Text.propTypes = {
-  ...RNText.propTypes,
-};
 
 const AnimatedText = connectAnimation(Text);
 const StyledText = connectStyle('shoutem.ui.Text')(AnimatedText);

@@ -2,15 +2,13 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
+import { connectStyle } from '@shoutem/theme';
 
-import { Icon } from './Icon';
-import { View } from './View';
 import { Button } from './Button';
+import { Icon } from './Icon';
 import { TextInput } from './TextInput';
-
-const { func, number, object, oneOfType, shape, string } = PropTypes;
+import { View } from './View';
 
 /**
  * A component for entering a numerical value with two helper buttons for increasing
@@ -28,26 +26,34 @@ class NumberInput extends PureComponent {
   static propTypes = {
     ...TextInput.propTypes,
     // Maximum allowed value
-    max: number,
+    max: PropTypes.number,
     // Minimum allowed value
-    min: number,
+    min: PropTypes.number,
     // Called when the user changes the value by inputting it directly or with buttons
-    onChange: func.isRequired,
+    onChange: PropTypes.func.isRequired,
     // Step used to increase or decrease value with corresponding buttons
-    step: number,
+    step: PropTypes.number,
     // Styles for component parts
-    style: shape({
-      button: object,
-      container: object,
-      icon: object,
-      input: object,
-      inputContainer: object,
+    style: PropTypes.shape({
+      button: PropTypes.object,
+      container: PropTypes.object,
+      icon: PropTypes.object,
+      input: PropTypes.object,
+      inputContainer: PropTypes.object,
     }),
     // Value of the input - can be empty
-    value: oneOfType([
-      number,
-      string,
+    value: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
     ]),
+  };
+
+  static defaultProps = {
+    max: undefined,
+    min: undefined,
+    step: 1,
+    style: {},
+    value: '',
   };
 
   constructor(props) {

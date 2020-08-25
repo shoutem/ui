@@ -33,10 +33,10 @@ export function getElementDisplay(element) {
   const elementClass = getElement(element);
   if (!elementClass) {
     // Element is not registered.
-    return;
+    return null;
   }
 
-  const display = elementClass.display;
+  const { display } = elementClass;
   if (!display) {
     console.warn(`Element ${element.tag} doesn't have defined "display" attribute.`);
   }

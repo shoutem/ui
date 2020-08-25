@@ -1,11 +1,10 @@
 import React, { PureComponent } from 'react';
+import _ from 'lodash';
 
 import { Button } from '../Button';
 import { Title } from '../Text';
 import { Icon } from '../Icon';
 import { ShareButton } from '../ShareButton';
-
-import * as _ from 'lodash';
 
 const composers = {
   title: (value, props) => ({
@@ -17,7 +16,7 @@ const composers = {
   }),
   share: (value, props) => {
     if (!value.link) {
-      return;
+      return null;
     }
 
     const { title, text, link } = value;
@@ -55,8 +54,7 @@ const composers = {
           animationName={props.animationName}
         />
       </Button>
-    ) :
-      null;
+    ) : null;
 
     return { leftComponent };
   },

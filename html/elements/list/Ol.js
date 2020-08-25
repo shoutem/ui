@@ -2,13 +2,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import { View } from '../../../components/View';
-import { Text } from '../../../components/Text';
 import renderItems from './helpers/renderItems';
 import pickLiChildElements from './helpers/pickLiChildElements';
 import { ElementPropTypes, combineMappers, mapElementProps } from '../../Html';
-import Li from './Li';
 
-function createNumberElement(element, index) {
+function createNumberElement(index) {
   return {
     tag: 'number',
     attributes: {
@@ -17,8 +15,13 @@ function createNumberElement(element, index) {
   };
 }
 
-export function Ol({ style, childElements, type, renderElement }) {
+export function Ol({
+  style,
+  childElements,
+  renderElement,
+}) {
   const liItems = pickLiChildElements(childElements);
+
   return (
     <View style={style.container}>
       {renderItems(liItems, renderElement, createNumberElement)}
@@ -29,7 +32,10 @@ export function Ol({ style, childElements, type, renderElement }) {
 Ol.propTypes = {
   ...ElementPropTypes,
   style: PropTypes.object,
-  type: PropTypes.string,
+};
+
+Ol.defaultProps = {
+  style: {},
 };
 
 export default combineMappers(mapElementProps)(Ol);

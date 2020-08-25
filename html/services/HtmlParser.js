@@ -37,14 +37,16 @@ const newLineBeforeOpeningTagRegex = new RegExp('\\n<');
  */
 function stripNewLines(html) {
   return html.replace(htmlNewLineRegex, (match) => {
-      if (newLineAfterClosingTagRegex.test(match)) {
-        return '>';
-      } else if (newLineBeforeOpeningTagRegex.test(match)) {
-        return '<';
-      }
-      return ' ';
+    if (newLineAfterClosingTagRegex.test(match)) {
+      return '>';
     }
-  ).trim();
+
+    if (newLineBeforeOpeningTagRegex.test(match)) {
+      return '<';
+    }
+
+    return ' ';
+  }).trim();
 }
 
 /**

@@ -1,6 +1,7 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { Platform } from 'react-native';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 import { connectStyle } from '@shoutem/theme';
 
@@ -22,24 +23,28 @@ class Touchable extends PureComponent {
     style: PropTypes.object,
   };
 
+  static defaultProps = {
+    style: {},
+  };
+
   render() {
-    const props = this.props;
-    const style = { ...props.style };
-    delete style.touchableOpacity;
-    delete style.touchableNativeFeedback;
+    const { style: { touchableNativeFeedback, touchableOpacity } } = this.props;
+    // Remove the props that are not valid style keys.
+    const cleanProps = _.omit(
+      this.props,
+      ['style.touchableNativeFeedback', 'style.touchableOpacity'],
+    );
+
+    const { children, style, styleName } = cleanProps;
 
     if (Platform.OS === 'android') {
       return (
         <TouchableNativeFeedback
-          {...props}
-          style={props.style.touchableNativeFeedback}
+          {...cleanProps}
+          style={touchableNativeFeedback}
         >
-          <View
-            virtual
-            style={style}
-            styleName={props.styleName}
-          >
-            {props.children}
+          <View virtual style={style} styleName={styleName}>
+            {children}
           </View>
         </TouchableNativeFeedback>
       );
@@ -47,13 +52,13 @@ class Touchable extends PureComponent {
 
     return (
       <TouchableOpacity
-        {...props}
+        {...cleanProps}
         style={{
           ...style,
-          ...props.style.touchableOpacity,
+          ...touchableOpacity,
         }}
       >
-        {props.children}
+        {children}
       </TouchableOpacity>
     );
   }

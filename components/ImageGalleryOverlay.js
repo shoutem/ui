@@ -1,14 +1,15 @@
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { ScrollView } from 'react-native';
+import autoBind from 'auto-bind';
 
-import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
+import { connectStyle } from '@shoutem/theme';
 
-import { Caption, Subtitle } from './Text';
 import { Icon } from './Icon';
-import { View } from './View';
+import { Caption, Subtitle } from './Text';
 import { TouchableOpacity } from './TouchableOpacity';
+import { View } from './View';
 
 const DESCRIPTION_LENGTH_TRIM_LIMIT = 90;
 
@@ -24,12 +25,16 @@ class ImageGalleryOverlay extends PureComponent {
     style: PropTypes.object,
   };
 
+  static defaultProps = {
+    title: undefined,
+    description: undefined,
+    style: {},
+  };
+
   constructor(props) {
     super(props);
 
-    this.collapseDescription = this.collapseDescription.bind(this);
-    this.expandDescription = this.expandDescription.bind(this);
-    this.onDescriptionScroll = this.onDescriptionScroll.bind(this);
+    autoBind(this);
 
     this.state = {
       isDescriptionCollapsed: true,
@@ -58,29 +63,28 @@ class ImageGalleryOverlay extends PureComponent {
   }
 
   renderTitle(title) {
-    const { style } = this.props;
-
     if (!title) {
       return null;
     }
 
+    const { style: { title: { container, text } } } = this.props;
+
     return (
-      <View style={style.title.container}>
-        <Subtitle style={style.title.text} numberOfLines={2}>{title}</Subtitle>
+      <View style={container}>
+        <Subtitle style={text} numberOfLines={2}>{title}</Subtitle>
       </View>
     );
   }
 
   renderDescription(description) {
-    const { style } = this.props;
-    const collapsed = this.state.isDescriptionCollapsed;
-
     if (!description) {
       return null;
     }
 
-    const descriptionIcon = (<Icon name={`${collapsed ? 'up' : 'down'}-arrow`} />);
+    const { style } = this.props;
+    const { isDescriptionCollapsed: collapsed } = this.state;
 
+    const descriptionIcon = (<Icon name={`${collapsed ? 'up' : 'down'}-arrow`} />);
     const descriptionText = (
       <Caption
         style={style.description.text}

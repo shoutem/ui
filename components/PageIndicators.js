@@ -23,16 +23,21 @@ class PageIndicators extends PureComponent {
   };
 
   static defaultProps = {
+    activeIndex: 0,
+    count: undefined,
     maxCount: 10,
-  }
+    style: {},
+  };
 
   constructor(props) {
     super(props);
+
     this.renderPageIndicator = this.renderPageIndicator.bind(this);
   }
 
   renderPageIndicator(index, count, activeIndex, indicatorStyle) {
     const { style } = this.props;
+
     return (
       <View
         style={style.indicatorContainer}
@@ -44,7 +49,12 @@ class PageIndicators extends PureComponent {
   }
 
   render() {
-    const { style, count, maxCount, activeIndex } = this.props;
+    const {
+      style,
+      count,
+      maxCount,
+      activeIndex,
+    } = this.props;
 
     const pageIndicators = [];
     const maxIndicatorsCount = Math.min(count, maxCount);
@@ -63,7 +73,7 @@ class PageIndicators extends PureComponent {
       }
 
       pageIndicators.push(
-        this.renderPageIndicator(i, maxIndicatorsCount, activeIndex, indicatorStyle)
+        this.renderPageIndicator(i, maxIndicatorsCount, activeIndex, indicatorStyle),
       );
     }
 
@@ -73,7 +83,6 @@ class PageIndicators extends PureComponent {
       </View>
     );
   }
-
 }
 
 const StyledPageIndicators = connectStyle('shoutem.ui.PageIndicators')(PageIndicators);

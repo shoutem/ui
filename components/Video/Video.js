@@ -52,9 +52,14 @@ class Video extends PureComponent {
   };
 
   static defaultProps = {
+    width: undefined,
+    height: undefined,
     playerParams: {
       showinfo: 0,
     },
+    source: undefined,
+    style: {},
+    poster: undefined,
   };
 
   render() {
@@ -70,7 +75,7 @@ class Video extends PureComponent {
     return (
       <View style={style.container}>
         <WebView
-          style={{width, height}}
+          style={{ width, height }}
           source={createSourceObject(source, playerParams, poster)}
           scrollEnabled={false}
           originWhitelist={['*']}

@@ -1,15 +1,12 @@
 import React, { PureComponent } from 'react';
-import {
-  Image as RNImage,
-  Platform,
-} from 'react-native';
+import { Image as RNImage, Platform } from 'react-native';
 import _ from 'lodash';
 
-import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
+import { connectStyle } from '@shoutem/theme';
 
 // A valid source is either an object with an uri key or a number (from a `require` call)
-const isValidSource = (source) => _.isNumber(source) || (_.isObject(source) && source.uri);
+const isValidSource = source => _.isNumber(source) || (_.isObject(source) && source.uri);
 
 /**
  * A function to transform props that will be used by

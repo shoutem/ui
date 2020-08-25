@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import {
   View,
@@ -6,21 +5,14 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-
+import autoBind from 'auto-bind';
+import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import { makeZoomable } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
 
-import { makeZoomable } from '@shoutem/animation';
-
 const ZoomableImage = makeZoomable(Image);
-
-const propTypes = {
-  width: PropTypes.number,
-  height: PropTypes.number,
-  source: Image.propTypes.source,
-  style: PropTypes.object,
-};
 
 const CLOSE_ICON_NAME = 'clear';
 const CLOSE_ICON_SIZE = 25;
@@ -30,32 +22,48 @@ const CLOSE_ICON_SIZE = 25;
  * When clicked, the image is displayed in full screen.
  */
 class ImagePreview extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.onPressCloseButton = this.onPressCloseButton.bind(this);
-    this.onPressImage = this.onPressImage.bind(this);
-  }
-
-  state = {
-    fullScreen: false,
+  static propTypes = {
+    width: PropTypes.number,
+    height: PropTypes.number,
+    source: Image.propTypes.source,
+    style: PropTypes.object,
   };
 
-  onPressCloseButton() {
-    this.setState({
+  static defaultProps = {
+    width: undefined,
+    height: undefined,
+    source: undefined,
+    style: {},
+  };
+
+  constructor(props) {
+    super(props);
+
+    autoBind(this);
+
+    this.state = {
       fullScreen: false,
-    });
+    };
+  }
+
+  onPressCloseButton() {
+    this.setState({ fullScreen: false });
   }
 
   onPressImage() {
-    this.setState({
-      fullScreen: true,
-    });
+    this.setState({ fullScreen: true });
   }
 
   render() {
-    const { source, style, width, height } = this.props;
+    const {
+      source,
+      style,
+      width,
+      height,
+    } = this.props;
+    const { fullScreen } = this.state;
 
-    if (this.state.fullScreen) {
+    if (fullScreen) {
       const closeButton = (
         <View style={style.header}>
           <TouchableOpacity style={style.fullScreen} onPress={this.onPressCloseButton}>
@@ -84,7 +92,7 @@ class ImagePreview extends PureComponent {
 
     return (
       <View style={[style.container, { width, height }]}>
-        <TouchableOpacity onPress={this.onPressImage} >
+        <TouchableOpacity onPress={this.onPressImage}>
           <Image
             style={style.thumbnail}
             source={source}
@@ -96,8 +104,6 @@ class ImagePreview extends PureComponent {
     );
   }
 }
-
-ImagePreview.propTypes = propTypes;
 
 const StyledImagePreview = connectStyle('shoutem.ui.ImagePreview')(ImagePreview);
 

@@ -13,6 +13,10 @@ export default class Gallery extends PureComponent {
     handlePhotoPress: PropTypes.func,
   };
 
+  static defaultProps = {
+    handlePhotoPress: undefined,
+  };
+
   constructor(props) {
     super(props);
 

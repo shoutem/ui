@@ -1,6 +1,7 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { TouchableNativeFeedback as RNTouchableNativeFeedback } from 'react-native';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 import { connectStyle } from '@shoutem/theme';
 
@@ -13,31 +14,32 @@ class TouchableNativeFeedback extends PureComponent {
     }),
   };
 
+  static defaultProps = {
+    style: {},
+  };
+
   render() {
-    const props = this.props;
-    // Remove the props that are not valid
-    // style keys.
-    const style = {
-      ...props.style,
-    };
-    delete style.background;
-    delete style.useForeground;
+    const { style: { background, useForeground } } = this.props;
+    // Remove the props that are not valid style keys.
+    const cleanProps = _.omit(this.props, ['style.background', 'style.useForeground']);
+    const { children, style } = cleanProps;
 
     return (
       <RNTouchableNativeFeedback
-        {...props}
+        {...cleanProps}
         style={style}
-        background={props.style.background}
-        useForeground={props.style.useForeground}
+        background={background}
+        useForeground={useForeground}
       >
-        {props.children}
+        {children}
       </RNTouchableNativeFeedback>
     );
   }
 }
 
-const StyledTouchableNativeFeedback =
-  connectStyle('shoutem.ui.TouchableNativeFeedback')(TouchableNativeFeedback);
+const StyledTouchableNativeFeedback = connectStyle(
+  'shoutem.ui.TouchableNativeFeedback',
+)(TouchableNativeFeedback);
 
 export {
   StyledTouchableNativeFeedback as TouchableNativeFeedback,

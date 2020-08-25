@@ -8,7 +8,7 @@ import { connectStyle } from '@shoutem/theme';
 const RNLinearGradientPropsKeys = ['start', 'end', 'colors', 'locations'];
 
 class LinearGradient extends PureComponent {
-  render () {
+  render() {
     const { props } = this;
 
     const styleWithOmissions = _.omit(props.style, RNLinearGradientPropsKeys);

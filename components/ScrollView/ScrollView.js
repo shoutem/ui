@@ -12,6 +12,20 @@ import { Device } from '../../helpers';
 const isTabBarOnScreen = true;
 const IPHONE_X_HOME_INDICATOR_PADDING = isTabBarOnScreen ? 0 : 34;
 
+function addIphoneXPadding(style) {
+  const resolvedStyle = style;
+  if (typeof resolvedStyle.paddingBottom !== 'number') {
+    resolvedStyle.paddingBottom = 0;
+  }
+
+  resolvedStyle.paddingBottom = Device.select({
+    iPhoneX: resolvedStyle.paddingBottom + IPHONE_X_HOME_INDICATOR_PADDING,
+    default: resolvedStyle.paddingBottom,
+  });
+
+  return resolvedStyle;
+}
+
 class ScrollView extends PureComponent {
   static propTypes = {
     ...Animated.ScrollView.propTypes,
@@ -65,33 +79,16 @@ class ScrollView extends PureComponent {
     this.wrappedInstance = component;
   }
 
-  addIphoneXPadding(style) {
-    if (typeof style.paddingBottom !== 'number') {
-      style.paddingBottom = 0;
-    }
-
-    style.paddingBottom = Device.select({
-      iPhoneX: style.paddingBottom + IPHONE_X_HOME_INDICATOR_PADDING,
-      default: style.paddingBottom,
-    })
-
-    return style;
-  }
-
   render() {
-    const { props, animationDriver } = this;
-    const { style = {} } = props;
-    const contentContainerStyle = {
-      ...style.contentContainerStyle,
-    };
-    delete style.contentContainerStyle;
+    const { style: { contentContainerStyle } } = this.props;
+    const cleanProps = _.omit(this.props, 'style.contentContainerStyle');
 
     return (
       <Animated.ScrollView
         ref={this.setWrappedInstance}
-        contentContainerStyle={ this.addIphoneXPadding(contentContainerStyle) }
-        {...animationDriver.scrollViewProps}
-        {...props}
+        contentContainerStyle={addIphoneXPadding(contentContainerStyle)}
+        {...this.animationDriver.scrollViewProps}
+        {...cleanProps}
       />
     );
   }

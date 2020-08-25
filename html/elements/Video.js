@@ -26,11 +26,13 @@ function Video({ src, thumbnailUrl, style }) {
 
 Video.propTypes = {
   src: PropTypes.string,
-  thumbnail_url: PropTypes.string,
+  thumbnailUrl: PropTypes.string,
   style: PropTypes.object,
 };
 
 Video.defaultProps = {
+  src: undefined,
+  thumbnailUrl: undefined,
   style: {
     container: {
       alignSelf: 'stretch',

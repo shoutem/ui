@@ -1,9 +1,8 @@
 import React from 'react';
 import _ from 'lodash';
 
-import { ElementPropTypes } from '../Html';
 import Image from '../components/Image';
-import { combineMappers, mapElementProps } from '../Html';
+import { ElementPropTypes, combineMappers, mapElementProps } from '../Html';
 
 export function isImg(element) {
   return _.get(element, 'tag') === 'img';
@@ -11,10 +10,10 @@ export function isImg(element) {
 
 function Img({ src, style, lightbox }) {
   const source = { uri: src };
-  imgStyle = {
-    ...style,
+  const imgStyle = {
     resizeMode: 'contain',
-  }
+    ...style,
+  };
 
   return (
     <Image

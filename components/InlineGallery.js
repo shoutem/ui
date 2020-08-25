@@ -1,14 +1,15 @@
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-
+import autoBind from 'auto-bind';
 import _ from 'lodash';
+
 import { connectStyle } from '@shoutem/theme';
 
-import { View } from './View';
-import { TouchableOpacity } from './TouchableOpacity';
-import { Image } from './Image';
 import { HorizontalPager } from './HorizontalPager/HorizontalPager';
+import { Image } from './Image';
 import { LoadingIndicator } from './LoadingIndicator';
+import { TouchableOpacity } from './TouchableOpacity';
+import { View } from './View';
 
 class InlineGallery extends PureComponent {
   static propTypes = {
@@ -30,7 +31,6 @@ class InlineGallery extends PureComponent {
     // Style, applied to Image component
     style: PropTypes.object,
     // Prop that reduces page size by pageMargin, allowing 'sneak peak' of next page
-    // Defaults to false
     showNextPage: PropTypes.bool,
     // Callback function that can be used to render overlay over pages
     // For example page indicators using `PageIndicators` component
@@ -42,17 +42,23 @@ class InlineGallery extends PureComponent {
   };
 
   static defaultProps = {
+    onPress: undefined,
+    onIndexSelected: undefined,
+    selectedIndex: 0,
+    style: {},
+    showNextPage: false,
+    renderOverlay: undefined,
     renderPlaceholder: () => (<LoadingIndicator />),
   };
 
   constructor(props) {
     super(props);
-    this.renderPage = this.renderPage.bind(this);
-    this.onPress = this.onPress.bind(this);
-    this.onIndexSelected = this.onIndexSelected.bind(this);
+
+    autoBind(this);
+
     this.state = {
       selectedIndex: 0,
-      showNextPage: this.props.showNextPage || false,
+      showNextPage: props.showNextPage,
     };
   }
 
@@ -100,7 +106,13 @@ class InlineGallery extends PureComponent {
   }
 
   render() {
-    const { data, selectedIndex, renderOverlay, renderPlaceholder, style } = this.props;
+    const {
+      data,
+      selectedIndex,
+      renderOverlay,
+      renderPlaceholder,
+      style,
+    } = this.props;
     const { showNextPage } = this.state;
 
     return (

@@ -1,9 +1,11 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-import autoBindReact from 'auto-bind/react';
 import { Animated, TouchableOpacity, Dimensions } from 'react-native';
+import PropTypes from 'prop-types';
+import autoBind from 'auto-bind';
 import _ from 'lodash';
+
 import { connectStyle } from '@shoutem/theme';
+
 import { IPHONE_X_HOME_INDICATOR_PADDING } from '../../const';
 import { Device } from '../../helpers';
 import { View } from '../View';
@@ -30,10 +32,18 @@ class ActionSheet extends PureComponent {
     onDismiss: PropTypes.func,
   };
 
+  static defaultProps = {
+    style: {},
+    confirmOptions: undefined,
+    cancelOptions: undefined,
+    active: false,
+    onDismiss: undefined,
+  };
+
   constructor(props) {
     super(props);
 
-    autoBindReact(this);
+    autoBind(this);
 
     this.state = {
       opacity: new Animated.Value(0),

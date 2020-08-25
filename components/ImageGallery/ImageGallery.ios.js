@@ -1,48 +1,53 @@
 import React from 'react';
 import { InteractionManager } from 'react-native';
 import TransformableImage from 'react-native-transformable-image';
+import autoBind from 'auto-bind';
 
 import { connectStyle } from '@shoutem/theme';
 
 import { ImageGalleryBase } from './ImageGalleryBase';
 
+function resetImageTransformer(transformer) {
+  if (!transformer) {
+    return;
+  }
+
+  transformer.updateTransform({
+    scale: 1,
+    translateX: 0,
+    translateY: 0,
+  });
+}
+
 class ImageGallery extends ImageGalleryBase {
   static IMAGE_PREVIEW_MODE = ImageGalleryBase.IMAGE_PREVIEW_MODE;
+
   static IMAGE_GALLERY_MODE = ImageGalleryBase.IMAGE_GALLERY_MODE;
 
   constructor(props) {
     super(props);
 
-    this.onViewTransformed = this.onViewTransformed.bind(this);
+    autoBind(this);
+
     this.imageRefs = new Map();
   }
 
   getImageTransformer(index) {
     const { data } = this.props;
+
     if (index >= 0 && index < data.length) {
       const ref = this.imageRefs.get(index);
       if (ref) {
         return ref.getViewTransformerInstance();
       }
     }
+
     return null;
   }
 
-  resetImageTransformer(transformer) {
-    if (!transformer) {
-      return;
-    }
-
-    transformer.updateTransform({
-      scale: 1,
-      translateX: 0,
-      translateY: 0,
-    });
-  }
-
   resetSurroundingImageTransformations(index) {
-    this.resetImageTransformer(this.getImageTransformer(index - 1));
-    this.resetImageTransformer(this.getImageTransformer(index + 1));
+    resetImageTransformer(this.getImageTransformer(index - 1));
+    resetImageTransformer(this.getImageTransformer(index + 1));
   }
 
   updateImageSwitchingStatus() {
@@ -94,9 +99,7 @@ class ImageGallery extends ImageGalleryBase {
       onSingleTapConfirmed: this.onImageTap,
       onViewTransformed: this.onViewTransformed,
       enableTranslate: !imageSwitchingEnabled,
-      ref: transformer => {
-        this.imageRefs.set(imageIndex, transformer);
-      },
+      ref: transformer => this.imageRefs.set(imageIndex, transformer),
     };
 
     return (

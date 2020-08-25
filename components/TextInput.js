@@ -1,36 +1,41 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { TextInput as RNTextInput } from 'react-native';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
 
-import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
+import { connectStyle } from '@shoutem/theme';
 
 class TextInput extends PureComponent {
+  static propTypes = {
+    ...RNTextInput.propTypes,
+    style: PropTypes.object,
+  };
+
+  static defaultProps = {
+    style: {},
+  };
+
   render() {
-    const { props } = this;
-    const style = {
-      ...props.style,
-    };
-    delete style.placeholderTextColor;
-    delete style.selectionColor;
-    delete style.underlineColorAndroid;
+    const { style: { placeholderTextColor, selectionColor, underlineColorAndroid } } = this.props;
+    // Remove the props that are not valid style keys.
+    const cleanProps = _.omit(
+      this.props,
+      ['style.placeholderTextColor', 'style.selectionColor', 'style.underlineColorAndroid'],
+    );
+    const { style } = cleanProps;
 
     return (
       <RNTextInput
-        {...props}
+        {...cleanProps}
         style={style}
-        placeholderTextColor={props.style.placeholderTextColor}
-        selectionColor={props.style.selectionColor}
-        underlineColorAndroid={props.style.underlineColorAndroid}
+        placeholderTextColor={placeholderTextColor}
+        selectionColor={selectionColor}
+        underlineColorAndroid={underlineColorAndroid}
       />
     );
   }
 }
-
-TextInput.propTypes = {
-  ...RNTextInput.propTypes,
-  style: PropTypes.object,
-};
 
 const AnimatedTextInput = connectAnimation(TextInput);
 const StyledTextInput = connectStyle('shoutem.ui.TextInput')(AnimatedTextInput);

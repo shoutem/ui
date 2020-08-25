@@ -11,10 +11,19 @@ import { connectAnimation } from '@shoutem/animation';
 import { LinearGradient } from './LinearGradient';
 
 class View extends PureComponent {
-  render() {
-    const style = { ...this.props.style };
-    let gradient = null;
+  static propTypes = {
+    ...ViewPropTypes,
+    style: PropTypes.object,
+  };
 
+  static defaultProps = {
+    style: {},
+  };
+
+  render() {
+    const { children, style } = this.props;
+
+    let gradient = null;
     if (style.backgroundGradient) {
       gradient = (
         <LinearGradient
@@ -31,16 +40,11 @@ class View extends PureComponent {
     return (
       <RNView {...this.props} style={style}>
         {gradient}
-        {this.props.children}
+        {children}
       </RNView>
     );
   }
 }
-
-View.propTypes = {
-  ...ViewPropTypes,
-  style: PropTypes.object,
-};
 
 const AnimatedView = connectAnimation(View);
 const StyledView = connectStyle('shoutem.ui.View')(AnimatedView);

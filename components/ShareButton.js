@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-
 import { Share, Platform } from 'react-native';
 
 import { connectStyle } from '@shoutem/theme';
@@ -30,6 +29,13 @@ class ShareButton extends PureComponent {
     url: string,
   };
 
+  static defaultProps = {
+    animationName: undefined,
+    message: undefined,
+    title: undefined,
+    url: undefined,
+  };
+
   constructor(props) {
     super(props);
 
@@ -37,7 +43,7 @@ class ShareButton extends PureComponent {
   }
 
   onShare() {
-    const { title, message, url } = this.props;
+    const { message, title, url } = this.props;
 
     Share.share({
       title,
@@ -52,9 +58,7 @@ class ShareButton extends PureComponent {
     const { animationName } = this.props;
 
     return (
-      <Button
-        onPress={this.onShare}
-      >
+      <Button onPress={this.onShare}>
         <Icon name={Platform.OS === 'ios' ? 'share' : 'share-android'} animationName={animationName} />
       </Button>
     );

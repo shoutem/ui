@@ -4,9 +4,7 @@ import { Text } from '../../components/Text';
 
 function Br() {
   return (
-    <Text>
-      {"\n"}
-    </Text>
+    <Text>{'\n'}</Text>
   );
 }
 

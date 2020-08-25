@@ -39,7 +39,7 @@ function onlyInlineChildren(groupedChildren) {
  */
 function getRightmostLeafChild(element) {
   if (!element) {
-    return;
+    return null;
   }
   if (_.isString(element) || _.size(element.childElements) === 0) {
     return element;
@@ -130,18 +130,17 @@ function renderGroupedChildren(groupedChildren, renderElement, style) {
  * @constructor
  */
 export class Inline extends PureComponent {
-  static defaultProps = {
-    style: {},
-  };
-
   static propTypes = {
     ...ElementPropTypes,
     onPress: PropTypes.func,
     onLineBreak: PropTypes.func,
+    style: PropTypes.object,
   };
 
   static defaultProps = {
     onLineBreak: handleLineBreak,
+    onPress: undefined,
+    style: {},
   };
 
   renderGroupedChildren(groupedChildren) {
@@ -162,7 +161,14 @@ export class Inline extends PureComponent {
   }
 
   render() {
-    const { childElements, style, onPress, onLineBreak, styleName, block } = this.props;
+    const {
+      childElements,
+      style,
+      onPress,
+      onLineBreak,
+      styleName,
+      block,
+    } = this.props;
 
     if (_.isEmpty(childElements)) {
       return null;
@@ -178,7 +184,7 @@ export class Inline extends PureComponent {
     // Block elements are standalone because they break the line.
     const children = groupInlineNodes(trimmedChildren, onLineBreak);
 
-    let content = this.renderGroupedChildren(children);
+    let content = renderGroupedChildren(children);
 
     if (onlyInlineChildren(children)) {
       // Group textual nodes together.

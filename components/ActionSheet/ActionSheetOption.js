@@ -1,6 +1,8 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { connectStyle } from '@shoutem/theme';
+
 import { Text } from '../Text';
 import { TouchableOpacity } from '../TouchableOpacity';
 
@@ -23,6 +25,15 @@ ActionSheetOption.propTypes = {
   style: PropTypes.any,
   option: optionPropType,
   cancelOption: PropTypes.bool,
+};
+
+ActionSheetOption.defaultProps = {
+  style: {},
+  option: {
+    title: undefined,
+    onPress: undefined,
+  },
+  cancelOption: false,
 };
 
 export default connectStyle('shoutem.ui.ActionSheetOption')(ActionSheetOption);

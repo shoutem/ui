@@ -4,10 +4,7 @@ import React, { PureComponent } from 'react';
 import _ from 'lodash';
 import HTML from 'react-native-render-html';
 
-import {
-  cssStringToObject,
-  cssObjectToString,
-} from 'react-native-render-html/src/HTMLStyles';
+import { cssStringToObject, cssObjectToString } from 'react-native-render-html/src/HTMLStyles';
 
 import { connectStyle } from '@shoutem/theme';
 import { View } from '../../components/View';
@@ -21,6 +18,13 @@ class SimpleHtml extends PureComponent {
     style: PropTypes.object,
     customTagStyles: PropTypes.object,
     customHandleLinkPress: PropTypes.func,
+  };
+
+  static defaultProps = {
+    body: undefined,
+    style: {},
+    customTagStyles: undefined,
+    customHandleLinkPress: undefined,
   };
 
   constructor(props) {
@@ -38,6 +42,7 @@ class SimpleHtml extends PureComponent {
     return customHandleLinkPress ? customHandleLinkPress(href) : Linking.openURL(href);
   }
 
+  /* eslint-disable no-param-reassign */
   /**
    * Removes empty (therefore invalid) style attribute properties
    * Scales down objects with specified width and height if too large
@@ -73,7 +78,9 @@ class SimpleHtml extends PureComponent {
 
     return false;
   }
+  /* eslint-enable no-param-reassign */
 
+  /* eslint-disable no-unused-vars */
   renderUnorderedListPrefix(htmlAttribs, children, convertedCSSStyles, passProps) {
     const { style } = this.props;
 
@@ -85,13 +92,19 @@ class SimpleHtml extends PureComponent {
   renderOrderedListPrefix(htmlAttribs, children, convertedCSSStyles, passProps) {
     const { style } = this.props;
 
-    return (
-      <Text style={style.prefix}>{passProps.index + 1}. </Text>
-    );
+    const resultingPrefix = `${passProps.index + 1}. `;
+
+    return <Text style={style.prefix}>{resultingPrefix}</Text>;
   }
+  /* eslint-enable no-unused-vars */
 
   render() {
-    const { style, body, customTagStyles, ...otherProps } = this.props;
+    const {
+      style,
+      body,
+      customTagStyles,
+      ...otherProps
+    } = this.props;
 
     const paddingValue = style.container.paddingLeft * 2;
     const maxWidth = Dimensions.get('window').width - paddingValue;
@@ -99,12 +112,12 @@ class SimpleHtml extends PureComponent {
     const tagStyles = {
       ...style.tags,
       ...customTagStyles,
-    }
+    };
 
     const listPrefixRenderers = {
       ul: this.renderUnorderedListPrefix,
       ol: this.renderOrderedListPrefix,
-    }
+    };
 
     const htmlProps = {
       html: body,

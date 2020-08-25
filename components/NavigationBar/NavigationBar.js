@@ -1,28 +1,28 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import {
-  StatusBar,
   Animated,
   Platform,
+  StatusBar,
   View,
 } from 'react-native';
-
+import PropTypes from 'prop-types';
 import _ from 'lodash';
-
 import color from 'tinycolor2';
 
-import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
+import { connectStyle } from '@shoutem/theme';
 
 import { Device } from '../../helpers';
 import composeChildren from './composeChildren';
 
 function getBackgroundColor(style) {
-  const styleWithBg = _.find(style, (styleDef) =>
-    styleDef.backgroundColor && styleDef.backgroundColor !== 'transparent'
+  const styleWithBg = _.find(
+    style,
+    styleDef => styleDef.backgroundColor && styleDef.backgroundColor !== 'transparent',
   );
 
-  return styleWithBg && styleWithBg.backgroundColor || 'transparent';
+
+  return (styleWithBg && styleWithBg.backgroundColor) || 'transparent';
 }
 
 // eslint-disable-next-line react/prefer-stateless-function
@@ -33,19 +33,24 @@ class NavigationBar extends PureComponent {
     rightComponent: PropTypes.node,
     style: PropTypes.object,
     id: PropTypes.string,
+    // react/no-unused-prop-types is used
+    // eslint-disable-next-line
     statusBarColor: PropTypes.string,
   };
 
   static defaultProps = {
+    leftComponent: undefined,
+    centerComponent: undefined,
+    rightComponent: undefined,
+    style: {},
     id: 'default',
+    statusBarColor: undefined,
   };
 
   setStatusBarStyle(backgroundColor) {
-    function chooseBarStyle(bgColor) {
-      return color(bgColor).isDark() ? 'light-content' : 'default';
-    }
+    const chooseBarStyle = bgColor => (color(bgColor).isDark() ? 'light-content' : 'default');
 
-    function setStyle(bgColor) {
+    const setStyle = (bgColor) => {
       const statusBarColor = _.get(this.props, 'statusBarColor', bgColor);
 
       const color = statusBarColor || bgColor;
@@ -56,7 +61,7 @@ class NavigationBar extends PureComponent {
         const barStyle = chooseBarStyle(color);
         StatusBar.setBarStyle(barStyle);
       }
-    }
+    };
 
     // This is little bit hacky, but is the only way
     // to determine the current value of interpolated Animated.Value

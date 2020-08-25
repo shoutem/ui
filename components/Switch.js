@@ -1,28 +1,33 @@
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-
 import { TouchableWithoutFeedback } from 'react-native';
 
-import { connectStyle } from '@shoutem/theme';
 import { connectAnimation, TimingDriver } from '@shoutem/animation';
+import { connectStyle } from '@shoutem/theme';
 
 import { View } from './View';
 
-const { bool, func, object, shape } = PropTypes;
-
 class Switch extends PureComponent {
   static propTypes = {
-    // True when switch is on, false otherwise
-    value: bool,
     // Called when switch is toggled on and off
-    onValueChange: func,
+    onValueChange: PropTypes.func.isRequired,
     // Styles for the container and underlying thumb
-    style: shape({
+    style: PropTypes.shape({
       // Container style
-      container: object,
+      container: PropTypes.object,
       // Thumb style
-      thumb: object,
+      thumb: PropTypes.object,
     }),
+    // True when switch is on, false otherwise
+    value: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    style: {
+      container: {},
+      thumb: {},
+    },
+    value: false,
   };
 
   constructor(props) {

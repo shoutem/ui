@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import autoBind from 'auto-bind';
 import _ from 'lodash';
 
 import { connectStyle } from '@shoutem/theme';
@@ -10,6 +11,10 @@ import { View } from '../View';
 import { DropDownModal } from './DropDownModal';
 
 const modalSpecificProps = ['visible', 'onClose'];
+// warning: Using propTypes from another component is not safe because they may be removed in
+// production builds - react/forbid-foreign-prop-types
+// We do not remove them in production builds.
+// eslint-disable-next-line
 const dropDownMenuPropTypes = { ..._.omit(DropDownModal.propTypes, modalSpecificProps) };
 
 class DropDownMenu extends PureComponent {
@@ -22,23 +27,26 @@ class DropDownMenu extends PureComponent {
 
   constructor(props) {
     super(props);
+
+    autoBind(this);
+
     this.state = {
       collapsed: false,
     };
-    this.collapse = this.collapse.bind(this);
-    this.close = this.close.bind(this);
   }
 
   getSelectedOption() {
     const { options, selectedOption } = this.props;
+
     if (_.indexOf(options, selectedOption) === -1) {
       console.warn(
-        `Invalid \`selectedOption\` ${JSON.stringify(selectedOption)}, ` +
-        'DropDownMenu `selectedOption` must be a member of `options`.' +
-        'Check that you are using the same reference in both `options` and `selectedOption`.'
+        `Invalid \`selectedOption\` ${JSON.stringify(selectedOption)}, `
+        + 'DropDownMenu `selectedOption` must be a member of `options`.'
+        + 'Check that you are using the same reference in both `options` and `selectedOption`.',
       );
-      return;
+      return null;
     }
+
     return selectedOption;
   }
 

@@ -21,7 +21,13 @@ import Inline, { InlineSettings } from './elements/Inline';
 import Virtual from './elements/Virtual';
 import Block from './elements/Block';
 import Text from './elements/Text';
-import { Ul, Ol, Li, Bullet, Number } from './elements/list';
+import {
+  Ul,
+  Ol,
+  Li,
+  Bullet,
+  Number,
+} from './elements/list';
 import Img from './elements/Img';
 import A from './elements/A';
 import Br from './elements/Br';

@@ -7,9 +7,7 @@ export function calculateKeyboardOffset(extraOffset = NAVIGATION_BAR_HEIGHT) {
     return extraOffset;
   }
 
-  if (Platform.OS === 'android') {
-    return getStatusBarHeight() + extraOffset;
-  }
+  return getStatusBarHeight() + extraOffset;
 }
 
 export default { calculateKeyboardOffset };

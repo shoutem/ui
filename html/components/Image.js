@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { Image as RNImage } from 'react-native';
-import { connectStyle } from '@shoutem/theme';
 import _ from 'lodash';
 
 import { Image } from '../../components/Image';
@@ -43,8 +42,9 @@ export default class HtmlImage extends PureComponent {
   }
 
   imageSizeLoadFailed() {
+    const { source: { uri } } = this.props;
     // TODO - handle properly
-    console.log('Could not load image size for image: ', this.props.source.uri);
+    console.log('Could not load image size for image: ', uri);
   }
 
   render() {
