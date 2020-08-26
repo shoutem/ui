@@ -22,12 +22,13 @@ const options = [
 
 ];
 
-const emptyOption = { id: '', name: 'Select'};
+const emptyOption = { id: '', name: 'Select' };
 const optionsWithEmptyOption = [emptyOption, ...options];
 
 export class DropDownMenus extends PureComponent {
   constructor() {
     super();
+
     this.state = {
       selectedOption: options[0],
       selectedOptionForFormGroupDropdown: emptyOption,
@@ -44,8 +45,8 @@ export class DropDownMenus extends PureComponent {
             options={options}
             selectedOption={selectedOption}
             onOptionSelected={option => this.setState({ selectedOption: option })}
-            titleProperty={"name"}
-            valueProperty={"id"}
+            titleProperty="name"
+            valueProperty="id"
           />
         </Stage>
         <Stage title="Dropdown (horizontal)">
@@ -54,8 +55,8 @@ export class DropDownMenus extends PureComponent {
             options={options}
             selectedOption={selectedOption}
             onOptionSelected={option => this.setState({ selectedOption: option })}
-            titleProperty={"name"}
-            valueProperty={"id"}
+            titleProperty="name"
+            valueProperty="id"
           />
         </Stage>
         <Stage title="Dropdown (large)">
@@ -64,8 +65,8 @@ export class DropDownMenus extends PureComponent {
             options={options}
             selectedOption={selectedOption}
             onOptionSelected={option => this.setState({ selectedOption: option })}
-            titleProperty={"name"}
-            valueProperty={"id"}
+            titleProperty="name"
+            valueProperty="id"
           />
         </Stage>
         <Stage title="Dropdown (inside a form group)">
@@ -75,10 +76,11 @@ export class DropDownMenus extends PureComponent {
               styleName={selectedOptionForFormGroupDropdown.id ? '' : 'empty'}
               options={optionsWithEmptyOption}
               selectedOption={selectedOptionForFormGroupDropdown}
-              onOptionSelected={option =>
-                this.setState({ selectedOptionForFormGroupDropdown: option })}
-              titleProperty={"name"}
-              valueProperty={"id"}
+              onOptionSelected={option => this.setState(
+                { selectedOptionForFormGroupDropdown: option },
+              )}
+              titleProperty="name"
+              valueProperty="id"
             />
           </FormGroup>
         </Stage>

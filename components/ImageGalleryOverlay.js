@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { ScrollView } from 'react-native';
-import autoBind from 'auto-bind';
+import autoBind from 'auto-bind/react';
 
 import { connectAnimation } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';

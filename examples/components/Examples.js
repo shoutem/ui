@@ -1,22 +1,21 @@
 import React, { PureComponent } from 'react';
 
-import { Screen } from '../../components/Screen';
 import { Divider } from '../../components/Divider';
-import { ScrollView } from '../../components/ScrollView';
 import { DropDownMenu } from '../../components/DropDownMenu';
-
-import { Typography } from './Typography';
-import { Dividers } from './Dividers';
-import { Rows } from './Rows';
-import { Cards } from './Cards';
-import { Tiles } from './Tiles';
-import { Spinners } from './Spinners';
+import { Screen } from '../../components/Screen';
+import { ScrollView } from '../../components/ScrollView';
 import { Buttons } from './Buttons';
-import { Images } from './Images';
+import { Cards } from './Cards';
+import { Dividers } from './Dividers';
 import { DropDownMenus } from './DropDownMenus';
 import { FormComponents } from './FormComponents';
 import { Headers } from './Headers';
+import { Images } from './Images';
 import { NavigationBars } from './NavigationBars';
+import { Rows } from './Rows';
+import { Spinners } from './Spinners';
+import { Tiles } from './Tiles';
+import { Typography } from './Typography';
 import { Videos } from './Videos';
 
 const examples = [
@@ -38,6 +37,7 @@ const examples = [
 export class Examples extends PureComponent {
   constructor() {
     super();
+
     this.state = {
       selectedExample: examples[0],
     };
@@ -45,15 +45,17 @@ export class Examples extends PureComponent {
 
   render() {
     const { selectedExample } = this.state;
+
     const SelectedComponent = selectedExample.component;
+
     return (
       <Screen>
         <Divider />
         <DropDownMenu
           styleName="horizontal"
           options={examples}
-          selectedOption={this.state.selectedExample}
-          onOptionSelected={(example) => this.setState({ selectedExample: example })}
+          selectedOption={selectedExample}
+          onOptionSelected={example => this.setState({ selectedExample: example })}
           titleProperty="title"
           valueProperty="component"
         />

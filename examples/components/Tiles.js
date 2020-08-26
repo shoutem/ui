@@ -1,6 +1,12 @@
 import React from 'react';
 
-import { Text, Caption, Subtitle, Title, Heading } from '../../components/Text';
+import {
+  Caption,
+  Heading,
+  Text,
+  Title,
+  Subtitle,
+} from '../../components/Text';
 import { Icon } from '../../components/Icon';
 import { Tile } from '../../components/Tile';
 import { View } from '../../components/View';
@@ -61,11 +67,16 @@ export function Tiles() {
           source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-11.png' }}
         >
           <Tile>
-            <Overlay styleName="image-overlay"><Heading>-20%</Heading></Overlay>
+            <Overlay styleName="image-overlay">
+              <Heading>-20%</Heading>
+            </Overlay>
             <Title styleName="md-gutter-top">COOL BLACK AND WHITE STYLISH WATCHES</Title>
             <Subtitle styleName="line-through sm-gutter-top">$280.00</Subtitle>
             <Heading>$250.00</Heading>
-            <Button styleName="md-gutter-top"><Icon name="cart" /><Text>ADD TO BASKET</Text></Button>
+            <Button styleName="md-gutter-top">
+              <Icon name="cart" />
+              <Text>ADD TO BASKET</Text>
+            </Button>
           </Tile>
         </ImageBackground>
       </Stage>
@@ -79,7 +90,9 @@ export function Tiles() {
             <Title>MIKE PATTON TEAMING WITH JOHN KAADA</Title>
             <Subtitle styleName="line-through sm-gutter-top">150.00</Subtitle>
             <Heading>99.99</Heading>
-            <Button styleName="md-gutter-top"><Text>CLAIM COUPON</Text></Button>
+            <Button styleName="md-gutter-top">
+              <Text>CLAIM COUPON</Text>
+            </Button>
           </Tile>
         </ImageBackground>
       </Stage>
@@ -187,7 +200,10 @@ export function Tiles() {
             <Title styleName="md-gutter-top">COOL BLACK AND WHITE STYLISH WATCHES</Title>
             <Subtitle styleName="line-through sm-gutter-top">$280.00</Subtitle>
             <Heading>$250.00</Heading>
-            <Button styleName="md-gutter-top"><Icon name="cart" /><Text>ADD TO BASKET</Text></Button>
+            <Button styleName="md-gutter-top">
+              <Icon name="cart" />
+              <Text>ADD TO BASKET</Text>
+            </Button>
           </Tile>
         </ImageBackground>
       </Stage>
@@ -215,7 +231,9 @@ export function Tiles() {
             <Title>MIKE PATTON TEAMING WITH JOHN KAADA</Title>
             <Subtitle styleName="line-through sm-gutter-top">150.00</Subtitle>
             <Heading>99.99</Heading>
-            <Button styleName="md-gutter-top"><Text>CLAIM COUPON</Text></Button>
+            <Button styleName="md-gutter-top">
+              <Text>CLAIM COUPON</Text>
+            </Button>
           </Tile>
         </ImageBackground>
       </Stage>
@@ -230,7 +248,10 @@ export function Tiles() {
             <Title styleName="md-gutter-top">COOL BLACK AND WHITE STYLISH WATCHES</Title>
             <Subtitle styleName="line-through sm-gutter-top">$280.00</Subtitle>
             <Heading>$250.00</Heading>
-            <Button styleName="md-gutter-top"><Icon name="cart" /><Text>ADD TO BASKET</Text></Button>
+            <Button styleName="md-gutter-top">
+              <Icon name="cart" />
+              <Text>ADD TO BASKET</Text>
+            </Button>
           </Tile>
         </ImageBackground>
       </Stage>

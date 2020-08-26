@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { View } from '../../components/View';
 import { Spinner } from '../../components/Spinner';
+import { View } from '../../components/View';
 import { Stage } from './Stage';
 
 export function Spinners() {

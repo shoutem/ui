@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-import autoBind from 'auto-bind';
+import autoBind from 'auto-bind/react';
 import _ from 'lodash';
 
 import { HorizontalPager } from '../HorizontalPager';

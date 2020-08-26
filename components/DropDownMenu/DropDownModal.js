@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Modal, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
-import autoBind from 'auto-bind';
+import autoBind from 'auto-bind/react';
 import _ from 'lodash';
 
 import { connectStyle, changeColorAlpha } from '@shoutem/theme';

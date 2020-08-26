@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Linking } from 'react-native';
 import PropTypes from 'prop-types';
-import autoBind from 'auto-bind';
+import autoBind from 'auto-bind/react';
 import _ from 'lodash';
 
 import { connectStyle } from '@shoutem/theme';

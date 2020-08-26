@@ -1,7 +1,7 @@
 import React from 'react';
 import { InteractionManager } from 'react-native';
 import TransformableImage from 'react-native-transformable-image';
-import autoBind from 'auto-bind';
+import autoBind from 'auto-bind/react';
 
 import { connectStyle } from '@shoutem/theme';
 

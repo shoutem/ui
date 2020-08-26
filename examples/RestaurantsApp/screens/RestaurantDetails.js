@@ -2,17 +2,17 @@ import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 
 import {
-  ScrollView,
-  Icon,
-  Row,
-  Subtitle,
-  Text,
-  Title,
-  View,
-  ImageBackground,
   Divider,
+  Icon,
+  ImageBackground,
+  Text,
   Tile,
+  Title,
+  Row,
   Screen,
+  ScrollView,
+  Subtitle,
+  View,
 } from '@shoutem/ui';
 
 import { NavigationBar } from '@shoutem/ui/navigation';
@@ -20,6 +20,10 @@ import { NavigationBar } from '@shoutem/ui/navigation';
 export default class RestaurantDetails extends PureComponent {
   static propTypes = {
     restaurant: PropTypes.object,
+  };
+
+  static defaultProps = {
+    restaurant: undefined,
   };
 
   render() {

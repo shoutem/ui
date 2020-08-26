@@ -8,7 +8,7 @@ import {
   StatusBar,
   Platform,
 } from 'react-native';
-import autoBind from 'auto-bind';
+import autoBind from 'auto-bind/react';
 import _ from 'lodash';
 
 import { connectStyle } from '@shoutem/theme';

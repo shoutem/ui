@@ -1,15 +1,16 @@
 import React, { PureComponent } from 'react';
 
-import { Caption } from '../../components/Text';
-import { View } from '../../components/View';
-import { Switch } from '../../components/Switch';
 import { FormGroup } from '../../components/FormGroup';
+import { Switch } from '../../components/Switch';
+import { Caption } from '../../components/Text';
 import { TextInput } from '../../components/TextInput';
+import { View } from '../../components/View';
 import { Stage } from './Stage';
 
 export class FormComponents extends PureComponent {
   constructor() {
     super();
+
     this.state = {
       switchOn: false,
     };
@@ -36,14 +37,12 @@ export class FormComponents extends PureComponent {
         <Stage title="Input with label">
           <FormGroup styleName="stretch">
             <Caption>NAME</Caption>
-            <TextInput
-              placeholder="Username or Email"
-            />
+            <TextInput placeholder="Username or Email" />
           </FormGroup>
         </Stage>
         <Stage title="Switch">
           <Switch
-            onValueChange={value => this.setState({ switchOn: value})}
+            onValueChange={value => this.setState({ switchOn: value })}
             value={switchOn}
           />
         </Stage>

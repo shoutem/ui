@@ -1,35 +1,40 @@
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import autoBind from 'auto-bind/react';
 
 import {
+  Divider,
   ImageBackground,
   ListView,
+  Screen,
+  Subtitle,
   Tile,
   Title,
-  Subtitle,
   TouchableOpacity,
-  Screen,
-  Divider,
 } from '@shoutem/ui';
-
 import { NavigationBar } from '@shoutem/ui/navigation';
 
 import { navigatePush } from '../redux';
+
+function getRestaurants() {
+  return require('../assets/data/restaurants.json');
+}
+
 
 class RestaurantsList extends PureComponent {
   static propTypes = {
     onButtonPress: PropTypes.func,
   };
 
+  static defaultProps = {
+    onButtonPress: undefined,
+  };
+
   constructor(props) {
     super(props);
 
-    this.renderRow = this.renderRow.bind(this);
-  }
-
-  getRestaurants() {
-    return require('../assets/data/restaurants.json');
+    autoBind(this);
   }
 
   renderRow(restaurant) {
@@ -56,7 +61,7 @@ class RestaurantsList extends PureComponent {
       <Screen>
         <NavigationBar title="All Restaurants" />
         <ListView
-          data={this.getRestaurants()}
+          data={getRestaurants()}
           renderRow={restaurant => this.renderRow(restaurant)}
         />
       </Screen>
@@ -64,7 +69,7 @@ class RestaurantsList extends PureComponent {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   onButtonPress: (restaurant) => {
     dispatch(navigatePush({
       key: 'RestaurantDetails',
@@ -74,6 +79,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(
-	undefined,
-	mapDispatchToProps
+  undefined,
+  mapDispatchToProps,
 )(RestaurantsList);
