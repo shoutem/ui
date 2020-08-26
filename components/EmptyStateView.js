@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import autoBind from 'autoBind';
+import autoBind from 'auto-bind/react';
 
 import { connectStyle } from '@shoutem/theme';
 
