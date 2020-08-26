@@ -14,7 +14,7 @@ const isTabBarOnScreen = true;
 const IPHONE_X_HOME_INDICATOR_PADDING = isTabBarOnScreen ? 0 : 34;
 
 function addIphoneXPadding(style) {
-  const resolvedStyle = style;
+  const resolvedStyle = style || {};
   if (typeof resolvedStyle.paddingBottom !== 'number') {
     resolvedStyle.paddingBottom = 0;
   }
