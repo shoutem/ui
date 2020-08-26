@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import autoBind from 'auto-bind/react';
 import _ from 'lodash';
 
 import { connectAnimation } from '@shoutem/animation';
@@ -59,9 +60,7 @@ class NumberInput extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.decreaseValue = this.decreaseValue.bind(this);
-    this.increaseValue = this.increaseValue.bind(this);
-    this.onChangeText = this.onChangeText.bind(this);
+    autoBind(this);
   }
 
   onChangeText(text) {

@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+import autoBind from 'auto-bind/react';
 
 import { InlineGallery } from '../../components/InlineGallery';
 
@@ -20,12 +21,11 @@ export default class Gallery extends PureComponent {
   constructor(props) {
     super(props);
 
+    autoBind(this);
+
     this.state = {
       selectedIndex: 0,
     };
-
-    this.onIndexSelected = this.onIndexSelected.bind(this);
-    this.handlePhotoPress = this.handlePhotoPress.bind(this);
   }
 
   onIndexSelected(selectedIndex) {

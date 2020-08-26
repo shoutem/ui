@@ -26,8 +26,6 @@ class A extends PureComponent {
     super(props, context);
 
     autoBind(this);
-    this.onPress = this.onPress.bind(this);
-    this.renderElement = this.renderElement.bind(this);
   }
 
   onPress() {

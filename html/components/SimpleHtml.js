@@ -1,6 +1,7 @@
-import PropTypes from 'prop-types';
-import { Dimensions, Linking } from 'react-native';
 import React, { PureComponent } from 'react';
+import { Dimensions, Linking } from 'react-native';
+import PropTypes from 'prop-types';
+import autoBind from 'auto-bind/react';
 import _ from 'lodash';
 import HTML from 'react-native-render-html';
 
@@ -30,10 +31,7 @@ class SimpleHtml extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.onLinkPress = this.onLinkPress.bind(this);
-    this.alterNode = this.alterNode.bind(this);
-    this.renderUnorderedListPrefix = this.renderUnorderedListPrefix.bind(this);
-    this.renderOrderedListPrefix = this.renderOrderedListPrefix.bind(this);
+    autoBind(this);
   }
 
   onLinkPress(evt, href) {

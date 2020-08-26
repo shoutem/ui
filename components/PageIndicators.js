@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
+import autoBind from 'auto-bind/react';
 
 import { connectStyle } from '@shoutem/theme';
 
@@ -32,7 +33,7 @@ class PageIndicators extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.renderPageIndicator = this.renderPageIndicator.bind(this);
+    autoBind(this);
   }
 
   renderPageIndicator(index, count, activeIndex, indicatorStyle) {

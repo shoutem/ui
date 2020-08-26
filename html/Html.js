@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import autoBind from 'auto-bind/react';
 import _ from 'lodash';
 
 import { connectStyle } from '@shoutem/theme';
@@ -67,7 +68,7 @@ class Html extends PureComponent {
   constructor(props, context) {
     super(props, context);
 
-    this.renderElement = this.renderElement.bind(this);
+    autoBind(this);
 
     this.state = {
       htmlTree: null,

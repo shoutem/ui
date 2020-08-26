@@ -1,6 +1,7 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { Share, Platform } from 'react-native';
+import PropTypes from 'prop-types';
+import autoBind from 'auto-bind/react';
 
 import { connectStyle } from '@shoutem/theme';
 
@@ -39,7 +40,7 @@ class ShareButton extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.onShare = this.onShare.bind(this);
+    autoBind(this);
   }
 
   onShare() {

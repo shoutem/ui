@@ -1,3 +1,4 @@
+import autoBind from 'auto-bind';
 import htmlparser2 from 'htmlparser2';
 
 /**
@@ -61,11 +62,9 @@ class HtmlTree {
    *   because the HTML can have multiple root elements which is not supported by the RN.
    */
   constructor(rootTag = 'div') {
+    autoBind(this);
+
     this.rootNode = createElementNode(rootTag);
-    this.activeNode = this.rootNode;
-    this.openTag = this.openTag.bind(this);
-    this.appendText = this.appendText.bind(this);
-    this.closeTag = this.closeTag.bind(this);
   }
 
   /**

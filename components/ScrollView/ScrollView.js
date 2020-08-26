@@ -1,13 +1,14 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { Animated } from 'react-native';
+import PropTypes from 'prop-types';
+import autoBind from 'auto-bind/react';
 import _ from 'lodash';
 
-import { connectStyle } from '@shoutem/theme';
 import { ScrollDriver, DriverShape } from '@shoutem/animation';
+import { connectStyle } from '@shoutem/theme';
 
-import { ScrollDriverProvider } from './ScrollDriverProvider.js';
 import { Device } from '../../helpers';
+import { ScrollDriverProvider } from './ScrollDriverProvider.js';
 
 const isTabBarOnScreen = true;
 const IPHONE_X_HOME_INDICATOR_PADDING = isTabBarOnScreen ? 0 : 34;
@@ -45,8 +46,9 @@ class ScrollView extends PureComponent {
   constructor(props, context) {
     super(props, context);
 
+    autoBind(this);
+
     this.animationDriver = props.driver || new ScrollDriver({ useNativeDriver: true });
-    this.setWrappedInstance = this.setWrappedInstance.bind(this);
   }
 
   getChildContext() {
@@ -56,8 +58,8 @@ class ScrollView extends PureComponent {
   }
 
   componentDidMount() {
-    const { driverProvider } = this.context;
     const { primary } = this.props;
+    const { driverProvider } = this.context;
 
     if (driverProvider) {
       driverProvider.setAnimationDriver(this.animationDriver, primary);

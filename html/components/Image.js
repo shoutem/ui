@@ -1,6 +1,7 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { Image as RNImage } from 'react-native';
+import PropTypes from 'prop-types';
+import autoBind from 'auto-bind/react';
 import _ from 'lodash';
 
 import { Image } from '../../components/Image';
@@ -28,12 +29,13 @@ export default class HtmlImage extends PureComponent {
   constructor(props) {
     super(props);
 
+    autoBind(this);
+
     this.state = {
       width: null,
       height: null,
     };
 
-    this.imageSizeLoaded = this.imageSizeLoaded.bind(this);
     RNImage.getSize(props.source.uri, this.imageSizeLoaded, this.imageSizeLoadFailed);
   }
 

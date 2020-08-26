@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Image as RNImage, Platform } from 'react-native';
+import autoBind from 'auto-bind/react';
 import _ from 'lodash';
 
 import { connectAnimation } from '@shoutem/animation';
@@ -43,7 +44,7 @@ class Image extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.captureNativeComponentRef = this.captureNativeComponentRef.bind(this);
+    autoBind(this);
   }
 
   setNativeProps(nativeProps) {

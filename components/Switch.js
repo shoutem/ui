@@ -1,6 +1,7 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
+import PropTypes from 'prop-types';
+import autoBind from 'auto-bind/react';
 
 import { connectAnimation, TimingDriver } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
@@ -33,8 +34,9 @@ class Switch extends PureComponent {
   constructor(props) {
     super(props);
 
+    autoBind(this);
+
     this.timingDriver = new TimingDriver();
-    this.onSwitchPressed = this.onSwitchPressed.bind(this);
 
     this.setValue(props.value);
   }
