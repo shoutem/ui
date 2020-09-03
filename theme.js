@@ -1183,6 +1183,8 @@ export default (variables = defaultThemeVariables) => ({
 
     backgroundColor: 'transparent',
     color: variables.primaryButtonText.color,
+    width: 24,
+    height: 24,
   },
 
   'shoutem.ui.Spinner': {
