@@ -2006,6 +2006,18 @@ export default (variables = defaultThemeVariables) => ({
         ...variables.subtitle,
       },
     },
+    selectedModalItem: {
+      'shoutem.ui.Text': {
+        textAlign: 'center',
+        flex: 1,
+        width: window.width,
+        paddingHorizontal: 20,
+        paddingVertical: 23,
+        alignSelf: 'stretch',
+        ...variables.subtitle,
+        fontWeight: '500'
+      },
+    },
 
     visibleOptions: 8,
   },
