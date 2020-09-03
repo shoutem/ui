@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import _ from 'lodash';
 
@@ -17,7 +18,20 @@ class DropDownMenu extends PureComponent {
   * @see DropDownModal.propTypes
   */
   static propTypes = {
+     /**
+     * Icon displayed on dropdown menu button 
+     */
+    iconName: PropTypes.string,
+    /**
+     * Whether the text should be displayed next to dropdown icon or not
+     */
+    showSelectedOption: PropTypes.bool,
     ...dropDownMenuPropTypes,
+  };
+
+  static defaultProps = {
+    iconName: "drop-down",
+    showSelectedOption: true,
   };
 
   constructor(props) {
@@ -51,14 +65,14 @@ class DropDownMenu extends PureComponent {
   }
 
   renderSelectedOption() {
-    const { style, titleProperty } = this.props;
+    const { iconName, showSelectedOption, style, titleProperty } = this.props;
 
     const selectedOption = this.getSelectedOption();
     return selectedOption ? (
       <View style={style.horizontalContainer}>
         <Button onPress={this.collapse} style={style.selectedOption}>
-          <Text>{selectedOption[titleProperty]}</Text>
-          <Icon name="drop-down" />
+          {showSelectedOption && <Text>{selectedOption[titleProperty]}</Text>}
+          <Icon name={iconName} />
         </Button>
       </View>
     ) : null;

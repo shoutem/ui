@@ -245,13 +245,15 @@ class DropDownModal extends PureComponent {
       style,
       titleProperty,
       renderOption,
+      selectedOption,
     } = this.props;
 
     const optionItem = renderOption(option, titleProperty);
+    const selectedItem = selectedOption.id === option.id || false
     const onPress = () => this.selectOption(option);
 
     return (
-      <TouchableOpacity onPress={onPress} style={style.modalItem} onLayout={this.onOptionLayout}>
+      <TouchableOpacity onPress={onPress} style={selectedItem ? style.selectedModalItem : style.modalItem} onLayout={this.onOptionLayout}>
         {optionItem}
       </TouchableOpacity>
     );
