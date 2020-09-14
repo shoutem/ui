@@ -40,6 +40,7 @@ class ListView extends PureComponent {
     data: PropTypes.array,
     loading: PropTypes.bool,
     onLoadMore: PropTypes.func,
+    onLoadMoreThreshold: PropTypes.number,
     onRefresh: PropTypes.func,
     getSectionId: PropTypes.func,
     sections: PropTypes.array,
@@ -119,6 +120,7 @@ class ListView extends PureComponent {
       renderFeaturedItem,
       renderSectionHeader,
       onRefresh,
+      onLoadMoreThreshold,
       keyExtractor,
     } = this.props;
     const { refreshing } = this.state;
@@ -128,7 +130,7 @@ class ListView extends PureComponent {
 
     // configuration
     // default load more threshold
-    mappedProps.onEndReachedThreshold = 40;
+    mappedProps.onEndReachedThreshold = onLoadMoreThreshold || 0.5;
 
     // style
     mappedProps.style = style.list;
