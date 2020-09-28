@@ -2370,7 +2370,11 @@ export default (variables = defaultThemeVariables) => ({
           // visible underneath the navigation bar, but the
           // title text should be rendered below the
           // navigation bar.
-          paddingTop: NAVIGATION_BAR_HEIGHT + variables.mediumGutter,
+          paddingTop:
+            NAVIGATION_BAR_HEIGHT +
+            (Platform.OS === "ios"
+              ? variables.extraLargeGutter + variables.mediumGutter
+              : variables.mediumGutter),
         },
       },
     },
