@@ -2373,7 +2373,7 @@ export default (variables = defaultThemeVariables) => ({
           paddingTop:
             NAVIGATION_BAR_HEIGHT +
             (Platform.OS === "ios"
-              ? variables.extraLargeGutter + variables.mediumGutter
+              ? variables.extraLargeGutter + variables.extraLargeGutter
               : variables.mediumGutter),
         },
       },
