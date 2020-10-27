@@ -3,6 +3,7 @@ import getTheme, {
   defaultThemeVariables,
   dimensionRelativeToIphone,
   calculateLineHeight,
+  resolveFontFamily,
 } from './theme';
 
 setDefaultThemeStyle();
@@ -13,6 +14,7 @@ export {
   defaultThemeVariables,
   dimensionRelativeToIphone,
   calculateLineHeight,
+  resolveFontFamily,
 };
 
 // Components
