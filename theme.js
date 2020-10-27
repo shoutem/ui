@@ -425,7 +425,7 @@ export default (variables = defaultThemeVariables) => ({
   'shoutem.ui.Subtitle': {
     [INCLUDE]: ['text'],
 
-    lineHeight: formatLineHeight(variables.title.fontSize),
+    lineHeight: formatLineHeight(variables.subtitle.fontSize),
     ...variables.subtitle,
     fontFamily: resolveFontFamily(
       variables.subtitle.fontFamily,
@@ -1434,7 +1434,7 @@ export default (variables = defaultThemeVariables) => ({
         ...variables.navBarText,
         fontFamily: resolveFontFamily(
           variables.navBarText.fontFamily,
-          variables.navBarText.fontWeight,
+          'normal',
           variables.navBarText.fontStyle,
         ),
         fontWeight: 'normal',
@@ -1459,7 +1459,7 @@ export default (variables = defaultThemeVariables) => ({
           ...variables.navBarText,
           fontFamily: resolveFontFamily(
             variables.navBarText.fontFamily,
-            variables.navBarText.fontWeight,
+            'normal'
             variables.navBarText.fontStyle,
           ),
           fontWeight: 'normal',
@@ -2002,7 +2002,7 @@ export default (variables = defaultThemeVariables) => ({
           ...variables.navBarText,
           fontFamily: resolveFontFamily(
             variables.navBarText.fontFamily,
-            variables.navBarText.fontWeight,
+            'normal',
             variables.navBarText.fontStyle,
           ),
           color: variables.text.color,
@@ -2126,7 +2126,7 @@ export default (variables = defaultThemeVariables) => ({
         ...variables.subtitle,
         fontFamily: resolveFontFamily(
           variables.subtitle.fontFamily,
-          variables.subtitle.fontWeight,
+          '500',
           variables.subtitle.fontStyle,
         ),
         fontWeight: '500'
