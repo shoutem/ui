@@ -59,24 +59,27 @@ export function resolveFontFamily(fontName, fontWeight = 'normal', fontStyle = '
     return fontName;
   }
 
+  // If we receive the fontName as Rubik-Regular, we should only use Rubik.
+  const resolvedFontName = fontName.split('-')[0];
+
   // Currently, Android text will only be bolded for fontWeight 700. Every other (even higher) value
   // will return the default, un-bolded text.
-  const isBold = fontWeight >= 700 || fontWeight === 'bold';
+  const isBold = parseInt(fontWeight) >= 700 || fontWeight === 'bold';
   const isItalic = fontStyle === 'italic';
 
   if (isBold && isItalic) {
-    return `${fontName}-BoldItalic`;
+    return `${resolvedFontName}-BoldItalic`;
   }
 
   if (isBold) {
-    return `${fontName}-Bold`;
+    return `${resolvedFontName}-Bold`;
   }
 
   if (isItalic) {
-    return `${fontName}-Italic`;
+    return `${resolvedFontName}-Italic`;
   }
 
-  return `${fontName}-Regular`;
+  return `${resolvedFontName}-Regular`;
 }
 
 // This function is deprecated and replaced with calculateLineHeight.
@@ -408,6 +411,8 @@ export default (variables = defaultThemeVariables) => ({
       variables.heading.fontWeight,
       variables.heading.fontStyle,
     ),
+    fontWeight: Platform.OS === 'ios' ? variables.heading.fontWeight : 'normal',
+    fontStyle: Platform.OS === 'ios' ? variables.heading.fontStyle : 'normal',
   },
 
   'shoutem.ui.Title': {
@@ -420,6 +425,8 @@ export default (variables = defaultThemeVariables) => ({
       variables.title.fontWeight,
       variables.title.fontStyle,
     ),
+    fontWeight: Platform.OS === 'ios' ? variables.title.fontWeight : 'normal',
+    fontStyle: Platform.OS === 'ios' ? variables.title.fontStyle : 'normal',
   },
 
   'shoutem.ui.Subtitle': {
@@ -432,6 +439,8 @@ export default (variables = defaultThemeVariables) => ({
       variables.subtitle.fontWeight,
       variables.subtitle.fontStyle,
     ),
+    fontWeight: Platform.OS === 'ios' ? variables.subtitle.fontWeight : 'normal',
+    fontStyle: Platform.OS === 'ios' ? variables.subtitle.fontStyle : 'normal',
   },
 
   'shoutem.ui.Caption': {
@@ -445,6 +454,8 @@ export default (variables = defaultThemeVariables) => ({
       variables.caption.fontWeight,
       variables.caption.fontStyle,
     ),
+    fontWeight: Platform.OS === 'ios' ? variables.caption.fontWeight : 'normal',
+    fontStyle: Platform.OS === 'ios' ? variables.caption.fontStyle : 'normal',
   },
 
   'shoutem.ui.Text': {
@@ -456,6 +467,8 @@ export default (variables = defaultThemeVariables) => ({
       variables.text.fontWeight,
       variables.text.fontStyle,
     ),
+    fontWeight: Platform.OS === 'ios' ? variables.text.fontWeight : 'normal',
+    fontStyle: Platform.OS === 'ios' ? variables.text.fontStyle : 'normal',
   },
 
   //
@@ -1095,6 +1108,8 @@ export default (variables = defaultThemeVariables) => ({
         variables.text.fontWeight,
         variables.text.fontStyle,
       ),
+      fontWeight: Platform.OS === 'ios' ? variables.text.fontWeight : 'normal',
+      fontStyle: Platform.OS === 'ios' ? variables.text.fontStyle : 'normal',
     },
 
     'shoutem.ui.Icon': {
@@ -1190,10 +1205,12 @@ export default (variables = defaultThemeVariables) => ({
     'shoutem.ui.Text': {
       ...variables.primaryButtonText,
       fontFamily: resolveFontFamily(
-        variables.text.fontFamily,
-        variables.text.fontWeight,
-        variables.text.fontStyle,
+        variables.primaryButtonText.fontFamily,
+        variables.primaryButtonText.fontWeight,
+        variables.primaryButtonText.fontStyle,
       ),
+      fontWeight: Platform.OS === 'ios' ? variables.primaryButtonText.fontWeight : 'normal',
+      fontStyle: Platform.OS === 'ios' ? variables.primaryButtonText.fontStyle : 'normal',
       letterSpacing: 1,
       marginVertical: 12,
       marginRight: 10,
@@ -1388,6 +1405,8 @@ export default (variables = defaultThemeVariables) => ({
           variables.title.fontWeight,
           variables.title.fontStyle,
         ),
+        fontWeight: Platform.OS === 'ios' ? variables.title.fontWeight : 'normal',
+        fontStyle: Platform.OS === 'ios' ? variables.title.fontStyle : 'normal',
         color: variables.featuredNavBarTitleColor,
       }),
 
@@ -1419,6 +1438,8 @@ export default (variables = defaultThemeVariables) => ({
         variables.navBarText.fontWeight,
         variables.navBarText.fontStyle,
       ),
+      fontWeight: Platform.OS === 'ios' ? variables.navBarText.fontWeight : 'normal',
+      fontStyle: Platform.OS === 'ios' ? variables.navBarText.fontStyle : 'normal',
       paddingHorizontal: 9,
     },
 
@@ -1438,6 +1459,7 @@ export default (variables = defaultThemeVariables) => ({
           variables.navBarText.fontStyle,
         ),
         fontWeight: 'normal',
+        fontStyle: Platform.OS === 'ios' ? variables.navBarText.fontStyle : 'normal',
         color: variables.navBarIconsColor,
         letterSpacing: 0,
       },
@@ -1459,10 +1481,11 @@ export default (variables = defaultThemeVariables) => ({
           ...variables.navBarText,
           fontFamily: resolveFontFamily(
             variables.navBarText.fontFamily,
-            'normal'
+            'normal',
             variables.navBarText.fontStyle,
           ),
           fontWeight: 'normal',
+          fontStyle: Platform.OS === 'ios' ? variables.navBarText.fontStyle : 'normal',
           color: variables.navBarIconsColor,
         },
       },
@@ -1532,6 +1555,8 @@ export default (variables = defaultThemeVariables) => ({
         variables.navBarText.fontWeight,
         variables.navBarText.fontStyle,
       ),
+      fontWeight: Platform.OS === 'ios' ? variables.navBarText.fontWeight : 'normal',
+      fontStyle: Platform.OS === 'ios' ? variables.navBarText.fontStyle : 'normal',
     },
 
     statusBar: {
@@ -1673,6 +1698,8 @@ export default (variables = defaultThemeVariables) => ({
         variables.navBarText.fontWeight,
         variables.navBarText.fontStyle,
       ),
+      fontWeight: Platform.OS === 'ios' ? variables.navBarText.fontWeight : 'normal',
+      fontStyle: Platform.OS === 'ios' ? variables.navBarText.fontStyle : 'normal',
     },
 
     container: {
@@ -1878,6 +1905,8 @@ export default (variables = defaultThemeVariables) => ({
       variables.text.fontWeight,
       variables.text.fontStyle,
     ),
+    fontWeight: Platform.OS === 'ios' ? variables.text.fontWeight : 'normal',
+    fontStyle: Platform.OS === 'ios' ? variables.text.fontStyle : 'normal',
   },
 
   'shoutem.ui.NumberInput': {
@@ -2007,6 +2036,7 @@ export default (variables = defaultThemeVariables) => ({
           ),
           color: variables.text.color,
           fontWeight: 'normal',
+          fontStyle: Platform.OS === 'ios' ? variables.navBarText.fontStyle : 'normal',
           textAlign: 'center',
         },
       },
@@ -2113,6 +2143,8 @@ export default (variables = defaultThemeVariables) => ({
           variables.subtitle.fontWeight,
           variables.subtitle.fontStyle,
         ),
+        fontWeight: Platform.OS === 'ios' ? variables.subtitle.fontWeight : 'normal',
+        fontStyle: Platform.OS === 'ios' ? variables.subtitle.fontStyle : 'normal',
       },
     },
     selectedModalItem: {
@@ -2129,7 +2161,8 @@ export default (variables = defaultThemeVariables) => ({
           '500',
           variables.subtitle.fontStyle,
         ),
-        fontWeight: '500'
+        fontWeight: Platform.OS === 'ios' ? '500' : 'normal',
+        fontStyle: Platform.OS === 'ios' ? variables.subtitle.fontStyle : 'normal',
       },
     },
 
