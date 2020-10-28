@@ -15,6 +15,8 @@ export {
   dimensionRelativeToIphone,
   calculateLineHeight,
   resolveFontFamily,
+  resolveFontWeight,
+  resolveFontStyle,
 };
 
 // Components
