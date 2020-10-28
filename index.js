@@ -4,6 +4,8 @@ import getTheme, {
   dimensionRelativeToIphone,
   calculateLineHeight,
   resolveFontFamily,
+  resolveFontWeight,
+  resolveFontStyle,
 } from './theme';
 
 setDefaultThemeStyle();
