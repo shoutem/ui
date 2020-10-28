@@ -490,7 +490,7 @@ export default (variables = defaultThemeVariables) => ({
       variables.text.fontStyle,
     ),
     fontWeight: resolveFontWeight(variables.text.fontWeight),
-    fontStyle: resolveFontStyle(variables.text.fontStyle,
+    fontStyle: resolveFontStyle(variables.text.fontStyle),
   },
 
   //
