@@ -52,8 +52,60 @@ export function dimensionRelativeToIphone(dimension, actualRefVal = window.width
   return getSizeRelativeToReference(dimension, 375, actualRefVal);
 }
 
-// This function is deprecated and replaced with calculateLineHeight. 
-// It remains present here because of the backward compatibility. 
+// 'fontWeight' and 'fontStyle' aren't always supplied for every component, so we're setting default
+// values of 'normal'.
+export function resolveFontFamily(fontName, fontWeight = 'normal', fontStyle = 'normal') {
+  if (Platform.OS === 'ios') {
+    return fontName;
+  }
+
+  // If we receive the fontName as Rubik-Regular, we should only use Rubik.
+  const resolvedFontName = fontName.split('-')[0];
+
+  // Currently, Android text will only be bolded for fontWeight 700. Every other (even higher) value
+  // will return the default, un-bolded text.
+  const isBold = parseInt(fontWeight) >= 700 || fontWeight === 'bold';
+  const isItalic = fontStyle === 'italic';
+
+  if (isBold && isItalic) {
+    return `${resolvedFontName}-BoldItalic`;
+  }
+
+  if (isBold) {
+    return `${resolvedFontName}-Bold`;
+  }
+
+  if (isItalic) {
+    return `${resolvedFontName}-Italic`;
+  }
+
+  return `${resolvedFontName}-Regular`;
+}
+
+// Currently, resolveFontFamily will provide fontWeight styling, but any value other than 'normal'
+// being provided to fontWeight will cause the default system font to be used, so we conditionally
+// resolve it.
+export function resolveFontWeight(fontWeight) {
+  if (Platform.OS === 'ios') {
+    return fontWeight;
+  }
+
+  return 'normal';
+}
+
+// Currently, resolveFontFamily will provide fontStyle styling, but any value other than 'normal'
+// being provided to fontStyle will cause the default system font to be used, so we conditionally
+// resolve it.
+export function resolveFontWeight(fontStyle) {
+  if (Platform.OS === 'ios') {
+    return fontStyle;
+  }
+
+  return 'normal';
+}
+
+// This function is deprecated and replaced with calculateLineHeight.
+// It remains present here because of the backward compatibility.
 export function formatLineHeight(fontSize) {
   // adds required padding to lineHeight to support
   // different alphabets (Kanji, Greek, etc.)
@@ -314,11 +366,11 @@ export default (variables = defaultThemeVariables) => ({
   },
 
   boldTextStyle: {
-    fontWeight: '500',
+    fontWeight: resolveFontWeight('500'),
   },
 
   italicTextStyle: {
-    fontStyle: 'italic',
+    fontStyle: resolveFontStyle('italic'),
   },
 
   codeTextStyle: {
@@ -376,6 +428,13 @@ export default (variables = defaultThemeVariables) => ({
 
     lineHeight: formatLineHeight(variables.heading.fontSize),
     ...variables.heading,
+    fontFamily: resolveFontFamily(
+      variables.heading.fontFamily,
+      variables.heading.fontWeight,
+      variables.heading.fontStyle,
+    ),
+    fontWeight: resolveFontWeight(variables.heading.fontWeight),
+    fontStyle: resolveFontStyle(variables.heading.fontStyle),
   },
 
   'shoutem.ui.Title': {
@@ -383,6 +442,13 @@ export default (variables = defaultThemeVariables) => ({
 
     lineHeight: formatLineHeight(variables.title.fontSize),
     ...variables.title,
+    fontFamily: resolveFontFamily(
+      variables.title.fontFamily,
+      variables.title.fontWeight,
+      variables.title.fontStyle,
+    ),
+    fontWeight: resolveFontWeight(variables.title.fontWeight),
+    fontStyle: resolveFontStyle(variables.title.fontStyle),
   },
 
   'shoutem.ui.Subtitle': {
@@ -390,6 +456,13 @@ export default (variables = defaultThemeVariables) => ({
 
     lineHeight: formatLineHeight(variables.subtitle.fontSize),
     ...variables.subtitle,
+    fontFamily: resolveFontFamily(
+      variables.subtitle.fontFamily,
+      variables.subtitle.fontWeight,
+      variables.subtitle.fontStyle,
+    ),
+    fontWeight: resolveFontWeight(variables.subtitle.fontWeight),
+    fontStyle: resolveFontStyle(variables.subtitle.fontStyle),
   },
 
   'shoutem.ui.Caption': {
@@ -398,12 +471,26 @@ export default (variables = defaultThemeVariables) => ({
     lineHeight: formatLineHeight(variables.caption.fontSize),
     letterSpacing: 0.5,
     ...variables.caption,
+    fontFamily: resolveFontFamily(
+      variables.caption.fontFamily,
+      variables.caption.fontWeight,
+      variables.caption.fontStyle,
+    ),
+    fontWeight: resolveFontWeight(variables.caption.fontWeight),
+    fontStyle: resolveFontStyle(variables.caption.fontStyle),
   },
 
   'shoutem.ui.Text': {
     [INCLUDE]: ['text'],
 
     ...variables.text,
+    fontFamily: resolveFontFamily(
+      variables.text.fontFamily,
+      variables.text.fontWeight,
+      variables.text.fontStyle,
+    ),
+    fontWeight: resolveFontWeight(variables.text.fontWeight),
+    fontStyle: resolveFontStyle(variables.text.fontStyle,
   },
 
   //
@@ -1038,6 +1125,13 @@ export default (variables = defaultThemeVariables) => ({
     'shoutem.ui.Text': {
       // Inherit color
       ...variables.text,
+      fontFamily: resolveFontFamily(
+        variables.text.fontFamily,
+        variables.text.fontWeight,
+        variables.text.fontStyle,
+      ),
+      fontWeight: resolveFontWeight(variables.text.fontWeight),
+      fontStyle: resolveFontStyle(variables.text.fontStyle),
     },
 
     'shoutem.ui.Icon': {
@@ -1132,6 +1226,13 @@ export default (variables = defaultThemeVariables) => ({
 
     'shoutem.ui.Text': {
       ...variables.primaryButtonText,
+      fontFamily: resolveFontFamily(
+        variables.primaryButtonText.fontFamily,
+        variables.primaryButtonText.fontWeight,
+        variables.primaryButtonText.fontStyle,
+      ),
+      fontWeight: resolveFontWeight(variables.primaryButtonText.fontWeight),
+      fontStyle: resolveFontStyle(variables.primaryButtonText.fontStyle),
       letterSpacing: 1,
       marginVertical: 12,
       marginRight: 10,
@@ -1321,6 +1422,13 @@ export default (variables = defaultThemeVariables) => ({
       },
 
       ...createSharedStyle(['shoutem.ui.Title', 'shoutem.ui.Icon', 'shoutem.ui.Text'], {
+        fontFamily: resolveFontFamily(
+          variables.title.fontFamily,
+          variables.title.fontWeight,
+          variables.title.fontStyle,
+        ),
+        fontWeight: resolveFontWeight(variables.title.fontWeight),
+        fontStyle: resolveFontStyle(variables.title.fontStyle),
         color: variables.featuredNavBarTitleColor,
       }),
 
@@ -1347,6 +1455,13 @@ export default (variables = defaultThemeVariables) => ({
     'shoutem.ui.Text': {
       [INCLUDE]: ['navigationBarTextAnimations'],
       ...variables.navBarText,
+      fontFamily: resolveFontFamily(
+        variables.navBarText.fontFamily,
+        variables.navBarText.fontWeight,
+        variables.navBarText.fontStyle,
+      ),
+      fontWeight: resolveFontWeight(variables.navBarText.fontWeight),
+      fontStyle: resolveFontStyle(variables.navBarText.fontStyle),
       paddingHorizontal: 9,
     },
 
@@ -1360,7 +1475,13 @@ export default (variables = defaultThemeVariables) => ({
       'shoutem.ui.Text': {
         [INCLUDE]: ['navigationBarTextAnimations'],
         ...variables.navBarText,
-        fontWeight: 'normal',
+        fontFamily: resolveFontFamily(
+          variables.navBarText.fontFamily,
+          'normal',
+          variables.navBarText.fontStyle,
+        ),
+        fontWeight: resolveFontWeight('normal'),
+        fontStyle: resolveFontStyle(variables.navBarText.fontStyle),
         color: variables.navBarIconsColor,
         letterSpacing: 0,
       },
@@ -1380,7 +1501,13 @@ export default (variables = defaultThemeVariables) => ({
         },
         'shoutem.ui.Text': {
           ...variables.navBarText,
-          fontWeight: 'normal',
+          fontFamily: resolveFontFamily(
+            variables.navBarText.fontFamily,
+            'normal',
+            variables.navBarText.fontStyle,
+          ),
+          fontWeight: resolveFontWeight('normal'),
+          fontStyle: resolveFontStyle(variables.navBarText.fontStyle),
           color: variables.navBarIconsColor,
         },
       },
@@ -1445,6 +1572,13 @@ export default (variables = defaultThemeVariables) => ({
       color: variables.navBarText.color,
       lineHeight: formatLineHeight(variables.navBarText.fontSize),
       ...variables.navBarText,
+      fontFamily: resolveFontFamily(
+        variables.navBarText.fontFamily,
+        variables.navBarText.fontWeight,
+        variables.navBarText.fontStyle,
+      ),
+      fontWeight: resolveFontWeight(variables.navBarText.fontWeight),
+      fontStyle: resolveFontStyle(variables.navBarText.fontStyle),
     },
 
     statusBar: {
@@ -1581,6 +1715,13 @@ export default (variables = defaultThemeVariables) => ({
       textAlign: 'center',
       lineHeight: formatLineHeight(variables.navBarText.fontSize),
       ...variables.navBarText,
+      fontFamily: resolveFontFamily(
+        variables.navBarText.fontFamily,
+        variables.navBarText.fontWeight,
+        variables.navBarText.fontStyle,
+      ),
+      fontWeight: resolveFontWeight(variables.navBarText.fontWeight),
+      fontStyle: resolveFontStyle(variables.navBarText.fontStyle),
     },
 
     container: {
@@ -1781,6 +1922,13 @@ export default (variables = defaultThemeVariables) => ({
     paddingVertical: 18,
     underlineColorAndroid: 'transparent',
     ...variables.text,
+    fontFamily: resolveFontFamily(
+      variables.text.fontFamily,
+      variables.text.fontWeight,
+      variables.text.fontStyle,
+    ),
+    fontWeight: resolveFontWeight(variables.text.fontWeight),
+    fontStyle: resolveFontStyle(variables.text.fontStyle),
   },
 
   'shoutem.ui.NumberInput': {
@@ -1903,8 +2051,14 @@ export default (variables = defaultThemeVariables) => ({
         },
         'shoutem.ui.Text': {
           ...variables.navBarText,
+          fontFamily: resolveFontFamily(
+            variables.navBarText.fontFamily,
+            'normal',
+            variables.navBarText.fontStyle,
+          ),
           color: variables.text.color,
-          fontWeight: 'normal',
+          fontWeight: resolveFontWeight('normal'),
+          fontStyle: resolveFontStyle(variables.navBarText.fontStyle),
           textAlign: 'center',
         },
       },
@@ -2006,6 +2160,13 @@ export default (variables = defaultThemeVariables) => ({
         paddingVertical: 23,
         alignSelf: 'stretch',
         ...variables.subtitle,
+        fontFamily: resolveFontFamily(
+          variables.subtitle.fontFamily,
+          variables.subtitle.fontWeight,
+          variables.subtitle.fontStyle,
+        ),
+        fontWeight: resolveFontWeight(variables.subtitle.fontWeight),
+        fontStyle: resolveFontStyle(variables.subtitle.fontStyle),
       },
     },
     selectedModalItem: {
@@ -2017,7 +2178,13 @@ export default (variables = defaultThemeVariables) => ({
         paddingVertical: 23,
         alignSelf: 'stretch',
         ...variables.subtitle,
-        fontWeight: '500'
+        fontFamily: resolveFontFamily(
+          variables.subtitle.fontFamily,
+          '500',
+          variables.subtitle.fontStyle,
+        ),
+        fontWeight: resolveFontWeight('500'),
+        fontStyle: resolveFontStyle(variables.subtitle.fontStyle),
       },
     },
 
@@ -2476,7 +2643,7 @@ export default (variables = defaultThemeVariables) => ({
     },
     cancelText: {
       textAlign: 'center',
-      fontWeight: '700',
+      fontWeight: resolveFontWeight('700'),
     },
   },
 
