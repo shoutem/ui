@@ -96,7 +96,7 @@ export function resolveFontWeight(fontWeight) {
 // Currently, resolveFontFamily will provide fontStyle styling, but any value other than 'normal'
 // being provided to fontStyle will cause the default system font to be used, so we conditionally
 // resolve it.
-export function resolveFontWeight(fontStyle) {
+export function resolveFontStyle(fontStyle) {
   if (Platform.OS === 'ios') {
     return fontStyle;
   }
