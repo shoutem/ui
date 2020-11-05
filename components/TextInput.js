@@ -32,11 +32,15 @@ class TextInput extends PureComponent {
     const { highlightWhenFocused, errorMessage, style } = this.props;
     const { isFocused } = this.state;
 
-    const resolvedStyle = {
+    let resolvedStyle = {
       ...style,
-      borderWidth: (isFocused || errorMessage) ? 1 : 0,
-      borderColor: style.errorBorderColor,
-    };
+      borderWidth: (isFocused || !!errorMessage) ? 1 : 0,
+    }
+
+    if (!!errorMessage) {
+      resolvedStyle.borderColor = style.errorBorderColor;
+    }
+
     delete resolvedStyle.placeholderTextColor;
     delete resolvedStyle.selectionColor;
     delete resolvedStyle.underlineColorAndroid;

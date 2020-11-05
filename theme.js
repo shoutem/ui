@@ -1937,6 +1937,7 @@ export default (variables = defaultThemeVariables) => ({
     selectionColor: variables.text.color,
     placeholderTextColor: changeColorAlpha(variables.text.color, 0.5),
     backgroundColor: variables.paperColor,
+    borderColor: variables.text.color,
     height: 55,
     paddingHorizontal: variables.mediumGutter,
     paddingVertical: 18,
