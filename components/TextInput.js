@@ -1,28 +1,75 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
+import autoBindReact from 'auto-bind/react';
+import PropTypes from 'prop-types';
 import { TextInput as RNTextInput } from 'react-native';
 
-import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
+import { connectStyle } from '@shoutem/theme';
+
+import { Caption } from './Text';
+import { View } from './View';
 
 class TextInput extends PureComponent {
-  render() {
-    const { props } = this;
-    const style = {
-      ...props.style,
+  constructor(props) {
+    super(props);
+
+    autoBindReact(this);
+
+    this.state = {
+      isFocused: props.highlightWhenFocused && props.autoFocus,
     };
-    delete style.placeholderTextColor;
-    delete style.selectionColor;
-    delete style.underlineColorAndroid;
+  }
+
+  handleFocus() {
+    this.setState({ isFocused: true });
+  }
+
+  handleBlur() {
+    this.setState({ isFocused: false });
+  }
+
+  resolveProps() {
+    const { highlightWhenFocused, errorMessage, style } = this.props;
+    const { isFocused } = this.state;
+
+    const resolvedStyle = {
+      ...style,
+      borderWidth: (isFocused || errorMessage) ? 1 : 0,
+      borderColor: style.errorBorderColor,
+    };
+    delete resolvedStyle.placeholderTextColor;
+    delete resolvedStyle.selectionColor;
+    delete resolvedStyle.underlineColorAndroid;
+
+    if (highlightWhenFocused) {
+      return {
+        onFocus: () => this.handleFocus(),
+        onBlur: () => this.handleBlur(),
+        style: resolvedStyle,
+      };
+    }
+
+    return { style: resolvedStyle };
+  }
+
+  render() {
+    const { errorMessage, style } = this.props;
 
     return (
-      <RNTextInput
-        {...props}
-        style={style}
-        placeholderTextColor={props.style.placeholderTextColor}
-        selectionColor={props.style.selectionColor}
-        underlineColorAndroid={props.style.underlineColorAndroid}
-      />
+      <View>
+        <RNTextInput
+          {...this.props}
+          {...this.resolveProps()}
+          placeholderTextColor={style.placeholderTextColor}
+          selectionColor={style.selectionColor}
+          underlineColorAndroid={style.underlineColorAndroid}
+        />
+        {!!errorMessage &&
+          <Caption styleName="form-error sm-gutter-top">
+            {errorMessage}
+          </Caption>
+        }
+      </View>
     );
   }
 }
@@ -30,6 +77,8 @@ class TextInput extends PureComponent {
 TextInput.propTypes = {
   ...RNTextInput.propTypes,
   style: PropTypes.object,
+  highlightWhenFocused: PropTypes.bool,
+  errorMessage: PropTypes.string,
 };
 
 const AnimatedTextInput = connectAnimation(TextInput);

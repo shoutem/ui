@@ -167,6 +167,13 @@ export const defaultThemeVariables = {
     fontSize: 15,
     color: '#666666',
   },
+  errorText: {
+    fontFamily: 'Rubik-Regular',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    fontSize: 12,
+    color: '#FF0000',
+  },
 
   imageOverlayColor: 'rgba(0, 0, 0, 0.2)',
   imageOverlayTextColor: '#FFFFFF',
@@ -478,6 +485,19 @@ export default (variables = defaultThemeVariables) => ({
     ),
     fontWeight: resolveFontWeight(variables.caption.fontWeight),
     fontStyle: resolveFontStyle(variables.caption.fontStyle),
+
+    '.form-error': {
+      color: variables.errorText.color,
+      fontFamily: resolveFontFamily(
+        variables.errorText.fontFamily,
+        variables.errorText.fontWeight,
+        variables.errorText.fontStyle,
+      ),
+      fontSize: variables.errorText.fontSize,
+      fontStyle: resolveFontStyle(variables.errorText.fontStyle),
+      fontWeight: resolveFontWeight(variables.errorText.fontWeight),
+      lineHeight: calculateLineHeight(variables.errorText.fontSize),
+    }
   },
 
   'shoutem.ui.Text': {
@@ -1929,6 +1949,8 @@ export default (variables = defaultThemeVariables) => ({
     ),
     fontWeight: resolveFontWeight(variables.text.fontWeight),
     fontStyle: resolveFontStyle(variables.text.fontStyle),
+
+    errorBorderColor: variables.errorText.color,
   },
 
   'shoutem.ui.NumberInput': {
