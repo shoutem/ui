@@ -4,18 +4,21 @@ import { connectStyle } from '@shoutem/theme';
 import { Text, View } from '@shoutem/ui';
 import EmptyList from '../assets/images/emptyList.svg'
 
-function EmptyListView({ message, title }) {
-
-  return (
-    <View styleName="vertical h-center">
-      <EmptyList style={style.image} />
-      <Text style={style.title}>{title}</Text>
-      <Text style={style.description} styleName="h-center">
-        {message}
-      </Text>
-    </View >
-  );
+class EmptyListView extends PureComponent {
+  render() {
+    const { message, title, style } = this.props
+    return (
+      <View styleName="vertical h-center">
+        <EmptyList style={style.image} />
+        <Text style={style.title}>{title}</Text>
+        <Text style={style.description} styleName="h-center">
+          {message}
+        </Text>
+      </View >
+    );
+  }
 }
+
 
 EmptyListView.propTypes = {
   ...EmptyListView.propTypes,
