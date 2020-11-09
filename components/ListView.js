@@ -37,6 +37,7 @@ class ListView extends PureComponent {
   static propTypes = {
     autoHideHeader: PropTypes.bool,
     style: PropTypes.object,
+    contentContainerStyle: PropTypes.object,
     data: PropTypes.array,
     loading: PropTypes.bool,
     onLoadMore: PropTypes.func,
@@ -122,6 +123,7 @@ class ListView extends PureComponent {
       onRefresh,
       onLoadMoreThreshold,
       keyExtractor,
+      contentContainerStyle,
     } = this.props;
     const { refreshing } = this.state;
     const mappedProps = {
@@ -134,7 +136,7 @@ class ListView extends PureComponent {
 
     // style
     mappedProps.style = style.list;
-    mappedProps.contentContainerStyle = style.listContent;
+    mappedProps.contentContainerStyle = { ...contentContainerStyle, ...style.listContent };
 
     if ((Platform.OS === 'ios') && (parseInt(Platform.Version, 10) === 13)) {
       mappedProps.scrollIndicatorInsets = { right: 1 };
