@@ -5,6 +5,11 @@ import { Text, View } from '@shoutem/ui';
 import EmptyList from '../assets/images/emptyList.svg'
 
 class EmptyListView extends PureComponent {
+  static defaultProps = {
+    title: "It's empty in here",
+    message: "We couldn't find anything to show...",
+  }
+
   render() {
     const { message, title, style } = this.props
 
