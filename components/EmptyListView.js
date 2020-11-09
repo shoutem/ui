@@ -20,7 +20,6 @@ class EmptyListView extends PureComponent {
   }
 }
 
-
 EmptyListView.propTypes = {
   ...EmptyListView.propTypes,
   message: PropTypes.string,
