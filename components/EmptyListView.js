@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { connectStyle } from '@shoutem/theme';
 import { Text, View } from '@shoutem/ui';
 import EmptyList from '../assets/images/emptyList.svg'
@@ -7,6 +7,7 @@ import EmptyList from '../assets/images/emptyList.svg'
 class EmptyListView extends PureComponent {
   render() {
     const { message, title, style } = this.props
+
     return (
       <View styleName="vertical h-center">
         <EmptyList style={style.image} />
