@@ -167,6 +167,13 @@ export const defaultThemeVariables = {
     fontSize: 15,
     color: '#666666',
   },
+  errorText: {
+    fontFamily: 'Rubik-Regular',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    fontSize: 12,
+    color: '#FF0000',
+  },
 
   imageOverlayColor: 'rgba(0, 0, 0, 0.2)',
   imageOverlayTextColor: '#FFFFFF',
@@ -478,6 +485,19 @@ export default (variables = defaultThemeVariables) => ({
     ),
     fontWeight: resolveFontWeight(variables.caption.fontWeight),
     fontStyle: resolveFontStyle(variables.caption.fontStyle),
+
+    '.form-error': {
+      color: variables.errorText.color,
+      fontFamily: resolveFontFamily(
+        variables.errorText.fontFamily,
+        variables.errorText.fontWeight,
+        variables.errorText.fontStyle,
+      ),
+      fontSize: variables.errorText.fontSize,
+      fontStyle: resolveFontStyle(variables.errorText.fontStyle),
+      fontWeight: resolveFontWeight(variables.errorText.fontWeight),
+      lineHeight: calculateLineHeight(variables.errorText.fontSize),
+    }
   },
 
   'shoutem.ui.Text': {
@@ -1933,6 +1953,7 @@ export default (variables = defaultThemeVariables) => ({
     selectionColor: variables.text.color,
     placeholderTextColor: changeColorAlpha(variables.text.color, 0.5),
     backgroundColor: variables.paperColor,
+    borderColor: variables.text.color,
     height: 55,
     paddingHorizontal: variables.mediumGutter,
     paddingVertical: 18,
@@ -1945,6 +1966,17 @@ export default (variables = defaultThemeVariables) => ({
     ),
     fontWeight: resolveFontWeight(variables.text.fontWeight),
     fontStyle: resolveFontStyle(variables.text.fontStyle),
+
+    errorBorder: {
+      borderWidth: 1,
+      borderColor: variables.errorText.color,
+    },
+    withBorder: {
+      borderWidth: 1,
+    },
+    withoutBorder: {
+      borderWidth: 0,
+    },
   },
 
   'shoutem.ui.NumberInput': {
