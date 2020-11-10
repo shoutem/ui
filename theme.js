@@ -1545,24 +1545,28 @@ export default (variables = defaultThemeVariables) => ({
     },
   },
   'shoutem.ui.EmptyListView': {
-    image: {
-      marginTop: 45,
-      marginBottom: 30,
-    },
-    title: {
-      fontWeight: resolveFontWeight('500'),
-      fontSize: 21,
-      lineHeight: 25,
-      marginBottom: 20,
-      letterSpacing: -0.165,
-
-    },
-    description: {
-      fontSize: 13,
-      lineHeight: 18,
-      letterSpacing: -0.165,
-      maxWidth: 200,
-    },
+    'shoutem.ui.View': {
+      'shoutem.ui.Image': {
+        '.image': {
+          resizeMode: 'contain',
+          marginTop: 45,
+          marginBottom: 30,
+        }
+      },
+      'shoutem.ui.Title': {
+        '.title': {
+          maxWidth: 250,
+          marginBottom: 20,
+          textAlign: 'center',
+        }
+      },
+      'shoutem.ui.Text': {
+        '.description': {
+          textAlign: 'center',
+          maxWidth: 250,
+        }
+      }
+    }
   },
   'shoutem.ui.NavigationBar': {
     [INCLUDE]: ['navigationBar'],

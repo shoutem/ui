@@ -15,6 +15,7 @@ import { connectStyle } from '@shoutem/theme';
 import { Caption } from './Text';
 import { Divider } from './Divider';
 import { Spinner } from './Spinner';
+import { EmptyListView } from './EmptyListView';
 
 const Status = {
   LOADING: 'loading',
@@ -124,6 +125,7 @@ class ListView extends PureComponent {
       onLoadMoreThreshold,
       keyExtractor,
       contentContainerStyle,
+      ListEmptyComponent,
     } = this.props;
     const { refreshing } = this.state;
     const mappedProps = {
@@ -178,6 +180,11 @@ class ListView extends PureComponent {
 
     // is data refreshing
     mappedProps.refreshing = refreshing === Status.REFRESHING;
+
+    // if list is empty, show empty placeholder
+    if (!ListEmptyComponent) {
+      mappedProps.ListEmptyComponent = EmptyListView;
+    }
 
     // refresh control
     mappedProps.refreshControl = onRefresh && this.renderRefreshControl();
