@@ -1544,6 +1544,22 @@ export default (variables = defaultThemeVariables) => ({
       };
     },
   },
+  'shoutem.ui.EmptyListImage': {
+    image: {
+      resizeMode: 'contain',
+      marginTop: 45,
+      marginBottom: 30,
+    },
+    title: {
+      maxWidth: 250,
+      marginBottom: 20,
+      textAlign: 'center',
+    },
+    message: {
+      textAlign: 'center',
+      maxWidth: 250,
+    },
+  },
   'shoutem.ui.NavigationBar': {
     [INCLUDE]: ['navigationBar'],
     '.clear': {
