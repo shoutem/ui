@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import autoBindReact from 'auto-bind/react';
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { TextInput as RNTextInput } from 'react-native';
 
@@ -16,7 +17,7 @@ class TextInput extends PureComponent {
     autoBindReact(this);
 
     this.state = {
-      isFocused: props.highlightWhenFocused && props.autoFocus,
+      isFocused: props.highlightOnFocus && props.autoFocus,
     };
   }
 
@@ -29,11 +30,11 @@ class TextInput extends PureComponent {
   }
 
   resolveProps() {
-    const { highlightWhenFocused, errorMessage, style } = this.props;
+    const { highlightOnFocus, errorMessage, style } = this.props;
     const { isFocused } = this.state;
 
     let resolvedStyle = {
-      ...style,
+      ..._.omit(style, ['placeholderTextColor', 'selectionColor', 'underlineColorAndroid']),
       borderWidth: (isFocused || !!errorMessage) ? 1 : 0,
     }
 
@@ -41,14 +42,10 @@ class TextInput extends PureComponent {
       resolvedStyle.borderColor = style.errorBorderColor;
     }
 
-    delete resolvedStyle.placeholderTextColor;
-    delete resolvedStyle.selectionColor;
-    delete resolvedStyle.underlineColorAndroid;
-
-    if (highlightWhenFocused) {
+    if (highlightOnFocus) {
       return {
-        onFocus: () => this.handleFocus(),
-        onBlur: () => this.handleBlur(),
+        onFocus: this.handleFocus,
+        onBlur: this.handleBlur,
         style: resolvedStyle,
       };
     }
@@ -81,7 +78,7 @@ class TextInput extends PureComponent {
 TextInput.propTypes = {
   ...RNTextInput.propTypes,
   style: PropTypes.object,
-  highlightWhenFocused: PropTypes.bool,
+  highlightOnFocus: PropTypes.bool,
   errorMessage: PropTypes.string,
 };
 
