@@ -6,7 +6,7 @@ import { connectStyle } from '@shoutem/theme';
 import { Text, Title, View } from '@shoutem/ui';
 import EmptyList from '../assets/images/emptyList.svg'
 
-class EmptyListView extends PureComponent {
+class EmptyListImage extends PureComponent {
   static defaultProps = {
     title: "It's empty in here",
     message: "We couldn't find anything to show...",
@@ -36,16 +36,16 @@ class EmptyListView extends PureComponent {
 
     return (
       <View styleName="vertical h-center ">
-        <EmptyStateImage style={imageStyle || style.image} />
-        <Title styleName="title" style={titleStyle}>{title}</Title>
-        <Text styleName="description" style={messageStyle}>{message}</Text>
+        <EmptyStateImage style={[style.image, imageStyle]} />
+        <Title styleName="title" style={[style.title, titleStyle]}>{title}</Title>
+        <Text styleName="description" style={[style.message, messageStyle]}>{message}</Text>
       </View >
     );
   }
 }
 
-EmptyListView.propTypes = {
-  ...EmptyListView.propTypes,
+EmptyListImage.propTypes = {
+  ...EmptyListImage.propTypes,
   image: PropTypes.func,
   imageStyle: PropTypes.object,
   message: PropTypes.string,
@@ -54,8 +54,8 @@ EmptyListView.propTypes = {
   titleStyle: PropTypes.object,
 };
 
-const StyledView = connectStyle('shoutem.ui.EmptyListView')(EmptyListView);
+const StyledView = connectStyle('shoutem.ui.EmptyListImage')(EmptyListImage);
 
 export {
-  StyledView as EmptyListView,
+  StyledView as EmptyListImage,
 };
