@@ -15,6 +15,7 @@ import { connectStyle } from '@shoutem/theme';
 import { Caption } from './Text';
 import { Divider } from './Divider';
 import { Spinner } from './Spinner';
+import { EmptyListImage } from './EmptyListImage';
 
 const Status = {
   LOADING: 'loading',
@@ -37,6 +38,7 @@ class ListView extends PureComponent {
   static propTypes = {
     autoHideHeader: PropTypes.bool,
     style: PropTypes.object,
+    contentContainerStyle: PropTypes.object,
     data: PropTypes.array,
     loading: PropTypes.bool,
     onLoadMore: PropTypes.func,
@@ -122,6 +124,8 @@ class ListView extends PureComponent {
       onRefresh,
       onLoadMoreThreshold,
       keyExtractor,
+      contentContainerStyle,
+      ListEmptyComponent,
     } = this.props;
     const { refreshing } = this.state;
     const mappedProps = {
@@ -134,7 +138,7 @@ class ListView extends PureComponent {
 
     // style
     mappedProps.style = style.list;
-    mappedProps.contentContainerStyle = style.listContent;
+    mappedProps.contentContainerStyle = { ...contentContainerStyle, ...style.listContent };
 
     if ((Platform.OS === 'ios') && (parseInt(Platform.Version, 10) === 13)) {
       mappedProps.scrollIndicatorInsets = { right: 1 };
@@ -176,6 +180,11 @@ class ListView extends PureComponent {
 
     // is data refreshing
     mappedProps.refreshing = refreshing === Status.REFRESHING;
+
+    // if list is empty, show empty placeholder
+    if (!ListEmptyComponent) {
+      mappedProps.ListEmptyComponent = EmptyListImage;
+    }
 
     // refresh control
     mappedProps.refreshControl = onRefresh && this.renderRefreshControl();
