@@ -10,6 +10,16 @@ import { connectStyle } from '@shoutem/theme';
 import { Caption } from './Text';
 import { View } from './View';
 
+// Style properties defined in theme which would case a warning if passed to a components style prop
+const omittedStyleProperties = [
+  'errorBorder',
+  'placeholderTextColor',
+  'selectionColor',
+  'underlineColorAndroid',
+  'withBorder',
+  'withoutBorder',
+];
+
 class TextInput extends PureComponent {
   constructor(props) {
     super(props);
@@ -21,49 +31,32 @@ class TextInput extends PureComponent {
     };
   }
 
-  handleFocus() {
-    this.setState({ isFocused: true });
-  }
-
   handleBlur() {
     this.setState({ isFocused: false });
   }
 
-  resolveProps() {
-    const { highlightOnFocus, errorMessage, style } = this.props;
-    const { isFocused } = this.state;
-
-    let resolvedStyle = {
-      ..._.omit(style, ['placeholderTextColor', 'selectionColor', 'underlineColorAndroid']),
-      borderWidth: (isFocused || !!errorMessage) ? 1 : 0,
-    }
-
-    if (!!errorMessage) {
-      resolvedStyle.borderColor = style.errorBorderColor;
-    }
-
-    if (highlightOnFocus) {
-      return {
-        onFocus: this.handleFocus,
-        onBlur: this.handleBlur,
-        style: resolvedStyle,
-      };
-    }
-
-    return { style: resolvedStyle };
+  handleFocus() {
+    this.setState({ isFocused: true });
   }
 
   render() {
-    const { errorMessage, style } = this.props;
+    const { errorMessage, highlightOnFocus, style } = this.props;
+    const { isFocused } = this.state;
 
     return (
       <View>
         <RNTextInput
-          {...this.props}
-          {...this.resolveProps()}
+          {..._.omit(this.props, 'style')}
+          onBlur={this.handleBlur}
+          onFocus={this.handleFocus}
           placeholderTextColor={style.placeholderTextColor}
           selectionColor={style.selectionColor}
           underlineColorAndroid={style.underlineColorAndroid}
+          style={[
+            _.omit(style, omittedStyleProperties),
+            (isFocused && highlightOnFocus) ? style.withBorder : style.withoutBorder,
+            !!errorMessage && style.errorBorder,
+          ]}
         />
         {!!errorMessage &&
           <Caption styleName="form-error sm-gutter-top">
@@ -78,8 +71,6 @@ class TextInput extends PureComponent {
 TextInput.propTypes = {
   ...RNTextInput.propTypes,
   style: PropTypes.object,
-  highlightOnFocus: PropTypes.bool,
-  errorMessage: PropTypes.string,
 };
 
 const AnimatedTextInput = connectAnimation(TextInput);
