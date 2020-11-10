@@ -31,12 +31,12 @@ class EmptyListView extends PureComponent {
   }
 
   render() {
-    const { message, title, imageStyle, titleStyle, messageStyle } = this.props
+    const { message, title, imageStyle, titleStyle, messageStyle, style } = this.props
     const EmptyStateImage = this.resolveImage();
 
     return (
-      <View styleName="vertical h-center">
-        <EmptyStateImage styleName='image' style={imageStyle} />
+      <View styleName="vertical h-center ">
+        <EmptyStateImage style={imageStyle || style.image} />
         <Title styleName="title" style={titleStyle}>{title}</Title>
         <Text styleName="description" style={messageStyle}>{message}</Text>
       </View >

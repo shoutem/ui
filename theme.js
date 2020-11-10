@@ -1545,14 +1545,12 @@ export default (variables = defaultThemeVariables) => ({
     },
   },
   'shoutem.ui.EmptyListView': {
+    image: {
+      resizeMode: 'contain',
+      marginTop: 45,
+      marginBottom: 30,
+    },
     'shoutem.ui.View': {
-      'shoutem.ui.Image': {
-        '.image': {
-          resizeMode: 'contain',
-          marginTop: 45,
-          marginBottom: 30,
-        }
-      },
       'shoutem.ui.Title': {
         '.title': {
           maxWidth: 250,
