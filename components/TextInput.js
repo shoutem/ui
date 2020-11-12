@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import autoBindReact from 'auto-bind/react';
-import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { TextInput as RNTextInput } from 'react-native';
 
