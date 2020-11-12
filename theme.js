@@ -1967,16 +1967,9 @@ export default (variables = defaultThemeVariables) => ({
     fontWeight: resolveFontWeight(variables.text.fontWeight),
     fontStyle: resolveFontStyle(variables.text.fontStyle),
 
-    errorBorder: {
-      borderWidth: 1,
-      borderColor: variables.errorText.color,
-    },
-    withBorder: {
-      borderWidth: 1,
-    },
-    withoutBorder: {
-      borderWidth: 0,
-    },
+    errorBorderColor: variables.errorText.color,
+    withBorder: 1,
+    withoutBorder: 0,
   },
 
   'shoutem.ui.NumberInput': {
