@@ -38,7 +38,7 @@ class TextInput extends PureComponent {
     const { isFocused } = this.state;
 
     const {
-      errorBorder,
+      errorBorderColor,
       placeholderTextColor,
       selectionColor,
       underlineColorAndroid,
