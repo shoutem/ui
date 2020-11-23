@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import autoBindReact from 'auto-bind/react';
-import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { TextInput as RNTextInput } from 'react-native';
 
@@ -9,16 +8,6 @@ import { connectStyle } from '@shoutem/theme';
 
 import { Caption } from './Text';
 import { View } from './View';
-
-// Style properties defined in theme which would case a warning if passed to a components style prop
-const omittedStyleProperties = [
-  'errorBorder',
-  'placeholderTextColor',
-  'selectionColor',
-  'underlineColorAndroid',
-  'withBorder',
-  'withoutBorder',
-];
 
 class TextInput extends PureComponent {
   constructor(props) {
@@ -40,23 +29,40 @@ class TextInput extends PureComponent {
   }
 
   render() {
-    const { errorMessage, highlightOnFocus, style } = this.props;
+    const {
+      errorMessage,
+      highlightOnFocus,
+      style,
+      ...otherProps
+    } = this.props;
     const { isFocused } = this.state;
+
+    const {
+      errorBorderColor,
+      placeholderTextColor,
+      selectionColor,
+      underlineColorAndroid,
+      withBorder,
+      withoutBorder,
+      ...otherStyle
+    } = style;
+
+    const hasBorder = (isFocused && highlightOnFocus) || !!errorMessage;
 
     return (
       <View>
         <RNTextInput
-          {..._.omit(this.props, 'style')}
+          {...otherProps}
           onBlur={this.handleBlur}
           onFocus={this.handleFocus}
           placeholderTextColor={style.placeholderTextColor}
           selectionColor={style.selectionColor}
           underlineColorAndroid={style.underlineColorAndroid}
-          style={[
-            _.omit(style, omittedStyleProperties),
-            (isFocused && highlightOnFocus) ? style.withBorder : style.withoutBorder,
-            !!errorMessage && style.errorBorder,
-          ]}
+          style={{
+            ...otherStyle,
+            ...(hasBorder ? style.withBorder : style.withoutBorder),
+            ...(!!errorMessage ? style.errorBorderColor : {}),
+          }}
         />
         {!!errorMessage &&
           <Caption styleName="form-error sm-gutter-top">

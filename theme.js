@@ -1967,8 +1967,7 @@ export default (variables = defaultThemeVariables) => ({
     fontWeight: resolveFontWeight(variables.text.fontWeight),
     fontStyle: resolveFontStyle(variables.text.fontStyle),
 
-    errorBorder: {
-      borderWidth: 1,
+    errorBorderColor: {
       borderColor: variables.errorText.color,
     },
     withBorder: {
