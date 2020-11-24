@@ -183,7 +183,7 @@ class ListView extends PureComponent {
 
     // if list is empty, show empty placeholder
     if (!ListEmptyComponent) {
-      mappedProps.ListEmptyComponent = EmptyListImage;
+      mappedProps.ListEmptyComponent = this.renderListEmptyComponent();
     }
 
     // refresh control
@@ -281,6 +281,20 @@ class ListView extends PureComponent {
     );
   }
 
+  renderListEmptyComponent() {
+    const { ListEmptyComponent, loading } = this.props
+
+    if (loading) {
+      return null;
+    }
+
+    if (ListEmptyComponent) {
+      return <ListEmptyComponent />;
+    }
+
+    <EmptyListImage />
+  }
+
   renderRefreshControl() {
     const { style } = this.props;
     const { status } = this.state;
@@ -300,7 +314,13 @@ class ListView extends PureComponent {
   }
 
   render() {
-    const { sections, hasFeaturedItem } = this.props;
+    const { sections, hasFeaturedItem, ListEmptyComponent, loading } = this.props;
+
+    /* ListEmptyComponent in SectionList is handled differently due to the known issue with empty data interpretation.
+    https://github.com/facebook/react-native/issues/14721 */
+    if (sections && _.every(sections, (section) => _.isEmpty(section.data)) && !loading) {
+      return ListEmptyComponent ? <ListEmptyComponent /> : <EmptyListImage />;
+    }
 
     if (sections || hasFeaturedItem) {
       return <SectionList {...this.getPropsToPass()} />;
