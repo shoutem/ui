@@ -167,6 +167,13 @@ export const defaultThemeVariables = {
     fontSize: 15,
     color: '#666666',
   },
+  links: {
+    fontFamily: 'Rubik-Regular',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    fontSize: 15,
+    color: '#666666',
+  },
   errorText: {
     fontFamily: 'Rubik-Regular',
     fontStyle: 'normal',
