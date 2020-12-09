@@ -2595,7 +2595,7 @@ export default (variables = defaultThemeVariables) => ({
             NAVIGATION_BAR_HEIGHT +
             (Platform.OS === "ios"
               ? variables.extraLargeGutter + variables.extraLargeGutter
-              : variables.mediumGutter),
+              : variables.extraLargeGutter + variables.mediumGutter),
         },
       },
     },

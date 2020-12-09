@@ -30,7 +30,7 @@ function getYouTubeEmbedUrl(id, playerParams) {
 }
 
 function getVimeoEmbedUrl(id) {
-  return `https://player.vimeo.com/video/${id}?title=0&byline=0&portrait=0`;
+  return `https://player.vimeo.com/video/${id}?title=0&byline=0&portrait=0&playsinline=0`;
 }
 
 /**
