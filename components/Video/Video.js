@@ -70,6 +70,8 @@ class Video extends PureComponent {
     return (
       <View style={style.container}>
         <WebView
+          allowsFullscreenVideo
+          mediaPlaybackRequiresUserAction={false}
           style={{width, height}}
           source={createSourceObject(source, playerParams, poster)}
           scrollEnabled={false}
