@@ -8,8 +8,7 @@ import { connectStyle } from '@shoutem/theme';
 
 import VideoSourceReader from './VideoSourceReader';
 
-function createSourceObject(source, playerParams, poster) {
-  const sourceReader = new VideoSourceReader(source.uri, playerParams);
+function getSource(sourceReader, poster) {
   const url = sourceReader.getUrl();
 
   if (sourceReader.isEmbeddableVideo()) {
@@ -57,23 +56,34 @@ class Video extends PureComponent {
     },
   };
 
+  constructor(props) {
+    super(props);
+
+    const { source, playerParams } = props;
+    this.sourceReader = new VideoSourceReader(source.uri, playerParams);
+  }
+
   render() {
     const {
       width,
       height,
-      source,
       style,
-      playerParams,
       poster,
     } = this.props;
+
+    // https://github.com/vimeo/player.js/issues/514
+    // Vimeo player crashes the app, if played in full screen portrait mode and if user
+    // tries to navigate back using Android hardware back button. Disableing full screen
+    // option for Vimeo until their player is fixed.
+    const isYoutubeVideo = this.sourceReader.isYouTube;
 
     return (
       <View style={style.container}>
         <WebView
-          allowsFullscreenVideo
+          allowsFullscreenVideo={isYoutubeVideo}
           mediaPlaybackRequiresUserAction={false}
           style={{width, height}}
-          source={createSourceObject(source, playerParams, poster)}
+          source={getSource(this.sourceReader, poster)}
           scrollEnabled={false}
           originWhitelist={['*']}
         />
