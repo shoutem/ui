@@ -440,7 +440,7 @@ export default (variables = defaultThemeVariables) => ({
   'shoutem.ui.Heading': {
     [INCLUDE]: ['text'],
 
-    lineHeight: formatLineHeight(variables.heading.fontSize),
+    lineHeight: calculateLineHeight(variables.heading.fontSize),
     ...variables.heading,
     fontFamily: resolveFontFamily(
       variables.heading.fontFamily,
@@ -454,7 +454,7 @@ export default (variables = defaultThemeVariables) => ({
   'shoutem.ui.Title': {
     [INCLUDE]: ['text'],
 
-    lineHeight: formatLineHeight(variables.title.fontSize),
+    lineHeight: calculateLineHeight(variables.title.fontSize),
     ...variables.title,
     fontFamily: resolveFontFamily(
       variables.title.fontFamily,
@@ -468,7 +468,7 @@ export default (variables = defaultThemeVariables) => ({
   'shoutem.ui.Subtitle': {
     [INCLUDE]: ['text'],
 
-    lineHeight: formatLineHeight(variables.subtitle.fontSize),
+    lineHeight: calculateLineHeight(variables.subtitle.fontSize),
     ...variables.subtitle,
     fontFamily: resolveFontFamily(
       variables.subtitle.fontFamily,
@@ -482,7 +482,7 @@ export default (variables = defaultThemeVariables) => ({
   'shoutem.ui.Caption': {
     [INCLUDE]: ['text'],
 
-    lineHeight: formatLineHeight(variables.caption.fontSize),
+    lineHeight: calculateLineHeight(variables.caption.fontSize),
     letterSpacing: 0.5,
     ...variables.caption,
     fontFamily: resolveFontFamily(
@@ -1613,7 +1613,7 @@ export default (variables = defaultThemeVariables) => ({
       },
 
       color: variables.navBarText.color,
-      lineHeight: formatLineHeight(variables.navBarText.fontSize),
+      lineHeight: calculateLineHeight(variables.navBarText.fontSize),
       ...variables.navBarText,
       fontFamily: resolveFontFamily(
         variables.navBarText.fontFamily,
@@ -1756,7 +1756,7 @@ export default (variables = defaultThemeVariables) => ({
 
       flex: 1,
       textAlign: 'center',
-      lineHeight: formatLineHeight(variables.navBarText.fontSize),
+      lineHeight: calculateLineHeight(variables.navBarText.fontSize),
       ...variables.navBarText,
       fontFamily: resolveFontFamily(
         variables.navBarText.fontFamily,
