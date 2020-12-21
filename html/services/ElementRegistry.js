@@ -33,12 +33,16 @@ export function getElementDisplay(element) {
   const elementClass = getElement(element);
   if (!elementClass) {
     // Element is not registered.
-    return;
+    return null;
   }
 
   const display = elementClass.display;
   if (!display) {
-    console.warn(`Element ${element.tag} doesn't have defined "display" attribute.`);
+    // eslint-disable-next-line no-console
+    console.warn(
+      `Element ${element.tag} doesn't have defined "display" attribute.`,
+    );
+    return null;
   }
 
   return _.isFunction(display) ? display(element) : display;

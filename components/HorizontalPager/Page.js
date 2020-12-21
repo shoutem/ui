@@ -1,6 +1,5 @@
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-
+import PropTypes from 'prop-types';
 import { View } from '../View';
 
 /**
@@ -21,17 +20,10 @@ export class Page extends Component {
   }
 
   render() {
-    const {
-      width,
-      style,
-      children,
-    } = this.props;
+    const { width, style, children } = this.props;
 
     return (
-      <View
-        virtual
-        style={{ ...style, width }}
-      >
+      <View virtual style={{ ...style, width }}>
         {children}
       </View>
     );

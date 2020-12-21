@@ -1,17 +1,10 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-import {
-  View,
-  Modal,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
-
+import autoBindReact from 'auto-bind/react';
+import PropTypes from 'prop-types';
+import { View, Modal, Image, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
-import { connectStyle } from '@shoutem/theme';
-
 import { makeZoomable } from '@shoutem/animation';
+import { connectStyle } from '@shoutem/theme';
 
 const ZoomableImage = makeZoomable(Image);
 
@@ -32,8 +25,8 @@ const CLOSE_ICON_SIZE = 25;
 class ImagePreview extends PureComponent {
   constructor(props) {
     super(props);
-    this.onPressCloseButton = this.onPressCloseButton.bind(this);
-    this.onPressImage = this.onPressImage.bind(this);
+
+    autoBindReact(this);
   }
 
   state = {
@@ -58,17 +51,21 @@ class ImagePreview extends PureComponent {
     if (this.state.fullScreen) {
       const closeButton = (
         <View style={style.header}>
-          <TouchableOpacity style={style.fullScreen} onPress={this.onPressCloseButton}>
-            <Icon name={CLOSE_ICON_NAME} size={CLOSE_ICON_SIZE} style={style.closeIcon} />
+          <TouchableOpacity
+            style={style.fullScreen}
+            onPress={this.onPressCloseButton}
+          >
+            <Icon
+              name={CLOSE_ICON_NAME}
+              size={CLOSE_ICON_SIZE}
+              style={style.closeIcon}
+            />
           </TouchableOpacity>
         </View>
       );
 
       return (
-        <Modal
-          animated
-          transparent
-        >
+        <Modal animated transparent>
           <View style={style.fullScreenContainer}>
             <ZoomableImage
               style={style.image}
@@ -84,7 +81,7 @@ class ImagePreview extends PureComponent {
 
     return (
       <View style={[style.container, { width, height }]}>
-        <TouchableOpacity onPress={this.onPressImage} >
+        <TouchableOpacity onPress={this.onPressImage}>
           <Image
             style={style.thumbnail}
             source={source}
@@ -99,8 +96,8 @@ class ImagePreview extends PureComponent {
 
 ImagePreview.propTypes = propTypes;
 
-const StyledImagePreview = connectStyle('shoutem.ui.ImagePreview')(ImagePreview);
+const StyledImagePreview = connectStyle('shoutem.ui.ImagePreview')(
+  ImagePreview,
+);
 
-export {
-  StyledImagePreview as ImagePreview,
-};
+export { StyledImagePreview as ImagePreview };

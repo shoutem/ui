@@ -1,12 +1,10 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { Platform } from 'react-native';
-
 import { connectStyle } from '@shoutem/theme';
-
-import { View } from './View';
-import { TouchableOpacity } from './TouchableOpacity';
 import { TouchableNativeFeedback } from './TouchableNativeFeedback';
+import { TouchableOpacity } from './TouchableOpacity';
+import { View } from './View';
 
 /**
  * A universal touchable component with a
@@ -34,11 +32,7 @@ class Touchable extends PureComponent {
           {...props}
           style={props.style.touchableNativeFeedback}
         >
-          <View
-            virtual
-            style={style}
-            styleName={props.styleName}
-          >
+          <View virtual style={style} styleName={props.styleName}>
             {props.children}
           </View>
         </TouchableNativeFeedback>
@@ -64,6 +58,4 @@ const StyledTouchable = connectStyle('shoutem.ui.Touchable', {
   touchableOpacity: {},
 })(Touchable);
 
-export {
-  StyledTouchable as Touchable,
-};
+export { StyledTouchable as Touchable };

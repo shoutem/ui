@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Text, Caption, Subtitle, Title, Heading } from '../../components/Text';
 import { View } from '../../components/View';
 import { Stage } from './Stage';

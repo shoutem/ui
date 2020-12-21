@@ -1,20 +1,18 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-
+import PropTypes from 'prop-types';
 import {
-  ScrollView,
+  Divider,
   Icon,
+  ImageBackground,
   Row,
+  Screen,
+  ScrollView,
   Subtitle,
   Text,
+  Tile,
   Title,
   View,
-  ImageBackground,
-  Divider,
-  Tile,
-  Screen,
 } from '@shoutem/ui';
-
 import { NavigationBar } from '@shoutem/ui/navigation';
 
 export default class RestaurantDetails extends PureComponent {
@@ -47,7 +45,9 @@ export default class RestaurantDetails extends PureComponent {
           </ImageBackground>
 
           <Screen styleName="paper">
-            <Text styleName="md-gutter multiline">{restaurant.description}</Text>
+            <Text styleName="md-gutter multiline">
+              {restaurant.description}
+            </Text>
 
             <Divider styleName="line" />
 

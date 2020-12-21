@@ -1,8 +1,7 @@
 import React from 'react';
 import { Dimensions } from 'react-native';
-
-import { View } from '../../components/View';
 import { InlineGallery } from '../../components/InlineGallery';
+import { View } from '../../components/View';
 import { Stage } from './Stage';
 
 const window = Dimensions.get('window');
@@ -14,10 +13,30 @@ export function InlineGalleries() {
         <View style={{ flex: 1, width: window.width }}>
           <InlineGallery
             data={[
-              { source: { uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-1.png' } },
-              { source: { uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-2.png' } },
-              { source: { uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-3.png' } },
-              { source: { uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-4.png' } },
+              {
+                source: {
+                  uri:
+                    'https://shoutem.github.io/img/ui-toolkit/examples/image-1.png',
+                },
+              },
+              {
+                source: {
+                  uri:
+                    'https://shoutem.github.io/img/ui-toolkit/examples/image-2.png',
+                },
+              },
+              {
+                source: {
+                  uri:
+                    'https://shoutem.github.io/img/ui-toolkit/examples/image-3.png',
+                },
+              },
+              {
+                source: {
+                  uri:
+                    'https://shoutem.github.io/img/ui-toolkit/examples/image-4.png',
+                },
+              },
             ]}
             pageMargin={20}
           />
@@ -28,10 +47,30 @@ export function InlineGalleries() {
         <View style={{ flex: 1, width: window.width }}>
           <InlineGallery
             data={[
-              { source: { uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-1.png' } },
-              { source: { uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-2.png' } },
-              { source: { uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-3.png' } },
-              { source: { uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-4.png' } },
+              {
+                source: {
+                  uri:
+                    'https://shoutem.github.io/img/ui-toolkit/examples/image-1.png',
+                },
+              },
+              {
+                source: {
+                  uri:
+                    'https://shoutem.github.io/img/ui-toolkit/examples/image-2.png',
+                },
+              },
+              {
+                source: {
+                  uri:
+                    'https://shoutem.github.io/img/ui-toolkit/examples/image-3.png',
+                },
+              },
+              {
+                source: {
+                  uri:
+                    'https://shoutem.github.io/img/ui-toolkit/examples/image-4.png',
+                },
+              },
             ]}
             pageMargin={20}
             styleName="large-wide"
@@ -43,10 +82,30 @@ export function InlineGalleries() {
         <View style={{ flex: 1, width: window.width }}>
           <InlineGallery
             data={[
-              { source: { uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-1.png' } },
-              { source: { uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-2.png' } },
-              { source: { uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-3.png' } },
-              { source: { uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-4.png' } },
+              {
+                source: {
+                  uri:
+                    'https://shoutem.github.io/img/ui-toolkit/examples/image-1.png',
+                },
+              },
+              {
+                source: {
+                  uri:
+                    'https://shoutem.github.io/img/ui-toolkit/examples/image-2.png',
+                },
+              },
+              {
+                source: {
+                  uri:
+                    'https://shoutem.github.io/img/ui-toolkit/examples/image-3.png',
+                },
+              },
+              {
+                source: {
+                  uri:
+                    'https://shoutem.github.io/img/ui-toolkit/examples/image-4.png',
+                },
+              },
             ]}
             pageMargin={20}
             styleName="large-ultra-wide"

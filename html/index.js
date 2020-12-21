@@ -77,14 +77,12 @@ export {
   mapElementProps,
   renderChildElements,
   renderChildren,
-
   // Element Registry
   Display,
   registerElement,
   getElementDisplay,
   getElementProperty,
   getElement,
-
   // Elements
   Inline,
   Block,
@@ -94,7 +92,6 @@ export {
   Ol,
   Li,
   Virtual,
-
   // Components
   Gallery,
   Image,

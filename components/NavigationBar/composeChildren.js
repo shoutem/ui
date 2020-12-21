@@ -1,11 +1,9 @@
 import React, { PureComponent } from 'react';
-
+import _ from 'lodash';
 import { Button } from '../Button';
-import { Title } from '../Text';
 import { Icon } from '../Icon';
 import { ShareButton } from '../ShareButton';
-
-import * as _ from 'lodash';
+import { Title } from '../Text';
 
 const composers = {
   title: (value, props) => ({
@@ -17,7 +15,7 @@ const composers = {
   }),
   share: (value, props) => {
     if (!value.link) {
-      return;
+      return null;
     }
 
     const { title, text, link } = value;
@@ -46,17 +44,10 @@ const composers = {
     }
 
     const leftComponent = value ? (
-      <Button
-        styleName="clear"
-        onPress={navigateBackWithoutEventParameter}
-      >
-        <Icon
-          name="back"
-          animationName={props.animationName}
-        />
+      <Button styleName="clear" onPress={navigateBackWithoutEventParameter}>
+        <Icon name="back" animationName={props.animationName} />
       </Button>
-    ) :
-      null;
+    ) : null;
 
     return { leftComponent };
   },
@@ -74,17 +65,22 @@ function skipUndefined(objValue, srcValue) {
 }
 
 // eslint-disable-next-line react/prefer-stateless-function
-const composeChildren = NavigationBarComponent => class extends PureComponent {
-  render() {
-    const newProps = {};
-    _.forEach(this.props, (value, key) => {
-      if (_.isFunction(composers[key])) {
-        _.assign(newProps, composers[key](value, this.props));
-      }
-    });
+const composeChildren = NavigationBarComponent =>
+  class extends PureComponent {
+    render() {
+      const newProps = {};
+      _.forEach(this.props, (value, key) => {
+        if (_.isFunction(composers[key])) {
+          _.assign(newProps, composers[key](value, this.props));
+        }
+      });
 
-    return <NavigationBarComponent {..._.assignWith(newProps, this.props, skipUndefined)} />;
-  }
-};
+      return (
+        <NavigationBarComponent
+          {..._.assignWith(newProps, this.props, skipUndefined)}
+        />
+      );
+    }
+  };
 
 export default composeChildren;

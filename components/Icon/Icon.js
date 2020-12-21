@@ -1,22 +1,22 @@
-import React from "react";
-import PropTypes from "prop-types";
-import _ from "lodash";
-import { connectStyle } from "@shoutem/theme";
-import { getIcon } from "./services";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connectStyle } from '@shoutem/theme';
+import { getIcon } from './services';
 
 function Icon({ name, style, ...otherProps }) {
   const { color, width, height, ...otherStyle } = style;
 
-  const Icon = getIcon(name);
+  const NamedIcon = getIcon(name);
 
-  if (!Icon) {
-    console.warn(`Icon with ${name} name not found within the provided set`);
+  if (!NamedIcon) {
+    // eslint-disable-next-line no-console
+    console.warn(`Icon with name '${name}' not found within the provided set`);
 
     return null;
   }
 
   return (
-    <Icon
+    <NamedIcon
       fill={color}
       width={width}
       height={height}
@@ -31,4 +31,4 @@ Icon.propTypes = {
   style: PropTypes.any,
 };
 
-export default connectStyle("shoutem.ui.Icon")(Icon);
+export default connectStyle('shoutem.ui.Icon')(Icon);

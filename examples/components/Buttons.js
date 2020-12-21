@@ -1,9 +1,8 @@
 import React from 'react';
-
+import { Button } from '../../components/Button';
 import { Icon } from '../../components/Icon';
 import { Text } from '../../components/Text';
 import { View } from '../../components/View';
-import { Button } from '../../components/Button';
 import { Stage } from './Stage';
 
 export function Buttons() {

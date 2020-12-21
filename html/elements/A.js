@@ -1,11 +1,11 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
+import autoBindReact from 'auto-bind/react';
+import _ from 'lodash';
+import PropTypes from 'prop-types';
 import { Linking } from 'react-native';
 import { connectStyle } from '@shoutem/theme';
-import _ from 'lodash';
-
-import { ElementPropTypes, combineMappers, mapElementProps } from '../Html';
 import { isImg } from '../elements/Img';
+import { ElementPropTypes, combineMappers, mapElementProps } from '../Html';
 import { Inline } from './Inline';
 
 class A extends PureComponent {
@@ -17,15 +17,18 @@ class A extends PureComponent {
 
   constructor(props, context) {
     super(props, context);
-    this.onPress = this.onPress.bind(this);
-    this.renderElement = this.renderElement.bind(this);
+
+    autoBindReact(this);
   }
 
   onPress() {
     const { href, handleLinkPress } = this.props;
 
     if (!handleLinkPress) {
-      console.log('No "handleLinkPress" handle defined on the anchor element.');
+      // eslint-disable-next-line no-console
+      console.warn(
+        'No "handleLinkPress" handle defined on the anchor element.',
+      );
       return;
     }
 
@@ -37,7 +40,9 @@ class A extends PureComponent {
 
     if (isImg(element)) {
       // In the A element image can not be previewed because it opens a link.
-      const inlineImage = _.merge({}, element, { attributes: { lightbox: false } });
+      const inlineImage = _.merge({}, element, {
+        attributes: { lightbox: false },
+      });
       return renderElement(inlineImage, style, renderElement);
     }
 
@@ -48,27 +53,35 @@ class A extends PureComponent {
     // Because the anchor has dynamic display nature
     // it can not use the TouchableOpacity component to wrap the children.
     // The TouchableOpacity component can not be nested within the "Text" component.
-    return <Inline {...this.props} onPress={this.onPress} renderElement={this.renderElement} />;
+    return (
+      <Inline
+        {...this.props}
+        onPress={this.onPress}
+        renderElement={this.renderElement}
+      />
+    );
   }
 }
 
 function openLinkPress(Component) {
-  return function (props) {
+  return function(props) {
     function handleLinkPress(href) {
-      Linking.openURL(href)
-        .catch(err => console.log('An error occurred', err));
+      Linking.openURL(href).catch(err =>
+        // eslint-disable-next-line no-console
+        console.error('An error occurred while opening URL', err),
+      );
     }
 
     return <Component {...props} handleLinkPress={handleLinkPress} />;
-  }
+  };
 }
 
 // Named export to customize Anchor
 const Anchor = combineMappers(mapElementProps)(A);
-export {
-  Anchor as A,
-}
+export { Anchor as A };
 
 // Default export with added link press handle
 const EnhancedA = openLinkPress(A);
-export default connectStyle('shoutem.ui.Html.a')(combineMappers(mapElementProps)(EnhancedA));
+export default connectStyle('shoutem.ui.Html.a')(
+  combineMappers(mapElementProps)(EnhancedA),
+);

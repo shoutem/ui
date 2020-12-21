@@ -1,12 +1,9 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import _ from 'lodash';
-
-import { View } from '../../components/View';
+import PropTypes from 'prop-types';
 import { Text } from '../../components/Text';
-import { removeWhiteSpace, isText } from './Text';
-import { isImg } from './Img';
 import { TouchableOpacity } from '../../components/TouchableOpacity';
+import { View } from '../../components/View';
 import { Display } from '../services/ElementRegistry';
 import {
   isBlockElement,
@@ -16,9 +13,13 @@ import {
   mapElementProps,
   renderChildElements,
 } from '../Html';
+import { isImg } from './Img';
+import { removeWhiteSpace, isText } from './Text';
 
-export const blockDisplayIfAnyChildIsBlock = function (element) {
-  return hasBlockElement(element.childElements) ? Display.BLOCK : Display.INLINE;
+export const blockDisplayIfAnyChildIsBlock = function(element) {
+  return hasBlockElement(element.childElements)
+    ? Display.BLOCK
+    : Display.INLINE;
 };
 
 /**
@@ -29,6 +30,7 @@ export const blockDisplayIfAnyChildIsBlock = function (element) {
  */
 function onlyInlineChildren(groupedChildren) {
   const last = _.last(groupedChildren);
+
   return groupedChildren.length === 1 && _.isArray(last);
 }
 
@@ -39,11 +41,13 @@ function onlyInlineChildren(groupedChildren) {
  */
 function getRightmostLeafChild(element) {
   if (!element) {
-    return;
+    return null;
   }
+
   if (_.isString(element) || _.size(element.childElements) === 0) {
     return element;
   }
+
   return getRightmostLeafChild(_.last(element.childElements));
 }
 
@@ -76,7 +80,7 @@ function handleLineBreak(elements, inlineElements = [], nextBlockElement) {
  */
 function groupInlineNodes(childElements, onLineBreak) {
   // eslint-disable-next-line prefer-arrow-callback
-  return childElements.reduce(function (result, elem) {
+  return childElements.reduce(function(result, elem) {
     let last = _.last(result);
 
     if (!isBlockElement(elem)) {
@@ -102,13 +106,17 @@ function groupInlineNodes(childElements, onLineBreak) {
  */
 function renderGroupedChildren(groupedChildren, renderElement, style) {
   // eslint-disable-next-line prefer-arrow-callback
-  const renderedChildren = groupedChildren.map(function (child) {
+  const renderedChildren = groupedChildren.map(function(child) {
     if (_.isArray(child)) {
       // Inline elements must be wrapped with text to stay in the same line.
       // Inline elements are grouped in the array, see {@link groupInlineNodes}
       const renderedChild = renderChildElements(child, renderElement);
-      return _.isEmpty(renderedChild) ? null : <Text style={style.text}>{renderedChild}</Text>;
+
+      return _.isEmpty(renderedChild) ? null : (
+        <Text style={style.text}>{renderedChild}</Text>
+      );
     }
+
     return renderElement(child);
   });
 
@@ -144,25 +152,15 @@ export class Inline extends PureComponent {
     onLineBreak: handleLineBreak,
   };
 
-  renderGroupedChildren(groupedChildren) {
-    const { style, renderElement } = this.props;
-    // eslint-disable-next-line prefer-arrow-callback
-    const renderedChildren = groupedChildren.map(function (child) {
-      if (_.isArray(child)) {
-        // Inline elements must be wrapped with text to stay in the same line.
-        // Inline elements are grouped in the array, see {@link groupInlineNodes}
-        const renderedChild = renderChildElements(child, renderElement);
-        // It is important to style a text here so that it has the right style.
-        return _.isEmpty(renderedChild) ? null : <Text style={style.text}>{renderedChild}</Text>;
-      }
-      return renderElement(child);
-    });
-
-    return React.Children.toArray(renderedChildren);
-  }
-
   render() {
-    const { childElements, style, onPress, onLineBreak, styleName, block } = this.props;
+    const {
+      childElements,
+      style,
+      onPress,
+      onLineBreak,
+      styleName,
+      block,
+    } = this.props;
 
     if (_.isEmpty(childElements)) {
       return null;
@@ -178,7 +176,7 @@ export class Inline extends PureComponent {
     // Block elements are standalone because they break the line.
     const children = groupInlineNodes(trimmedChildren, onLineBreak);
 
-    let content = this.renderGroupedChildren(children);
+    let content = renderGroupedChildren(children);
 
     if (onlyInlineChildren(children)) {
       // Group textual nodes together.
@@ -197,7 +195,11 @@ export class Inline extends PureComponent {
 
     const Container = onPress ? TouchableOpacity : View;
     return (
-      <Container style={style.container} onPress={onPress} styleName={`block ${styleName}`}>
+      <Container
+        style={style.container}
+        onPress={onPress}
+        styleName={`block ${styleName}`}
+      >
         {content}
       </Container>
     );

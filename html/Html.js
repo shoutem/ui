@@ -1,10 +1,8 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-import { Platform, InteractionManager } from 'react-native';
+import autoBindReact from 'auto-bind/react';
 import _ from 'lodash';
-
+import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
-
 import { Spinner } from '../components/Spinner';
 import { View } from '../components/View';
 import { parseHtml } from './services/HtmlParser';
@@ -63,7 +61,7 @@ class Html extends PureComponent {
   constructor(props, context) {
     super(props, context);
 
-    this.renderElement = this.renderElement.bind(this);
+    autoBindReact(this);
 
     this.state = {
       htmlTree: null,
@@ -94,7 +92,11 @@ class Html extends PureComponent {
     let renderedElement;
 
     if (this.props.renderElement) {
-      renderedElement = this.props.renderElement(element, elementStyle, this.renderElement);
+      renderedElement = this.props.renderElement(
+        element,
+        elementStyle,
+        this.renderElement,
+      );
     }
 
     // Custom renderElement for the specific Html implementation
@@ -106,7 +108,8 @@ class Html extends PureComponent {
       const ElementComponent = getElementProperty(element, 'component');
 
       if (!ElementComponent) {
-        console.log('Can not find component for element: ', element.tag);
+        // eslint-disable-next-line no-console
+        console.warn('Can not find component for element: ', element.tag);
         return null;
       }
 
@@ -143,9 +146,7 @@ class Html extends PureComponent {
     const htmlRootElement = htmlTree.getRootNode();
 
     return (
-      <View style={style.container}>
-        {this.renderElement(htmlRootElement)}
-      </View>
+      <View style={style.container}>{this.renderElement(htmlRootElement)}</View>
     );
   }
 }
@@ -162,14 +163,13 @@ export const ElementPropTypes = {
 
 export default connectStyle('shoutem.ui.Html')(Html);
 
-
 /* Helpers */
 
 /**
  * @param element {Element}
  * @returns {boolean}
  */
-export const isBlockElement = function (element) {
+export const isBlockElement = function(element) {
   // eslint-disable-next-line no-use-before-define
   return getElementDisplay(element, 'display') === Display.BLOCK;
 };
@@ -178,7 +178,7 @@ export const isBlockElement = function (element) {
  * @param elements {Array}
  * @returns {boolean}
  */
-export const hasBlockElement = function (elements) {
+export const hasBlockElement = function(elements) {
   return _.some(elements, isBlockElement);
 };
 
@@ -191,15 +191,19 @@ export const hasBlockElement = function (elements) {
  * @returns {function({element, renderElement}): Component}
  *  Returns HOC that will map component props with provided map functions.
  */
-export const combineMappers = function (...mapFunctions) {
+export const combineMappers = function(...mapFunctions) {
   return WrappedComponent => props => {
     // eslint-disable-next-line prefer-arrow-callback
-    const customizedProps = _.reduce(mapFunctions, function (result, mapFunction) {
-      return {
-        ...result,
-        ...mapFunction(props),
-      };
-    }, { ...props });
+    const customizedProps = _.reduce(
+      mapFunctions,
+      function(result, mapFunction) {
+        return {
+          ...result,
+          ...mapFunction(props),
+        };
+      },
+      { ...props },
+    );
 
     return <WrappedComponent {...customizedProps} />;
   };
@@ -210,7 +214,7 @@ export const combineMappers = function (...mapFunctions) {
  * @param props {{ element, renderElement }}
  * @returns {Object}
  */
-export const mapElementProps = function ({ element, style }) {
+export const mapElementProps = function({ element, style }) {
   const { childElements, attributes, tag } = element;
   return {
     ...attributes,
@@ -226,7 +230,7 @@ export const mapElementProps = function ({ element, style }) {
  * @param renderElement {Function}
  * @returns {Children}
  */
-export const renderChildElements = function (childElements, renderElement) {
+export const renderChildElements = function(childElements, renderElement) {
   return React.Children.toArray(childElements.map(renderElement));
 };
 
@@ -236,7 +240,7 @@ export const renderChildElements = function (childElements, renderElement) {
  * @param renderElement {Function}
  * @returns {Object} Props with children prop
  */
-export const renderChildren = function ({ element, renderElement }) {
+export const renderChildren = function({ element, renderElement }) {
   const { childElements } = element;
   return {
     children: renderChildElements(childElements, renderElement),
@@ -251,8 +255,8 @@ export const renderChildren = function ({ element, renderElement }) {
  * @param renderElement {Function}
  * @returns {Component}
  */
-export const customizeRenderElement = function (customizer, renderElement) {
-  return function (element) {
+export const customizeRenderElement = function(customizer, renderElement) {
+  return function(element) {
     const renderedElement = customizer(element);
     if (renderedElement) {
       return renderedElement;

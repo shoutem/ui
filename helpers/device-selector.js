@@ -1,24 +1,18 @@
-import { Platform, Dimensions } from 'react-native';
 import _ from 'lodash';
-
-import {
-  IPHONE_X_LONG_SIDE,
-  IPHONE_XR_LONG_SIDE,
-} from '../const';
+import { Platform, Dimensions } from 'react-native';
+import { IPHONE_X_LONG_SIDE, IPHONE_XR_LONG_SIDE } from '../const';
 
 const { OS, isPad, isTVOS } = Platform;
 const { width, height } = Dimensions.get('window');
 
-const xDimensionsMatch = (
-  (height === IPHONE_X_LONG_SIDE) || (width === IPHONE_X_LONG_SIDE)
-);
+const xDimensionsMatch =
+  height === IPHONE_X_LONG_SIDE || width === IPHONE_X_LONG_SIDE;
 
-const xrDimensionsMatch = (
-  (height === IPHONE_XR_LONG_SIDE) || (width === IPHONE_XR_LONG_SIDE)
-);
+const xrDimensionsMatch =
+  height === IPHONE_XR_LONG_SIDE || width === IPHONE_XR_LONG_SIDE;
 
-const isIphoneX = (OS === 'ios' && !isPad && !isTVOS && xDimensionsMatch);
-const isIphoneXR = (OS === 'ios' && !isPad && !isTVOS && xrDimensionsMatch);
+const isIphoneX = OS === 'ios' && !isPad && !isTVOS && xDimensionsMatch;
+const isIphoneXR = OS === 'ios' && !isPad && !isTVOS && xrDimensionsMatch;
 
 /**
  * Receives settings for different devices

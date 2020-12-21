@@ -1,31 +1,21 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-
 import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
-
-import { Icon } from './Icon';
-import { View } from './View';
 import { Button } from './Button';
+import { Icon } from './Icon';
 import { TextInput } from './TextInput';
-
-const { func, object, shape, string } = PropTypes;
+import { View } from './View';
 
 const ClearButton = ({ style, onPress }) => (
-  <Button
-    styleName="clear tight"
-    onPress={onPress}
-  >
-    <Icon
-      name="clear-text"
-      style={style.clearIcon}
-    />
+  <Button styleName="clear tight" onPress={onPress}>
+    <Icon name="clear-text" style={style.clearIcon} />
   </Button>
 );
 
 ClearButton.propTypes = {
-  style: object,
-  onPress: func,
+  style: PropTypes.object,
+  onPress: PropTypes.func,
 };
 
 /**
@@ -36,18 +26,18 @@ ClearButton.propTypes = {
 class SearchField extends PureComponent {
   static propTypes = {
     // A placeholder for input when no value is entered
-    placeholder: string,
+    placeholder: PropTypes.string,
     // Called with the new value on text change
-    onChangeText: func,
+    onChangeText: PropTypes.func,
     // Styles for container and search icon
-    style: shape({
-      clearIcon: object,
-      container: object,
-      input: object,
-      searchIcon: object,
+    style: PropTypes.shape({
+      clearIcon: PropTypes.object,
+      container: PropTypes.object,
+      input: PropTypes.object,
+      searchIcon: PropTypes.object,
     }),
     // Value to render as text in search input
-    value: string,
+    value: PropTypes.string,
   };
 
   render() {
@@ -58,10 +48,7 @@ class SearchField extends PureComponent {
         style={style.container}
         styleName="horizontal sm-gutter-horizontal v-center"
       >
-        <Icon
-          name="search"
-          style={style.searchIcon}
-        />
+        <Icon name="search" style={style.searchIcon} />
         <TextInput
           {...rest}
           autoCapitalize="none"
@@ -72,10 +59,7 @@ class SearchField extends PureComponent {
           value={value}
         />
         {!!value && (
-          <ClearButton
-            onPress={() => onChangeText('')}
-            style={style}
-          />
+          <ClearButton onPress={() => onChangeText('')} style={style} />
         )}
       </View>
     );
@@ -83,8 +67,8 @@ class SearchField extends PureComponent {
 }
 
 const AnimatedSearchField = connectAnimation(SearchField);
-const StyledSearchField = connectStyle('shoutem.ui.SearchField')(AnimatedSearchField);
+const StyledSearchField = connectStyle('shoutem.ui.SearchField')(
+  AnimatedSearchField,
+);
 
-export {
-  StyledSearchField as SearchField,
-};
+export { StyledSearchField as SearchField };

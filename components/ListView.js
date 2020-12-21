@@ -1,5 +1,7 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
+import autoBindReact from 'auto-bind/react';
+import _ from 'lodash';
+import PropTypes from 'prop-types';
 import {
   View,
   FlatList,
@@ -8,14 +10,11 @@ import {
   StatusBar,
   Platform,
 } from 'react-native';
-import _ from 'lodash';
-
 import { connectStyle } from '@shoutem/theme';
-
-import { Caption } from './Text';
 import { Divider } from './Divider';
-import { Spinner } from './Spinner';
 import { EmptyListImage } from './EmptyListImage';
+import { Spinner } from './Spinner';
+import { Caption } from './Text';
 
 const Status = {
   LOADING: 'loading',
@@ -72,11 +71,8 @@ class ListView extends PureComponent {
   constructor(props, context) {
     super(props, context);
 
-    this.handleListViewRef = this.handleListViewRef.bind(this);
-    this.renderFooter = this.renderFooter.bind(this);
-    this.autoHideHeader = this.autoHideHeader.bind(this);
-    this.onRefresh = this.onRefresh.bind(this);
-    this.renderRefreshControl = this.renderRefreshControl.bind(this);
+    autoBindReact(this);
+
     this.listView = null;
 
     this.state = {
@@ -87,7 +83,7 @@ class ListView extends PureComponent {
   componentWillUnmount() {
     const { status } = this.state;
 
-    if ((Platform.OS === 'ios') && (status !== Status.IDLE)) {
+    if (Platform.OS === 'ios' && status !== Status.IDLE) {
       // Reset the global network indicator state
       StatusBar.setNetworkActivityIndicatorVisible(false);
     }
@@ -138,14 +134,20 @@ class ListView extends PureComponent {
 
     // style
     mappedProps.style = style.list;
-    mappedProps.contentContainerStyle = { ...contentContainerStyle, ...style.listContent };
+    mappedProps.contentContainerStyle = {
+      ...contentContainerStyle,
+      ...style.listContent,
+    };
 
-    if ((Platform.OS === 'ios') && (parseInt(Platform.Version, 10) === 13)) {
+    if (Platform.OS === 'ios' && parseInt(Platform.Version, 10) === 13) {
       mappedProps.scrollIndicatorInsets = { right: 1 };
     }
 
     // rendering
-    mappedProps.ListHeaderComponent = this.createListHeaderComponent(renderHeader, autoHideHeader);
+    mappedProps.ListHeaderComponent = this.createListHeaderComponent(
+      renderHeader,
+      autoHideHeader,
+    );
     mappedProps.renderItem = data => renderRow(data.item);
     mappedProps.ListFooterComponent = this.renderFooter;
 
@@ -157,9 +159,11 @@ class ListView extends PureComponent {
     }
 
     if (renderSectionHeader) {
-      mappedProps.renderSectionHeader = ({ section }) => renderSectionHeader(section);
+      mappedProps.renderSectionHeader = ({ section }) =>
+        renderSectionHeader(section);
     } else if (!hasFeaturedItem) {
-      mappedProps.renderSectionHeader = ({ section }) => renderDefaultSectionHeader(section);
+      mappedProps.renderSectionHeader = ({ section }) =>
+        renderDefaultSectionHeader(section);
     }
 
     // events
@@ -200,15 +204,23 @@ class ListView extends PureComponent {
     const { onLoadMore, data } = this.props;
     const { status } = this.state;
     if (onLoadMore) {
-      return _.throttle(() => {
-        if (!_.isEmpty(data) && status === Status.IDLE) {
-          onLoadMore();
-        }
-      }, 2000, { leading: true });
+      return _.throttle(
+        () => {
+          if (!_.isEmpty(data) && status === Status.IDLE) {
+            onLoadMore();
+          }
+        },
+        2000,
+        { leading: true },
+      );
     }
   }
 
-  autoHideHeader({ nativeEvent: { layout: { height } } }) {
+  autoHideHeader({
+    nativeEvent: {
+      layout: { height },
+    },
+  }) {
     this.scrollListView({ offset: height, animated: false });
   }
 
@@ -227,9 +239,7 @@ class ListView extends PureComponent {
     }
 
     // eslint-disable-next-line consistent-return
-    return (
-      <View {...headerContainerProps}>{renderHeader()}</View>
-    );
+    return <View {...headerContainerProps}>{renderHeader()}</View>;
   }
 
   scrollListView(scrollOptions) {
@@ -256,10 +266,18 @@ class ListView extends PureComponent {
     let showNetworkActivity = true;
     switch (status) {
       case Status.LOADING:
-        spinner = <View style={style.loadMoreSpinner}><Spinner /></View>;
+        spinner = (
+          <View style={style.loadMoreSpinner}>
+            <Spinner />
+          </View>
+        );
         break;
       case Status.LOADING_NEXT:
-        spinner = <View style={style.loadMoreSpinner}><Spinner /></View>;
+        spinner = (
+          <View style={style.loadMoreSpinner}>
+            <Spinner />
+          </View>
+        );
         break;
       case Status.REFRESHING:
         spinner = null;
@@ -282,7 +300,7 @@ class ListView extends PureComponent {
   }
 
   renderListEmptyComponent() {
-    const { ListEmptyComponent, loading } = this.props
+    const { ListEmptyComponent, loading } = this.props;
 
     if (loading) {
       return null;
@@ -292,7 +310,7 @@ class ListView extends PureComponent {
       return <ListEmptyComponent />;
     }
 
-    <EmptyListImage />
+    return <EmptyListImage />;
   }
 
   renderRefreshControl() {
@@ -314,11 +332,20 @@ class ListView extends PureComponent {
   }
 
   render() {
-    const { sections, hasFeaturedItem, ListEmptyComponent, loading } = this.props;
+    const {
+      sections,
+      hasFeaturedItem,
+      ListEmptyComponent,
+      loading,
+    } = this.props;
 
     /* ListEmptyComponent in SectionList is handled differently due to the known issue with empty data interpretation.
     https://github.com/facebook/react-native/issues/14721 */
-    if (sections && _.every(sections, (section) => _.isEmpty(section.data)) && !loading) {
+    if (
+      sections &&
+      _.every(sections, section => _.isEmpty(section.data)) &&
+      !loading
+    ) {
       return ListEmptyComponent ? <ListEmptyComponent /> : <EmptyListImage />;
     }
 
@@ -360,6 +387,4 @@ StyledListView.prototype.scrollToEnd = function scrollToEnd(animation) {
   }
 };
 
-export {
-  StyledListView as ListView,
-};
+export { StyledListView as ListView };

@@ -1,11 +1,10 @@
 import React from 'react';
-
-import { Text, Caption, Subtitle } from '../../components/Text';
-import { Row } from '../../components/Row';
-import { Icon } from '../../components/Icon';
-import { View } from '../../components/View';
-import { Image } from '../../components/Image';
 import { Button } from '../../components/Button';
+import { Icon } from '../../components/Icon';
+import { Image } from '../../components/Image';
+import { Row } from '../../components/Row';
+import { Text, Caption, Subtitle } from '../../components/Text';
+import { View } from '../../components/View';
 import { Stage } from './Stage';
 
 export function Rows() {
@@ -13,7 +12,10 @@ export function Rows() {
     <View styleName="vertical collapsed">
       <Stage title="Small list item">
         <Row>
-          <Text numberOfLines={1}>Portland ugh fashion axe Helvetica, YOLO Echo Park Austin gastropub roof party.</Text>
+          <Text numberOfLines={1}>
+            Portland ugh fashion axe Helvetica, YOLO Echo Park Austin gastropub
+            roof party.
+          </Text>
         </Row>
       </Stage>
 
@@ -21,7 +23,10 @@ export function Rows() {
         <Row styleName="small">
           <Image
             styleName="small-avatar"
-            source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-9.png' }}
+            source={{
+              uri:
+                'https://shoutem.github.io/img/ui-toolkit/examples/image-9.png',
+            }}
           />
           <Text>Add comment</Text>
         </Row>
@@ -47,7 +52,9 @@ export function Rows() {
           <Icon name="laptop" />
           <View styleName="vertical">
             <Subtitle>Bridges Rock Gym</Subtitle>
-            <Text numberOfLines={1}>www.example.com/deal/link/that-is-really-long</Text>
+            <Text numberOfLines={1}>
+              www.example.com/deal/link/that-is-really-long
+            </Text>
           </View>
           <Icon styleName="disclosure" name="right-arrow" />
         </Row>
@@ -57,14 +64,21 @@ export function Rows() {
         <Row>
           <Image
             styleName="small-avatar top"
-            source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-11.png' }}
+            source={{
+              uri:
+                'https://shoutem.github.io/img/ui-toolkit/examples/image-11.png',
+            }}
           />
           <View styleName="vertical">
             <View styleName="horizontal space-between">
               <Subtitle styleName="">Dustin Malone</Subtitle>
               <Caption>20 minutes ago</Caption>
             </View>
-            <Text styleName="multiline">Banjo tote bag bicycle rights, High Life sartorial cray craft beer whatever street art fap. Hashtag typewriter banh mi, squid keffiyeh High.</Text>
+            <Text styleName="multiline">
+              Banjo tote bag bicycle rights, High Life sartorial cray craft beer
+              whatever street art fap. Hashtag typewriter banh mi, squid
+              keffiyeh High.
+            </Text>
           </View>
         </Row>
       </Stage>
@@ -73,9 +87,15 @@ export function Rows() {
         <Row>
           <Image
             styleName="small rounded-corners"
-            source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-10.png' }}
+            source={{
+              uri:
+                'https://shoutem.github.io/img/ui-toolkit/examples/image-10.png',
+            }}
           />
-          <Subtitle styleName="top">Portland ugh fashion axe Helvetica, YOLO Echo Park Austin gastropub roof party.</Subtitle>
+          <Subtitle styleName="top">
+            Portland ugh fashion axe Helvetica, YOLO Echo Park Austin gastropub
+            roof party.
+          </Subtitle>
         </Row>
       </Stage>
 
@@ -83,10 +103,15 @@ export function Rows() {
         <Row>
           <Image
             styleName="small rounded-corners"
-            source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-6.png' }}
+            source={{
+              uri:
+                'https://shoutem.github.io/img/ui-toolkit/examples/image-6.png',
+            }}
           />
           <View styleName="vertical stretch space-between">
-            <Subtitle>Fact Check: Wisconsin Music, Film & Photography Debate</Subtitle>
+            <Subtitle>
+              Fact Check: Wisconsin Music, Film & Photography Debate
+            </Subtitle>
             <Caption>20 hours ago</Caption>
           </View>
         </Row>
@@ -96,13 +121,18 @@ export function Rows() {
         <Row>
           <Image
             styleName="small rounded-corners"
-            source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-3.png' }}
+            source={{
+              uri:
+                'https://shoutem.github.io/img/ui-toolkit/examples/image-3.png',
+            }}
           />
           <View styleName="vertical stretch space-between">
             <Subtitle>Wilco Cover David Bowie&#39;s "Space Oddity"</Subtitle>
-            <Caption>June 21  ·  20:00</Caption>
+            <Caption>June 21 · 20:00</Caption>
           </View>
-          <Button styleName="right-icon"><Icon name="add-event" /></Button>
+          <Button styleName="right-icon">
+            <Icon name="add-event" />
+          </Button>
         </Row>
       </Stage>
 
@@ -110,7 +140,10 @@ export function Rows() {
         <Row>
           <Image
             styleName="small rounded-corners"
-            source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-11.png' }}
+            source={{
+              uri:
+                'https://shoutem.github.io/img/ui-toolkit/examples/image-11.png',
+            }}
           />
           <View styleName="vertical stretch space-between">
             <Subtitle>Family Safari Vacation To The Home Of The Gods</Subtitle>
@@ -119,7 +152,9 @@ export function Rows() {
               <Caption styleName="line-through">$150.00</Caption>
             </View>
           </View>
-          <Button styleName="right-icon"><Icon name="add-to-cart" /></Button>
+          <Button styleName="right-icon">
+            <Icon name="add-to-cart" />
+          </Button>
         </Row>
       </Stage>
 
@@ -128,10 +163,15 @@ export function Rows() {
           <View styleName="notification-dot" />
           <Image
             styleName="small rounded-corners"
-            source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-2.png' }}
+            source={{
+              uri:
+                'https://shoutem.github.io/img/ui-toolkit/examples/image-2.png',
+            }}
           />
           <View styleName="vertical stretch space-between">
-            <Subtitle>Fact Check: Wisconsin Music, Film & Photography Debate</Subtitle>
+            <Subtitle>
+              Fact Check: Wisconsin Music, Film & Photography Debate
+            </Subtitle>
             <Caption>20 hours ago</Caption>
           </View>
         </Row>
@@ -141,7 +181,10 @@ export function Rows() {
         <Row>
           <Image
             styleName="medium rounded-corners"
-            source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-1.png' }}
+            source={{
+              uri:
+                'https://shoutem.github.io/img/ui-toolkit/examples/image-1.png',
+            }}
           />
           <View styleName="vertical stretch space-between">
             <Subtitle>Take A Romantic Break In A Boutique Hotel</Subtitle>

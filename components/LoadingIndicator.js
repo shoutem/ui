@@ -1,7 +1,5 @@
 import React, { PureComponent } from 'react';
-
 import { connectStyle } from '@shoutem/theme';
-
 import { View } from './View';
 import { Spinner } from './Spinner';
 
@@ -20,8 +18,8 @@ class LoadingIndicator extends PureComponent {
   }
 }
 
-const StyledLoadingIndicator = connectStyle('shoutem.ui.LoadingIndicator')(LoadingIndicator);
+const StyledLoadingIndicator = connectStyle('shoutem.ui.LoadingIndicator')(
+  LoadingIndicator,
+);
 
-export {
-  StyledLoadingIndicator as LoadingIndicator,
-};
+export { StyledLoadingIndicator as LoadingIndicator };

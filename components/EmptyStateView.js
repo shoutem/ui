@@ -1,24 +1,22 @@
 import React, { PureComponent } from 'react';
+import autoBindReact from 'auto-bind/react';
 import PropTypes from 'prop-types';
-
 import { connectStyle } from '@shoutem/theme';
-
-import { Icon } from './Icon';
-import { View } from './View';
 import { Button } from './Button';
+import { Icon } from './Icon';
 import { Subtitle, Text } from './Text';
+import { View } from './View';
 
 class EmptyStateView extends PureComponent {
   static defaultProps = {
     retryButtonTitle: 'TRY AGAIN',
     icon: 'error',
-  }
+  };
 
   constructor(props) {
     super(props);
 
-    this.onRetry = this.onRetry.bind(this);
-    this.renderRetryButton = this.renderRetryButton.bind(this);
+    autoBindReact(this);
   }
 
   onRetry() {
@@ -28,8 +26,7 @@ class EmptyStateView extends PureComponent {
   renderRetryButton() {
     const { retryButtonTitle } = this.props;
 
-    // Show retry button at the bottom only if
-    // there is a onRetry action passed.
+    // Show retry button at the bottom only if there is an onRetry action passed.
     return (
       <View styleName="horizontal anchor-bottom">
         <Button styleName="full-width" onPress={this.onRetry}>
@@ -43,10 +40,7 @@ class EmptyStateView extends PureComponent {
     const { icon, message, onRetry } = this.props;
 
     return (
-      <View
-        {...this.props}
-        styleName="vertical flexible h-center v-center"
-      >
+      <View {...this.props} styleName="vertical flexible h-center v-center">
         <View styleName="icon-placeholder">
           <Icon name={icon} />
         </View>
@@ -68,6 +62,4 @@ EmptyStateView.propTypes = {
 
 const StyledView = connectStyle('shoutem.ui.EmptyStateView')(EmptyStateView);
 
-export {
-  StyledView as EmptyStateView,
-};
+export { StyledView as EmptyStateView };

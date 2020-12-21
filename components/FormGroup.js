@@ -1,17 +1,12 @@
 import React, { PureComponent } from 'react';
-
-import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
+import { connectStyle } from '@shoutem/theme';
 
 import { View } from './View';
 
 class FormGroup extends PureComponent {
   render() {
-    return (
-      <View {...this.props}>
-        {this.props.children}
-      </View>
-    );
+    return <View {...this.props}>{this.props.children}</View>;
   }
 }
 
@@ -22,6 +17,4 @@ FormGroup.propTypes = {
 const AnimatedFormGroup = connectAnimation(FormGroup);
 const StyledFormGroup = connectStyle('shoutem.ui.FormGroup')(AnimatedFormGroup);
 
-export {
-  StyledFormGroup as FormGroup,
-};
+export { StyledFormGroup as FormGroup };

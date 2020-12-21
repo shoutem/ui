@@ -1,11 +1,6 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-import {
-  StatusBar,
-  Animated,
-  Platform,
-  View,
-} from 'react-native';
+import PropTypes from 'prop-types';
+import { StatusBar, Animated, Platform, View } from 'react-native';
 
 import _ from 'lodash';
 
@@ -18,11 +13,13 @@ import { Device } from '../../helpers';
 import composeChildren from './composeChildren';
 
 function getBackgroundColor(style) {
-  const styleWithBg = _.find(style, (styleDef) =>
-    styleDef.backgroundColor && styleDef.backgroundColor !== 'transparent'
+  const styleWithBg = _.find(
+    style,
+    styleDef =>
+      styleDef.backgroundColor && styleDef.backgroundColor !== 'transparent',
   );
 
-  return styleWithBg && styleWithBg.backgroundColor || 'transparent';
+  return (styleWithBg && styleWithBg.backgroundColor) || 'transparent';
 }
 
 // eslint-disable-next-line react/prefer-stateless-function
@@ -64,7 +61,7 @@ class NavigationBar extends PureComponent {
     // used to interpolate backgroundColor. But this way developer doesn't
     // have to concern about status bar if he animates navigation bar color
     if (backgroundColor && backgroundColor._parent instanceof Animated.Value) {
-      backgroundColor._parent.addListener((animation) => {
+      backgroundColor._parent.addListener(animation => {
         setStyle(backgroundColor._interpolation(animation.value));
       });
       setStyle(backgroundColor._interpolation(0));
@@ -77,7 +74,7 @@ class NavigationBar extends PureComponent {
     const { style } = this.props;
 
     return Device.select({
-      iPhoneX: (<View style={style.statusBar} />),
+      iPhoneX: <View style={style.statusBar} />,
       default: null,
     });
   }
@@ -108,8 +105,8 @@ class NavigationBar extends PureComponent {
 }
 
 const AnimatedNavigationBar = connectAnimation(composeChildren(NavigationBar));
-const StyledNavigationBar = connectStyle('shoutem.ui.NavigationBar')(AnimatedNavigationBar);
+const StyledNavigationBar = connectStyle('shoutem.ui.NavigationBar')(
+  AnimatedNavigationBar,
+);
 
-export {
-  StyledNavigationBar as NavigationBar,
-};
+export { StyledNavigationBar as NavigationBar };

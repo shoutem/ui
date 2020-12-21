@@ -1,12 +1,9 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-import {
-  Modal,
-  Dimensions,
-} from 'react-native';
+import autoBindReact from 'auto-bind/react';
 import _ from 'lodash';
+import PropTypes from 'prop-types';
+import { Modal, Dimensions } from 'react-native';
 import { connectStyle, changeColorAlpha } from '@shoutem/theme';
-
 import { Button } from '../Button';
 import { Icon } from '../Icon';
 import { LinearGradient } from '../LinearGradient';
@@ -65,7 +62,8 @@ class DropDownModal extends PureComponent {
 
   static defaultProps = {
     renderOption: (option, titleProperty) => (
-      <Text>{option[titleProperty].toUpperCase()}</Text>),
+      <Text>{option[titleProperty].toUpperCase()}</Text>
+    ),
   };
 
   static DEFAULT_VISIBLE_OPTIONS = 8;
@@ -73,14 +71,7 @@ class DropDownModal extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.close = this.close.bind(this);
-    this.emitOnOptionSelectedEvent = this.emitOnOptionSelectedEvent.bind(this);
-    this.getKeyAreaHeights = this.getKeyAreaHeights.bind(this);
-    this.renderGradient = this.renderGradient.bind(this);
-    this.resolveListViewStyle = this.resolveListViewStyle.bind(this);
-    this.renderRow = this.renderRow.bind(this);
-    this.selectOption = this.selectOption.bind(this);
-    this.onOptionLayout = this.onOptionLayout.bind(this);
+    autoBindReact(this);
 
     this.state = { optionHeight: 0 };
   }
@@ -100,7 +91,7 @@ class DropDownModal extends PureComponent {
   getVisibleOptions() {
     const {
       visibleOptions,
-      style: { visibleOptions: styleVisibleOptions }
+      style: { visibleOptions: styleVisibleOptions },
     } = this.props;
     const defaultOptions = DropDownModal.DEFAULT_VISIBLE_OPTIONS;
 
@@ -154,14 +145,13 @@ class DropDownModal extends PureComponent {
     const visibleOptions = this.getVisibleOptions();
     const optionsSize = _.size(options);
 
-    return optionsSize > visibleOptions ?
-      visibleOptions * resolvedHeight : optionsSize * resolvedHeight;
+    return optionsSize > visibleOptions
+      ? visibleOptions * resolvedHeight
+      : optionsSize * resolvedHeight;
   }
 
   renderFooter() {
-    return (
-      <View styleName="md-gutter-top" />
-    );
+    return <View styleName="md-gutter-top" />;
   }
 
   getKeyAreaHeights(manualOptionHeight) {
@@ -171,8 +161,13 @@ class DropDownModal extends PureComponent {
     const gradientHeight = manualOptionHeight || optionHeight;
     const listViewHeight = this.calculateListViewHeight(gradientHeight);
     const screenHeight = window.height;
-    const paddedScreenHeight = style.modal.paddingVertical ? screenHeight - style.modal.paddingVertical * 2 : screenHeight;
-    const bufferHeight = Math.max((paddedScreenHeight - listViewHeight) / 2, gradientHeight * 2);
+    const paddedScreenHeight = style.modal.paddingVertical
+      ? screenHeight - style.modal.paddingVertical * 2
+      : screenHeight;
+    const bufferHeight = Math.max(
+      (paddedScreenHeight - listViewHeight) / 2,
+      gradientHeight * 2,
+    );
 
     return {
       listViewHeight,
@@ -210,25 +205,38 @@ class DropDownModal extends PureComponent {
     // This config array holds the appropriate screen segment ratios per calculcations above
     // Every screen segment has it's corresponding color to transition to.
 
-    const gradientConfig = [{
-      location: 0,
-      color: changeColorAlpha(bufferColor, 1),
-    }, {
-      location: Math.max((bufferHeight - gradientHeight) / screenHeight, 0.15),
-      color: backgroundColor
-    }, {
-      location: Math.max((bufferHeight / screenHeight), 0.2),
-      color: invertedColor
-    }, {
-      location: Math.min((bufferHeight + listViewHeight) / screenHeight, 0.8),
-      color: invertedColor
-    }, {
-      location: Math.min((bufferHeight + listViewHeight + gradientHeight) / screenHeight, 0.85),
-      color: backgroundColor
-    }, {
-      location: 1,
-      color: changeColorAlpha(bufferColor, 1),
-    }];
+    const gradientConfig = [
+      {
+        location: 0,
+        color: changeColorAlpha(bufferColor, 1),
+      },
+      {
+        location: Math.max(
+          (bufferHeight - gradientHeight) / screenHeight,
+          0.15,
+        ),
+        color: backgroundColor,
+      },
+      {
+        location: Math.max(bufferHeight / screenHeight, 0.2),
+        color: invertedColor,
+      },
+      {
+        location: Math.min((bufferHeight + listViewHeight) / screenHeight, 0.8),
+        color: invertedColor,
+      },
+      {
+        location: Math.min(
+          (bufferHeight + listViewHeight + gradientHeight) / screenHeight,
+          0.85,
+        ),
+        color: backgroundColor,
+      },
+      {
+        location: 1,
+        color: changeColorAlpha(bufferColor, 1),
+      },
+    ];
 
     return (
       <LinearGradient
@@ -241,19 +249,18 @@ class DropDownModal extends PureComponent {
   }
 
   renderRow(option) {
-    const {
-      style,
-      titleProperty,
-      renderOption,
-      selectedOption,
-    } = this.props;
+    const { style, titleProperty, renderOption, selectedOption } = this.props;
 
     const optionItem = renderOption(option, titleProperty);
-    const selectedItem = selectedOption.id === option.id || false
+    const selectedItem = selectedOption.id === option.id || false;
     const onPress = () => this.selectOption(option);
 
     return (
-      <TouchableOpacity onPress={onPress} style={selectedItem ? style.selectedModalItem : style.modalItem} onLayout={this.onOptionLayout}>
+      <TouchableOpacity
+        onPress={onPress}
+        style={selectedItem ? style.selectedModalItem : style.modalItem}
+        onLayout={this.onOptionLayout}
+      >
         {optionItem}
       </TouchableOpacity>
     );
@@ -266,7 +273,7 @@ class DropDownModal extends PureComponent {
     if (_.size(options) === 0) {
       return null;
     }
-    const data = options.filter((option) => option[titleProperty]);
+    const data = options.filter(option => option[titleProperty]);
 
     return (
       <Modal
@@ -294,6 +301,4 @@ class DropDownModal extends PureComponent {
 
 const StyledModal = connectStyle('shoutem.ui.DropDownModal')(DropDownModal);
 
-export {
-  StyledModal as DropDownModal,
-};
+export { StyledModal as DropDownModal };

@@ -1,16 +1,13 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import autoBindReact from 'auto-bind/react';
 import _ from 'lodash';
-
-import { connectStyle } from '@shoutem/theme';
+import PropTypes from 'prop-types';
 import { connectAnimation } from '@shoutem/animation';
-
-import { Icon } from './Icon';
-import { View } from './View';
+import { connectStyle } from '@shoutem/theme';
 import { Button } from './Button';
+import { Icon } from './Icon';
 import { TextInput } from './TextInput';
-
-const { func, number, object, oneOfType, shape, string } = PropTypes;
+import { View } from './View';
 
 /**
  * A component for entering a numerical value with two helper buttons for increasing
@@ -28,34 +25,29 @@ class NumberInput extends PureComponent {
   static propTypes = {
     ...TextInput.propTypes,
     // Maximum allowed value
-    max: number,
+    max: PropTypes.number,
     // Minimum allowed value
-    min: number,
+    min: PropTypes.number,
     // Called when the user changes the value by inputting it directly or with buttons
-    onChange: func.isRequired,
+    onChange: PropTypes.func.isRequired,
     // Step used to increase or decrease value with corresponding buttons
-    step: number,
+    step: PropTypes.number,
     // Styles for component parts
-    style: shape({
-      button: object,
-      container: object,
-      icon: object,
-      input: object,
-      inputContainer: object,
+    style: PropTypes.shape({
+      button: PropTypes.object,
+      container: PropTypes.object,
+      icon: PropTypes.object,
+      input: PropTypes.object,
+      inputContainer: PropTypes.object,
     }),
     // Value of the input - can be empty
-    value: oneOfType([
-      number,
-      string,
-    ]),
+    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   };
 
   constructor(props) {
     super(props);
 
-    this.decreaseValue = this.decreaseValue.bind(this);
-    this.increaseValue = this.increaseValue.bind(this);
-    this.onChangeText = this.onChangeText.bind(this);
+    autoBindReact(this);
   }
 
   onChangeText(text) {
@@ -93,24 +85,15 @@ class NumberInput extends PureComponent {
     const { style, value } = this.props;
 
     return (
-      <View
-        style={style.container}
-        styleName="horizontal"
-      >
+      <View style={style.container} styleName="horizontal">
         <Button
           style={style.button}
           styleName="secondary"
           onPress={this.decreaseValue}
         >
-          <Icon
-            name="minus-button"
-            style={style.icon}
-          />
+          <Icon name="minus-button" style={style.icon} />
         </Button>
-        <View
-          style={style.inputContainer}
-          styleName="horizontal"
-        >
+        <View style={style.inputContainer} styleName="horizontal">
           <TextInput
             keyboardType="numeric"
             onChangeText={this.onChangeText}
@@ -123,10 +106,7 @@ class NumberInput extends PureComponent {
           styleName="secondary"
           onPress={this.increaseValue}
         >
-          <Icon
-            name="plus-button"
-            style={style.icon}
-          />
+          <Icon name="plus-button" style={style.icon} />
         </Button>
       </View>
     );
@@ -134,8 +114,8 @@ class NumberInput extends PureComponent {
 }
 
 const AnimatedNumberInput = connectAnimation(NumberInput);
-const StyledNumberInput = connectStyle('shoutem.ui.NumberInput')(AnimatedNumberInput);
+const StyledNumberInput = connectStyle('shoutem.ui.NumberInput')(
+  AnimatedNumberInput,
+);
 
-export {
-  StyledNumberInput as NumberInput,
-};
+export { StyledNumberInput as NumberInput };

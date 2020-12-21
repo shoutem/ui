@@ -1,6 +1,7 @@
 import { stringify } from 'qs';
 
 function getYouTubeVideoId(url) {
+  // eslint-disable-next-line no-useless-escape
   const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\??v?=?))([^#&\?]*).*/;
   const match = url.match(regExp);
 
@@ -14,6 +15,7 @@ function getYouTubeVideoId(url) {
 function getVimeoVideoId(url) {
   // TODO(Vladimir) - find a shorter regex that covers all of our usecases, remove eslint-disable
   // The eslint line length rule is disabled so we can use our old battle-tested regex for vimeo
+  // eslint-disable-next-line no-useless-escape
   const regExp = /https?:\/\/(?:[\w]+\.)?vimeo.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|video\/|)(\d+)(?:$|\/|\?)/; // eslint-disable-line max-len
   const match = url.match(regExp);
 
@@ -52,7 +54,10 @@ export default class VideoSourceReader {
 
   getUrl() {
     if (this.isYouTube) {
-      return getYouTubeEmbedUrl(getYouTubeVideoId(this.source), this.playerParams);
+      return getYouTubeEmbedUrl(
+        getYouTubeVideoId(this.source),
+        this.playerParams,
+      );
     } else if (this.isVimeo) {
       return getVimeoEmbedUrl(getVimeoVideoId(this.source));
     }
