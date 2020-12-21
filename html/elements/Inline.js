@@ -154,12 +154,13 @@ export class Inline extends PureComponent {
 
   render() {
     const {
+      block,
       childElements,
-      style,
       onPress,
       onLineBreak,
+      renderElement,
+      style,
       styleName,
-      block,
     } = this.props;
 
     if (_.isEmpty(childElements)) {
@@ -176,8 +177,7 @@ export class Inline extends PureComponent {
     // Block elements are standalone because they break the line.
     const children = groupInlineNodes(trimmedChildren, onLineBreak);
 
-    let content = renderGroupedChildren(children);
-
+    let content = renderGroupedChildren(children, renderElement, style);
     if (onlyInlineChildren(children)) {
       // Group textual nodes together.
       // Used for right text wrapping.
@@ -194,6 +194,7 @@ export class Inline extends PureComponent {
     }
 
     const Container = onPress ? TouchableOpacity : View;
+
     return (
       <Container
         style={style.container}
