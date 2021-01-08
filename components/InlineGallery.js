@@ -1,14 +1,13 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-
+import autoBindReact from 'auto-bind/react';
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
-
-import { View } from './View';
-import { TouchableOpacity } from './TouchableOpacity';
-import { Image } from './Image';
 import { HorizontalPager } from './HorizontalPager/HorizontalPager';
+import { Image } from './Image';
 import { LoadingIndicator } from './LoadingIndicator';
+import { TouchableOpacity } from './TouchableOpacity';
+import { View } from './View';
 
 class InlineGallery extends PureComponent {
   static propTypes = {
@@ -42,14 +41,14 @@ class InlineGallery extends PureComponent {
   };
 
   static defaultProps = {
-    renderPlaceholder: () => (<LoadingIndicator />),
+    renderPlaceholder: () => <LoadingIndicator />,
   };
 
   constructor(props) {
     super(props);
-    this.renderPage = this.renderPage.bind(this);
-    this.onPress = this.onPress.bind(this);
-    this.onIndexSelected = this.onIndexSelected.bind(this);
+
+    autoBindReact(this);
+
     this.state = {
       selectedIndex: 0,
       showNextPage: this.props.showNextPage || false,
@@ -100,14 +99,17 @@ class InlineGallery extends PureComponent {
   }
 
   render() {
-    const { data, selectedIndex, renderOverlay, renderPlaceholder, style } = this.props;
+    const {
+      data,
+      selectedIndex,
+      renderOverlay,
+      renderPlaceholder,
+      style,
+    } = this.props;
     const { showNextPage } = this.state;
 
     return (
-      <View
-        renderToHardwareTextureAndroid
-        style={style.container}
-      >
+      <View renderToHardwareTextureAndroid style={style.container}>
         <HorizontalPager
           data={data}
           onIndexSelected={this.onIndexSelected}
@@ -123,8 +125,8 @@ class InlineGallery extends PureComponent {
   }
 }
 
-const StyledInlineGallery = connectStyle('shoutem.ui.InlineGallery')(InlineGallery);
+const StyledInlineGallery = connectStyle('shoutem.ui.InlineGallery')(
+  InlineGallery,
+);
 
-export {
-  StyledInlineGallery as InlineGallery,
-};
+export { StyledInlineGallery as InlineGallery };

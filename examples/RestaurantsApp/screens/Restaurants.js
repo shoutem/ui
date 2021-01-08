@@ -1,11 +1,10 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
+import autoBindReact from 'auto-bind/react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
 import { CardStack, NavigationBar } from '@shoutem/ui/navigation';
-
-import RestaurantsList from './RestaurantsList';
 import RestaurantDetails from './RestaurantDetails';
+import RestaurantsList from './RestaurantsList';
 import { navigatePop } from '../redux';
 
 class Restaurants extends PureComponent {
@@ -18,27 +17,22 @@ class Restaurants extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.renderNavBar = this.renderNavBar.bind(this);
-    this.renderScene = this.renderScene.bind(this);
+    autoBindReact(this);
   }
 
   renderScene(props) {
     const { route } = props.scene;
 
-    let Screen = route.key === 'RestaurantDetails' ? RestaurantDetails : RestaurantsList;
+    const Screen =
+      route.key === 'RestaurantDetails' ? RestaurantDetails : RestaurantsList;
 
-    return (<Screen {...route.props} />);
+    return <Screen {...route.props} />;
   }
 
   renderNavBar(props) {
     const { onNavigateBack } = this.props;
 
-    return (
-      <NavigationBar.View
-        {...props}
-        onNavigateBack={onNavigateBack}
-      />
-    );
+    return <NavigationBar.View {...props} onNavigateBack={onNavigateBack} />;
   }
 
   render() {
@@ -55,7 +49,6 @@ class Restaurants extends PureComponent {
   }
 }
 
-export default connect(
-  state => ({ navigationState: state.navigationState }),
-  { onNavigateBack: navigatePop }
-)(Restaurants);
+export default connect(state => ({ navigationState: state.navigationState }), {
+  onNavigateBack: navigatePop,
+})(Restaurants);

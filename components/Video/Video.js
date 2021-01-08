@@ -1,11 +1,9 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { WebView } from 'react-native-webview';
-
 import { connectAnimation } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
-
 import VideoSourceReader from './VideoSourceReader';
 
 function getSource(sourceReader, poster) {
@@ -64,12 +62,7 @@ class Video extends PureComponent {
   }
 
   render() {
-    const {
-      width,
-      height,
-      style,
-      poster,
-    } = this.props;
+    const { width, height, style, poster } = this.props;
 
     // https://github.com/vimeo/player.js/issues/514
     // Vimeo player crashes the app, if played in full screen portrait mode and if user
@@ -82,7 +75,7 @@ class Video extends PureComponent {
         <WebView
           allowsFullscreenVideo={isYoutubeVideo}
           mediaPlaybackRequiresUserAction={false}
-          style={{width, height}}
+          style={{ width, height }}
           source={getSource(this.sourceReader, poster)}
           scrollEnabled={false}
           originWhitelist={['*']}
@@ -95,6 +88,4 @@ class Video extends PureComponent {
 const AnimatedVideo = connectAnimation(Video);
 const StyledVideo = connectStyle('shoutem.ui.Video')(AnimatedVideo);
 
-export {
-  StyledVideo as Video,
-};
+export { StyledVideo as Video };

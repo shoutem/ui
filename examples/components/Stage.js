@@ -1,15 +1,15 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import { View, Text } from 'react-native';
 
 function Stage({ title, children }) {
+  // eslint-disable-next-line no-use-before-define
+  const { container, stage, titleStyle } = styles;
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
-      <View style={styles.stage}>
-        {children}
-      </View>
+    <View style={container}>
+      <Text style={titleStyle}>{title}</Text>
+      <View style={stage}>{children}</View>
     </View>
   );
 }
@@ -19,12 +19,12 @@ Stage.propTypes = {
   children: PropTypes.node,
 };
 
-const styles =  {
+const styles = {
   container: {
     marginVertical: 24,
     flexDirection: 'column',
   },
-  title: {
+  titleStyle: {
     fontSize: 18,
     color: '#444f6c',
     margin: 8,

@@ -1,11 +1,11 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
+import autoBindReact from 'auto-bind/react';
 import _ from 'lodash';
-
-import { View } from '../View';
+import PropTypes from 'prop-types';
 import { HorizontalPager } from '../HorizontalPager';
-import { LoadingIndicator } from '../LoadingIndicator';
 import { Image } from '../Image';
+import { LoadingIndicator } from '../LoadingIndicator';
+import { View } from '../View';
 
 const IMAGE_PREVIEW_MODE = 'imagePreview';
 const IMAGE_GALLERY_MODE = 'gallery';
@@ -68,9 +68,8 @@ export class ImageGalleryBase extends PureComponent {
 
   constructor(props) {
     super(props);
-    this.renderPage = this.renderPage.bind(this);
-    this.onIndexSelected = this.onIndexSelected.bind(this);
-    this.onImageTap = this.onImageTap.bind(this);
+
+    autoBindReact(this);
 
     this.state = {
       selectedIndex: this.props.selectedIndex || 0,
@@ -94,13 +93,16 @@ export class ImageGalleryBase extends PureComponent {
 
   onIndexSelected(newIndex) {
     const { onIndexSelected } = this.props;
-    this.setState({
-      selectedIndex: newIndex,
-    }, () => {
-      if (_.isFunction(onIndexSelected)) {
-        onIndexSelected(newIndex);
-      }
-    });
+    this.setState(
+      {
+        selectedIndex: newIndex,
+      },
+      () => {
+        if (_.isFunction(onIndexSelected)) {
+          onIndexSelected(newIndex);
+        }
+      },
+    );
   }
 
   setMode(mode) {
@@ -129,29 +131,27 @@ export class ImageGalleryBase extends PureComponent {
       return null;
     }
 
-    const isImageVisible = (pageIndex === selectedIndex);
+    const isImageVisible = pageIndex === selectedIndex;
     const transformImageProps = Image.getPropsTransformer();
     const imageProps = {
       source: { uri: image },
       style: { flex: 1 },
     };
-    const transformedImageProps = _.isFunction(transformImageProps) ?
-      transformImageProps(imageProps) :
-      imageProps;
+    const transformedImageProps = _.isFunction(transformImageProps)
+      ? transformImageProps(imageProps)
+      : imageProps;
 
-    const showOverlay = _.isFunction(renderImageOverlay) &&
+    const showOverlay =
+      _.isFunction(renderImageOverlay) &&
       // Nothing should be rendered above an image if the user is in
       // the preview mode (pinching, and panning the image).
-      (mode !== IMAGE_PREVIEW_MODE) &&
+      mode !== IMAGE_PREVIEW_MODE &&
       // We are not rendering overlays above images that are not visible
       isImageVisible;
     const overlay = showOverlay && renderImageOverlay(pageData, pageIndex);
 
     return (
-      <View
-        key={pageIndex}
-        style={style.page}
-      >
+      <View key={pageIndex} style={style.page}>
         {this.renderImage(transformedImageProps, pageData, pageIndex)}
         {overlay}
       </View>
@@ -163,10 +163,7 @@ export class ImageGalleryBase extends PureComponent {
     const { selectedIndex, imageSwitchingEnabled } = this.state;
 
     return (
-      <View
-        style={style.container}
-        driver={this.timingDriver}
-      >
+      <View style={style.container} driver={this.timingDriver}>
         <HorizontalPager
           data={data}
           onIndexSelected={this.onIndexSelected}

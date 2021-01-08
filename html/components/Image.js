@@ -1,9 +1,8 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-import { Image as RNImage } from 'react-native';
-import { connectStyle } from '@shoutem/theme';
+import autoBindReact from 'auto-bind/react';
 import _ from 'lodash';
-
+import PropTypes from 'prop-types';
+import { Image as RNImage } from 'react-native';
 import { Image } from '../../components/Image';
 import { ImageBackground } from '../../components/ImageBackground';
 import { Lightbox } from '../../components/Lightbox';
@@ -29,13 +28,18 @@ export default class HtmlImage extends PureComponent {
   constructor(props) {
     super(props);
 
+    autoBindReact(this);
+
     this.state = {
       width: null,
       height: null,
     };
 
-    this.imageSizeLoaded = this.imageSizeLoaded.bind(this);
-    RNImage.getSize(props.source.uri, this.imageSizeLoaded, this.imageSizeLoadFailed);
+    RNImage.getSize(
+      props.source.uri,
+      this.imageSizeLoaded,
+      this.imageSizeLoadFailed,
+    );
   }
 
   imageSizeLoaded(width, height) {
@@ -44,7 +48,11 @@ export default class HtmlImage extends PureComponent {
 
   imageSizeLoadFailed() {
     // TODO - handle properly
-    console.log('Could not load image size for image: ', this.props.source.uri);
+    // eslint-disable-next-line no-console
+    console.warn(
+      'Could not load image size for image: ',
+      this.props.source.uri,
+    );
   }
 
   render() {
@@ -52,7 +60,10 @@ export default class HtmlImage extends PureComponent {
     const { width, height } = this.state;
 
     if (!style) {
-      console.warn('Invalid Html image style. Html image requires style.width.');
+      // eslint-disable-next-line no-console
+      console.warn(
+        'Invalid Html image style. Html image requires style.width.',
+      );
       return null;
     }
 
@@ -64,7 +75,8 @@ export default class HtmlImage extends PureComponent {
     // Do not enlarge image.
     // If image is smaller then image style width,
     // width that fits the screen best, use actual image width.
-    const imageWidth = allowUpscale && style.width ? style.width : _.min([width, style.width]);
+    const imageWidth =
+      allowUpscale && style.width ? style.width : _.min([width, style.width]);
 
     const imageHeight = style.height || (imageWidth / width) * height;
     const { source, lightbox } = this.props;

@@ -1,14 +1,13 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
+import autoBindReact from 'auto-bind/react';
+import PropTypes from 'prop-types';
 import { ScrollView } from 'react-native';
-
-import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
-
-import { Caption, Subtitle } from './Text';
+import { connectStyle } from '@shoutem/theme';
 import { Icon } from './Icon';
-import { View } from './View';
+import { Caption, Subtitle } from './Text';
 import { TouchableOpacity } from './TouchableOpacity';
+import { View } from './View';
 
 const DESCRIPTION_LENGTH_TRIM_LIMIT = 90;
 
@@ -27,9 +26,7 @@ class ImageGalleryOverlay extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.collapseDescription = this.collapseDescription.bind(this);
-    this.expandDescription = this.expandDescription.bind(this);
-    this.onDescriptionScroll = this.onDescriptionScroll.bind(this);
+    autoBindReact(this);
 
     this.state = {
       isDescriptionCollapsed: true,
@@ -42,9 +39,9 @@ class ImageGalleryOverlay extends PureComponent {
 
     // We are expanding and collapsing the description when
     // the user swipes the description in the correct direction.
-    if (isDescriptionCollapsed && (offsetY > 0)) {
+    if (isDescriptionCollapsed && offsetY > 0) {
       this.expandDescription();
-    } else if (!isDescriptionCollapsed && (offsetY < 0)) {
+    } else if (!isDescriptionCollapsed && offsetY < 0) {
       this.collapseDescription();
     }
   }
@@ -66,7 +63,9 @@ class ImageGalleryOverlay extends PureComponent {
 
     return (
       <View style={style.title.container}>
-        <Subtitle style={style.title.text} numberOfLines={2}>{title}</Subtitle>
+        <Subtitle style={style.title.text} numberOfLines={2}>
+          {title}
+        </Subtitle>
       </View>
     );
   }
@@ -79,7 +78,9 @@ class ImageGalleryOverlay extends PureComponent {
       return null;
     }
 
-    const descriptionIcon = (<Icon name={`${collapsed ? 'up' : 'down'}-arrow`} />);
+    const descriptionIcon = (
+      <Icon name={`${collapsed ? 'up' : 'down'}-arrow`} />
+    );
 
     const descriptionText = (
       <Caption
@@ -96,7 +97,9 @@ class ImageGalleryOverlay extends PureComponent {
         style={style.description.container}
       >
         <TouchableOpacity
-          onPress={collapsed ? this.expandDescription : this.collapseDescription}
+          onPress={
+            collapsed ? this.expandDescription : this.collapseDescription
+          }
           hitSlop={{
             top: 10,
             right: 10,
@@ -104,7 +107,9 @@ class ImageGalleryOverlay extends PureComponent {
             left: 10,
           }}
         >
-          {description.length >= DESCRIPTION_LENGTH_TRIM_LIMIT ? descriptionIcon : null}
+          {description.length >= DESCRIPTION_LENGTH_TRIM_LIMIT
+            ? descriptionIcon
+            : null}
         </TouchableOpacity>
         <ScrollView
           style={style.description.scroll}
@@ -146,6 +151,4 @@ const StyledOverlay = connectStyle('shoutem.ui.ImageGalleryOverlay', {
     text: {},
   },
 })(AnimatedOverlay);
-export {
-  StyledOverlay as ImageGalleryOverlay,
-};
+export { StyledOverlay as ImageGalleryOverlay };

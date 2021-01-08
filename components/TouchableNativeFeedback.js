@@ -1,7 +1,6 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { TouchableNativeFeedback as RNTouchableNativeFeedback } from 'react-native';
-
 import { connectStyle } from '@shoutem/theme';
 
 class TouchableNativeFeedback extends PureComponent {
@@ -36,9 +35,8 @@ class TouchableNativeFeedback extends PureComponent {
   }
 }
 
-const StyledTouchableNativeFeedback =
-  connectStyle('shoutem.ui.TouchableNativeFeedback')(TouchableNativeFeedback);
+const StyledTouchableNativeFeedback = connectStyle(
+  'shoutem.ui.TouchableNativeFeedback',
+)(TouchableNativeFeedback);
 
-export {
-  StyledTouchableNativeFeedback as TouchableNativeFeedback,
-};
+export { StyledTouchableNativeFeedback as TouchableNativeFeedback };

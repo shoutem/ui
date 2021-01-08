@@ -1,14 +1,10 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-
+import autoBindReact from 'auto-bind/react';
+import PropTypes from 'prop-types';
 import { Share, Platform } from 'react-native';
-
 import { connectStyle } from '@shoutem/theme';
-
 import { Button } from './Button';
 import { Icon } from './Icon';
-
-const { string } = PropTypes;
 
 /**
  * The ShareButton is a virtual component that wraps a button with a share icon.
@@ -21,19 +17,19 @@ const { string } = PropTypes;
 class ShareButton extends PureComponent {
   static propTypes = {
     // Animation name for share icon
-    animationName: string,
+    animationName: PropTypes.string,
     // Message to share
-    message: string,
+    message: PropTypes.string,
     // Title
-    title: string,
+    title: PropTypes.string,
     // Url to share
-    url: string,
+    url: PropTypes.string,
   };
 
   constructor(props) {
     super(props);
 
-    this.onShare = this.onShare.bind(this);
+    autoBindReact(this);
   }
 
   onShare() {
@@ -52,18 +48,21 @@ class ShareButton extends PureComponent {
     const { animationName } = this.props;
 
     return (
-      <Button
-        onPress={this.onShare}
-      >
-        <Icon name={Platform.OS === 'ios' ? 'share' : 'share-android'} animationName={animationName} />
+      <Button onPress={this.onShare}>
+        <Icon
+          name={Platform.OS === 'ios' ? 'share' : 'share-android'}
+          animationName={animationName}
+        />
       </Button>
     );
   }
 }
 
-const StyledShareButton = connectStyle('shoutem.ui.ShareButton', undefined, undefined,
-  { virtual: true })(ShareButton);
+const StyledShareButton = connectStyle(
+  'shoutem.ui.ShareButton',
+  undefined,
+  undefined,
+  { virtual: true },
+)(ShareButton);
 
-export {
-  StyledShareButton as ShareButton,
-};
+export { StyledShareButton as ShareButton };

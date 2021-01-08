@@ -1,14 +1,9 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent, Children } from 'react';
-import {
-  View as RNView,
-  ViewPropTypes,
-} from 'react-native';
 import _ from 'lodash';
-
-import { connectStyle } from '@shoutem/theme';
+import PropTypes from 'prop-types';
+import { View as RNView, ViewPropTypes } from 'react-native';
 import { connectAnimation } from '@shoutem/animation';
-
+import { connectStyle } from '@shoutem/theme';
 import { View } from './View';
 
 /**
@@ -20,7 +15,7 @@ import { View } from './View';
  * @returns {*} Placeholder views
  */
 function renderPlaceholderViews(count) {
-  return _.times(count, (index) => (<View key={`placeholder-${index}`} />));
+  return _.times(count, index => <View key={`placeholder-${index}`} />);
 }
 
 // Ref needed
@@ -61,20 +56,24 @@ GridRow.propTypes = {
  *   data elements.
  */
 GridRow.groupByRows = (data, columns, getColumnSpan = _.constant(1)) => {
-  const groupedData = _.reduce(data, (result, element) => {
-    let currentRow = _.last(result.rows);
-    const elementSpan = getColumnSpan(element);
+  const groupedData = _.reduce(
+    data,
+    (result, element) => {
+      let currentRow = _.last(result.rows);
+      const elementSpan = getColumnSpan(element);
 
-    if (!currentRow || (result.currentRowSize + elementSpan > columns)) {
-      currentRow = [];
-      result.currentRowSize = 0;
-      result.rows.push(currentRow);
-    }
+      if (!currentRow || result.currentRowSize + elementSpan > columns) {
+        currentRow = [];
+        result.currentRowSize = 0;
+        result.rows.push(currentRow);
+      }
 
-    result.currentRowSize += elementSpan;
-    currentRow.push(element);
-    return result;
-  }, { currentRowSize: 0, rows: [] });
+      result.currentRowSize += elementSpan;
+      currentRow.push(element);
+      return result;
+    },
+    { currentRowSize: 0, rows: [] },
+  );
 
   return groupedData.rows;
 };
@@ -82,6 +81,4 @@ GridRow.groupByRows = (data, columns, getColumnSpan = _.constant(1)) => {
 const AnimatedGridRow = connectAnimation(GridRow);
 const StyledGridRow = connectStyle('shoutem.ui.GridRow')(AnimatedGridRow);
 
-export {
-  StyledGridRow as GridRow,
-};
+export { StyledGridRow as GridRow };

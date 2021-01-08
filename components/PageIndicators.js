@@ -1,8 +1,7 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-
+import autoBindReact from 'auto-bind/react';
+import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
-
 import { View } from './View';
 
 /**
@@ -24,20 +23,18 @@ class PageIndicators extends PureComponent {
 
   static defaultProps = {
     maxCount: 10,
-  }
+  };
 
   constructor(props) {
     super(props);
-    this.renderPageIndicator = this.renderPageIndicator.bind(this);
+
+    autoBindReact(this);
   }
 
   renderPageIndicator(index, count, activeIndex, indicatorStyle) {
     const { style } = this.props;
     return (
-      <View
-        style={style.indicatorContainer}
-        key={`pageIndicator${index}`}
-      >
+      <View style={style.indicatorContainer} key={`pageIndicator${index}`}>
         <View styleName={indicatorStyle} />
       </View>
     );
@@ -56,28 +53,28 @@ class PageIndicators extends PureComponent {
         // If currently selected index matches index of page indicator that is rendered
         // then we should apply different styling
         indicatorStyle = 'selected';
-      } else if (activeIndex >= i && (maxIndicatorsCount - 1) === i) {
+      } else if (activeIndex >= i && maxIndicatorsCount - 1 === i) {
         // If currently selected index exceeds over number of indicators,
         // we should treat last indicator as selected one
         indicatorStyle = 'selected';
       }
 
       pageIndicators.push(
-        this.renderPageIndicator(i, maxIndicatorsCount, activeIndex, indicatorStyle)
+        this.renderPageIndicator(
+          i,
+          maxIndicatorsCount,
+          activeIndex,
+          indicatorStyle,
+        ),
       );
     }
 
-    return (
-      <View style={style.container}>
-        {pageIndicators}
-      </View>
-    );
+    return <View style={style.container}>{pageIndicators}</View>;
   }
-
 }
 
-const StyledPageIndicators = connectStyle('shoutem.ui.PageIndicators')(PageIndicators);
+const StyledPageIndicators = connectStyle('shoutem.ui.PageIndicators')(
+  PageIndicators,
+);
 
-export {
-  StyledPageIndicators as PageIndicators,
-};
+export { StyledPageIndicators as PageIndicators };

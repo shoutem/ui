@@ -6,6 +6,4 @@ function setDefaultThemeStyle() {
   Theme.setDefaultThemeStyle(theme);
 }
 
-export {
-  setDefaultThemeStyle,
-};
+export { setDefaultThemeStyle };

@@ -1,10 +1,4 @@
-import {
-  Dimensions,
-  StyleSheet,
-  Platform,
-  StatusBar,
-} from 'react-native';
-
+import { Dimensions, StyleSheet, Platform, StatusBar } from 'react-native';
 import {
   INCLUDE,
   createVariations,
@@ -13,26 +7,33 @@ import {
   changeColorAlpha,
   getSizeRelativeToReference,
 } from '@shoutem/theme';
-
-import { Device } from './helpers';
-
 import {
   NAVIGATION_HEADER_HEIGHT,
   IPHONE_X_NOTCH_PADDING,
   IPHONE_XR_NOTCH_PADDING,
   IPHONE_X_HOME_INDICATOR_PADDING,
 } from './const';
+import { Device } from './helpers';
 
 const window = Dimensions.get('window');
 
-const STATUS_BAR_OFFSET = (Platform.OS === 'android' ? -StatusBar.currentConfig : 0);
+const STATUS_BAR_OFFSET =
+  Platform.OS === 'android' ? -StatusBar.currentConfig : 0;
 export const NAVIGATION_BAR_HEIGHT = Device.select({
   iPhoneX: NAVIGATION_HEADER_HEIGHT + IPHONE_X_NOTCH_PADDING,
   iPhoneXR: NAVIGATION_HEADER_HEIGHT + IPHONE_XR_NOTCH_PADDING,
   default: NAVIGATION_HEADER_HEIGHT,
 });
 
-export const sizeVariants = ['', 'left', 'right', 'top', 'bottom', 'horizontal', 'vertical'];
+export const sizeVariants = [
+  '',
+  'left',
+  'right',
+  'top',
+  'bottom',
+  'horizontal',
+  'vertical',
+];
 export const textComponents = [
   'shoutem.ui.Heading',
   'shoutem.ui.Title',
@@ -47,14 +48,21 @@ export const viewComponents = [
   'shoutem.ui.Row',
 ];
 
-export function dimensionRelativeToIphone(dimension, actualRefVal = window.width) {
+export function dimensionRelativeToIphone(
+  dimension,
+  actualRefVal = window.width,
+) {
   // 375 is iPhone width
   return getSizeRelativeToReference(dimension, 375, actualRefVal);
 }
 
 // 'fontWeight' and 'fontStyle' aren't always supplied for every component, so we're setting default
 // values of 'normal'.
-export function resolveFontFamily(fontName, fontWeight = 'normal', fontStyle = 'normal') {
+export function resolveFontFamily(
+  fontName,
+  fontWeight = 'normal',
+  fontStyle = 'normal',
+) {
   if (Platform.OS === 'ios') {
     return fontName;
   }
@@ -110,8 +118,9 @@ export function formatLineHeight(fontSize) {
   // adds required padding to lineHeight to support
   // different alphabets (Kanji, Greek, etc.)
 
+  // eslint-disable-next-line no-console
   console.warn(
-    "formatLineHeight is deprecated and will be removed. Please use calculateLineHeight instead, it can simply be renamed as it takes the same argument and returns the same expected value, but more consistently across all fontSize."
+    'formatLineHeight is deprecated and will be removed. Please use calculateLineHeight instead, it can simply be renamed as it takes the same argument and returns the same expected value, but more consistently across all fontSize.',
   );
 
   if (fontSize < 22) {
@@ -119,11 +128,11 @@ export function formatLineHeight(fontSize) {
     return 25;
   }
 
-  return (fontSize + 3);
+  return fontSize + 3;
 }
 
 export function calculateLineHeight(fontSize) {
-  return (fontSize * 1.5);
+  return fontSize * 1.5;
 }
 
 export const defaultThemeVariables = {
@@ -247,17 +256,57 @@ export default (variables = defaultThemeVariables) => ({
   // Common
   //
   guttersPadding: {
-    ...createVariations('.sm-gutter', sizeVariants, 'padding', variables.smallGutter),
-    ...createVariations('.md-gutter', sizeVariants, 'padding', variables.mediumGutter),
-    ...createVariations('.lg-gutter', sizeVariants, 'padding', variables.largeGutter),
-    ...createVariations('.xl-gutter', sizeVariants, 'padding', variables.extraLargeGutter),
+    ...createVariations(
+      '.sm-gutter',
+      sizeVariants,
+      'padding',
+      variables.smallGutter,
+    ),
+    ...createVariations(
+      '.md-gutter',
+      sizeVariants,
+      'padding',
+      variables.mediumGutter,
+    ),
+    ...createVariations(
+      '.lg-gutter',
+      sizeVariants,
+      'padding',
+      variables.largeGutter,
+    ),
+    ...createVariations(
+      '.xl-gutter',
+      sizeVariants,
+      'padding',
+      variables.extraLargeGutter,
+    ),
   },
 
   guttersMargin: {
-    ...createVariations('.sm-gutter', sizeVariants, 'margin', variables.smallGutter),
-    ...createVariations('.md-gutter', sizeVariants, 'margin', variables.mediumGutter),
-    ...createVariations('.lg-gutter', sizeVariants, 'margin', variables.largeGutter),
-    ...createVariations('.xl-gutter', sizeVariants, 'margin', variables.extraLargeGutter),
+    ...createVariations(
+      '.sm-gutter',
+      sizeVariants,
+      'margin',
+      variables.smallGutter,
+    ),
+    ...createVariations(
+      '.md-gutter',
+      sizeVariants,
+      'margin',
+      variables.mediumGutter,
+    ),
+    ...createVariations(
+      '.lg-gutter',
+      sizeVariants,
+      'margin',
+      variables.largeGutter,
+    ),
+    ...createVariations(
+      '.xl-gutter',
+      sizeVariants,
+      'margin',
+      variables.extraLargeGutter,
+    ),
   },
 
   commonVariants: {
@@ -354,7 +403,10 @@ export default (variables = defaultThemeVariables) => ({
   },
 
   dimmedFeaturedBackground: {
-    backgroundColor: inverseColorBrightnessForAmount(variables.featuredColor, 5),
+    backgroundColor: inverseColorBrightnessForAmount(
+      variables.featuredColor,
+      5,
+    ),
   },
 
   featuredBackground: {
@@ -436,7 +488,6 @@ export default (variables = defaultThemeVariables) => ({
     backgroundColor: 'transparent',
   },
 
-
   'shoutem.ui.Heading': {
     [INCLUDE]: ['text'],
 
@@ -504,7 +555,7 @@ export default (variables = defaultThemeVariables) => ({
       fontStyle: resolveFontStyle(variables.errorText.fontStyle),
       fontWeight: resolveFontWeight(variables.errorText.fontWeight),
       lineHeight: calculateLineHeight(variables.errorText.fontSize),
-    }
+    },
   },
 
   'shoutem.ui.Text': {
@@ -613,7 +664,10 @@ export default (variables = defaultThemeVariables) => ({
     [INCLUDE]: ['commonVariants', 'imageSizes', 'fill-parent'],
 
     '.placeholder': {
-      backgroundColor: inverseColorBrightnessForAmount(variables.paperColor, 10),
+      backgroundColor: inverseColorBrightnessForAmount(
+        variables.paperColor,
+        10,
+      ),
     },
 
     heroAnimation(driver, { layout }) {
@@ -626,7 +680,8 @@ export default (variables = defaultThemeVariables) => ({
               extrapolateRight: 'clamp',
               useNativeDriver: true,
             }),
-          }, {
+          },
+          {
             translateY: driver.interpolate({
               inputRange: [-100, 100],
               outputRange: [-50, 50],
@@ -642,7 +697,10 @@ export default (variables = defaultThemeVariables) => ({
     [INCLUDE]: ['commonVariants', 'imageSizes', 'fill-parent'],
 
     '.placeholder': {
-      backgroundColor: inverseColorBrightnessForAmount(variables.paperColor, 10),
+      backgroundColor: inverseColorBrightnessForAmount(
+        variables.paperColor,
+        10,
+      ),
 
       'shoutem.ui.Icon': {
         color: inverseColorBrightnessForAmount(variables.paperColor, 30),
@@ -671,7 +729,8 @@ export default (variables = defaultThemeVariables) => ({
               extrapolateRight: 'clamp',
               useNativeDriver: true,
             }),
-          }, {
+          },
+          {
             translateY: driver.interpolate({
               inputRange: [-100, 100],
               outputRange: [-50, 50],
@@ -1280,7 +1339,10 @@ export default (variables = defaultThemeVariables) => ({
       },
     },
 
-    underlayColor: changeColorAlpha(variables.primaryButtonBackgroundColor, 0.5),
+    underlayColor: changeColorAlpha(
+      variables.primaryButtonBackgroundColor,
+      0.5,
+    ),
 
     backgroundColor: variables.primaryButtonBackgroundColor,
     flexDirection: 'row',
@@ -1448,16 +1510,19 @@ export default (variables = defaultThemeVariables) => ({
         },
       },
 
-      ...createSharedStyle(['shoutem.ui.Title', 'shoutem.ui.Icon', 'shoutem.ui.Text'], {
-        fontFamily: resolveFontFamily(
-          variables.title.fontFamily,
-          variables.title.fontWeight,
-          variables.title.fontStyle,
-        ),
-        fontWeight: resolveFontWeight(variables.title.fontWeight),
-        fontStyle: resolveFontStyle(variables.title.fontStyle),
-        color: variables.featuredNavBarTitleColor,
-      }),
+      ...createSharedStyle(
+        ['shoutem.ui.Title', 'shoutem.ui.Icon', 'shoutem.ui.Text'],
+        {
+          fontFamily: resolveFontFamily(
+            variables.title.fontFamily,
+            variables.title.fontWeight,
+            variables.title.fontStyle,
+          ),
+          fontWeight: resolveFontWeight(variables.title.fontWeight),
+          fontStyle: resolveFontStyle(variables.title.fontStyle),
+          color: variables.featuredNavBarTitleColor,
+        },
+      ),
 
       container: {
         [INCLUDE]: ['featuredBackground'],
@@ -1643,12 +1708,10 @@ export default (variables = defaultThemeVariables) => ({
       paddingTop: Device.select({
         iPhoneX: 0,
         iPhoneXR: 0,
-        default: (
-          Platform.OS === 'ios'
-            && !Device.isIphoneX
-            && !Device.isIphoneXR
-            ? 20 : 0
-        ),
+        default:
+          Platform.OS === 'ios' && !Device.isIphoneX && !Device.isIphoneXR
+            ? 20
+            : 0,
       }),
     },
 
@@ -1826,20 +1889,14 @@ export default (variables = defaultThemeVariables) => ({
   'shoutem.ui.navigation.CardStack': {
     '.without-transitions': {
       interpolateCardStyle(props) {
-        const {
-          navigationState,
-          scene,
-        } = props;
+        const { navigationState, scene } = props;
 
         const focused = navigationState.index === scene.index;
         const opacity = focused ? 1 : 0;
         const translate = focused ? 0 : 1000000;
         return {
           opacity,
-          transform: [
-            { translateX: translate },
-            { translateY: translate },
-          ],
+          transform: [{ translateX: translate }, { translateY: translate }],
         };
       },
     },
@@ -2078,7 +2135,10 @@ export default (variables = defaultThemeVariables) => ({
             {
               translateX: driver.interpolate({
                 inputRange: [0, 1],
-                outputRange: [0, animationOptions.containerWidth - width - 2 * x],
+                outputRange: [
+                  0,
+                  animationOptions.containerWidth - width - 2 * x,
+                ],
               }),
             },
           ],
@@ -2093,7 +2153,10 @@ export default (variables = defaultThemeVariables) => ({
         minHeight: 40,
         maxHeight: 200,
         justifyContent: 'center',
-        backgroundColor: inverseColorBrightnessForAmount(variables.paperColor, 5),
+        backgroundColor: inverseColorBrightnessForAmount(
+          variables.paperColor,
+          5,
+        ),
         width: window.width,
         marginTop: 0,
         borderBottomWidth: StyleSheet.hairlineWidth,
@@ -2248,7 +2311,8 @@ export default (variables = defaultThemeVariables) => ({
   //
   // Html
   //
-  textBlock: { // Inline element
+  textBlock: {
+    // Inline element
     container: {
       '.wrapper': {
         marginBottom: 0,
@@ -2257,8 +2321,7 @@ export default (variables = defaultThemeVariables) => ({
         marginBottom: 20,
       },
     },
-    text: {
-    },
+    text: {},
   },
   'shoutem.ui.SimpleHtml': {
     container: {
@@ -2390,9 +2453,9 @@ export default (variables = defaultThemeVariables) => ({
       fontFamily: Platform.OS === 'ios' ? 'Menlo-Regular' : 'monospace',
       fontSize: 12,
     },
-    bullet: {
-    },
-    li: { // Inline element
+    bullet: {},
+    li: {
+      // Inline element
       [INCLUDE]: ['textBlock'],
       container: {
         '.block': {
@@ -2568,10 +2631,7 @@ export default (variables = defaultThemeVariables) => ({
         return {
           backgroundColor: driver.interpolate({
             inputRange: [0, 1],
-            outputRange: [
-              variables.paperColor,
-              '#000000',
-            ],
+            outputRange: [variables.paperColor, '#000000'],
           }),
         };
       },
@@ -2593,7 +2653,7 @@ export default (variables = defaultThemeVariables) => ({
           // navigation bar.
           paddingTop:
             NAVIGATION_BAR_HEIGHT +
-            (Platform.OS === "ios"
+            (Platform.OS === 'ios'
               ? variables.extraLargeGutter + variables.extraLargeGutter
               : variables.extraLargeGutter + variables.mediumGutter),
         },

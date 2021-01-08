@@ -1,11 +1,10 @@
 import React from 'react';
 import { Dimensions } from 'react-native';
-
-import { Caption, Subtitle } from '../../Text';
+import { HorizontalPager } from '../../components/HorizontalPager/HorizontalPager';
 import { View } from '../../components/View';
-import { HorizontalPager } from '../../components/HorizontalPager';
-import { Tile } from '../../Tile';
 import { ImageBackground } from '../../ImageBackground';
+import { Caption, Subtitle } from '../../Text';
+import { Tile } from '../../Tile';
 import { Stage } from './Stage';
 
 const window = Dimensions.get('window');
@@ -17,12 +16,40 @@ export function HorizontalPagers() {
         <View style={{ height: 250, width: window.width }}>
           <HorizontalPager
             data={[
-              { description: 'description', title: 'When The Morning Dawns - DJ Silver Sample Album', source: { uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-1.png' }},
-              { description: 'description', title: 'When The Morning Dawns', source: { uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-2.png' }},
-              { description: 'description', title: 'DJ Silver Sample Album', source: { uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-3.png' }},
-              { description: 'description', title: 'When The Morning Dawns - DJ Silver Sample Album', source: { uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-4.png' }},
+              {
+                description: 'description',
+                title: 'When The Morning Dawns - DJ Silver Sample Album',
+                source: {
+                  uri:
+                    'https://shoutem.github.io/img/ui-toolkit/examples/image-1.png',
+                },
+              },
+              {
+                description: 'description',
+                title: 'When The Morning Dawns',
+                source: {
+                  uri:
+                    'https://shoutem.github.io/img/ui-toolkit/examples/image-2.png',
+                },
+              },
+              {
+                description: 'description',
+                title: 'DJ Silver Sample Album',
+                source: {
+                  uri:
+                    'https://shoutem.github.io/img/ui-toolkit/examples/image-3.png',
+                },
+              },
+              {
+                description: 'description',
+                title: 'When The Morning Dawns - DJ Silver Sample Album',
+                source: {
+                  uri:
+                    'https://shoutem.github.io/img/ui-toolkit/examples/image-4.png',
+                },
+              },
             ]}
-            renderPage={(page) => {
+            renderPage={page => {
               return (
                 <ImageBackground
                   styleName="large-wide"

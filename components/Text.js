@@ -1,14 +1,11 @@
 import React, { PureComponent } from 'react';
 import { Text as RNText } from 'react-native';
-
 import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
 
 class Text extends PureComponent {
   render() {
-    return (
-      <RNText {...this.props} />
-    );
+    return <RNText {...this.props} />;
   }
 }
 
@@ -23,10 +20,4 @@ const Title = connectStyle('shoutem.ui.Title')(AnimatedText);
 const Subtitle = connectStyle('shoutem.ui.Subtitle')(AnimatedText);
 const Caption = connectStyle('shoutem.ui.Caption')(AnimatedText);
 
-export {
-  StyledText as Text,
-  Heading,
-  Title,
-  Subtitle,
-  Caption,
-};
+export { StyledText as Text, Heading, Title, Subtitle, Caption };

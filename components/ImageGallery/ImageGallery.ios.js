@@ -1,9 +1,8 @@
 import React from 'react';
+import autoBindReact from 'auto-bind/react';
 import { InteractionManager } from 'react-native';
 import TransformableImage from 'react-native-transformable-image';
-
 import { connectStyle } from '@shoutem/theme';
-
 import { ImageGalleryBase } from './ImageGalleryBase';
 
 class ImageGallery extends ImageGalleryBase {
@@ -13,7 +12,8 @@ class ImageGallery extends ImageGalleryBase {
   constructor(props) {
     super(props);
 
-    this.onViewTransformed = this.onViewTransformed.bind(this);
+    autoBindReact(this);
+
     this.imageRefs = new Map();
   }
 
@@ -58,7 +58,8 @@ class ImageGallery extends ImageGalleryBase {
       return;
     }
 
-    const imageBoundaryReached = (translationSpace.right <= 0 || translationSpace.left <= 0);
+    const imageBoundaryReached =
+      translationSpace.right <= 0 || translationSpace.left <= 0;
 
     if (imageSwitchingEnabled !== imageBoundaryReached) {
       // We want to allow switching between gallery images only if
@@ -99,14 +100,12 @@ class ImageGallery extends ImageGalleryBase {
       },
     };
 
-    return (
-      <TransformableImage {...iosProps} />
-    );
+    return <TransformableImage {...iosProps} />;
   }
 }
 
-const StyledImageGallery = connectStyle('shoutem.ui.ImageGallery')(ImageGallery);
+const StyledImageGallery = connectStyle('shoutem.ui.ImageGallery')(
+  ImageGallery,
+);
 
-export {
-  StyledImageGallery as ImageGallery,
-};
+export { StyledImageGallery as ImageGallery };

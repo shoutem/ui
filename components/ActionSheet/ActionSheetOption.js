@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
 import { Text } from '../Text';
 import { TouchableOpacity } from '../TouchableOpacity';
@@ -13,8 +13,14 @@ function ActionSheetOption({ style, option, cancelOption }) {
   const { title, onPress } = option;
 
   return (
-    <TouchableOpacity onPress={onPress} style={style.container} styleName="horizontal">
-      <Text style={[style.text, cancelOption && style.cancelText]}>{title}</Text>
+    <TouchableOpacity
+      onPress={onPress}
+      style={style.container}
+      styleName="horizontal"
+    >
+      <Text style={[style.text, cancelOption && style.cancelText]}>
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 }

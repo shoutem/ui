@@ -1,8 +1,7 @@
 import React, { PureComponent } from 'react';
 import { TouchableOpacity } from 'react-native';
-
-import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
+import { connectStyle } from '@shoutem/theme';
 
 class Button extends PureComponent {
   render() {
@@ -29,6 +28,4 @@ Button.propTypes = {
 
 const AnimatedButton = connectAnimation(Button);
 const StyledButton = connectStyle('shoutem.ui.Button')(AnimatedButton);
-export {
-  StyledButton as Button,
-};
+export { StyledButton as Button };

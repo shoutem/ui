@@ -1,18 +1,16 @@
-import PropTypes from 'prop-types';
 import { Dimensions, Linking } from 'react-native';
-import React, { PureComponent } from 'react';
+import autoBindReact from 'auto-bind/react';
 import _ from 'lodash';
-import HTML from 'react-native-render-html';
-
+import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react';
+import Html from 'react-native-render-html';
 import {
   cssStringToObject,
   cssObjectToString,
 } from 'react-native-render-html/src/HTMLStyles';
-
 import { connectStyle } from '@shoutem/theme';
 import { View } from '../../components/View';
 import { Text } from '../../components/Text';
-
 import getEmptyObjectKeys from '../services/getEmptyObjectKeys';
 
 class SimpleHtml extends PureComponent {
@@ -26,16 +24,15 @@ class SimpleHtml extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.onLinkPress = this.onLinkPress.bind(this);
-    this.alterNode = this.alterNode.bind(this);
-    this.renderUnorderedListPrefix = this.renderUnorderedListPrefix.bind(this);
-    this.renderOrderedListPrefix = this.renderOrderedListPrefix.bind(this);
+    autoBindReact(this);
   }
 
   onLinkPress(evt, href) {
     const { customHandleLinkPress } = this.props;
 
-    return customHandleLinkPress ? customHandleLinkPress(href) : Linking.openURL(href);
+    return customHandleLinkPress
+      ? customHandleLinkPress(href)
+      : Linking.openURL(href);
   }
 
   /**
@@ -56,7 +53,7 @@ class SimpleHtml extends PureComponent {
     const maxWidth = Dimensions.get('window').width - paddingValue;
     const nodeHeight = _.get(node, 'attribus.height');
     const nodeRatio = nodeWidth / nodeHeight;
-    const resolvedWidth = (nodeWidth > maxWidth) ? maxWidth : nodeWidth;
+    const resolvedWidth = nodeWidth > maxWidth ? maxWidth : nodeWidth;
     const resolvedHeight = Math.round(resolvedWidth * nodeRatio);
 
     const nodeStyle = cssStringToObject(styleAttrib);
@@ -74,20 +71,16 @@ class SimpleHtml extends PureComponent {
     return false;
   }
 
-  renderUnorderedListPrefix(htmlAttribs, children, convertedCSSStyles, passProps) {
+  renderUnorderedListPrefix() {
     const { style } = this.props;
 
-    return (
-      <Text style={style.prefix}>•  </Text>
-    );
+    return <Text style={style.prefix}>• </Text>;
   }
 
-  renderOrderedListPrefix(htmlAttribs, children, convertedCSSStyles, passProps) {
+  renderOrderedListPrefix(passProps) {
     const { style } = this.props;
 
-    return (
-      <Text style={style.prefix}>{passProps.index + 1}. </Text>
-    );
+    return <Text style={style.prefix}>{passProps.index + 1}. </Text>;
   }
 
   render() {
@@ -99,12 +92,12 @@ class SimpleHtml extends PureComponent {
     const tagStyles = {
       ...style.tags,
       ...customTagStyles,
-    }
+    };
 
     const listPrefixRenderers = {
       ul: this.renderUnorderedListPrefix,
       ol: this.renderOrderedListPrefix,
-    }
+    };
 
     const htmlProps = {
       html: body,
@@ -120,7 +113,7 @@ class SimpleHtml extends PureComponent {
 
     return (
       <View style={style.container}>
-        <HTML {...htmlProps} {...otherProps} />
+        <Html {...htmlProps} {...otherProps} />
       </View>
     );
   }

@@ -36,15 +36,16 @@ const newLineBeforeOpeningTagRegex = new RegExp('\\n<');
  * @param html
  */
 function stripNewLines(html) {
-  return html.replace(htmlNewLineRegex, (match) => {
+  return html
+    .replace(htmlNewLineRegex, match => {
       if (newLineAfterClosingTagRegex.test(match)) {
         return '>';
       } else if (newLineBeforeOpeningTagRegex.test(match)) {
         return '<';
       }
       return ' ';
-    }
-  ).trim();
+    })
+    .trim();
 }
 
 /**
@@ -85,7 +86,12 @@ class HtmlTree {
    * @returns {Element}
    */
   addChild(tag, attributes, childElements) {
-    const element = createElementNode(tag, attributes, childElements, this.activeNode);
+    const element = createElementNode(
+      tag,
+      attributes,
+      childElements,
+      this.activeNode,
+    );
 
     this.activeNode.childElements.push(element);
 

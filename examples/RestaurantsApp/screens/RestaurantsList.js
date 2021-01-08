@@ -1,21 +1,21 @@
 import PropTypes from 'prop-types';
+import autoBindReact from 'auto-bind/react';
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-
 import {
+  Divider,
   ImageBackground,
   ListView,
+  Screen,
+  Subtitle,
   Tile,
   Title,
-  Subtitle,
   TouchableOpacity,
-  Screen,
-  Divider,
 } from '@shoutem/ui';
-
 import { NavigationBar } from '@shoutem/ui/navigation';
-
 import { navigatePush } from '../redux';
+
+const restaurants = require('../assets/data/restaurants.json');
 
 class RestaurantsList extends PureComponent {
   static propTypes = {
@@ -25,11 +25,7 @@ class RestaurantsList extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.renderRow = this.renderRow.bind(this);
-  }
-
-  getRestaurants() {
-    return require('../assets/data/restaurants.json');
+    autoBindReact(this);
   }
 
   renderRow(restaurant) {
@@ -43,7 +39,9 @@ class RestaurantsList extends PureComponent {
         >
           <Tile>
             <Title styleName="md-gutter-bottom">{restaurant.name}</Title>
-            <Subtitle styleName="sm-gutter-horizontal">{restaurant.address}</Subtitle>
+            <Subtitle styleName="sm-gutter-horizontal">
+              {restaurant.address}
+            </Subtitle>
           </Tile>
         </ImageBackground>
         <Divider styleName="line" />
@@ -56,7 +54,7 @@ class RestaurantsList extends PureComponent {
       <Screen>
         <NavigationBar title="All Restaurants" />
         <ListView
-          data={this.getRestaurants()}
+          data={restaurants}
           renderRow={restaurant => this.renderRow(restaurant)}
         />
       </Screen>
@@ -64,16 +62,18 @@ class RestaurantsList extends PureComponent {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  onButtonPress: (restaurant) => {
-    dispatch(navigatePush({
-      key: 'RestaurantDetails',
-      title: 'Details',
-    }, { restaurant }));
+const mapDispatchToProps = dispatch => ({
+  onButtonPress: restaurant => {
+    dispatch(
+      navigatePush(
+        {
+          key: 'RestaurantDetails',
+          title: 'Details',
+        },
+        { restaurant },
+      ),
+    );
   },
 });
 
-export default connect(
-	undefined,
-	mapDispatchToProps
-)(RestaurantsList);
+export default connect(undefined, mapDispatchToProps)(RestaurantsList);

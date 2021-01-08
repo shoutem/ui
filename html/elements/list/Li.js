@@ -1,7 +1,5 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
-import { View } from '../../../components/View';
+import PropTypes from 'prop-types';
 import { ElementPropTypes } from '../../Html';
 import { Inline } from '../Inline';
 
@@ -14,7 +12,11 @@ import { Inline } from '../Inline';
  * @returns {Component}
  */
 function Li({ element, renderElement, style }) {
-  const { childElements, attributes: { key } } = element;
+  const {
+    childElements,
+    attributes: { key },
+  } = element;
+
   return (
     <Inline
       style={style}

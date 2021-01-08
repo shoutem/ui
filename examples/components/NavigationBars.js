@@ -1,14 +1,14 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { Dimensions } from 'react-native';
-
-import { Device } from '../../helpers/device-selector.js';
-import { Text, Title, Heading } from '../../components/Text';
-import { View } from '../../components/View';
-import { Icon } from '../../components/Icon';
+import { Device } from '../../helpers/device-selector';
 import { Button } from '../../components/Button';
 import { DropDownMenu } from '../../components/DropDownMenu';
-import { NavigationBar } from '../../components/NavigationBar';
+import { Icon } from '../../components/Icon';
 import { ImageBackground } from '../../components/ImageBackground';
+import { NavigationBar } from '../../components/NavigationBar';
+import { Text, Title, Heading } from '../../components/Text';
+import { View } from '../../components/View';
 import {
   NAVIGATION_HEADER_HEIGHT,
   IPHONE_X_NOTCH_PADDING,
@@ -35,6 +35,10 @@ function NavBarStageContainer(props) {
   );
 }
 
+NavBarStageContainer.propTypes = {
+  style: PropTypes.object,
+};
+
 export class NavigationBars extends PureComponent {
   render() {
     const navBarDropDownOptions = [
@@ -55,10 +59,7 @@ export class NavigationBars extends PureComponent {
       <View styleName="vertical collapsed">
         <Stage title="Navbar / Solid">
           <NavBarStageContainer>
-            <NavigationBar
-              title='TITLE'
-              style={{backgroundColor:'red'}}
-            />
+            <NavigationBar title="TITLE" style={{ backgroundColor: 'red' }} />
           </NavBarStageContainer>
         </Stage>
         <Stage title="Navbar / Clear (Solid color)">
@@ -66,15 +67,18 @@ export class NavigationBars extends PureComponent {
             <NavBarStageContainer>
               <NavigationBar
                 styleName="clear"
-                title='TITLE'
-                style={{backgroundColor:'red'}}
+                title="TITLE"
+                style={{ backgroundColor: 'red' }}
               />
             </NavBarStageContainer>
           </View>
         </Stage>
         <Stage title="Navbar / Clear (Image)">
           <ImageBackground
-            source={{ uri: 'https://shoutem.github.io/img/ui-toolkit/examples/image-3.png' }}
+            source={{
+              uri:
+                'https://shoutem.github.io/img/ui-toolkit/examples/image-3.png',
+            }}
             style={{
               width: window.width,
               height: Device.select({
@@ -94,11 +98,11 @@ export class NavigationBars extends PureComponent {
         <Stage title="Navbar + Drawer">
           <NavBarStageContainer>
             <NavigationBar
-              leftComponent={(
+              leftComponent={
                 <Button>
                   <Icon name="close" />
                 </Button>
-              )}
+              }
               centerComponent={<Title>TITLE</Title>}
             />
           </NavBarStageContainer>
@@ -106,63 +110,65 @@ export class NavigationBars extends PureComponent {
         <Stage title="Navbar + Picker">
           <NavBarStageContainer>
             <NavigationBar
-              leftComponent={(
+              leftComponent={
                 <Button>
                   <Icon name="sidebar" />
                 </Button>
-              )}
+              }
               centerComponent={<Title>TITLE</Title>}
-              rightComponent={<DropDownMenu
-                options={navBarDropDownOptions}
-                selectedOption={navBarDropDownSelectedOption}
-                titleProperty="name"
-                valueProperty="value"
-              />}
+              rightComponent={
+                <DropDownMenu
+                  options={navBarDropDownOptions}
+                  selectedOption={navBarDropDownSelectedOption}
+                  titleProperty="name"
+                  valueProperty="value"
+                />
+              }
             />
           </NavBarStageContainer>
         </Stage>
         <Stage title="Navbar + Action">
           <NavBarStageContainer>
             <NavigationBar
-              leftComponent={(
+              leftComponent={
                 <Button>
                   <Icon name="sidebar" />
                 </Button>
-              )}
+              }
               centerComponent={<Title>TITLE</Title>}
-              rightComponent={(
+              rightComponent={
                 <Button styleName="clear">
                   <Text>List</Text>
                 </Button>
-              )}
+              }
             />
           </NavBarStageContainer>
         </Stage>
         <Stage title="Navbar + Icon">
           <NavBarStageContainer>
             <NavigationBar
-              leftComponent={(
+              leftComponent={
                 <Button>
                   <Icon name="sidebar" />
                 </Button>
-              )}
+              }
               centerComponent={<Title>TITLE</Title>}
-              rightComponent={(
+              rightComponent={
                 <Button>
                   <Icon name="cart" />
                 </Button>
-              )}
+              }
             />
           </NavBarStageContainer>
         </Stage>
         <Stage title="Navbar (Sublevel) + Icon">
           <NavBarStageContainer>
             <NavigationBar
-              leftComponent={(
+              leftComponent={
                 <Button>
                   <Icon name="back" />
                 </Button>
-              )}
+              }
               title="TITLE"
               share={{
                 link: 'http://shoutem.github.io',
@@ -176,11 +182,11 @@ export class NavigationBars extends PureComponent {
           <NavBarStageContainer>
             <NavigationBar
               styleName="no-border"
-              leftComponent={(
+              leftComponent={
                 <Button>
                   <Icon name="back" />
                 </Button>
-              )}
+              }
               title="TITLE"
               share={{
                 link: 'http://shoutem.github.io',
@@ -193,28 +199,28 @@ export class NavigationBars extends PureComponent {
         <Stage title="Navbar (Sublevel) + Action">
           <NavBarStageContainer>
             <NavigationBar
-              leftComponent={(
+              leftComponent={
                 <Button>
                   <Icon name="back" />
                 </Button>
-              )}
+              }
               title="TITLE"
-              rightComponent={(
+              rightComponent={
                 <Button styleName="clear">
                   <Text>Report</Text>
                 </Button>
-              )}
+              }
             />
           </NavBarStageContainer>
         </Stage>
         <Stage title="Navbar (Modal) + Icon">
           <NavBarStageContainer>
             <NavigationBar
-              leftComponent={(
+              leftComponent={
                 <Button>
                   <Icon name="close" />
                 </Button>
-              )}
+              }
               title="TITLE"
               share={{
                 link: 'http://shoutem.github.io',
@@ -227,63 +233,63 @@ export class NavigationBars extends PureComponent {
         <Stage title="Navbar (Modal) + Action">
           <NavBarStageContainer>
             <NavigationBar
-              leftComponent={(
+              leftComponent={
                 <Button>
                   <Icon name="close" />
                 </Button>
-              )}
+              }
               title="TITLE"
-              rightComponent={(
+              rightComponent={
                 <Button styleName="clear">
                   <Text>Post</Text>
                 </Button>
-              )}
+              }
             />
           </NavBarStageContainer>
         </Stage>
         <Stage title="Navbar (Modal) + Action 2">
           <NavBarStageContainer>
             <NavigationBar
-              leftComponent={(
+              leftComponent={
                 <Button>
                   <Text>Cancel</Text>
                 </Button>
-              )}
+              }
               title="TITLE"
-              rightComponent={(
+              rightComponent={
                 <Button>
                   <Text>Done</Text>
                 </Button>
-              )}
+              }
             />
           </NavBarStageContainer>
         </Stage>
         <Stage title="Navbar (Modal) + Action 2 (disabled)">
           <NavBarStageContainer>
             <NavigationBar
-              leftComponent={(
+              leftComponent={
                 <Button>
                   <Text>Cancel</Text>
                 </Button>
-              )}
+              }
               title="TITLE"
-              rightComponent={(
+              rightComponent={
                 <Button styleName="muted">
                   <Text>Done</Text>
                 </Button>
-              )}
+              }
             />
           </NavBarStageContainer>
         </Stage>
         <Stage title="Navbar / On primary color / back + share">
-          <NavBarStageContainer style={{ backgroundColor: '#1a70d5', }}>
+          <NavBarStageContainer style={{ backgroundColor: '#1a70d5' }}>
             <NavigationBar
               styleName="clear"
-              leftComponent={(
+              leftComponent={
                 <Button>
                   <Icon name="back" />
                 </Button>
-              )}
+              }
               title="TITLE"
               share={{
                 link: 'http://shoutem.github.io',

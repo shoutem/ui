@@ -1,9 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
-
-import { ElementPropTypes } from '../Html';
 import Image from '../components/Image';
-import { combineMappers, mapElementProps } from '../Html';
+import { ElementPropTypes, combineMappers, mapElementProps } from '../Html';
 
 export function isImg(element) {
   return _.get(element, 'tag') === 'img';
@@ -11,18 +9,12 @@ export function isImg(element) {
 
 function Img({ src, style, lightbox }) {
   const source = { uri: src };
-  imgStyle = {
+  const imgStyle = {
     ...style,
     resizeMode: 'contain',
-  }
+  };
 
-  return (
-    <Image
-      source={source}
-      style={imgStyle}
-      lightbox={lightbox}
-    />
-  );
+  return <Image source={source} style={imgStyle} lightbox={lightbox} />;
 }
 
 Img.propTypes = {

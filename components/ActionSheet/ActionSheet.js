@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import autoBindReact from 'auto-bind/react';
 import { Animated, TouchableOpacity, Dimensions } from 'react-native';
 import _ from 'lodash';
@@ -22,6 +22,17 @@ function getContentOffset(contentHeight = windowHeight) {
 const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
 
 class ActionSheet extends PureComponent {
+  static getDerivedStateFromProps(props, state) {
+    const { active } = props;
+    const { visible } = state;
+
+    if (active !== visible) {
+      return { visible: active };
+    }
+
+    return null;
+  }
+
   static propTypes = {
     style: PropTypes.any,
     confirmOptions: PropTypes.arrayOf(optionPropType),
@@ -47,7 +58,7 @@ class ActionSheet extends PureComponent {
     const { active: prevActive } = prevProps;
 
     if (active && !prevActive) {
-      this.setState({ visible: true }, this.handleEntryAnimation);
+      this.handleEntryAnimation();
     }
 
     if (!active && prevActive) {
@@ -106,17 +117,8 @@ class ActionSheet extends PureComponent {
   }
 
   render() {
-    const {
-      confirmOptions,
-      cancelOptions,
-      style,
-    } = this.props;
-    const {
-      opacity,
-      yPos,
-      visible,
-      height,
-    } = this.state;
+    const { confirmOptions, cancelOptions, style } = this.props;
+    const { opacity, yPos, visible, height } = this.state;
 
     const hasConfirmOptions = !_.isEmpty(confirmOptions);
     const hasCancelOptions = !_.isEmpty(cancelOptions);
@@ -141,30 +143,37 @@ class ActionSheet extends PureComponent {
       >
         <Animated.View
           onLayout={this.handleContentLayout}
-          style={[style.contentContainer, {
-            transform: [{
-              translateY: yPos.interpolate({
-                inputRange: [0, 1],
-                outputRange: [getContentOffset(height), 0],
-              }),
-            }],
-          }]}
+          style={[
+            style.contentContainer,
+            {
+              transform: [
+                {
+                  translateY: yPos.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [getContentOffset(height), 0],
+                  }),
+                },
+              ],
+            },
+          ]}
         >
           {hasConfirmOptions && (
             <View style={style.segmentContainer}>
-              {_.map(
-                confirmOptions,
-                option => <ActionSheetOption key={option.title} option={option} />,
-              )}
+              {_.map(confirmOptions, option => (
+                <ActionSheetOption key={option.title} option={option} />
+              ))}
             </View>
           )}
           {hasCancelOptions && (
             <View styleName="md-gutter-top">
               <View style={style.segmentContainer}>
-                {_.map(
-                  cancelOptions,
-                  option => <ActionSheetOption key={option.title} cancelOption option={option} />,
-                )}
+                {_.map(cancelOptions, option => (
+                  <ActionSheetOption
+                    key={option.title}
+                    cancelOption
+                    option={option}
+                  />
+                ))}
               </View>
             </View>
           )}

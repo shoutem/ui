@@ -1,7 +1,6 @@
-import PropTypes from 'prop-types';
-import React, { PureComponent, Children } from 'react';
+import { PureComponent, Children } from 'react';
 import _ from 'lodash';
-
+import PropTypes from 'prop-types';
 import { DriverShape, ScrollDriver } from '@shoutem/animation';
 
 /**
@@ -53,7 +52,7 @@ export class ScrollDriverProvider extends PureComponent {
   }
 
   setAnimationDriver(driver, primaryScrollView) {
-    if ((driver || !this.animationDriver) || primaryScrollView) {
+    if (driver || !this.animationDriver || primaryScrollView) {
       _.assign(this.animationDriver, driver);
       const { driverProvider } = this.context;
       if (driverProvider) {
@@ -64,6 +63,7 @@ export class ScrollDriverProvider extends PureComponent {
 
   render() {
     const { children } = this.props;
-    return children && Children.only(this.props.children);
+
+    return children && Children.only(children);
   }
 }

@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@shoutem/ui": "2.0.3",
+    "auto-bind": "^4.0.0",
     "react-native-navigation-experimental-compat": "goshakkk/react-native-navigation-experimental-compat#fe6de3323fd13b1a93ed93d688b258fef1052408",
     "react": "16.8.6",
     "react-native": "0.60.6",

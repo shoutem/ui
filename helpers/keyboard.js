@@ -9,9 +9,7 @@ export function calculateKeyboardOffset(extraOffset = 0) {
     return resolvedOffset;
   }
 
-  if (Platform.OS === 'android') {
-    return getStatusBarHeight() + resolvedOffset;
-  }
+  return getStatusBarHeight() + resolvedOffset;
 }
 
 export default { calculateKeyboardOffset };
