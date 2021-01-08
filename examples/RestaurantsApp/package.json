@@ -12,7 +12,7 @@
     "react-native-navigation-experimental-compat": "goshakkk/react-native-navigation-experimental-compat#fe6de3323fd13b1a93ed93d688b258fef1052408",
     "react": "16.8.6",
     "react-native": "0.60.6",
-    "react-native-webview": "^7.5.0",
+    "react-native-webview": "^11.0.0",
     "react-redux": "^7.2.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
