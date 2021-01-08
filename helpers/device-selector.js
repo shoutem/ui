@@ -1,18 +1,35 @@
-import _ from 'lodash';
 import { Platform, Dimensions } from 'react-native';
-import { IPHONE_X_LONG_SIDE, IPHONE_XR_LONG_SIDE } from '../const';
+import _ from 'lodash';
+
+import {
+  IPHONE_X_LONG_SIDE,
+  IPHONE_XR_LONG_SIDE,
+  IPHONE_12_LONG_SIDE,
+  IPHONE_12_MAX_LONG_SIDE,
+} from '../const';
 
 const { OS, isPad, isTVOS } = Platform;
 const { width, height } = Dimensions.get('window');
 
-const xDimensionsMatch =
-  height === IPHONE_X_LONG_SIDE || width === IPHONE_X_LONG_SIDE;
+const xDimensionsMatch = (
+  (height === IPHONE_X_LONG_SIDE) || (width === IPHONE_X_LONG_SIDE)
+);
 
-const xrDimensionsMatch =
-  height === IPHONE_XR_LONG_SIDE || width === IPHONE_XR_LONG_SIDE;
+const xrDimensionsMatch = (
+  (height === IPHONE_XR_LONG_SIDE) || (width === IPHONE_XR_LONG_SIDE)
+);
 
-const isIphoneX = OS === 'ios' && !isPad && !isTVOS && xDimensionsMatch;
-const isIphoneXR = OS === 'ios' && !isPad && !isTVOS && xrDimensionsMatch;
+const twelveDimensionsMatch = (
+  (height === IPHONE_12_LONG_SIDE) || (width === IPHONE_12_LONG_SIDE)
+);
+
+const twelveMaxDimensionsMatch = (
+  (height === IPHONE_12_MAX_LONG_SIDE) || (width === IPHONE_12_MAX_LONG_SIDE)
+);
+
+const isIphoneX = (OS === 'ios' && !isPad && !isTVOS && xDimensionsMatch);
+// isIphoneXR also includes iPhone 12, iPhone 12 Pro, iPhone 12 Pro Max
+const isIphoneXR = (OS === 'ios' && !isPad && !isTVOS && (xrDimensionsMatch || twelveDimensionsMatch || twelveMaxDimensionsMatch));
 
 /**
  * Receives settings for different devices
