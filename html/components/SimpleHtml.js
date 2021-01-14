@@ -49,7 +49,7 @@ class SimpleHtml extends PureComponent {
       return false;
     }
 
-    const paddingValue = style.container.paddingLeft * 2;
+    const paddingValue = _.get(style, 'container.paddingLeft') * 2;
     const maxWidth = Dimensions.get('window').width - paddingValue;
     const nodeHeight = _.get(node, 'attribus.height');
     const nodeRatio = nodeWidth / nodeHeight;
@@ -86,7 +86,7 @@ class SimpleHtml extends PureComponent {
   render() {
     const { style, body, customTagStyles, ...otherProps } = this.props;
 
-    const paddingValue = style.container.paddingLeft * 2;
+    const paddingValue = _.get(style, 'container.paddingLeft') * 2;
     const maxWidth = Dimensions.get('window').width - paddingValue;
 
     const tagStyles = {
