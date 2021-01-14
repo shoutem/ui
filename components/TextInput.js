@@ -2,10 +2,8 @@ import React, { PureComponent } from 'react';
 import autoBindReact from 'auto-bind/react';
 import PropTypes from 'prop-types';
 import { TextInput as RNTextInput } from 'react-native';
-
 import { connectAnimation } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
-
 import { Caption } from './Text';
 import { View } from './View';
 
@@ -29,12 +27,7 @@ class TextInput extends PureComponent {
   }
 
   render() {
-    const {
-      errorMessage,
-      highlightOnFocus,
-      style,
-      ...otherProps
-    } = this.props;
+    const { errorMessage, highlightOnFocus, style, ...otherProps } = this.props;
     const { isFocused } = this.state;
 
     const {
@@ -55,20 +48,18 @@ class TextInput extends PureComponent {
           {...otherProps}
           onBlur={this.handleBlur}
           onFocus={this.handleFocus}
-          placeholderTextColor={style.placeholderTextColor}
-          selectionColor={style.selectionColor}
-          underlineColorAndroid={style.underlineColorAndroid}
+          placeholderTextColor={placeholderTextColor}
+          selectionColor={selectionColor}
+          underlineColorAndroid={underlineColorAndroid}
           style={{
             ...otherStyle,
-            ...(hasBorder ? style.withBorder : style.withoutBorder),
-            ...(!!errorMessage ? style.errorBorderColor : {}),
+            ...(hasBorder ? withBorder : withoutBorder),
+            ...(!!errorMessage ? errorBorderColor : {}),
           }}
         />
-        {!!errorMessage &&
-          <Caption styleName="form-error sm-gutter-top">
-            {errorMessage}
-          </Caption>
-        }
+        {!!errorMessage && (
+          <Caption styleName="form-error sm-gutter-top">{errorMessage}</Caption>
+        )}
       </View>
     );
   }
@@ -82,6 +73,4 @@ TextInput.propTypes = {
 const AnimatedTextInput = connectAnimation(TextInput);
 const StyledTextInput = connectStyle('shoutem.ui.TextInput')(AnimatedTextInput);
 
-export {
-  StyledTextInput as TextInput,
-};
+export { StyledTextInput as TextInput };

@@ -1,13 +1,8 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-import {
-  View as RNView,
-  ViewPropTypes,
-} from 'react-native';
-
-import { connectStyle } from '@shoutem/theme';
+import PropTypes from 'prop-types';
+import { View as RNView, ViewPropTypes } from 'react-native';
 import { connectAnimation } from '@shoutem/animation';
-
+import { connectStyle } from '@shoutem/theme';
 import { LinearGradient } from './LinearGradient';
 
 class View extends PureComponent {
@@ -27,7 +22,6 @@ class View extends PureComponent {
       delete style.backgroundGradient;
     }
 
-
     return (
       <RNView {...this.props} style={style}>
         {gradient}
@@ -45,6 +39,4 @@ View.propTypes = {
 const AnimatedView = connectAnimation(View);
 const StyledView = connectStyle('shoutem.ui.View')(AnimatedView);
 
-export {
-  StyledView as View,
-};
+export { StyledView as View };

@@ -1,18 +1,20 @@
 import React from 'react';
-import { Text } from 'react-native';
-import _ from 'lodash';
 import { AllHtmlEntities as Entities } from 'html-entities';
-
+import _ from 'lodash';
+import { Text } from 'react-native';
 import { ElementPropTypes, combineMappers, mapElementProps } from '../Html';
 
 const html = new Entities();
 
-function isWhiteSpaceWrappedWithText(element) {
-  return _.size(element.childElements) === 1 && isWhiteSpaceString(element.childElements[0]);
-}
-
 function isWhiteSpaceString(element) {
   return _.isString(element) && element.trim().length === 0;
+}
+
+function isWhiteSpaceWrappedWithText(element) {
+  return (
+    _.size(element.childElements) === 1 &&
+    isWhiteSpaceString(element.childElements[0])
+  );
 }
 
 function isWhiteSpace(element) {
@@ -29,13 +31,17 @@ export function removeWhiteSpace(childElements) {
 }
 
 export function decodeHtmlEntities(childElements) {
-  return _.map(childElements, (element) => _.isString(element) ? html.decode(element) : element);
+  return _.map(childElements, element =>
+    _.isString(element) ? html.decode(element) : element,
+  );
 }
 
 export function TextElement(props) {
   // Remove empty white space lines used just to move element in new line.
   // Use "p" or "br" to add new line.
-  const textualChildElements = decodeHtmlEntities(removeWhiteSpace(props.childElements));
+  const textualChildElements = decodeHtmlEntities(
+    removeWhiteSpace(props.childElements),
+  );
 
   if (textualChildElements.length === 0) {
     // Even if there is no children to render, the Text must be rendered

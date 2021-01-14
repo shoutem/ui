@@ -1,9 +1,8 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
+import autoBindReact from 'auto-bind/react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
-
 import { connectStyle } from '@shoutem/theme';
-
 import { Button } from '../Button';
 import { Icon } from '../Icon';
 import { Text } from '../Text';
@@ -11,15 +10,17 @@ import { View } from '../View';
 import { DropDownModal } from './DropDownModal';
 
 const modalSpecificProps = ['visible', 'onClose'];
-const dropDownMenuPropTypes = { ..._.omit(DropDownModal.propTypes, modalSpecificProps) };
+const dropDownMenuPropTypes = {
+  ..._.omit(DropDownModal.propTypes, modalSpecificProps),
+};
 
 class DropDownMenu extends PureComponent {
   /**
-  * @see DropDownModal.propTypes
-  */
+   * @see DropDownModal.propTypes
+   */
   static propTypes = {
-     /**
-     * Icon displayed on dropdown menu button 
+    /**
+     * Icon displayed on dropdown menu button
      */
     iconName: PropTypes.string,
     /**
@@ -30,29 +31,33 @@ class DropDownMenu extends PureComponent {
   };
 
   static defaultProps = {
-    iconName: "drop-down",
+    iconName: 'drop-down',
     showSelectedOption: true,
   };
 
   constructor(props) {
     super(props);
+
+    autoBindReact(this);
+
     this.state = {
       collapsed: false,
     };
-    this.collapse = this.collapse.bind(this);
-    this.close = this.close.bind(this);
   }
 
   getSelectedOption() {
     const { options, selectedOption } = this.props;
     if (_.indexOf(options, selectedOption) === -1) {
+      // eslint-disable-next-line no-console
       console.warn(
         `Invalid \`selectedOption\` ${JSON.stringify(selectedOption)}, ` +
-        'DropDownMenu `selectedOption` must be a member of `options`.' +
-        'Check that you are using the same reference in both `options` and `selectedOption`.'
+          'DropDownMenu `selectedOption` must be a member of `options`.' +
+          'Check that you are using the same reference in both `options` and `selectedOption`.',
       );
-      return;
+
+      return null;
     }
+
     return selectedOption;
   }
 
@@ -100,8 +105,8 @@ class DropDownMenu extends PureComponent {
   }
 }
 
-const StyledDropDownMenu = connectStyle('shoutem.ui.DropDownMenu')(DropDownMenu);
+const StyledDropDownMenu = connectStyle('shoutem.ui.DropDownMenu')(
+  DropDownMenu,
+);
 
-export {
-  StyledDropDownMenu as DropDownMenu,
-};
+export { StyledDropDownMenu as DropDownMenu };

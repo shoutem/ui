@@ -1,8 +1,7 @@
 import React from 'react';
-
+import { Divider } from '../../components/Divider';
 import { Caption } from '../../components/Text';
 import { View } from '../../components/View';
-import { Divider } from '../../components/Divider';
 import { Stage } from './Stage';
 
 export function Dividers() {

@@ -1,21 +1,19 @@
-import { combineReducers } from 'redux';
-
 import { StateUtils as NavigationStateUtils } from 'react-native-navigation-experimental-compat';
+import { combineReducers } from 'redux';
 
 const NAV_PUSH = 'NAV_PUSH';
 const NAV_POP = 'NAV_POP';
 
 const initialNavState = {
   index: 0,
-  routes: [
-    { key: 'RestaurantsList' },
-  ],
+  routes: [{ key: 'RestaurantsList' }],
 };
 
 function navigationState(state = initialNavState, action) {
   switch (action.type) {
     case NAV_PUSH:
-      if (state.routes[state.index].key === (action.state && action.state.key)) return state;
+      if (state.routes[state.index].key === (action.state && action.state.key))
+        return state;
       return NavigationStateUtils.push(state, action.state);
 
     case NAV_POP:

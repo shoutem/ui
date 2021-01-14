@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import { TouchableOpacity as RNTouchableOpacity } from 'react-native';
-
 import { connectStyle } from '@shoutem/theme';
 
 class TouchableOpacity extends PureComponent {
@@ -30,8 +29,8 @@ TouchableOpacity.propTypes = {
   ...RNTouchableOpacity.propTypes,
 };
 
-const StyledTouchableOpacity = connectStyle('shoutem.ui.TouchableOpacity')(TouchableOpacity);
+const StyledTouchableOpacity = connectStyle('shoutem.ui.TouchableOpacity')(
+  TouchableOpacity,
+);
 
-export {
-  StyledTouchableOpacity as TouchableOpacity,
-};
+export { StyledTouchableOpacity as TouchableOpacity };

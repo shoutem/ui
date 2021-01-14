@@ -1,10 +1,17 @@
 {
   "name": "@shoutem/ui",
-  "version": "4.0.18",
+  "version": "4.1.0",
   "description": "Styleable set of components for React Native applications",
+  "scripts": {
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix",
+    "postinstall": "node ./scripts/add-native-deps",
+    "test": "mocha '_tests_/*.js' --require react-native-mock-render/mock --require @babel/register"
+  },
   "dependencies": {
-    "@shoutem/animation": "~0.12.4",
-    "@shoutem/theme": "~0.11.6",
+    "@shoutem/animation": "~0.13.0-rc.0",
+    "@shoutem/eslint-config-react": "^1.0.1",
+    "@shoutem/theme": "~0.12.0-rc.1",
     "auto-bind": "^4.0.0",
     "babel-plugin-transform-decorators-legacy": "~1.3.4",
     "buffer": "5.6.0",
@@ -36,10 +43,18 @@
     "@babel/core": "^7.9.6",
     "@babel/register": "7.9.0",
     "@babel/plugin-proposal-decorators": "^7.3.0",
-    "metro-react-native-babel-preset": "^0.56.0",
+    "babel-eslint": "^9.0.0",
     "chai": "4.2.0",
     "deep-freeze": "0.0.1",
+    "eslint": "^6.8.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^1.3.1",
+    "eslint-plugin-prettier": "3.1.3",
+    "eslint-plugin-react": "^5.1.1",
+    "eslint-plugin-react-native": "~3.6.0",
+    "metro-react-native-babel-preset": "^0.56.0",
     "mocha": "7.1.2",
+    "prettier": "1.19.1",
     "react-addons-test-utils": "^15.6.2",
     "react-dom": "^16.8.6",
     "react-native-mock-render": "0.1.9"
@@ -51,10 +66,6 @@
     "react-native-vector-icons",
     "react-native-webview"
   ],
-  "scripts": {
-    "test": "mocha '_tests_/*.js' --require react-native-mock-render/mock --require @babel/register",
-    "postinstall": "node ./scripts/add-native-deps"
-  },
   "homepage": "http://shoutem.github.io/docs/ui-toolkit/introduction",
   "bugs": {
     "url": "https://github.com/shoutem/ui/issues"
@@ -97,5 +108,13 @@
       "email": "zeljko@shoutem.com",
       "name": "zrumenjak"
     }
-  ]
+  ],
+  "eslintConfig": {
+    "extends": "@shoutem/react",
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module"
+    }
+  }
 }

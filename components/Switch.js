@@ -1,35 +1,32 @@
 import PropTypes from 'prop-types';
+import autoBindReact from 'auto-bind/react';
 import React, { PureComponent } from 'react';
-
 import { TouchableWithoutFeedback } from 'react-native';
-
-import { connectStyle } from '@shoutem/theme';
 import { connectAnimation, TimingDriver } from '@shoutem/animation';
-
+import { connectStyle } from '@shoutem/theme';
 import { View } from './View';
-
-const { bool, func, object, shape } = PropTypes;
 
 class Switch extends PureComponent {
   static propTypes = {
     // True when switch is on, false otherwise
-    value: bool,
+    value: PropTypes.bool,
     // Called when switch is toggled on and off
-    onValueChange: func,
+    onValueChange: PropTypes.func,
     // Styles for the container and underlying thumb
-    style: shape({
+    style: PropTypes.shape({
       // Container style
-      container: object,
+      container: PropTypes.object,
       // Thumb style
-      thumb: object,
+      thumb: PropTypes.object,
     }),
   };
 
   constructor(props) {
     super(props);
 
+    autoBindReact(this);
+
     this.timingDriver = new TimingDriver();
-    this.onSwitchPressed = this.onSwitchPressed.bind(this);
 
     this.setValue(props.value);
   }
@@ -82,6 +79,4 @@ class Switch extends PureComponent {
 const AnimatedSwitch = connectAnimation(Switch);
 const StyledSwitch = connectStyle('shoutem.ui.Switch')(AnimatedSwitch);
 
-export {
-  StyledSwitch as Switch,
-};
+export { StyledSwitch as Switch };

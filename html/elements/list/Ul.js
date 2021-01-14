@@ -1,17 +1,12 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import { View } from '../../../components/View';
-import { Text } from '../../../components/Text';
 import { ElementPropTypes, combineMappers, mapElementProps } from '../../Html';
-import renderItems from './helpers/renderItems';
 import pickLiChildElements from './helpers/pickLiChildElements';
-import Li from './Li';
+import renderItems from './helpers/renderItems';
 
-function createBulletElement(element, index) {
-  return {
-    tag: 'bullet',
-  };
+function createBulletElement() {
+  return { tag: 'bullet' };
 }
 
 export function Ul({ style, childElements, renderElement }) {

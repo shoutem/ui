@@ -1,8 +1,6 @@
 import React from 'react';
 import PhotoView from 'react-native-photo-view';
-
 import { connectStyle } from '@shoutem/theme';
-
 import { ImageGalleryBase } from './ImageGalleryBase';
 
 class ImageGallery extends ImageGalleryBase {
@@ -12,7 +10,7 @@ class ImageGallery extends ImageGalleryBase {
   renderImage(imageProps, imageData, imageIndex) {
     const { selectedIndex } = this.state;
 
-    const isImageVisible = (imageIndex === selectedIndex);
+    const isImageVisible = imageIndex === selectedIndex;
     const androidProps = {
       ...imageProps,
       // Reset the image scale on images that are not
@@ -24,14 +22,12 @@ class ImageGallery extends ImageGalleryBase {
       onTap: this.onImageTap,
     };
 
-    return (
-      <PhotoView {...androidProps} />
-    );
+    return <PhotoView {...androidProps} />;
   }
 }
 
-const StyledImageGallery = connectStyle('shoutem.ui.ImageGallery')(ImageGallery);
+const StyledImageGallery = connectStyle('shoutem.ui.ImageGallery')(
+  ImageGallery,
+);
 
-export {
-  StyledImageGallery as ImageGallery,
-};
+export { StyledImageGallery as ImageGallery };

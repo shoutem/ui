@@ -1,14 +1,9 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-import {
-  InteractionManager,
-  LayoutAnimation,
-  ScrollView,
-} from 'react-native';
+import autoBindReact from 'auto-bind/react';
 import _ from 'lodash';
-
+import PropTypes from 'prop-types';
+import { InteractionManager, LayoutAnimation, ScrollView } from 'react-native';
 import { connectStyle } from '@shoutem/theme';
-
 import { View } from '../View';
 import { Page } from './Page';
 
@@ -29,9 +24,7 @@ class HorizontalPager extends PureComponent {
     // when user tries to swipe beyond end of content (iOS only)
     bounces: PropTypes.bool,
     // Array containing objects (pages)
-    data: PropTypes.arrayOf(
-      PropTypes.object,
-    ).isRequired,
+    data: PropTypes.arrayOf(PropTypes.object).isRequired,
     // Callback function called when user swipes between pages (images)
     // Index of new (selected) page is passed to this callback
     onIndexSelected: PropTypes.func,
@@ -72,9 +65,7 @@ class HorizontalPager extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.onHorizontalScroll = this.onHorizontalScroll.bind(this);
-    this.onLayoutContainer = this.onLayoutContainer.bind(this);
-    this.onScrollViewRef = this.onScrollViewRef.bind(this);
+    autoBindReact(this);
 
     this.state = {
       width: 0,
@@ -110,7 +101,7 @@ class HorizontalPager extends PureComponent {
     const { width, height } = event.nativeEvent.layout;
     const { scrolledToInitialIndex } = this.state;
 
-    if ((this.state.width === width) && (this.state.height === height)) {
+    if (this.state.width === width && this.state.height === height) {
       return;
     }
 
@@ -137,13 +128,16 @@ class HorizontalPager extends PureComponent {
 
     // Handle the swipes between pages performed by the user
     if (selectedIndex !== newSelectedIndex) {
-      this.setState({
-        selectedIndex: newSelectedIndex,
-      }, () => {
-        if (_.isFunction(onIndexSelected)) {
-          onIndexSelected(newSelectedIndex);
-        }
-      });
+      this.setState(
+        {
+          selectedIndex: newSelectedIndex,
+        },
+        () => {
+          if (_.isFunction(onIndexSelected)) {
+            onIndexSelected(newSelectedIndex);
+          }
+        },
+      );
     }
   }
 
@@ -159,7 +153,7 @@ class HorizontalPager extends PureComponent {
     // While keeping `pageMargin` intact between pages
     // If `showNextPage` is `false`, then `nextPageInsetSize` doesn't matter,
     // And we only use `pageMargin` for spacing between pages.
-    return showNextPage ? (width - style.nextPageInsetSize) : (width + pageMargin);
+    return showNextPage ? width - style.nextPageInsetSize : width + pageMargin;
   }
 
   scrollToPage(page) {
@@ -178,14 +172,17 @@ class HorizontalPager extends PureComponent {
     const { initialSelectedIndex } = this.state;
 
     this.scrollToPage(initialSelectedIndex);
-    this.setState({
-      selectedIndex: initialSelectedIndex,
-      scrolledToInitialIndex: true,
-    }, () => {
-      if (_.isFunction(onIndexSelected)) {
-        onIndexSelected(initialSelectedIndex);
-      }
-    });
+    this.setState(
+      {
+        selectedIndex: initialSelectedIndex,
+        scrolledToInitialIndex: true,
+      },
+      () => {
+        if (_.isFunction(onIndexSelected)) {
+          onIndexSelected(initialSelectedIndex);
+        }
+      },
+    );
   }
 
   calculateIndex(contentOffset) {
@@ -213,17 +210,27 @@ class HorizontalPager extends PureComponent {
     const { selectedIndex } = this.state;
 
     // We are rendering max surroundingPagesToLoad around the current index
-    const minPageIndex = (selectedIndex <= surroundingPagesToLoad) ?
-      0 : selectedIndex - surroundingPagesToLoad;
+    const minPageIndex =
+      selectedIndex <= surroundingPagesToLoad
+        ? 0
+        : selectedIndex - surroundingPagesToLoad;
 
-    const maxPageIndex = (selectedIndex >= (data.length - surroundingPagesToLoad - 1)) ?
-      data.length - 1 : selectedIndex + surroundingPagesToLoad;
+    const maxPageIndex =
+      selectedIndex >= data.length - surroundingPagesToLoad - 1
+        ? data.length - 1
+        : selectedIndex + surroundingPagesToLoad;
 
-    return (index >= minPageIndex) && (index <= maxPageIndex);
+    return index >= minPageIndex && index <= maxPageIndex;
   }
 
   renderPages() {
-    const { width, height, pageMargin, showNextPage, selectedIndex } = this.state;
+    const {
+      width,
+      height,
+      pageMargin,
+      showNextPage,
+      selectedIndex,
+    } = this.state;
     const { data, renderPage, style } = this.props;
 
     const pages = data.map((pageData, pageIndex) => {
@@ -241,13 +248,9 @@ class HorizontalPager extends PureComponent {
       // Fixes where multiple pages appear at once on initial load (if surroundingPagesToLoad > 0)
       if (!containerWidth) return null;
 
-      const isPageActive = (selectedIndex === pageIndex);
+      const isPageActive = selectedIndex === pageIndex;
       const pageContent = this.shouldRenderPage(pageIndex) && (
-        <Page
-          isActive={isPageActive}
-          width={pageWidth}
-          style={style.page}
-        >
+        <Page isActive={isPageActive} width={pageWidth} style={style.page}>
           {renderPage(pageData, pageIndex, { width, height })}
         </Page>
       );
@@ -283,11 +286,7 @@ class HorizontalPager extends PureComponent {
     }
 
     return (
-      <View
-        style={style.container}
-        onLayout={this.onLayoutContainer}
-        virtual
-      >
+      <View style={style.container} onLayout={this.onLayoutContainer} virtual>
         <ScrollView
           ref={this.onScrollViewRef}
           style={[style.scrollView, { width: this.calculateContainerWidth() }]}
@@ -313,8 +312,8 @@ class HorizontalPager extends PureComponent {
   }
 }
 
-const StyledHorizontalPager = connectStyle('shoutem.ui.HorizontalPager')(HorizontalPager);
+const StyledHorizontalPager = connectStyle('shoutem.ui.HorizontalPager')(
+  HorizontalPager,
+);
 
-export {
-  StyledHorizontalPager as HorizontalPager,
-};
+export { StyledHorizontalPager as HorizontalPager };

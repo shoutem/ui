@@ -62,13 +62,7 @@ export { SimpleHtml } from './html';
 export { ShareButton } from './components/ShareButton';
 export { LinearGradient } from './components/LinearGradient';
 
-export {
-  Heading,
-  Title,
-  Subtitle,
-  Text,
-  Caption,
-} from './components/Text';
+export { Heading, Title, Subtitle, Text, Caption } from './components/Text';
 
 export { Divider } from './components/Divider';
 

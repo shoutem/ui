@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-
+import autoBindReact from 'auto-bind/react';
+import PropTypes from 'prop-types';
 import { InlineGallery } from '../../components/InlineGallery';
 
 /**
@@ -16,12 +16,11 @@ export default class Gallery extends PureComponent {
   constructor(props) {
     super(props);
 
+    autoBindReact(this);
+
     this.state = {
       selectedIndex: 0,
     };
-
-    this.onIndexSelected = this.onIndexSelected.bind(this);
-    this.handlePhotoPress = this.handlePhotoPress.bind(this);
   }
 
   onIndexSelected(selectedIndex) {
@@ -33,7 +32,8 @@ export default class Gallery extends PureComponent {
     const { selectedIndex } = this.state;
 
     if (!handlePhotoPress) {
-      console.log('There is no "handlePhotoPress" handler for Gallery photo.');
+      // eslint-disable-next-line no-console
+      console.warn('There is no "handlePhotoPress" handler for Gallery photo.');
       return;
     }
 

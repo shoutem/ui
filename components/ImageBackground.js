@@ -1,15 +1,15 @@
 import React, { PureComponent } from 'react';
-import {
-  ImageBackground as RNImageBackground,
-  Platform,
-} from 'react-native';
+import autoBindReact from 'auto-bind/react';
 import _ from 'lodash';
-
-import { connectStyle } from '@shoutem/theme';
+import { ImageBackground as RNImageBackground, Platform } from 'react-native';
 import { connectAnimation } from '@shoutem/animation';
+import { connectStyle } from '@shoutem/theme';
+
+const fallbackImage = require('../assets/images/transparent.png');
 
 // A valid source is either an object with an uri key or a number (from a `require` call)
-const isValidSource = (source) => _.isNumber(source) || (_.isObject(source) && source.uri);
+const isValidSource = source =>
+  _.isNumber(source) || (_.isObject(source) && source.uri);
 
 /**
  * A function to transform props that will be used by
@@ -46,7 +46,7 @@ class ImageBackground extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.captureNativeComponentRef = this.captureNativeComponentRef.bind(this);
+    autoBindReact(this);
   }
 
   setNativeProps(nativeProps) {
@@ -62,7 +62,7 @@ class ImageBackground extends PureComponent {
     if (Platform.OS === 'android' && !isValidSource(source)) {
       // Image views are not rendered on Android if there is no image to display,
       // so we fallback to a transparent image to be compatible with iOS
-      transformedProps.source = defaultSource || require('../assets/images/transparent.png');
+      transformedProps.source = defaultSource || fallbackImage;
       // Fixes a bug with local image resizing on Android:
       // https://github.com/facebook/react-native/issues/4598#issuecomment-162328501
       transformedProps.style = { width: null, height: null, ...props.style };
@@ -81,14 +81,10 @@ class ImageBackground extends PureComponent {
   }
 
   render() {
-    return (
-      <RNImageBackground {...this.createTransformedProps(this.props)} />
-    );
+    return <RNImageBackground {...this.createTransformedProps(this.props)} />;
   }
 }
 
 const AnimatedImage = connectAnimation(ImageBackground);
 const StyledImage = connectStyle('shoutem.ui.ImageBackground')(AnimatedImage);
-export {
-  StyledImage as ImageBackground,
-};
+export { StyledImage as ImageBackground };
