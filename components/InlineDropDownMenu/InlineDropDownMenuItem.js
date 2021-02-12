@@ -41,9 +41,9 @@ class InlineDropDownMenuItem extends PureComponent {
   }
 
   handlePress() {
-    const { onItemPressed, isSelected, item } = this.props;
+    const { onItemPressed, item } = this.props;
 
-    if (onItemPressed && !isSelected) {
+    if (onItemPressed) {
       onItemPressed(item);
     }
   }
@@ -69,6 +69,7 @@ class InlineDropDownMenuItem extends PureComponent {
             ]
           }
         ]}
+        disabled={isSelected}
         onPress={this.handlePress}
       >
         <Text styleName={textStyle}>{resolvedText}</Text>
