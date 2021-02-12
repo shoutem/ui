@@ -72,6 +72,7 @@ export { Tile } from './components/Tile';
 
 export { Lightbox } from './components/Lightbox';
 
+export { InlineDropDownMenu } from './components/InlineDropDownMenu';
 export { EmptyStateView } from './components/EmptyStateView';
 export { EmptyListImage } from './components/EmptyListImage';
 export { NumberInput } from './components/NumberInput';

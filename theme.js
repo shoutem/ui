@@ -2040,6 +2040,11 @@ export default (variables = defaultThemeVariables) => ({
     withoutBorder: {
       borderWidth: 0,
     },
+
+    '.small': {
+      paddingVertical: 6,
+      height: 42,
+    },
   },
 
   'shoutem.ui.NumberInput': {
@@ -2551,6 +2556,17 @@ export default (variables = defaultThemeVariables) => ({
       },
     },
 
+    '.relative': {
+      container: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'relative',
+        bottom: 0,
+        paddingVertical: 16,
+      },
+    },
+
     container: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -2861,6 +2877,29 @@ export default (variables = defaultThemeVariables) => ({
       '.preview': {
         flex: 1,
       },
+    },
+  },
+
+  'shoutem.ui.InlineDropDownMenu': {
+    container: {
+      paddingTop: 12,
+      paddingHorizontal: variables.mediumGutter,
+      paddingBottom: 4,
+      backgroundColor: variables.paperColor,
+    },
+    icon: {
+      color: variables.text.color,
+    }
+  },
+
+  'shoutem.ui.InlineDropDownMenuItem': {
+    container: {
+      paddingTop: 10,
+      paddingHorizontal: variables.mediumGutter,
+      paddingBottom: 4,
+      backgroundColor: variables.paperColor,
+      borderTopWidth: 1,
+      borderTopColor: variables.backgroundColor,
     },
   },
 });
