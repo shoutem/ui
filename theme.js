@@ -485,6 +485,10 @@ export default (variables = defaultThemeVariables) => ({
       opacity: 0.5,
     },
 
+    '.link': {
+      ...variables.links,
+    },
+
     backgroundColor: 'transparent',
   },
 
@@ -598,7 +602,7 @@ export default (variables = defaultThemeVariables) => ({
     '.medium-avatar': {
       width: dimensionRelativeToIphone(145),
       height: dimensionRelativeToIphone(145),
-      borderRadius: 72.5,
+      borderRadius: dimensionRelativeToIphone(72.5),
       borderWidth: 0,
     },
 
@@ -661,7 +665,7 @@ export default (variables = defaultThemeVariables) => ({
     },
   },
   'shoutem.ui.Image': {
-    [INCLUDE]: ['commonVariants', 'imageSizes', 'fill-parent'],
+    [INCLUDE]: ['commonVariants', 'imageSizes', 'fill-parent', 'guttersMargin'],
 
     '.placeholder': {
       backgroundColor: inverseColorBrightnessForAmount(
@@ -694,7 +698,11 @@ export default (variables = defaultThemeVariables) => ({
     },
   },
   'shoutem.ui.ImageBackground': {
-    [INCLUDE]: ['commonVariants', 'imageSizes', 'fill-parent'],
+    [INCLUDE]: ['commonVariants', 'imageSizes', 'fill-parent', 'guttersMargin'],
+
+    '.overflow-hidden': {
+      overflow: 'hidden',
+    },
 
     '.placeholder': {
       backgroundColor: inverseColorBrightnessForAmount(
