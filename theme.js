@@ -1945,6 +1945,8 @@ export default (variables = defaultThemeVariables) => ({
     borderColor: variables.lineColor,
   },
   'shoutem.ui.Divider': {
+    [INCLUDE]: ['guttersMargin'],
+
     '.line': {
       '.small': {
         width: 55,
@@ -2105,6 +2107,7 @@ export default (variables = defaultThemeVariables) => ({
       backgroundColor: '#f0f0f0',
       color: '#888888',
       flex: 1,
+      minWidth: 330,
       fontSize: 15,
       height: 30,
       paddingVertical: 6,
@@ -2910,4 +2913,33 @@ export default (variables = defaultThemeVariables) => ({
       borderTopColor: variables.backgroundColor,
     },
   },
+
+  'shoutem.ui.TabMenu': {
+    container: {
+      paddingHorizontal: variables.smallGutter,
+      backgroundColor: variables.backgroundColor,
+      height: 44,
+    },
+  },
+
+  'shoutem.ui.TabMenuItem': {
+    tabulator: {
+      backgroundColor: variables.text.color,
+      height: 1,
+      borderRadius: 1,
+      flexDirection: 'row',
+      marginBottom: 8,
+      marginLeft: 8,
+    },
+    text: {
+      marginTop: 12,
+      marginHorizontal: 8,
+      marginBottom: 12,
+      opacity: 0.3,
+    },
+    selectedText: {
+      marginBottom: 4,
+      opacity: 1,
+    }
+  }
 });

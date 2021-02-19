@@ -77,6 +77,7 @@ export { EmptyStateView } from './components/EmptyStateView';
 export { EmptyListImage } from './components/EmptyListImage';
 export { NumberInput } from './components/NumberInput';
 export { SearchField } from './components/SearchField';
+export { TabMenu } from './components/TabMenu';
 
 export { Examples } from './examples/components';
 
