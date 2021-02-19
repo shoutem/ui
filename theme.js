@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet, Platform, StatusBar } from 'react-native';
+import { Dimensions, StyleSheet, Platform, StatusBar } from "react-native";
 import {
   INCLUDE,
   createVariations,
@@ -6,19 +6,19 @@ import {
   inverseColorBrightnessForAmount,
   changeColorAlpha,
   getSizeRelativeToReference,
-} from '@shoutem/theme';
+} from "@shoutem/theme";
 import {
   NAVIGATION_HEADER_HEIGHT,
   IPHONE_X_NOTCH_PADDING,
   IPHONE_XR_NOTCH_PADDING,
   IPHONE_X_HOME_INDICATOR_PADDING,
-} from './const';
-import { Device } from './helpers';
+} from "./const";
+import { Device } from "./helpers";
 
-const window = Dimensions.get('window');
+const window = Dimensions.get("window");
 
 const STATUS_BAR_OFFSET =
-  Platform.OS === 'android' ? -StatusBar.currentConfig : 0;
+  Platform.OS === "android" ? -StatusBar.currentConfig : 0;
 export const NAVIGATION_BAR_HEIGHT = Device.select({
   iPhoneX: NAVIGATION_HEADER_HEIGHT + IPHONE_X_NOTCH_PADDING,
   iPhoneXR: NAVIGATION_HEADER_HEIGHT + IPHONE_XR_NOTCH_PADDING,
@@ -26,31 +26,31 @@ export const NAVIGATION_BAR_HEIGHT = Device.select({
 });
 
 export const sizeVariants = [
-  '',
-  'left',
-  'right',
-  'top',
-  'bottom',
-  'horizontal',
-  'vertical',
+  "",
+  "left",
+  "right",
+  "top",
+  "bottom",
+  "horizontal",
+  "vertical",
 ];
 export const textComponents = [
-  'shoutem.ui.Heading',
-  'shoutem.ui.Title',
-  'shoutem.ui.Subtitle',
-  'shoutem.ui.Text',
-  'shoutem.ui.Caption',
+  "shoutem.ui.Heading",
+  "shoutem.ui.Title",
+  "shoutem.ui.Subtitle",
+  "shoutem.ui.Text",
+  "shoutem.ui.Caption",
 ];
 export const viewComponents = [
-  'shoutem.ui.View',
-  'shoutem.ui.Tile',
-  'shoutem.ui.Card',
-  'shoutem.ui.Row',
+  "shoutem.ui.View",
+  "shoutem.ui.Tile",
+  "shoutem.ui.Card",
+  "shoutem.ui.Row",
 ];
 
 export function dimensionRelativeToIphone(
   dimension,
-  actualRefVal = window.width,
+  actualRefVal = window.width
 ) {
   // 375 is iPhone width
   return getSizeRelativeToReference(dimension, 375, actualRefVal);
@@ -60,20 +60,20 @@ export function dimensionRelativeToIphone(
 // values of 'normal'.
 export function resolveFontFamily(
   fontName,
-  fontWeight = 'normal',
-  fontStyle = 'normal',
+  fontWeight = "normal",
+  fontStyle = "normal"
 ) {
-  if (Platform.OS === 'ios') {
+  if (Platform.OS === "ios") {
     return fontName;
   }
 
   // If we receive the fontName as Rubik-Regular, we should only use Rubik.
-  const resolvedFontName = fontName.split('-')[0];
+  const resolvedFontName = fontName.split("-")[0];
 
   // Currently, Android text will only be bolded for fontWeight 700. Every other (even higher) value
   // will return the default, un-bolded text.
-  const isBold = parseInt(fontWeight) >= 700 || fontWeight === 'bold';
-  const isItalic = fontStyle === 'italic';
+  const isBold = parseInt(fontWeight) >= 700 || fontWeight === "bold";
+  const isItalic = fontStyle === "italic";
 
   if (isBold && isItalic) {
     return `${resolvedFontName}-BoldItalic`;
@@ -94,22 +94,22 @@ export function resolveFontFamily(
 // being provided to fontWeight will cause the default system font to be used, so we conditionally
 // resolve it.
 export function resolveFontWeight(fontWeight) {
-  if (Platform.OS === 'ios') {
+  if (Platform.OS === "ios") {
     return fontWeight;
   }
 
-  return 'normal';
+  return "normal";
 }
 
 // Currently, resolveFontFamily will provide fontStyle styling, but any value other than 'normal'
 // being provided to fontStyle will cause the default system font to be used, so we conditionally
 // resolve it.
 export function resolveFontStyle(fontStyle) {
-  if (Platform.OS === 'ios') {
+  if (Platform.OS === "ios") {
     return fontStyle;
   }
 
-  return 'normal';
+  return "normal";
 }
 
 // This function is deprecated and replaced with calculateLineHeight.
@@ -120,7 +120,7 @@ export function formatLineHeight(fontSize) {
 
   // eslint-disable-next-line no-console
   console.warn(
-    'formatLineHeight is deprecated and will be removed. Please use calculateLineHeight instead, it can simply be renamed as it takes the same argument and returns the same expected value, but more consistently across all fontSize.',
+    "formatLineHeight is deprecated and will be removed. Please use calculateLineHeight instead, it can simply be renamed as it takes the same argument and returns the same expected value, but more consistently across all fontSize."
   );
 
   if (fontSize < 22) {
@@ -136,113 +136,113 @@ export function calculateLineHeight(fontSize) {
 }
 
 export const defaultThemeVariables = {
-  featuredColor: '#659CEC',
-  backgroundColor: '#f2f2f2',
-  paperColor: '#FFFFFF',
-  shadowColor: 'rgba(0, 0, 0, 0.1)',
+  featuredColor: "#659CEC",
+  backgroundColor: "#f2f2f2",
+  paperColor: "#FFFFFF",
+  shadowColor: "rgba(0, 0, 0, 0.1)",
 
   heading: {
-    fontFamily: 'Rubik-Regular',
-    fontStyle: 'normal',
-    fontWeight: 'normal',
-    color: '#222222',
+    fontFamily: "Rubik-Regular",
+    fontStyle: "normal",
+    fontWeight: "normal",
+    color: "#222222",
     fontSize: 25,
   },
   title: {
-    fontFamily: 'Rubik-Regular',
-    fontStyle: 'normal',
-    fontWeight: 'normal',
+    fontFamily: "Rubik-Regular",
+    fontStyle: "normal",
+    fontWeight: "normal",
     fontSize: 20,
-    color: '#222222',
+    color: "#222222",
   },
   subtitle: {
-    fontFamily: 'Rubik-Regular',
-    fontStyle: 'normal',
-    fontWeight: 'normal',
-    color: '#222222',
+    fontFamily: "Rubik-Regular",
+    fontStyle: "normal",
+    fontWeight: "normal",
+    color: "#222222",
     fontSize: 15,
   },
   caption: {
-    fontFamily: 'Rubik-Regular',
-    fontStyle: 'normal',
-    fontWeight: 'normal',
+    fontFamily: "Rubik-Regular",
+    fontStyle: "normal",
+    fontWeight: "normal",
     fontSize: 12,
-    color: '#666666',
+    color: "#666666",
   },
   text: {
-    fontFamily: 'Rubik-Regular',
-    fontStyle: 'normal',
-    fontWeight: 'normal',
+    fontFamily: "Rubik-Regular",
+    fontStyle: "normal",
+    fontWeight: "normal",
     fontSize: 15,
-    color: '#666666',
+    color: "#666666",
   },
   links: {
-    fontFamily: 'Rubik-Regular',
-    fontStyle: 'normal',
-    fontWeight: 'normal',
+    fontFamily: "Rubik-Regular",
+    fontStyle: "normal",
+    fontWeight: "normal",
     fontSize: 15,
-    color: '#666666',
+    color: "#666666",
   },
   errorText: {
-    fontFamily: 'Rubik-Regular',
-    fontStyle: 'normal',
-    fontWeight: 'normal',
+    fontFamily: "Rubik-Regular",
+    fontStyle: "normal",
+    fontWeight: "normal",
     fontSize: 12,
-    color: '#FF0000',
+    color: "#FF0000",
   },
 
-  imageOverlayColor: 'rgba(0, 0, 0, 0.2)',
-  imageOverlayTextColor: '#FFFFFF',
-  tagOverlayColor: 'rgba(0, 0, 0, 0.7)',
-  tagOverlayTextColor: '#FFFFFF',
+  imageOverlayColor: "rgba(0, 0, 0, 0.2)",
+  imageOverlayTextColor: "#FFFFFF",
+  tagOverlayColor: "rgba(0, 0, 0, 0.7)",
+  tagOverlayTextColor: "#FFFFFF",
 
-  statusBarColor: '#000',
-  statusBarStyle: 'dark',
-  navBarBackground: '#FFFFFF',
-  navBarBorderColor: '#f2f2f2',
+  statusBarColor: "#000",
+  statusBarStyle: "dark",
+  navBarBackground: "#FFFFFF",
+  navBarBorderColor: "#f2f2f2",
   navBarText: {
-    fontFamily: 'Rubik-Regular',
-    fontStyle: 'normal',
-    fontWeight: 'normal',
-    color: '#222222',
+    fontFamily: "Rubik-Regular",
+    fontStyle: "normal",
+    fontWeight: "normal",
+    color: "#222222",
     fontSize: 15,
   },
-  navBarIconsColor: '#222222',
-  featuredNavBarTitleColor: '#ffffff',
-  featuredNavBarIconsColor: '#ffffff',
+  navBarIconsColor: "#222222",
+  featuredNavBarTitleColor: "#ffffff",
+  featuredNavBarIconsColor: "#ffffff",
 
-  mainNavBackground: '#FFFFFF',
-  mainNavItemColor: 'rgba(50, 50, 50, 0.4)',
-  mainNavItemIconColor: 'rgba(50, 50, 50, 0.4)',
-  mainNavItemTextColor: 'rgba(50, 50, 50, 0.4)',
-  mainNavItemBackground: 'rgba(0, 0, 0, 0)',
-  mainNavSelectedItemBackground: '#FFFFFF',
-  mainNavSelectedItemColor: '#222222',
-  mainNavSelectedItemIconColor: '#222222',
-  mainNavSelectedItemTextColor: '#222222',
-  mainNavSelectedItemBorderColor: '#659CEC',
-  mainNavBorderColor: '#e0e0e0',
+  mainNavBackground: "#FFFFFF",
+  mainNavItemColor: "rgba(50, 50, 50, 0.4)",
+  mainNavItemIconColor: "rgba(50, 50, 50, 0.4)",
+  mainNavItemTextColor: "rgba(50, 50, 50, 0.4)",
+  mainNavItemBackground: "rgba(0, 0, 0, 0)",
+  mainNavSelectedItemBackground: "#FFFFFF",
+  mainNavSelectedItemColor: "#222222",
+  mainNavSelectedItemIconColor: "#222222",
+  mainNavSelectedItemTextColor: "#222222",
+  mainNavSelectedItemBorderColor: "#659CEC",
+  mainNavBorderColor: "#e0e0e0",
 
-  subNavItemColor: '#666666',
-  subNavItemBackground: 'rgba(0, 0, 0, 0)',
-  subNavListBorderColor: '#e0e0e0',
+  subNavItemColor: "#666666",
+  subNavItemBackground: "rgba(0, 0, 0, 0)",
+  subNavListBorderColor: "#e0e0e0",
 
   primaryButtonText: {
-    fontFamily: 'Rubik-Regular',
-    fontStyle: 'normal',
-    fontWeight: '600',
+    fontFamily: "Rubik-Regular",
+    fontStyle: "normal",
+    fontWeight: "600",
     fontSize: 12,
-    color: '#222222',
+    color: "#222222",
   },
-  primaryButtonBackgroundColor: '#ffffff',
-  primaryButtonBorderColor: '#ffffff',
-  secondaryButtonTextColor: '#ffffff',
-  secondaryButtonBackgroundColor: '#2c2c2c',
-  secondaryButtonBorderColor: '#2c2c2c',
+  primaryButtonBackgroundColor: "#ffffff",
+  primaryButtonBorderColor: "#ffffff",
+  secondaryButtonTextColor: "#ffffff",
+  secondaryButtonBackgroundColor: "#2c2c2c",
+  secondaryButtonBorderColor: "#2c2c2c",
 
-  lineColor: '#e5e5e5',
-  sectionHeaderBackgroundColor: '#F2F2F2',
-  indicatorColor: '#222222',
+  lineColor: "#e5e5e5",
+  sectionHeaderBackgroundColor: "#F2F2F2",
+  indicatorColor: "#222222",
 
   smallGutter: 5,
   mediumGutter: 15,
@@ -257,155 +257,155 @@ export default (variables = defaultThemeVariables) => ({
   //
   guttersPadding: {
     ...createVariations(
-      '.sm-gutter',
+      ".sm-gutter",
       sizeVariants,
-      'padding',
-      variables.smallGutter,
+      "padding",
+      variables.smallGutter
     ),
     ...createVariations(
-      '.md-gutter',
+      ".md-gutter",
       sizeVariants,
-      'padding',
-      variables.mediumGutter,
+      "padding",
+      variables.mediumGutter
     ),
     ...createVariations(
-      '.lg-gutter',
+      ".lg-gutter",
       sizeVariants,
-      'padding',
-      variables.largeGutter,
+      "padding",
+      variables.largeGutter
     ),
     ...createVariations(
-      '.xl-gutter',
+      ".xl-gutter",
       sizeVariants,
-      'padding',
-      variables.extraLargeGutter,
+      "padding",
+      variables.extraLargeGutter
     ),
   },
 
   guttersMargin: {
     ...createVariations(
-      '.sm-gutter',
+      ".sm-gutter",
       sizeVariants,
-      'margin',
-      variables.smallGutter,
+      "margin",
+      variables.smallGutter
     ),
     ...createVariations(
-      '.md-gutter',
+      ".md-gutter",
       sizeVariants,
-      'margin',
-      variables.mediumGutter,
+      "margin",
+      variables.mediumGutter
     ),
     ...createVariations(
-      '.lg-gutter',
+      ".lg-gutter",
       sizeVariants,
-      'margin',
-      variables.largeGutter,
+      "margin",
+      variables.largeGutter
     ),
     ...createVariations(
-      '.xl-gutter',
+      ".xl-gutter",
       sizeVariants,
-      'margin',
-      variables.extraLargeGutter,
+      "margin",
+      variables.extraLargeGutter
     ),
   },
 
   commonVariants: {
-    '.rounded-corners': {
+    ".rounded-corners": {
       borderRadius: 2,
       borderWidth: 0,
-      borderColor: 'transparent',
+      borderColor: "transparent",
     },
 
-    '.flexible': {
+    ".flexible": {
       flex: 1,
     },
 
-    '.inflexible': {
+    ".inflexible": {
       flex: 0,
     },
 
-    '.collapsible': {
+    ".collapsible": {
       flex: -1,
     },
 
-    '.stretch': {
-      alignSelf: 'stretch',
+    ".stretch": {
+      alignSelf: "stretch",
     },
 
-    '.space-between': {
-      justifyContent: 'space-between',
+    ".space-between": {
+      justifyContent: "space-between",
     },
 
-    '.space-around': {
-      justifyContent: 'space-around',
+    ".space-around": {
+      justifyContent: "space-around",
     },
   },
   alignmentVariants: {
-    flexDirection: 'column',
-    '.topLeft': {
-      justifyContent: 'flex-start',
-      alignItems: 'flex-start',
+    flexDirection: "column",
+    ".topLeft": {
+      justifyContent: "flex-start",
+      alignItems: "flex-start",
     },
-    '.topCenter': {
-      justifyContent: 'flex-start',
-      alignItems: 'center',
+    ".topCenter": {
+      justifyContent: "flex-start",
+      alignItems: "center",
     },
-    '.topRight': {
-      justifyContent: 'flex-start',
-      alignItems: 'flex-end',
+    ".topRight": {
+      justifyContent: "flex-start",
+      alignItems: "flex-end",
     },
-    '.middleLeft': {
-      justifyContent: 'center',
-      alignItems: 'flex-start',
+    ".middleLeft": {
+      justifyContent: "center",
+      alignItems: "flex-start",
     },
-    '.middleCenter': {
-      justifyContent: 'center',
-      alignItems: 'center',
+    ".middleCenter": {
+      justifyContent: "center",
+      alignItems: "center",
     },
-    '.middleRight': {
-      justifyContent: 'center',
-      alignItems: 'flex-end',
+    ".middleRight": {
+      justifyContent: "center",
+      alignItems: "flex-end",
     },
-    '.bottomLeft': {
-      justifyContent: 'flex-end',
-      alignItems: 'flex-start',
+    ".bottomLeft": {
+      justifyContent: "flex-end",
+      alignItems: "flex-start",
     },
-    '.bottomCenter': {
-      justifyContent: 'flex-end',
-      alignItems: 'center',
+    ".bottomCenter": {
+      justifyContent: "flex-end",
+      alignItems: "center",
     },
-    '.bottomRight': {
-      justifyContent: 'flex-end',
-      alignItems: 'flex-end',
+    ".bottomRight": {
+      justifyContent: "flex-end",
+      alignItems: "flex-end",
     },
-    '.top': {
-      justifyContent: 'flex-start',
+    ".top": {
+      justifyContent: "flex-start",
     },
-    '.middle': {
-      justifyContent: 'center',
+    ".middle": {
+      justifyContent: "center",
     },
-    '.bottom': {
-      justifyContent: 'flex-end',
+    ".bottom": {
+      justifyContent: "flex-end",
     },
   },
 
   fillParent: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
   },
-  'fill-parent': {
-    '.fill-parent': {
-      [INCLUDE]: ['fillParent'],
+  "fill-parent": {
+    ".fill-parent": {
+      [INCLUDE]: ["fillParent"],
     },
   },
 
   dimmedFeaturedBackground: {
     backgroundColor: inverseColorBrightnessForAmount(
       variables.featuredColor,
-      5,
+      5
     ),
   },
 
@@ -418,12 +418,12 @@ export default (variables = defaultThemeVariables) => ({
       color: variables.imageOverlayTextColor,
     }),
 
-    'shoutem.ui.Icon': {
-      '.indicator': {
+    "shoutem.ui.Icon": {
+      ".indicator": {
         color: variables.imageOverlayTextColor,
       },
 
-      '.scroll-indicator': {
+      ".scroll-indicator": {
         color: variables.imageOverlayTextColor,
       },
 
@@ -432,19 +432,19 @@ export default (variables = defaultThemeVariables) => ({
   },
 
   boldTextStyle: {
-    fontWeight: resolveFontWeight('500'),
+    fontWeight: resolveFontWeight("500"),
   },
 
   italicTextStyle: {
-    fontStyle: resolveFontStyle('italic'),
+    fontStyle: resolveFontStyle("italic"),
   },
 
   codeTextStyle: {
-    fontFamily: 'Menlo',
+    fontFamily: "Menlo",
   },
 
   multilineTextStyle: {
-    '.v-center': {
+    ".v-center": {
       // Compensate for lineHeight, because
       // textAlignVertical is not supported on iOS
       marginTop: -4,
@@ -455,83 +455,83 @@ export default (variables = defaultThemeVariables) => ({
   },
 
   text: {
-    [INCLUDE]: ['commonVariants', 'guttersMargin'],
+    [INCLUDE]: ["commonVariants", "guttersMargin"],
 
-    '.line-through': {
-      textDecorationLine: 'line-through',
+    ".line-through": {
+      textDecorationLine: "line-through",
     },
 
-    '.h-left': {
-      textAlign: 'left',
+    ".h-left": {
+      textAlign: "left",
     },
 
-    '.h-right': {
-      textAlign: 'right',
+    ".h-right": {
+      textAlign: "right",
     },
 
-    '.h-center': {
-      textAlign: 'center',
+    ".h-center": {
+      textAlign: "center",
     },
 
-    '.bold': {
-      [INCLUDE]: ['boldTextStyle'],
+    ".bold": {
+      [INCLUDE]: ["boldTextStyle"],
     },
 
-    '.multiline': {
-      [INCLUDE]: ['multilineTextStyle'],
+    ".multiline": {
+      [INCLUDE]: ["multilineTextStyle"],
     },
 
-    '.muted': {
+    ".muted": {
       opacity: 0.5,
     },
 
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
   },
 
-  'shoutem.ui.Heading': {
-    [INCLUDE]: ['text'],
+  "shoutem.ui.Heading": {
+    [INCLUDE]: ["text"],
 
     lineHeight: calculateLineHeight(variables.heading.fontSize),
     ...variables.heading,
     fontFamily: resolveFontFamily(
       variables.heading.fontFamily,
       variables.heading.fontWeight,
-      variables.heading.fontStyle,
+      variables.heading.fontStyle
     ),
     fontWeight: resolveFontWeight(variables.heading.fontWeight),
     fontStyle: resolveFontStyle(variables.heading.fontStyle),
   },
 
-  'shoutem.ui.Title': {
-    [INCLUDE]: ['text'],
+  "shoutem.ui.Title": {
+    [INCLUDE]: ["text"],
 
     lineHeight: calculateLineHeight(variables.title.fontSize),
     ...variables.title,
     fontFamily: resolveFontFamily(
       variables.title.fontFamily,
       variables.title.fontWeight,
-      variables.title.fontStyle,
+      variables.title.fontStyle
     ),
     fontWeight: resolveFontWeight(variables.title.fontWeight),
     fontStyle: resolveFontStyle(variables.title.fontStyle),
   },
 
-  'shoutem.ui.Subtitle': {
-    [INCLUDE]: ['text'],
+  "shoutem.ui.Subtitle": {
+    [INCLUDE]: ["text"],
 
     lineHeight: calculateLineHeight(variables.subtitle.fontSize),
     ...variables.subtitle,
     fontFamily: resolveFontFamily(
       variables.subtitle.fontFamily,
       variables.subtitle.fontWeight,
-      variables.subtitle.fontStyle,
+      variables.subtitle.fontStyle
     ),
     fontWeight: resolveFontWeight(variables.subtitle.fontWeight),
     fontStyle: resolveFontStyle(variables.subtitle.fontStyle),
   },
 
-  'shoutem.ui.Caption': {
-    [INCLUDE]: ['text'],
+  "shoutem.ui.Caption": {
+    [INCLUDE]: ["text"],
 
     lineHeight: calculateLineHeight(variables.caption.fontSize),
     letterSpacing: 0.5,
@@ -539,17 +539,17 @@ export default (variables = defaultThemeVariables) => ({
     fontFamily: resolveFontFamily(
       variables.caption.fontFamily,
       variables.caption.fontWeight,
-      variables.caption.fontStyle,
+      variables.caption.fontStyle
     ),
     fontWeight: resolveFontWeight(variables.caption.fontWeight),
     fontStyle: resolveFontStyle(variables.caption.fontStyle),
 
-    '.form-error': {
+    ".form-error": {
       color: variables.errorText.color,
       fontFamily: resolveFontFamily(
         variables.errorText.fontFamily,
         variables.errorText.fontWeight,
-        variables.errorText.fontStyle,
+        variables.errorText.fontStyle
       ),
       fontSize: variables.errorText.fontSize,
       fontStyle: resolveFontStyle(variables.errorText.fontStyle),
@@ -558,14 +558,14 @@ export default (variables = defaultThemeVariables) => ({
     },
   },
 
-  'shoutem.ui.Text': {
-    [INCLUDE]: ['text'],
+  "shoutem.ui.Text": {
+    [INCLUDE]: ["text"],
 
     ...variables.text,
     fontFamily: resolveFontFamily(
       variables.text.fontFamily,
       variables.text.fontWeight,
-      variables.text.fontStyle,
+      variables.text.fontStyle
     ),
     fontWeight: resolveFontWeight(variables.text.fontWeight),
     fontStyle: resolveFontStyle(variables.text.fontStyle),
@@ -583,41 +583,41 @@ export default (variables = defaultThemeVariables) => ({
   //
   imageSizes: {
     // NOTE: '-avatar' styles do not work with ImageBackground
-    '.small-avatar': {
+    ".small-avatar": {
       width: dimensionRelativeToIphone(25),
       height: dimensionRelativeToIphone(25),
       borderRadius: 12.5,
       borderWidth: 0,
     },
 
-    '.small': {
+    ".small": {
       width: dimensionRelativeToIphone(65),
       height: dimensionRelativeToIphone(65),
     },
 
-    '.medium-avatar': {
+    ".medium-avatar": {
       width: dimensionRelativeToIphone(145),
       height: dimensionRelativeToIphone(145),
       borderRadius: 72.5,
       borderWidth: 0,
     },
 
-    '.medium': {
+    ".medium": {
       width: dimensionRelativeToIphone(145),
       height: dimensionRelativeToIphone(92),
     },
 
-    '.medium-wide': {
+    ".medium-wide": {
       width: dimensionRelativeToIphone(180),
       height: dimensionRelativeToIphone(85),
     },
 
-    '.medium-portrait': {
+    ".medium-portrait": {
       width: dimensionRelativeToIphone(209),
       height: dimensionRelativeToIphone(139),
     },
 
-    '.medium-square': {
+    ".medium-square": {
       width: dimensionRelativeToIphone(145),
       height: dimensionRelativeToIphone(145),
     },
@@ -625,48 +625,48 @@ export default (variables = defaultThemeVariables) => ({
     // NOTE: Image resizing doesn't work correctly if both
     // dimensions are not explicitly defined, so we can't
     // use flex: 1, or alignSelf: 'stretch' here...
-    '.featured': {
+    ".featured": {
       width: dimensionRelativeToIphone(365),
       height: dimensionRelativeToIphone(345),
     },
 
-    '.large': {
+    ".large": {
       width: window.width,
       height: dimensionRelativeToIphone(280),
     },
 
-    '.large-portrait': {
+    ".large-portrait": {
       width: window.width,
       height: dimensionRelativeToIphone(518),
     },
 
-    '.large-banner': {
+    ".large-banner": {
       width: window.width,
       height: dimensionRelativeToIphone(200),
     },
 
-    '.large-square': {
+    ".large-square": {
       width: window.width,
       height: window.width,
     },
 
-    '.large-wide': {
+    ".large-wide": {
       width: window.width,
       height: dimensionRelativeToIphone(238),
     },
 
-    '.large-ultra-wide': {
+    ".large-ultra-wide": {
       width: window.width,
       height: dimensionRelativeToIphone(130),
     },
   },
-  'shoutem.ui.Image': {
-    [INCLUDE]: ['commonVariants', 'imageSizes', 'fill-parent'],
+  "shoutem.ui.Image": {
+    [INCLUDE]: ["commonVariants", "imageSizes", "fill-parent"],
 
-    '.placeholder': {
+    ".placeholder": {
       backgroundColor: inverseColorBrightnessForAmount(
         variables.paperColor,
-        10,
+        10
       ),
     },
 
@@ -677,7 +677,7 @@ export default (variables = defaultThemeVariables) => ({
             scale: driver.interpolate({
               inputRange: [-0.9 * layout.height, 0],
               outputRange: [3, 1],
-              extrapolateRight: 'clamp',
+              extrapolateRight: "clamp",
               useNativeDriver: true,
             }),
           },
@@ -685,7 +685,7 @@ export default (variables = defaultThemeVariables) => ({
             translateY: driver.interpolate({
               inputRange: [-100, 100],
               outputRange: [-50, 50],
-              extrapolateLeft: 'clamp',
+              extrapolateLeft: "clamp",
               useNativeDriver: true,
             }),
           },
@@ -693,26 +693,26 @@ export default (variables = defaultThemeVariables) => ({
       };
     },
   },
-  'shoutem.ui.ImageBackground': {
-    [INCLUDE]: ['commonVariants', 'imageSizes', 'fill-parent'],
+  "shoutem.ui.ImageBackground": {
+    [INCLUDE]: ["commonVariants", "imageSizes", "fill-parent"],
 
-    '.placeholder': {
+    ".placeholder": {
       backgroundColor: inverseColorBrightnessForAmount(
         variables.paperColor,
-        10,
+        10
       ),
 
-      'shoutem.ui.Icon': {
+      "shoutem.ui.Icon": {
         color: inverseColorBrightnessForAmount(variables.paperColor, 30),
       },
     },
 
-    'shoutem.ui.Tile': {
-      [INCLUDE]: ['textCentricTile', 'fillParent', 'imageOverlayText'],
+    "shoutem.ui.Tile": {
+      [INCLUDE]: ["textCentricTile", "fillParent", "imageOverlayText"],
 
-      'shoutem.ui.Button': {
-        '.clear': {
-          [INCLUDE]: ['imageOverlayText'],
+      "shoutem.ui.Button": {
+        ".clear": {
+          [INCLUDE]: ["imageOverlayText"],
         },
       },
 
@@ -726,7 +726,7 @@ export default (variables = defaultThemeVariables) => ({
             scale: driver.interpolate({
               inputRange: [-0.9 * layout.height, 0],
               outputRange: [3, 1],
-              extrapolateRight: 'clamp',
+              extrapolateRight: "clamp",
               useNativeDriver: true,
             }),
           },
@@ -734,7 +734,7 @@ export default (variables = defaultThemeVariables) => ({
             translateY: driver.interpolate({
               inputRange: [-100, 100],
               outputRange: [-50, 50],
-              extrapolateLeft: 'clamp',
+              extrapolateLeft: "clamp",
               useNativeDriver: true,
             }),
           },
@@ -742,159 +742,159 @@ export default (variables = defaultThemeVariables) => ({
       };
     },
 
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   //
   // Containers
   //
   verticalFlexAlignment: {
-    '.h-center': {
-      alignItems: 'center',
+    ".h-center": {
+      alignItems: "center",
     },
 
-    '.h-start': {
-      alignItems: 'flex-start',
+    ".h-start": {
+      alignItems: "flex-start",
     },
 
-    '.h-end': {
-      alignItems: 'flex-end',
+    ".h-end": {
+      alignItems: "flex-end",
     },
 
-    '.v-center': {
-      justifyContent: 'center',
+    ".v-center": {
+      justifyContent: "center",
     },
 
-    '.v-start': {
-      justifyContent: 'flex-start',
+    ".v-start": {
+      justifyContent: "flex-start",
     },
 
-    '.v-end': {
-      justifyContent: 'flex-end',
+    ".v-end": {
+      justifyContent: "flex-end",
     },
   },
   horizontalFlexAlignment: {
-    '.h-center': {
-      justifyContent: 'center',
+    ".h-center": {
+      justifyContent: "center",
     },
 
-    '.h-start': {
-      justifyContent: 'flex-start',
+    ".h-start": {
+      justifyContent: "flex-start",
     },
 
-    '.h-end': {
-      justifyContent: 'flex-end',
+    ".h-end": {
+      justifyContent: "flex-end",
     },
 
-    '.v-center': {
-      alignItems: 'center',
+    ".v-center": {
+      alignItems: "center",
     },
 
-    '.v-start': {
-      alignItems: 'flex-start',
+    ".v-start": {
+      alignItems: "flex-start",
     },
 
-    '.v-end': {
-      alignItems: 'flex-end',
+    ".v-end": {
+      alignItems: "flex-end",
     },
   },
-  'shoutem.ui.View': {
-    [INCLUDE]: ['commonVariants', 'guttersPadding'],
+  "shoutem.ui.View": {
+    [INCLUDE]: ["commonVariants", "guttersPadding"],
 
-    '.horizontal': {
-      [INCLUDE]: ['horizontalFlexAlignment'],
-      flexDirection: 'row',
-      alignItems: 'flex-end',
+    ".horizontal": {
+      [INCLUDE]: ["horizontalFlexAlignment"],
+      flexDirection: "row",
+      alignItems: "flex-end",
     },
 
-    '.vertical': {
-      [INCLUDE]: ['verticalFlexAlignment'],
-      flexDirection: 'column',
+    ".vertical": {
+      [INCLUDE]: ["verticalFlexAlignment"],
+      flexDirection: "column",
     },
 
-    '.fill-parent': {
-      [INCLUDE]: ['fillParent'],
+    ".fill-parent": {
+      [INCLUDE]: ["fillParent"],
     },
 
-    '.overlay': {
+    ".overlay": {
       backgroundColor: variables.imageOverlayColor,
     },
 
-    '.overlay-bottom': {
+    ".overlay-bottom": {
       height: 25,
       bottom: 0,
       left: 0,
-      position: 'absolute',
+      position: "absolute",
       right: 0,
     },
 
-    '.solid': {
+    ".solid": {
       backgroundColor: variables.paperColor,
     },
 
-    '.wrap': {
-      flexWrap: 'wrap',
+    ".wrap": {
+      flexWrap: "wrap",
     },
 
-    '.dimmed': {
-      '.featured': {
-        [INCLUDE]: ['dimmedFeaturedBackground'],
+    ".dimmed": {
+      ".featured": {
+        [INCLUDE]: ["dimmedFeaturedBackground"],
       },
     },
 
-    '.muted': {
+    ".muted": {
       opacity: 0.3,
     },
 
-    '.featured': {
-      [INCLUDE]: ['featuredBackground'],
+    ".featured": {
+      [INCLUDE]: ["featuredBackground"],
     },
 
-    '.center': {
-      alignSelf: 'center',
+    ".center": {
+      alignSelf: "center",
     },
 
-    '.badge': {
-      alignItems: 'center',
+    ".badge": {
+      alignItems: "center",
       backgroundColor: variables.navBarIconsColor,
       borderColor: variables.navBarBackground,
       borderRadius: 8,
       borderWidth: 2,
       height: 16,
-      justifyContent: 'center',
-      position: 'absolute',
+      justifyContent: "center",
+      position: "absolute",
       width: 16,
 
-      'shoutem.ui.Text': {
+      "shoutem.ui.Text": {
         color: variables.navBarBackground,
         fontSize: 9,
-        fontWeight: 'bold',
-        textAlign: 'center',
+        fontWeight: "bold",
+        textAlign: "center",
       },
     },
 
-    '.oval-highlight': {
-      alignItems: 'center',
-      backgroundColor: changeColorAlpha('#030303', 0.1),
+    ".oval-highlight": {
+      alignItems: "center",
+      backgroundColor: changeColorAlpha("#030303", 0.1),
       borderRadius: 31,
       height: 62,
-      justifyContent: 'center',
+      justifyContent: "center",
       width: 62,
     },
   },
 
-  'shoutem.ui.Screen': {
-    '.full-screen': {
+  "shoutem.ui.Screen": {
+    ".full-screen": {
       marginTop: -(NAVIGATION_BAR_HEIGHT + StyleSheet.hairlineWidth),
     },
 
-    '.paper': {
+    ".paper": {
       backgroundColor: variables.paperColor,
     },
 
-    '.with-notch-padding': {
+    ".with-notch-padding": {
       paddingBottom: Device.select({
         iPhoneX: IPHONE_X_HOME_INDICATOR_PADDING,
         iPhoneXR: IPHONE_X_HOME_INDICATOR_PADDING,
@@ -902,7 +902,7 @@ export default (variables = defaultThemeVariables) => ({
       }),
     },
 
-    'shoutem.ui.ListView': {
+    "shoutem.ui.ListView": {
       listContent: {
         paddingBottom: Device.select({
           iPhoneX: IPHONE_X_HOME_INDICATOR_PADDING,
@@ -916,15 +916,15 @@ export default (variables = defaultThemeVariables) => ({
     flex: 1,
   },
 
-  'shoutem.ui.Row': {
+  "shoutem.ui.Row": {
     ...createSharedStyle(textComponents, { flex: 1 }),
 
-    'shoutem.ui.Image': {
+    "shoutem.ui.Image": {
       marginRight: variables.mediumGutter,
     },
 
-    'shoutem.ui.Icon': {
-      '.disclosure': {
+    "shoutem.ui.Icon": {
+      ".disclosure": {
         opacity: 0.5,
         marginRight: -7,
         marginLeft: 4,
@@ -933,16 +933,16 @@ export default (variables = defaultThemeVariables) => ({
       marginRight: variables.mediumGutter,
     },
 
-    'shoutem.ui.Button': {
-      '.right-icon': {
-        [INCLUDE]: ['tightButton', 'clearButton'],
+    "shoutem.ui.Button": {
+      ".right-icon": {
+        [INCLUDE]: ["tightButton", "clearButton"],
         marginLeft: variables.mediumGutter,
       },
     },
 
-    'shoutem.ui.View': {
-      '.notification-dot': {
-        alignSelf: 'center',
+    "shoutem.ui.View": {
+      ".notification-dot": {
+        alignSelf: "center",
         flex: 0,
         width: 6,
         height: 6,
@@ -953,8 +953,8 @@ export default (variables = defaultThemeVariables) => ({
         marginRight: 4,
       },
 
-      '.vertical': {
-        '*': {
+      ".vertical": {
+        "*": {
           // Add a small gutter below each view
           marginBottom: variables.smallGutter,
         },
@@ -966,81 +966,81 @@ export default (variables = defaultThemeVariables) => ({
       flex: 1,
     },
 
-    '*.top': {
-      alignSelf: 'flex-start',
+    "*.top": {
+      alignSelf: "flex-start",
     },
 
-    '.small': {
+    ".small": {
       height: 65,
       paddingVertical: 0,
     },
 
     flexGrow: 1,
     flexShrink: 0,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
     backgroundColor: variables.paperColor,
     paddingHorizontal: variables.mediumGutter,
     paddingVertical: variables.mediumGutter,
   },
 
   textCentricTile: {
-    'shoutem.ui.View': {
-      '.actions': {
-        position: 'absolute',
+    "shoutem.ui.View": {
+      ".actions": {
+        position: "absolute",
         top: variables.mediumGutter,
         right: variables.mediumGutter,
       },
     },
 
-    '*': {
+    "*": {
       marginBottom: variables.smallGutter,
     },
 
     ...createSharedStyle(textComponents, {
-      textAlign: 'center',
-      alignSelf: 'stretch',
+      textAlign: "center",
+      alignSelf: "stretch",
     }),
 
     flex: 1,
-    alignSelf: 'stretch',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignSelf: "stretch",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
     paddingHorizontal: 25,
     paddingTop: variables.extraLargeGutter,
     paddingBottom: variables.extraLargeGutter - variables.smallGutter,
   },
 
-  'shoutem.ui.Tile': {
-    [INCLUDE]: ['commonVariants', 'guttersPadding'],
+  "shoutem.ui.Tile": {
+    [INCLUDE]: ["commonVariants", "guttersPadding"],
 
-    'shoutem.ui.View': {
-      '.content': {
-        '*': {
+    "shoutem.ui.View": {
+      ".content": {
+        "*": {
           marginBottom: variables.mediumGutter - variables.smallGutter,
         },
 
-        alignSelf: 'stretch',
+        alignSelf: "stretch",
         paddingTop: variables.mediumGutter,
         paddingBottom: variables.smallGutter,
         paddingHorizontal: variables.mediumGutter,
       },
     },
 
-    '.clear': {
-      backgroundColor: 'transparent',
+    ".clear": {
+      backgroundColor: "transparent",
     },
 
-    '.small': {
-      'shoutem.ui.View': {
-        '.content': {
-          '*': {
+    ".small": {
+      "shoutem.ui.View": {
+        ".content": {
+          "*": {
             marginBottom: variables.smallGutter,
           },
 
-          alignSelf: 'stretch',
+          alignSelf: "stretch",
           paddingTop: variables.mediumGutter,
           paddingBottom: 0,
           paddingHorizontal: 0,
@@ -1051,8 +1051,8 @@ export default (variables = defaultThemeVariables) => ({
       width: 145,
     },
 
-    '.text-centric': {
-      [INCLUDE]: ['textCentricTile'],
+    ".text-centric": {
+      [INCLUDE]: ["textCentricTile"],
     },
 
     heroAnimation(driver, { layout }) {
@@ -1075,40 +1075,40 @@ export default (variables = defaultThemeVariables) => ({
     },
 
     flex: -1,
-    flexDirection: 'column',
-    alignItems: 'flex-start',
+    flexDirection: "column",
+    alignItems: "flex-start",
     backgroundColor: variables.paperColor,
   },
 
-  'shoutem.ui.Card': {
-    [INCLUDE]: ['commonVariants'],
+  "shoutem.ui.Card": {
+    [INCLUDE]: ["commonVariants"],
 
-    'shoutem.ui.View': {
-      '.content': {
-        'shoutem.ui.Subtitle': {
+    "shoutem.ui.View": {
+      ".content": {
+        "shoutem.ui.Subtitle": {
           marginBottom: 10,
         },
       },
 
       flex: 1,
-      alignSelf: 'stretch',
+      alignSelf: "stretch",
       padding: 10,
       backgroundColor: variables.paperColor,
     },
 
     width: dimensionRelativeToIphone(180),
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "flex-start",
     backgroundColor: variables.paperColor,
     borderRadius: 2,
     shadowColor: variables.shadowColor,
     shadowOpacity: 0.1,
     shadowOffset: { width: 1, height: 1 },
 
-    '.horizontal': {
-      'shoutem.ui.View': {
-        '.pull-left': {
+    ".horizontal": {
+      "shoutem.ui.View": {
+        ".pull-left": {
           marginVertical: variables.mediumGutter,
           marginLeft: -dimensionRelativeToIphone(72),
         },
@@ -1116,50 +1116,50 @@ export default (variables = defaultThemeVariables) => ({
 
       // width needs to be reset so alignSelf stretch could be applied
       width: null,
-      flexDirection: 'row',
-      justifyContent: 'flex-start',
+      flexDirection: "row",
+      justifyContent: "flex-start",
       margin: 10,
       marginTop: variables.smallGutter,
       marginBottom: variables.smallGutter,
     },
   },
 
-  'shoutem.ui.Overlay': {
-    [INCLUDE]: ['guttersPadding'],
+  "shoutem.ui.Overlay": {
+    [INCLUDE]: ["guttersPadding"],
 
-    ...createSharedStyle([...textComponents, 'shoutem.ui.Icon'], {
-      textAlign: 'center',
+    ...createSharedStyle([...textComponents, "shoutem.ui.Icon"], {
+      textAlign: "center",
       color: variables.tagOverlayTextColor,
     }),
 
     ...createSharedStyle(viewComponents, {
-      ...createSharedStyle([...textComponents, 'shoutem.ui.Icon'], {
-        textAlign: 'center',
+      ...createSharedStyle([...textComponents, "shoutem.ui.Icon"], {
+        textAlign: "center",
         color: variables.tagOverlayTextColor,
       }),
     }),
 
-    '.image-overlay': {
-      ...createSharedStyle([...textComponents, 'shoutem.ui.Icon'], {
+    ".image-overlay": {
+      ...createSharedStyle([...textComponents, "shoutem.ui.Icon"], {
         color: variables.imageOverlayTextColor,
       }),
 
       backgroundColor: changeColorAlpha(variables.imageOverlayColor, 0.5),
     },
 
-    '.rounded-small': {
+    ".rounded-small": {
       width: 38,
       height: 38,
       borderRadius: 19,
       padding: 0,
     },
 
-    '.fill-parent': {
-      [INCLUDE]: ['fillParent'],
+    ".fill-parent": {
+      [INCLUDE]: ["fillParent"],
     },
 
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingTop: 2 * variables.smallGutter,
     paddingBottom: 2 * variables.smallGutter,
     paddingHorizontal: variables.mediumGutter,
@@ -1169,29 +1169,29 @@ export default (variables = defaultThemeVariables) => ({
   //
   // Buttons
   //
-  'shoutem.ui.TouchableOpacity': {
-    [INCLUDE]: ['commonVariants'],
+  "shoutem.ui.TouchableOpacity": {
+    [INCLUDE]: ["commonVariants"],
 
     activeOpacity: 0.8,
   },
 
-  'shoutem.ui.TouchableNativeFeedback': {
-    [INCLUDE]: ['commonVariants'],
+  "shoutem.ui.TouchableNativeFeedback": {
+    [INCLUDE]: ["commonVariants"],
   },
 
-  'shoutem.ui.Touchable': {},
+  "shoutem.ui.Touchable": {},
 
   tightButton: {
-    'shoutem.ui.Icon': {
+    "shoutem.ui.Icon": {
       marginRight: 0,
     },
 
-    'shoutem.ui.Text': {
+    "shoutem.ui.Text": {
       marginRight: 0,
     },
 
-    'shoutem.ui.View': {
-      '.badge': {
+    "shoutem.ui.View": {
+      ".badge": {
         top: -4,
         right: -4,
       },
@@ -1202,52 +1202,52 @@ export default (variables = defaultThemeVariables) => ({
   },
 
   clearButton: {
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
     borderWidth: 0,
     borderRadius: 0,
   },
 
   textualButton: {
-    'shoutem.ui.Text': {
+    "shoutem.ui.Text": {
       // Inherit color
       ...variables.text,
       fontFamily: resolveFontFamily(
         variables.text.fontFamily,
         variables.text.fontWeight,
-        variables.text.fontStyle,
+        variables.text.fontStyle
       ),
       fontWeight: resolveFontWeight(variables.text.fontWeight),
       fontStyle: resolveFontStyle(variables.text.fontStyle),
     },
 
-    'shoutem.ui.Icon': {
+    "shoutem.ui.Icon": {
       color: variables.text.color,
     },
   },
 
-  'shoutem.ui.Button': {
-    [INCLUDE]: ['commonVariants', 'guttersMargin'],
+  "shoutem.ui.Button": {
+    [INCLUDE]: ["commonVariants", "guttersMargin"],
 
-    '.tight': {
-      [INCLUDE]: ['tightButton'],
+    ".tight": {
+      [INCLUDE]: ["tightButton"],
     },
 
-    '.clear': {
-      [INCLUDE]: ['clearButton'],
+    ".clear": {
+      [INCLUDE]: ["clearButton"],
     },
 
-    '.textual': {
+    ".textual": {
       // Use default text as button text style
       // Text like button, without background color and margins
-      [INCLUDE]: ['textualButton', 'clearButton', 'tightButton'],
+      [INCLUDE]: ["textualButton", "clearButton", "tightButton"],
     },
 
-    '.secondary': {
-      'shoutem.ui.Icon': {
+    ".secondary": {
+      "shoutem.ui.Icon": {
         color: variables.secondaryButtonTextColor,
       },
 
-      'shoutem.ui.Text': {
+      "shoutem.ui.Text": {
         color: variables.secondaryButtonTextColor,
       },
 
@@ -1255,21 +1255,21 @@ export default (variables = defaultThemeVariables) => ({
       borderColor: variables.secondaryButtonBorderColor,
     },
 
-    '.muted': {
-      'shoutem.ui.Icon': {
+    ".muted": {
+      "shoutem.ui.Icon": {
         opacity: 0.5,
       },
 
-      'shoutem.ui.Text': {
+      "shoutem.ui.Text": {
         opacity: 0.5,
       },
     },
 
     // Buttons at the bottom of dialogs, widgets, etc.,
     // usually Cancel/Confirm, No/Yes, etc.
-    '.confirmation': {
-      'shoutem.ui.Text': {
-        [INCLUDE]: ['boldTextStyle'],
+    ".confirmation": {
+      "shoutem.ui.Text": {
+        [INCLUDE]: ["boldTextStyle"],
       },
 
       // Medium gutter on both sides, 25 between buttons
@@ -1277,45 +1277,45 @@ export default (variables = defaultThemeVariables) => ({
       marginHorizontal: variables.mediumGutter,
     },
 
-    '.full-width': {
-      'shoutem.ui.Icon': {
+    ".full-width": {
+      "shoutem.ui.Icon": {
         width: 16,
         height: 16,
       },
 
       flex: 1,
-      alignSelf: 'stretch',
+      alignSelf: "stretch",
       borderRadius: 0,
       borderWidth: 0,
       height: 55,
     },
 
     // Vertically stacked icon and text
-    '.stacked': {
-      'shoutem.ui.Icon': {
+    ".stacked": {
+      "shoutem.ui.Icon": {
         marginVertical: variables.mediumGutter,
         marginRight: 0,
       },
 
-      'shoutem.ui.Text': {
-        [INCLUDE]: ['boldTextStyle'],
-        textAlign: 'center',
+      "shoutem.ui.Text": {
+        [INCLUDE]: ["boldTextStyle"],
+        textAlign: "center",
         marginVertical: 0,
         marginRight: 0,
-        fontFamily: 'Rubik-Medium',
+        fontFamily: "Rubik-Medium",
       },
 
       width: dimensionRelativeToIphone(120),
       height: 82,
-      flexDirection: 'column',
+      flexDirection: "column",
     },
 
-    'shoutem.ui.Text': {
+    "shoutem.ui.Text": {
       ...variables.primaryButtonText,
       fontFamily: resolveFontFamily(
         variables.primaryButtonText.fontFamily,
         variables.primaryButtonText.fontWeight,
-        variables.primaryButtonText.fontStyle,
+        variables.primaryButtonText.fontStyle
       ),
       fontWeight: resolveFontWeight(variables.primaryButtonText.fontWeight),
       fontStyle: resolveFontStyle(variables.primaryButtonText.fontStyle),
@@ -1324,16 +1324,16 @@ export default (variables = defaultThemeVariables) => ({
       marginRight: 10,
     },
 
-    'shoutem.ui.Icon': {
+    "shoutem.ui.Icon": {
       color: variables.primaryButtonText.color,
       width: 24,
       height: 24,
       marginRight: 10,
     },
 
-    'shoutem.ui.View': {
+    "shoutem.ui.View": {
       // Positions badge to top right of button icon
-      '.badge': {
+      ".badge": {
         top: -4,
         right: 11,
       },
@@ -1341,13 +1341,13 @@ export default (variables = defaultThemeVariables) => ({
 
     underlayColor: changeColorAlpha(
       variables.primaryButtonBackgroundColor,
-      0.5,
+      0.5
     ),
 
     backgroundColor: variables.primaryButtonBackgroundColor,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 2,
     borderWidth: 1,
     borderColor: variables.primaryButtonBorderColor,
@@ -1358,36 +1358,36 @@ export default (variables = defaultThemeVariables) => ({
   //
   // Media
   //
-  'shoutem.ui.Icon': {
-    '.indicator': {
-      [INCLUDE]: ['indicator'],
+  "shoutem.ui.Icon": {
+    ".indicator": {
+      [INCLUDE]: ["indicator"],
     },
 
-    '.scroll-indicator': {
-      [INCLUDE]: ['indicator'],
-      position: 'absolute',
+    ".scroll-indicator": {
+      [INCLUDE]: ["indicator"],
+      position: "absolute",
       left: 0,
       right: 0,
       bottom: variables.mediumGutter,
     },
 
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
     color: variables.primaryButtonText.color,
     width: 24,
     height: 24,
   },
 
-  'shoutem.ui.Spinner': {
-    [INCLUDE]: ['guttersMargin'],
+  "shoutem.ui.Spinner": {
+    [INCLUDE]: ["guttersMargin"],
     color: changeColorAlpha(variables.text.color, 0.5),
   },
 
   //
   // Collections
   //
-  'shoutem.ui.ListView': {
-    'shoutem.ui.Divider': {
-      [INCLUDE]: ['sectionHeaderDivider'],
+  "shoutem.ui.ListView": {
+    "shoutem.ui.Divider": {
+      [INCLUDE]: ["sectionHeaderDivider"],
 
       borderTopWidth: 0,
     },
@@ -1406,10 +1406,10 @@ export default (variables = defaultThemeVariables) => ({
     },
   },
 
-  'shoutem.ui.GridRow': {
-    '*': {
+  "shoutem.ui.GridRow": {
+    "*": {
       flex: 1,
-      alignSelf: 'stretch',
+      alignSelf: "stretch",
       marginLeft: variables.smallGutter,
       marginRight: 0,
       marginTop: 0,
@@ -1417,9 +1417,9 @@ export default (variables = defaultThemeVariables) => ({
     },
 
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "flex-start",
+    justifyContent: "space-between",
     paddingRight: variables.smallGutter,
     paddingTop: variables.smallGutter,
   },
@@ -1428,20 +1428,20 @@ export default (variables = defaultThemeVariables) => ({
   // Other
   //
   clearNavigationBar: {
-    [INCLUDE]: ['imageOverlayText'],
+    [INCLUDE]: ["imageOverlayText"],
 
-    'shoutem.ui.Button': {
-      [INCLUDE]: ['clearButton'],
-      'shoutem.ui.Icon': {
+    "shoutem.ui.Button": {
+      [INCLUDE]: ["clearButton"],
+      "shoutem.ui.Icon": {
         color: variables.navBarIconsColor,
       },
-      'shoutem.ui.Text': {
+      "shoutem.ui.Text": {
         color: variables.navBarText.color,
       },
     },
     container: {
-      backgroundColor: 'transparent',
-      borderBottomColor: 'transparent',
+      backgroundColor: "transparent",
+      borderBottomColor: "transparent",
     },
   },
   navigationBarTextAnimations: {
@@ -1453,7 +1453,7 @@ export default (variables = defaultThemeVariables) => ({
             variables.imageOverlayTextColor,
             variables.navBarText.color,
           ],
-          extrapolate: 'clamp',
+          extrapolate: "clamp",
         }),
       };
     },
@@ -1472,113 +1472,113 @@ export default (variables = defaultThemeVariables) => ({
     },
   },
   navigationBar: {
-    '.clear': {
+    ".clear": {
       // Clear navigation bar is currently disabled on Android
       // due to overflow issues.
-      [INCLUDE]: ['clearNavigationBar'],
+      [INCLUDE]: ["clearNavigationBar"],
     },
 
-    '.featured': {
-      'shoutem.ui.Button': {
-        'shoutem.ui.Icon': {
+    ".featured": {
+      "shoutem.ui.Button": {
+        "shoutem.ui.Icon": {
           color: variables.featuredNavBarIconsColor,
         },
-        'shoutem.ui.Text': {
+        "shoutem.ui.Text": {
           color: variables.featuredNavBarIconsColor,
         },
 
-        'shoutem.ui.View': {
-          '.badge': {
+        "shoutem.ui.View": {
+          ".badge": {
             backgroundColor: variables.featuredNavBarIconsColor,
             borderColor: variables.featuredColor,
 
-            'shoutem.ui.Text': {
+            "shoutem.ui.Text": {
               color: variables.featuredColor,
             },
           },
         },
       },
 
-      'shoutem.ui.DropDownMenu': {
+      "shoutem.ui.DropDownMenu": {
         selectedOption: {
-          'shoutem.ui.Icon': {
+          "shoutem.ui.Icon": {
             color: variables.featuredNavBarIconsColor,
           },
-          'shoutem.ui.Text': {
+          "shoutem.ui.Text": {
             color: variables.featuredNavBarIconsColor,
           },
         },
       },
 
       ...createSharedStyle(
-        ['shoutem.ui.Title', 'shoutem.ui.Icon', 'shoutem.ui.Text'],
+        ["shoutem.ui.Title", "shoutem.ui.Icon", "shoutem.ui.Text"],
         {
           fontFamily: resolveFontFamily(
             variables.title.fontFamily,
             variables.title.fontWeight,
-            variables.title.fontStyle,
+            variables.title.fontStyle
           ),
           fontWeight: resolveFontWeight(variables.title.fontWeight),
           fontStyle: resolveFontStyle(variables.title.fontStyle),
           color: variables.featuredNavBarTitleColor,
-        },
+        }
       ),
 
       container: {
-        [INCLUDE]: ['featuredBackground'],
+        [INCLUDE]: ["featuredBackground"],
         borderBottomWidth: 0,
       },
     },
 
-    '.no-border': {
+    ".no-border": {
       container: {
         borderBottomWidth: 0,
       },
     },
 
-    'shoutem.ui.Icon': {
-      [INCLUDE]: ['navigationBarTextAnimations'],
+    "shoutem.ui.Icon": {
+      [INCLUDE]: ["navigationBarTextAnimations"],
       color: variables.navBarIconsColor,
       width: 24,
       height: 24,
       paddingHorizontal: 9,
     },
 
-    'shoutem.ui.Text': {
-      [INCLUDE]: ['navigationBarTextAnimations'],
+    "shoutem.ui.Text": {
+      [INCLUDE]: ["navigationBarTextAnimations"],
       ...variables.navBarText,
       fontFamily: resolveFontFamily(
         variables.navBarText.fontFamily,
         variables.navBarText.fontWeight,
-        variables.navBarText.fontStyle,
+        variables.navBarText.fontStyle
       ),
       fontWeight: resolveFontWeight(variables.navBarText.fontWeight),
       fontStyle: resolveFontStyle(variables.navBarText.fontStyle),
       paddingHorizontal: 9,
     },
 
-    'shoutem.ui.Button': {
-      [INCLUDE]: ['clearButton', 'tightButton'],
-      'shoutem.ui.Icon': {
-        [INCLUDE]: ['navigationBarTextAnimations'],
+    "shoutem.ui.Button": {
+      [INCLUDE]: ["clearButton", "tightButton"],
+      "shoutem.ui.Icon": {
+        [INCLUDE]: ["navigationBarTextAnimations"],
         color: variables.navBarIconsColor,
         marginVertical: 9,
       },
-      'shoutem.ui.Text': {
-        [INCLUDE]: ['navigationBarTextAnimations'],
+      "shoutem.ui.Text": {
+        [INCLUDE]: ["navigationBarTextAnimations"],
         ...variables.navBarText,
         fontFamily: resolveFontFamily(
           variables.navBarText.fontFamily,
-          'normal',
-          variables.navBarText.fontStyle,
+          "normal",
+          variables.navBarText.fontStyle
         ),
-        fontWeight: resolveFontWeight('normal'),
+        fontWeight: resolveFontWeight("normal"),
         fontStyle: resolveFontStyle(variables.navBarText.fontStyle),
         color: variables.navBarIconsColor,
         letterSpacing: 0,
       },
-      'shoutem.ui.View': {
-        '.badge': {
+      "shoutem.ui.View": {
+        ".badge": {
           top: 5,
           right: 5,
         },
@@ -1586,19 +1586,19 @@ export default (variables = defaultThemeVariables) => ({
       paddingHorizontal: 9,
     },
 
-    'shoutem.ui.DropDownMenu': {
+    "shoutem.ui.DropDownMenu": {
       selectedOption: {
-        'shoutem.ui.Icon': {
+        "shoutem.ui.Icon": {
           color: variables.navBarIconsColor,
         },
-        'shoutem.ui.Text': {
+        "shoutem.ui.Text": {
           ...variables.navBarText,
           fontFamily: resolveFontFamily(
             variables.navBarText.fontFamily,
-            'normal',
-            variables.navBarText.fontStyle,
+            "normal",
+            variables.navBarText.fontStyle
           ),
-          fontWeight: resolveFontWeight('normal'),
+          fontWeight: resolveFontWeight("normal"),
           fontStyle: resolveFontStyle(variables.navBarText.fontStyle),
           color: variables.navBarIconsColor,
         },
@@ -1611,8 +1611,8 @@ export default (variables = defaultThemeVariables) => ({
           borderBottomColor: driver.interpolate({
             // Animate to approx title top offset
             inputRange: [0, 45],
-            outputRange: ['transparent', variables.navBarBorderColor],
-            extrapolate: 'clamp',
+            outputRange: ["transparent", variables.navBarBorderColor],
+            extrapolate: "clamp",
           }),
           borderBottomWidth: 1,
         },
@@ -1624,52 +1624,52 @@ export default (variables = defaultThemeVariables) => ({
         container: {
           backgroundColor: driver.interpolate({
             inputRange: [250, 300],
-            outputRange: ['transparent', variables.navBarBackground],
-            extrapolate: 'clamp',
+            outputRange: ["transparent", variables.navBarBackground],
+            extrapolate: "clamp",
           }),
           borderBottomColor: driver.interpolate({
             inputRange: [250, 300],
-            outputRange: ['transparent', variables.navBarBorderColor],
-            extrapolate: 'clamp',
+            outputRange: ["transparent", variables.navBarBorderColor],
+            extrapolate: "clamp",
           }),
         },
       };
     },
   },
-  'shoutem.ui.EmptyListImage': {
+  "shoutem.ui.EmptyListImage": {
     image: {
-      resizeMode: 'contain',
+      resizeMode: "contain",
       marginTop: 45,
       marginBottom: 30,
     },
     title: {
       maxWidth: 250,
       marginBottom: 20,
-      textAlign: 'center',
+      textAlign: "center",
     },
     message: {
-      textAlign: 'center',
+      textAlign: "center",
       maxWidth: 250,
     },
   },
-  'shoutem.ui.NavigationBar': {
-    [INCLUDE]: ['navigationBar'],
-    '.clear': {
-      [INCLUDE]: ['clearNavigationBar'],
+  "shoutem.ui.NavigationBar": {
+    [INCLUDE]: ["navigationBar"],
+    ".clear": {
+      [INCLUDE]: ["clearNavigationBar"],
     },
-    '.inline': {
+    ".inline": {
       container: {
         width: window.width,
-        position: 'relative',
+        position: "relative",
       },
     },
-    'shoutem.ui.Title': {
+    "shoutem.ui.Title": {
       solidifyAnimation(driver) {
         return {
           color: driver.interpolate({
             inputRange: [250, 300],
-            outputRange: ['transparent', variables.navBarText.color],
-            extrapolate: 'clamp',
+            outputRange: ["transparent", variables.navBarText.color],
+            extrapolate: "clamp",
           }),
         };
       },
@@ -1683,7 +1683,7 @@ export default (variables = defaultThemeVariables) => ({
       fontFamily: resolveFontFamily(
         variables.navBarText.fontFamily,
         variables.navBarText.fontWeight,
-        variables.navBarText.fontStyle,
+        variables.navBarText.fontStyle
       ),
       fontWeight: resolveFontWeight(variables.navBarText.fontWeight),
       fontStyle: resolveFontStyle(variables.navBarText.fontStyle),
@@ -1699,7 +1699,7 @@ export default (variables = defaultThemeVariables) => ({
       }),
     },
     container: {
-      [INCLUDE]: ['fillParent'],
+      [INCLUDE]: ["fillParent"],
       height: NAVIGATION_BAR_HEIGHT,
       backgroundColor: variables.navBarBackground,
       borderBottomColor: variables.navBarBorderColor,
@@ -1709,7 +1709,7 @@ export default (variables = defaultThemeVariables) => ({
         iPhoneX: 0,
         iPhoneXR: 0,
         default:
-          Platform.OS === 'ios' && !Device.isIphoneX && !Device.isIphoneXR
+          Platform.OS === "ios" && !Device.isIphoneX && !Device.isIphoneXR
             ? 20
             : 0,
       }),
@@ -1717,40 +1717,40 @@ export default (variables = defaultThemeVariables) => ({
 
     componentsContainer: {
       flex: 1,
-      alignItems: 'flex-end',
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      backgroundColor: 'transparent',
+      alignItems: "flex-end",
+      flexDirection: "row",
+      justifyContent: "space-between",
+      backgroundColor: "transparent",
     },
 
     leftComponent: {
-      alignSelf: 'center',
-      alignItems: 'flex-start',
+      alignSelf: "center",
+      alignItems: "flex-start",
       flex: 1,
     },
 
     centerComponent: {
-      alignSelf: 'center',
-      alignItems: 'center',
+      alignSelf: "center",
+      alignItems: "center",
       flex: 1,
       marginBottom: 0,
     },
 
     rightComponent: {
-      alignSelf: 'center',
-      alignItems: 'flex-end',
+      alignSelf: "center",
+      alignItems: "flex-end",
       flex: 1,
     },
   },
-  'shoutem.ui.navigation.NavigationBar': {
-    [INCLUDE]: ['navigationBar'],
+  "shoutem.ui.navigation.NavigationBar": {
+    [INCLUDE]: ["navigationBar"],
 
-    '.fade': {
+    ".fade": {
       // Clear navigation bar is currently disabled on Android
       // due to overflow issues.
       gradient: {
-        [INCLUDE]: ['fillParent'],
-        colors: ['transparent', 'rgba(0, 0, 0, 0.15)', 'transparent'],
+        [INCLUDE]: ["fillParent"],
+        colors: ["transparent", "rgba(0, 0, 0, 0.15)", "transparent"],
         locations: [0.0, 0.25, 1.0],
         solidifyAnimation(driver) {
           return {
@@ -1763,7 +1763,7 @@ export default (variables = defaultThemeVariables) => ({
       },
     },
 
-    '.none': {
+    ".none": {
       // TODO - we are aware that in full screen case navigation bar blocks top screen touch
       // When updated to RN > 0.42. fix by changing NavigationCardStack scene zIndex.
       // Scene zIndex should be larger then navigation thus render above NavigationBar.
@@ -1772,10 +1772,10 @@ export default (variables = defaultThemeVariables) => ({
       },
     },
 
-    '.inline': {
-      '.clear': {
+    ".inline": {
+      ".clear": {
         container: {
-          position: 'absolute',
+          position: "absolute",
           top: 0,
           left: 0,
           right: 0,
@@ -1783,26 +1783,26 @@ export default (variables = defaultThemeVariables) => ({
       },
     },
 
-    'shoutem.ui.View': {
-      '.container': {
+    "shoutem.ui.View": {
+      ".container": {
         flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
       },
 
-      '.full-width': {
+      ".full-width": {
         width: window.width,
       },
     },
 
-    'shoutem.ui.Title': {
+    "shoutem.ui.Title": {
       solidifyAnimation(driver) {
         return {
           color: driver.interpolate({
             inputRange: [250, 300],
-            outputRange: ['transparent', variables.navBarText.color],
-            extrapolate: 'clamp',
+            outputRange: ["transparent", variables.navBarText.color],
+            extrapolate: "clamp",
           }),
         };
       },
@@ -1812,19 +1812,19 @@ export default (variables = defaultThemeVariables) => ({
           opacity: driver.interpolate({
             inputRange: [250, 300],
             outputRange: [0, 1],
-            extrapolate: 'clamp',
+            extrapolate: "clamp",
           }),
         };
       },
 
       flex: 1,
-      textAlign: 'center',
+      textAlign: "center",
       lineHeight: calculateLineHeight(variables.navBarText.fontSize),
       ...variables.navBarText,
       fontFamily: resolveFontFamily(
         variables.navBarText.fontFamily,
         variables.navBarText.fontWeight,
-        variables.navBarText.fontStyle,
+        variables.navBarText.fontStyle
       ),
       fontWeight: resolveFontWeight(variables.navBarText.fontWeight),
       fontStyle: resolveFontStyle(variables.navBarText.fontStyle),
@@ -1837,11 +1837,11 @@ export default (variables = defaultThemeVariables) => ({
       borderBottomWidth: StyleSheet.hairlineWidth,
     },
     navigationHeader: {
-      position: 'absolute',
+      position: "absolute",
       top: Device.select({
         iPhoneX: 6,
         iPhoneXR: 8,
-        default: Platform.OS === 'android' ? 0 : -4,
+        default: Platform.OS === "android" ? 0 : -4,
       }),
       left: 0,
       right: 0,
@@ -1872,22 +1872,22 @@ export default (variables = defaultThemeVariables) => ({
           opacity: driver.interpolate({
             inputRange: [250, 300],
             outputRange: [0, 1],
-            extrapolate: 'clamp',
+            extrapolate: "clamp",
           }),
         };
       },
       boxingAnimation() {
         return {};
       },
-      position: 'absolute',
+      position: "absolute",
       right: 0,
       top: 0,
       width: window.width,
     },
   },
 
-  'shoutem.ui.navigation.CardStack': {
-    '.without-transitions': {
+  "shoutem.ui.navigation.CardStack": {
+    ".without-transitions": {
       interpolateCardStyle(props) {
         const { navigationState, scene } = props;
 
@@ -1911,20 +1911,20 @@ export default (variables = defaultThemeVariables) => ({
       // This container is currently created only
       // when the navigation bar is rendered inline
       // with the screen.
-      'shoutem.ui.Screen': {
-        '.full-screen': {
+      "shoutem.ui.Screen": {
+        ".full-screen": {
           marginTop: 0,
         },
       },
 
       flex: 1,
-      flexDirection: 'column-reverse',
+      flexDirection: "column-reverse",
       backgroundColor: variables.backgroundColor,
     },
   },
 
   sectionHeaderDivider: {
-    'shoutem.ui.Caption': {
+    "shoutem.ui.Caption": {
       marginTop: -1,
       marginBottom: variables.smallGutter,
       marginHorizontal: variables.mediumGutter,
@@ -1936,49 +1936,49 @@ export default (variables = defaultThemeVariables) => ({
     borderTopWidth: StyleSheet.hairlineWidth,
     borderColor: variables.lineColor,
   },
-  'shoutem.ui.Divider': {
-    '.line': {
-      '.small': {
+  "shoutem.ui.Divider": {
+    ".line": {
+      ".small": {
         width: 55,
       },
-      '.center': {
-        alignSelf: 'center',
+      ".center": {
+        alignSelf: "center",
       },
       paddingTop: 0,
       borderBottomWidth: StyleSheet.hairlineWidth,
       borderColor: variables.lineColor,
     },
 
-    '.section-header': {
-      [INCLUDE]: ['sectionHeaderDivider'],
+    ".section-header": {
+      [INCLUDE]: ["sectionHeaderDivider"],
     },
 
-    alignSelf: 'stretch',
+    alignSelf: "stretch",
     paddingTop: 25,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 
   //
   // Form components
   //
-  'shoutem.ui.FormGroup': {
-    'shoutem.ui.View': {
-      'shoutem.ui.Caption': {
+  "shoutem.ui.FormGroup": {
+    "shoutem.ui.View": {
+      "shoutem.ui.Caption": {
         backgroundColor: variables.paperColor,
         paddingHorizontal: variables.mediumGutter,
         color: changeColorAlpha(variables.caption.color, 0.5),
         paddingTop: 10,
       },
 
-      'shoutem.ui.TextInput': {
+      "shoutem.ui.TextInput": {
         height: 39,
         paddingVertical: 9,
       },
 
-      'shoutem.ui.DropDownMenu': {
+      "shoutem.ui.DropDownMenu": {
         horizontalContainer: {
-          alignItems: 'flex-start',
+          alignItems: "flex-start",
           backgroundColor: variables.paperColor,
           height: 39,
           paddingHorizontal: variables.mediumGutter,
@@ -1986,23 +1986,23 @@ export default (variables = defaultThemeVariables) => ({
         },
 
         selectedOption: {
-          'shoutem.ui.Icon': {
+          "shoutem.ui.Icon": {
             color: variables.paperColor,
           },
 
-          'shoutem.ui.Text': {
+          "shoutem.ui.Text": {
             margin: 0,
           },
 
           flex: 1,
-          alignSelf: 'stretch',
-          justifyContent: 'flex-start',
+          alignSelf: "stretch",
+          justifyContent: "flex-start",
           padding: 0,
         },
 
-        '.empty': {
+        ".empty": {
           selectedOption: {
-            'shoutem.ui.Text': {
+            "shoutem.ui.Text": {
               color: changeColorAlpha(variables.text.color, 0.5),
             },
           },
@@ -2011,8 +2011,8 @@ export default (variables = defaultThemeVariables) => ({
     },
   },
 
-  'shoutem.ui.TextInput': {
-    [INCLUDE]: ['commonVariants', 'guttersMargin'],
+  "shoutem.ui.TextInput": {
+    [INCLUDE]: ["commonVariants", "guttersMargin"],
 
     selectionColor: variables.text.color,
     placeholderTextColor: changeColorAlpha(variables.text.color, 0.5),
@@ -2021,12 +2021,12 @@ export default (variables = defaultThemeVariables) => ({
     height: 55,
     paddingHorizontal: variables.mediumGutter,
     paddingVertical: 18,
-    underlineColorAndroid: 'transparent',
+    underlineColorAndroid: "transparent",
     ...variables.text,
     fontFamily: resolveFontFamily(
       variables.text.fontFamily,
       variables.text.fontWeight,
-      variables.text.fontStyle,
+      variables.text.fontStyle
     ),
     fontWeight: resolveFontWeight(variables.text.fontWeight),
     fontStyle: resolveFontStyle(variables.text.fontStyle),
@@ -2042,7 +2042,7 @@ export default (variables = defaultThemeVariables) => ({
     },
   },
 
-  'shoutem.ui.NumberInput': {
+  "shoutem.ui.NumberInput": {
     button: {
       borderWidth: 0,
       height: 40,
@@ -2056,51 +2056,51 @@ export default (variables = defaultThemeVariables) => ({
 
     inputContainer: {
       borderBottomWidth: 1,
-      borderColor: 'rgba(0, 0, 0, 0.2)',
+      borderColor: "rgba(0, 0, 0, 0.2)",
       borderTopWidth: 1,
     },
 
     input: {
       height: 38,
       paddingVertical: 10,
-      textAlign: 'center',
+      textAlign: "center",
       width: 94,
     },
   },
 
   // TODO: Search is defined with fixed colors at the moment but we will revisit it soon
-  'shoutem.ui.SearchField': {
+  "shoutem.ui.SearchField": {
     clearIcon: {
-      color: '#2c2c2c',
+      color: "#2c2c2c",
       opacity: 0.5,
     },
 
     container: {
-      backgroundColor: '#f0f0f0',
+      backgroundColor: "#f0f0f0",
       borderRadius: 5,
       flex: 1,
       height: 30,
     },
 
     searchIcon: {
-      color: '#888888',
+      color: "#888888",
       width: 16,
       height: 16,
     },
 
     input: {
-      backgroundColor: '#f0f0f0',
-      color: '#888888',
+      backgroundColor: "#f0f0f0",
+      color: "#888888",
       flex: 1,
       fontSize: 15,
       height: 30,
       paddingVertical: 6,
-      placeholderTextColor: '#888888',
-      selectionColor: '#888888',
+      placeholderTextColor: "#888888",
+      selectionColor: "#888888",
     },
   },
 
-  'shoutem.ui.Switch': {
+  "shoutem.ui.Switch": {
     container: {
       borderRadius: 15,
       height: 18,
@@ -2147,15 +2147,15 @@ export default (variables = defaultThemeVariables) => ({
     },
   },
 
-  'shoutem.ui.DropDownMenu': {
-    '.horizontal': {
+  "shoutem.ui.DropDownMenu": {
+    ".horizontal": {
       horizontalContainer: {
         minHeight: 40,
         maxHeight: 200,
-        justifyContent: 'center',
+        justifyContent: "center",
         backgroundColor: inverseColorBrightnessForAmount(
           variables.paperColor,
-          5,
+          5
         ),
         width: window.width,
         marginTop: 0,
@@ -2163,44 +2163,44 @@ export default (variables = defaultThemeVariables) => ({
         borderColor: variables.navBarBorderColor,
       },
       selectedOption: {
-        'shoutem.ui.Icon': {
+        "shoutem.ui.Icon": {
           color: variables.text.color,
         },
-        'shoutem.ui.Text': {
+        "shoutem.ui.Text": {
           ...variables.navBarText,
           fontFamily: resolveFontFamily(
             variables.navBarText.fontFamily,
-            'normal',
-            variables.navBarText.fontStyle,
+            "normal",
+            variables.navBarText.fontStyle
           ),
           color: variables.text.color,
-          fontWeight: resolveFontWeight('normal'),
+          fontWeight: resolveFontWeight("normal"),
           fontStyle: resolveFontStyle(variables.navBarText.fontStyle),
-          textAlign: 'center',
+          textAlign: "center",
         },
       },
     },
 
-    '.featured': {
-      '.horizontal': {
+    ".featured": {
+      ".horizontal": {
         horizontalContainer: {
-          [INCLUDE]: ['dimmedFeaturedBackground'],
+          [INCLUDE]: ["dimmedFeaturedBackground"],
           borderBottomWidth: 0,
         },
         selectedOption: {
-          'shoutem.ui.Icon': {
+          "shoutem.ui.Icon": {
             color: variables.featuredNavBarTitleColor,
           },
-          'shoutem.ui.Text': {
+          "shoutem.ui.Text": {
             color: variables.featuredNavBarTitleColor,
           },
         },
       },
     },
 
-    '.large': {
+    ".large": {
       horizontalContainer: {
-        alignItems: 'flex-end',
+        alignItems: "flex-end",
         borderColor: variables.shadowColor,
         borderWidth: 1,
         borderRightWidth: 0,
@@ -2209,13 +2209,13 @@ export default (variables = defaultThemeVariables) => ({
       },
 
       selectedOption: {
-        'shoutem.ui.Text': {
+        "shoutem.ui.Text": {
           flex: 1,
-          textAlign: 'center',
+          textAlign: "center",
           margin: 0,
         },
 
-        'shoutem.ui.Icon': {
+        "shoutem.ui.Icon": {
           backgroundColor: variables.secondaryButtonBackgroundColor,
           borderColor: variables.secondaryButtonBorderColor,
           borderRadius: 2,
@@ -2234,73 +2234,73 @@ export default (variables = defaultThemeVariables) => ({
 
     selectedOption: {
       // Button
-      [INCLUDE]: ['clearButton', 'textualButton'],
+      [INCLUDE]: ["clearButton", "textualButton"],
 
-      'shoutem.ui.Icon': {
+      "shoutem.ui.Icon": {
         marginRight: 0,
       },
 
-      'shoutem.ui.Text': {
+      "shoutem.ui.Text": {
         marginRight: 0,
       },
     },
   },
 
-  'shoutem.ui.DropDownModal': {
+  "shoutem.ui.DropDownModal": {
     modal: {
-      'shoutem.ui.Button.close': {
-        'shoutem.ui.Icon': {
+      "shoutem.ui.Button.close": {
+        "shoutem.ui.Icon": {
           color: changeColorAlpha(variables.subtitle.color, 0.5),
           width: 24,
           height: 24,
         },
 
-        position: 'absolute',
+        position: "absolute",
         bottom: 25,
         left: 0,
         right: 0,
       },
 
       flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
+      justifyContent: "center",
+      alignItems: "center",
       paddingVertical: 20,
       backgroundColor: changeColorAlpha(variables.backgroundColor, 0.97),
     },
 
     modalItem: {
-      'shoutem.ui.Text': {
-        textAlign: 'center',
+      "shoutem.ui.Text": {
+        textAlign: "center",
         flex: 1,
         width: window.width,
         paddingHorizontal: 20,
         paddingVertical: 23,
-        alignSelf: 'stretch',
+        alignSelf: "stretch",
         ...variables.subtitle,
         fontFamily: resolveFontFamily(
           variables.subtitle.fontFamily,
           variables.subtitle.fontWeight,
-          variables.subtitle.fontStyle,
+          variables.subtitle.fontStyle
         ),
         fontWeight: resolveFontWeight(variables.subtitle.fontWeight),
         fontStyle: resolveFontStyle(variables.subtitle.fontStyle),
       },
     },
     selectedModalItem: {
-      'shoutem.ui.Text': {
-        textAlign: 'center',
+      "shoutem.ui.Text": {
+        textAlign: "center",
         flex: 1,
         width: window.width,
         paddingHorizontal: 20,
         paddingVertical: 23,
-        alignSelf: 'stretch',
+        alignSelf: "stretch",
         ...variables.subtitle,
         fontFamily: resolveFontFamily(
           variables.subtitle.fontFamily,
-          '500',
-          variables.subtitle.fontStyle,
+          "500",
+          variables.subtitle.fontStyle
         ),
-        fontWeight: resolveFontWeight('500'),
+        fontWeight: resolveFontWeight("500"),
         fontStyle: resolveFontStyle(variables.subtitle.fontStyle),
       },
     },
@@ -2314,130 +2314,130 @@ export default (variables = defaultThemeVariables) => ({
   textBlock: {
     // Inline element
     container: {
-      '.wrapper': {
+      ".wrapper": {
         marginBottom: 0,
       },
-      '.block': {
+      ".block": {
         marginBottom: 20,
       },
     },
     text: {},
   },
-  'shoutem.ui.SimpleHtml': {
+  "shoutem.ui.SimpleHtml": {
     container: {
       padding: variables.mediumGutter,
     },
   },
-  'shoutem.ui.Html': {
+  "shoutem.ui.Html": {
     container: {
       backgroundColor: variables.paperColor,
       padding: variables.mediumGutter,
     },
     // HTML Inline elements
     b: {
-      [INCLUDE]: ['textBlock'],
+      [INCLUDE]: ["textBlock"],
       text: {
-        [INCLUDE]: ['boldTextStyle'],
+        [INCLUDE]: ["boldTextStyle"],
       },
     },
     strong: {
-      [INCLUDE]: ['textBlock'],
+      [INCLUDE]: ["textBlock"],
       container: {},
       text: {
-        [INCLUDE]: ['boldTextStyle'],
+        [INCLUDE]: ["boldTextStyle"],
       },
     },
     i: {
-      [INCLUDE]: ['textBlock'],
+      [INCLUDE]: ["textBlock"],
       text: {
-        [INCLUDE]: ['italicTextStyle'],
+        [INCLUDE]: ["italicTextStyle"],
       },
     },
     em: {
-      [INCLUDE]: ['textBlock'],
+      [INCLUDE]: ["textBlock"],
       text: {
-        [INCLUDE]: ['italicTextStyle'],
+        [INCLUDE]: ["italicTextStyle"],
       },
     },
     pre: {
-      [INCLUDE]: ['textBlock'],
+      [INCLUDE]: ["textBlock"],
       text: {
-        [INCLUDE]: ['codeTextStyle'],
+        [INCLUDE]: ["codeTextStyle"],
       },
     },
     code: {
-      [INCLUDE]: ['textBlock'],
+      [INCLUDE]: ["textBlock"],
       text: {
-        [INCLUDE]: ['codeTextStyle'],
+        [INCLUDE]: ["codeTextStyle"],
       },
     },
     a: {
-      [INCLUDE]: ['textBlock'],
+      [INCLUDE]: ["textBlock"],
       text: {},
     },
 
     // TextBlock elements
     h1: {
-      [INCLUDE]: ['textBlock'],
+      [INCLUDE]: ["textBlock"],
       container: {},
       text: {
-        color: '#000',
+        color: "#000",
         fontSize: 28,
       },
     },
     h2: {
-      [INCLUDE]: ['textBlock'],
+      [INCLUDE]: ["textBlock"],
       container: {},
       text: {
-        color: '#000',
+        color: "#000",
         fontSize: 24,
       },
     },
     h3: {
-      [INCLUDE]: ['textBlock'],
+      [INCLUDE]: ["textBlock"],
       container: {},
       text: {
-        fontWeight: '900',
-        color: '#000',
+        fontWeight: "900",
+        color: "#000",
         fontSize: 18,
       },
     },
     h4: {
-      [INCLUDE]: ['textBlock'],
+      [INCLUDE]: ["textBlock"],
       container: {},
       text: {
-        fontWeight: '700',
-        color: '#000',
+        fontWeight: "700",
+        color: "#000",
         fontSize: 16,
       },
     },
     h5: {
-      [INCLUDE]: ['textBlock'],
+      [INCLUDE]: ["textBlock"],
       container: {},
       text: {
-        fontWeight: '500',
-        color: '#000',
+        fontWeight: "500",
+        color: "#000",
         fontSize: 14,
       },
     },
     h6: {
-      [INCLUDE]: ['textBlock'],
+      [INCLUDE]: ["textBlock"],
       container: {},
       text: {
-        fontWeight: '500',
-        color: '#000',
+        fontWeight: "500",
+        color: "#000",
         fontSize: 14,
       },
     },
     p: {
-      [INCLUDE]: ['textBlock'],
+      [INCLUDE]: ["textBlock"],
       container: {},
       text: {
-        [INCLUDE]: ['shoutem.ui.Text', 'multilineTextStyle'],
+        [INCLUDE]: ["shoutem.ui.Text", "multilineTextStyle"],
       },
     },
     div: {
-      [INCLUDE]: ['textBlock'],
+      [INCLUDE]: ["textBlock"],
     },
 
     // HTML lists
@@ -2450,15 +2450,15 @@ export default (variables = defaultThemeVariables) => ({
     number: {
       // Font should be monospace so that item content has same offset
       // Can not apply width to the Text for some reason
-      fontFamily: Platform.OS === 'ios' ? 'Menlo-Regular' : 'monospace',
+      fontFamily: Platform.OS === "ios" ? "Menlo-Regular" : "monospace",
       fontSize: 12,
     },
     bullet: {},
     li: {
       // Inline element
-      [INCLUDE]: ['textBlock'],
+      [INCLUDE]: ["textBlock"],
       container: {
-        '.block': {
+        ".block": {
           marginBottom: 10,
         },
       },
@@ -2478,12 +2478,12 @@ export default (variables = defaultThemeVariables) => ({
         // Used to keep video ratio by thumbnail.
         // Must have width.
         width: 300,
-        alignSelf: 'center',
+        alignSelf: "center",
         marginBottom: 20,
       },
     },
     img: {
-      alignSelf: 'center',
+      alignSelf: "center",
       marginBottom: 20,
       // Image height is calculated to respect
       // image ratio depending on width.
@@ -2495,7 +2495,7 @@ export default (variables = defaultThemeVariables) => ({
     },
   },
 
-  'shoutem.ui.Video': {
+  "shoutem.ui.Video": {
     container: {
       backgroundColor: variables.paperColor,
       flex: 1,
@@ -2507,18 +2507,18 @@ export default (variables = defaultThemeVariables) => ({
   // HorizontalPager
   //
 
-  'shoutem.ui.HorizontalPager': {
+  "shoutem.ui.HorizontalPager": {
     container: {
       flexGrow: 1,
     },
     scrollView: {
       flexGrow: 1,
-      backgroundColor: 'transparent',
-      overflow: 'scroll',
+      backgroundColor: "transparent",
+      overflow: "scroll",
     },
     page: {
       flexGrow: 1,
-      backgroundColor: 'transparent',
+      backgroundColor: "transparent",
     },
     nextPageInsetSize: 20,
   },
@@ -2527,42 +2527,42 @@ export default (variables = defaultThemeVariables) => ({
   // PageIndicators
   //
 
-  'shoutem.ui.PageIndicators': {
-    '.overlay-bottom': {
+  "shoutem.ui.PageIndicators": {
+    ".overlay-bottom": {
       container: {
         backgroundGradient: {
-          colors: ['rgba(0, 0, 0, 0.0)', 'rgba(0, 0, 0, 0.25)'],
+          colors: ["rgba(0, 0, 0, 0.0)", "rgba(0, 0, 0, 0.25)"],
         },
         paddingVertical: 8,
-        position: 'absolute',
+        position: "absolute",
         bottom: 0,
         left: 0,
         right: 0,
       },
 
       indicatorContainer: {
-        'shoutem.ui.View': {
-          backgroundColor: '#ffffff',
+        "shoutem.ui.View": {
+          backgroundColor: "#ffffff",
 
-          '.selected': {
-            backgroundColor: changeColorAlpha('#ffffff', 0.7),
+          ".selected": {
+            backgroundColor: changeColorAlpha("#ffffff", 0.7),
           },
         },
       },
     },
 
     container: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      position: 'absolute',
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+      position: "absolute",
       left: 0,
       right: 0,
       bottom: 10,
     },
     indicatorContainer: {
-      alignItems: 'center',
-      'shoutem.ui.View': {
+      alignItems: "center",
+      "shoutem.ui.View": {
         width: variables.galleryDotSize,
         height: variables.galleryDotSize,
         borderRadius: variables.galleryDotSize / 2,
@@ -2570,7 +2570,7 @@ export default (variables = defaultThemeVariables) => ({
         backgroundColor: changeColorAlpha(variables.indicatorColor, 0.7),
         marginLeft: variables.galleryDotSize / 2,
         marginRight: variables.galleryDotSize / 2,
-        '.selected': {
+        ".selected": {
           backgroundColor: variables.indicatorColor,
         },
       },
@@ -2580,26 +2580,26 @@ export default (variables = defaultThemeVariables) => ({
   //
   // InlineGallery
   //
-  'shoutem.ui.InlineGallery': {
-    '.large-ultra-wide': {
+  "shoutem.ui.InlineGallery": {
+    ".large-ultra-wide": {
       container: {
         height: dimensionRelativeToIphone(130),
       },
     },
 
-    '.large-banner': {
+    ".large-banner": {
       container: {
         height: dimensionRelativeToIphone(200),
       },
     },
 
-    '.large-wide': {
+    ".large-wide": {
       container: {
         height: dimensionRelativeToIphone(238),
       },
     },
 
-    '.large-square': {
+    ".large-square": {
       container: {
         height: dimensionRelativeToIphone(375),
       },
@@ -2621,44 +2621,47 @@ export default (variables = defaultThemeVariables) => ({
   //
   // ImageGallery
   //
-  'shoutem.ui.ImageGallery': {
-    [INCLUDE]: ['guttersPadding'],
+  "shoutem.ui.ImageGallery": {
+    [INCLUDE]: ["guttersPadding"],
     pageMargin: 20,
     container: {
       flexGrow: 1,
-      backgroundColor: '#000000',
+      backgroundColor: "#000000",
       lightsOffAnimation(driver) {
         return {
           backgroundColor: driver.interpolate({
             inputRange: [0, 1],
-            outputRange: [variables.paperColor, '#000000'],
+            outputRange: [variables.paperColor, "#000000"],
           }),
         };
       },
     },
     page: {
       flexGrow: 1,
-      justifyContent: 'center',
-      overflow: 'hidden',
+      justifyContent: "center",
+      overflow: "hidden",
     },
   },
 
-  'shoutem.ui.ImageGalleryOverlay': {
-    '.full-screen': {
+  "shoutem.ui.ImageGalleryOverlay": {
+    ".full-screen": {
       title: {
         container: {
-          paddingTop:
-            NAVIGATION_BAR_HEIGHT + variables.mediumGutter
+          // We want the title background gradient to be
+          // visible underneath the navigation bar, but the
+          // title text should be rendered below the
+          // navigation bar.
+          paddingTop: NAVIGATION_BAR_HEIGHT + variables.mediumGutter,
         },
       },
     },
 
     container: {
-      [INCLUDE]: ['fillParent'],
+      [INCLUDE]: ["fillParent"],
     },
     title: {
       container: {
-        position: 'absolute',
+        position: "absolute",
         top: 0,
         left: 0,
         right: 0,
@@ -2666,35 +2669,35 @@ export default (variables = defaultThemeVariables) => ({
         paddingHorizontal: variables.mediumGutter,
 
         backgroundGradient: {
-          colors: ['rgba(0, 0, 0, 0.6)', 'rgba(0, 0, 0, 0.0)'],
+          colors: ["rgba(0, 0, 0, 0.6)", "rgba(0, 0, 0, 0.0)"],
           locations: [0.17, 1.0],
         },
       },
       text: {
         color: variables.imageOverlayTextColor,
-        textAlign: 'center',
+        textAlign: "center",
       },
     },
     description: {
       container: {
-        '.expanded': {
+        ".expanded": {
           paddingTop: variables.extraLargeGutter,
 
           backgroundGradient: {
-            colors: ['rgba(0, 0, 0, 0.0)', 'rgba(0, 0, 0, 0.8)'],
+            colors: ["rgba(0, 0, 0, 0.0)", "rgba(0, 0, 0, 0.8)"],
             locations: [0.36, 1.0],
           },
         },
-        '.collapsed': {
+        ".collapsed": {
           paddingTop: variables.mediumGutter,
 
           backgroundGradient: {
-            colors: ['rgba(0, 0, 0, 0.0)', 'rgba(0, 0, 0, 0.6)'],
+            colors: ["rgba(0, 0, 0, 0.0)", "rgba(0, 0, 0, 0.6)"],
             locations: [0.02, 1.0],
           },
         },
 
-        position: 'absolute',
+        position: "absolute",
         bottom: 0,
         left: 0,
         right: 0,
@@ -2706,152 +2709,152 @@ export default (variables = defaultThemeVariables) => ({
       },
       text: {
         color: variables.imageOverlayTextColor,
-        textAlign: 'center',
+        textAlign: "center",
       },
     },
   },
 
   // Action Sheet
 
-  'shoutem.ui.ActionSheet': {
+  "shoutem.ui.ActionSheet": {
     container: {
-      position: 'absolute',
+      position: "absolute",
       top: 0,
       bottom: 0,
       left: 0,
       right: 0,
-      flexDirection: 'column',
-      justifyContent: 'flex-end',
+      flexDirection: "column",
+      justifyContent: "flex-end",
     },
     contentContainer: {
       marginHorizontal: 8,
       paddingBottom: 34,
-      backgroundColor: 'transparent',
+      backgroundColor: "transparent",
     },
     segmentContainer: {
-      overflow: 'hidden',
-      backgroundColor: '#FFFFFF',
+      overflow: "hidden",
+      backgroundColor: "#FFFFFF",
       borderRadius: 13,
     },
   },
 
-  'shoutem.ui.ActionSheetOption': {
+  "shoutem.ui.ActionSheetOption": {
     container: {
       paddingHorizontal: 20,
       paddingVertical: 16,
       borderBottomWidth: 1,
-      borderColor: 'rgba(130, 130, 130, 0.1)',
+      borderColor: "rgba(130, 130, 130, 0.1)",
     },
     text: {
       fontSize: 15,
       letterSpacing: 0.38,
-      color: '#000000',
+      color: "#000000",
       lineHeight: 24,
     },
     cancelText: {
-      textAlign: 'center',
-      fontWeight: resolveFontWeight('700'),
+      textAlign: "center",
+      fontWeight: resolveFontWeight("700"),
     },
   },
 
   //
   // Other
   //
-  'shoutem.ui.ImagePreview': {
+  "shoutem.ui.ImagePreview": {
     container: {
       flex: 1,
-      backgroundColor: 'transparent',
+      backgroundColor: "transparent",
     },
     fullScreenContainer: {
       flex: 1,
-      backgroundColor: 'black',
+      backgroundColor: "black",
     },
     image: {
       flex: 1,
     },
     thumbnail: {},
     header: {
-      position: 'absolute',
+      position: "absolute",
       top: STATUS_BAR_OFFSET,
       left: 0,
-      backgroundColor: 'transparent',
+      backgroundColor: "transparent",
     },
     closeIcon: {
-      color: 'white',
+      color: "white",
       marginLeft: 15,
       marginTop: -STATUS_BAR_OFFSET + 20,
     },
   },
 
-  'shoutem.ui.MapView': {
+  "shoutem.ui.MapView": {
     flex: 1,
   },
 
-  'shoutem.ui.InlineMap': {
+  "shoutem.ui.InlineMap": {
     // TODO: why do we need all image sizes and styles here?
-    [INCLUDE]: ['imageSizes'],
-    '.top-aligned': {
-      justifyContent: 'flex-start',
+    [INCLUDE]: ["imageSizes"],
+    ".top-aligned": {
+      justifyContent: "flex-start",
     },
 
-    '.bottom-aligned': {
-      justifyContent: 'flex-end',
+    ".bottom-aligned": {
+      justifyContent: "flex-end",
     },
 
-    '.medium-tall': {
+    ".medium-tall": {
       height: 160,
     },
 
-    'shoutem.ui.View': {
-      'shoutem.ui.View': {
-        'shoutem.ui.View': {
+    "shoutem.ui.View": {
+      "shoutem.ui.View": {
+        "shoutem.ui.View": {
           backgroundColor: variables.imageOverlayColor,
-          'shoutem.ui.Heading': {
+          "shoutem.ui.Heading": {
             color: variables.imageOverlayTextColor,
             marginVertical: 8,
           },
 
-          'shoutem.ui.Title': {
+          "shoutem.ui.Title": {
             color: variables.imageOverlayTextColor,
             marginVertical: 12,
           },
 
-          'shoutem.ui.Subtitle': {
+          "shoutem.ui.Subtitle": {
             color: variables.imageOverlayTextColor,
             marginTop: 80,
           },
 
-          'shoutem.ui.Caption': {
+          "shoutem.ui.Caption": {
             color: variables.imageOverlayTextColor,
             marginTop: 5,
           },
 
-          'shoutem.ui.Text': {
+          "shoutem.ui.Text": {
             color: variables.imageOverlayTextColor,
           },
         },
 
-        [INCLUDE]: ['fillParent'],
+        [INCLUDE]: ["fillParent"],
       },
     },
 
-    [INCLUDE]: ['commonVariants'],
+    [INCLUDE]: ["commonVariants"],
     flex: 0,
   },
 
-  'shoutem.ui.LinearGradient': {
-    '.fill-parent': {
-      [INCLUDE]: ['fillParent'],
+  "shoutem.ui.LinearGradient": {
+    ".fill-parent": {
+      [INCLUDE]: ["fillParent"],
     },
   },
 
-  'shoutem.ui.Lightbox': {
-    '.container': {
+  "shoutem.ui.Lightbox": {
+    ".container": {
       flex: 1,
-      resizeMode: 'contain',
+      resizeMode: "contain",
     },
-    'shoutem.ui.Image': {
-      '.preview': {
+    "shoutem.ui.Image": {
+      ".preview": {
         flex: 1,
       },
     },
