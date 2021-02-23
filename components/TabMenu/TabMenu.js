@@ -35,6 +35,7 @@ class TabMenu extends PureComponent {
 
     return (
       <TabMenuItem
+        key={option.title}
         isSelected={isSelected}
         item={option}
         onItemPressed={this.handleOptionSelected}

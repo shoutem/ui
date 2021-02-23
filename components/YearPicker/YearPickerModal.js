@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { TextInput, LayoutAnimation } from 'react-native';
+import { LayoutAnimation } from 'react-native';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import autoBindReact from 'auto-bind/react';
@@ -82,6 +82,7 @@ class YearPickerModal extends PureComponent {
     const { onRangeConfirmed } = this.props;
 
     if (onRangeConfirmed) {
+      LayoutAnimation.easeInEaseOut();
       onRangeConfirmed(selectedYears);
     }
   }
@@ -89,6 +90,7 @@ class YearPickerModal extends PureComponent {
   handleResetPress() {
     const { onRangeConfirmed } = this.props;
 
+    LayoutAnimation.easeInEaseOut();
     this.setState({ selectedYears: [] });
 
     if (onRangeConfirmed) {
@@ -105,6 +107,7 @@ class YearPickerModal extends PureComponent {
 
     const nextVisibleYears = _.times(nextYearEnd + 1 - nextYearStart, index => nextYearStart + index);
 
+    LayoutAnimation.easeInEaseOut();
     this.setState({ visibleYears: nextVisibleYears });
   }
 
@@ -113,6 +116,7 @@ class YearPickerModal extends PureComponent {
 
     const prevYearStart = _.head(visibleYears) - this.YEARS_PER_PAGE;
 
+    LayoutAnimation.easeInEaseOut();
     this.setState({ visibleYears: _.times(this.YEARS_PER_PAGE, index => prevYearStart + index) });
   }
 
@@ -121,6 +125,8 @@ class YearPickerModal extends PureComponent {
 
     const size = _.size(selectedYears);
     const index = _.indexOf(selectedYears, year);
+
+    LayoutAnimation.easeInEaseOut();
 
     return () => {
       if (_.includes(selectedYears, year)) {
@@ -165,6 +171,7 @@ class YearPickerModal extends PureComponent {
       <TouchableOpacity
         onPress={this.handleYearPress(year)}
         style={style.yearContainer}
+        key={year.toString()}
       >
         <View style={[
           style.year,
@@ -178,9 +185,9 @@ class YearPickerModal extends PureComponent {
     );
   }
 
-  renderYearRow(row) {
+  renderYearRow(row, index) {
     return (
-      <View styleName="horizontal">
+      <View styleName="horizontal" key={index.toString()}>
         {_.map(row, this.renderYear)}
       </View>
     )
@@ -208,7 +215,7 @@ class YearPickerModal extends PureComponent {
             <Icon name="right-arrow" style={style.icon} />
           </Button>
         </View>
-        {_.times(NUMBER_OF_ROWS, (row) => this.renderYearRow(data[row]))}
+        {_.times(NUMBER_OF_ROWS, (row) => this.renderYearRow(data[row], row))}
         <View style={style.buttonContainer}>
           <Button styleName="secondary flexible" onPress={this.handleResetPress}>
             <Text>{resetButtonTitle}</Text>
