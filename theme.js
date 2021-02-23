@@ -2941,5 +2941,75 @@ export default (variables = defaultThemeVariables) => ({
       marginBottom: 4,
       opacity: 1,
     }
-  }
+  },
+
+  'shoutem.ui.YearPickerButton': {
+    container: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: '#F9F9F9',
+      borderWidth: 1,
+      borderRadius: 8,
+      borderColor: 'rgba(130, 130, 130, 0.1)',
+      paddingLeft: 15,
+      paddingVertical: 8,
+      paddingRight: 8,
+      marginRight: 8,
+    },
+    icon: {
+      color: variables.text.color,
+    }
+  },
+
+  'shoutem.ui.YearPickerModal': {
+    container: {
+      padding: 8,
+      backgroundColor: '#F9F9F9',
+      borderWidth: 1,
+      borderRadius: 8,
+      borderColor: 'rgba(130, 130, 130, 0.1)',
+      zIndex: 5,
+    },
+    tooltipContainer: {
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      padding: 8,
+      minHeight: 56,
+    },
+    buttonContainer: {
+      flexDirection: 'row',
+      padding: 8,
+      marginTop: 8,
+    },
+    yearContainer: {
+      flex: 1,
+      flexDirection: 'row',
+      marginTop: 5,
+    },
+    year: {
+      flexDirection: 'row',
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingVertical: 18,
+    },
+    yearSelected: {
+      backgroundColor: '#FBD05C',
+    },
+    yearFirst: {
+      paddingLeft: 5,
+      borderTopLeftRadius: 8,
+      borderBottomLeftRadius: 8,
+    },
+    yearLast: {
+      paddingRight: 5,
+      borderTopRightRadius: 8,
+      borderBottomRightRadius: 8,
+    },
+    icon: {
+      color: variables.text.color,
+    }
+  },
 });

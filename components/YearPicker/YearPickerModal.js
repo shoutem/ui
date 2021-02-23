@@ -49,7 +49,6 @@ function resolveRangeTooltip(visibleYears) {
 class YearPickerModal extends PureComponent {
   static propTypes = {
     onRangeConfirmed: PropTypes.func,
-    onReset: PropTypes.func,
     resetButtonTitle: PropTypes.string,
     confirmButtonTitle: PropTypes.string,
     selectedYears: PropTypes.arrayOf(PropTypes.number),
@@ -76,6 +75,25 @@ class YearPickerModal extends PureComponent {
       visibleYears: resolveVisibleYears(props),
       selectedYears: props.selectedYears,
     };
+  }
+
+  handleConfirmPress() {
+    const { selectedYears } = this.state;
+    const { onRangeConfirmed } = this.props;
+
+    if (onRangeConfirmed) {
+      onRangeConfirmed(selectedYears);
+    }
+  }
+
+  handleResetPress() {
+    const { onRangeConfirmed } = this.props;
+
+    this.setState({ selectedYears: [] });
+
+    if (onRangeConfirmed) {
+      onRangeConfirmed([]);
+    }
   }
 
   handleYearsForwardPress() {
@@ -123,11 +141,12 @@ class YearPickerModal extends PureComponent {
         return;
       }
 
-      const addToEnd = size / 2 >= index;
+      const addToEnd = _.last(selectedYears) < year;
       const yearsToAdd = addToEnd ? year - _.last(selectedYears) : _.head(selectedYears) - year;
+
       const newYears = addToEnd
         ? [...selectedYears, ..._.times(yearsToAdd, index => _.last(selectedYears) + index + 1)]
-        : [...selectedYears, ..._.times(yearsToAdd, index => _.last(selectedYears) - index + -1)]
+        : [...selectedYears, ..._.times(yearsToAdd, index => _.head(selectedYears) - index + -1)]
       const sortedYears = _.sortBy(newYears, item => item);
 
       this.setState({ selectedYears: sortedYears });
@@ -191,10 +210,10 @@ class YearPickerModal extends PureComponent {
         </View>
         {_.times(NUMBER_OF_ROWS, (row) => this.renderYearRow(data[row]))}
         <View style={style.buttonContainer}>
-          <Button styleName="secondary flexible">
+          <Button styleName="secondary flexible" onPress={this.handleResetPress}>
             <Text>{resetButtonTitle}</Text>
           </Button>
-          <Button styleName="primary flexible md-gutter-left">
+          <Button styleName="primary flexible md-gutter-left" onPress={this.handleConfirmPress}>
             <Text>{confirmButtonTitle}</Text>
           </Button>
         </View>

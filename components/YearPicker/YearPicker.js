@@ -54,13 +54,22 @@ class YearPicker extends PureComponent {
     };
   }
 
+  componentDidUpdate(prevProps) {
+    const { selectedYears: prevSelectedYears } = prevProps;
+    const { selectedYears } = this.props;
+
+    if (!_.isEqual(selectedYears, prevSelectedYears)) {
+      this.setState({ buttonTooltip: formatButtonTooltip(this.props) });
+    }
+  }
+
   handleButtonPressed() {
     const { collapsed } = this.state;
 
     this.setState({ collapsed: !collapsed });
   }
 
-  handleLayout({ nativeEvent: { layout: { x, y, width, height } } }) {
+  handleLayout({ nativeEvent: { layout: { x, height } } }) {
     this.setState({
       modalStyle: {
         position: 'absolute',
@@ -71,8 +80,18 @@ class YearPicker extends PureComponent {
     });
   }
 
+  handleRangeConfirmed(range) {
+    const { onRangeConfirmed } = this.props;
+
+    this.setState({ collapsed: false });
+
+    if (onRangeConfirmed) {
+      onRangeConfirmed(range);
+    }
+  }
+
   render() {
-    const { rangeEnd, rangeStart, resetButtonTitle, confirmButtonTitle } = this.props;
+    const { rangeEnd, rangeStart, resetButtonTitle, confirmButtonTitle, onRangeConfirmed } = this.props;
     const { buttonTooltip, collapsed, modalStyle } = this.state;
 
     return (
@@ -88,6 +107,7 @@ class YearPicker extends PureComponent {
           containerStyle={modalStyle}
           resetButtonTitle={resetButtonTitle}
           confirmButtonTitle={confirmButtonTitle}
+          onRangeConfirmed={this.handleRangeConfirmed}
         />
       </View>
     );
