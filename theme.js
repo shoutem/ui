@@ -2647,15 +2647,12 @@ export default (variables = defaultThemeVariables) => ({
     '.full-screen': {
       title: {
         container: {
-          // We want the title background gradient to be
-          // visible underneath the navigation bar, but the
-          // title text should be rendered below the
+          // We want the title background gradient to be	
+          // visible underneath the navigation bar, but the	
+          // title text should be rendered below the	
           // navigation bar.
           paddingTop:
-            NAVIGATION_BAR_HEIGHT +
-            (Platform.OS === 'ios'
-              ? variables.extraLargeGutter + variables.extraLargeGutter
-              : variables.extraLargeGutter + variables.mediumGutter),
+            NAVIGATION_BAR_HEIGHT + variables.mediumGutter
         },
       },
     },
