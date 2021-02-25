@@ -51,7 +51,7 @@ class TabMenu extends PureComponent {
         horizontal
         contentContainerStyle={style.container}
         showsHorizontalScrollIndicator={false}
-        style={{ flexGrow: 0 }}
+        style={style.list}
       >
         {_.map(options, this.renderOption)}
       </ScrollView>

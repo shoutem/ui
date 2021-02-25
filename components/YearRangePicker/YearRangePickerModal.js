@@ -46,7 +46,7 @@ function resolveRangeTooltip(visibleYears) {
   return `${startYear}-${endYear}`;
 }
 
-class YearPickerModal extends PureComponent {
+class YearRangePickerModal extends PureComponent {
   static propTypes = {
     onRangeConfirmed: PropTypes.func,
     resetButtonTitle: PropTypes.string,
@@ -229,4 +229,4 @@ class YearPickerModal extends PureComponent {
   }
 }
 
-export default connectStyle('shoutem.ui.YearPickerModal')(YearPickerModal);
+export default connectStyle('shoutem.ui.YearRangePickerModal')(YearRangePickerModal);

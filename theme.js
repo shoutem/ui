@@ -2918,7 +2918,10 @@ export default (variables = defaultThemeVariables) => ({
     container: {
       paddingHorizontal: variables.smallGutter,
       backgroundColor: variables.backgroundColor,
-      height: 44,
+    },
+    list: {
+      flexGrow: 0,
+      flexShrink: 0,
     },
   },
 
@@ -2943,7 +2946,7 @@ export default (variables = defaultThemeVariables) => ({
     }
   },
 
-  'shoutem.ui.YearPickerButton': {
+  'shoutem.ui.YearRangePickerButton': {
     container: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -2961,7 +2964,7 @@ export default (variables = defaultThemeVariables) => ({
     }
   },
 
-  'shoutem.ui.YearPickerModal': {
+  'shoutem.ui.YearRangePickerModal': {
     container: {
       padding: 8,
       backgroundColor: '#F9F9F9',
@@ -2996,7 +2999,7 @@ export default (variables = defaultThemeVariables) => ({
       paddingVertical: 18,
     },
     yearSelected: {
-      backgroundColor: '#FBD05C',
+      backgroundColor: variables.featuredColor,
     },
     yearFirst: {
       paddingLeft: 5,

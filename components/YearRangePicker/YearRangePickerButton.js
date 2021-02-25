@@ -10,7 +10,7 @@ import { Text } from '../Text';
 
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 
-class YearPickerButton extends PureComponent {
+class YearRangePickerButton extends PureComponent {
   static propTypes = {
     onPress: PropTypes.func,
     tooltip: PropTypes.string,
@@ -79,4 +79,4 @@ class YearPickerButton extends PureComponent {
   }
 }
 
-export default connectStyle('shoutem.ui.YearPickerButton')(YearPickerButton);
+export default connectStyle('shoutem.ui.YearRangePickerButton')(YearRangePickerButton);

@@ -78,7 +78,7 @@ export { EmptyListImage } from './components/EmptyListImage';
 export { NumberInput } from './components/NumberInput';
 export { SearchField } from './components/SearchField';
 export { TabMenu } from './components/TabMenu';
-export { YearPicker } from './components/YearPicker';
+export { YearRangePicker } from './components/YearRangePicker';
 
 export { Examples } from './examples/components';
 

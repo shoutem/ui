@@ -4,17 +4,17 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import autoBindReact from 'auto-bind/react';
 import { connectStyle } from '@shoutem/theme';
-import { View } from '@shoutem/ui';
-import YearPickerButton from './YearPickerButton';
-import YearPickerModal from './YearPickerModal';
+import { View } from '../View';
+import YearPickerButton from './YearRangePickerButton';
+import YearPickerModal from './YearRangePickerModal';
 
 const window = Dimensions.get('window');
 
 function formatButtonTooltip(props) {
-  const { selectedYears } = props;
+  const { selectedYears, buttonPlaceholder } = props;
 
   if (_.isEmpty(selectedYears)) {
-    return '-';
+    return buttonPlaceholder;
   }
 
   const leadYear = _.head(selectedYears);
@@ -27,7 +27,7 @@ function formatButtonTooltip(props) {
   return `${leadYear}-${lastYear}`;
 }
 
-class YearPicker extends PureComponent {
+class YearRangePicker extends PureComponent {
   static propTypes = {
     onRangeConfirmed: PropTypes.func,
     onReset: PropTypes.func,
@@ -36,10 +36,12 @@ class YearPicker extends PureComponent {
     selectedYears: PropTypes.arrayOf(PropTypes.number),
     rangeStart: PropTypes.number,
     rangeEnd: PropTypes.number,
+    buttonPlaceholder: PropTypes.string,
   };
 
   static defaultProps = {
     selectedYears: [],
+    buttonPlaceholder: 'Year',
   };
 
   constructor(props) {
@@ -91,7 +93,7 @@ class YearPicker extends PureComponent {
   }
 
   render() {
-    const { rangeEnd, rangeStart, resetButtonTitle, confirmButtonTitle, onRangeConfirmed } = this.props;
+    const { rangeEnd, rangeStart, resetButtonTitle, confirmButtonTitle } = this.props;
     const { buttonTooltip, collapsed, modalStyle } = this.state;
 
     return (
@@ -114,4 +116,4 @@ class YearPicker extends PureComponent {
   }
 }
 
-export default connectStyle('shoutem.ui.YearPicker')(YearPicker);
+export default connectStyle('shoutem.ui.YearRangePicker')(YearRangePicker);
