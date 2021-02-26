@@ -194,11 +194,21 @@ class YearRangePickerModal extends PureComponent {
   }
 
   render() {
-    const { style, visible, containerStyle, confirmButtonTitle, resetButtonTitle } = this.props;
+    const {
+      style,
+      visible,
+      containerStyle,
+      confirmButtonTitle,
+      resetButtonTitle,
+      rangeEnd,
+      rangeStart,
+    } = this.props;
     const { visibleYears } = this.state;
 
     const buttonTooltip = resolveRangeTooltip(visibleYears);
     const data = _.chunk(visibleYears, YEARS_IN_ROW);
+    const nextDisabled = _.last(visibleYears) === rangeEnd;
+    const prevDisabled = _.head(visibleYears) - 1 < rangeStart;
 
     if (!visible) {
       return null;
@@ -207,12 +217,20 @@ class YearRangePickerModal extends PureComponent {
     return (
       <View style={[style.container, containerStyle]}>
         <View style={style.tooltipContainer}>
-          <Button styleName="clear tight" onPress={this.handleYearsBackPress}>
-            <Icon name="left-arrow" style={style.icon} />
+          <Button
+            styleName="clear tight"
+            onPress={this.handleYearsBackPress}
+            disabled={prevDisabled}
+          >
+            <Icon name="left-arrow" style={[style.icon, prevDisabled && style.iconDisabled]} />
           </Button>
           <Text>{buttonTooltip}</Text>
-          <Button styleName="clear tight" onPress={this.handleYearsForwardPress}>
-            <Icon name="right-arrow" style={style.icon} />
+          <Button
+            styleName="clear tight"
+            onPress={this.handleYearsForwardPress}
+            disabled={nextDisabled}
+          >
+            <Icon name="right-arrow" style={[style.icon, nextDisabled && style.iconDisabled]} />
           </Button>
         </View>
         {_.times(NUMBER_OF_ROWS, (row) => this.renderYearRow(data[row], row))}

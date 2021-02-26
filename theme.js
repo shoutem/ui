@@ -3013,6 +3013,10 @@ export default (variables = defaultThemeVariables) => ({
     },
     icon: {
       color: variables.text.color,
+      opacity: 1,
+    },
+    iconDisabled: {
+      opacity: 0.3,
     }
   },
 });
