@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import { Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import autoBindReact from 'auto-bind/react';
@@ -7,8 +6,6 @@ import { connectStyle } from '@shoutem/theme';
 import { View } from '../View';
 import YearPickerButton from './YearRangePickerButton';
 import YearPickerModal from './YearRangePickerModal';
-
-const window = Dimensions.get('window');
 
 function formatButtonTooltip(props) {
   const { selectedYears, buttonPlaceholder } = props;
@@ -71,17 +68,6 @@ class YearRangePicker extends PureComponent {
     this.setState({ collapsed: !collapsed });
   }
 
-  handleLayout({ nativeEvent: { layout: { x, height } } }) {
-    this.setState({
-      modalStyle: {
-        position: 'absolute',
-        top: 4 + height,
-        left: 0,
-        width: window.width - (2 * x),
-      }
-    });
-  }
-
   handleRangeConfirmed(range) {
     const { onRangeConfirmed } = this.props;
 
@@ -94,7 +80,7 @@ class YearRangePicker extends PureComponent {
 
   render() {
     const { rangeEnd, rangeStart, resetButtonTitle, confirmButtonTitle } = this.props;
-    const { buttonTooltip, collapsed, modalStyle } = this.state;
+    const { buttonTooltip, collapsed } = this.state;
 
     return (
       <View onLayout={this.handleLayout}>
@@ -106,10 +92,10 @@ class YearRangePicker extends PureComponent {
           visible={collapsed}
           rangeStart={rangeStart}
           rangeEnd={rangeEnd}
-          containerStyle={modalStyle}
           resetButtonTitle={resetButtonTitle}
           confirmButtonTitle={confirmButtonTitle}
           onRangeConfirmed={this.handleRangeConfirmed}
+          onDismiss={this.handleButtonPressed}
         />
       </View>
     );

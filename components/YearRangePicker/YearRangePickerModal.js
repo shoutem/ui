@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { LayoutAnimation } from 'react-native';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import Modal from 'react-native-modal';
 import autoBindReact from 'auto-bind/react';
 import { connectStyle } from '@shoutem/theme';
 import { View } from '../View';
@@ -49,6 +50,7 @@ function resolveRangeTooltip(visibleYears) {
 class YearRangePickerModal extends PureComponent {
   static propTypes = {
     onRangeConfirmed: PropTypes.func,
+    onDismiss: PropTypes.func,
     resetButtonTitle: PropTypes.string,
     confirmButtonTitle: PropTypes.string,
     selectedYears: PropTypes.arrayOf(PropTypes.number),
@@ -56,7 +58,6 @@ class YearRangePickerModal extends PureComponent {
     rangeEnd: PropTypes.number,
     visible: PropTypes.bool,
     style: PropTypes.any,
-    containerStyle: PropTypes.any,
   };
 
   static defaultProps = {
@@ -187,7 +188,7 @@ class YearRangePickerModal extends PureComponent {
 
   renderYearRow(row, index) {
     return (
-      <View styleName="horizontal" key={index.toString()}>
+      <View styleName="horizontal flexible" key={index.toString()}>
         {_.map(row, this.renderYear)}
       </View>
     )
@@ -197,11 +198,11 @@ class YearRangePickerModal extends PureComponent {
     const {
       style,
       visible,
-      containerStyle,
       confirmButtonTitle,
       resetButtonTitle,
       rangeEnd,
       rangeStart,
+      onDismiss,
     } = this.props;
     const { visibleYears } = this.state;
 
@@ -215,34 +216,40 @@ class YearRangePickerModal extends PureComponent {
     }
 
     return (
-      <View style={[style.container, containerStyle]}>
-        <View style={style.tooltipContainer}>
-          <Button
-            styleName="clear tight"
-            onPress={this.handleYearsBackPress}
-            disabled={prevDisabled}
-          >
-            <Icon name="left-arrow" style={[style.icon, prevDisabled && style.iconDisabled]} />
-          </Button>
-          <Text>{buttonTooltip}</Text>
-          <Button
-            styleName="clear tight"
-            onPress={this.handleYearsForwardPress}
-            disabled={nextDisabled}
-          >
-            <Icon name="right-arrow" style={[style.icon, nextDisabled && style.iconDisabled]} />
-          </Button>
-        </View>
-        {_.times(NUMBER_OF_ROWS, (row) => this.renderYearRow(data[row], row))}
-        <View style={style.buttonContainer}>
-          <Button styleName="secondary flexible" onPress={this.handleResetPress}>
-            <Text>{resetButtonTitle}</Text>
-          </Button>
-          <Button styleName="primary flexible md-gutter-left" onPress={this.handleConfirmPress}>
-            <Text>{confirmButtonTitle}</Text>
-          </Button>
-        </View>
-      </ View>
+      <Modal
+        isVisible={visible}
+        onBackdropPress={onDismiss}
+        useNativeDriver
+      >
+        <View style={style.container}>
+          <View style={style.tooltipContainer}>
+            <Button
+              styleName="clear tight"
+              onPress={this.handleYearsBackPress}
+              disabled={prevDisabled}
+            >
+              <Icon name="left-arrow" style={[style.icon, prevDisabled && style.iconDisabled]} />
+            </Button>
+            <Text>{buttonTooltip}</Text>
+            <Button
+              styleName="clear tight"
+              onPress={this.handleYearsForwardPress}
+              disabled={nextDisabled}
+            >
+              <Icon name="right-arrow" style={[style.icon, nextDisabled && style.iconDisabled]} />
+            </Button>
+          </View>
+          {_.times(NUMBER_OF_ROWS, (row) => this.renderYearRow(data[row], row))}
+          <View style={style.buttonContainer}>
+            <Button styleName="secondary flexible" onPress={this.handleResetPress}>
+              <Text>{resetButtonTitle}</Text>
+            </Button>
+            <Button styleName="primary flexible md-gutter-left" onPress={this.handleConfirmPress}>
+              <Text>{confirmButtonTitle}</Text>
+            </Button>
+          </View>
+        </ View>
+      </Modal>
     );
   }
 }
