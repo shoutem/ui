@@ -63,10 +63,10 @@ class InlineDropDownMenuItem extends PureComponent {
               {
                 translateX: this.animatedValue.interpolate({
                   inputRange: [0, 1],
-                  outputRange: [window.width, 0]
+                  outputRange: [window.width, 0],
                 })
               }
-            ]
+            ],
           }
         ]}
         disabled={isSelected}

@@ -69,9 +69,9 @@ class YearRangePickerButton extends PureComponent {
             transform: [{
               rotate: this.dropDownIconValue.interpolate({
                 inputRange: [0, 1],
-                outputRange: ['0deg', '180deg']
-              })
-            }]
+                outputRange: ['0deg', '180deg'],
+              }),
+            }],
           }}
         />
       </TouchableOpacity>

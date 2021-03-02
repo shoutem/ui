@@ -13,8 +13,8 @@ import { InlineDropDownMenuItem } from './InlineDropDownMenuItem';
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 
 const optionShape = PropTypes.shape({
-  title: PropTypes.string,
-  key: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  key: PropTypes.string.isRequired,
 });
 
 class InlineDropDownMenu extends PureComponent {
