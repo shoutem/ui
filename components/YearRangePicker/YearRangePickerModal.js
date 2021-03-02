@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { LayoutAnimation } from 'react-native';
+import { LayoutAnimation, Platform } from 'react-native';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import Modal from 'react-native-modal';
@@ -220,6 +220,7 @@ class YearRangePickerModal extends PureComponent {
         isVisible={visible}
         onBackdropPress={onDismiss}
         useNativeDriver
+        backdropOpacity={Platform.OS === 'ios' ? 0.7 : 0}
       >
         <View style={style.container}>
           <View style={style.tooltipContainer}>
