@@ -13,6 +13,8 @@ import camSwitch from './cam-switch.svg';
 import cart from './cart.svg';
 import checkboxOff from './checkbox-off.svg';
 import checkboxOn from './checkbox-on.svg';
+import checkbocRectangleOff from './checkbox-rectangle-off';
+import checkbocRectangleOn from './checkbox-rectangle-on';
 import clearText from './clear-text.svg';
 import close from './close.svg';
 import comment from './comment.svg';
@@ -111,6 +113,8 @@ export const defaultConfig = [
   { name: 'cart', icon: cart },
   { name: 'checkbox-off', icon: checkboxOff },
   { name: 'checkbox-on', icon: checkboxOn },
+  { name: 'checkbox-rectangle-off', icon: checkbocRectangleOff },
+  { name: 'checkbox-rectangle-on', icon: checkbocRectangleOn },
   { name: 'clear-text', icon: clearText },
   { name: 'close', icon: close },
   { name: 'comment', icon: comment },
