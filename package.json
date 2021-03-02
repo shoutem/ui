@@ -1,6 +1,6 @@
 {
   "name": "@shoutem/ui",
-  "version": "4.2.1",
+  "version": "4.3.0",
   "description": "Styleable set of components for React Native applications",
   "scripts": {
     "lint": "eslint .",
@@ -25,6 +25,7 @@
     "react-native-lightbox": "shoutem/react-native-lightbox#v0.7.2",
     "react-native-linear-gradient": "~2.5.6",
     "react-native-photo-view": "shoutem/react-native-photo-view#0ffa1481f6b6cb8663cb291b7db1d6644440584d",
+    "react-native-modal": "11.7.0",
     "react-native-render-html": "~4.2.0",
     "react-native-status-bar-height": "2.5.0",
     "react-native-svg": "^9.13.0",

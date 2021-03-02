@@ -485,6 +485,10 @@ export default (variables = defaultThemeVariables) => ({
       opacity: 0.5,
     },
 
+    '.link': {
+      ...variables.links,
+    },
+
     backgroundColor: 'transparent',
   },
 
@@ -598,7 +602,7 @@ export default (variables = defaultThemeVariables) => ({
     '.medium-avatar': {
       width: dimensionRelativeToIphone(145),
       height: dimensionRelativeToIphone(145),
-      borderRadius: 72.5,
+      borderRadius: dimensionRelativeToIphone(72.5),
       borderWidth: 0,
     },
 
@@ -661,7 +665,7 @@ export default (variables = defaultThemeVariables) => ({
     },
   },
   'shoutem.ui.Image': {
-    [INCLUDE]: ['commonVariants', 'imageSizes', 'fill-parent'],
+    [INCLUDE]: ['commonVariants', 'imageSizes', 'fill-parent', 'guttersMargin'],
 
     '.placeholder': {
       backgroundColor: inverseColorBrightnessForAmount(
@@ -694,7 +698,11 @@ export default (variables = defaultThemeVariables) => ({
     },
   },
   'shoutem.ui.ImageBackground': {
-    [INCLUDE]: ['commonVariants', 'imageSizes', 'fill-parent'],
+    [INCLUDE]: ['commonVariants', 'imageSizes', 'fill-parent', 'guttersMargin'],
+
+    '.overflow-hidden': {
+      overflow: 'hidden',
+    },
 
     '.placeholder': {
       backgroundColor: inverseColorBrightnessForAmount(
@@ -1937,6 +1945,8 @@ export default (variables = defaultThemeVariables) => ({
     borderColor: variables.lineColor,
   },
   'shoutem.ui.Divider': {
+    [INCLUDE]: ['guttersMargin'],
+
     '.line': {
       '.small': {
         width: 55,
@@ -2040,6 +2050,11 @@ export default (variables = defaultThemeVariables) => ({
     withoutBorder: {
       borderWidth: 0,
     },
+
+    '.small': {
+      paddingVertical: 6,
+      height: 42,
+    },
   },
 
   'shoutem.ui.NumberInput': {
@@ -2092,6 +2107,7 @@ export default (variables = defaultThemeVariables) => ({
       backgroundColor: '#f0f0f0',
       color: '#888888',
       flex: 1,
+      minWidth: 330,
       fontSize: 15,
       height: 30,
       paddingVertical: 6,
@@ -2551,6 +2567,17 @@ export default (variables = defaultThemeVariables) => ({
       },
     },
 
+    '.relative': {
+      container: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'relative',
+        bottom: 0,
+        paddingVertical: 16,
+      },
+    },
+
     container: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -2859,5 +2886,147 @@ export default (variables = defaultThemeVariables) => ({
         flex: 1,
       },
     },
+  },
+
+  'shoutem.ui.InlineDropDownMenu': {
+    container: {
+      paddingTop: 12,
+      paddingHorizontal: variables.mediumGutter,
+      paddingBottom: 4,
+      backgroundColor: variables.paperColor,
+    },
+    icon: {
+      color: variables.text.color,
+    }
+  },
+
+  'shoutem.ui.InlineDropDownMenuItem': {
+    container: {
+      paddingTop: 10,
+      paddingHorizontal: variables.mediumGutter,
+      paddingBottom: 4,
+      backgroundColor: variables.paperColor,
+      borderTopWidth: 1,
+      borderTopColor: variables.backgroundColor,
+    },
+  },
+
+  'shoutem.ui.TabMenu': {
+    container: {
+      paddingHorizontal: variables.smallGutter,
+      backgroundColor: variables.backgroundColor,
+    },
+    list: {
+      flexGrow: 0,
+      flexShrink: 0,
+    },
+  },
+
+  'shoutem.ui.TabMenuItem': {
+    tabulator: {
+      backgroundColor: variables.text.color,
+      height: 1,
+      borderRadius: 1,
+      flexDirection: 'row',
+      marginBottom: 8,
+      marginLeft: 8,
+    },
+    text: {
+      marginTop: 12,
+      marginHorizontal: 8,
+      marginBottom: 12,
+      opacity: 0.3,
+    },
+    selectedText: {
+      marginBottom: 4,
+      opacity: 1,
+    }
+  },
+
+  'shoutem.ui.YearRangePickerButton': {
+    container: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: '#F9F9F9',
+      borderWidth: 1,
+      borderRadius: 8,
+      borderColor: 'rgba(130, 130, 130, 0.1)',
+      paddingLeft: 15,
+      paddingVertical: 8,
+      paddingRight: 8,
+      marginRight: 8,
+    },
+    icon: {
+      color: variables.text.color,
+    }
+  },
+
+  'shoutem.ui.YearRangePickerModal': {
+    outerContainer: {
+      flex: 1,
+    },
+    container: {
+      height: 360,
+      padding: 8,
+      backgroundColor: '#F9F9F9',
+      borderWidth: 1,
+      borderRadius: 8,
+      borderColor: 'rgba(130, 130, 130, 0.1)',
+      marginHorizontal: 15,
+    },
+    tooltipContainer: {
+      flexDirection: 'row',
+      flex: 1,
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      padding: 8,
+      height: 56,
+    },
+    yearRow: {
+      flexDirection: 'row',
+      flex: 1,
+    },
+    buttonContainer: {
+      flexDirection: 'row',
+      padding: 8,
+      height: 56,
+    },
+    yearContainer: {
+      flex: 1,
+      alignSelf: 'stretch',
+      flexDirection: 'row',
+      marginBottom: 5,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    year: {
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    yearSelected: {
+      backgroundColor: variables.featuredColor,
+    },
+    yearFirst: {
+      left: 5,
+      borderTopLeftRadius: 8,
+      borderBottomLeftRadius: 8,
+    },
+    yearLast: {
+      right: 5,
+      borderTopRightRadius: 8,
+      borderBottomRightRadius: 8,
+    },
+    icon: {
+      color: variables.text.color,
+      opacity: 1,
+    },
+    iconDisabled: {
+      opacity: 0.3,
+    }
   },
 });

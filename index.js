@@ -72,10 +72,13 @@ export { Tile } from './components/Tile';
 
 export { Lightbox } from './components/Lightbox';
 
+export { InlineDropDownMenu } from './components/InlineDropDownMenu';
 export { EmptyStateView } from './components/EmptyStateView';
 export { EmptyListImage } from './components/EmptyListImage';
 export { NumberInput } from './components/NumberInput';
 export { SearchField } from './components/SearchField';
+export { TabMenu } from './components/TabMenu';
+export { YearRangePicker } from './components/YearRangePicker';
 
 export { Examples } from './examples/components';
 
