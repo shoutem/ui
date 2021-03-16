@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import autoBindReact from 'auto-bind/react';
 import PropTypes from 'prop-types';
 import { TextInput as RNTextInput } from 'react-native';
-import { connectAnimation } from '@shoutem/animation';
+import { connectAnimation, Wiggle } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
 import { Caption } from './Text';
 import { View } from './View';
@@ -27,7 +27,13 @@ class TextInput extends PureComponent {
   }
 
   render() {
-    const { errorMessage, highlightOnFocus, style, ...otherProps } = this.props;
+    const {
+      errorMessage,
+      highlightOnFocus,
+      startErrorAnimation,
+      style,
+      ...otherProps
+    } = this.props;
     const { isFocused } = this.state;
 
     const {
@@ -44,19 +50,21 @@ class TextInput extends PureComponent {
 
     return (
       <View>
-        <RNTextInput
-          {...otherProps}
-          onBlur={this.handleBlur}
-          onFocus={this.handleFocus}
-          placeholderTextColor={placeholderTextColor}
-          selectionColor={selectionColor}
-          underlineColorAndroid={underlineColorAndroid}
-          style={{
-            ...otherStyle,
-            ...(hasBorder ? withBorder : withoutBorder),
-            ...(!!errorMessage ? errorBorderColor : {}),
-          }}
-        />
+        <Wiggle startAnimation={startErrorAnimation}>
+          <RNTextInput
+            {...otherProps}
+            onBlur={this.handleBlur}
+            onFocus={this.handleFocus}
+            placeholderTextColor={placeholderTextColor}
+            selectionColor={selectionColor}
+            underlineColorAndroid={underlineColorAndroid}
+            style={{
+              ...otherStyle,
+              ...(hasBorder ? withBorder : withoutBorder),
+              ...(!!errorMessage ? errorBorderColor : {}),
+            }}
+          />
+        </Wiggle>
         {!!errorMessage && (
           <Caption styleName="form-error sm-gutter-top">{errorMessage}</Caption>
         )}
