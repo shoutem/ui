@@ -77,7 +77,12 @@ class SimpleHtml extends PureComponent {
     return <Text style={style.prefix}>• </Text>;
   }
 
-  renderOrderedListPrefix(passProps) {
+  renderOrderedListPrefix(
+    htmlAttribs,
+    children,
+    convertedCSSStyles,
+    passProps,
+  ) {
     const { style } = this.props;
 
     return <Text style={style.prefix}>{passProps.index + 1}. </Text>;
