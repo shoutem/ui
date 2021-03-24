@@ -1,11 +1,11 @@
-import React, { PureComponent } from 'react';
-import autoBindReact from 'auto-bind/react';
-import PropTypes from 'prop-types';
-import { TextInput as RNTextInput } from 'react-native';
-import { connectAnimation, Wiggle } from '@shoutem/animation';
-import { connectStyle } from '@shoutem/theme';
-import { Caption } from './Text';
-import { View } from './View';
+import React, { PureComponent } from "react";
+import autoBindReact from "auto-bind/react";
+import PropTypes from "prop-types";
+import { TextInput as RNTextInput } from "react-native";
+import { connectAnimation, Wiggle } from "@shoutem/animation";
+import { connectStyle } from "@shoutem/theme";
+import { Caption } from "./Text";
+import { View } from "./View";
 
 class TextInput extends PureComponent {
   constructor(props) {
@@ -14,7 +14,7 @@ class TextInput extends PureComponent {
     autoBindReact(this);
 
     this.state = {
-      isFocused: props.highlightOnFocus && props.autoFocus,
+      isFocused: props.highlightOnFocus && props.autoFocus
     };
   }
 
@@ -27,13 +27,7 @@ class TextInput extends PureComponent {
   }
 
   render() {
-    const {
-      errorMessage,
-      highlightOnFocus,
-      startErrorAnimation,
-      style,
-      ...otherProps
-    } = this.props;
+    const { errorMessage, highlightOnFocus, style, ...otherProps } = this.props;
     const { isFocused } = this.state;
 
     const {
@@ -51,7 +45,7 @@ class TextInput extends PureComponent {
 
     return (
       <View>
-        <Wiggle style={wiggleAnimation} startAnimation={startErrorAnimation}>
+        <Wiggle style={wiggleAnimation} startAnimation={!!errorMessage}>
           <RNTextInput
             {...otherProps}
             onBlur={this.handleBlur}
@@ -62,7 +56,7 @@ class TextInput extends PureComponent {
             style={{
               ...otherStyle,
               ...(hasBorder ? withBorder : withoutBorder),
-              ...(!!errorMessage ? errorBorderColor : {}),
+              ...(!!errorMessage ? errorBorderColor : {})
             }}
           />
         </Wiggle>
@@ -76,10 +70,10 @@ class TextInput extends PureComponent {
 
 TextInput.propTypes = {
   ...RNTextInput.propTypes,
-  style: PropTypes.object,
+  style: PropTypes.object
 };
 
 const AnimatedTextInput = connectAnimation(TextInput);
-const StyledTextInput = connectStyle('shoutem.ui.TextInput')(AnimatedTextInput);
+const StyledTextInput = connectStyle("shoutem.ui.TextInput")(AnimatedTextInput);
 
 export { StyledTextInput as TextInput };
