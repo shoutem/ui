@@ -2044,9 +2044,19 @@ export default (variables = defaultThemeVariables) => ({
     errorBorderColor: {
       borderColor: variables.errorText.color,
     },
+
+    wiggleAnimation: {
+      interpolateConfig: {
+        inputRange: [0, 0.5, 1, 1.5, 2, 2.5, 3],
+        outputRange: [0, -5, 0, 5, 0, -5, 0],
+      },
+      paddingHorizontal: 5,
+    },
+
     withBorder: {
       borderWidth: 1,
     },
+
     withoutBorder: {
       borderWidth: 0,
     },
@@ -2674,12 +2684,11 @@ export default (variables = defaultThemeVariables) => ({
     '.full-screen': {
       title: {
         container: {
-          // We want the title background gradient to be	
-          // visible underneath the navigation bar, but the	
-          // title text should be rendered below the	
+          // We want the title background gradient to be
+          // visible underneath the navigation bar, but the
+          // title text should be rendered below the
           // navigation bar.
-          paddingTop:
-            NAVIGATION_BAR_HEIGHT + variables.mediumGutter
+          paddingTop: NAVIGATION_BAR_HEIGHT + variables.mediumGutter,
         },
       },
     },
@@ -2897,7 +2906,7 @@ export default (variables = defaultThemeVariables) => ({
     },
     icon: {
       color: variables.text.color,
-    }
+    },
   },
 
   'shoutem.ui.InlineDropDownMenuItem': {
@@ -2940,7 +2949,7 @@ export default (variables = defaultThemeVariables) => ({
     selectedText: {
       marginBottom: 4,
       opacity: 1,
-    }
+    },
   },
 
   'shoutem.ui.YearRangePickerButton': {
@@ -2958,7 +2967,7 @@ export default (variables = defaultThemeVariables) => ({
     },
     icon: {
       color: variables.text.color,
-    }
+    },
   },
 
   'shoutem.ui.YearRangePickerModal': {
@@ -3027,6 +3036,6 @@ export default (variables = defaultThemeVariables) => ({
     },
     iconDisabled: {
       opacity: 0.3,
-    }
+    },
   },
 });

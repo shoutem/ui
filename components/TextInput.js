@@ -43,6 +43,7 @@ class TextInput extends PureComponent {
       underlineColorAndroid,
       withBorder,
       withoutBorder,
+      wiggleAnimation,
       ...otherStyle
     } = style;
 
@@ -50,7 +51,7 @@ class TextInput extends PureComponent {
 
     return (
       <View>
-        <Wiggle startAnimation={startErrorAnimation}>
+        <Wiggle style={wiggleAnimation} startAnimation={startErrorAnimation}>
           <RNTextInput
             {...otherProps}
             onBlur={this.handleBlur}
