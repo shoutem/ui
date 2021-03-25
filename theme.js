@@ -2050,6 +2050,9 @@ export default (variables = defaultThemeVariables) => ({
         inputRange: [0, 0.5, 1, 1.5, 2, 2.5, 3],
         outputRange: [0, -5, 0, 5, 0, -5, 0],
       },
+      timingConfig: {
+        duration: 400,
+      },
       paddingHorizontal: 5,
     },
 

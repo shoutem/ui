@@ -27,7 +27,13 @@ class TextInput extends PureComponent {
   }
 
   render() {
-    const { errorMessage, highlightOnFocus, style, ...otherProps } = this.props;
+    const {
+      animate,
+      errorMessage,
+      highlightOnFocus,
+      style,
+      ...otherProps
+    } = this.props;
     const { isFocused } = this.state;
 
     const {
@@ -42,10 +48,11 @@ class TextInput extends PureComponent {
     } = style;
 
     const hasBorder = (isFocused && highlightOnFocus) || !!errorMessage;
+    const startErrorAnimation = animate && !!errorMessage;
 
     return (
       <View>
-        <Wiggle style={wiggleAnimation} startAnimation={!!errorMessage}>
+        <Wiggle style={wiggleAnimation} startAnimation={startErrorAnimation}>
           <RNTextInput
             {...otherProps}
             onBlur={this.handleBlur}
@@ -70,7 +77,12 @@ class TextInput extends PureComponent {
 
 TextInput.propTypes = {
   ...RNTextInput.propTypes,
+  animate: PropTypes.bool,
   style: PropTypes.object,
+};
+
+TextInput.defaultProps = {
+  animate: true,
 };
 
 const AnimatedTextInput = connectAnimation(TextInput);
