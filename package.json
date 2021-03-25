@@ -9,7 +9,7 @@
     "test": "mocha '_tests_/*.js' --require react-native-mock-render/mock --require @babel/register"
   },
   "dependencies": {
-    "@shoutem/animation": "git://github.com/shoutem/animation.git#472c141",
+    "@shoutem/animation": "git://github.com/shoutem/animation.git#5d358fe",
     "@shoutem/eslint-config-react": "^1.0.1",
     "@shoutem/theme": "~0.12.0",
     "auto-bind": "^4.0.0",
