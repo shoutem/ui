@@ -1,6 +1,6 @@
 {
   "name": "@shoutem/ui",
-  "version": "4.3.1",
+  "version": "4.4.0",
   "description": "Styleable set of components for React Native applications",
   "scripts": {
     "lint": "eslint .",
