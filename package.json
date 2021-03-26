@@ -1,6 +1,6 @@
 {
   "name": "@shoutem/ui",
-  "version": "4.3.0",
+  "version": "4.4.0",
   "description": "Styleable set of components for React Native applications",
   "scripts": {
     "lint": "eslint .",
@@ -9,7 +9,7 @@
     "test": "mocha '_tests_/*.js' --require react-native-mock-render/mock --require @babel/register"
   },
   "dependencies": {
-    "@shoutem/animation": "git://github.com/shoutem/animation.git#28b97e8",
+    "@shoutem/animation": "~0.14.0",
     "@shoutem/eslint-config-react": "^1.0.1",
     "@shoutem/theme": "~0.12.0",
     "auto-bind": "^4.0.0",
