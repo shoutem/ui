@@ -88,7 +88,7 @@ class SimpleHtml extends PureComponent {
       const brNodes = _.filter(children, { name: 'br' });
       const lastBrNode = _.last(brNodes);
 
-      if (lastBrNode.next === null) {
+      if (lastBrNode && lastBrNode.next === null) {
         const lastBrNodeIndex = _.indexOf(children, lastBrNode);
         return children.splice(0, lastBrNodeIndex);
       }
