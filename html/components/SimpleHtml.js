@@ -71,6 +71,32 @@ class SimpleHtml extends PureComponent {
     return false;
   }
 
+  /**
+   * Removes child break node in case when it's positioned at the end
+   * of parent div node and div has content in it.
+   * Example:
+   * <div>first line<br></div>
+   * <div>second line<br></div>
+   *
+   * If br is left as is, <Html> will show empty line under div, not just
+   * break into new line
+   */
+  alterChildren(node) {
+    const { children, name } = node;
+
+    if ((name === 'div' || name === 'p') && children && children.length > 1) {
+      const brNodes = _.filter(children, { name: 'br' });
+      const lastBrNode = _.last(brNodes);
+
+      if (lastBrNode && lastBrNode.next === null) {
+        const lastBrNodeIndex = _.indexOf(children, lastBrNode);
+        return children.splice(0, lastBrNodeIndex);
+      }
+    }
+
+    return children;
+  }
+
   renderUnorderedListPrefix() {
     const { style } = this.props;
 
@@ -113,6 +139,7 @@ class SimpleHtml extends PureComponent {
       ignoredStyles: ['font-family', 'letter-spacing', 'transform'],
       onLinkPress: this.onLinkPress,
       alterNode: this.alterNode,
+      alterChildren: this.alterChildren,
       listsPrefixesRenderers: listPrefixRenderers,
     };
 
