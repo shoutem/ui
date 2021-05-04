@@ -45,13 +45,14 @@ class ShareButton extends PureComponent {
   }
 
   render() {
-    const { animationName } = this.props;
+    const { animationName, iconProps } = this.props;
 
     return (
       <Button onPress={this.onShare}>
         <Icon
           name={Platform.OS === 'ios' ? 'share' : 'share-android'}
           animationName={animationName}
+          {...iconProps}
         />
       </Button>
     );
