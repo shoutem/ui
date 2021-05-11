@@ -1550,25 +1550,6 @@ export default (variables = defaultThemeVariables) => ({
       },
       paddingHorizontal: 9,
     },
-
-    'shoutem.ui.DropDownMenu': {
-      selectedOption: {
-        'shoutem.ui.Icon': {
-          color: variables.navBarIconsColor,
-        },
-        'shoutem.ui.Text': {
-          ...variables.navBarText,
-          fontFamily: resolveFontFamily(
-            variables.navBarText.fontFamily,
-            'normal',
-            variables.navBarText.fontStyle,
-          ),
-          fontWeight: resolveFontWeight('normal'),
-          fontStyle: resolveFontStyle(variables.navBarText.fontStyle),
-          color: variables.navBarIconsColor,
-        },
-      },
-    },
   },
 
   'shoutem.ui.NavigationBar': {
@@ -2024,6 +2005,25 @@ export default (variables = defaultThemeVariables) => ({
           'shoutem.ui.Text': {
             color: variables.featuredNavBarTitleColor,
           },
+        },
+      },
+    },
+
+    '.navBar': {
+      selectedOption: {
+        'shoutem.ui.Icon': {
+          color: variables.navBarIconsColor,
+        },
+        'shoutem.ui.Text': {
+          ...variables.navBarText,
+          fontFamily: resolveFontFamily(
+            variables.navBarText.fontFamily,
+            'normal',
+            variables.navBarText.fontStyle,
+          ),
+          fontWeight: resolveFontWeight('normal'),
+          fontStyle: resolveFontStyle(variables.navBarText.fontStyle),
+          color: variables.navBarIconsColor,
         },
       },
     },
