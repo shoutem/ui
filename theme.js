@@ -1610,7 +1610,34 @@ export default (variables = defaultThemeVariables) => ({
         borderBottomWidth: 0,
         shadowOpacity: 0,
       },
-    }
+    },
+
+    boxingAnimation(driver) {
+      return {
+        borderBottomColor: driver.interpolate({
+          // Animate to approx title top offset
+          inputRange: [0, 45],
+          outputRange: ['transparent', variables.navBarBorderColor],
+          extrapolate: 'clamp',
+        }),
+        borderBottomWidth: 1,
+      };
+    },
+
+    solidifyAnimation(driver) {
+      return {
+        backgroundColor: driver.interpolate({
+          inputRange: [250, 300],
+          outputRange: ['transparent', variables.navBarBackground],
+          extrapolate: 'clamp',
+        }),
+        borderBottomColor: driver.interpolate({
+          inputRange: [250, 300],
+          outputRange: ['transparent', variables.navBarBorderColor],
+          extrapolate: 'clamp',
+        }),
+      };
+    },
   },
   'shoutem.ui.navigation.NavigationBar': {
     [INCLUDE]: ['navigationBar'],
