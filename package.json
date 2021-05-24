@@ -28,7 +28,7 @@
     "react-native-modal": "11.7.0",
     "react-native-render-html": "~4.2.0",
     "react-native-status-bar-height": "2.5.0",
-    "react-native-svg": "^9.13.0",
+    "react-native-svg": "^12.1.1",
     "react-native-svg-transformer": "^0.14.3",
     "react-native-transformable-image": "shoutem/react-native-transformable-image#v0.0.20",
     "react-native-vector-icons": "~6.6.0",
