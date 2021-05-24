@@ -1614,28 +1614,53 @@ export default (variables = defaultThemeVariables) => ({
 
     boxingAnimation(driver) {
       return {
-        borderBottomColor: driver.interpolate({
-          // Animate to approx title top offset
-          inputRange: [0, 45],
-          outputRange: ['transparent', variables.navBarBorderColor],
-          extrapolate: 'clamp',
-        }),
-        borderBottomWidth: 1,
+        container: {
+          borderBottomColor: driver.interpolate({
+            // Animate to approx title top offset
+            inputRange: [0, 45],
+            outputRange: ['transparent', variables.navBarBorderColor],
+            extrapolate: 'clamp',
+          }),
+          borderBottomWidth: 1,
+        },
+        title: {
+          opacity: driver.interpolate({
+            inputRange: [250, 300],
+            outputRange: [0, 1],
+            extrapolate: 'clamp',
+          }),
+        }
       };
     },
 
     solidifyAnimation(driver) {
       return {
-        backgroundColor: driver.interpolate({
-          inputRange: [250, 300],
-          outputRange: ['transparent', variables.navBarBackground],
-          extrapolate: 'clamp',
-        }),
-        borderBottomColor: driver.interpolate({
-          inputRange: [250, 300],
-          outputRange: ['transparent', variables.navBarBorderColor],
-          extrapolate: 'clamp',
-        }),
+        icon: {
+          color: driver.interpolate({
+            inputRange: [250, 300],
+            outputRange: ['transparent', variables.navBarText.color],
+            extrapolate: 'clamp',
+          }),
+        },
+        title: {
+          color: driver.interpolate({
+            inputRange: [250, 300],
+            outputRange: ['transparent', variables.navBarText.color],
+            extrapolate: 'clamp',
+          }),
+        },
+        container: {
+          backgroundColor: driver.interpolate({
+            inputRange: [250, 300],
+            outputRange: ['transparent', variables.navBarBackground],
+            extrapolate: 'clamp',
+          }),
+          borderBottomColor: driver.interpolate({
+            inputRange: [250, 300],
+            outputRange: ['transparent', variables.navBarBorderColor],
+            extrapolate: 'clamp',
+          }),
+        }
       };
     },
   },
