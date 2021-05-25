@@ -42,7 +42,8 @@ class SimpleHtml extends PureComponent {
   /**
    * Removes empty (therefore invalid) style attribute properties
    * Scales down objects with specified width and height if too large
-   * Removes padding and height from suneditor for
+   * Removes padding and height from suneditor for 'figure' tag that it nests
+   * video iframe tags in when video format is unsupported
    */
   alterNode(node) {
     const { style } = this.props;
@@ -50,17 +51,17 @@ class SimpleHtml extends PureComponent {
     const styleAttrib = _.get(node, 'attribs.style', '').trim();
 
     if (node.name === 'figure') {
-      const firstChild = _.get(node, 'children.0');
+      const firstChild = _.head(node.children);
+
       if (firstChild.name === 'iframe') {
         const nodeStyle = cssStringToObject(styleAttrib);
         const source = _.get(firstChild, 'attribs.src', '');
 
-        if (!isValidVideoFormat(source)) {
-          delete nodeStyle.height;
-          delete nodeStyle['padding-bottom'];
-        }
+        const resolvedNodeStyle = !isValidVideoFormat(source) ?
+          _.omit(nodeStyle, ['height', 'padding-bottom']) :
+          nodeStyle;
 
-        node.attribs.style = cssObjectToString(nodeStyle);
+        node.attribs.style = cssObjectToString(resolvedNodeStyle);
 
         return node;
       }
