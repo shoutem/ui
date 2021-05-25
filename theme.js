@@ -1524,6 +1524,14 @@ export default (variables = defaultThemeVariables) => ({
       paddingHorizontal: 9,
     },
 
+    'shoutem.ui.ShareButton': {
+      '.clear': {
+        'shoutem.ui.Button': {
+          [INCLUDE]: ['clearButton'],
+        },
+      },
+    },
+
     'shoutem.ui.Button': {
       [INCLUDE]: ['clearButton', 'tightButton'],
       'shoutem.ui.Icon': {
