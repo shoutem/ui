@@ -2356,6 +2356,16 @@ export default (variables = defaultThemeVariables) => ({
     container: {
       padding: variables.mediumGutter,
     },
+    video: {
+      // 16:9 ratio covers majority of YouTube videos
+      width: dimensionRelativeToIphone(345),
+      height: dimensionRelativeToIphone(194),
+      paddingBottom: variables.smallGutter,
+    },
+    fallback: {
+      width: window.width,
+      height: 40,
+    },
   },
   'shoutem.ui.Html': {
     container: {

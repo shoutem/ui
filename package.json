@@ -24,8 +24,8 @@
     "qs": "6.9.3",
     "react-native-lightbox": "shoutem/react-native-lightbox#v0.7.2",
     "react-native-linear-gradient": "~2.5.6",
-    "react-native-photo-view": "shoutem/react-native-photo-view#0ffa1481f6b6cb8663cb291b7db1d6644440584d",
     "react-native-modal": "11.7.0",
+    "react-native-photo-view": "shoutem/react-native-photo-view#0ffa1481f6b6cb8663cb291b7db1d6644440584d",
     "react-native-render-html": "~4.2.0",
     "react-native-status-bar-height": "2.5.0",
     "react-native-svg": "^9.13.0",
@@ -33,6 +33,7 @@
     "react-native-transformable-image": "shoutem/react-native-transformable-image#v0.0.20",
     "react-native-vector-icons": "~6.6.0",
     "react-native-webview": "~11.0.0",
+    "react-native-youtube-iframe": "~2.0.1",
     "stream": "0.0.2",
     "tinycolor2": "1.4.1"
   },
