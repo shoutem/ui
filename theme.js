@@ -1644,9 +1644,9 @@ export default (variables = defaultThemeVariables) => ({
     solidifyAnimation(driver) {
       return {
         icon: {
-          color: driver.interpolate({
+          opacity: driver.interpolate({
             inputRange: [250, 300],
-            outputRange: ['transparent', variables.navBarText.color],
+            outputRange: [0, 1],
             extrapolate: 'clamp',
           }),
         },
@@ -1670,6 +1670,21 @@ export default (variables = defaultThemeVariables) => ({
           }),
         }
       };
+    },
+
+    fadeAnimation(driver) {
+      return {
+        container: {
+          gradient: {
+            colors: ['transparent', 'rgba(0, 0, 0, 0.5)', 'transparent'],
+            locations: [0.0, 0.25, 1.0],
+            opacity: driver.interpolate({
+              inputRange: [250, 300],
+              outputRange: [1, 0],
+            }),
+          },
+        }
+      }
     },
   },
   'shoutem.ui.navigation.NavigationBar': {
@@ -1746,43 +1761,6 @@ export default (variables = defaultThemeVariables) => ({
       right: 0,
       top: 0,
       width: window.width,
-    },
-  },
-
-  'shoutem.ui.navigation.CardStack': {
-    '.without-transitions': {
-      interpolateCardStyle(props) {
-        const { navigationState, scene } = props;
-
-        const focused = navigationState.index === scene.index;
-        const opacity = focused ? 1 : 0;
-        const translate = focused ? 0 : 1000000;
-        return {
-          opacity,
-          transform: [{ translateX: translate }, { translateY: translate }],
-        };
-      },
-    },
-
-    cardStack: {
-      backgroundColor: variables.backgroundColor,
-    },
-    card: {
-      backgroundColor: variables.backgroundColor,
-    },
-    sceneContainer: {
-      // This container is currently created only
-      // when the navigation bar is rendered inline
-      // with the screen.
-      'shoutem.ui.Screen': {
-        '.full-screen': {
-          marginTop: 0,
-        },
-      },
-
-      flex: 1,
-      flexDirection: 'column-reverse',
-      backgroundColor: variables.backgroundColor,
     },
   },
 
