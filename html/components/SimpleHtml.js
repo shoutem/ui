@@ -8,10 +8,13 @@ import {
   cssStringToObject,
   cssObjectToString,
 } from 'react-native-render-html/src/HTMLStyles';
+import { iframe } from 'react-native-render-html/src/HTMLRenderers';
+import YoutubePlayer from 'react-native-youtube-iframe';
 import { connectStyle } from '@shoutem/theme';
 import { View } from '../../components/View';
 import { Text } from '../../components/Text';
 import getEmptyObjectKeys from '../services/getEmptyObjectKeys';
+import isValidVideoFormat from '../services/isValidVideoFormat';
 
 class SimpleHtml extends PureComponent {
   static propTypes = {
@@ -19,6 +22,7 @@ class SimpleHtml extends PureComponent {
     style: PropTypes.object,
     customTagStyles: PropTypes.object,
     customHandleLinkPress: PropTypes.func,
+    unsupportedVideoFormatMessage: PropTypes.string,
   };
 
   constructor(props) {
@@ -38,11 +42,31 @@ class SimpleHtml extends PureComponent {
   /**
    * Removes empty (therefore invalid) style attribute properties
    * Scales down objects with specified width and height if too large
+   * Removes padding and height from suneditor for 'figure' tag that it nests
+   * video iframe tags in when video format is unsupported
    */
   alterNode(node) {
     const { style } = this.props;
 
     const styleAttrib = _.get(node, 'attribs.style', '').trim();
+
+    if (node.name === 'figure') {
+      const firstChild = _.head(node.children);
+
+      if (firstChild.name === 'iframe') {
+        const nodeStyle = cssStringToObject(styleAttrib);
+        const source = _.get(firstChild, 'attribs.src', '');
+
+        const resolvedNodeStyle = !isValidVideoFormat(source) ?
+          _.omit(nodeStyle, ['height', 'padding-bottom']) :
+          nodeStyle;
+
+        node.attribs.style = cssObjectToString(resolvedNodeStyle);
+
+        return node;
+      }
+    }
+
     const nodeWidth = _.get(node, 'attribs.width', false);
 
     if (!styleAttrib && !nodeWidth) {
@@ -114,6 +138,46 @@ class SimpleHtml extends PureComponent {
     return <Text style={style.prefix}>{passProps.index + 1}. </Text>;
   }
 
+  renderIframe(htmlAttribs, children, convertedCSSStyles, passProps) {
+    const { style } = this.props;
+
+    const url = htmlAttribs?.src;
+
+    if (url && !isValidVideoFormat(url)) {
+      const { unsupportedVideoFormatMessage } = this.props;
+
+      const message =
+        unsupportedVideoFormatMessage || 'Unsupported video format.';
+
+      return (
+        <View
+          style={style.fallback}
+          styleName="vertical h-center v-center"
+          key={passProps.key}
+        >
+          <Text>{message}</Text>
+        </View>
+      );
+    }
+
+    if (url && (url.includes('youtube') || url.includes('youtu.be'))) {
+      const youtubeIdRegEx = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+      const regExMatch = url.match(youtubeIdRegEx);
+      const youtubeId =
+        regExMatch && regExMatch[7].length === 11 ? regExMatch[7] : false;
+
+      return (
+        <YoutubePlayer
+          height={style.video.height}
+          key={passProps.key}
+          videoId={youtubeId}
+        />
+      );
+    }
+
+    return iframe(htmlAttribs, children, convertedCSSStyles, passProps);
+  }
+
   render() {
     const { style, body, customTagStyles, ...otherProps } = this.props;
 
@@ -130,6 +194,10 @@ class SimpleHtml extends PureComponent {
       ol: this.renderOrderedListPrefix,
     };
 
+    const customRenderers = {
+      iframe: this.renderIframe,
+    };
+
     const htmlProps = {
       html: body,
       imagesMaxWidth: maxWidth,
@@ -141,6 +209,7 @@ class SimpleHtml extends PureComponent {
       alterNode: this.alterNode,
       alterChildren: this.alterChildren,
       listsPrefixesRenderers: listPrefixRenderers,
+      renderers: customRenderers,
     };
 
     return (
