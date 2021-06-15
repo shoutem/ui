@@ -1424,16 +1424,16 @@ export default (variables = defaultThemeVariables) => ({
       marginBottom: 0,
     },
 
+    '.no-padding': {
+      padding: 0,
+    },
+
     flex: 1,
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
     paddingRight: variables.smallGutter,
     paddingTop: variables.smallGutter,
-
-    '.no-padding': {
-      padding: 0,
-    },
   },
 
   //
