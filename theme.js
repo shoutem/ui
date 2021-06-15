@@ -1430,6 +1430,10 @@ export default (variables = defaultThemeVariables) => ({
     justifyContent: 'space-between',
     paddingRight: variables.smallGutter,
     paddingTop: variables.smallGutter,
+
+    '.no-padding': {
+      padding: 0,
+    },
   },
 
   //
