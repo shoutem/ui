@@ -1668,7 +1668,12 @@ export default (variables = defaultThemeVariables) => ({
             outputRange: ['transparent', variables.navBarBorderColor],
             extrapolate: 'clamp',
           }),
-        }
+          opacity: driver.interpolate({
+            inputRange: [250, 300],
+            outputRange: [0, 1],
+            extrapolate: 'clamp',
+          }),
+        },
       };
     },
 
