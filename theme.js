@@ -3060,4 +3060,20 @@ export default (variables = defaultThemeVariables) => ({
       opacity: 0.3,
     },
   },
+
+  'shoutem.ui.DateTimePicker': {
+    buttonContainer: {
+      width: 50,
+      height: 50,
+      backgroundColor: '#222222',
+    },
+    icon: { color: '#FFFFFF', height: 30, width: 30 },
+    modalButton: { width: 100, margin: 'auto' },
+    modalButtonContainer: { height: 80 },
+    modalContainer: { backgroundColor: '#FFFFFF' },
+    textContainer: {
+      borderColor: '#C2C2C2',
+      borderWidth: 1,
+    },
+  },
 });

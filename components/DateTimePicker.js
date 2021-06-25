@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import RNCDateTimePicker from '@react-native-community/datetimepicker';
 import autoBindReact from 'auto-bind/react';
+import PropTypes from 'prop-types';
 import { Platform } from 'react-native';
 import Modal from 'react-native-modal';
 import { connectStyle } from '@shoutem/theme';
@@ -43,36 +44,24 @@ class DateTimePicker extends PureComponent {
   }
 
   render() {
-    const { textValue } = this.props;
+    const { confirmButtonText, is24Hour, mode, textValue, style } = this.props;
     const { showPicker, value } = this.state;
 
     return (
       <View styleName="horizontal">
         <TouchableOpacity
-          onPress={this.handleShowPicker}
           styleName="flexible md-gutter"
-          style={{
-            padding: 15,
-            borderColor: '#C2C2C2',
-            borderWidth: 1,
-          }}
+          style={style.textContainer}
+          onPress={this.handleShowPicker}
         >
           <Text> {textValue}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={this.handleShowPicker}
-          style={{
-            width: 50,
-            height: 50,
-            backgroundColor: '#222222',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
+          styleName="h-center v-center"
+          style={style.buttonContainer}
         >
-          <Icon
-            name="drop-down"
-            style={{ color: '#FFFFFF', height: 30, width: 30 }}
-          />
+          <Icon name="drop-down" style={style.icon} />
         </TouchableOpacity>
         <Modal
           backdropOpacity={0.5}
@@ -80,20 +69,20 @@ class DateTimePicker extends PureComponent {
           hasBackdrop
           onBackdropPress={this.handleHidePicker}
         >
-          <View styleName="md-gutter" style={{ backgroundColor: '#FFFFFF' }}>
+          <View styleName="md-gutter" style={style.modalContainer}>
             <RNCDateTimePicker
-              mode="time"
+              mode={mode}
               value={value}
-              is24Hour={false}
+              is24Hour={is24Hour}
               display={Platform.OS === 'ios' ? 'spinner' : 'default'}
               onChange={this.handleValueChanged}
             />
-            <View style={{ height: 80 }} styleName="md-gutter-top">
+            <View style={style.modalButtonContainer} styleName="md-gutter-top">
               <Button
-                style={{ width: 100, margin: 'auto' }}
+                style={style.modalButton}
                 onPress={this.handleConfirmPress}
               >
-                <Text>CONFIRM</Text>
+                <Text>{confirmButtonText}</Text>
               </Button>
             </View>
           </View>
@@ -102,6 +91,22 @@ class DateTimePicker extends PureComponent {
     );
   }
 }
+
+DateTimePicker.propTypes = {
+  confirmButtonText: PropTypes.string,
+  is24Hour: PropTypes.bool,
+  mode: PropTypes.string,
+  onValueChanged: PropTypes.func,
+  textValue: PropTypes.string,
+  value: PropTypes.instanceOf(Date),
+};
+
+DateTimePicker.defaultProps = {
+  confirmButtonText: 'Confirm',
+  is24Hour: false,
+  mode: 'datetime',
+  value: new Date(),
+};
 
 const StyledDateTimePicker = connectStyle('shoutem.ui.DateTimePicker')(
   DateTimePicker,
