@@ -98,7 +98,7 @@ DateTimePicker.propTypes = {
   mode: PropTypes.string,
   onValueChanged: PropTypes.func,
   textValue: PropTypes.string,
-  value: PropTypes.instanceOf(Date),
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
 };
 
 DateTimePicker.defaultProps = {
