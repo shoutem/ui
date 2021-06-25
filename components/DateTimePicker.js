@@ -2,11 +2,13 @@ import React, { PureComponent } from 'react';
 import RNCDateTimePicker from '@react-native-community/datetimepicker';
 import autoBindReact from 'auto-bind/react';
 import { Platform } from 'react-native';
+import Modal from 'react-native-modal';
 import { connectStyle } from '@shoutem/theme';
 import { Icon } from './Icon';
 import { Text } from './Text';
 import { TouchableOpacity } from './TouchableOpacity';
 import { View } from './View';
+import { Button } from './Button';
 
 class DateTimePicker extends PureComponent {
   constructor(props) {
@@ -16,27 +18,38 @@ class DateTimePicker extends PureComponent {
 
     this.state = {
       showPicker: false,
+      value: props.value,
     };
   }
 
-  handleOpenPicker() {
-    const { showPicker } = this.state;
-    this.setState({ showPicker: !showPicker });
+  handleValueChanged(event, value) {
+    this.setState({ value });
   }
 
-  handleTimeSelected(time) {
-    console.log(time)
-    this.setState({showPicker: false})
+  handleShowPicker() {
+    this.setState({ showPicker: true });
+  }
+
+  handleHidePicker() {
+    this.setState({ showPicker: false });
+  }
+
+  handleConfirmPress() {
+    const { onValueChanged } = this.props;
+    const { value } = this.state;
+
+    onValueChanged(value);
+    this.handleHidePicker();
   }
 
   render() {
-    const { showPicker } = this.state;
-    console.log(showPicker)
+    const { textValue } = this.props;
+    const { showPicker, value } = this.state;
 
     return (
       <View styleName="horizontal">
         <TouchableOpacity
-          onPress={this.handleOpenPicker}
+          onPress={this.handleShowPicker}
           styleName="flexible md-gutter"
           style={{
             padding: 15,
@@ -44,10 +57,10 @@ class DateTimePicker extends PureComponent {
             borderWidth: 1,
           }}
         >
-          <Text> 10:30 AM </Text>
+          <Text> {textValue}</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={this.handleOpenPicker}
+          onPress={this.handleShowPicker}
           style={{
             width: 50,
             height: 50,
@@ -61,21 +74,37 @@ class DateTimePicker extends PureComponent {
             style={{ color: '#FFFFFF', height: 30, width: 30 }}
           />
         </TouchableOpacity>
+        <Modal
+          backdropOpacity={0.5}
+          isVisible={showPicker}
+          hasBackdrop
+          onBackdropPress={this.handleHidePicker}
+        >
+          <View styleName="md-gutter" style={{ backgroundColor: '#FFFFFF' }}>
+            <RNCDateTimePicker
+              mode="time"
+              value={value}
+              is24Hour={false}
+              display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+              onChange={this.handleValueChanged}
+            />
+            <View style={{ height: 80 }} styleName="md-gutter-top">
+              <Button
+                style={{ width: 100, margin: 'auto' }}
+                onPress={this.handleConfirmPress}
+              >
+                <Text>CONFIRM</Text>
+              </Button>
+            </View>
+          </View>
+        </Modal>
       </View>
-      // {showPicker && (
-      //   <View style={{ position:'absolute', zIndex: 500, width: 500, height: 500, borderColor: 'red', borderWidth: 2}}>
-      //     <RNCDateTimePicker
-      //       mode="time"
-      //       value={new Date()}
-      //       is24Hour={false}
-      //       display={Platform.OS === 'ios' ? 'compact' : 'default'}
-      //       onChange={this.handleTimeSelected}
-      //     />
-      //   </View>
-      // )}
     );
   }
 }
 
-const StyledDateTimePicker = connectStyle('shoutem.ui.DateTimePicker')(DateTimePicker);
+const StyledDateTimePicker = connectStyle('shoutem.ui.DateTimePicker')(
+  DateTimePicker,
+);
+
 export { StyledDateTimePicker as DateTimePicker };
