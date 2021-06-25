@@ -1178,7 +1178,7 @@ export default (variables = defaultThemeVariables) => ({
   // Buttons
   //
   'shoutem.ui.TouchableOpacity': {
-    [INCLUDE]: ['commonVariants'],
+    [INCLUDE]: ['commonVariants', 'guttersPadding'],
 
     activeOpacity: 0.8,
   },
