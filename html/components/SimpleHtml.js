@@ -8,6 +8,14 @@ import {
   cssStringToObject,
   cssObjectToString,
 } from 'react-native-render-html/src/HTMLStyles';
+import WebView from 'react-native-webview';
+import {
+  makeTableRenderer,
+  alterNode as tableAlterNode,
+  cssRulesFromSpecs,
+  defaultTableStylesSpecs,
+  IGNORED_TAGS,
+} from 'react-native-render-html-table-bridge';
 import { iframe } from 'react-native-render-html/src/HTMLRenderers';
 import YoutubePlayer from 'react-native-youtube-iframe';
 import { connectStyle } from '@shoutem/theme';
@@ -50,6 +58,10 @@ class SimpleHtml extends PureComponent {
 
     const styleAttrib = _.get(node, 'attribs.style', '').trim();
 
+    if (node.name === 'table') {
+      return tableAlterNode(node);
+    }
+
     if (node.name === 'figure') {
       const firstChild = _.head(node.children);
 
@@ -57,9 +69,9 @@ class SimpleHtml extends PureComponent {
         const nodeStyle = cssStringToObject(styleAttrib);
         const source = _.get(firstChild, 'attribs.src', '');
 
-        const resolvedNodeStyle = !isValidVideoFormat(source) ?
-          _.omit(nodeStyle, ['height', 'padding-bottom']) :
-          nodeStyle;
+        const resolvedNodeStyle = !isValidVideoFormat(source)
+          ? _.omit(nodeStyle, ['height', 'padding-bottom'])
+          : nodeStyle;
 
         node.attribs.style = cssObjectToString(resolvedNodeStyle);
 
@@ -194,8 +206,14 @@ class SimpleHtml extends PureComponent {
       ol: this.renderOrderedListPrefix,
     };
 
+    const cssRules = cssRulesFromSpecs({
+      ...defaultTableStylesSpecs,
+      ...style.table,
+    });
+
     const customRenderers = {
       iframe: this.renderIframe,
+      table: makeTableRenderer({ WebViewComponent: WebView, cssRules }),
     };
 
     const htmlProps = {
@@ -210,6 +228,7 @@ class SimpleHtml extends PureComponent {
       alterChildren: this.alterChildren,
       listsPrefixesRenderers: listPrefixRenderers,
       renderers: customRenderers,
+      ignoredTags: IGNORED_TAGS,
     };
 
     return (
