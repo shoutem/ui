@@ -23,10 +23,12 @@ import { View } from '../../components/View';
 import { Text } from '../../components/Text';
 import getEmptyObjectKeys from '../services/getEmptyObjectKeys';
 import isValidVideoFormat from '../services/isValidVideoFormat';
+import Image from './Image';
 
 class SimpleHtml extends PureComponent {
   static propTypes = {
     body: PropTypes.string,
+    attachments: PropTypes.array,
     style: PropTypes.object,
     customTagStyles: PropTypes.object,
     customHandleLinkPress: PropTypes.func,
@@ -150,6 +152,31 @@ class SimpleHtml extends PureComponent {
     return <Text style={style.prefix}>{passProps.index + 1}. </Text>;
   }
 
+  /**
+   * Custom rendered method for handling <attachment> tags
+   * Currently only supports rendering image attachments.
+   */
+  renderAttachments({ id, type }) {
+    const { attachments } = this.props;
+
+    if (!attachments) {
+      return null;
+    }
+
+    if (type === 'image') {
+      const image = _.find(attachments, { id });
+
+      if (image && image.src) {
+        const source = { uri: image.src };
+        const style = { height: image.height, alignSelf: 'center' };
+
+        return <Image source={source} key={id} style={style} />;
+      }
+    }
+
+    return null;
+  }
+
   renderIframe(htmlAttribs, children, convertedCSSStyles, passProps) {
     const { style } = this.props;
 
@@ -214,6 +241,7 @@ class SimpleHtml extends PureComponent {
     const customRenderers = {
       iframe: this.renderIframe,
       table: makeTableRenderer({ WebViewComponent: WebView, cssRules }),
+      attachment: this.renderAttachments,
     };
 
     const htmlProps = {
