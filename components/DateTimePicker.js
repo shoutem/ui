@@ -24,7 +24,11 @@ class DateTimePicker extends PureComponent {
   }
 
   handleValueChanged(event, value) {
-    this.setState({ value });
+    if (event.type === 'dismissed') {
+      return this.setState({ showPicker: false });
+    }
+
+    return this.setState({ value });
   }
 
   handleShowPicker() {
@@ -47,6 +51,8 @@ class DateTimePicker extends PureComponent {
     const { confirmButtonText, is24Hour, mode, textValue, style } = this.props;
     const { showPicker, value } = this.state;
 
+    const isIos = Platform.OS === 'ios';
+
     return (
       <View styleName="horizontal">
         <TouchableOpacity
@@ -63,30 +69,44 @@ class DateTimePicker extends PureComponent {
         >
           <Icon name="drop-down" style={style.icon} />
         </TouchableOpacity>
-        <Modal
-          backdropOpacity={0.5}
-          isVisible={showPicker}
-          hasBackdrop
-          onBackdropPress={this.handleHidePicker}
-        >
-          <View styleName="md-gutter" style={style.modalContainer}>
-            <RNCDateTimePicker
-              mode={mode}
-              value={value}
-              is24Hour={is24Hour}
-              display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-              onChange={this.handleValueChanged}
-            />
-            <View style={style.modalButtonContainer} styleName="md-gutter-top">
-              <Button
-                style={style.modalButton}
-                onPress={this.handleConfirmPress}
+        {isIos && (
+          <Modal
+            backdropOpacity={0.5}
+            isVisible={showPicker}
+            hasBackdrop
+            onBackdropPress={this.handleHidePicker}
+          >
+            <View styleName="md-gutter" style={style.modalContainer}>
+              <RNCDateTimePicker
+                mode={mode}
+                value={value}
+                is24Hour={is24Hour}
+                display="spinner"
+                onChange={this.handleValueChanged}
+              />
+              <View
+                style={style.modalButtonContainer}
+                styleName="md-gutter-top"
               >
-                <Text>{confirmButtonText}</Text>
-              </Button>
+                <Button
+                  style={style.modalButton}
+                  onPress={this.handleConfirmPress}
+                >
+                  <Text>{confirmButtonText}</Text>
+                </Button>
+              </View>
             </View>
-          </View>
-        </Modal>
+          </Modal>
+        )}
+        {!isIos && showPicker && (
+          <RNCDateTimePicker
+            mode={mode}
+            value={value}
+            is24Hour={is24Hour}
+            display="default"
+            onChange={this.handleValueChanged}
+          />
+        )}
       </View>
     );
   }
