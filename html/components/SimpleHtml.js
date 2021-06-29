@@ -8,10 +8,13 @@ import {
   cssStringToObject,
   cssObjectToString,
 } from 'react-native-render-html/src/HTMLStyles';
+import { iframe } from 'react-native-render-html/src/HTMLRenderers';
+import YoutubePlayer from 'react-native-youtube-iframe';
 import { connectStyle } from '@shoutem/theme';
 import { View } from '../../components/View';
 import { Text } from '../../components/Text';
 import getEmptyObjectKeys from '../services/getEmptyObjectKeys';
+import isValidVideoFormat from '../services/isValidVideoFormat';
 
 class SimpleHtml extends PureComponent {
   static propTypes = {
@@ -19,6 +22,7 @@ class SimpleHtml extends PureComponent {
     style: PropTypes.object,
     customTagStyles: PropTypes.object,
     customHandleLinkPress: PropTypes.func,
+    unsupportedVideoFormatMessage: PropTypes.string,
   };
 
   constructor(props) {
@@ -38,11 +42,31 @@ class SimpleHtml extends PureComponent {
   /**
    * Removes empty (therefore invalid) style attribute properties
    * Scales down objects with specified width and height if too large
+   * Removes padding and height from suneditor for 'figure' tag that it nests
+   * video iframe tags in when video format is unsupported
    */
   alterNode(node) {
     const { style } = this.props;
 
     const styleAttrib = _.get(node, 'attribs.style', '').trim();
+
+    if (node.name === 'figure') {
+      const firstChild = _.head(node.children);
+
+      if (firstChild.name === 'iframe') {
+        const nodeStyle = cssStringToObject(styleAttrib);
+        const source = _.get(firstChild, 'attribs.src', '');
+
+        const resolvedNodeStyle = !isValidVideoFormat(source) ?
+          _.omit(nodeStyle, ['height', 'padding-bottom']) :
+          nodeStyle;
+
+        node.attribs.style = cssObjectToString(resolvedNodeStyle);
+
+        return node;
+      }
+    }
+
     const nodeWidth = _.get(node, 'attribs.width', false);
 
     if (!styleAttrib && !nodeWidth) {
@@ -71,16 +95,87 @@ class SimpleHtml extends PureComponent {
     return false;
   }
 
+  /**
+   * Removes child break node in case when it's positioned at the end
+   * of parent div node and div has content in it.
+   * Example:
+   * <div>first line<br></div>
+   * <div>second line<br></div>
+   *
+   * If br is left as is, <Html> will show empty line under div, not just
+   * break into new line
+   */
+  alterChildren(node) {
+    const { children, name } = node;
+
+    if ((name === 'div' || name === 'p') && children && children.length > 1) {
+      const brNodes = _.filter(children, { name: 'br' });
+      const lastBrNode = _.last(brNodes);
+
+      if (lastBrNode && lastBrNode.next === null) {
+        const lastBrNodeIndex = _.indexOf(children, lastBrNode);
+        return children.splice(0, lastBrNodeIndex);
+      }
+    }
+
+    return children;
+  }
+
   renderUnorderedListPrefix() {
     const { style } = this.props;
 
     return <Text style={style.prefix}>• </Text>;
   }
 
-  renderOrderedListPrefix(passProps) {
+  renderOrderedListPrefix(
+    htmlAttribs,
+    children,
+    convertedCSSStyles,
+    passProps,
+  ) {
     const { style } = this.props;
 
     return <Text style={style.prefix}>{passProps.index + 1}. </Text>;
+  }
+
+  renderIframe(htmlAttribs, children, convertedCSSStyles, passProps) {
+    const { style } = this.props;
+
+    const url = htmlAttribs?.src;
+
+    if (url && !isValidVideoFormat(url)) {
+      const { unsupportedVideoFormatMessage } = this.props;
+
+      const message =
+        unsupportedVideoFormatMessage || 'Unsupported video format.';
+
+      return (
+        <View
+          style={style.fallback}
+          styleName="vertical h-center v-center"
+          key={passProps.key}
+        >
+          <Text>{message}</Text>
+        </View>
+      );
+    }
+
+    if (url && (url.includes('youtube') || url.includes('youtu.be'))) {
+      const youtubeIdRegEx = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+      const regExMatch = url.match(youtubeIdRegEx);
+      const youtubeId =
+        regExMatch && regExMatch[7].length === 11 ? regExMatch[7] : false;
+
+      return (
+        <YoutubePlayer
+          height={style.video.height}
+          key={passProps.key}
+          videoId={youtubeId}
+        />
+      );
+    }
+
+    return iframe(htmlAttribs, children, convertedCSSStyles, passProps);
   }
 
   render() {
@@ -99,6 +194,10 @@ class SimpleHtml extends PureComponent {
       ol: this.renderOrderedListPrefix,
     };
 
+    const customRenderers = {
+      iframe: this.renderIframe,
+    };
+
     const htmlProps = {
       html: body,
       imagesMaxWidth: maxWidth,
@@ -108,7 +207,9 @@ class SimpleHtml extends PureComponent {
       ignoredStyles: ['font-family', 'letter-spacing', 'transform'],
       onLinkPress: this.onLinkPress,
       alterNode: this.alterNode,
+      alterChildren: this.alterChildren,
       listsPrefixesRenderers: listPrefixRenderers,
+      renderers: customRenderers,
     };
 
     return (

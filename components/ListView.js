@@ -148,7 +148,7 @@ class ListView extends PureComponent {
       renderHeader,
       autoHideHeader,
     );
-    mappedProps.renderItem = data => renderRow(data.item);
+    mappedProps.renderItem = data => renderRow(data.item, data.index);
     mappedProps.ListFooterComponent = this.renderFooter;
 
     if (hasFeaturedItem && !sections) {
