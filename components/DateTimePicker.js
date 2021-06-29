@@ -11,6 +11,8 @@ import { TouchableOpacity } from './TouchableOpacity';
 import { View } from './View';
 import { Button } from './Button';
 
+const isIos = Platform.OS === 'ios';
+
 class DateTimePicker extends PureComponent {
   constructor(props) {
     super(props);
@@ -24,11 +26,18 @@ class DateTimePicker extends PureComponent {
   }
 
   handleValueChanged(event, value) {
+    if (isIos) {
+      return this.setState({ value });
+    }
+
     if (event.type === 'dismissed') {
       return this.setState({ showPicker: false });
     }
 
-    return this.setState({ value });
+    const { onValueChanged } = this.props;
+
+    this.setState({ showPicker: false });
+    return onValueChanged(value);
   }
 
   handleShowPicker() {
