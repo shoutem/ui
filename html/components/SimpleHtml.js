@@ -8,6 +8,14 @@ import {
   cssStringToObject,
   cssObjectToString,
 } from 'react-native-render-html/src/HTMLStyles';
+import WebView from 'react-native-webview';
+import {
+  makeTableRenderer,
+  alterNode as tableAlterNode,
+  cssRulesFromSpecs,
+  defaultTableStylesSpecs,
+  IGNORED_TAGS,
+} from 'react-native-render-html-table-bridge';
 import { iframe } from 'react-native-render-html/src/HTMLRenderers';
 import YoutubePlayer from 'react-native-youtube-iframe';
 import { connectStyle } from '@shoutem/theme';
@@ -15,10 +23,12 @@ import { View } from '../../components/View';
 import { Text } from '../../components/Text';
 import getEmptyObjectKeys from '../services/getEmptyObjectKeys';
 import isValidVideoFormat from '../services/isValidVideoFormat';
+import Image from './Image';
 
 class SimpleHtml extends PureComponent {
   static propTypes = {
     body: PropTypes.string,
+    attachments: PropTypes.array,
     style: PropTypes.object,
     customTagStyles: PropTypes.object,
     customHandleLinkPress: PropTypes.func,
@@ -50,6 +60,10 @@ class SimpleHtml extends PureComponent {
 
     const styleAttrib = _.get(node, 'attribs.style', '').trim();
 
+    if (node.name === 'table') {
+      return tableAlterNode(node);
+    }
+
     if (node.name === 'figure') {
       const firstChild = _.head(node.children);
 
@@ -57,9 +71,9 @@ class SimpleHtml extends PureComponent {
         const nodeStyle = cssStringToObject(styleAttrib);
         const source = _.get(firstChild, 'attribs.src', '');
 
-        const resolvedNodeStyle = !isValidVideoFormat(source) ?
-          _.omit(nodeStyle, ['height', 'padding-bottom']) :
-          nodeStyle;
+        const resolvedNodeStyle = !isValidVideoFormat(source)
+          ? _.omit(nodeStyle, ['height', 'padding-bottom'])
+          : nodeStyle;
 
         node.attribs.style = cssObjectToString(resolvedNodeStyle);
 
@@ -138,6 +152,31 @@ class SimpleHtml extends PureComponent {
     return <Text style={style.prefix}>{passProps.index + 1}. </Text>;
   }
 
+  /**
+   * Custom rendered method for handling <attachment> tags
+   * Currently only supports rendering image attachments.
+   */
+  renderAttachments({ id, type }) {
+    const { attachments } = this.props;
+
+    if (!attachments) {
+      return null;
+    }
+
+    if (type === 'image') {
+      const image = _.find(attachments, { id });
+
+      if (image && image.src) {
+        const source = { uri: image.src };
+        const style = { height: image.height, alignSelf: 'center' };
+
+        return <Image source={source} key={id} style={style} />;
+      }
+    }
+
+    return null;
+  }
+
   renderIframe(htmlAttribs, children, convertedCSSStyles, passProps) {
     const { style } = this.props;
 
@@ -194,8 +233,18 @@ class SimpleHtml extends PureComponent {
       ol: this.renderOrderedListPrefix,
     };
 
+    const tableStyle = _.get(style, 'table', {});
+    const tableCssStyle = _.get(style, 'tableCss', '');
+    const cssStyle = cssRulesFromSpecs({
+      ...defaultTableStylesSpecs,
+      ...tableStyle,
+    });
+    const cssRules = `${cssStyle}${tableCssStyle}`;
+
     const customRenderers = {
       iframe: this.renderIframe,
+      table: makeTableRenderer({ WebViewComponent: WebView, cssRules }),
+      attachment: this.renderAttachments,
     };
 
     const htmlProps = {
@@ -210,6 +259,7 @@ class SimpleHtml extends PureComponent {
       alterChildren: this.alterChildren,
       listsPrefixesRenderers: listPrefixRenderers,
       renderers: customRenderers,
+      ignoredTags: IGNORED_TAGS,
     };
 
     return (
