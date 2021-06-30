@@ -235,11 +235,11 @@ class SimpleHtml extends PureComponent {
 
     const tableStyle = _.get(style, 'table', {});
     const tableCssStyle = _.get(style, 'tableCss', '');
-    const cssRules =
-      cssRulesFromSpecs({
-        ...defaultTableStylesSpecs,
-        ...tableStyle,
-      }) + tableCssStyle;
+    const cssStyle = cssRulesFromSpecs({
+      ...defaultTableStylesSpecs,
+      ...tableStyle,
+    });
+    const cssRules = `${cssStyle}${tableCssStyle}`;
 
     const customRenderers = {
       iframe: this.renderIframe,
