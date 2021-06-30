@@ -233,10 +233,13 @@ class SimpleHtml extends PureComponent {
       ol: this.renderOrderedListPrefix,
     };
 
-    const cssRules = cssRulesFromSpecs({
-      ...defaultTableStylesSpecs,
-      ...style.table,
-    });
+    const tableStyle = _.get(style, 'table', {});
+    const tableCssStyle = _.get(style, 'tableCss', '');
+    const cssRules =
+      cssRulesFromSpecs({
+        ...defaultTableStylesSpecs,
+        ...tableStyle,
+      }) + tableCssStyle;
 
     const customRenderers = {
       iframe: this.renderIframe,
