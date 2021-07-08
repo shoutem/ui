@@ -25,6 +25,14 @@ class DateTimePicker extends PureComponent {
     };
   }
 
+  componentDidUpdate() {
+    if (!isIos) {
+      const { value } = this.props;
+
+      this.setState({ value });
+    }
+  }
+
   handleValueChanged(event, value) {
     if (isIos) {
       return this.setState({ value });
@@ -57,10 +65,15 @@ class DateTimePicker extends PureComponent {
   }
 
   render() {
-    const { confirmButtonText, is24Hour, mode, textValue, style } = this.props;
+    const {
+      confirmButtonText,
+      is24Hour,
+      mode,
+      textValue,
+      style,
+      ...otherProps
+    } = this.props;
     const { showPicker, value } = this.state;
-
-    const isIos = Platform.OS === 'ios';
 
     return (
       <View styleName="horizontal">
@@ -87,11 +100,14 @@ class DateTimePicker extends PureComponent {
           >
             <View styleName="md-gutter" style={style.modalContainer}>
               <RNCDateTimePicker
-                mode={mode}
-                value={value}
-                is24Hour={is24Hour}
                 display="spinner"
+                is24Hour={is24Hour}
+                mode={mode}
                 onChange={this.handleValueChanged}
+                textColor="light"
+                themeVariant="light"
+                value={value}
+                {...otherProps}
               />
               <View
                 style={style.modalButtonContainer}
@@ -109,11 +125,12 @@ class DateTimePicker extends PureComponent {
         )}
         {!isIos && showPicker && (
           <RNCDateTimePicker
-            mode={mode}
-            value={value}
-            is24Hour={is24Hour}
             display="default"
+            is24Hour={is24Hour}
+            mode={mode}
             onChange={this.handleValueChanged}
+            value={value}
+            {...otherProps}
           />
         )}
       </View>
