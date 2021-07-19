@@ -5,11 +5,11 @@ import PropTypes from 'prop-types';
 import { Platform } from 'react-native';
 import Modal from 'react-native-modal';
 import { connectStyle } from '@shoutem/theme';
+import { Button } from './Button';
 import { Icon } from './Icon';
 import { Text } from './Text';
 import { TouchableOpacity } from './TouchableOpacity';
 import { View } from './View';
-import { Button } from './Button';
 
 const isIos = Platform.OS === 'ios';
 
@@ -39,7 +39,7 @@ class DateTimePicker extends PureComponent {
     }
 
     if (event.type === 'dismissed') {
-      return this.setState({ showPicker: false });
+      return this.handleHidePicker();
     }
 
     const { onValueChanged } = this.props;
@@ -97,6 +97,9 @@ class DateTimePicker extends PureComponent {
             isVisible={showPicker}
             hasBackdrop
             onBackdropPress={this.handleHidePicker}
+            swipeDirection={['left', 'right']}
+            swipeThreshold={20}
+            onSwipeComplete={this.handleHidePicker}
           >
             <View styleName="md-gutter" style={style.modalContainer}>
               <RNCDateTimePicker
