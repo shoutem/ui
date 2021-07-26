@@ -1,6 +1,6 @@
 {
   "name": "@shoutem/ui",
-  "version": "4.4.8",
+  "version": "4.5.0",
   "description": "Styleable set of components for React Native applications",
   "scripts": {
     "lint": "eslint .",
@@ -9,6 +9,7 @@
     "test": "mocha '_tests_/*.js' --require react-native-mock-render/mock --require @babel/register"
   },
   "dependencies": {
+    "@react-native-community/datetimepicker": "^3.5.2",
     "@shoutem/animation": "~0.14.0",
     "@shoutem/eslint-config-react": "^1.0.1",
     "@shoutem/theme": "~0.12.0",
@@ -63,6 +64,7 @@
     "react-native-mock-render": "0.1.9"
   },
   "nativeDependencies": [
+    "@react-native-community/datetimepicker",
     "react-native-linear-gradient",
     "react-native-photo-view",
     "react-native-svg",
@@ -110,6 +112,10 @@
     {
       "email": "zeljko@shoutem.com",
       "name": "zrumenjak"
+    },
+    {
+      "email": "tomislav.arambasic@shoutem.com",
+      "name": "tomislav-arambasic"
     }
   ],
   "eslintConfig": {
