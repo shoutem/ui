@@ -1612,6 +1612,7 @@ export default (variables = defaultThemeVariables) => ({
       },
 
       container: {
+        backgroundColor: variables.featuredColor,
         borderBottomWidth: 0,
         shadowOpacity: 0,
       },
