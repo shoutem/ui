@@ -71,7 +71,7 @@ class SimpleHtml extends PureComponent {
         const nodeStyle = cssStringToObject(styleAttrib);
         const source = _.get(firstChild, 'attribs.src', '');
 
-        const resolvedNodeStyle = !isValidVideoFormat(source)
+        const resolvedNodeStyle = isValidVideoFormat(source)
           ? _.omit(nodeStyle, ['height', 'padding-bottom'])
           : nodeStyle;
 
