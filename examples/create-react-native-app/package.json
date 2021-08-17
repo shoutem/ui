@@ -19,7 +19,7 @@
   "dependencies": {
     "@shoutem/ui": "2.0.3",
     "react": "16.8.6",
-    "react-native": "0.60.6",
+    "react-native": "0.62.3",
     "jest": "25.5.1",
     "react-native-linear-gradient": "~2.5.6",
     "react-native-photo-view": "github:shoutem/react-native-photo-view#0ffa1481f6b6cb8663cb291b7db1d6644440584d",
