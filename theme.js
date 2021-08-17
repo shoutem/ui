@@ -1395,6 +1395,23 @@ export default (variables = defaultThemeVariables) => ({
     color: changeColorAlpha(variables.text.color, 0.5),
   },
 
+  'shoutem.ui.EmptyListImage': {
+    image: {
+      resizeMode: 'contain',
+      marginTop: 45,
+      marginBottom: 30,
+    },
+    title: {
+      maxWidth: 250,
+      marginBottom: 20,
+      textAlign: 'center',
+    },
+    message: {
+      textAlign: 'center',
+      maxWidth: 250,
+    },
+  },
+
   //
   // Collections
   //
@@ -1444,57 +1461,7 @@ export default (variables = defaultThemeVariables) => ({
   //
   // Other
   //
-  clearNavigationBar: {
-    [INCLUDE]: ['imageOverlayText'],
-
-    'shoutem.ui.Button': {
-      [INCLUDE]: ['clearButton'],
-      'shoutem.ui.Icon': {
-        color: variables.navBarIconsColor,
-      },
-      'shoutem.ui.Text': {
-        color: variables.navBarText.color,
-      },
-    },
-    container: {
-      backgroundColor: 'transparent',
-      borderBottomColor: 'transparent',
-    },
-  },
-  navigationBarTextAnimations: {
-    solidifyAnimation(driver) {
-      return {
-        color: driver.interpolate({
-          inputRange: [250, 300],
-          outputRange: [
-            variables.imageOverlayTextColor,
-            variables.navBarText.color,
-          ],
-          extrapolate: 'clamp',
-        }),
-      };
-    },
-    // Child components composed by composeChildren of NavigationBar automatically
-    // get the same animationName as NavigationBar.
-    // If component doesn't have animation for animation name error will be thrown.
-    // This animations are provided to all NavigationBar children so that if NavigationBar
-    // has animation we do not get error that children does not have an animation.
-    // TODO
-    //   remove this function when animationName propagation is happening only if Icon/Title
-    //   are having animationName defined
-    boxingAnimation() {
-      // Only NavigationBar container is animated
-      // Providing boxing animation just not to get error
-      return {};
-    },
-  },
   navigationBar: {
-    '.clear': {
-      // Clear navigation bar is currently disabled on Android
-      // due to overflow issues.
-      [INCLUDE]: ['clearNavigationBar'],
-    },
-
     '.featured': {
       'shoutem.ui.Button': {
         'shoutem.ui.Icon': {
@@ -1547,14 +1514,7 @@ export default (variables = defaultThemeVariables) => ({
       },
     },
 
-    '.no-border': {
-      container: {
-        borderBottomWidth: 0,
-      },
-    },
-
     'shoutem.ui.Icon': {
-      [INCLUDE]: ['navigationBarTextAnimations'],
       color: variables.navBarIconsColor,
       width: 24,
       height: 24,
@@ -1562,7 +1522,6 @@ export default (variables = defaultThemeVariables) => ({
     },
 
     'shoutem.ui.Text': {
-      [INCLUDE]: ['navigationBarTextAnimations'],
       ...variables.navBarText,
       fontFamily: resolveFontFamily(
         variables.navBarText.fontFamily,
@@ -1574,15 +1533,21 @@ export default (variables = defaultThemeVariables) => ({
       paddingHorizontal: 9,
     },
 
+    'shoutem.ui.ShareButton': {
+      '.clear': {
+        'shoutem.ui.Button': {
+          [INCLUDE]: ['clearButton'],
+        },
+      },
+    },
+
     'shoutem.ui.Button': {
       [INCLUDE]: ['clearButton', 'tightButton'],
       'shoutem.ui.Icon': {
-        [INCLUDE]: ['navigationBarTextAnimations'],
         color: variables.navBarIconsColor,
         marginVertical: 9,
       },
       'shoutem.ui.Text': {
-        [INCLUDE]: ['navigationBarTextAnimations'],
         ...variables.navBarText,
         fontFamily: resolveFontFamily(
           variables.navBarText.fontFamily,
@@ -1602,23 +1567,66 @@ export default (variables = defaultThemeVariables) => ({
       },
       paddingHorizontal: 9,
     },
+  },
 
-    'shoutem.ui.DropDownMenu': {
-      selectedOption: {
-        'shoutem.ui.Icon': {
-          color: variables.navBarIconsColor,
-        },
-        'shoutem.ui.Text': {
-          ...variables.navBarText,
-          fontFamily: resolveFontFamily(
-            variables.navBarText.fontFamily,
-            'normal',
-            variables.navBarText.fontStyle,
-          ),
-          fontWeight: resolveFontWeight('normal'),
-          fontStyle: resolveFontStyle(variables.navBarText.fontStyle),
-          color: variables.navBarIconsColor,
-        },
+  'shoutem.ui.NavigationBar': {
+    title: {
+      color: variables.navBarText.color,
+      lineHeight: calculateLineHeight(variables.navBarText.fontSize),
+      ...variables.navBarText,
+      fontFamily: resolveFontFamily(
+        variables.navBarText.fontFamily,
+        variables.navBarText.fontWeight,
+        variables.navBarText.fontStyle,
+      ),
+      fontWeight: resolveFontWeight(variables.navBarText.fontWeight),
+      fontStyle: resolveFontStyle(variables.navBarText.fontStyle),
+    },
+    icon: {
+      color: variables.navBarIconsColor,
+    },
+    statusBar: {
+      backgroundColor: variables.statusBarColor,
+      statusBarStyle: variables.statusBarStyle,
+    },
+    container: {
+      backgroundColor: variables.navBarBackground,
+      borderBottomColor: variables.navBarBorderColor,
+      borderBottomWidth: StyleSheet.hairlineWidth,
+    },
+    leftContainer: {
+      paddingLeft: variables.mediumGutter,
+    },
+    rightContainer: {
+      paddingRight: variables.mediumGutter,
+    },
+
+    '.clear': {
+      container: {
+        backgroundColor: 'transparent',
+        borderBottomColor: 'transparent',
+      },
+    },
+
+    '.featured': {
+      title: {
+        color: variables.featuredNavBarTitleColor,
+      },
+      icon: {
+        color: variables.featuredNavBarIconsColor,
+      },
+
+      container: {
+        backgroundColor: variables.featuredColor,
+        borderBottomWidth: 0,
+        shadowOpacity: 0,
+      },
+    },
+
+    '.no-border': {
+      container: {
+        borderBottomWidth: 0,
+        shadowOpacity: 0,
       },
     },
 
@@ -1633,11 +1641,32 @@ export default (variables = defaultThemeVariables) => ({
           }),
           borderBottomWidth: 1,
         },
+        title: {
+          opacity: driver.interpolate({
+            inputRange: [250, 300],
+            outputRange: [0, 1],
+            extrapolate: 'clamp',
+          }),
+        }
       };
     },
 
     solidifyAnimation(driver) {
       return {
+        icon: {
+          opacity: driver.interpolate({
+            inputRange: [250, 300],
+            outputRange: [0, 1],
+            extrapolate: 'clamp',
+          }),
+        },
+        title: {
+          color: driver.interpolate({
+            inputRange: [250, 300],
+            outputRange: ['transparent', variables.navBarText.color],
+            extrapolate: 'clamp',
+          }),
+        },
         container: {
           backgroundColor: driver.interpolate({
             inputRange: [250, 300],
@@ -1649,114 +1678,28 @@ export default (variables = defaultThemeVariables) => ({
             outputRange: ['transparent', variables.navBarBorderColor],
             extrapolate: 'clamp',
           }),
+          opacity: driver.interpolate({
+            inputRange: [250, 300],
+            outputRange: [0, 1],
+            extrapolate: 'clamp',
+          }),
         },
       };
     },
-  },
-  'shoutem.ui.EmptyListImage': {
-    image: {
-      resizeMode: 'contain',
-      marginTop: 45,
-      marginBottom: 30,
-    },
-    title: {
-      maxWidth: 250,
-      marginBottom: 20,
-      textAlign: 'center',
-    },
-    message: {
-      textAlign: 'center',
-      maxWidth: 250,
-    },
-  },
-  'shoutem.ui.NavigationBar': {
-    [INCLUDE]: ['navigationBar'],
-    '.clear': {
-      [INCLUDE]: ['clearNavigationBar'],
-    },
-    '.inline': {
-      container: {
-        width: window.width,
-        position: 'relative',
-      },
-    },
-    'shoutem.ui.Title': {
-      solidifyAnimation(driver) {
-        return {
-          color: driver.interpolate({
-            inputRange: [250, 300],
-            outputRange: ['transparent', variables.navBarText.color],
-            extrapolate: 'clamp',
-          }),
-        };
-      },
-      boxingAnimation() {
-        return {};
-      },
 
-      color: variables.navBarText.color,
-      lineHeight: calculateLineHeight(variables.navBarText.fontSize),
-      ...variables.navBarText,
-      fontFamily: resolveFontFamily(
-        variables.navBarText.fontFamily,
-        variables.navBarText.fontWeight,
-        variables.navBarText.fontStyle,
-      ),
-      fontWeight: resolveFontWeight(variables.navBarText.fontWeight),
-      fontStyle: resolveFontStyle(variables.navBarText.fontStyle),
-    },
-
-    statusBar: {
-      backgroundColor: variables.statusBarColor,
-      statusBarStyle: variables.statusBarStyle,
-      height: Device.select({
-        iPhoneX: IPHONE_X_NOTCH_PADDING,
-        iPhoneXR: IPHONE_XR_NOTCH_PADDING,
-        default: 0,
-      }),
-    },
-    container: {
-      [INCLUDE]: ['fillParent'],
-      height: NAVIGATION_BAR_HEIGHT,
-      backgroundColor: variables.navBarBackground,
-      borderBottomColor: variables.navBarBorderColor,
-      borderBottomWidth: StyleSheet.hairlineWidth,
-      // Leave space for the status bar on iOS
-      paddingTop: Device.select({
-        iPhoneX: 0,
-        iPhoneXR: 0,
-        default:
-          Platform.OS === 'ios' && !Device.isIphoneX && !Device.isIphoneXR
-            ? 20
-            : 0,
-      }),
-    },
-
-    componentsContainer: {
-      flex: 1,
-      alignItems: 'flex-end',
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      backgroundColor: 'transparent',
-    },
-
-    leftComponent: {
-      alignSelf: 'center',
-      alignItems: 'flex-start',
-      flex: 1,
-    },
-
-    centerComponent: {
-      alignSelf: 'center',
-      alignItems: 'center',
-      flex: 1,
-      marginBottom: 0,
-    },
-
-    rightComponent: {
-      alignSelf: 'center',
-      alignItems: 'flex-end',
-      flex: 1,
+    fadeAnimation(driver) {
+      return {
+        container: {
+          gradient: {
+            colors: ['transparent', 'rgba(0, 0, 0, 0.5)', 'transparent'],
+            locations: [0.0, 0.25, 1.0],
+            opacity: driver.interpolate({
+              inputRange: [250, 300],
+              outputRange: [1, 0],
+            }),
+          },
+        }
+      }
     },
   },
   'shoutem.ui.navigation.NavigationBar': {
@@ -1778,73 +1721,6 @@ export default (variables = defaultThemeVariables) => ({
           };
         },
       },
-    },
-
-    '.none': {
-      // TODO - we are aware that in full screen case navigation bar blocks top screen touch
-      // When updated to RN > 0.42. fix by changing NavigationCardStack scene zIndex.
-      // Scene zIndex should be larger then navigation thus render above NavigationBar.
-      container: {
-        opacity: 0,
-      },
-    },
-
-    '.inline': {
-      '.clear': {
-        container: {
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-        },
-      },
-    },
-
-    'shoutem.ui.View': {
-      '.container': {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-      },
-
-      '.full-width': {
-        width: window.width,
-      },
-    },
-
-    'shoutem.ui.Title': {
-      solidifyAnimation(driver) {
-        return {
-          color: driver.interpolate({
-            inputRange: [250, 300],
-            outputRange: ['transparent', variables.navBarText.color],
-            extrapolate: 'clamp',
-          }),
-        };
-      },
-
-      boxingAnimation(driver) {
-        return {
-          opacity: driver.interpolate({
-            inputRange: [250, 300],
-            outputRange: [0, 1],
-            extrapolate: 'clamp',
-          }),
-        };
-      },
-
-      flex: 1,
-      textAlign: 'center',
-      lineHeight: calculateLineHeight(variables.navBarText.fontSize),
-      ...variables.navBarText,
-      fontFamily: resolveFontFamily(
-        variables.navBarText.fontFamily,
-        variables.navBarText.fontWeight,
-        variables.navBarText.fontStyle,
-      ),
-      fontWeight: resolveFontWeight(variables.navBarText.fontWeight),
-      fontStyle: resolveFontStyle(variables.navBarText.fontStyle),
     },
 
     container: {
@@ -1900,43 +1776,6 @@ export default (variables = defaultThemeVariables) => ({
       right: 0,
       top: 0,
       width: window.width,
-    },
-  },
-
-  'shoutem.ui.navigation.CardStack': {
-    '.without-transitions': {
-      interpolateCardStyle(props) {
-        const { navigationState, scene } = props;
-
-        const focused = navigationState.index === scene.index;
-        const opacity = focused ? 1 : 0;
-        const translate = focused ? 0 : 1000000;
-        return {
-          opacity,
-          transform: [{ translateX: translate }, { translateY: translate }],
-        };
-      },
-    },
-
-    cardStack: {
-      backgroundColor: variables.backgroundColor,
-    },
-    card: {
-      backgroundColor: variables.backgroundColor,
-    },
-    sceneContainer: {
-      // This container is currently created only
-      // when the navigation bar is rendered inline
-      // with the screen.
-      'shoutem.ui.Screen': {
-        '.full-screen': {
-          marginTop: 0,
-        },
-      },
-
-      flex: 1,
-      flexDirection: 'column-reverse',
-      backgroundColor: variables.backgroundColor,
     },
   },
 
@@ -2232,6 +2071,25 @@ export default (variables = defaultThemeVariables) => ({
           'shoutem.ui.Text': {
             color: variables.featuredNavBarTitleColor,
           },
+        },
+      },
+    },
+
+    '.navBar': {
+      selectedOption: {
+        'shoutem.ui.Icon': {
+          color: variables.navBarIconsColor,
+        },
+        'shoutem.ui.Text': {
+          ...variables.navBarText,
+          fontFamily: resolveFontFamily(
+            variables.navBarText.fontFamily,
+            'normal',
+            variables.navBarText.fontStyle,
+          ),
+          fontWeight: resolveFontWeight('normal'),
+          fontStyle: resolveFontStyle(variables.navBarText.fontStyle),
+          color: variables.navBarIconsColor,
         },
       },
     },

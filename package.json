@@ -1,6 +1,6 @@
 {
   "name": "@shoutem/ui",
-  "version": "4.5.1",
+  "version": "4.6.0",
   "description": "Styleable set of components for React Native applications",
   "scripts": {
     "lint": "eslint .",
@@ -30,7 +30,7 @@
     "react-native-photo-view": "shoutem/react-native-photo-view#0ffa1481f6b6cb8663cb291b7db1d6644440584d",
     "react-native-render-html": "~4.2.0",
     "react-native-status-bar-height": "2.5.0",
-    "react-native-svg": "^9.13.0",
+    "react-native-svg": "^12.1.1",
     "react-native-svg-transformer": "^0.14.3",
     "react-native-transformable-image": "shoutem/react-native-transformable-image#v0.0.20",
     "react-native-vector-icons": "~6.6.0",
