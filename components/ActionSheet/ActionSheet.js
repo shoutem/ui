@@ -84,9 +84,11 @@ class ActionSheet extends PureComponent {
     Animated.parallel([
       Animated.spring(yPos, {
         toValue,
+        useNativeDriver: true
       }),
       Animated.timing(opacity, {
         toValue,
+        useNativeDriver: false
       }),
     ]).start();
   }
@@ -99,11 +101,13 @@ class ActionSheet extends PureComponent {
     Animated.parallel([
       Animated.spring(yPos, {
         toValue,
+        useNativeDriver: true
       }),
       Animated.timing(opacity, {
         toValue,
         delay: 100,
         duration: 150,
+        useNativeDriver: false
       }),
     ]).start(this.hideComponent);
   }
