@@ -838,7 +838,13 @@ export default (variables = defaultThemeVariables) => ({
       right: 0,
     },
 
+    // Should deprecate in the future and use the paper
+    // styleName instead to keep it consistent
     '.solid': {
+      backgroundColor: variables.paperColor,
+    },
+
+    '.paper': {
       backgroundColor: variables.paperColor,
     },
 
@@ -1647,7 +1653,7 @@ export default (variables = defaultThemeVariables) => ({
             outputRange: [0, 1],
             extrapolate: 'clamp',
           }),
-        }
+        },
       };
     },
 
@@ -1698,8 +1704,8 @@ export default (variables = defaultThemeVariables) => ({
               outputRange: [1, 0],
             }),
           },
-        }
-      }
+        },
+      };
     },
   },
   'shoutem.ui.navigation.NavigationBar': {
