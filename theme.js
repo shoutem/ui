@@ -1973,7 +1973,6 @@ export default (variables = defaultThemeVariables) => ({
     input: {
       backgroundColor: '#f0f0f0',
       color: '#888888',
-      flex: 1,
       minWidth: 330,
       fontSize: 15,
       height: 30,
