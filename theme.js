@@ -1952,6 +1952,12 @@ export default (variables = defaultThemeVariables) => ({
 
   // TODO: Search is defined with fixed colors at the moment but we will revisit it soon
   'shoutem.ui.SearchField': {
+    clearButton: {
+      position: 'absolute',
+      right: 5,
+      top: 3,
+    },
+
     clearIcon: {
       color: '#2c2c2c',
       opacity: 0.5,
@@ -1973,7 +1979,6 @@ export default (variables = defaultThemeVariables) => ({
     input: {
       backgroundColor: '#f0f0f0',
       color: '#888888',
-      flex: 1,
       minWidth: 330,
       fontSize: 15,
       height: 30,

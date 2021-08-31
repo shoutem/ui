@@ -1,14 +1,14 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
+import { connectStyle } from '@shoutem/theme';
 import { Button } from './Button';
 import { Icon } from './Icon';
 import { TextInput } from './TextInput';
 import { View } from './View';
 
 const ClearButton = ({ style, onPress }) => (
-  <Button styleName="clear tight" onPress={onPress}>
+  <Button onPress={onPress} style={style.clearButton} styleName="clear tight">
     <Icon name="clear-text" style={style.clearIcon} />
   </Button>
 );
@@ -41,7 +41,13 @@ class SearchField extends PureComponent {
   };
 
   render() {
-    const { onChangeText, placeholder, style, value, ...rest } = this.props;
+    const {
+      onChangeText,
+      placeholder,
+      style,
+      value,
+      ...otherProps
+    } = this.props;
 
     return (
       <View
@@ -50,7 +56,7 @@ class SearchField extends PureComponent {
       >
         <Icon name="search" style={style.searchIcon} />
         <TextInput
-          {...rest}
+          {...otherProps}
           autoCapitalize="none"
           autoCorrect={false}
           onChangeText={onChangeText}
