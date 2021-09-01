@@ -1979,7 +1979,7 @@ export default (variables = defaultThemeVariables) => ({
     input: {
       backgroundColor: '#f0f0f0',
       color: '#888888',
-      minWidth: 330,
+      minWidth: 230,
       fontSize: 15,
       height: 30,
       paddingVertical: 6,
