@@ -220,7 +220,12 @@ class SimpleHtml extends PureComponent {
   render() {
     const { style, body, customTagStyles, ...otherProps } = this.props;
 
-    const paddingValue = _.get(style, 'container.paddingLeft') * 2;
+    // parentContainerPadding - padding between screen & SimpleHtml. Parent container
+    // can have it's own padding. If it does, we have to include it in calculation,
+    // otherwise maxWidth will be more than max & images will go over the edge
+    const parentContainerPadding = style.outerPadding || 0;
+    const paddingValue =
+      _.get(style, 'container.paddingLeft') * 2 + parentContainerPadding;
     const maxWidth = Dimensions.get('window').width - paddingValue;
 
     const tagStyles = {
