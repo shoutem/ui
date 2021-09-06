@@ -25,6 +25,24 @@ import getEmptyObjectKeys from '../services/getEmptyObjectKeys';
 import isValidVideoFormat from '../services/isValidVideoFormat';
 import Image from './Image';
 
+const UNSPLASH_IMAGE_CONTAINER_ID = 'unsplash-image-container';
+
+function alterUnsplashImagesNode(node) {
+  const styleAttrib = _.get(node, 'attribs.style', '').trim();
+
+  if (node.name === 'div' && node.attribs.id === UNSPLASH_IMAGE_CONTAINER_ID) {
+    const imageContainerWithMargins = {
+      attribs: {
+        style: `${styleAttrib}margin-top: 15px; margin-bottom: 30px;`,
+      },
+    };
+    const resolvedNode = _.merge(node, imageContainerWithMargins);
+    return resolvedNode;
+  }
+
+  return null;
+}
+
 class SimpleHtml extends PureComponent {
   static propTypes = {
     body: PropTypes.string,
@@ -60,6 +78,10 @@ class SimpleHtml extends PureComponent {
 
     const styleAttrib = _.get(node, 'attribs.style', '').trim();
 
+    if (node.attribs?.id === UNSPLASH_IMAGE_CONTAINER_ID) {
+      return alterUnsplashImagesNode(node);
+    }
+
     if (node.name === 'table') {
       return tableAlterNode(node);
     }
@@ -87,7 +109,12 @@ class SimpleHtml extends PureComponent {
       return false;
     }
 
-    const paddingValue = _.get(style, 'container.paddingLeft') * 2;
+    // parentContainerPadding - padding between screen & SimpleHtml. Parent container
+    // can have it's own padding. If it does, we have to include it in calculation,
+    // otherwise maxWidth will be more than max & images will go over the edge
+    const parentContainerPadding = style.outerPadding || 0;
+    const paddingValue =
+      _.get(style, 'container.paddingLeft') * 2 + parentContainerPadding;
     const maxWidth = Dimensions.get('window').width - paddingValue;
     const nodeHeight = _.get(node, 'attribus.height');
     const nodeRatio = nodeWidth / nodeHeight;
