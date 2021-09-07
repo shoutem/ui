@@ -62,7 +62,15 @@ class SimpleHtml extends PureComponent {
     const styleAttrib = _.get(node, 'attribs.style', '').trim();
 
     if (customAlterNode && _.isFunction(customAlterNode)) {
-      return customAlterNode(node, cssObjectToString, cssStringToObject);
+      const resolvedNode = customAlterNode(
+        node,
+        cssObjectToString,
+        cssStringToObject,
+      );
+
+      if (resolvedNode) {
+        return resolvedNode;
+      }
     }
 
     if (node.name === 'table') {
