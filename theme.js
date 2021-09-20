@@ -2100,7 +2100,7 @@ export default (variables = defaultThemeVariables) => ({
 
       selectedOption: {
         'shoutem.ui.Icon': {
-          color: variables.navBarIconsColor,
+          color: variables.navBarText.color,
         },
         'shoutem.ui.Text': {
           ...variables.navBarText,
@@ -2111,7 +2111,7 @@ export default (variables = defaultThemeVariables) => ({
           ),
           fontWeight: resolveFontWeight('normal'),
           fontStyle: resolveFontStyle(variables.navBarText.fontStyle),
-          color: variables.navBarIconsColor,
+          color: variables.navBarText.color,
         },
       },
     },
