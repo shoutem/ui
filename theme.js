@@ -2087,6 +2087,15 @@ export default (variables = defaultThemeVariables) => ({
     },
 
     '.navBar': {
+      horizontalContainer: {
+        backgroundColor: variables.navBarBackground,
+        minHeight: 40,
+        maxHeight: 200,
+        justifyContent: 'center',
+        width: window.width,
+        marginTop: 0,
+      },
+
       selectedOption: {
         'shoutem.ui.Icon': {
           color: variables.navBarIconsColor,
