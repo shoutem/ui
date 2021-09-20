@@ -2089,6 +2089,8 @@ export default (variables = defaultThemeVariables) => ({
     '.navBar': {
       horizontalContainer: {
         backgroundColor: variables.navBarBackground,
+        borderBottomWidth: StyleSheet.hairlineWidth,
+        borderColor: variables.navBarBorderColor,
         minHeight: 40,
         maxHeight: 200,
         justifyContent: 'center',
