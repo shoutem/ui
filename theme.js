@@ -2041,10 +2041,9 @@ export default (variables = defaultThemeVariables) => ({
         minHeight: 40,
         maxHeight: 200,
         justifyContent: 'center',
-        backgroundColor: inverseColorBrightnessForAmount(
-          variables.paperColor,
-          5,
-        ),
+        backgroundColor:
+          variables.categoryDropdownBackgroundColor ||
+          inverseColorBrightnessForAmount(variables.paperColor, 5),
         width: window.width,
         marginTop: 0,
         borderBottomWidth: StyleSheet.hairlineWidth,
@@ -2052,7 +2051,7 @@ export default (variables = defaultThemeVariables) => ({
       },
       selectedOption: {
         'shoutem.ui.Icon': {
-          color: variables.text.color,
+          color: variables.categoryDropdownTextColor || variables.text.color,
         },
         'shoutem.ui.Text': {
           ...variables.navBarText,
@@ -2061,7 +2060,7 @@ export default (variables = defaultThemeVariables) => ({
             'normal',
             variables.navBarText.fontStyle,
           ),
-          color: variables.text.color,
+          color: variables.categoryDropdownTextColor || variables.text.color,
           fontWeight: resolveFontWeight('normal'),
           fontStyle: resolveFontStyle(variables.navBarText.fontStyle),
           textAlign: 'center',
@@ -2087,20 +2086,9 @@ export default (variables = defaultThemeVariables) => ({
     },
 
     '.navBar': {
-      horizontalContainer: {
-        backgroundColor: variables.navBarBackground,
-        borderBottomWidth: StyleSheet.hairlineWidth,
-        borderColor: variables.navBarBorderColor,
-        minHeight: 40,
-        maxHeight: 200,
-        justifyContent: 'center',
-        width: window.width,
-        marginTop: 0,
-      },
-
       selectedOption: {
         'shoutem.ui.Icon': {
-          color: variables.navBarText.color,
+          color: variables.navBarIconsColor,
         },
         'shoutem.ui.Text': {
           ...variables.navBarText,
@@ -2111,7 +2099,7 @@ export default (variables = defaultThemeVariables) => ({
           ),
           fontWeight: resolveFontWeight('normal'),
           fontStyle: resolveFontStyle(variables.navBarText.fontStyle),
-          color: variables.navBarText.color,
+          color: variables.navBarIconsColor,
         },
       },
     },
