@@ -2041,10 +2041,9 @@ export default (variables = defaultThemeVariables) => ({
         minHeight: 40,
         maxHeight: 200,
         justifyContent: 'center',
-        backgroundColor: inverseColorBrightnessForAmount(
-          variables.paperColor,
-          5,
-        ),
+        backgroundColor:
+          variables.categoryDropdownBackgroundColor ||
+          inverseColorBrightnessForAmount(variables.paperColor, 5),
         width: window.width,
         marginTop: 0,
         borderBottomWidth: StyleSheet.hairlineWidth,
@@ -2052,7 +2051,7 @@ export default (variables = defaultThemeVariables) => ({
       },
       selectedOption: {
         'shoutem.ui.Icon': {
-          color: variables.text.color,
+          color: variables.categoryDropdownTextColor || variables.text.color,
         },
         'shoutem.ui.Text': {
           ...variables.navBarText,
@@ -2061,7 +2060,7 @@ export default (variables = defaultThemeVariables) => ({
             'normal',
             variables.navBarText.fontStyle,
           ),
-          color: variables.text.color,
+          color: variables.categoryDropdownTextColor || variables.text.color,
           fontWeight: resolveFontWeight('normal'),
           fontStyle: resolveFontStyle(variables.navBarText.fontStyle),
           textAlign: 'center',
