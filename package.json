@@ -35,7 +35,7 @@
     "react-native-transformable-image": "shoutem/react-native-transformable-image#v0.0.20",
     "react-native-vector-icons": "~6.6.0",
     "react-native-webview": "~11.0.0",
-    "react-native-youtube-iframe": "~2.0.1",
+    "react-native-youtube-iframe": "~2.1.2",
     "stream": "0.0.2",
     "tinycolor2": "1.4.1"
   },
