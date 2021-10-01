@@ -33,6 +33,7 @@ class SimpleHtml extends PureComponent {
     customTagStyles: PropTypes.object,
     customHandleLinkPress: PropTypes.func,
     unsupportedVideoFormatMessage: PropTypes.string,
+    customAlterNode: PropTypes.func,
   };
 
   constructor(props) {
@@ -56,9 +57,21 @@ class SimpleHtml extends PureComponent {
    * video iframe tags in when video format is unsupported
    */
   alterNode(node) {
-    const { style } = this.props;
+    const { customAlterNode, style } = this.props;
 
     const styleAttrib = _.get(node, 'attribs.style', '').trim();
+
+    if (customAlterNode && _.isFunction(customAlterNode)) {
+      const resolvedNode = customAlterNode(
+        node,
+        cssObjectToString,
+        cssStringToObject,
+      );
+
+      if (resolvedNode) {
+        return resolvedNode;
+      }
+    }
 
     if (node.name === 'table') {
       return tableAlterNode(node);
