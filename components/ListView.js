@@ -197,9 +197,9 @@ class ListView extends PureComponent {
     // reference
     mappedProps.ref = this.handleListViewRef;
 
-    mappedProps.onMomentumScrollBegin = this.setIsScrolling(true);
-    
-    mappedProps.onMomentumScrollEnd = this.setIsScrolling(false);
+    mappedProps.onMomentumScrollBegin = () => this.setIsScrolling(true);
+
+    mappedProps.onMomentumScrollEnd = () => this.setIsScrolling(false);
 
     return mappedProps;
   }
