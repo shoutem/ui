@@ -197,9 +197,9 @@ class ListView extends PureComponent {
     // reference
     mappedProps.ref = this.handleListViewRef;
 
-    mappedProps.onMomentumScrollBegin = () => this.setIsScrolling(true);
+    mappedProps.onMomentumScrollBegin = this.setStartedScrolling;
 
-    mappedProps.onMomentumScrollEnd = () => this.setIsScrolling(false);
+    mappedProps.onMomentumScrollEnd = this.setEndedScrolling;
 
     return mappedProps;
   }
@@ -221,8 +221,12 @@ class ListView extends PureComponent {
     }
   }
 
-  setIsScrolling(isScrolling) {
-    this.setState({ isScrolling });
+  setStartedScrolling() {
+    this.setState({ isScrolling: true });
+  }
+
+  setEndedScrolling() {
+    this.setState({ isScrolling: true });
   }
 
   autoHideHeader({
