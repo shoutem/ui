@@ -41,6 +41,10 @@ function resolveMaxWidth(style) {
 function resolveDimensions(objectToResize, style) {
   const { width, height } = objectToResize;
 
+  if (!width || !height) {
+    return { width, height };
+  }
+
   const maxWidth = resolveMaxWidth(style);
   const objectToResizeRatio = height / width;
   const resolvedWidth = width > maxWidth ? maxWidth : width;
@@ -118,7 +122,7 @@ class SimpleHtml extends PureComponent {
       }
     }
 
-    const nodeWidth = _.get(node, 'attribs.width', false);
+    const nodeWidth = node.attribs?.width;
 
     if (!styleAttrib && !nodeWidth) {
       return false;
