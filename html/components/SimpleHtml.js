@@ -128,7 +128,7 @@ class SimpleHtml extends PureComponent {
       return false;
     }
 
-    const nodeHeight = _.get(node, 'attribus.height');
+    const nodeHeight = node.attribus?.height;
     const nodeDimensions = { width: nodeWidth, height: nodeHeight };
     const { width, height } = resolveDimensions(nodeDimensions, style);
 
