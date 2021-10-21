@@ -175,7 +175,7 @@ class SimpleHtml extends PureComponent {
    * Currently only supports rendering image attachments.
    */
   renderAttachments({ id, type }) {
-    const { attachments } = this.props;
+    const { attachments, style } = this.props;
 
     if (!attachments) {
       return null;
@@ -186,9 +186,22 @@ class SimpleHtml extends PureComponent {
 
       if (image && image.src) {
         const source = { uri: image.src };
-        const style = { height: image.height, alignSelf: 'center' };
+        const parentContainerPadding = style.outerPadding || 0;
+        const paddingValue =
+          style.container.paddingLeft ||
+          0 + style.container.paddingRight ||
+          0 + parentContainerPadding;
+        const maxWidth = Dimensions.get('window').width - paddingValue;
+        const imageSizeRatio = image.height / image.width;
+        const resolvedWidth = image.width > maxWidth ? maxWidth : image.width;
+        const resolvedHeight = Math.round(resolvedWidth * imageSizeRatio);
+        const resolvedStyle = {
+          alignSelf: 'center',
+          height: resolvedHeight,
+          width: resolvedWidth,
+        };
 
-        return <Image source={source} key={id} style={style} />;
+        return <Image source={source} key={id} style={resolvedStyle} />;
       }
     }
 
