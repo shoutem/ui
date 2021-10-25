@@ -25,6 +25,34 @@ import getEmptyObjectKeys from '../services/getEmptyObjectKeys';
 import isValidVideoFormat from '../services/isValidVideoFormat';
 import Image from './Image';
 
+function resolveMaxWidth(style) {
+  // parentContainerPadding - padding between screen & SimpleHtml. Parent container
+  // can have it's own padding. If it does, we have to include it in calculation,
+  // otherwise maxWidth will be more than max & images will go over the edge
+  const parentContainerPadding = style.outerPadding || 0;
+  const paddingValue =
+    style.container.paddingLeft ||
+    0 + style.container.paddingRight ||
+    0 + parentContainerPadding;
+
+  return Dimensions.get('window').width - paddingValue;
+}
+
+function resolveDimensions(objectToResize, style) {
+  const { width, height } = objectToResize;
+
+  if (!width || !height) {
+    return { width, height };
+  }
+
+  const maxWidth = resolveMaxWidth(style);
+  const objectToResizeRatio = height / width;
+  const resolvedWidth = width > maxWidth ? maxWidth : width;
+  const resolvedHeight = Math.round(resolvedWidth * objectToResizeRatio);
+
+  return { width: resolvedWidth, height: resolvedHeight };
+}
+
 class SimpleHtml extends PureComponent {
   static propTypes = {
     body: PropTypes.string,
@@ -94,23 +122,15 @@ class SimpleHtml extends PureComponent {
       }
     }
 
-    const nodeWidth = _.get(node, 'attribs.width', false);
+    const nodeWidth = node.attribs?.width;
 
     if (!styleAttrib && !nodeWidth) {
       return false;
     }
 
-    // parentContainerPadding - padding between screen & SimpleHtml. Parent container
-    // can have it's own padding. If it does, we have to include it in calculation,
-    // otherwise maxWidth will be more than max & images will go over the edge
-    const parentContainerPadding = style.outerPadding || 0;
-    const paddingValue =
-      _.get(style, 'container.paddingLeft') * 2 + parentContainerPadding;
-    const maxWidth = Dimensions.get('window').width - paddingValue;
-    const nodeHeight = _.get(node, 'attribus.height');
-    const nodeRatio = nodeWidth / nodeHeight;
-    const resolvedWidth = nodeWidth > maxWidth ? maxWidth : nodeWidth;
-    const resolvedHeight = Math.round(resolvedWidth * nodeRatio);
+    const nodeHeight = node.attribus?.height;
+    const nodeDimensions = { width: nodeWidth, height: nodeHeight };
+    const { width, height } = resolveDimensions(nodeDimensions, style);
 
     const nodeStyle = cssStringToObject(styleAttrib);
     const invalidKeys = getEmptyObjectKeys(nodeStyle);
@@ -118,8 +138,8 @@ class SimpleHtml extends PureComponent {
     if (invalidKeys.length || nodeWidth) {
       const styleFiltered = _.omit(style, invalidKeys);
       node.attribs.style = cssObjectToString(styleFiltered);
-      node.attribs.width = resolvedWidth;
-      node.attribs.height = resolvedHeight;
+      node.attribs.width = width;
+      node.attribs.height = height;
 
       return node;
     }
@@ -175,7 +195,7 @@ class SimpleHtml extends PureComponent {
    * Currently only supports rendering image attachments.
    */
   renderAttachments({ id, type }) {
-    const { attachments } = this.props;
+    const { attachments, style } = this.props;
 
     if (!attachments) {
       return null;
@@ -186,9 +206,11 @@ class SimpleHtml extends PureComponent {
 
       if (image && image.src) {
         const source = { uri: image.src };
-        const style = { height: image.height, alignSelf: 'center' };
+        const imageSize = { width: image.width, height: image.height };
+        const { height, width } = resolveDimensions(imageSize, style);
+        const resolvedStyle = { alignSelf: 'center', height, width };
 
-        return <Image source={source} key={id} style={style} />;
+        return <Image source={source} key={id} style={resolvedStyle} />;
       }
     }
 
@@ -238,13 +260,7 @@ class SimpleHtml extends PureComponent {
   render() {
     const { style, body, customTagStyles, ...otherProps } = this.props;
 
-    // parentContainerPadding - padding between screen & SimpleHtml. Parent container
-    // can have it's own padding. If it does, we have to include it in calculation,
-    // otherwise maxWidth will be more than max & images will go over the edge
-    const parentContainerPadding = style.outerPadding || 0;
-    const paddingValue =
-      _.get(style, 'container.paddingLeft') * 2 + parentContainerPadding;
-    const maxWidth = Dimensions.get('window').width - paddingValue;
+    const maxWidth = resolveMaxWidth(style);
 
     const tagStyles = {
       ...style.tags,
