@@ -13,12 +13,16 @@ import { View } from './View';
 
 const isIos = Platform.OS === 'ios';
 
-const MODES = { DATE: 'date', DATETIME: 'datetime', TIME: 'time' };
+export const DATEPICKER_MODES = {
+  DATE: 'date',
+  DATETIME: 'datetime',
+  TIME: 'time',
+};
 
 const DISPLAY_MODES = {
-  [MODES.DATE]: 'inline',
-  [MODES.DATETIME]: 'inline',
-  [MODES.TIME]: 'spinner',
+  [DATEPICKER_MODES.DATE]: 'inline',
+  [DATEPICKER_MODES.DATETIME]: 'inline',
+  [DATEPICKER_MODES.TIME]: 'spinner',
 };
 
 function getDisplayMode(mode) {
@@ -46,7 +50,6 @@ class DateTimePicker extends PureComponent {
   }
 
   componentDidUpdate() {
-    // todo: check why set state here
     if (!isIos) {
       const { value } = this.props;
 
@@ -65,7 +68,7 @@ class DateTimePicker extends PureComponent {
 
     const { mode, onValueChanged } = this.props;
 
-    const showTimePicker = mode === MODES.DATETIME;
+    const showTimePicker = mode === DATEPICKER_MODES.DATETIME;
 
     this.setState({ value, showPicker: false, showTimePicker });
     return !showTimePicker && onValueChanged(value);
@@ -206,7 +209,7 @@ DateTimePicker.propTypes = {
   cancelButtonText: PropTypes.string,
   confirmButtonText: PropTypes.string,
   is24Hour: PropTypes.bool,
-  mode: PropTypes.oneOf(Object.values(MODES)),
+  mode: PropTypes.oneOf(Object.values(DATEPICKER_MODES)),
   onValueChanged: PropTypes.func,
   textValue: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
