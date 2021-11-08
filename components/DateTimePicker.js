@@ -13,19 +13,40 @@ import { View } from './View';
 
 const isIos = Platform.OS === 'ios';
 
+const MODES = { DATE: 'date', DATETIME: 'datetime', TIME: 'time' };
+
+const DISPLAY_MODES = {
+  [MODES.DATE]: 'inline',
+  [MODES.DATETIME]: 'inline',
+  [MODES.TIME]: 'spinner',
+};
+
+function getDisplayMode(mode) {
+  if (!isIos || !Object.keys(DISPLAY_MODES).includes(mode)) {
+    return 'default';
+  }
+
+  return DISPLAY_MODES[mode];
+}
+
 class DateTimePicker extends PureComponent {
   constructor(props) {
     super(props);
 
     autoBindReact(this);
 
+    const { mode, value } = props;
+
     this.state = {
+      display: getDisplayMode(mode),
       showPicker: false,
-      value: props.value,
+      showTimePicker: false,
+      value,
     };
   }
 
   componentDidUpdate() {
+    // todo: check why set state here
     if (!isIos) {
       const { value } = this.props;
 
@@ -42,10 +63,33 @@ class DateTimePicker extends PureComponent {
       return this.handleHidePicker();
     }
 
-    const { onValueChanged } = this.props;
+    const { mode, onValueChanged } = this.props;
 
-    this.setState({ showPicker: false });
-    return onValueChanged(value);
+    const showTimePicker = mode === MODES.DATETIME;
+
+    this.setState({ value, showPicker: false, showTimePicker });
+    return !showTimePicker && onValueChanged(value);
+  }
+
+  handleTimeValueChanged(event, selectedValue) {
+    if (event.type === 'dismissed') {
+      return this.handleHidePicker();
+    }
+
+    const { onValueChanged } = this.props;
+    const { value } = this.state;
+
+    // Time picker value will override preselected date
+    // Use current date from state and only set hours & minutes
+    const currentDate = new Date(value);
+    const selectedDate = new Date(selectedValue);
+    const hour = selectedDate.getHours();
+    const minutes = selectedDate.getMinutes();
+
+    currentDate.setHours(hour, minutes, 0);
+
+    this.setState({ value: currentDate, showTimePicker: false });
+    return onValueChanged(currentDate);
   }
 
   handleShowPicker() {
@@ -66,6 +110,7 @@ class DateTimePicker extends PureComponent {
 
   render() {
     const {
+      cancelButtonText,
       confirmButtonText,
       is24Hour,
       mode,
@@ -73,7 +118,7 @@ class DateTimePicker extends PureComponent {
       style,
       ...otherProps
     } = this.props;
-    const { showPicker, value } = this.state;
+    const { display, showPicker, showTimePicker, value } = this.state;
 
     return (
       <View styleName="horizontal">
@@ -82,7 +127,7 @@ class DateTimePicker extends PureComponent {
           style={style.textContainer}
           onPress={this.handleShowPicker}
         >
-          <Text> {textValue}</Text>
+          <Text>{textValue}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={this.handleShowPicker}
@@ -103,7 +148,7 @@ class DateTimePicker extends PureComponent {
           >
             <View styleName="md-gutter" style={style.modalContainer}>
               <RNCDateTimePicker
-                display="spinner"
+                display={display}
                 is24Hour={is24Hour}
                 mode={mode}
                 onChange={this.handleValueChanged}
@@ -114,8 +159,14 @@ class DateTimePicker extends PureComponent {
               />
               <View
                 style={style.modalButtonContainer}
-                styleName="md-gutter-top"
+                styleName="horizontal md-gutter-top"
               >
+                <Button
+                  style={style.modalButton}
+                  onPress={this.handleHidePicker}
+                >
+                  <Text>{cancelButtonText}</Text>
+                </Button>
                 <Button
                   style={style.modalButton}
                   onPress={this.handleConfirmPress}
@@ -128,10 +179,20 @@ class DateTimePicker extends PureComponent {
         )}
         {!isIos && showPicker && (
           <RNCDateTimePicker
-            display="default"
+            display={display}
             is24Hour={is24Hour}
             mode={mode}
             onChange={this.handleValueChanged}
+            value={value}
+            {...otherProps}
+          />
+        )}
+        {!isIos && !showPicker && showTimePicker && (
+          <RNCDateTimePicker
+            display={display}
+            is24Hour={is24Hour}
+            mode="time"
+            onChange={this.handleTimeValueChanged}
             value={value}
             {...otherProps}
           />
@@ -142,15 +203,17 @@ class DateTimePicker extends PureComponent {
 }
 
 DateTimePicker.propTypes = {
+  cancelButtonText: PropTypes.string,
   confirmButtonText: PropTypes.string,
   is24Hour: PropTypes.bool,
-  mode: PropTypes.string,
+  mode: PropTypes.oneOf(Object.values(MODES)),
   onValueChanged: PropTypes.func,
   textValue: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
 };
 
 DateTimePicker.defaultProps = {
+  cancelButtonText: 'Cancel',
   confirmButtonText: 'Confirm',
   is24Hour: false,
   mode: 'datetime',
