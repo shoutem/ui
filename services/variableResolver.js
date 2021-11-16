@@ -41,7 +41,7 @@ export class ThemeVariableResolver {
     }
 
     if (arguments.length === 2) {
-      return this.getScopedVariable(params[0], params[0]);
+      return this.getScopedVariable(params[0], params[1]);
     }
 
     throw new Error(
