@@ -30,7 +30,7 @@ export class ThemeVariableResolver {
     );
   }
 
-  // Currently supports 2 function signture
+  // Currently supports 2 function signatures
   // resolveVariable(variableName) -> Tries to get the variable under the shoutem.theme namespace
   // resolveVariable(scope, variableName) -> Tries to get the variable under specific scope
   // Both signatures default to root parameter for the required variable name
