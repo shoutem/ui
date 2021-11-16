@@ -21,6 +21,12 @@ export {
   resolveFontStyle,
 };
 
+export {
+  ThemeVariableResolver,
+  defaultResolver as variableResolver,
+  resolveVariable,
+} from './services';
+
 // Components
 export { ActionSheet } from './components/ActionSheet';
 export { View } from './components/View';
