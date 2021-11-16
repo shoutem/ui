@@ -1,10 +1,13 @@
 import _ from 'lodash';
+import autoBind from 'auto-bind';
 
 const THEME_EXTENSION_SCOPE = 'shoutem.theme';
 
 export class ThemeVariableResolver {
   constructor(variables) {
     this.variables = { ...variables };
+
+    autoBind(this);
   }
 
   setVariables(variables) {
