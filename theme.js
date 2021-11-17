@@ -556,22 +556,16 @@ export default (variables = defaultThemeVariables) => {
       fontStyle: resolveFontStyle(resolveVariable('caption.fontStyle')),
 
       '.form-error': {
-        color: resolveVariable('shoutem.cms', 'errorText.color'),
+        color: resolveVariable('errorText.color'),
         fontFamily: resolveFontFamily(
-          resolveVariable('shoutem.cms', 'errorText.fontFamily'),
-          resolveVariable('shoutem.cms', 'errorText.fontWeight'),
-          resolveVariable('shoutem.cms', 'errorText.fontStyle'),
+          resolveVariable('errorText.fontFamily'),
+          resolveVariable('errorText.fontWeight'),
+          resolveVariable('errorText.fontStyle'),
         ),
-        fontSize: resolveVariable('shoutem.cms', 'errorText.fontSize'),
-        fontStyle: resolveFontStyle(
-          resolveVariable('shoutem.cms', 'errorText.fontStyle'),
-        ),
-        fontWeight: resolveFontWeight(
-          resolveVariable('shoutem.cms', 'errorText.fontWeight'),
-        ),
-        lineHeight: calculateLineHeight(
-          resolveVariable('shoutem.cms', 'errorText.fontSize'),
-        ),
+        fontSize: resolveVariable('errorText.fontSize'),
+        fontStyle: resolveFontStyle(resolveVariable('errorText.fontStyle')),
+        fontWeight: resolveFontWeight(resolveVariable('errorText.fontWeight')),
+        lineHeight: calculateLineHeight(resolveVariable('errorText.fontSize')),
       },
     },
 
@@ -1840,7 +1834,7 @@ export default (variables = defaultThemeVariables) => {
       ),
       borderBottomWidth: StyleSheet.hairlineWidth,
       borderTopWidth: StyleSheet.hairlineWidth,
-      borderColor: resolveVariable('shoutem.cms', 'lineColor'),
+      borderColor: resolveVariable('lineColor'),
     },
     'shoutem.ui.Divider': {
       [INCLUDE]: ['guttersMargin'],
@@ -1854,7 +1848,7 @@ export default (variables = defaultThemeVariables) => {
         },
         paddingTop: 0,
         borderBottomWidth: StyleSheet.hairlineWidth,
-        borderColor: resolveVariable('shoutem.cms', 'lineColor'),
+        borderColor: resolveVariable('lineColor'),
       },
 
       '.section-header': {
@@ -1943,7 +1937,7 @@ export default (variables = defaultThemeVariables) => {
       fontStyle: resolveFontStyle(resolveVariable('text.fontStyle')),
 
       errorBorderColor: {
-        borderColor: resolveVariable('shoutem.cms', 'errorText.color'),
+        borderColor: resolveVariable('errorText.color'),
       },
 
       wiggleAnimation: {
@@ -2095,7 +2089,7 @@ export default (variables = defaultThemeVariables) => {
           maxHeight: 200,
           justifyContent: 'center',
           backgroundColor:
-            resolveVariable('shoutem.cms', 'categoryDropdownBackgroundColor') ||
+            resolveVariable('categoryDropdownBackgroundColor') ||
             inverseColorBrightnessForAmount(resolveVariable('paperColor'), 5),
           width: window.width,
           marginTop: 0,
@@ -2105,7 +2099,7 @@ export default (variables = defaultThemeVariables) => {
         selectedOption: {
           'shoutem.ui.Icon': {
             color:
-              resolveVariable('shoutem.cms', 'categoryDropdownTextColor') ||
+              resolveVariable('categoryDropdownTextColor') ||
               resolveVariable('text.color'),
           },
           'shoutem.ui.Text': {
@@ -2116,7 +2110,7 @@ export default (variables = defaultThemeVariables) => {
               resolveVariable('navBarText.fontStyle'),
             ),
             color:
-              resolveVariable('shoutem.cms', 'categoryDropdownTextColor') ||
+              resolveVariable('categoryDropdownTextColor') ||
               resolveVariable('text.color'),
             fontWeight: resolveFontWeight('normal'),
             fontStyle: resolveFontStyle(
