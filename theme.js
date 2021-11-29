@@ -1496,6 +1496,7 @@ export default (variables = defaultThemeVariables) => {
     //
     // Other
     //
+    // Deprecated on ShoutEm platform ( not used for navigationBar elements )
     navigationBar: {
       '.featured': {
         'shoutem.ui.Button': {
@@ -1743,6 +1744,8 @@ export default (variables = defaultThemeVariables) => {
         };
       },
     },
+
+    // Deprecated on ShoutEm platform ( not used for navigationBar elements )
     'shoutem.ui.navigation.NavigationBar': {
       [INCLUDE]: ['navigationBar'],
 
