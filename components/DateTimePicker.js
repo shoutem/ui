@@ -139,7 +139,7 @@ class DateTimePicker extends PureComponent {
         >
           <Icon name="drop-down" style={style.icon} />
         </TouchableOpacity>
-        {isIos && (
+        {isIos && showPicker && (
           <Modal
             backdropOpacity={0.5}
             isVisible={showPicker}
