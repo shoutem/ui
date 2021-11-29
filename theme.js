@@ -900,6 +900,8 @@ export default (variables = defaultThemeVariables) => ({
   },
 
   'shoutem.ui.Screen': {
+    [INCLUDE]: ['commonVariants', 'guttersPadding'],
+
     '.full-screen': {
       marginTop: -(NAVIGATION_BAR_HEIGHT + StyleSheet.hairlineWidth),
     },
