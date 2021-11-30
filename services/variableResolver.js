@@ -23,10 +23,24 @@ export class ThemeVariableResolver {
 
     const variablePath = _.split(variable, '.');
 
+    // If we're looking at theme scope, default to root values
+    if (scope === THEME_EXTENSION_SCOPE) {
+      return _.get(
+        this.variables,
+        [scope, ...variablePath],
+        _.get(this.variables, variablePath),
+      );
+    }
+
+    // If we're looking at extension scope, default to theme values first, then root values
     return _.get(
       this.variables,
       [scope, ...variablePath],
-      _.get(this.variables, variablePath),
+      _.get(
+        this.variables,
+        [THEME_EXTENSION_SCOPE, ...variablePath],
+        _.get(this.variables, variablePath),
+      ),
     );
   }
 
@@ -48,6 +62,10 @@ export class ThemeVariableResolver {
       "Invalid theme variable resolution call. Please use full signature \n-> resolveVariable(scope, variableName),\n or the shorthand if you're getting a variable from shoutem.theme extension \n->resolveVariable(variableName)",
     );
   }
+
+  createScopedResolver(scope) {
+    return variable => this.resolveVariable(scope, variable);
+  }
 }
 
 // Expose both, the resolver service, and the default resolver working with
@@ -55,3 +73,4 @@ export class ThemeVariableResolver {
 // if needed, you can override the default theme variables using the setVariables method
 export const defaultResolver = new ThemeVariableResolver();
 export const resolveVariable = defaultResolver.resolveVariable;
+export const createScopedResolver = defaultResolver.createScopedResolver();

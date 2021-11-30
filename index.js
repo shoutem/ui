@@ -25,6 +25,7 @@ export {
   ThemeVariableResolver,
   defaultResolver as variableResolver,
   resolveVariable,
+  createScopedResolver,
 } from './services';
 
 // Components
