@@ -65,16 +65,17 @@ export class ThemeVariableResolver {
 
   createScopedResolver(scope) {
     return (...params) => {
-      if (arguments.length === 1) {
+      if (params.length === 1) {
         return this.getScopedVariable(scope, params[0]);
       }
-      if (arguments.length === 2) {
+      if (params.length === 2) {
         return this.getScopedVariable(params[0], params[1]);
       }
 
       return undefined;
     };
   }
+}
 }
 
 // Expose both, the resolver service, and the default resolver working with
