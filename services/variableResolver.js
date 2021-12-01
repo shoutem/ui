@@ -76,7 +76,6 @@ export class ThemeVariableResolver {
     };
   }
 }
-}
 
 // Expose both, the resolver service, and the default resolver working with
 // shoutem default theme. This way the logic can be used for multiple themes/resolvers, or
