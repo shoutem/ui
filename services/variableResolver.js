@@ -82,4 +82,4 @@ export class ThemeVariableResolver {
 // if needed, you can override the default theme variables using the setVariables method
 export const defaultResolver = new ThemeVariableResolver();
 export const resolveVariable = defaultResolver.resolveVariable;
-export const createScopedResolver = defaultResolver.createScopedResolver();
+export const createScopedResolver = defaultResolver.createScopedResolver;
