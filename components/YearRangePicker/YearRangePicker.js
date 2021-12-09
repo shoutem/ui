@@ -79,14 +79,20 @@ class YearRangePicker extends PureComponent {
   }
 
   render() {
-    const { rangeEnd, rangeStart, resetButtonTitle, confirmButtonTitle } = this.props;
+    const {
+      rangeEnd,
+      rangeStart,
+      resetButtonTitle,
+      confirmButtonTitle,
+    } = this.props;
     const { buttonTooltip, collapsed } = this.state;
 
     return (
-      <View onLayout={this.handleLayout}>
+      <View>
         <YearPickerButton
           tooltip={buttonTooltip}
           onPress={this.handleButtonPressed}
+          collapsed={collapsed}
         />
         <YearPickerModal
           visible={collapsed}
