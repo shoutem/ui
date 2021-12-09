@@ -49,14 +49,6 @@ class DateTimePicker extends PureComponent {
     };
   }
 
-  componentDidUpdate() {
-    if (!isIos) {
-      const { value } = this.props;
-
-      this.setState({ value });
-    }
-  }
-
   handleValueChanged(event, value) {
     if (isIos) {
       return this.setState({ value });
