@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Animated } from 'react-native';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import autoBindReact from 'auto-bind/react';
 import { connectStyle } from '@shoutem/theme';
 import { TouchableOpacity } from '../TouchableOpacity';
@@ -14,6 +13,7 @@ class YearRangePickerButton extends PureComponent {
   static propTypes = {
     onPress: PropTypes.func,
     tooltip: PropTypes.string,
+    collapsed: PropTypes.bool,
     style: PropTypes.any,
   };
 
@@ -23,55 +23,41 @@ class YearRangePickerButton extends PureComponent {
     autoBindReact(this);
 
     this.dropDownIconValue = new Animated.Value(0);
-
-    this.state = {
-      collapsed: false,
-    };
   }
 
-  handlePress() {
-    const { collapsed } = this.state;
-    const { onPress } = this.props;
+  componentDidUpdate(prevProps) {
+    const { collapsed } = this.props;
+    const { collapsed: prevCollapsed } = prevProps;
 
-    const toValue = collapsed ? 0 : 1;
+    if (collapsed !== prevCollapsed) {
+      const toValue = collapsed ? 1 : 0;
 
-    this.setState(
-      { collapsed: !collapsed },
-      () => Animated.timing(
-        this.dropDownIconValue,
-        {
-          toValue,
-          useNativeDriver: true,
-          duration: 300,
-        }
-      ).start());
-
-    if (onPress) {
-      onPress();
+      Animated.timing(this.dropDownIconValue, {
+        toValue,
+        useNativeDriver: true,
+        duration: 300,
+      }).start();
     }
   }
 
   render() {
-    const { style, tooltip } = this.props;
+    const { style, tooltip, onPress } = this.props;
 
     return (
-      <TouchableOpacity
-        onPress={this.handlePress}
-        style={style.container}
-      >
-        <Text>
-          {tooltip}
-        </Text>
+      <TouchableOpacity onPress={onPress} style={style.container}>
+        <Text>{tooltip}</Text>
         <AnimatedIcon
           name="drop-down"
           style={{
             ...style.icon,
-            transform: [{
-              rotate: this.dropDownIconValue.interpolate({
-                inputRange: [0, 1],
-                outputRange: ['0deg', '180deg'],
-              }),
-            }],
+            transform: [
+              {
+                rotate: this.dropDownIconValue.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: ['0deg', '180deg'],
+                }),
+              },
+            ],
           }}
         />
       </TouchableOpacity>
@@ -79,4 +65,6 @@ class YearRangePickerButton extends PureComponent {
   }
 }
 
-export default connectStyle('shoutem.ui.YearRangePickerButton')(YearRangePickerButton);
+export default connectStyle('shoutem.ui.YearRangePickerButton')(
+  YearRangePickerButton,
+);
