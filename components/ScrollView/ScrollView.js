@@ -33,7 +33,8 @@ class ScrollView extends PureComponent {
     autoBindReact(this);
 
     this.animationDriver =
-      props.driver || new ScrollDriver({ useNativeDriver: true });
+      props.driver ||
+      new ScrollDriver({ useNativeDriver: true }, props.customOnScroll);
   }
 
   getChildContext() {
