@@ -14,6 +14,7 @@ const IPHONE_X_HOME_INDICATOR_PADDING = isTabBarOnScreen ? 0 : 34;
 class ScrollView extends PureComponent {
   static propTypes = {
     ...Animated.ScrollView.propTypes,
+    customOnScroll: PropTypes.func,
   };
 
   static contextTypes = {
