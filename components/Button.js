@@ -1,29 +1,60 @@
 import React, { PureComponent } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { LayoutAnimation, TouchableOpacity } from 'react-native';
 import { connectAnimation } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
+import { Spinner } from './Spinner';
 
 class Button extends PureComponent {
-  render() {
-    // The underlayColor is not a valid RN style
-    // property, so we have to unset it here.
-    const style = {
-      ...this.props.style,
+  componentDidUpdate() {
+    LayoutAnimation.easeInEaseOut();
+  }
+
+  resolveStyle() {
+    const { inProgress, style } = this.props;
+
+    if (!inProgress) {
+      return style;
+    }
+
+    return {
+      ...style,
+      ...style?.inProgress,
+      borderRadius: style?.inProgress?.borderRadius || 50,
+      minWidth: style?.inProgress?.minWidth || 30,
+      width: style?.inProgress?.width || 50,
+      paddingLeft: style?.inProgress?.paddingLeft || 0,
+      paddingRight: style?.inProgress?.paddingRight || 0,
+      flex: style?.inProgress?.flex || 1,
+      alignSelf: style?.inProgress?.alignSelf || 'center',
+      opacity: style?.inProgress?.opacity || 0.5,
     };
-    delete style.underlayColor;
+  }
+
+  render() {
+    const { children, inProgress, style, ...otherProps } = this.props;
+
+    const resolvedStyle = this.resolveStyle();
 
     return (
       <TouchableOpacity
-        {...this.props}
-        style={style}
-        underlayColor={this.props.style.underlayColor}
-      />
+        {...otherProps}
+        style={resolvedStyle}
+        underlayColor={style?.underlayColor}
+        disabled={inProgress}
+      >
+        {inProgress && <Spinner />}
+        {!inProgress && children}
+      </TouchableOpacity>
     );
   }
 }
 
 Button.propTypes = {
   ...TouchableOpacity.propTypes,
+};
+
+Button.defaultProps = {
+  inProgress: undefined,
 };
 
 const AnimatedButton = connectAnimation(Button);
