@@ -5,8 +5,13 @@ import { connectStyle } from '@shoutem/theme';
 import { Spinner } from './Spinner';
 
 class Button extends PureComponent {
-  componentDidUpdate() {
-    LayoutAnimation.easeInEaseOut();
+  componentDidUpdate(prevProps) {
+    const { inProgress: prevInProgress } = prevProps;
+    const { inProgress } = this.props;
+
+    if (prevInProgress !== inProgress) {
+      LayoutAnimation.easeInEaseOut();
+    }
   }
 
   resolveStyle() {
