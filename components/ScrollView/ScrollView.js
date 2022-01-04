@@ -14,7 +14,6 @@ const IPHONE_X_HOME_INDICATOR_PADDING = isTabBarOnScreen ? 0 : 34;
 class ScrollView extends PureComponent {
   static propTypes = {
     ...Animated.ScrollView.propTypes,
-    customOnScroll: PropTypes.func,
   };
 
   static contextTypes = {
@@ -35,7 +34,10 @@ class ScrollView extends PureComponent {
 
     this.animationDriver =
       props.driver ||
-      new ScrollDriver({ useNativeDriver: true }, props.customOnScroll);
+      new ScrollDriver(
+        { useNativeDriver: true, nativeScrollEventThrottle: 20 },
+        props.onScroll,
+      );
   }
 
   getChildContext() {
@@ -94,7 +96,7 @@ class ScrollView extends PureComponent {
         ref={this.setWrappedInstance}
         contentContainerStyle={this.addIphoneXPadding(contentContainerStyle)}
         {...animationDriver.scrollViewProps}
-        {...props}
+        {..._.omit(props, 'onScroll')}
       />
     );
   }
