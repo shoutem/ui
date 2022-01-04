@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@react-native-community/datetimepicker": "^3.5.2",
-    "@shoutem/animation": "~0.14.0",
+    "@shoutem/animation": "shoutem/animation#dd87ad2",
     "@shoutem/eslint-config-react": "^1.0.1",
     "@shoutem/theme": "~0.12.0",
     "auto-bind": "^4.0.0",

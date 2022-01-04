@@ -33,7 +33,11 @@ class ScrollView extends PureComponent {
     autoBindReact(this);
 
     this.animationDriver =
-      props.driver || new ScrollDriver({ useNativeDriver: true });
+      props.driver ||
+      new ScrollDriver(
+        { useNativeDriver: true, nativeScrollEventThrottle: 20 },
+        props.onScroll,
+      );
   }
 
   getChildContext() {
@@ -92,7 +96,7 @@ class ScrollView extends PureComponent {
         ref={this.setWrappedInstance}
         contentContainerStyle={this.addIphoneXPadding(contentContainerStyle)}
         {...animationDriver.scrollViewProps}
-        {...props}
+        {..._.omit(props, 'onScroll')}
       />
     );
   }

@@ -22,6 +22,7 @@ export class ScrollDriverProvider extends PureComponent {
   static propTypes = {
     children: PropTypes.node,
     driver: DriverShape,
+    onScroll: PropTypes.func,
   };
 
   constructor(props, context) {
@@ -47,7 +48,10 @@ export class ScrollDriverProvider extends PureComponent {
     } else if (context.driverProvider) {
       this.animationDriver = context.animationDriver;
     } else if (!this.animationDriver) {
-      this.animationDriver = new ScrollDriver({ useNativeDriver: true });
+      this.animationDriver = new ScrollDriver(
+        { useNativeDriver: true, nativeScrollEventThrottle: 20 },
+        props.onScroll,
+      );
     }
   }
 
