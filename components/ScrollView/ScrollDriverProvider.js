@@ -1,7 +1,7 @@
-import { PureComponent, Children } from "react";
-import _ from "lodash";
-import PropTypes from "prop-types";
-import { DriverShape, ScrollDriver } from "@shoutem/animation";
+import { PureComponent, Children } from 'react';
+import _ from 'lodash';
+import PropTypes from 'prop-types';
+import { DriverShape, ScrollDriver } from '@shoutem/animation';
 
 /**
  * Use this component if you want to share animation driver between unreachable siblings.
@@ -12,18 +12,18 @@ import { DriverShape, ScrollDriver } from "@shoutem/animation";
 export class ScrollDriverProvider extends PureComponent {
   static childContextTypes = {
     driverProvider: PropTypes.object,
-    animationDriver: DriverShape
+    animationDriver: DriverShape,
   };
 
   static contextTypes = {
-    animationDriver: DriverShape
+    animationDriver: DriverShape,
   };
 
   static propTypes = {
     children: PropTypes.node,
     driver: DriverShape,
     onAnimationDriverChange: PropTypes.func,
-    onScroll: PropTypes.func
+    onScroll: PropTypes.func,
   };
 
   constructor(props, context) {
@@ -35,7 +35,7 @@ export class ScrollDriverProvider extends PureComponent {
   getChildContext() {
     return {
       driverProvider: this,
-      animationDriver: this.animationDriver
+      animationDriver: this.animationDriver,
     };
   }
 
@@ -53,7 +53,7 @@ export class ScrollDriverProvider extends PureComponent {
     } else if (!this.animationDriver) {
       this.animationDriver = new ScrollDriver(
         { useNativeDriver: true, nativeScrollEventThrottle: 20 },
-        props.onScroll
+        props.onScroll,
       );
     }
 
