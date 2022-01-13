@@ -14,6 +14,7 @@ const IPHONE_X_HOME_INDICATOR_PADDING = isTabBarOnScreen ? 0 : 34;
 class ScrollView extends PureComponent {
   static propTypes = {
     ...Animated.ScrollView.propTypes,
+    primary: PropTypes.bool,
   };
 
   static contextTypes = {
@@ -55,14 +56,12 @@ class ScrollView extends PureComponent {
     }
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     const { driver } = this.props;
-    const { animationDriver } = this.context;
+    const { animationDriver, driverProvider } = this.context;
 
     if (driver && this.animationDriver !== driver) {
       this.animationDriver = driver;
-    } else if (animationDriver && this.animationDriver !== animationDriver) {
-      this.animationDriver = animationDriver;
     }
   }
 
