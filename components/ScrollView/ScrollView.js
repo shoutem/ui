@@ -56,7 +56,7 @@ class ScrollView extends PureComponent {
     }
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate() {
     const { driver } = this.props;
     const { animationDriver, driverProvider } = this.context;
 
