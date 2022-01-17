@@ -24,6 +24,7 @@ export class ScrollDriverProvider extends PureComponent {
     driver: DriverShape,
     // Used to propagate animation driver changes to components who aren't
     // children of ScrollDriver, recieves driver as argument.
+    // TODO: Rewrite for new context API.
     onAnimationDriverChange: PropTypes.func,
     onScroll: PropTypes.func,
   };
