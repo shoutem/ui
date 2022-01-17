@@ -10,9 +10,9 @@
   },
   "dependencies": {
     "@react-native-community/datetimepicker": "3.5.2",
-    "@shoutem/animation": "shoutem/animation#d4f2c12",
+    "@shoutem/animation": "shoutem/animation#649a9e7",
     "@shoutem/eslint-config-react": "~1.0.6",
-    "@shoutem/theme": "shoutem/theme#91086ca",
+    "@shoutem/theme": "shoutem/theme#ac4754a",
     "auto-bind": "4.0.0",
     "babel-plugin-transform-decorators-legacy": "1.3.5",
     "buffer": "5.6.0",
