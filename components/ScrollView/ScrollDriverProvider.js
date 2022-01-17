@@ -22,6 +22,8 @@ export class ScrollDriverProvider extends PureComponent {
   static propTypes = {
     children: PropTypes.node,
     driver: DriverShape,
+    // Used to propagate animation driver changes to components who aren't
+    // children of ScrollDriver, recieves driver as argument.
     onAnimationDriverChange: PropTypes.func,
     onScroll: PropTypes.func,
   };
@@ -58,7 +60,7 @@ export class ScrollDriverProvider extends PureComponent {
     }
 
     if (onAnimationDriverChange) {
-      onAnimationDriverChange(driver);
+      onAnimationDriverChange(this.animationDriver);
     }
   }
 
