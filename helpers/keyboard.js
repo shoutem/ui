@@ -1,5 +1,4 @@
-import { Platform } from 'react-native';
-import { getStatusBarHeight } from 'react-native-status-bar-height';
+import { Platform, StatusBar } from 'react-native';
 import { NAVIGATION_BAR_HEIGHT } from '../theme';
 
 export function calculateKeyboardOffset(extraOffset = 0) {
@@ -9,7 +8,7 @@ export function calculateKeyboardOffset(extraOffset = 0) {
     return resolvedOffset;
   }
 
-  return getStatusBarHeight() + resolvedOffset;
+  return StatusBar.currentHeight + resolvedOffset;
 }
 
 export default { calculateKeyboardOffset };
