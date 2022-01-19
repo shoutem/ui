@@ -22,6 +22,10 @@ export class ScrollDriverProvider extends PureComponent {
   static propTypes = {
     children: PropTypes.node,
     driver: DriverShape,
+    // Used to propagate animation driver changes to components who aren't
+    // children of ScrollDriver, recieves driver as argument.
+    // TODO: Rewrite for new context API.
+    onAnimationDriverChange: PropTypes.func,
     onScroll: PropTypes.func,
   };
 
@@ -43,6 +47,8 @@ export class ScrollDriverProvider extends PureComponent {
   }
 
   setupAnimationDriver(props, context) {
+    const { onAnimationDriverChange } = this.props;
+
     if (props.driver) {
       this.animationDriver = props.driver;
     } else if (context.driverProvider) {
@@ -53,12 +59,22 @@ export class ScrollDriverProvider extends PureComponent {
         props.onScroll,
       );
     }
+
+    if (onAnimationDriverChange) {
+      onAnimationDriverChange(this.animationDriver);
+    }
   }
 
   setAnimationDriver(driver, primaryScrollView) {
     if (driver || !this.animationDriver || primaryScrollView) {
-      _.assign(this.animationDriver, driver);
+      const { onAnimationDriverChange } = this.props;
       const { driverProvider } = this.context;
+
+      _.assign(this.animationDriver, driver);
+      if (onAnimationDriverChange) {
+        onAnimationDriverChange(driver);
+      }
+
       if (driverProvider) {
         driverProvider.setAnimationDriver(driver, primaryScrollView);
       }
