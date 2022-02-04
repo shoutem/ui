@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types';
-import autoBindReact from 'auto-bind/react';
 import React, { PureComponent } from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
+import autoBindReact from 'auto-bind/react';
+import PropTypes from 'prop-types';
 import { connectAnimation, TimingDriver } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
 import { View } from './View';

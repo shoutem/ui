@@ -1,10 +1,9 @@
 import React, { PureComponent } from 'react';
-import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
-
-import reducer from './redux';
 import Restaurants from './screens/Restaurants';
+import reducer from './redux';
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 const store = createStoreWithMiddleware(reducer);

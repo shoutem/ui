@@ -1,13 +1,13 @@
 import React, { PureComponent } from 'react';
+import { Animated, FlatList } from 'react-native';
 import autoBindReact from 'auto-bind/react';
-import { FlatList, Animated } from 'react-native';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
+import { Icon } from '../Icon';
+import { Caption, Text } from '../Text';
 import { TouchableOpacity } from '../TouchableOpacity';
 import { View } from '../View';
-import { Caption, Text } from '../Text';
-import { Icon } from '../Icon';
 import { InlineDropDownMenuItem } from './InlineDropDownMenuItem';
 
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
@@ -43,16 +43,13 @@ class InlineDropDownMenu extends PureComponent {
 
     const toValue = collapsed ? 0 : 1;
 
-    this.setState(
-      { collapsed: !collapsed },
-      () => Animated.timing(
-        this.dropDownIconValue,
-        {
-          toValue,
-          useNativeDriver: true,
-          duration: 300,
-        }
-      ).start());
+    this.setState({ collapsed: !collapsed }, () =>
+      Animated.timing(this.dropDownIconValue, {
+        toValue,
+        useNativeDriver: true,
+        duration: 300,
+      }).start(),
+    );
   }
 
   handleOptionPress(option) {
@@ -78,21 +75,19 @@ class InlineDropDownMenu extends PureComponent {
         selectedDescriptor={selectedDescriptor}
         onItemPressed={this.handleOptionPress}
       />
-    )
+    );
   }
 
   render() {
-    const {
-      style,
-      heading,
-      selectedOption,
-      options,
-    } = this.props;
+    const { style, heading, selectedOption, options } = this.props;
     const { collapsed } = this.state;
 
     return (
       <View>
-        <TouchableOpacity style={style.container} onPress={this.handleToggleMenuPress}>
+        <TouchableOpacity
+          style={style.container}
+          onPress={this.handleToggleMenuPress}
+        >
           <Caption styleName="muted md-gutter-bottom">{heading}</Caption>
           <View styleName="space-between horizontal v-center">
             <Text>{selectedOption?.title}</Text>
@@ -101,12 +96,14 @@ class InlineDropDownMenu extends PureComponent {
               styleName="md-gutter-left"
               style={{
                 ...style.icon,
-                transform: [{
-                  rotate: this.dropDownIconValue.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: ['0deg', '180deg']
-                  })
-                }]
+                transform: [
+                  {
+                    rotate: this.dropDownIconValue.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: ['0deg', '180deg'],
+                    }),
+                  },
+                ],
               }}
             />
           </View>

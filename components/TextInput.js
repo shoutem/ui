@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
+import { TextInput as RNTextInput } from 'react-native';
 import autoBindReact from 'auto-bind/react';
 import PropTypes from 'prop-types';
-import { TextInput as RNTextInput } from 'react-native';
 import { connectAnimation, Wiggle } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
 import { Caption } from './Text';
@@ -63,7 +63,7 @@ class TextInput extends PureComponent {
             style={{
               ...otherStyle,
               ...(hasBorder ? withBorder : withoutBorder),
-              ...(!!errorMessage ? errorBorderColor : {}),
+              ...(errorMessage ? errorBorderColor : {}),
             }}
           />
         </Wiggle>

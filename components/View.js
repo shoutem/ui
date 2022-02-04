@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import { View as RNView, ViewPropTypes } from 'react-native';
+import PropTypes from 'prop-types';
 import { connectAnimation } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
 import { LinearGradient } from './LinearGradient';

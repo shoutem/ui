@@ -33,7 +33,6 @@ function insertNativeDependencies() {
     console.log(
       `[@shoutem/ui] - error adding dependencies to root package.json\n${e.message}`,
     );
-    return;
   }
 }
 

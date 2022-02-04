@@ -3,7 +3,7 @@ import { Button } from '../../components/Button';
 import { Icon } from '../../components/Icon';
 import { Image } from '../../components/Image';
 import { Row } from '../../components/Row';
-import { Text, Caption, Subtitle } from '../../components/Text';
+import { Caption, Subtitle, Text } from '../../components/Text';
 import { View } from '../../components/View';
 import { Stage } from './Stage';
 

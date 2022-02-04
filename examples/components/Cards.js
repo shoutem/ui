@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card } from '../../components/Card';
 import { Button } from '../../components/Button';
+import { Card } from '../../components/Card';
 import { Icon } from '../../components/Icon';
 import { Image } from '../../components/Image';
 import { Caption, Subtitle } from '../../components/Text';

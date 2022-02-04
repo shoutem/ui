@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
+import { InteractionManager, LayoutAnimation, ScrollView } from 'react-native';
 import autoBindReact from 'auto-bind/react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import { InteractionManager, LayoutAnimation, ScrollView } from 'react-native';
 import { connectStyle } from '@shoutem/theme';
 import { View } from '../View';
 import { Page } from './Page';
@@ -118,7 +118,7 @@ class HorizontalPager extends PureComponent {
     const { selectedIndex } = this.state;
     const { onIndexSelected } = this.props;
 
-    const contentOffset = event.nativeEvent.contentOffset;
+    const { contentOffset } = event.nativeEvent;
     const newSelectedIndex = this.calculateIndex(contentOffset);
 
     if (selectedIndex === newSelectedIndex) {

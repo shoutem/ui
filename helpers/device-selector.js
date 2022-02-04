@@ -1,11 +1,11 @@
-import { Platform, Dimensions } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
 import { hasNotch } from 'react-native-device-info';
 import _ from 'lodash';
 import {
-  IPHONE_X_LONG_SIDE,
-  IPHONE_XR_LONG_SIDE,
   IPHONE_12_LONG_SIDE,
   IPHONE_12_MAX_LONG_SIDE,
+  IPHONE_X_LONG_SIDE,
+  IPHONE_XR_LONG_SIDE,
 } from '../const';
 
 const { OS, isPad, isTVOS } = Platform;

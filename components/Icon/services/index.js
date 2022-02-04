@@ -1,1 +1,1 @@
-export { registerIcons, getIcon } from './icons';
+export { getIcon, registerIcons } from './icons';

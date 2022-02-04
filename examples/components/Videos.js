@@ -6,21 +6,21 @@ import { Stage } from './Stage';
 export function Videos() {
   return (
     <View styleName="vertical collapsed">
-      <Stage title={'YouTube video'}>
+      <Stage title="YouTube video">
         <Video
           source={{ uri: 'https://www.youtube.com/embed/2zuisMXzyaI' }}
           width={320}
           height={180}
         />
       </Stage>
-      <Stage title={'Vimeo video'}>
+      <Stage title="Vimeo video">
         <Video
           source={{ uri: 'https://vimeo.com/182267614' }}
           width={320}
           height={180}
         />
       </Stage>
-      <Stage title={'Stream video'}>
+      <Stage title="Stream video">
         <Video
           source={{
             uri:
