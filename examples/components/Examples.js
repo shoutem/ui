@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import { DropDownMenu } from '../../components/DropDownMenu';
 import { Divider } from '../../components/Divider';
+import { DropDownMenu } from '../../components/DropDownMenu';
 import { Screen } from '../../components/Screen';
 import { ScrollView } from '../../components/ScrollView';
 import { Buttons } from './Buttons';

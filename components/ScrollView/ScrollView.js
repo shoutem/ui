@@ -1,12 +1,12 @@
 import React, { PureComponent } from 'react';
+import { Animated } from 'react-native';
 import autoBindReact from 'auto-bind/react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import { Animated } from 'react-native';
-import { ScrollDriver, DriverShape } from '@shoutem/animation';
+import { DriverShape, ScrollDriver } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
-import { ScrollDriverProvider } from './ScrollDriverProvider.js';
 import { Device } from '../../helpers';
+import { ScrollDriverProvider } from './ScrollDriverProvider.js';
 
 const isTabBarOnScreen = true;
 const IPHONE_X_HOME_INDICATOR_PADDING = isTabBarOnScreen ? 0 : 34;

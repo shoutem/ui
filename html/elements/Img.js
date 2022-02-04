@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import Image from '../components/Image';
-import { ElementPropTypes, combineMappers, mapElementProps } from '../Html';
+import { combineMappers, ElementPropTypes, mapElementProps } from '../Html';
 
 export function isImg(element) {
   return _.get(element, 'tag') === 'img';

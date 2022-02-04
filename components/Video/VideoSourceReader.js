@@ -58,7 +58,8 @@ export default class VideoSourceReader {
         getYouTubeVideoId(this.source),
         this.playerParams,
       );
-    } else if (this.isVimeo) {
+    }
+    if (this.isVimeo) {
       return getVimeoEmbedUrl(getVimeoVideoId(this.source));
     }
 

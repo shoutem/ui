@@ -1,8 +1,8 @@
 import React from 'react';
+import { Text } from 'react-native';
 import { AllHtmlEntities as Entities } from 'html-entities';
 import _ from 'lodash';
-import { Text } from 'react-native';
-import { ElementPropTypes, combineMappers, mapElementProps } from '../Html';
+import { combineMappers, ElementPropTypes, mapElementProps } from '../Html';
 
 const html = new Entities();
 

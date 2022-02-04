@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connectStyle } from '@shoutem/theme';
-import { View } from './View';
 import { Spinner } from './Spinner';
+import { View } from './View';
 
 /**
  * Renders a loading indicator (spinner) that fits into available space (container)

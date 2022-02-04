@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import { LayoutAnimation, ScrollView } from 'react-native';
 import autoBindReact from 'auto-bind/react';
 import _ from 'lodash';
-import { ScrollView, LayoutAnimation } from 'react-native';
+import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
 import { optionShape } from './const';
 import { TabMenuItem } from './TabMenuItem';
