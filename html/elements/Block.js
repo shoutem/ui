@@ -1,10 +1,10 @@
 import React from 'react';
 import _ from 'lodash';
 import {
-  ElementPropTypes,
   combineMappers,
-  mapElementProps,
+  ElementPropTypes,
   isBlockElement,
+  mapElementProps,
 } from '../Html';
 import { Inline } from './Inline';
 

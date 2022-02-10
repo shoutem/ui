@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { StatusBar } from 'react-native';
-import { View, Examples } from '@shoutem/ui';
+import { Examples, View } from '@shoutem/ui';
 
 export default class App extends PureComponent {
   render() {

@@ -1,7 +1,7 @@
-import Ul from './Ul';
-import Li from './Li';
-import Ol from './Ol';
 import Bullet from './prefix/Bullet';
 import Number from './prefix/Number';
+import Li from './Li';
+import Ol from './Ol';
+import Ul from './Ul';
 
-export { Ul, Ol, Li, Bullet, Number };
+export { Bullet, Li, Number, Ol, Ul };

@@ -1,4 +1,4 @@
-import { PureComponent, Children } from 'react';
+import { Children, PureComponent } from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { DriverShape, ScrollDriver } from '@shoutem/animation';

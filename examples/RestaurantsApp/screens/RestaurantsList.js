@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types';
-import autoBindReact from 'auto-bind/react';
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import autoBindReact from 'auto-bind/react';
+import PropTypes from 'prop-types';
 import {
   Divider,
   ImageBackground,

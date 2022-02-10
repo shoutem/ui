@@ -1,14 +1,10 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { StatusBar, Animated, Platform, View } from 'react-native';
-
+import { Animated, Platform, StatusBar, View } from 'react-native';
 import _ from 'lodash';
-
+import PropTypes from 'prop-types';
 import color from 'tinycolor2';
-
-import { connectStyle } from '@shoutem/theme';
 import { connectAnimation } from '@shoutem/animation';
-
+import { connectStyle } from '@shoutem/theme';
 import { Device } from '../../helpers';
 import composeChildren from './composeChildren';
 

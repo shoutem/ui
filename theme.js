@@ -1,17 +1,17 @@
-import { Dimensions, StyleSheet, Platform, StatusBar } from 'react-native';
+import { Dimensions, Platform, StatusBar, StyleSheet } from 'react-native';
 import {
-  INCLUDE,
-  createVariations,
-  createSharedStyle,
-  inverseColorBrightnessForAmount,
   changeColorAlpha,
+  createSharedStyle,
+  createVariations,
   getSizeRelativeToReference,
+  INCLUDE,
+  inverseColorBrightnessForAmount,
 } from '@shoutem/theme';
 import {
-  NAVIGATION_HEADER_HEIGHT,
+  IPHONE_X_HOME_INDICATOR_PADDING,
   IPHONE_X_NOTCH_PADDING,
   IPHONE_XR_NOTCH_PADDING,
-  IPHONE_X_HOME_INDICATOR_PADDING,
+  NAVIGATION_HEADER_HEIGHT,
 } from './const';
 import { Device } from './helpers';
 

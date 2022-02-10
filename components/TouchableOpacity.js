@@ -4,7 +4,7 @@ import { connectStyle } from '@shoutem/theme';
 
 class TouchableOpacity extends PureComponent {
   render() {
-    const props = this.props;
+    const { props } = this;
 
     // The activeOpacity is not a valid RN style
     // property, so we have to unset it here.

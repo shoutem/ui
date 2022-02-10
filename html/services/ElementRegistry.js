@@ -36,7 +36,7 @@ export function getElementDisplay(element) {
     return null;
   }
 
-  const display = elementClass.display;
+  const { display } = elementClass;
   if (!display) {
     // eslint-disable-next-line no-console
     console.warn(

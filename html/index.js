@@ -1,31 +1,31 @@
+import Gallery from './components/Gallery';
+import Image from './components/Image';
+import SimpleHtml from './components/SimpleHtml';
+import A from './elements/A';
+import Block from './elements/Block';
+import Br from './elements/Br';
+import Img from './elements/Img';
+import Inline, { InlineSettings } from './elements/Inline';
+import { Bullet, Li, Number, Ol, Ul } from './elements/list';
+import Text from './elements/Text';
+import Video from './elements/Video';
+import Virtual from './elements/Virtual';
 import {
-  registerElement,
   Display,
+  getElement,
   getElementDisplay,
   getElementProperty,
-  getElement,
+  registerElement,
 } from './services/ElementRegistry';
 import Html, {
+  combineMappers,
   customizeRenderElement,
   ElementPropTypes,
   hasBlockElement,
-  combineMappers,
   mapElementProps,
   renderChildElements,
   renderChildren,
 } from './Html';
-import SimpleHtml from './components/SimpleHtml';
-import Gallery from './components/Gallery';
-import Image from './components/Image';
-import Inline, { InlineSettings } from './elements/Inline';
-import Virtual from './elements/Virtual';
-import Block from './elements/Block';
-import Text from './elements/Text';
-import { Ul, Ol, Li, Bullet, Number } from './elements/list';
-import Img from './elements/Img';
-import A from './elements/A';
-import Br from './elements/Br';
-import Video from './elements/Video';
 
 // Text elements with primary inline display
 Html.registerElement('em', Inline, InlineSettings);
@@ -69,31 +69,31 @@ Html.registerElement('p', Block);
 Html.registerElement('div', Block);
 
 export {
-  Html,
-  customizeRenderElement,
-  ElementPropTypes,
-  hasBlockElement,
+  A,
+  Block,
   combineMappers,
-  mapElementProps,
-  renderChildElements,
-  renderChildren,
+  customizeRenderElement,
   // Element Registry
   Display,
-  registerElement,
-  getElementDisplay,
-  getElementProperty,
-  getElement,
-  // Elements
-  Inline,
-  Block,
-  Img,
-  A,
-  Ul,
-  Ol,
-  Li,
-  Virtual,
+  ElementPropTypes,
   // Components
   Gallery,
+  getElement,
+  getElementDisplay,
+  getElementProperty,
+  hasBlockElement,
+  Html,
   Image,
+  Img,
+  // Elements
+  Inline,
+  Li,
+  mapElementProps,
+  Ol,
+  registerElement,
+  renderChildElements,
+  renderChildren,
   SimpleHtml,
+  Ul,
+  Virtual,
 };

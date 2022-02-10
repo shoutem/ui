@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import autoBindReact from 'auto-bind/react';
-import PropTypes from 'prop-types';
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
 import { Button } from '../Button';
 import { Icon } from '../Icon';

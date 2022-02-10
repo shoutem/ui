@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
+import { Image, Modal, TouchableOpacity, View } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import autoBindReact from 'auto-bind/react';
 import PropTypes from 'prop-types';
-import { View, Modal, Image, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import { makeZoomable } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
 

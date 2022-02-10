@@ -1,19 +1,19 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import { Dimensions } from 'react-native';
-import { Device } from '../../helpers/device-selector';
+import PropTypes from 'prop-types';
 import { Button } from '../../components/Button';
 import { DropDownMenu } from '../../components/DropDownMenu';
 import { Icon } from '../../components/Icon';
 import { ImageBackground } from '../../components/ImageBackground';
 import { NavigationBar } from '../../components/NavigationBar';
-import { Text, Title, Heading } from '../../components/Text';
+import { Heading, Text, Title } from '../../components/Text';
 import { View } from '../../components/View';
 import {
-  NAVIGATION_HEADER_HEIGHT,
   IPHONE_X_NOTCH_PADDING,
   IPHONE_XR_NOTCH_PADDING,
+  NAVIGATION_HEADER_HEIGHT,
 } from '../../const';
+import { Device } from '../../helpers/device-selector';
 import { Stage } from './Stage';
 
 const window = Dimensions.get('window');

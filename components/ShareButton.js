@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
+import { Platform, Share } from 'react-native';
 import autoBindReact from 'auto-bind/react';
 import PropTypes from 'prop-types';
-import { Share, Platform } from 'react-native';
 import { connectStyle } from '@shoutem/theme';
 import { Button } from './Button';
 import { Icon } from './Icon';

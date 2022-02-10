@@ -1,15 +1,15 @@
 import React, { PureComponent } from 'react';
+import {
+  FlatList,
+  Platform,
+  RefreshControl,
+  SectionList,
+  StatusBar,
+  View,
+} from 'react-native';
 import autoBindReact from 'auto-bind/react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import {
-  View,
-  FlatList,
-  SectionList,
-  RefreshControl,
-  StatusBar,
-  Platform,
-} from 'react-native';
 import { connectStyle } from '@shoutem/theme';
 import { Divider } from './Divider';
 import { EmptyListImage } from './EmptyListImage';
@@ -34,26 +34,6 @@ function renderDefaultSectionHeader(section) {
 }
 
 class ListView extends PureComponent {
-  static propTypes = {
-    autoHideHeader: PropTypes.bool,
-    style: PropTypes.object,
-    contentContainerStyle: PropTypes.object,
-    data: PropTypes.array,
-    loading: PropTypes.bool,
-    onLoadMore: PropTypes.func,
-    onLoadMoreThreshold: PropTypes.number,
-    onRefresh: PropTypes.func,
-    getSectionId: PropTypes.func,
-    sections: PropTypes.array,
-    renderRow: PropTypes.func,
-    renderHeader: PropTypes.func,
-    renderFooter: PropTypes.func,
-    renderSectionHeader: PropTypes.func,
-    scrollDriver: PropTypes.object,
-    hasFeaturedItem: PropTypes.bool,
-    renderFeaturedItem: PropTypes.func,
-  };
-
   static getDerivedStateFromProps(props, state) {
     const isLoading = props.loading;
 
@@ -131,7 +111,7 @@ class ListView extends PureComponent {
 
     // configuration
     // default load more threshold
-    mappedProps.onEndReachedThreshold = onLoadMoreThreshold || 0.5;
+    mappedProps.onEndReachedThreshold = onLoadMoreThreshold;
 
     // style
     mappedProps.style = style.list;
@@ -313,17 +293,21 @@ class ListView extends PureComponent {
   }
 
   renderListEmptyComponent() {
-    const { ListEmptyComponent, loading } = this.props;
+    const { loading } = this.props;
 
     if (loading) {
       return null;
     }
 
+    const { ListEmptyComponent } = this.props;
+
     if (ListEmptyComponent) {
       return <ListEmptyComponent />;
     }
 
-    return <EmptyListImage />;
+    const { emptyListMessage, emptyListTitle } = this.props;
+
+    return <EmptyListImage message={emptyListMessage} title={emptyListTitle} />;
   }
 
   renderRefreshControl() {
@@ -346,20 +330,27 @@ class ListView extends PureComponent {
 
   render() {
     const {
+      emptyListMessage,
+      emptyListTitle,
       sections,
       hasFeaturedItem,
       ListEmptyComponent,
       loading,
     } = this.props;
 
-    /* ListEmptyComponent in SectionList is handled differently due to the known issue with empty data interpretation.
-    https://github.com/facebook/react-native/issues/14721 */
+    // ListEmptyComponent in SectionList is handled differently due to the known
+    // issue with empty data interpretation.
+    // https://github.com/facebook/react-native/issues/14721
     if (
       sections &&
       _.every(sections, section => _.isEmpty(section.data)) &&
       !loading
     ) {
-      return ListEmptyComponent ? <ListEmptyComponent /> : <EmptyListImage />;
+      return ListEmptyComponent ? (
+        <ListEmptyComponent />
+      ) : (
+        <EmptyListImage message={emptyListMessage} title={emptyListTitle} />
+      );
     }
 
     if (sections || hasFeaturedItem) {
@@ -369,6 +360,54 @@ class ListView extends PureComponent {
     return <FlatList {...this.getPropsToPass()} />;
   }
 }
+
+ListView.propTypes = {
+  autoHideHeader: PropTypes.bool,
+  contentContainerStyle: PropTypes.object,
+  data: PropTypes.array,
+  emptyListMessage: PropTypes.string,
+  emptyListTitle: PropTypes.string,
+  getSectionId: PropTypes.func,
+  hasFeaturedItem: PropTypes.bool,
+  keyExtractor: PropTypes.func,
+  ListEmptyComponent: PropTypes.node,
+  loading: PropTypes.bool,
+  renderFeaturedItem: PropTypes.func,
+  renderFooter: PropTypes.func,
+  renderHeader: PropTypes.func,
+  renderRow: PropTypes.func,
+  renderSectionHeader: PropTypes.func,
+  scrollDriver: PropTypes.object,
+  sections: PropTypes.array,
+  style: PropTypes.object,
+  onLoadMore: PropTypes.func,
+  onLoadMoreThreshold: PropTypes.number,
+  onRefresh: PropTypes.func,
+};
+
+ListView.defaultProps = {
+  autoHideHeader: false,
+  contentContainerStyle: {},
+  data: undefined,
+  emptyListMessage: undefined,
+  emptyListTitle: undefined,
+  getSectionId: undefined,
+  hasFeaturedItem: false,
+  keyExtractor: undefined,
+  ListEmptyComponent: undefined,
+  loading: false,
+  renderFeaturedItem: undefined,
+  renderFooter: undefined,
+  renderHeader: undefined,
+  renderRow: undefined,
+  renderSectionHeader: undefined,
+  scrollDriver: undefined,
+  sections: undefined,
+  style: {},
+  onLoadMore: undefined,
+  onLoadMoreThreshold: 0.5,
+  onRefresh: undefined,
+};
 
 const StyledListView = connectStyle('shoutem.ui.ListView', {
   listContent: {

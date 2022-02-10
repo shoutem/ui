@@ -60,8 +60,6 @@ export function registerIcons(config) {
   } else {
     addNewIcon(config);
   }
-
-  return;
 }
 
 registerIcons(defaultConfig);

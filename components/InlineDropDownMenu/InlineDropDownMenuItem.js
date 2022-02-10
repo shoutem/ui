@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react';
-import autoBindReact from 'auto-bind/react';
 import { Animated, Dimensions } from 'react-native';
+import autoBindReact from 'auto-bind/react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
-import { TouchableOpacity } from '../TouchableOpacity';
 import { Text } from '../Text';
+import { TouchableOpacity } from '../TouchableOpacity';
 
 const window = Dimensions.get('window');
 const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
@@ -30,14 +30,11 @@ class InlineDropDownMenuItem extends PureComponent {
   componentDidMount() {
     const { index } = this.props;
 
-    Animated.timing(
-      this.animatedValue,
-      {
-        toValue: 1,
-        useNativeDriver: true,
-        duration: 300 + index * 15,
-      }
-    ).start();
+    Animated.timing(this.animatedValue, {
+      toValue: 1,
+      useNativeDriver: true,
+      duration: 300 + index * 15,
+    }).start();
   }
 
   handlePress() {
@@ -51,7 +48,9 @@ class InlineDropDownMenuItem extends PureComponent {
   render() {
     const { isSelected, selectedDescriptor, item, style } = this.props;
 
-    const resolvedText = isSelected ? `${item.title} (${selectedDescriptor})` : item.title;
+    const resolvedText = isSelected
+      ? `${item.title} (${selectedDescriptor})`
+      : item.title;
     const textStyle = isSelected ? 'muted' : '';
 
     return (
@@ -64,10 +63,10 @@ class InlineDropDownMenuItem extends PureComponent {
                 translateX: this.animatedValue.interpolate({
                   inputRange: [0, 1],
                   outputRange: [window.width, 0],
-                })
-              }
+                }),
+              },
             ],
-          }
+          },
         ]}
         disabled={isSelected}
         onPress={this.handlePress}

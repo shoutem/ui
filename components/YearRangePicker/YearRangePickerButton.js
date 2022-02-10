@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react';
 import { Animated } from 'react-native';
-import PropTypes from 'prop-types';
 import autoBindReact from 'auto-bind/react';
+import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
-import { TouchableOpacity } from '../TouchableOpacity';
 import { Icon } from '../Icon';
 import { Text } from '../Text';
+import { TouchableOpacity } from '../TouchableOpacity';
 
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 

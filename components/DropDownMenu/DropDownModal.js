@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
+import { Dimensions, Modal } from 'react-native';
 import autoBindReact from 'auto-bind/react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import { Modal, Dimensions } from 'react-native';
-import { connectStyle, changeColorAlpha } from '@shoutem/theme';
+import { changeColorAlpha, connectStyle } from '@shoutem/theme';
 import { Button } from '../Button';
 import { Icon } from '../Icon';
 import { LinearGradient } from '../LinearGradient';

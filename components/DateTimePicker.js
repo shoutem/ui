@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
+import { Platform } from 'react-native';
+import Modal from 'react-native-modal';
 import RNCDateTimePicker from '@react-native-community/datetimepicker';
 import autoBindReact from 'auto-bind/react';
 import PropTypes from 'prop-types';
-import { Platform } from 'react-native';
-import Modal from 'react-native-modal';
 import { connectStyle } from '@shoutem/theme';
 import { Button } from './Button';
 import { Icon } from './Icon';

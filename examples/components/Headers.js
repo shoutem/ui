@@ -1,8 +1,8 @@
 import React from 'react';
-import { Text, Caption, Subtitle, Title, Heading } from '../../components/Text';
 import { Button } from '../../components/Button';
 import { Icon } from '../../components/Icon';
 import { Overlay } from '../../components/Overlay';
+import { Caption, Heading, Subtitle, Text, Title } from '../../components/Text';
 import { Tile } from '../../components/Tile';
 import { View } from '../../components/View';
 import { Stage } from './Stage';
