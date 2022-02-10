@@ -1,26 +1,26 @@
-import { Dimensions, Linking } from 'react-native';
-import autoBindReact from 'auto-bind/react';
-import _ from 'lodash';
-import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
+import { Dimensions, Linking } from 'react-native';
 import Html from 'react-native-render-html';
+import { iframe } from 'react-native-render-html/src/HTMLRenderers';
 import {
-  cssStringToObject,
   cssObjectToString,
+  cssStringToObject,
 } from 'react-native-render-html/src/HTMLStyles';
-import WebView from 'react-native-webview';
 import {
-  makeTableRenderer,
   alterNode as tableAlterNode,
   cssRulesFromSpecs,
   defaultTableStylesSpecs,
   IGNORED_TAGS,
+  makeTableRenderer,
 } from 'react-native-render-html-table-bridge';
-import { iframe } from 'react-native-render-html/src/HTMLRenderers';
+import WebView from 'react-native-webview';
 import YoutubePlayer from 'react-native-youtube-iframe';
+import autoBindReact from 'auto-bind/react';
+import _ from 'lodash';
+import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
-import { View } from '../../components/View';
 import { Text } from '../../components/Text';
+import { View } from '../../components/View';
 import getEmptyObjectKeys from '../services/getEmptyObjectKeys';
 import isValidVideoFormat from '../services/isValidVideoFormat';
 import Image from './Image';

@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import { Switch } from '../../components/Switch';
 import { FormGroup } from '../../components/FormGroup';
+import { Switch } from '../../components/Switch';
 import { Caption } from '../../components/Text';
 import { TextInput } from '../../components/TextInput';
 import { View } from '../../components/View';

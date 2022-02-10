@@ -1,12 +1,13 @@
 import React from 'react';
-import autoBindReact from 'auto-bind/react';
 import { InteractionManager } from 'react-native';
 import TransformableImage from 'react-native-transformable-image';
+import autoBindReact from 'auto-bind/react';
 import { connectStyle } from '@shoutem/theme';
 import { ImageGalleryBase } from './ImageGalleryBase';
 
 class ImageGallery extends ImageGalleryBase {
   static IMAGE_PREVIEW_MODE = ImageGalleryBase.IMAGE_PREVIEW_MODE;
+
   static IMAGE_GALLERY_MODE = ImageGalleryBase.IMAGE_GALLERY_MODE;
 
   constructor(props) {

@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
+import { Image as RNImage } from 'react-native';
 import autoBindReact from 'auto-bind/react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import { Image as RNImage } from 'react-native';
 import { Image } from '../../components/Image';
 import { ImageBackground } from '../../components/ImageBackground';
 import { Lightbox } from '../../components/Lightbox';

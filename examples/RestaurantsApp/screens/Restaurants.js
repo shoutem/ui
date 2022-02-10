@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import autoBindReact from 'auto-bind/react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { CardStack, NavigationBar } from '@shoutem/ui/navigation';
+import { navigatePop } from '../redux';
 import RestaurantDetails from './RestaurantDetails';
 import RestaurantsList from './RestaurantsList';
-import { navigatePop } from '../redux';
 
 class Restaurants extends PureComponent {
   static propTypes = {

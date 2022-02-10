@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import { Platform } from 'react-native';
+import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
 import { TouchableNativeFeedback } from './TouchableNativeFeedback';
 import { TouchableOpacity } from './TouchableOpacity';
@@ -21,7 +21,7 @@ class Touchable extends PureComponent {
   };
 
   render() {
-    const props = this.props;
+    const { props } = this;
     const style = { ...props.style };
     delete style.touchableOpacity;
     delete style.touchableNativeFeedback;

@@ -4,17 +4,17 @@ import PropTypes from 'prop-types';
 import { Text } from '../../components/Text';
 import { TouchableOpacity } from '../../components/TouchableOpacity';
 import { View } from '../../components/View';
-import { Display } from '../services/ElementRegistry';
 import {
-  isBlockElement,
-  hasBlockElement,
-  ElementPropTypes,
   combineMappers,
+  ElementPropTypes,
+  hasBlockElement,
+  isBlockElement,
   mapElementProps,
   renderChildElements,
 } from '../Html';
+import { Display } from '../services/ElementRegistry';
 import { isImg } from './Img';
-import { removeWhiteSpace, isText } from './Text';
+import { isText, removeWhiteSpace } from './Text';
 
 export const blockDisplayIfAnyChildIsBlock = function(element) {
   return hasBlockElement(element.childElements)

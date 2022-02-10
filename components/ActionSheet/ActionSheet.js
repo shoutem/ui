@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import { Animated, Dimensions, TouchableOpacity } from 'react-native';
 import autoBindReact from 'auto-bind/react';
-import { Animated, TouchableOpacity, Dimensions } from 'react-native';
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
 import { IPHONE_X_HOME_INDICATOR_PADDING } from '../../const';
 import { Device } from '../../helpers';
@@ -84,11 +84,11 @@ class ActionSheet extends PureComponent {
     Animated.parallel([
       Animated.spring(yPos, {
         toValue,
-        useNativeDriver: true
+        useNativeDriver: true,
       }),
       Animated.timing(opacity, {
         toValue,
-        useNativeDriver: false
+        useNativeDriver: false,
       }),
     ]).start();
   }
@@ -101,13 +101,13 @@ class ActionSheet extends PureComponent {
     Animated.parallel([
       Animated.spring(yPos, {
         toValue,
-        useNativeDriver: true
+        useNativeDriver: true,
       }),
       Animated.timing(opacity, {
         toValue,
         delay: 100,
         duration: 150,
-        useNativeDriver: false
+        useNativeDriver: false,
       }),
     ]).start(this.hideComponent);
   }

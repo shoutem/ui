@@ -1,15 +1,15 @@
 import React, { PureComponent } from 'react';
 import { LayoutAnimation, Platform } from 'react-native';
-import PropTypes from 'prop-types';
-import _ from 'lodash';
 import Modal from 'react-native-modal';
 import autoBindReact from 'auto-bind/react';
+import _ from 'lodash';
+import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
-import { View } from '../View';
-import { Text } from '../Text';
-import { Icon } from '../Icon';
 import { Button } from '../Button';
+import { Icon } from '../Icon';
+import { Text } from '../Text';
 import { TouchableOpacity } from '../TouchableOpacity';
+import { View } from '../View';
 
 const NUMBER_OF_ROWS = 4;
 const YEARS_IN_ROW = 5;
@@ -160,13 +160,13 @@ class YearRangePickerModal extends PureComponent {
 
       const newYears = addToEnd
         ? [
-          ...selectedYears,
-          ..._.times(yearsToAdd, index => _.last(selectedYears) + index + 1),
-        ]
+            ...selectedYears,
+            ..._.times(yearsToAdd, index => _.last(selectedYears) + index + 1),
+          ]
         : [
-          ...selectedYears,
-          ..._.times(yearsToAdd, index => _.head(selectedYears) - index + -1),
-        ];
+            ...selectedYears,
+            ..._.times(yearsToAdd, index => _.head(selectedYears) - index + -1),
+          ];
       const sortedYears = _.sortBy(newYears, item => item);
 
       this.setState({ selectedYears: sortedYears });

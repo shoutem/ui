@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import { TouchableNativeFeedback as RNTouchableNativeFeedback } from 'react-native';
+import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
 
 class TouchableNativeFeedback extends PureComponent {
@@ -13,7 +13,7 @@ class TouchableNativeFeedback extends PureComponent {
   };
 
   render() {
-    const props = this.props;
+    const { props } = this;
     // Remove the props that are not valid
     // style keys.
     const style = {

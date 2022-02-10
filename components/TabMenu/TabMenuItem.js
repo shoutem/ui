@@ -1,12 +1,12 @@
 import React, { PureComponent } from 'react';
 import { LayoutAnimation } from 'react-native';
-import PropTypes from 'prop-types';
 import autoBindReact from 'auto-bind/react';
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
 import { Text } from '../Text';
-import { View } from '../View';
 import { TouchableOpacity } from '../TouchableOpacity';
+import { View } from '../View';
 import { optionShape } from './const';
 
 class TabMenuItem extends PureComponent {
@@ -33,8 +33,11 @@ class TabMenuItem extends PureComponent {
     onItemPressed(item);
   }
 
-  handleLayout({ nativeEvent: { layout: { width } } }) {
-
+  handleLayout({
+    nativeEvent: {
+      layout: { width },
+    },
+  }) {
     LayoutAnimation.easeInEaseOut();
     this.setState({ baseWidth: width });
   }

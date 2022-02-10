@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
+import { ImageBackground as RNImageBackground, Platform } from 'react-native';
 import autoBindReact from 'auto-bind/react';
 import _ from 'lodash';
-import { ImageBackground as RNImageBackground, Platform } from 'react-native';
 import { connectAnimation } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
 

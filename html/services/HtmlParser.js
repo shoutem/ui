@@ -40,7 +40,8 @@ function stripNewLines(html) {
     .replace(htmlNewLineRegex, match => {
       if (newLineAfterClosingTagRegex.test(match)) {
         return '>';
-      } else if (newLineBeforeOpeningTagRegex.test(match)) {
+      }
+      if (newLineBeforeOpeningTagRegex.test(match)) {
         return '<';
       }
       return ' ';

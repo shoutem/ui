@@ -4,10 +4,10 @@ import { Animated, ScrollView } from 'react-native';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
+import { Icon } from '../Icon';
+import { Caption, Text } from '../Text';
 import { TouchableOpacity } from '../TouchableOpacity';
 import { View } from '../View';
-import { Caption, Text } from '../Text';
-import { Icon } from '../Icon';
 import { InlineDropDownMenuItem } from './InlineDropDownMenuItem';
 
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);

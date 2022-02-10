@@ -7,11 +7,6 @@ import { Text, Title, View } from '@shoutem/ui';
 import EmptyList from '../assets/images/emptyList.svg';
 
 class EmptyListImage extends PureComponent {
-  static defaultProps = {
-    title: "It's empty in here",
-    message: "We couldn't find anything to show...",
-  };
-
   constructor(props) {
     super(props);
 
@@ -64,6 +59,15 @@ EmptyListImage.propTypes = {
   messageStyle: PropTypes.object,
   title: PropTypes.string,
   titleStyle: PropTypes.object,
+};
+
+EmptyListImage.defaultProps = {
+  image: undefined,
+  imageStyle: undefined,
+  message: "We couldn't find anything to show...",
+  messageStyle: undefined,
+  title: "It's empty in here",
+  titleStyle: undefined,
 };
 
 const StyledView = connectStyle('shoutem.ui.EmptyListImage')(EmptyListImage);
