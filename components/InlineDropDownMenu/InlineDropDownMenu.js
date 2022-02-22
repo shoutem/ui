@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import { Animated, FlatList } from 'react-native';
 import autoBindReact from 'auto-bind/react';
+import { Animated, ScrollView } from 'react-native';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
@@ -14,7 +14,7 @@ const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 
 const optionShape = PropTypes.shape({
   title: PropTypes.string.isRequired,
-  key: PropTypes.string.isRequired,
+  key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 });
 
 class InlineDropDownMenu extends PureComponent {
@@ -24,6 +24,10 @@ class InlineDropDownMenu extends PureComponent {
     options: PropTypes.arrayOf(optionShape).isRequired,
     onOptionSelected: PropTypes.func,
     selectedOption: optionShape,
+    headingStyle: PropTypes.object,
+    containerStyle: PropTypes.object,
+    selectedOptionContainerStyle: PropTypes.object,
+    selectedOptionTextStyle: PropTypes.object,
   };
 
   constructor(props) {
@@ -69,6 +73,7 @@ class InlineDropDownMenu extends PureComponent {
 
     return (
       <InlineDropDownMenuItem
+        key={item.key}
         item={item}
         isSelected={isSelected}
         index={index}
@@ -79,18 +84,32 @@ class InlineDropDownMenu extends PureComponent {
   }
 
   render() {
-    const { style, heading, selectedOption, options } = this.props;
+    const {
+      style,
+      heading,
+      selectedOption,
+      options,
+      headingStyle,
+      containerStyle,
+      selectedOptionContainerStyle,
+      selectedOptionTextStyle,
+    } = this.props;
     const { collapsed } = this.state;
 
     return (
       <View>
         <TouchableOpacity
-          style={style.container}
+          style={[style.container, containerStyle]}
           onPress={this.handleToggleMenuPress}
         >
-          <Caption styleName="muted md-gutter-bottom">{heading}</Caption>
-          <View styleName="space-between horizontal v-center">
-            <Text>{selectedOption?.title}</Text>
+          <Caption styleName="muted md-gutter-bottom" style={headingStyle}>
+            {heading}
+          </Caption>
+          <View
+            styleName="space-between horizontal v-center"
+            style={selectedOptionContainerStyle}
+          >
+            <Text style={selectedOptionTextStyle}>{selectedOption?.title}</Text>
             <AnimatedIcon
               name="drop-down"
               styleName="md-gutter-left"
@@ -109,11 +128,14 @@ class InlineDropDownMenu extends PureComponent {
           </View>
         </TouchableOpacity>
         {collapsed && (
-          <FlatList
+          <ScrollView
             data={options}
-            renderItem={this.renderOption}
             contentContainerStyle={style.list}
-          />
+          >
+            {_.map(options, (item, index) =>
+              this.renderOption({ item, index }),
+            )}
+          </ScrollView>
         )}
       </View>
     );

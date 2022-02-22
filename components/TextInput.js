@@ -61,9 +61,9 @@ class TextInput extends PureComponent {
             selectionColor={selectionColor}
             underlineColorAndroid={underlineColorAndroid}
             style={{
-              ...otherStyle,
               ...(hasBorder ? withBorder : withoutBorder),
               ...(errorMessage ? errorBorderColor : {}),
+              ...otherStyle,
             }}
           />
         </Wiggle>
