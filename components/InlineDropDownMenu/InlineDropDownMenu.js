@@ -130,7 +130,6 @@ class InlineDropDownMenu extends PureComponent {
         {collapsed && (
           <ScrollView
             data={options}
-            renderItem={this.renderOption}
             contentContainerStyle={style.list}
           >
             {_.map(options, (item, index) =>
