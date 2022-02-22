@@ -1,14 +1,13 @@
 import React, { PureComponent } from 'react';
-import { Animated, Dimensions } from 'react-native';
+import { Animated, Dimensions, Pressable } from 'react-native';
 import autoBindReact from 'auto-bind/react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
 import { Text } from '../Text';
-import { TouchableOpacity } from '../TouchableOpacity';
 
 const window = Dimensions.get('window');
-const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 class InlineDropDownMenuItem extends PureComponent {
   static propTypes = {
@@ -54,7 +53,7 @@ class InlineDropDownMenuItem extends PureComponent {
     const textStyle = isSelected ? 'muted' : '';
 
     return (
-      <AnimatedTouchable
+      <AnimatedPressable
         style={[
           style.container,
           {
@@ -72,7 +71,7 @@ class InlineDropDownMenuItem extends PureComponent {
         onPress={this.handlePress}
       >
         <Text styleName={textStyle}>{resolvedText}</Text>
-      </AnimatedTouchable>
+      </AnimatedPressable>
     );
   }
 }
