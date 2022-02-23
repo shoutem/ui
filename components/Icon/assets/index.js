@@ -18,6 +18,7 @@ import checkboxRectangleOn from './checkbox-rectangle-on.svg';
 import clearText from './clear-text.svg';
 import close from './close.svg';
 import comment from './comment.svg';
+import comments from './comments.svg';
 import deals from './deals.svg';
 import directions from './directions.svg';
 import downArrow from './down-arrow.svg';
@@ -43,6 +44,7 @@ import instagram from './instagram.svg';
 import laptop from './laptop.svg';
 import leftArrow from './left-arrow.svg';
 import like from './like.svg';
+import likeHeart from './like-heart.svg';
 import link from './link.svg';
 import linkedin from './linkedin.svg';
 import lock from './lock.svg';
@@ -118,6 +120,7 @@ export const defaultConfig = [
   { name: 'clear-text', icon: clearText },
   { name: 'close', icon: close },
   { name: 'comment', icon: comment },
+  { name: 'comments', icon: comments },
   { name: 'deals', icon: deals },
   { name: 'directions', icon: directions },
   { name: 'down-arrow', icon: downArrow },
@@ -143,6 +146,7 @@ export const defaultConfig = [
   { name: 'laptop', icon: laptop },
   { name: 'left-arrow', icon: leftArrow },
   { name: 'like', icon: like },
+  { name: 'like-heart', icon: likeHeart },
   { name: 'link', icon: link },
   { name: 'linkedin', icon: linkedin },
   { name: 'lock', icon: lock },
