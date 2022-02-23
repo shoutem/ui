@@ -182,11 +182,11 @@ class ListView extends PureComponent {
   // eslint-disable-next-line consistent-return
   createOnLoadMore() {
     const { onLoadMore, data } = this.props;
-    const {  status } = this.state;
+    const { status } = this.state;
     if (onLoadMore) {
       return _.throttle(
         () => {
-          if (!_.isEmpty(data)  && status === Status.IDLE) {
+          if (!_.isEmpty(data) && status === Status.IDLE) {
             onLoadMore();
           }
         },
