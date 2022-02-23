@@ -57,7 +57,6 @@ class ListView extends PureComponent {
 
     this.state = {
       status: props.loading ? Status.LOADING : Status.IDLE,
-      isScrolling: false,
     };
   }
 
@@ -177,21 +176,17 @@ class ListView extends PureComponent {
     // reference
     mappedProps.ref = this.handleListViewRef;
 
-    mappedProps.onMomentumScrollBegin = this.setStartedScrolling;
-
-    mappedProps.onMomentumScrollEnd = this.setEndedScrolling;
-
     return mappedProps;
   }
 
   // eslint-disable-next-line consistent-return
   createOnLoadMore() {
     const { onLoadMore, data } = this.props;
-    const { isScrolling, status } = this.state;
+    const { status } = this.state;
     if (onLoadMore) {
       return _.throttle(
         () => {
-          if (!_.isEmpty(data) && isScrolling && status === Status.IDLE) {
+          if (!_.isEmpty(data) && status === Status.IDLE) {
             onLoadMore();
           }
         },
@@ -199,14 +194,6 @@ class ListView extends PureComponent {
         { leading: true },
       );
     }
-  }
-
-  setStartedScrolling() {
-    this.setState({ isScrolling: true });
-  }
-
-  setEndedScrolling() {
-    this.setState({ isScrolling: true });
   }
 
   autoHideHeader({
