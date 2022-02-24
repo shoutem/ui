@@ -10,6 +10,7 @@ import back from './back.svg';
 import books from './books.svg';
 import call from './call.svg';
 import camSwitch from './cam-switch.svg';
+import camera from './camera.svg';
 import cart from './cart.svg';
 import checkboxOff from './checkbox-off.svg';
 import checkboxOn from './checkbox-on.svg';
@@ -35,6 +36,7 @@ import facebook from './facebook.svg';
 import facebookLogo from './facebook-logo.svg';
 import folder from './folder.svg';
 import friends from './friends.svg';
+import gallery from './gallery.svg';
 import gift from './gift.svg';
 import github from './github.svg';
 import hangUp from './hang-up.svg';
@@ -111,6 +113,7 @@ export const defaultConfig = [
   { name: 'back', icon: back },
   { name: 'books', icon: books },
   { name: 'call', icon: call },
+  { name: 'camera', icon: camera },
   { name: 'camSwitch', icon: camSwitch },
   { name: 'cart', icon: cart },
   { name: 'checkbox-off', icon: checkboxOff },
@@ -136,6 +139,7 @@ export const defaultConfig = [
   { name: 'facebook', icon: facebook },
   { name: 'facebook-logo', icon: facebookLogo },
   { name: 'folder', icon: folder },
+  { name: 'gallery', icon: gallery },
   { name: 'friends', icon: friends },
   { name: 'gift', icon: gift },
   { name: 'github', icon: github },
