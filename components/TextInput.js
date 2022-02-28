@@ -19,10 +19,22 @@ class TextInput extends PureComponent {
   }
 
   handleBlur() {
+    const { onBlur } = this.props;
+
+    if (onBlur) {
+      onBlur();
+    }
+
     this.setState({ isFocused: false });
   }
 
   handleFocus() {
+    const { onFocus } = this.props;
+
+    if (onFocus) {
+      onFocus();
+    }
+
     this.setState({ isFocused: true });
   }
 
