@@ -19,10 +19,22 @@ class TextInput extends PureComponent {
   }
 
   handleBlur() {
+    const { onBlur } = this.props;
+
+    if (onBlur) {
+      onBlur();
+    }
+
     this.setState({ isFocused: false });
   }
 
   handleFocus() {
+    const { onFocus } = this.props;
+
+    if (onFocus) {
+      onFocus();
+    }
+
     this.setState({ isFocused: true });
   }
 
@@ -44,6 +56,7 @@ class TextInput extends PureComponent {
       withBorder,
       withoutBorder,
       wiggleAnimation,
+      errorText,
       ...otherStyle
     } = style;
 
@@ -68,7 +81,7 @@ class TextInput extends PureComponent {
           />
         </Wiggle>
         {!!errorMessage && (
-          <Caption styleName="form-error sm-gutter-top">{errorMessage}</Caption>
+          <Caption styleName="form-error sm-gutter-top" style={errorText}>{errorMessage}</Caption>
         )}
       </View>
     );
