@@ -56,6 +56,7 @@ class TextInput extends PureComponent {
       withBorder,
       withoutBorder,
       wiggleAnimation,
+      errorText,
       ...otherStyle
     } = style;
 
@@ -80,7 +81,7 @@ class TextInput extends PureComponent {
           />
         </Wiggle>
         {!!errorMessage && (
-          <Caption styleName="form-error sm-gutter-top">{errorMessage}</Caption>
+          <Caption styleName="form-error sm-gutter-top" style={errorText}>{errorMessage}</Caption>
         )}
       </View>
     );
