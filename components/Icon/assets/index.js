@@ -6,6 +6,7 @@ import addToCart from './add-to-cart.svg';
 import addToFavoritesOff from './add-to-favorites-off.svg';
 import addToFavoritesOn from './add-to-favorites-on.svg';
 import address from './address.svg';
+import attachMedia from './attach-media.svg';
 import back from './back.svg';
 import books from './books.svg';
 import call from './call.svg';
@@ -17,12 +18,14 @@ import checkboxOn from './checkbox-on.svg';
 import checkboxRectangleOff from './checkbox-rectangle-off.svg';
 import checkboxRectangleOn from './checkbox-rectangle-on.svg';
 import clearText from './clear-text.svg';
+import clock from './clock.svg';
 import close from './close.svg';
 import comment from './comment.svg';
 import comments from './comments.svg';
 import deals from './deals.svg';
 import directions from './directions.svg';
 import downArrow from './down-arrow.svg';
+import download from './download.svg';
 import dropDown from './drop-down.svg';
 import edit from './edit.svg';
 import email from './email.svg';
@@ -37,6 +40,7 @@ import facebookLogo from './facebook-logo.svg';
 import folder from './folder.svg';
 import friends from './friends.svg';
 import gallery from './gallery.svg';
+import garbageCan from './garbage-can.svg';
 import gift from './gift.svg';
 import github from './github.svg';
 import hangUp from './hang-up.svg';
@@ -49,6 +53,7 @@ import like from './like.svg';
 import likeHeart from './like-heart.svg';
 import link from './link.svg';
 import linkedin from './linkedin.svg';
+import locationPins from './location-pins.svg';
 import lock from './lock.svg';
 import loyaltyCard from './loyalty-card.svg';
 import maps from './maps.svg';
@@ -76,6 +81,7 @@ import receipt from './receipt.svg';
 import refresh from './refresh.svg';
 import restaurant from './restaurant.svg';
 import restaurantMenu from './restaurant-menu.svg';
+import restore from './restore.svg';
 import rightArrow from './right-arrow.svg';
 import rssFeed from './rss-feed.svg';
 import rsvp from './rsvp.svg';
@@ -83,6 +89,7 @@ import search from './search.svg';
 import settings from './settings.svg';
 import share from './share.svg';
 import shareAndroid from './share-android.svg';
+import sleep from './sleep.svg';
 import sidebar from './sidebar.svg';
 import socialWall from './social-wall.svg';
 import stamp from './stamp.svg';
@@ -110,6 +117,7 @@ export const defaultConfig = [
   { name: 'add-to-favorites-off', icon: addToFavoritesOff },
   { name: 'add-to-favorites-on', icon: addToFavoritesOn },
   { name: 'address', icon: address },
+  { name: 'attach-media', icon: attachMedia },
   { name: 'back', icon: back },
   { name: 'books', icon: books },
   { name: 'call', icon: call },
@@ -121,12 +129,14 @@ export const defaultConfig = [
   { name: 'checkbox-rectangle-off', icon: checkboxRectangleOff },
   { name: 'checkbox-rectangle-on', icon: checkboxRectangleOn },
   { name: 'clear-text', icon: clearText },
+  { name: 'clock', icon: clock },
   { name: 'close', icon: close },
   { name: 'comment', icon: comment },
   { name: 'comments', icon: comments },
   { name: 'deals', icon: deals },
   { name: 'directions', icon: directions },
   { name: 'down-arrow', icon: downArrow },
+  { name: 'download', icon: download },
   { name: 'drop-down', icon: dropDown },
   { name: 'edit', icon: edit },
   { name: 'email', icon: email },
@@ -141,6 +151,8 @@ export const defaultConfig = [
   { name: 'folder', icon: folder },
   { name: 'gallery', icon: gallery },
   { name: 'friends', icon: friends },
+  { name: 'gallery', icon: gallery },
+  { name: 'garbage-can', icon: garbageCan },
   { name: 'gift', icon: gift },
   { name: 'github', icon: github },
   { name: 'hang-up', icon: hangUp },
@@ -153,6 +165,7 @@ export const defaultConfig = [
   { name: 'like-heart', icon: likeHeart },
   { name: 'link', icon: link },
   { name: 'linkedin', icon: linkedin },
+  { name: 'location-pins', icon: locationPins },
   { name: 'lock', icon: lock },
   { name: 'loyalty-card', icon: loyaltyCard },
   { name: 'maps', icon: maps },
@@ -180,6 +193,7 @@ export const defaultConfig = [
   { name: 'refresh', icon: refresh },
   { name: 'restaurant', icon: restaurant },
   { name: 'restaurant-menu', icon: restaurantMenu },
+  { name: 'restore', icon: restore },
   { name: 'right-arrow', icon: rightArrow },
   { name: 'rss-feed', icon: rssFeed },
   { name: 'rsvp', icon: rsvp },
@@ -188,6 +202,7 @@ export const defaultConfig = [
   { name: 'share', icon: share },
   { name: 'share-android', icon: shareAndroid },
   { name: 'sidebar', icon: sidebar },
+  { name: 'sleep', icon: sleep },
   { name: 'social-wall', icon: socialWall },
   { name: 'stamp', icon: stamp },
   { name: 'stop', icon: stop },
