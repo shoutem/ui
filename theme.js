@@ -2944,4 +2944,15 @@ export default (variables = defaultThemeVariables) => ({
       borderWidth: 1,
     },
   },
+
+  'shoutem.ui.AnimatedLoading': {
+    container: {
+      width: getSizeRelativeToReference(44, 375, window.width),
+      height: getSizeRelativeToReference(44, 812, window.height),
+      backgroundColor: variables.primaryButtonBackgroundColor,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+  },
 });

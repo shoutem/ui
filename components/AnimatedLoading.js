@@ -1,0 +1,70 @@
+import React, { useCallback, useEffect, useRef } from 'react';
+import { Animated } from 'react-native';
+import LottieView from 'lottie-react-native';
+import PropTypes from 'prop-types';
+import { connectStyle } from '@shoutem/theme';
+import { View } from '@shoutem/ui';
+import { animations } from '../assets';
+
+const AnimatedView = Animated.createAnimatedComponent(View);
+
+function AnimatedLoading({ children, loading, style }) {
+  const animateProgress = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    if (loading) {
+      startAnimation();
+    }
+  }, [startAnimation, loading]);
+
+  const startAnimation = useCallback(() => {
+    Animated.timing(animateProgress, {
+      toValue: 1,
+      duration: 300,
+      useNativeDriver: false,
+    }).start(finishAnimation);
+  }, [animateProgress, finishAnimation]);
+
+  const finishAnimation = useCallback(() => {
+    Animated.timing(animateProgress, {
+      toValue: 0,
+      duration: 400,
+      delay: 1500,
+      useNativeDriver: false,
+    }).start();
+  }, [animateProgress]);
+
+  return (
+    <AnimatedView style={style.container}>
+      {!loading && children}
+      {loading && (
+        <LottieView
+          style={style.loading}
+          source={animations.buttonLoading}
+          colorFilters={style.animationFilters}
+          autoPlay
+          loop
+        />
+      )}
+    </AnimatedView>
+  );
+}
+
+AnimatedLoading.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.func,
+    PropTypes.node,
+  ]),
+  loading: PropTypes.bool,
+  style: PropTypes.object,
+};
+
+AnimatedLoading.defaultProps = {
+  children: undefined,
+  loading: false,
+  style: {},
+};
+
+const StyledAnimatedLoading = connectStyle('shoutem.ui.AnimatedLoading')(AnimatedLoading);
+export { StyledAnimatedLoading as AnimatedLoading };

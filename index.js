@@ -80,6 +80,7 @@ export { SearchField } from './components/SearchField';
 export { TabMenu } from './components/TabMenu';
 export { YearRangePicker } from './components/YearRangePicker';
 export { DateTimePicker } from './components/DateTimePicker';
+export { AnimatedLoading } from './components/AnimatedLoading';
 
 export { Examples } from './examples/components';
 
