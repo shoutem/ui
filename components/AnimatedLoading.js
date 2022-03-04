@@ -51,7 +51,7 @@ function AnimatedLoading({
       {loading && (
         <LottieView
           style={style.loading}
-          source={animations.buttonLoading}
+          source={animations.loading}
           colorFilters={style.animationFilters}
           autoPlay
           loop
