@@ -9,7 +9,12 @@ import { usePreviousValue } from '../hooks';
 
 const AnimatedView = Animated.createAnimatedComponent(View);
 
-function AnimatedLoading({ children, loading, style }) {
+function AnimatedLoading({
+  children,
+  finishAnimationCallback,
+  loading,
+  style,
+}) {
   const prevLoading = usePreviousValue(loading);
   const animateProgress = useRef(new Animated.Value(0)).current;
 
@@ -33,8 +38,12 @@ function AnimatedLoading({ children, loading, style }) {
       duration: 400,
       delay: 1500,
       useNativeDriver: false,
-    }).start();
-  }, [animateProgress]);
+    }).start(() => {
+      if (finishAnimationCallback) {
+        finishAnimationCallback();
+      }
+    });
+  }, [animateProgress, finishAnimationCallback]);
 
   return (
     <AnimatedView style={style.container}>
@@ -58,12 +67,14 @@ AnimatedLoading.propTypes = {
     PropTypes.func,
     PropTypes.node,
   ]),
+  finishAnimationCallback: PropTypes.func,
   loading: PropTypes.bool,
   style: PropTypes.object,
 };
 
 AnimatedLoading.defaultProps = {
   children: undefined,
+  finishAnimationCallback: undefined,
   loading: false,
   style: {},
 };
