@@ -5,17 +5,19 @@ import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
 import { View } from '@shoutem/ui';
 import { animations } from '../assets';
+import { usePreviousValue } from '../hooks';
 
 const AnimatedView = Animated.createAnimatedComponent(View);
 
 function AnimatedLoading({ children, loading, style }) {
+  const prevLoading = usePreviousValue(loading);
   const animateProgress = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    if (loading) {
+    if (!prevLoading && loading) {
       startAnimation();
     }
-  }, [startAnimation, loading]);
+  }, [prevLoading, startAnimation, loading]);
 
   const startAnimation = useCallback(() => {
     Animated.timing(animateProgress, {
@@ -66,5 +68,7 @@ AnimatedLoading.defaultProps = {
   style: {},
 };
 
-const StyledAnimatedLoading = connectStyle('shoutem.ui.AnimatedLoading')(AnimatedLoading);
+const StyledAnimatedLoading = connectStyle('shoutem.ui.AnimatedLoading')(
+  AnimatedLoading,
+);
 export { StyledAnimatedLoading as AnimatedLoading };
