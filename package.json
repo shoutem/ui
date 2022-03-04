@@ -86,20 +86,20 @@
   "license": "BSD-3-Clause",
   "maintainers": [
     {
-      "email": "vlad@definitely-not-vlad.com",
-      "name": "Definitely-Not-Vlad"
-    },
-    {
-      "email": "tomislav.arambasic@shoutem.com",
-      "name": "tomislav-arambasic"
-    },
-    {
       "email": "lucija.tatarevic@shoutem.com",
       "name": "ltatarev"
     },
     {
       "email": "slavko@shoutem.com",
       "name": "sstimac"
+    },
+    {
+      "email": "tomislav.arambasic@shoutem.com",
+      "name": "tomislav-arambasic"
+    },
+    {
+      "email": "vlad@definitely-not-vlad.com",
+      "name": "Definitely-Not-Vlad"
     }
   ],
   "eslintConfig": {
