@@ -2949,7 +2949,7 @@ export default (variables = defaultThemeVariables) => ({
     container: {
       width: getSizeRelativeToReference(44, 375, window.width),
       height: getSizeRelativeToReference(44, 812, window.height),
-      backgroundColor: variables.primaryButtonBackgroundColor,
+      backgroundColor: variables.paperColor,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
