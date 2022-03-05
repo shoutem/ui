@@ -37,7 +37,8 @@
     "react-native-webview": "11.0.3",
     "react-native-youtube-iframe": "2.1.2",
     "stream": "0.0.2",
-    "tinycolor2": "1.4.1"
+    "tinycolor2": "1.4.1",
+    "xcode": "^3.0.1"
   },
   "peerDependencies": {
     "react": "^16.9.0",
