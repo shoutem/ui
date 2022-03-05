@@ -39,4 +39,4 @@ function insertNativeDependencies() {
 // eslint-disable-next-line no-console
 console.log('[@shoutem/ui] - adding native dependencies to root package.json');
 
-insertNativeDependencies();
+module.exports = insertNativeDependencies;
