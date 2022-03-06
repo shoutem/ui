@@ -33,7 +33,6 @@
     "react-native-svg": "12.1.1",
     "react-native-svg-transformer": "0.14.3",
     "react-native-transformable-image": "shoutem/react-native-transformable-image#v0.0.20",
-    "react-native-vector-icons": "6.6.0",
     "react-native-webview": "11.0.3",
     "react-native-youtube-iframe": "2.1.2",
     "stream": "0.0.2",
@@ -72,7 +71,6 @@
     "react-native-linear-gradient",
     "react-native-photo-view",
     "react-native-svg",
-    "react-native-vector-icons",
     "react-native-webview"
   ],
   "homepage": "http://shoutem.github.io/docs/ui-toolkit/introduction",
