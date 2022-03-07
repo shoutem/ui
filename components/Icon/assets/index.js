@@ -38,6 +38,10 @@ import eyeCrossed from './eye-crossed.svg';
 import facebook from './facebook.svg';
 import facebookLogo from './facebook-logo.svg';
 import folder from './folder.svg';
+import forward5 from './forward-5.svg';
+import forward10 from './forward-10.svg';
+import forward30 from './forward-30.svg';
+import forward from './forward.svg';
 import friends from './friends.svg';
 import gallery from './gallery.svg';
 import garbageCan from './garbage-can.svg';
@@ -79,6 +83,10 @@ import radiobuttonOff from './radiobutton-off.svg';
 import radiobuttonOn from './radiobutton-on.svg';
 import receipt from './receipt.svg';
 import refresh from './refresh.svg';
+import replay5 from './replay-5.svg';
+import replay10 from './replay-10.svg';
+import replay30 from './replay-30.svg';
+import replay from './replay.svg';
 import restaurant from './restaurant.svg';
 import restaurantMenu from './restaurant-menu.svg';
 import restore from './restore.svg';
@@ -149,6 +157,10 @@ export const defaultConfig = [
   { name: 'facebook', icon: facebook },
   { name: 'facebook-logo', icon: facebookLogo },
   { name: 'folder', icon: folder },
+  { name: 'forward-5', icon: forward5 },
+  { name: 'forward-10', icon: forward10 },
+  { name: 'forward-30', icon: forward30 },
+  { name: 'forward', icon: forward },
   { name: 'gallery', icon: gallery },
   { name: 'friends', icon: friends },
   { name: 'gallery', icon: gallery },
@@ -191,6 +203,10 @@ export const defaultConfig = [
   { name: 'radiobutton-on', icon: radiobuttonOn },
   { name: 'receipt', icon: receipt },
   { name: 'refresh', icon: refresh },
+  { name: 'replay-5', icon: replay5 },
+  { name: 'replay-10', icon: replay10 },
+  { name: 'replay-30', icon: replay30 },
+  { name: 'replay', icon: replay },
   { name: 'restaurant', icon: restaurant },
   { name: 'restaurant-menu', icon: restaurantMenu },
   { name: 'restore', icon: restore },
