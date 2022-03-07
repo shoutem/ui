@@ -5,45 +5,40 @@ import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
 import { View } from '@shoutem/ui';
 import { animations } from '../assets';
-import { usePreviousValue } from '../hooks';
 
 const AnimatedView = Animated.createAnimatedComponent(View);
 
-function AnimatedLoading({
+function LoadingContainer({
   children,
-  finishAnimationCallback,
+  customAnimation,
+  onAnimationFinished,
   loading,
   style,
 }) {
-  const prevLoading = usePreviousValue(loading);
   const animateProgress = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    if (!prevLoading && loading) {
+    if (loading) {
       startAnimation();
     }
-  }, [prevLoading, startAnimation, loading]);
+  }, [startAnimation, loading]);
 
   const startAnimation = useCallback(() => {
+    if (customAnimation) {
+      customAnimation();
+      return;
+    }
+
     Animated.timing(animateProgress, {
       toValue: 1,
       duration: 300,
       useNativeDriver: false,
-    }).start(finishAnimation);
-  }, [animateProgress, finishAnimation]);
-
-  const finishAnimation = useCallback(() => {
-    Animated.timing(animateProgress, {
-      toValue: 0,
-      duration: 400,
-      delay: 1500,
-      useNativeDriver: false,
     }).start(() => {
-      if (finishAnimationCallback) {
-        finishAnimationCallback();
+      if (onAnimationFinished) {
+        onAnimationFinished();
       }
     });
-  }, [animateProgress, finishAnimationCallback]);
+  }, [animateProgress, onAnimationFinished]);
 
   return (
     <AnimatedView style={style.container}>
@@ -61,25 +56,27 @@ function AnimatedLoading({
   );
 }
 
-AnimatedLoading.propTypes = {
+LoadingContainer.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.func,
     PropTypes.node,
   ]),
-  finishAnimationCallback: PropTypes.func,
+  customAnimation: PropTypes.func,
+  onAnimationFinished: PropTypes.func,
   loading: PropTypes.bool,
   style: PropTypes.object,
 };
 
-AnimatedLoading.defaultProps = {
+LoadingContainer.defaultProps = {
   children: undefined,
-  finishAnimationCallback: undefined,
+  customAnimation: undefined,
+  onAnimationFinished: undefined,
   loading: false,
   style: {},
 };
 
-const StyledAnimatedLoading = connectStyle('shoutem.ui.AnimatedLoading')(
-  AnimatedLoading,
+const StyledLoadingContainer = connectStyle('shoutem.ui.LoadingContainer')(
+  LoadingContainer,
 );
-export { StyledAnimatedLoading as AnimatedLoading };
+export { StyledLoadingContainer as LoadingContainer };
