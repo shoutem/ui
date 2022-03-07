@@ -2710,6 +2710,8 @@ export default (variables = defaultThemeVariables) => ({
       color: 'white',
       marginLeft: 15,
       marginTop: -STATUS_BAR_OFFSET + 20,
+      height: 25,
+      width: 25,
     },
   },
 
