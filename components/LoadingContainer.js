@@ -17,8 +17,6 @@ function LoadingContainer({
 }) {
   const animateProgress = useRef(new Animated.Value(0)).current;
 
-  const containerDimensions = useRef(style.defaultContainerDimensions);
-
   useEffect(() => {
     if (loading) {
       startAnimation();
@@ -42,21 +40,12 @@ function LoadingContainer({
     });
   }, [animateProgress, customAnimation, onAnimationFinished]);
 
-  function onLayoutChange(event) {
-    const { width, height } = event.nativeEvent.layout;
-
-    containerDimensions.current = { width, height };
-  }
-
   return (
     <AnimatedView style={style.container}>
-      {!loading && <View onLayout={onLayoutChange}>{children}</View>}
+      {!loading && children}
       {loading && (
         <LottieView
-          style={[
-            containerDimensions.current,
-            { flex: 1, justifyContent: 'center', alignItems: 'center' },
-          ]}
+          style={style.loading}
           source={animations.loading}
           colorFilters={style.animationFilters}
           autoPlay
