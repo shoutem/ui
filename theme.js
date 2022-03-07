@@ -2947,7 +2947,6 @@ export default (variables = defaultThemeVariables) => ({
 
   'shoutem.ui.LoadingContainer': {
     container: {
-      backgroundColor: variables.paperColor,
       alignItems: 'center',
       justifyContent: 'center',
     },

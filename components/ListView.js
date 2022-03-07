@@ -165,16 +165,11 @@ class ListView extends PureComponent {
     // is data refreshing
     mappedProps.refreshing = refreshing === Status.REFRESHING;
 
-    // if list is empty and user haven't explicitly set ListEmptyComponent to null,
-    // use default ListEmptyComponent
+    // If list is empty and user hasn't defined ListEmptyComponent in props,
+    // use default ListEmptyComponent.
+    // If ListEmptyComponent prop is null, render nothing
     if (ListEmptyComponent === undefined) {
       mappedProps.ListEmptyComponent = this.renderListEmptyComponent();
-    }
-
-    // if list is empty and user explicitly set ListEmptyComponent prop to null,
-    // render nothing
-    if (ListEmptyComponent === null) {
-      mappedProps.ListEmptyComponent = null;
     }
 
     // refresh control

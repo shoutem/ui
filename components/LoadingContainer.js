@@ -36,7 +36,7 @@ function LoadingContainer({
     <View style={style.container}>
       {!loading && <View onLayout={onLayoutChange}>{children}</View>}
       {loading && (
-        <View style={[dimensions, style.container]}>
+        <View style={[style.container, dimensions]}>
           <LottieView
             style={lottieViewDimensions}
             source={animation}
@@ -65,7 +65,7 @@ LoadingContainer.propTypes = {
 LoadingContainer.defaultProps = {
   animationScale: 1,
   children: undefined,
-  animation: animations.loading,
+  animation: animations.loadingDots,
   loading: false,
   style: {},
 };
