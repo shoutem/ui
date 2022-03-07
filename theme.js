@@ -2947,10 +2947,7 @@ export default (variables = defaultThemeVariables) => ({
 
   'shoutem.ui.LoadingContainer': {
     container: {
-      minWidth: getSizeRelativeToReference(44, 375, window.width),
-      minHeight: getSizeRelativeToReference(44, 812, window.height),
       backgroundColor: variables.paperColor,
-      flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
     },

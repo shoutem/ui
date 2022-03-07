@@ -1,77 +1,71 @@
-import React, { useCallback, useEffect, useRef } from 'react';
-import { Animated } from 'react-native';
+import React, { useMemo, useState } from 'react';
 import LottieView from 'lottie-react-native';
 import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
 import { View } from '@shoutem/ui';
 import { animations } from '../assets';
 
-const AnimatedView = Animated.createAnimatedComponent(View);
-
 function LoadingContainer({
+  animation,
   children,
-  customAnimation,
-  onAnimationFinished,
   loading,
+  animationScale,
   style,
 }) {
-  const animateProgress = useRef(new Animated.Value(0)).current;
+  const [dimensions, setDimensions] = useState({});
 
-  useEffect(() => {
-    if (loading) {
-      startAnimation();
-    }
-  }, [startAnimation, loading]);
+  function onLayoutChange(event) {
+    const { width, height } = event.nativeEvent.layout;
 
-  const startAnimation = useCallback(() => {
-    if (customAnimation) {
-      customAnimation();
+    if (width === 0 && height === 0) {
       return;
     }
 
-    Animated.timing(animateProgress, {
-      toValue: 1,
-      duration: 300,
-      useNativeDriver: false,
-    }).start(() => {
-      if (onAnimationFinished) {
-        onAnimationFinished();
-      }
-    });
-  }, [animateProgress, customAnimation, onAnimationFinished]);
+    setDimensions({ width, height });
+  }
+
+  const lottieViewDimensions = useMemo(
+    () => ({
+      width: dimensions.width * animationScale,
+      height: dimensions.height * animationScale,
+    }),
+    [animationScale, dimensions],
+  );
 
   return (
-    <AnimatedView style={style.container}>
-      {!loading && children}
+    <View style={style.container}>
+      {!loading && <View onLayout={onLayoutChange}>{children}</View>}
       {loading && (
-        <LottieView
-          style={style.loading}
-          source={animations.loading}
-          colorFilters={style.animationFilters}
-          autoPlay
-          loop
-        />
+        <View style={[dimensions, style.container]}>
+          <LottieView
+            style={lottieViewDimensions}
+            source={animation}
+            colorFilters={style.animationFilters}
+            autoPlay
+            loop
+          />
+        </View>
       )}
-    </AnimatedView>
+    </View>
   );
 }
 
 LoadingContainer.propTypes = {
+  animation: PropTypes.object,
+  animationScale: PropTypes.number,
   children: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.func,
     PropTypes.node,
   ]),
-  customAnimation: PropTypes.func,
   loading: PropTypes.bool,
   style: PropTypes.object,
-  onAnimationFinished: PropTypes.func,
 };
 
 LoadingContainer.defaultProps = {
+  animationScale: 1,
   children: undefined,
-  customAnimation: undefined,
-  onAnimationFinished: undefined,
+  animation: animations.loading,
   loading: false,
   style: {},
 };
