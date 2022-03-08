@@ -2946,4 +2946,11 @@ export default (variables = defaultThemeVariables) => ({
       borderWidth: 1,
     },
   },
+
+  'shoutem.ui.LoadingContainer': {
+    container: {
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+  },
 });
