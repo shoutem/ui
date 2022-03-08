@@ -12,7 +12,7 @@ function LoadingContainer({
   animationScale,
   style,
 }) {
-  const [dimensions, setDimensions] = useState({});
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
   function onLayoutChange(event) {
     const { width, height } = event.nativeEvent.layout;
@@ -31,6 +31,10 @@ function LoadingContainer({
     }),
     [animationScale, dimensions],
   );
+
+  if (!children) {
+    return null;
+  }
 
   return (
     <View style={style.container}>
