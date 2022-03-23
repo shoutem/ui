@@ -2710,6 +2710,8 @@ export default (variables = defaultThemeVariables) => ({
       color: 'white',
       marginLeft: 15,
       marginTop: -STATUS_BAR_OFFSET + 20,
+      height: 25,
+      width: 25,
     },
   },
 
@@ -2942,6 +2944,13 @@ export default (variables = defaultThemeVariables) => ({
     textContainer: {
       borderColor: '#C2C2C2',
       borderWidth: 1,
+    },
+  },
+
+  'shoutem.ui.LoadingContainer': {
+    container: {
+      alignItems: 'center',
+      justifyContent: 'center',
     },
   },
 });

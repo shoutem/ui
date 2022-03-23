@@ -165,8 +165,10 @@ class ListView extends PureComponent {
     // is data refreshing
     mappedProps.refreshing = refreshing === Status.REFRESHING;
 
-    // if list is empty, show empty placeholder
-    if (!ListEmptyComponent) {
+    // If list is empty and user hasn't defined ListEmptyComponent in props,
+    // use default ListEmptyComponent.
+    // If ListEmptyComponent prop is null, render nothing
+    if (ListEmptyComponent === undefined) {
       mappedProps.ListEmptyComponent = this.renderListEmptyComponent();
     }
 
@@ -357,7 +359,7 @@ ListView.propTypes = {
   getSectionId: PropTypes.func,
   hasFeaturedItem: PropTypes.bool,
   keyExtractor: PropTypes.func,
-  ListEmptyComponent: PropTypes.node,
+  ListEmptyComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   loading: PropTypes.bool,
   renderFeaturedItem: PropTypes.func,
   renderFooter: PropTypes.func,
