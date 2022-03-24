@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
+import { Image, Modal, TouchableOpacity, View } from 'react-native';
 import autoBindReact from 'auto-bind/react';
 import PropTypes from 'prop-types';
-import { View, Modal, Image, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import { makeZoomable } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
+import { Icon } from './Icon/Icon';
 
 const ZoomableImage = makeZoomable(Image);
 
@@ -55,11 +55,7 @@ class ImagePreview extends PureComponent {
             style={style.fullScreen}
             onPress={this.onPressCloseButton}
           >
-            <Icon
-              name={CLOSE_ICON_NAME}
-              size={CLOSE_ICON_SIZE}
-              style={style.closeIcon}
-            />
+            <Icon name="close" style={style.closeIcon} />
           </TouchableOpacity>
         </View>
       );

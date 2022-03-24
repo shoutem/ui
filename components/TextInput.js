@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
+import { TextInput as RNTextInput } from 'react-native';
 import autoBindReact from 'auto-bind/react';
 import PropTypes from 'prop-types';
-import { TextInput as RNTextInput } from 'react-native';
 import { connectAnimation, Wiggle } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
 import { Caption } from './Text';
@@ -19,10 +19,22 @@ class TextInput extends PureComponent {
   }
 
   handleBlur() {
+    const { onBlur } = this.props;
+
+    if (onBlur) {
+      onBlur();
+    }
+
     this.setState({ isFocused: false });
   }
 
   handleFocus() {
+    const { onFocus } = this.props;
+
+    if (onFocus) {
+      onFocus();
+    }
+
     this.setState({ isFocused: true });
   }
 
@@ -44,6 +56,7 @@ class TextInput extends PureComponent {
       withBorder,
       withoutBorder,
       wiggleAnimation,
+      errorText,
       ...otherStyle
     } = style;
 
@@ -61,14 +74,14 @@ class TextInput extends PureComponent {
             selectionColor={selectionColor}
             underlineColorAndroid={underlineColorAndroid}
             style={{
-              ...otherStyle,
               ...(hasBorder ? withBorder : withoutBorder),
-              ...(!!errorMessage ? errorBorderColor : {}),
+              ...(errorMessage ? errorBorderColor : {}),
+              ...otherStyle,
             }}
           />
         </Wiggle>
         {!!errorMessage && (
-          <Caption styleName="form-error sm-gutter-top">{errorMessage}</Caption>
+          <Caption styleName="form-error sm-gutter-top" style={errorText}>{errorMessage}</Caption>
         )}
       </View>
     );

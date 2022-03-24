@@ -5,14 +5,14 @@ import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
 import { Spinner } from '../components/Spinner';
 import { View } from '../components/View';
-import { parseHtml } from './services/HtmlParser';
 import {
-  registerElement,
+  Display,
   getElement,
   getElementDisplay,
   getElementProperty,
-  Display,
+  registerElement,
 } from './services/ElementRegistry';
+import { parseHtml } from './services/HtmlParser';
 
 const defaultElementSettings = {
   display: Display.BLOCK,

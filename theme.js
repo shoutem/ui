@@ -1,17 +1,17 @@
-import { Dimensions, StyleSheet, Platform, StatusBar } from 'react-native';
+import { Dimensions, Platform, StatusBar, StyleSheet } from 'react-native';
 import {
-  INCLUDE,
-  createVariations,
-  createSharedStyle,
-  inverseColorBrightnessForAmount,
   changeColorAlpha,
+  createSharedStyle,
+  createVariations,
   getSizeRelativeToReference,
+  INCLUDE,
+  inverseColorBrightnessForAmount,
 } from '@shoutem/theme';
 import {
-  NAVIGATION_HEADER_HEIGHT,
+  IPHONE_X_HOME_INDICATOR_PADDING,
   IPHONE_X_NOTCH_PADDING,
   IPHONE_XR_NOTCH_PADDING,
-  IPHONE_X_HOME_INDICATOR_PADDING,
+  NAVIGATION_HEADER_HEIGHT,
 } from './const';
 import { Device } from './helpers';
 import {
@@ -26,6 +26,7 @@ const STATUS_BAR_OFFSET =
 export const NAVIGATION_BAR_HEIGHT = Device.select({
   iPhoneX: NAVIGATION_HEADER_HEIGHT + IPHONE_X_NOTCH_PADDING,
   iPhoneXR: NAVIGATION_HEADER_HEIGHT + IPHONE_XR_NOTCH_PADDING,
+  notchedAndroid: NAVIGATION_HEADER_HEIGHT + StatusBar.currentHeight,
   default: NAVIGATION_HEADER_HEIGHT,
 });
 
@@ -2776,6 +2777,8 @@ export default (variables = defaultThemeVariables) => {
         color: 'white',
         marginLeft: 15,
         marginTop: -STATUS_BAR_OFFSET + 20,
+        height: 25,
+        width: 25,
       },
     },
 
@@ -3008,6 +3011,13 @@ export default (variables = defaultThemeVariables) => {
       textContainer: {
         borderColor: '#C2C2C2',
         borderWidth: 1,
+      },
+    },
+
+    'shoutem.ui.LoadingContainer': {
+      container: {
+        alignItems: 'center',
+        justifyContent: 'center',
       },
     },
   };

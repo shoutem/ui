@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import _ from 'lodash';
 import autoBindReact from 'auto-bind/react';
+import _ from 'lodash';
+import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
 import { View } from '../View';
 import YearPickerButton from './YearRangePickerButton';
@@ -79,14 +79,20 @@ class YearRangePicker extends PureComponent {
   }
 
   render() {
-    const { rangeEnd, rangeStart, resetButtonTitle, confirmButtonTitle } = this.props;
+    const {
+      rangeEnd,
+      rangeStart,
+      resetButtonTitle,
+      confirmButtonTitle,
+    } = this.props;
     const { buttonTooltip, collapsed } = this.state;
 
     return (
-      <View onLayout={this.handleLayout}>
+      <View>
         <YearPickerButton
           tooltip={buttonTooltip}
           onPress={this.handleButtonPressed}
+          collapsed={collapsed}
         />
         <YearPickerModal
           visible={collapsed}

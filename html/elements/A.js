@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react';
+import { Linking } from 'react-native';
 import autoBindReact from 'auto-bind/react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import { Linking } from 'react-native';
 import { connectStyle } from '@shoutem/theme';
-import { isImg } from '../elements/Img';
-import { ElementPropTypes, combineMappers, mapElementProps } from '../Html';
+import { combineMappers, ElementPropTypes, mapElementProps } from '../Html';
+import { isImg } from './Img';
 import { Inline } from './Inline';
 
 class A extends PureComponent {

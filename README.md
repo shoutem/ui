@@ -70,7 +70,6 @@ To see other components, just import them from `@shoutem/ui` and render them.
 
 You can also use standard React Native components in your layouts anywhere you want, but they will not inherit either the theme or the parent styles, so you will need to style them manually.
 
-
 ### Restaurants app
 
 Clone the [Shoutem UI](https://github.com/shoutem/ui) repository:
@@ -107,7 +106,7 @@ It consists of three libraries:
 
 - [@shoutem/ui](https://github.com/shoutem/ui): beautiful and customizable UI components
 - [@shoutem/theme](https://github.com/shoutem/theme): “CSS-way” of styling entire app
-- [@shoutem/animation](https://github.com/shoutem/animation): declarative way of applying ready-made  animations
+- [@shoutem/animation](https://github.com/shoutem/animation): declarative way of applying ready-made animations
 
 ## License
 

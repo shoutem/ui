@@ -1,6 +1,6 @@
 import React from 'react';
+import { Text, View } from 'react-native';
 import PropTypes from 'prop-types';
-import { View, Text } from 'react-native';
 
 function Stage({ title, children }) {
   // eslint-disable-next-line no-use-before-define

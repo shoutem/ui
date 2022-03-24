@@ -1,15 +1,15 @@
 import React, { PureComponent } from 'react';
 import { LayoutAnimation, Platform } from 'react-native';
-import PropTypes from 'prop-types';
-import _ from 'lodash';
 import Modal from 'react-native-modal';
 import autoBindReact from 'auto-bind/react';
+import _ from 'lodash';
+import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
-import { View } from '../View';
-import { Text } from '../Text';
-import { Icon } from '../Icon';
 import { Button } from '../Button';
+import { Icon } from '../Icon';
+import { Text } from '../Text';
 import { TouchableOpacity } from '../TouchableOpacity';
+import { View } from '../View';
 
 const NUMBER_OF_ROWS = 4;
 const YEARS_IN_ROW = 5;
@@ -20,10 +20,7 @@ function resolveVisibleYears(props) {
   const yearsPerPage = NUMBER_OF_ROWS * YEARS_IN_ROW;
 
   if (_.isEmpty(selectedYears)) {
-    const fullRange = _.times(
-      yearsPerPage,
-      index => rangeStart + index,
-    );
+    const fullRange = _.times(yearsPerPage, index => rangeStart + index);
 
     return _.filter(fullRange, year => year <= rangeEnd);
   }
@@ -31,11 +28,8 @@ function resolveVisibleYears(props) {
   const firstSelectedYear = _.head(selectedYears);
   const prevPagesNumber = Math.trunc(firstSelectedYear / yearsPerPage);
 
-  const fullRangeStart = (prevPagesNumber * yearsPerPage) + 1;
-  const fullRange = _.times(
-    yearsPerPage,
-    index => fullRangeStart + index,
-  );
+  const fullRangeStart = prevPagesNumber * yearsPerPage + 1;
+  const fullRange = _.times(yearsPerPage, index => fullRangeStart + index);
 
   return _.filter(fullRange, year => year <= rangeEnd);
 }
@@ -83,7 +77,6 @@ class YearRangePickerModal extends PureComponent {
     const { onRangeConfirmed } = this.props;
 
     if (onRangeConfirmed) {
-      LayoutAnimation.easeInEaseOut();
       onRangeConfirmed(selectedYears);
     }
   }
@@ -91,7 +84,6 @@ class YearRangePickerModal extends PureComponent {
   handleResetPress() {
     const { onRangeConfirmed } = this.props;
 
-    LayoutAnimation.easeInEaseOut();
     this.setState({ selectedYears: [] });
 
     if (onRangeConfirmed) {
@@ -104,9 +96,15 @@ class YearRangePickerModal extends PureComponent {
     const { visibleYears } = this.state;
 
     const nextYearStart = _.last(visibleYears) + 1;
-    const nextYearEnd = Math.min(rangeEnd, nextYearStart + this.YEARS_PER_PAGE - 1);
+    const nextYearEnd = Math.min(
+      rangeEnd,
+      nextYearStart + this.YEARS_PER_PAGE - 1,
+    );
 
-    const nextVisibleYears = _.times(nextYearEnd + 1 - nextYearStart, index => nextYearStart + index);
+    const nextVisibleYears = _.times(
+      nextYearEnd + 1 - nextYearStart,
+      index => nextYearStart + index,
+    );
 
     LayoutAnimation.easeInEaseOut();
     this.setState({ visibleYears: nextVisibleYears });
@@ -118,7 +116,12 @@ class YearRangePickerModal extends PureComponent {
     const prevYearStart = _.head(visibleYears) - this.YEARS_PER_PAGE;
 
     LayoutAnimation.easeInEaseOut();
-    this.setState({ visibleYears: _.times(this.YEARS_PER_PAGE, index => prevYearStart + index) });
+    this.setState({
+      visibleYears: _.times(
+        this.YEARS_PER_PAGE,
+        index => prevYearStart + index,
+      ),
+    });
   }
 
   handleYearPress(year) {
@@ -137,7 +140,9 @@ class YearRangePickerModal extends PureComponent {
         }
 
         const cutFromEnd = size / 2 <= index;
-        const newYears = _.filter(selectedYears, value => cutFromEnd ? value <= year : value >= year);
+        const newYears = _.filter(selectedYears, value =>
+          cutFromEnd ? value <= year : value >= year,
+        );
 
         this.setState({ selectedYears: newYears });
         return;
@@ -149,15 +154,23 @@ class YearRangePickerModal extends PureComponent {
       }
 
       const addToEnd = _.last(selectedYears) < year;
-      const yearsToAdd = addToEnd ? year - _.last(selectedYears) : _.head(selectedYears) - year;
+      const yearsToAdd = addToEnd
+        ? year - _.last(selectedYears)
+        : _.head(selectedYears) - year;
 
       const newYears = addToEnd
-        ? [...selectedYears, ..._.times(yearsToAdd, index => _.last(selectedYears) + index + 1)]
-        : [...selectedYears, ..._.times(yearsToAdd, index => _.head(selectedYears) - index + -1)]
+        ? [
+            ...selectedYears,
+            ..._.times(yearsToAdd, index => _.last(selectedYears) + index + 1),
+          ]
+        : [
+            ...selectedYears,
+            ..._.times(yearsToAdd, index => _.head(selectedYears) - index + -1),
+          ];
       const sortedYears = _.sortBy(newYears, item => item);
 
       this.setState({ selectedYears: sortedYears });
-    }
+    };
   }
 
   renderYear(year) {
@@ -174,12 +187,14 @@ class YearRangePickerModal extends PureComponent {
         style={style.yearContainer}
         key={year.toString()}
       >
-        <View style={[
-          style.year,
-          isSelected && style.yearSelected,
-          isFirst && style.yearFirst,
-          isLast && style.yearLast,
-        ]}>
+        <View
+          style={[
+            style.year,
+            isSelected && style.yearSelected,
+            isFirst && style.yearFirst,
+            isLast && style.yearLast,
+          ]}
+        >
           <Text>{year.toString()}</Text>
         </View>
       </TouchableOpacity>
@@ -191,7 +206,7 @@ class YearRangePickerModal extends PureComponent {
       <View styleName="horizontal flexible" key={index.toString()}>
         {_.map(row, this.renderYear)}
       </View>
-    )
+    );
   }
 
   render() {
@@ -221,6 +236,7 @@ class YearRangePickerModal extends PureComponent {
         onBackdropPress={onDismiss}
         useNativeDriver
         backdropOpacity={Platform.OS === 'ios' ? 0.7 : 0}
+        animationIn="slideInUp"
       >
         <View style={style.container}>
           <View style={style.tooltipContainer}>
@@ -229,7 +245,10 @@ class YearRangePickerModal extends PureComponent {
               onPress={this.handleYearsBackPress}
               disabled={prevDisabled}
             >
-              <Icon name="left-arrow" style={[style.icon, prevDisabled && style.iconDisabled]} />
+              <Icon
+                name="left-arrow"
+                style={[style.icon, prevDisabled && style.iconDisabled]}
+              />
             </Button>
             <Text>{buttonTooltip}</Text>
             <Button
@@ -237,22 +256,33 @@ class YearRangePickerModal extends PureComponent {
               onPress={this.handleYearsForwardPress}
               disabled={nextDisabled}
             >
-              <Icon name="right-arrow" style={[style.icon, nextDisabled && style.iconDisabled]} />
+              <Icon
+                name="right-arrow"
+                style={[style.icon, nextDisabled && style.iconDisabled]}
+              />
             </Button>
           </View>
-          {_.times(NUMBER_OF_ROWS, (row) => this.renderYearRow(data[row], row))}
+          {_.times(NUMBER_OF_ROWS, row => this.renderYearRow(data[row], row))}
           <View style={style.buttonContainer}>
-            <Button styleName="secondary flexible" onPress={this.handleResetPress}>
+            <Button
+              styleName="secondary flexible"
+              onPress={this.handleResetPress}
+            >
               <Text>{resetButtonTitle}</Text>
             </Button>
-            <Button styleName="primary flexible md-gutter-left" onPress={this.handleConfirmPress}>
+            <Button
+              styleName="primary flexible md-gutter-left"
+              onPress={this.handleConfirmPress}
+            >
               <Text>{confirmButtonTitle}</Text>
             </Button>
           </View>
-        </ View>
+        </View>
       </Modal>
     );
   }
 }
 
-export default connectStyle('shoutem.ui.YearRangePickerModal')(YearRangePickerModal);
+export default connectStyle('shoutem.ui.YearRangePickerModal')(
+  YearRangePickerModal,
+);

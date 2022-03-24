@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import { ActivityIndicator } from 'react-native';
+import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
 
 class Spinner extends PureComponent {

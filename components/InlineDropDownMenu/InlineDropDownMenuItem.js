@@ -1,14 +1,13 @@
 import React, { PureComponent } from 'react';
+import { Animated, Dimensions, Pressable } from 'react-native';
 import autoBindReact from 'auto-bind/react';
-import { Animated, Dimensions } from 'react-native';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
-import { TouchableOpacity } from '../TouchableOpacity';
 import { Text } from '../Text';
 
 const window = Dimensions.get('window');
-const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 class InlineDropDownMenuItem extends PureComponent {
   static propTypes = {
@@ -30,14 +29,11 @@ class InlineDropDownMenuItem extends PureComponent {
   componentDidMount() {
     const { index } = this.props;
 
-    Animated.timing(
-      this.animatedValue,
-      {
-        toValue: 1,
-        useNativeDriver: true,
-        duration: 300 + index * 15,
-      }
-    ).start();
+    Animated.timing(this.animatedValue, {
+      toValue: 1,
+      useNativeDriver: true,
+      duration: 300 + index * 15,
+    }).start();
   }
 
   handlePress() {
@@ -51,11 +47,13 @@ class InlineDropDownMenuItem extends PureComponent {
   render() {
     const { isSelected, selectedDescriptor, item, style } = this.props;
 
-    const resolvedText = isSelected ? `${item.title} (${selectedDescriptor})` : item.title;
+    const resolvedText = isSelected
+      ? `${item.title} (${selectedDescriptor})`
+      : item.title;
     const textStyle = isSelected ? 'muted' : '';
 
     return (
-      <AnimatedTouchable
+      <AnimatedPressable
         style={[
           style.container,
           {
@@ -64,16 +62,16 @@ class InlineDropDownMenuItem extends PureComponent {
                 translateX: this.animatedValue.interpolate({
                   inputRange: [0, 1],
                   outputRange: [window.width, 0],
-                })
-              }
+                }),
+              },
             ],
-          }
+          },
         ]}
         disabled={isSelected}
         onPress={this.handlePress}
       >
         <Text styleName={textStyle}>{resolvedText}</Text>
-      </AnimatedTouchable>
+      </AnimatedPressable>
     );
   }
 }
