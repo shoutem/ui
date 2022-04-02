@@ -31,7 +31,7 @@
     "react-native-photo-view": "github:shoutem/react-native-photo-view#e7f0003",
     "react-native-render-html": "4.2.5",
     "react-native-render-html-table-bridge": "0.6.0",
-    "react-native-svg": "^12.3.0",
+    "react-native-svg": "12.3.0",
     "react-native-svg-transformer": "1.0.0",
     "react-native-transformable-image": "github:shoutem/react-native-transformable-image#v0.0.20",
     "react-native-webview": "11.18.1",
