@@ -121,7 +121,7 @@
       "examples/"
     ],
     "transformIgnorePatterns": [
-      "node_mdules/@shoutem"
+      "!/node_modules/@shoutem"
     ]
   }
 }
