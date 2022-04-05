@@ -10,31 +10,8 @@ import { View } from '../View';
 import { DropDownModal } from './DropDownModal';
 
 const modalSpecificProps = ['visible', 'onClose'];
-const dropDownMenuPropTypes = {
-  ..._.omit(DropDownModal.propTypes, modalSpecificProps),
-};
 
 class DropDownMenu extends PureComponent {
-  /**
-   * @see DropDownModal.propTypes
-   */
-  static propTypes = {
-    /**
-     * Icon displayed on dropdown menu button
-     */
-    iconName: PropTypes.string,
-    /**
-     * Whether the text should be displayed next to dropdown icon or not
-     */
-    showSelectedOption: PropTypes.bool,
-    ...dropDownMenuPropTypes,
-  };
-
-  static defaultProps = {
-    iconName: 'drop-down',
-    showSelectedOption: true,
-  };
-
   constructor(props) {
     super(props);
 
@@ -104,6 +81,26 @@ class DropDownMenu extends PureComponent {
     );
   }
 }
+
+/**
+ * @see DropDownModal.propTypes
+ */
+DropDownMenu.propTypes = {
+  /**
+   * Icon displayed on dropdown menu button
+   */
+  iconName: PropTypes.string,
+  /**
+   * Whether the text should be displayed next to dropdown icon or not
+   */
+  showSelectedOption: PropTypes.bool,
+  ..._.omit(DropDownModal.propTypes, modalSpecificProps),
+};
+
+DropDownMenu.defaultProps = {
+  iconName: 'drop-down',
+  showSelectedOption: true,
+};
 
 const StyledDropDownMenu = connectStyle('shoutem.ui.DropDownMenu')(
   DropDownMenu,

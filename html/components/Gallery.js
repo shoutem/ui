@@ -8,11 +8,6 @@ import { InlineGallery } from '../../components/InlineGallery';
  * Style interface correspond to InlineGallery from @shoutem/ui.
  */
 export default class Gallery extends PureComponent {
-  static propTypes = {
-    ...InlineGallery.propTypes,
-    handlePhotoPress: PropTypes.func,
-  };
-
   constructor(props) {
     super(props);
 
@@ -53,3 +48,12 @@ export default class Gallery extends PureComponent {
     );
   }
 }
+
+Gallery.propTypes = {
+  ...InlineGallery.propTypes,
+  handlePhotoPress: PropTypes.func,
+};
+
+Gallery.defaultProps = {
+  handlePhotoPress: undefined,
+};

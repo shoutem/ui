@@ -4,16 +4,9 @@ import autoBindReact from 'auto-bind/react';
 import PropTypes from 'prop-types';
 import { makeZoomable } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
-import { Icon } from './Icon/Icon';
+import Icon from './Icon/Icon';
 
 const ZoomableImage = makeZoomable(Image);
-
-const propTypes = {
-  width: PropTypes.number,
-  height: PropTypes.number,
-  source: Image.propTypes.source,
-  style: PropTypes.object,
-};
 
 const CLOSE_ICON_NAME = 'clear';
 const CLOSE_ICON_SIZE = 25;
@@ -90,7 +83,18 @@ class ImagePreview extends PureComponent {
   }
 }
 
-ImagePreview.propTypes = propTypes;
+ImagePreview.propTypes = {
+  style: PropTypes.object.isRequired,
+  height: PropTypes.number,
+  source: Image.propTypes.source,
+  width: PropTypes.number,
+};
+
+ImagePreview.defaultProps = {
+  height: undefined,
+  source: undefined,
+  width: undefined,
+};
 
 const StyledImagePreview = connectStyle('shoutem.ui.ImagePreview')(
   ImagePreview,

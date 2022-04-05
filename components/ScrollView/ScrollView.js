@@ -12,11 +12,6 @@ const isTabBarOnScreen = true;
 const IPHONE_X_HOME_INDICATOR_PADDING = isTabBarOnScreen ? 0 : 34;
 
 class ScrollView extends PureComponent {
-  static propTypes = {
-    ...Animated.ScrollView.propTypes,
-    primary: PropTypes.bool,
-  };
-
   static contextTypes = {
     animationDriver: DriverShape,
     driverProvider: PropTypes.object,
@@ -99,6 +94,16 @@ class ScrollView extends PureComponent {
     );
   }
 }
+
+ScrollView.propTypes = {
+  ...Animated.ScrollView.propTypes,
+  primary: PropTypes.bool,
+};
+
+ScrollView.defaultProps = {
+  ...Animated.ScrollView.defaultProps,
+  primary: false,
+};
 
 const StyledScrollView = connectStyle('shoutem.ui.ScrollView')(ScrollView);
 

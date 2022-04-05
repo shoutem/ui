@@ -19,12 +19,6 @@ const defaultElementSettings = {
 };
 
 class Html extends PureComponent {
-  static propTypes = {
-    body: PropTypes.string.isRequired,
-    renderElement: PropTypes.func,
-    style: PropTypes.object,
-  };
-
   /**
    * Create Element class for given element tag and add it to the ElementClassMap.
    * Use the settings to additionally describe a Element class.
@@ -150,6 +144,16 @@ class Html extends PureComponent {
     );
   }
 }
+
+Html.propTypes = {
+  body: PropTypes.string.isRequired,
+  style: PropTypes.object.isRequired,
+  renderElement: PropTypes.func,
+};
+
+Html.defaultProps = {
+  renderElement: undefined,
+};
 
 export const ElementPropTypes = {
   childElements: PropTypes.array,

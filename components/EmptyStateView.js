@@ -8,11 +8,6 @@ import { Subtitle, Text } from './Text';
 import { View } from './View';
 
 class EmptyStateView extends PureComponent {
-  static defaultProps = {
-    retryButtonTitle: 'TRY AGAIN',
-    icon: 'error',
-  };
-
   constructor(props) {
     super(props);
 
@@ -54,10 +49,17 @@ class EmptyStateView extends PureComponent {
 }
 
 EmptyStateView.propTypes = {
-  ...EmptyStateView.propTypes,
-  onRetry: PropTypes.func,
-  message: PropTypes.string,
   icon: PropTypes.string,
+  message: PropTypes.string,
+  retryButtonTitle: PropTypes.string,
+  onRetry: PropTypes.func,
+};
+
+EmptyStateView.defaultProps = {
+  icon: 'error',
+  message: undefined,
+  retryButtonTitle: 'TRY AGAIN',
+  onRetry: undefined,
 };
 
 const StyledView = connectStyle('shoutem.ui.EmptyStateView')(EmptyStateView);

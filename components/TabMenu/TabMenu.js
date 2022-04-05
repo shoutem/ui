@@ -8,13 +8,6 @@ import { optionShape } from './const';
 import { TabMenuItem } from './TabMenuItem';
 
 class TabMenu extends PureComponent {
-  static propTypes = {
-    options: PropTypes.arrayOf(optionShape).isRequired,
-    onOptionSelected: PropTypes.func,
-    selectedOption: optionShape,
-    style: PropTypes.object,
-  };
-
   constructor(props) {
     super(props);
 
@@ -58,6 +51,18 @@ class TabMenu extends PureComponent {
     );
   }
 }
+
+TabMenu.propTypes = {
+  options: PropTypes.arrayOf(optionShape).isRequired,
+  style: PropTypes.object.isRequired,
+  selectedOption: optionShape,
+  onOptionSelected: PropTypes.func,
+};
+
+TabMenu.defaultProps = {
+  selectedOption: undefined,
+  onOptionSelected: undefined,
+};
 
 const StyledTabMenu = connectStyle('shoutem.ui.TabMenu')(TabMenu);
 

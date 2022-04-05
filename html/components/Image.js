@@ -14,17 +14,6 @@ import { Lightbox } from '../../components/Lightbox';
  * this component will determine the Image dimensions before rendering an image.
  */
 export default class HtmlImage extends PureComponent {
-  static propTypes = {
-    ...RNImage.propTypes,
-    lightbox: PropTypes.bool,
-    allowUpscale: PropTypes.bool,
-  };
-
-  static defaultProps = {
-    lightbox: true,
-    allowUpscale: false,
-  };
-
   constructor(props) {
     super(props);
 
@@ -108,3 +97,14 @@ export default class HtmlImage extends PureComponent {
     );
   }
 }
+
+HtmlImage.propTypes = {
+  ...RNImage.propTypes,
+  allowUpscale: PropTypes.bool,
+  lightbox: PropTypes.bool,
+};
+
+HtmlImage.defaultProps = {
+  allowUpscale: false,
+  lightbox: true,
+};

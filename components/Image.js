@@ -18,10 +18,6 @@ const isValidSource = source =>
 let externalPropsTransformer = null;
 
 class Image extends PureComponent {
-  static propTypes = {
-    ...RNImage.propTypes,
-  };
-
   /**
    * Set a shared props transformer. The transformer will
    * be called on each props change, and it should return
@@ -84,6 +80,10 @@ class Image extends PureComponent {
     return <RNImage {...this.createTransformedProps(this.props)} />;
   }
 }
+
+Image.propTypes = {
+  ...RNImage.propTypes,
+};
 
 const AnimatedImage = connectAnimation(Image);
 const StyledImage = connectStyle('shoutem.ui.Image')(AnimatedImage);

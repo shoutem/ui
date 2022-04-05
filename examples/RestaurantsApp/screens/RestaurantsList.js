@@ -18,10 +18,6 @@ import { navigatePush } from '../redux';
 const restaurants = require('../assets/data/restaurants.json');
 
 class RestaurantsList extends PureComponent {
-  static propTypes = {
-    onButtonPress: PropTypes.func,
-  };
-
   constructor(props) {
     super(props);
 
@@ -61,6 +57,14 @@ class RestaurantsList extends PureComponent {
     );
   }
 }
+
+RestaurantsList.propTypes = {
+  onButtonPress: PropTypes.func,
+};
+
+RestaurantsList.defaultProps = {
+  onButtonPress: undefined,
+};
 
 const mapDispatchToProps = dispatch => ({
   onButtonPress: restaurant => {

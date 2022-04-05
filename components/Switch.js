@@ -7,20 +7,6 @@ import { connectStyle } from '@shoutem/theme';
 import { View } from './View';
 
 class Switch extends PureComponent {
-  static propTypes = {
-    // True when switch is on, false otherwise
-    value: PropTypes.bool,
-    // Called when switch is toggled on and off
-    onValueChange: PropTypes.func,
-    // Styles for the container and underlying thumb
-    style: PropTypes.shape({
-      // Container style
-      container: PropTypes.object,
-      // Thumb style
-      thumb: PropTypes.object,
-    }),
-  };
-
   constructor(props) {
     super(props);
 
@@ -75,6 +61,25 @@ class Switch extends PureComponent {
     );
   }
 }
+
+Switch.propTypes = {
+  // Styles for the container and underlying thumb
+  style: PropTypes.shape({
+    // Container style
+    container: PropTypes.object,
+    // Thumb style
+    thumb: PropTypes.object,
+  }).isRequired,
+  // True when switch is on, false otherwise
+  value: PropTypes.bool,
+  // Called when switch is toggled on and off
+  onValueChange: PropTypes.func,
+};
+
+Switch.defaultProps = {
+  value: false,
+  onValueChange: undefined,
+};
 
 const AnimatedSwitch = connectAnimation(Switch);
 const StyledSwitch = connectStyle('shoutem.ui.Switch')(AnimatedSwitch);

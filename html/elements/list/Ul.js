@@ -24,4 +24,8 @@ Ul.propTypes = {
   style: PropTypes.object,
 };
 
+Ul.defaultProps = {
+  style: {},
+};
+
 export default combineMappers(mapElementProps)(Ul);

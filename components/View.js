@@ -32,8 +32,8 @@ class View extends PureComponent {
 }
 
 View.propTypes = {
-  ...ViewPropTypes,
-  style: PropTypes.object,
+  ...ViewPropTypes.propTypes,
+  style: PropTypes.object.isRequired,
 };
 
 const AnimatedView = connectAnimation(View);

@@ -20,7 +20,7 @@ class Spinner extends PureComponent {
 }
 
 Spinner.propTypes = {
-  style: PropTypes.object,
+  style: PropTypes.object.isRequired,
 };
 
 const StyledSpinner = connectStyle('shoutem.ui.Spinner', {

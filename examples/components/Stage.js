@@ -15,8 +15,13 @@ function Stage({ title, children }) {
 }
 
 Stage.propTypes = {
-  title: PropTypes.string,
   children: PropTypes.node,
+  title: PropTypes.string,
+};
+
+Stage.defaultProps = {
+  children: undefined,
+  title: undefined,
 };
 
 const styles = {
