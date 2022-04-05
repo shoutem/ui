@@ -93,7 +93,14 @@ class NumberInput extends PureComponent {
 
 NumberInput.propTypes = {
   ...TextInput.propTypes,
-  style: PropTypes.object.isRequired,
+  // Styles for component parts
+  style: PropTypes.shape({
+    button: PropTypes.object,
+    container: PropTypes.object,
+    icon: PropTypes.object,
+    input: PropTypes.object,
+    inputContainer: PropTypes.object,
+  }).isRequired,
   // Called when the user changes the value by inputting it directly or with buttons
   onChange: PropTypes.func.isRequired,
   // Maximum allowed value
