@@ -24,13 +24,15 @@ class HorizontalPager extends PureComponent {
 
     autoBindReact(this);
 
+    const { selectedIndex, pageMargin, showNextPage } = props;
+
     this.state = {
       width: 0,
       height: 0,
-      selectedIndex: this.props.selectedIndex,
-      initialSelectedIndex: this.props.selectedIndex,
-      pageMargin: this.props.pageMargin,
-      showNextPage: this.props.showNextPage,
+      selectedIndex,
+      initialSelectedIndex: selectedIndex,
+      pageMargin,
+      showNextPage,
       shouldRenderContent: false,
       scrolledToInitialIndex: false,
     };
@@ -55,16 +57,17 @@ class HorizontalPager extends PureComponent {
   }
 
   onLayoutContainer(event) {
-    const { width, height } = event.nativeEvent.layout;
-    const { scrolledToInitialIndex } = this.state;
+    const { width: newWidth, height: newHeight } = event.nativeEvent.layout;
+    const { scrolledToInitialIndex, width, height } = this.state;
 
-    if (this.state.width === width && this.state.height === height) {
+    if (width === newWidth && height === newHeight) {
       return;
     }
 
     this.setState({ width, height }, () => {
-      // By checking has the pager scrolled to initial index, we're avoiding weird issue
-      // where pager would scroll back to initial index after swiping to other index
+      // By checking has the pager scrolled to initial index, we're avoiding
+      // a weird issue where pager would scroll back to initial index after
+      // swiping to other index
       if (!scrolledToInitialIndex) {
         requestAnimationFrame(() => this.scrollToInitialPage());
       }

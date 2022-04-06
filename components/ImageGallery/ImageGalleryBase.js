@@ -29,11 +29,15 @@ export class ImageGalleryBase extends PureComponent {
 
     autoBindReact(this);
 
+    const { selectedIndex } = props;
+
     this.state = {
-      selectedIndex: this.props.selectedIndex || 0,
+      selectedIndex,
       imageSwitchingEnabled: true,
-      collapsed: true,
       mode: IMAGE_GALLERY_MODE,
+      // Disabling rule as this flag is used via inheritance in other classes.
+      // eslint-disable-next-line react/no-unused-state
+      collapsed: true,
     };
   }
 
@@ -63,9 +67,11 @@ export class ImageGalleryBase extends PureComponent {
     );
   }
 
-  setMode(mode) {
+  setMode(newMode) {
     const { onModeChanged } = this.props;
-    if (this.state.mode === mode) {
+    const { mode } = this.state;
+
+    if (mode === newMode) {
       return;
     }
 

@@ -15,13 +15,15 @@ class EmptyStateView extends PureComponent {
   }
 
   onRetry() {
-    this.props.onRetry();
+    const { onRetry } = this.props;
+
+    onRetry();
   }
 
   renderRetryButton() {
     const { retryButtonTitle } = this.props;
 
-    // Show retry button at the bottom only if there is an onRetry action passed.
+    // Show retry button at the bottom only if there is an onRetry action passed
     return (
       <View styleName="horizontal anchor-bottom">
         <Button styleName="full-width" onPress={this.onRetry}>
@@ -32,10 +34,10 @@ class EmptyStateView extends PureComponent {
   }
 
   render() {
-    const { icon, message, onRetry } = this.props;
+    const { icon, message, onRetry, ...otherProps } = this.props;
 
     return (
-      <View {...this.props} styleName="vertical flexible h-center v-center">
+      <View {...otherProps} styleName="vertical flexible h-center v-center">
         <View styleName="icon-placeholder">
           <Icon name={icon} />
         </View>

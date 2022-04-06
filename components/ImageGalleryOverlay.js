@@ -66,7 +66,7 @@ class ImageGalleryOverlay extends PureComponent {
 
   renderDescription(description) {
     const { style } = this.props;
-    const collapsed = this.state.isDescriptionCollapsed;
+    const { isDescriptionCollapsed: collapsed } = this.state;
 
     if (!description) {
       return null;

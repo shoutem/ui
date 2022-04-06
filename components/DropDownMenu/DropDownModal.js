@@ -66,9 +66,9 @@ class DropDownModal extends PureComponent {
   }
 
   emitOnOptionSelectedEvent(option) {
-    if (this.props.onOptionSelected) {
-      this.props.onOptionSelected(option);
-    }
+    const { onOptionSelected } = this.props;
+
+    onOptionSelected && onOptionSelected(option);
   }
 
   resolveListViewStyle(height) {

@@ -82,11 +82,13 @@ class Html extends PureComponent {
    * @returns {Component} The element rendered as a React Native component
    */
   renderElement(element) {
+    const { renderElement } = this.props;
+
     const elementStyle = this.getElementStyle(element);
     let renderedElement;
 
-    if (this.props.renderElement) {
-      renderedElement = this.props.renderElement(
+    if (renderElement) {
+      renderedElement = renderElement(
         element,
         elementStyle,
         this.renderElement,
