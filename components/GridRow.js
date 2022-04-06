@@ -35,8 +35,8 @@ class GridRow extends PureComponent {
 }
 
 GridRow.propTypes = {
+  ...ViewPropTypes,
   columns: PropTypes.number.isRequired,
-  ...ViewPropTypes.propTypes,
 };
 
 /* eslint-disable no-param-reassign */

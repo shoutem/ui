@@ -101,7 +101,6 @@ ScrollView.propTypes = {
 };
 
 ScrollView.defaultProps = {
-  ...Animated.ScrollView.defaultProps,
   primary: false,
 };
 
