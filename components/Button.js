@@ -5,16 +5,13 @@ import { connectStyle } from '@shoutem/theme';
 
 class Button extends PureComponent {
   render() {
-    const { style } = this.props;
-    const { underlayColor } = style;
-    // The underlayColor is not a valid RN style property, so we have to unset
-    // it here.
-    delete style.underlayColor;
+    const { style, ...otherProps } = this.props;
+    const { underlayColor, ...otherStyle } = style;
 
     return (
       <TouchableOpacity
-        {...this.props}
-        style={style}
+        {...otherProps}
+        style={otherStyle}
         underlayColor={underlayColor}
       />
     );
