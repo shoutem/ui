@@ -30,7 +30,7 @@ class View extends PureComponent {
 }
 
 View.propTypes = {
-  ...ViewPropTypes.propTypes,
+  ...ViewPropTypes,
   style: PropTypes.object.isRequired,
 };
 
