@@ -21,37 +21,25 @@ export class ThemeVariableResolver {
       );
     }
 
+    const scopePath = _.split(scope, '.');
     const variablePath = _.split(variable, '.');
 
-    // If we're looking at theme scope, default to root values
-    if (scope === THEME_EXTENSION_SCOPE) {
-      return _.get(
-        this.variables,
-        [scope, ...variablePath],
-        _.get(this.variables, variablePath),
-      );
-    }
-
-    // If we're looking at extension scope, default to theme values first, then root values
     return _.get(
       this.variables,
-      [scope, ...variablePath],
-      _.get(
-        this.variables,
-        [THEME_EXTENSION_SCOPE, ...variablePath],
-        _.get(this.variables, variablePath),
-      ),
+      [...scopePath, ...variablePath],
+      _.get(this.variables, variablePath)
     );
   }
 
   // Currently supports 2 function signatures
-  // resolveVariable(variableName) -> Tries to get the variable under the shoutem.theme namespace
+  // resolveVariable(variableName) -> Tries to get the variable under the root scope ( generic theme values )
   // resolveVariable(scope, variableName) -> Tries to get the variable under specific scope
-  // Both signatures default to root parameter for the required variable name
   // Variable name can be stringified object path or a regular string, i.e -> text.color
   resolveVariable(...params) {
     if (arguments.length === 1) {
-      return this.getScopedVariable(THEME_EXTENSION_SCOPE, params[0]);
+      const variablePath = _.split(params[0], '.');
+    
+      return _.get(this.variables, variablePath);
     }
 
     if (arguments.length === 2) {

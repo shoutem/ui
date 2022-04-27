@@ -14,10 +14,7 @@ import {
   NAVIGATION_HEADER_HEIGHT,
 } from './const';
 import { Device } from './helpers';
-import {
-  defaultResolver as variableResolver,
-  resolveVariable,
-} from './services';
+import { resolveVariable } from './services';
 
 const window = Dimensions.get('window');
 
@@ -256,9 +253,7 @@ export const defaultThemeVariables = {
   galleryDotSize: 8,
 };
 
-export default (variables = defaultThemeVariables) => {
-  variableResolver.setVariables(variables);
-
+export default () => {
   return {
     //
     // Common
