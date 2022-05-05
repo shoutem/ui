@@ -1,8 +1,14 @@
 import { Theme } from '@shoutem/theme';
-import getThemeStyle from './theme';
+import {
+  defaultResolver as variableResolver,
+} from './services';
+import getThemeStyle, { defaultThemeVariables } from './theme';
 
 function setDefaultThemeStyle() {
+  variableResolver.setVariables(defaultThemeVariables)
+
   const theme = getThemeStyle();
+
   Theme.setDefaultThemeStyle(theme);
 }
 
