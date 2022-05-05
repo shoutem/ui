@@ -152,11 +152,6 @@ class ListView extends PureComponent {
     // data to display
     mappedProps.data = data;
 
-    // key extractor
-    if (!keyExtractor) {
-      mappedProps.keyExtractor = (item, index) => index.toString();
-    }
-
     // sections for SectionList
     if (sections) {
       mappedProps.sections = sections;
