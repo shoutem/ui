@@ -64,16 +64,9 @@ class Video extends PureComponent {
   render() {
     const { width, height, style, poster } = this.props;
 
-    // https://github.com/vimeo/player.js/issues/514
-    // Vimeo player crashes the app, if played in full screen portrait mode and if user
-    // tries to navigate back using Android hardware back button. Disableing full screen
-    // option for Vimeo until their player is fixed.
-    const isYoutubeVideo = this.sourceReader.isYouTube;
-
     return (
       <View style={style.container}>
         <WebView
-          allowsFullscreenVideo={isYoutubeVideo}
           mediaPlaybackRequiresUserAction={false}
           style={{ width, height }}
           source={getSource(this.sourceReader, poster)}
