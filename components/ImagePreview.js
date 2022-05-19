@@ -20,11 +20,11 @@ class ImagePreview extends PureComponent {
     super(props);
 
     autoBindReact(this);
-  }
 
-  state = {
-    fullScreen: false,
-  };
+    this.state = {
+      fullScreen: false,
+    };
+  }
 
   onPressCloseButton() {
     this.setState({
@@ -40,8 +40,9 @@ class ImagePreview extends PureComponent {
 
   render() {
     const { source, style, width, height } = this.props;
+    const { fullScreen } = this.state;
 
-    if (this.state.fullScreen) {
+    if (fullScreen) {
       const closeButton = (
         <View style={style.header}>
           <TouchableOpacity

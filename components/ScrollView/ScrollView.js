@@ -77,19 +77,17 @@ class ScrollView extends PureComponent {
   }
 
   render() {
-    const { props, animationDriver } = this;
-    const { style = {} } = props;
-    const contentContainerStyle = {
-      ...style.contentContainerStyle,
-    };
-    delete style.contentContainerStyle;
+    const { style, ...otherProps } = this.props;
+    const { scrollViewProps } = this.animationDriver;
+    const { contentContainerStyle, ...otherStyle } = style;
 
     return (
       <Animated.ScrollView
         ref={this.setWrappedInstance}
         contentContainerStyle={this.addIphoneXPadding(contentContainerStyle)}
-        {...animationDriver.scrollViewProps}
-        {..._.omit(props, 'onScroll')}
+        {...scrollViewProps}
+        {..._.omit(otherProps, 'onScroll')}
+        style={otherStyle}
       />
     );
   }

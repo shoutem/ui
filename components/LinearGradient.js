@@ -9,17 +9,17 @@ const RNLinearGradientPropsKeys = ['start', 'end', 'colors', 'locations'];
 
 class LinearGradient extends PureComponent {
   render() {
-    const { props } = this;
+    const { children, style } = this.props;
 
-    const styleWithOmissions = _.omit(props.style, RNLinearGradientPropsKeys);
+    const styleWithOmissions = _.omit(style, RNLinearGradientPropsKeys);
     const linearGradientProps = {
-      ...props,
-      ..._.pick(props.style, RNLinearGradientPropsKeys),
+      ...this.props,
+      ..._.pick(style, RNLinearGradientPropsKeys),
     };
 
     return (
       <RNLinearGradient {...linearGradientProps} style={styleWithOmissions}>
-        {props.children}
+        {children}
       </RNLinearGradient>
     );
   }
