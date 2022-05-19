@@ -4,14 +4,6 @@ import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
 
 class TouchableNativeFeedback extends PureComponent {
-  static propTypes = {
-    ...RNTouchableNativeFeedback.propTypes,
-    style: PropTypes.shape({
-      background: PropTypes.object,
-      useForeground: PropTypes.bool,
-    }),
-  };
-
   render() {
     const { props } = this;
     // Remove the props that are not valid
@@ -34,6 +26,14 @@ class TouchableNativeFeedback extends PureComponent {
     );
   }
 }
+
+TouchableNativeFeedback.propTypes = {
+  ...RNTouchableNativeFeedback.propTypes,
+  style: PropTypes.shape({
+    background: PropTypes.object,
+    useForeground: PropTypes.bool,
+  }).isRequired,
+};
 
 const StyledTouchableNativeFeedback = connectStyle(
   'shoutem.ui.TouchableNativeFeedback',

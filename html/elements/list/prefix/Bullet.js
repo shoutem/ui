@@ -9,3 +9,7 @@ export default function BulletPrefix({ style }) {
 BulletPrefix.propTypes = {
   style: PropTypes.object,
 };
+
+BulletPrefix.defaultProps = {
+  style: undefined,
+};

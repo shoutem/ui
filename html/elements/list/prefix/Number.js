@@ -10,6 +10,11 @@ export default function NumberPrefix({ element, style }) {
 }
 
 NumberPrefix.propTypes = {
-  style: PropTypes.object,
   element: PropTypes.shape({ ...ElementPropTypes }),
+  style: PropTypes.object,
+};
+
+NumberPrefix.defaultProps = {
+  element: undefined,
+  style: undefined,
 };

@@ -13,6 +13,10 @@ FormGroup.propTypes = {
   ...View.propTypes,
 };
 
+FormGroup.defaultProps = {
+  ...View.defaultProps,
+};
+
 const AnimatedFormGroup = connectAnimation(FormGroup);
 const StyledFormGroup = connectStyle('shoutem.ui.FormGroup')(AnimatedFormGroup);
 

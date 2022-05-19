@@ -346,6 +346,7 @@ class ListView extends PureComponent {
 }
 
 ListView.propTypes = {
+  style: PropTypes.object.isRequired,
   autoHideHeader: PropTypes.bool,
   contentContainerStyle: PropTypes.object,
   data: PropTypes.array,
@@ -363,7 +364,6 @@ ListView.propTypes = {
   renderSectionHeader: PropTypes.func,
   scrollDriver: PropTypes.object,
   sections: PropTypes.array,
-  style: PropTypes.object,
   onLoadMore: PropTypes.func,
   onLoadMoreThreshold: PropTypes.number,
   onRefresh: PropTypes.func,
@@ -387,7 +387,6 @@ ListView.defaultProps = {
   renderSectionHeader: undefined,
   scrollDriver: undefined,
   sections: undefined,
-  style: {},
   onLoadMore: undefined,
   onLoadMoreThreshold: 0.5,
   onRefresh: undefined,

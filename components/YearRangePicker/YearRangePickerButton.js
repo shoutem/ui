@@ -10,13 +10,6 @@ import { TouchableOpacity } from '../TouchableOpacity';
 const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 
 class YearRangePickerButton extends PureComponent {
-  static propTypes = {
-    onPress: PropTypes.func,
-    tooltip: PropTypes.string,
-    collapsed: PropTypes.bool,
-    style: PropTypes.any,
-  };
-
   constructor(props) {
     super(props);
 
@@ -64,6 +57,19 @@ class YearRangePickerButton extends PureComponent {
     );
   }
 }
+
+YearRangePickerButton.propTypes = {
+  style: PropTypes.object.isRequired,
+  collapsed: PropTypes.bool,
+  tooltip: PropTypes.string,
+  onPress: PropTypes.func,
+};
+
+YearRangePickerButton.defaultProps = {
+  collapsed: undefined,
+  tooltip: undefined,
+  onPress: undefined,
+};
 
 export default connectStyle('shoutem.ui.YearRangePickerButton')(
   YearRangePickerButton,

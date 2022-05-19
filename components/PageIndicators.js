@@ -8,23 +8,6 @@ import { View } from './View';
  * Renders Page indicators (dots)
  */
 class PageIndicators extends PureComponent {
-  static propTypes = {
-    // ActiveIndex: number defining which page indicator will be rendered as active (selected)
-    activeIndex: PropTypes.number,
-    // Count: number defining how many page indicators will be rendered
-    count: PropTypes.number,
-    // maxCount defining highest number of page indicators that can be rendered
-    // If `count` is higher than `maxCount`, then `maxCount` number of indicators
-    // will be rendered. Defaults to 10
-    maxCount: PropTypes.number,
-    // Style prop used to override default (theme) styling
-    style: PropTypes.object,
-  };
-
-  static defaultProps = {
-    maxCount: 10,
-  };
-
   constructor(props) {
     super(props);
 
@@ -72,6 +55,25 @@ class PageIndicators extends PureComponent {
     return <View style={style.container}>{pageIndicators}</View>;
   }
 }
+
+PageIndicators.propTypes = {
+  // Style prop used to override default (theme) styling
+  style: PropTypes.object.isRequired,
+  // ActiveIndex: number defining which page indicator will be rendered as active (selected)
+  activeIndex: PropTypes.number,
+  // Count: number defining how many page indicators will be rendered
+  count: PropTypes.number,
+  // maxCount defining highest number of page indicators that can be rendered
+  // If `count` is higher than `maxCount`, then `maxCount` number of indicators
+  // will be rendered. Defaults to 10
+  maxCount: PropTypes.number,
+};
+
+PageIndicators.defaultProps = {
+  activeIndex: undefined,
+  count: undefined,
+  maxCount: 10,
+};
 
 const StyledPageIndicators = connectStyle('shoutem.ui.PageIndicators')(
   PageIndicators,

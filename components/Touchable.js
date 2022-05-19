@@ -14,12 +14,6 @@ import { View } from './View';
  * Android.
  */
 class Touchable extends PureComponent {
-  static propTypes = {
-    ...TouchableOpacity.propTypes,
-    ...TouchableNativeFeedback.propTypes,
-    style: PropTypes.object,
-  };
-
   render() {
     const { props } = this;
     const style = { ...props.style };
@@ -52,6 +46,12 @@ class Touchable extends PureComponent {
     );
   }
 }
+
+Touchable.propTypes = {
+  ...TouchableOpacity.propTypes,
+  ...TouchableNativeFeedback.propTypes,
+  style: PropTypes.object.isRequired,
+};
 
 const StyledTouchable = connectStyle('shoutem.ui.Touchable', {
   touchableNativeFeedback: {},

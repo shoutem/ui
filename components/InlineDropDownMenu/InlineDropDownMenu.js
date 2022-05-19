@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import autoBindReact from 'auto-bind/react';
 import { Animated, ScrollView } from 'react-native';
+import autoBindReact from 'auto-bind/react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
@@ -18,18 +18,6 @@ const optionShape = PropTypes.shape({
 });
 
 class InlineDropDownMenu extends PureComponent {
-  static propTypes = {
-    heading: PropTypes.string,
-    selectedDescriptor: PropTypes.string,
-    options: PropTypes.arrayOf(optionShape).isRequired,
-    onOptionSelected: PropTypes.func,
-    selectedOption: optionShape,
-    headingStyle: PropTypes.object,
-    containerStyle: PropTypes.object,
-    selectedOptionContainerStyle: PropTypes.object,
-    selectedOptionTextStyle: PropTypes.object,
-  };
-
   constructor(props) {
     super(props);
 
@@ -128,10 +116,7 @@ class InlineDropDownMenu extends PureComponent {
           </View>
         </TouchableOpacity>
         {collapsed && (
-          <ScrollView
-            data={options}
-            contentContainerStyle={style.list}
-          >
+          <ScrollView data={options} contentContainerStyle={style.list}>
             {_.map(options, (item, index) =>
               this.renderOption({ item, index }),
             )}
@@ -141,6 +126,30 @@ class InlineDropDownMenu extends PureComponent {
     );
   }
 }
+
+InlineDropDownMenu.propTypes = {
+  options: PropTypes.arrayOf(optionShape).isRequired,
+  style: PropTypes.object.isRequired,
+  containerStyle: PropTypes.object,
+  heading: PropTypes.string,
+  headingStyle: PropTypes.object,
+  selectedDescriptor: PropTypes.string,
+  selectedOption: optionShape,
+  selectedOptionContainerStyle: PropTypes.object,
+  selectedOptionTextStyle: PropTypes.object,
+  onOptionSelected: PropTypes.func,
+};
+
+InlineDropDownMenu.defaultProps = {
+  heading: undefined,
+  headingStyle: undefined,
+  containerStyle: undefined,
+  selectedDescriptor: undefined,
+  selectedOption: undefined,
+  selectedOptionContainerStyle: undefined,
+  selectedOptionTextStyle: undefined,
+  onOptionSelected: undefined,
+};
 
 const StyledComponent = connectStyle('shoutem.ui.InlineDropDownMenu')(
   InlineDropDownMenu,

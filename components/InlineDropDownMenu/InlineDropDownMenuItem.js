@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Animated, Dimensions, Pressable } from 'react-native';
 import autoBindReact from 'auto-bind/react';
-import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
 import { Text } from '../Text';
@@ -10,14 +9,6 @@ const window = Dimensions.get('window');
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 class InlineDropDownMenuItem extends PureComponent {
-  static propTypes = {
-    item: PropTypes.object,
-    index: PropTypes.number,
-    selectedDescriptor: PropTypes.string,
-    onItemPressed: PropTypes.func,
-    isSelected: PropTypes.bool,
-  };
-
   constructor(props) {
     super(props);
 
@@ -75,6 +66,23 @@ class InlineDropDownMenuItem extends PureComponent {
     );
   }
 }
+
+InlineDropDownMenuItem.propTypes = {
+  style: PropTypes.isRequired,
+  index: PropTypes.number,
+  isSelected: PropTypes.bool,
+  item: PropTypes.object,
+  selectedDescriptor: PropTypes.string,
+  onItemPressed: PropTypes.func,
+};
+
+InlineDropDownMenuItem.defaultProps = {
+  index: undefined,
+  isSelected: false,
+  item: undefined,
+  selectedDescriptor: undefined,
+  onItemPressed: undefined,
+};
 
 const StyledComponent = connectStyle('shoutem.ui.InlineDropDownMenuItem')(
   InlineDropDownMenuItem,

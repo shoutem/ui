@@ -15,17 +15,6 @@ import { Icon } from './Icon';
  * or animation.
  */
 class ShareButton extends PureComponent {
-  static propTypes = {
-    // Animation name for share icon
-    animationName: PropTypes.string,
-    // Message to share
-    message: PropTypes.string,
-    // Title
-    title: PropTypes.string,
-    // Url to share
-    url: PropTypes.string,
-  };
-
   constructor(props) {
     super(props);
 
@@ -58,6 +47,27 @@ class ShareButton extends PureComponent {
     );
   }
 }
+
+ShareButton.propTypes = {
+  // Animation name for share icon
+  animationName: PropTypes.string,
+  // Additional props for Icon component
+  iconProps: PropTypes.object,
+  // Message to share
+  message: PropTypes.string,
+  // Title
+  title: PropTypes.string,
+  // Url to share
+  url: PropTypes.string,
+};
+
+ShareButton.defaultProps = {
+  animationName: undefined,
+  iconProps: undefined,
+  message: undefined,
+  title: undefined,
+  url: undefined,
+};
 
 const StyledShareButton = connectStyle(
   'shoutem.ui.ShareButton',
