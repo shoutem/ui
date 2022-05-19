@@ -60,7 +60,7 @@ class DropDownModal extends PureComponent {
   close() {
     const { onClose } = this.props;
 
-    if (onClose) {
+    if (_.isFunction(onClose)) {
       onClose();
     }
   }
@@ -68,7 +68,9 @@ class DropDownModal extends PureComponent {
   emitOnOptionSelectedEvent(option) {
     const { onOptionSelected } = this.props;
 
-    onOptionSelected && onOptionSelected(option);
+    if (_.isFunction(onOptionSelected)) {
+      onOptionSelected(option);
+    }
   }
 
   resolveListViewStyle(height) {
