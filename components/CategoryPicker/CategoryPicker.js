@@ -5,12 +5,7 @@ import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
 import { View } from '../View';
 import Category from './Category';
-
-const categoryShape = PropTypes.shape({
-  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-  name: PropTypes.string.isRequired,
-  description: PropTypes.string,
-});
+import { categoryShape } from './shapes';
 
 export function CategoryPicker({
   categories,

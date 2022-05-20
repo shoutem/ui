@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
 import { Text } from '../Text';
 import { TouchableOpacity } from '../TouchableOpacity';
+import { categoryShape } from './shapes';
 
 function Category({ category, style, isSelected, onPress }) {
   const textStyle = useMemo(
@@ -29,9 +30,7 @@ function Category({ category, style, isSelected, onPress }) {
 }
 
 Category.propTypes = {
-  category: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-  }).isRequired,
+  category: categoryShape.isRequired,
   isSelected: PropTypes.bool,
   style: PropTypes.object,
   onPress: PropTypes.func,
