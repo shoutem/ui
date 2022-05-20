@@ -33,14 +33,6 @@ class ActionSheet extends PureComponent {
     return null;
   }
 
-  static propTypes = {
-    style: PropTypes.any,
-    confirmOptions: PropTypes.arrayOf(optionPropType),
-    cancelOptions: PropTypes.arrayOf(optionPropType),
-    active: PropTypes.bool,
-    onDismiss: PropTypes.func,
-  };
-
   constructor(props) {
     super(props);
 
@@ -186,5 +178,20 @@ class ActionSheet extends PureComponent {
     );
   }
 }
+
+ActionSheet.propTypes = {
+  style: PropTypes.object.isRequired,
+  active: PropTypes.bool,
+  cancelOptions: PropTypes.arrayOf(optionPropType),
+  confirmOptions: PropTypes.arrayOf(optionPropType),
+  onDismiss: PropTypes.func,
+};
+
+ActionSheet.defaultProps = {
+  active: false,
+  cancelOptions: undefined,
+  confirmOptions: undefined,
+  onDismiss: undefined,
+};
 
 export default connectStyle('shoutem.ui.ActionSheet')(ActionSheet);

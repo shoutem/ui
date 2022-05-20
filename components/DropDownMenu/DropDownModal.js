@@ -15,57 +15,6 @@ import { View } from '../View';
 const window = Dimensions.get('window');
 
 class DropDownModal extends PureComponent {
-  static propTypes = {
-    /**
-     * Callback that is called when dropdown option is selected
-     */
-    onOptionSelected: PropTypes.func,
-    /**
-     * Collection of objects which will be shown as options in DropDownMenu
-     */
-    options: PropTypes.array.isRequired,
-    /**
-     * Selected option that will be shown.
-     */
-    selectedOption: PropTypes.any.isRequired,
-    /**
-     * Key name that represents option's string value,
-     * and it will be displayed to the user in the UI
-     */
-    titleProperty: PropTypes.string.isRequired,
-    /**
-     * Key name that represents option's value
-     */
-    valueProperty: PropTypes.string.isRequired,
-    /**
-     * Number of options shown without scroll.
-     * Can be set trough DropDown style.visibleOptions.
-     * Prop definition overrides style.
-     */
-    visibleOptions: PropTypes.number,
-    /**
-     * Optional render function, for every item in the list.
-     * Input parameter should be shaped as one of the items from the
-     * options object
-     */
-    renderOption: PropTypes.func,
-    /**
-     * Visibility flag, controling the modal visibility
-     */
-    visible: PropTypes.bool,
-    /**
-     * Callback that is called when modal should be closed
-     */
-    onClose: PropTypes.func,
-    style: PropTypes.object,
-  };
-
-  static defaultProps = {
-    renderOption: (option, titleProperty) => (
-      <Text>{option[titleProperty].toUpperCase()}</Text>
-    ),
-  };
-
   static DEFAULT_VISIBLE_OPTIONS = 8;
 
   constructor(props) {
@@ -111,14 +60,16 @@ class DropDownModal extends PureComponent {
   close() {
     const { onClose } = this.props;
 
-    if (onClose) {
+    if (_.isFunction(onClose)) {
       onClose();
     }
   }
 
   emitOnOptionSelectedEvent(option) {
-    if (this.props.onOptionSelected) {
-      this.props.onOptionSelected(option);
+    const { onOptionSelected } = this.props;
+
+    if (_.isFunction(onOptionSelected)) {
+      onOptionSelected(option);
     }
   }
 
@@ -298,6 +249,57 @@ class DropDownModal extends PureComponent {
     );
   }
 }
+
+DropDownModal.propTypes = {
+  /**
+   * Collection of objects which will be shown as options in DropDownMenu
+   */
+  options: PropTypes.array.isRequired,
+  /**
+   * Selected option that will be shown.
+   */
+  selectedOption: PropTypes.any.isRequired,
+  style: PropTypes.object.isRequired,
+  /**
+   * Key name that represents option's string value,
+   * and it will be displayed to the user in the UI
+   */
+  titleProperty: PropTypes.string.isRequired,
+  /**
+   * Optional render function, for every item in the list.
+   * Input parameter should be shaped as one of the items from the
+   * options object
+   */
+  renderOption: PropTypes.func,
+  /**
+   * Visibility flag, controling the modal visibility
+   */
+  visible: PropTypes.bool,
+  /**
+   * Number of options shown without scroll.
+   * Can be set trough DropDown style.visibleOptions.
+   * Prop definition overrides style.
+   */
+  visibleOptions: PropTypes.number,
+  /**
+   * Callback that is called when modal should be closed
+   */
+  onClose: PropTypes.func,
+  /**
+   * Callback that is called when dropdown option is selected
+   */
+  onOptionSelected: PropTypes.func,
+};
+
+DropDownModal.defaultProps = {
+  renderOption: (option, titleProperty) => (
+    <Text>{option[titleProperty].toUpperCase()}</Text>
+  ),
+  visible: false,
+  visibleOptions: undefined,
+  onClose: undefined,
+  onOptionSelected: undefined,
+};
 
 const StyledModal = connectStyle('shoutem.ui.DropDownModal')(DropDownModal);
 

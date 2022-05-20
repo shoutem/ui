@@ -42,22 +42,6 @@ function resolveRangeTooltip(visibleYears) {
 }
 
 class YearRangePickerModal extends PureComponent {
-  static propTypes = {
-    onRangeConfirmed: PropTypes.func,
-    onDismiss: PropTypes.func,
-    resetButtonTitle: PropTypes.string,
-    confirmButtonTitle: PropTypes.string,
-    selectedYears: PropTypes.arrayOf(PropTypes.number),
-    rangeStart: PropTypes.number,
-    rangeEnd: PropTypes.number,
-    visible: PropTypes.bool,
-    style: PropTypes.any,
-  };
-
-  static defaultProps = {
-    selectedYears: [],
-  };
-
   constructor(props) {
     super(props);
 
@@ -282,6 +266,29 @@ class YearRangePickerModal extends PureComponent {
     );
   }
 }
+
+YearRangePickerModal.propTypes = {
+  style: PropTypes.object.isRequired,
+  confirmButtonTitle: PropTypes.string,
+  rangeEnd: PropTypes.number,
+  rangeStart: PropTypes.number,
+  resetButtonTitle: PropTypes.string,
+  selectedYears: PropTypes.arrayOf(PropTypes.number),
+  visible: PropTypes.bool,
+  onDismiss: PropTypes.func,
+  onRangeConfirmed: PropTypes.func,
+};
+
+YearRangePickerModal.defaultProps = {
+  confirmButtonTitle: undefined,
+  rangeEnd: undefined,
+  rangeStart: undefined,
+  resetButtonTitle: undefined,
+  selectedYears: [],
+  visible: false,
+  onDismiss: undefined,
+  onRangeConfirmed: undefined,
+};
 
 export default connectStyle('shoutem.ui.YearRangePickerModal')(
   YearRangePickerModal,

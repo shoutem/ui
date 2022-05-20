@@ -8,13 +8,6 @@ import { View } from '../View';
  * rendering of pages that are not currently visible.
  */
 export class Page extends Component {
-  static propTypes = {
-    isActive: PropTypes.bool.isRequired,
-    width: PropTypes.number.isRequired,
-    style: PropTypes.object,
-    children: PropTypes.node,
-  };
-
   shouldComponentUpdate(nextProps) {
     return nextProps.isActive;
   }
@@ -29,3 +22,15 @@ export class Page extends Component {
     );
   }
 }
+
+Page.propTypes = {
+  isActive: PropTypes.bool.isRequired,
+  width: PropTypes.number.isRequired,
+  children: PropTypes.node,
+  style: PropTypes.object,
+};
+
+Page.defaultProps = {
+  children: undefined,
+  style: {},
+};

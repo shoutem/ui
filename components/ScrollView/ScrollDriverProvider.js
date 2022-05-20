@@ -19,16 +19,6 @@ export class ScrollDriverProvider extends PureComponent {
     animationDriver: DriverShape,
   };
 
-  static propTypes = {
-    children: PropTypes.node,
-    driver: DriverShape,
-    // Used to propagate animation driver changes to components who aren't
-    // children of ScrollDriver, recieves driver as argument.
-    // TODO: Rewrite for new context API.
-    onAnimationDriverChange: PropTypes.func,
-    onScroll: PropTypes.func,
-  };
-
   constructor(props, context) {
     super(props, context);
 
@@ -87,3 +77,23 @@ export class ScrollDriverProvider extends PureComponent {
     return children && Children.only(children);
   }
 }
+
+// We disable this eslint rule because the props are being utilized indirectly
+// through componentDidUpdate's usage of setupAnimationDriver
+/* eslint-disable react/no-unused-prop-types */
+ScrollDriverProvider.propTypes = {
+  children: PropTypes.node,
+  driver: DriverShape,
+  // Used to propagate animation driver changes to components that aren't
+  // children of ScrollDriver, recieves driver as argument.
+  // TODO: Rewrite for new context API.
+  onAnimationDriverChange: PropTypes.func,
+  onScroll: PropTypes.func,
+};
+
+ScrollDriverProvider.defaultProps = {
+  children: undefined,
+  driver: undefined,
+  onAnimationDriverChange: undefined,
+  onScroll: undefined,
+};

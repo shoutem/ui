@@ -22,11 +22,12 @@ function Video({ src, thumbnailUrl, style }) {
 
 Video.propTypes = {
   src: PropTypes.string,
-  thumbnailUrl: PropTypes.string,
   style: PropTypes.object,
+  thumbnailUrl: PropTypes.string,
 };
 
 Video.defaultProps = {
+  src: undefined,
   style: {
     container: {
       alignSelf: 'stretch',
@@ -34,6 +35,7 @@ Video.defaultProps = {
       alignItems: 'center',
     },
   },
+  thumbnailUrl: undefined,
 };
 
 export default combineMappers(mapElementProps)(Video);

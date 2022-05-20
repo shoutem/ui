@@ -55,6 +55,7 @@ function LoadingContainer({
 }
 
 LoadingContainer.propTypes = {
+  style: PropTypes.object.isRequired,
   animation: PropTypes.object,
   animationScale: PropTypes.number,
   children: PropTypes.oneOfType([
@@ -63,7 +64,6 @@ LoadingContainer.propTypes = {
     PropTypes.node,
   ]),
   loading: PropTypes.bool,
-  style: PropTypes.object,
 };
 
 LoadingContainer.defaultProps = {
@@ -71,7 +71,6 @@ LoadingContainer.defaultProps = {
   children: undefined,
   animation: animations.loadingDots,
   loading: false,
-  style: {},
 };
 
 const StyledLoadingContainer = connectStyle('shoutem.ui.LoadingContainer')(

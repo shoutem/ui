@@ -138,20 +138,6 @@ function renderGroupedChildren(groupedChildren, renderElement, style) {
  * @constructor
  */
 export class Inline extends PureComponent {
-  static defaultProps = {
-    style: {},
-  };
-
-  static propTypes = {
-    ...ElementPropTypes,
-    onPress: PropTypes.func,
-    onLineBreak: PropTypes.func,
-  };
-
-  static defaultProps = {
-    onLineBreak: handleLineBreak,
-  };
-
   render() {
     const {
       block,
@@ -206,6 +192,19 @@ export class Inline extends PureComponent {
     );
   }
 }
+
+Inline.propTypes = {
+  ...ElementPropTypes,
+  style: PropTypes.object,
+  onLineBreak: PropTypes.func,
+  onPress: PropTypes.func,
+};
+
+Inline.defaultProps = {
+  style: {},
+  onLineBreak: handleLineBreak,
+  onPress: undefined,
+};
 
 export const InlineSettings = { display: blockDisplayIfAnyChildIsBlock };
 

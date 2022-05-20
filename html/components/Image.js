@@ -14,17 +14,6 @@ import { Lightbox } from '../../components/Lightbox';
  * this component will determine the Image dimensions before rendering an image.
  */
 export default class HtmlImage extends PureComponent {
-  static propTypes = {
-    ...RNImage.propTypes,
-    lightbox: PropTypes.bool,
-    allowUpscale: PropTypes.bool,
-  };
-
-  static defaultProps = {
-    lightbox: true,
-    allowUpscale: false,
-  };
-
   constructor(props) {
     super(props);
 
@@ -46,13 +35,13 @@ export default class HtmlImage extends PureComponent {
     this.setState({ width, height });
   }
 
+  // TODO - handle properly
   imageSizeLoadFailed() {
-    // TODO - handle properly
+    const {
+      source: { uri },
+    } = this.props;
     // eslint-disable-next-line no-console
-    console.warn(
-      'Could not load image size for image: ',
-      this.props.source.uri,
-    );
+    console.warn('Could not load image size for image: ', uri);
   }
 
   render() {
@@ -108,3 +97,14 @@ export default class HtmlImage extends PureComponent {
     );
   }
 }
+
+HtmlImage.propTypes = {
+  ...RNImage.propTypes,
+  allowUpscale: PropTypes.bool,
+  lightbox: PropTypes.bool,
+};
+
+HtmlImage.defaultProps = {
+  allowUpscale: false,
+  lightbox: true,
+};

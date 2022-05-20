@@ -25,22 +25,6 @@ function formatButtonTooltip(props) {
 }
 
 class YearRangePicker extends PureComponent {
-  static propTypes = {
-    onRangeConfirmed: PropTypes.func,
-    onReset: PropTypes.func,
-    resetButtonTitle: PropTypes.string,
-    confirmButtonTitle: PropTypes.string,
-    selectedYears: PropTypes.arrayOf(PropTypes.number),
-    rangeStart: PropTypes.number,
-    rangeEnd: PropTypes.number,
-    buttonPlaceholder: PropTypes.string,
-  };
-
-  static defaultProps = {
-    selectedYears: [],
-    buttonPlaceholder: 'Year',
-  };
-
   constructor(props) {
     super(props);
 
@@ -48,7 +32,6 @@ class YearRangePicker extends PureComponent {
 
     this.state = {
       collapsed: false,
-      selectedYears: props.selectedYears,
       buttonTooltip: formatButtonTooltip(props),
     };
   }
@@ -107,5 +90,27 @@ class YearRangePicker extends PureComponent {
     );
   }
 }
+
+YearRangePicker.propTypes = {
+  // Disabling as this prop is used in the formatButtonTooltip function.
+  // eslint-disable-next-line react/no-unused-prop-types
+  buttonPlaceholder: PropTypes.string,
+  confirmButtonTitle: PropTypes.string,
+  rangeEnd: PropTypes.number,
+  rangeStart: PropTypes.number,
+  resetButtonTitle: PropTypes.string,
+  selectedYears: PropTypes.arrayOf(PropTypes.number),
+  onRangeConfirmed: PropTypes.func,
+};
+
+YearRangePicker.defaultProps = {
+  buttonPlaceholder: 'Year',
+  confirmButtonTitle: undefined,
+  rangeEnd: undefined,
+  rangeStart: undefined,
+  resetButtonTitle: undefined,
+  selectedYears: [],
+  onRangeConfirmed: undefined,
+};
 
 export default connectStyle('shoutem.ui.YearRangePicker')(YearRangePicker);
