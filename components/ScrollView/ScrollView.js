@@ -79,7 +79,7 @@ class ScrollView extends PureComponent {
   render() {
     const { style, ...otherProps } = this.props;
     const { scrollViewProps } = this.animationDriver;
-    const { contentContainerStyle, ...otherStyle } = style;
+    const { contentContainerStyle = {}, ...otherStyle } = style;
 
     return (
       <Animated.ScrollView
