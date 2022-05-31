@@ -3062,5 +3062,9 @@ export default () => {
         color: changeColorAlpha(resolveVariable('text.color'), 0.5),
       },
     },
+
+    'shoutem.ui.ScrollView': {
+      contentContainerStyle: {},
+    },
   };
 };
