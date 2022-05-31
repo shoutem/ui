@@ -18,10 +18,6 @@ const isValidSource = source =>
 let externalPropsTransformer = null;
 
 class ImageBackground extends PureComponent {
-  static propTypes = {
-    ...RNImageBackground.propTypes,
-  };
-
   /**
    * Set a shared props transformer. The transformer will
    * be called on each props change, and it should return
@@ -84,6 +80,10 @@ class ImageBackground extends PureComponent {
     return <RNImageBackground {...this.createTransformedProps(this.props)} />;
   }
 }
+
+ImageBackground.propTypes = {
+  ...RNImageBackground.propTypes,
+};
 
 const AnimatedImage = connectAnimation(ImageBackground);
 const StyledImage = connectStyle('shoutem.ui.ImageBackground')(AnimatedImage);

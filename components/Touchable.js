@@ -7,33 +7,23 @@ import { TouchableOpacity } from './TouchableOpacity';
 import { View } from './View';
 
 /**
- * A universal touchable component with a
- * platform specific feedback. This
- * component displays a TouchableOpacity on
- * iOS, and a TouchableNativeFeedback on
- * Android.
+ * A universal touchable component with a platform specific feedback. This
+ * component displays a TouchableOpacity on iOS, and a TouchableNativeFeedback
+ * on Android.
  */
 class Touchable extends PureComponent {
-  static propTypes = {
-    ...TouchableOpacity.propTypes,
-    ...TouchableNativeFeedback.propTypes,
-    style: PropTypes.object,
-  };
-
   render() {
-    const { props } = this;
-    const style = { ...props.style };
-    delete style.touchableOpacity;
-    delete style.touchableNativeFeedback;
+    const { children, style, styleName, ...otherProps } = this.props;
+    const { touchableNativeFeedback, touchableOpacity, ...otherStyle } = style;
 
     if (Platform.OS === 'android') {
       return (
         <TouchableNativeFeedback
-          {...props}
-          style={props.style.touchableNativeFeedback}
+          {...otherProps}
+          style={touchableNativeFeedback}
         >
-          <View virtual style={style} styleName={props.styleName}>
-            {props.children}
+          <View virtual style={otherStyle} styleName={styleName}>
+            {children}
           </View>
         </TouchableNativeFeedback>
       );
@@ -41,17 +31,23 @@ class Touchable extends PureComponent {
 
     return (
       <TouchableOpacity
-        {...props}
+        {...otherProps}
         style={{
-          ...style,
-          ...props.style.touchableOpacity,
+          ...otherStyle,
+          ...touchableOpacity,
         }}
       >
-        {props.children}
+        {children}
       </TouchableOpacity>
     );
   }
 }
+
+Touchable.propTypes = {
+  ...TouchableOpacity.propTypes,
+  ...TouchableNativeFeedback.propTypes,
+  style: PropTypes.object.isRequired,
+};
 
 const StyledTouchable = connectStyle('shoutem.ui.Touchable', {
   touchableNativeFeedback: {},

@@ -16,10 +16,6 @@ import {
 import { NavigationBar } from '@shoutem/ui/navigation';
 
 export default class RestaurantDetails extends PureComponent {
-  static propTypes = {
-    restaurant: PropTypes.object,
-  };
-
   render() {
     const { restaurant } = this.props;
 
@@ -86,3 +82,11 @@ export default class RestaurantDetails extends PureComponent {
     );
   }
 }
+
+RestaurantDetails.propTypes = {
+  restaurant: PropTypes.object,
+};
+
+RestaurantDetails.defaultProps = {
+  restaurant: undefined,
+};

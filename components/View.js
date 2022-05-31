@@ -7,25 +7,23 @@ import { LinearGradient } from './LinearGradient';
 
 class View extends PureComponent {
   render() {
-    const style = { ...this.props.style };
-    let gradient = null;
+    const { children, style, ...otherProps } = this.props;
+    const { backgroundGradient, ...viewStyle } = style;
 
-    if (style.backgroundGradient) {
+    let gradient = null;
+    if (backgroundGradient) {
       gradient = (
         <LinearGradient
           styleName="fill-parent"
           style={style.backgroundGradient}
         />
       );
-
-      // This is not a valid RN View style
-      delete style.backgroundGradient;
     }
 
     return (
-      <RNView {...this.props} style={style}>
+      <RNView {...otherProps} style={viewStyle}>
         {gradient}
-        {this.props.children}
+        {children}
       </RNView>
     );
   }
@@ -33,7 +31,7 @@ class View extends PureComponent {
 
 View.propTypes = {
   ...ViewPropTypes,
-  style: PropTypes.object,
+  style: PropTypes.object.isRequired,
 };
 
 const AnimatedView = connectAnimation(View);

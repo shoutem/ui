@@ -19,61 +19,20 @@ import { Page } from './Page';
  *
  */
 class HorizontalPager extends PureComponent {
-  static propTypes = {
-    // Prop defining whether the Pager will bounce back
-    // when user tries to swipe beyond end of content (iOS only)
-    bounces: PropTypes.bool,
-    // Array containing objects (pages)
-    data: PropTypes.arrayOf(PropTypes.object).isRequired,
-    // Callback function called when user swipes between pages (images)
-    // Index of new (selected) page is passed to this callback
-    onIndexSelected: PropTypes.func,
-    // Page margin, margin visible between pages, during swipe gesture.
-    pageMargin: PropTypes.number,
-    // A function which renders a single page
-    // renderPage(pageData, pageIndex)
-    renderPage: PropTypes.func,
-    // Callback function that can be used to render overlay over pages
-    // For example page indicators using `PageIndicators` component
-    // renderOverlay(pageData, pageIndex, layout)
-    renderOverlay: PropTypes.func,
-    // Callback function that can be used to define placeholder
-    // that appears when content is loading
-    renderPlaceholder: PropTypes.func,
-    // Initially selected page in gallery
-    selectedIndex: PropTypes.number,
-    // Prop that forces enables or disables swiping
-    scrollEnabled: PropTypes.bool,
-    // Style prop used to override default (theme) styling
-    style: PropTypes.object,
-    // Prop that reduces page size by pageMargin, allowing 'sneak peak' of next page
-    showNextPage: PropTypes.bool,
-    // Always render only central (currently loaded) page plus `surroundingPagesToLoad`
-    // to the left and to the right. If currently rendered page is out of bounds,
-    // empty `View` (with set dimensions for proper scrolling) will be rendered
-    // Defaults to 2.
-    surroundingPagesToLoad: PropTypes.number,
-  };
-
-  static defaultProps = {
-    pageMargin: 0,
-    selectedIndex: 0,
-    showNextPage: false,
-    surroundingPagesToLoad: 2,
-  };
-
   constructor(props) {
     super(props);
 
     autoBindReact(this);
 
+    const { selectedIndex, pageMargin, showNextPage } = props;
+
     this.state = {
       width: 0,
       height: 0,
-      selectedIndex: this.props.selectedIndex,
-      initialSelectedIndex: this.props.selectedIndex,
-      pageMargin: this.props.pageMargin,
-      showNextPage: this.props.showNextPage,
+      selectedIndex,
+      initialSelectedIndex: selectedIndex,
+      pageMargin,
+      showNextPage,
       shouldRenderContent: false,
       scrolledToInitialIndex: false,
     };
@@ -98,16 +57,17 @@ class HorizontalPager extends PureComponent {
   }
 
   onLayoutContainer(event) {
-    const { width, height } = event.nativeEvent.layout;
-    const { scrolledToInitialIndex } = this.state;
+    const { width: newWidth, height: newHeight } = event.nativeEvent.layout;
+    const { scrolledToInitialIndex, width, height } = this.state;
 
-    if (this.state.width === width && this.state.height === height) {
+    if (width === newWidth && height === newHeight) {
       return;
     }
 
     this.setState({ width, height }, () => {
-      // By checking has the pager scrolled to initial index, we're avoiding weird issue
-      // where pager would scroll back to initial index after swiping to other index
+      // By checking has the pager scrolled to initial index, we're avoiding
+      // a weird issue where pager would scroll back to initial index after
+      // swiping to other index
       if (!scrolledToInitialIndex) {
         requestAnimationFrame(() => this.scrollToInitialPage());
       }
@@ -311,6 +271,55 @@ class HorizontalPager extends PureComponent {
     );
   }
 }
+
+HorizontalPager.propTypes = {
+  // Array containing objects (pages)
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  // Style prop used to override default (theme) styling
+  style: PropTypes.object.isRequired,
+  // Prop defining whether the Pager will bounce back
+  // when user tries to swipe beyond end of content (iOS only)
+  bounces: PropTypes.bool,
+  // Page margin, margin visible between pages, during swipe gesture.
+  pageMargin: PropTypes.number,
+  // Callback function that can be used to render overlay over pages
+  // For example page indicators using `PageIndicators` component
+  // renderOverlay(pageData, pageIndex, layout)
+  renderOverlay: PropTypes.func,
+  // A function which renders a single page
+  // renderPage(pageData, pageIndex)
+  renderPage: PropTypes.func,
+  // Callback function that can be used to define placeholder
+  // that appears when content is loading
+  renderPlaceholder: PropTypes.func,
+  // Prop that forces enables or disables swiping
+  scrollEnabled: PropTypes.bool,
+  // Initially selected page in gallery
+  selectedIndex: PropTypes.number,
+  // Prop that reduces page size by pageMargin, allowing 'sneak peak' of next page
+  showNextPage: PropTypes.bool,
+  // Always render only central (currently loaded) page plus `surroundingPagesToLoad`
+  // to the left and to the right. If currently rendered page is out of bounds,
+  // empty `View` (with set dimensions for proper scrolling) will be rendered
+  // Defaults to 2.
+  surroundingPagesToLoad: PropTypes.number,
+  // Callback function called when user swipes between pages (images)
+  // Index of new (selected) page is passed to this callback
+  onIndexSelected: PropTypes.func,
+};
+
+HorizontalPager.defaultProps = {
+  bounces: false,
+  pageMargin: 0,
+  renderOverlay: undefined,
+  renderPage: undefined,
+  renderPlaceholder: undefined,
+  scrollEnabled: false,
+  selectedIndex: 0,
+  showNextPage: false,
+  surroundingPagesToLoad: 2,
+  onIndexSelected: undefined,
+};
 
 const StyledHorizontalPager = connectStyle('shoutem.ui.HorizontalPager')(
   HorizontalPager,

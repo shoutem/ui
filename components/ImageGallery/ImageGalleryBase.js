@@ -24,58 +24,20 @@ export class ImageGalleryBase extends PureComponent {
    */
   static IMAGE_GALLERY_MODE = IMAGE_GALLERY_MODE;
 
-  static propTypes = {
-    // Array containing objects with gallery data (shape defined below)
-    data: PropTypes.arrayOf(
-      PropTypes.shape({
-        source: PropTypes.shape({
-          uri: PropTypes.string,
-        }),
-        description: PropTypes.string,
-        title: PropTypes.string,
-      }),
-    ).isRequired,
-    // Callback function called when user swipes between pages (images)
-    // Index of new (selected) page is passed to this callback
-    onIndexSelected: PropTypes.func,
-    // Initially selected page in gallery
-    selectedIndex: PropTypes.number,
-    // onModeChanged(mode), callback function triggered when user taps on single photo
-    // Or when user transforms (zooms etc.) image
-    // Useful for hiding external controls (i.e. navigation bar)
-    // Mode can be `gallery` or `imagePreview`
-    onModeChanged: PropTypes.func,
-    // Style prop used to override default (theme) styling
-    style: PropTypes.object,
-    // Renders an overlay over all images
-    // For example page indicators using the `PageIndicators` component
-    // renderOverlay(imageData, imageIndex)
-    renderOverlay: PropTypes.func,
-    // Renders an overlay over a single image
-    // For example image gallery overlay using the `ImageGalleryOverlay` component
-    // renderOverlay(imageData, imageIndex)
-    renderImageOverlay: PropTypes.func,
-    // Callback function that can be used to define placeholder
-    // that appears when content is loading
-    renderPlaceholder: PropTypes.func,
-  };
-
-  static defaultProps = {
-    selectedIndex: 0,
-    showNextPage: false,
-    renderPlaceholder: () => <LoadingIndicator />,
-  };
-
   constructor(props) {
     super(props);
 
     autoBindReact(this);
 
+    const { selectedIndex } = props;
+
     this.state = {
-      selectedIndex: this.props.selectedIndex || 0,
+      selectedIndex,
       imageSwitchingEnabled: true,
-      collapsed: true,
       mode: IMAGE_GALLERY_MODE,
+      // Disabling rule as this flag is used via inheritance in other classes.
+      // eslint-disable-next-line react/no-unused-state
+      collapsed: true,
     };
   }
 
@@ -105,9 +67,11 @@ export class ImageGalleryBase extends PureComponent {
     );
   }
 
-  setMode(mode) {
+  setMode(newMode) {
     const { onModeChanged } = this.props;
-    if (this.state.mode === mode) {
+    const { mode } = this.state;
+
+    if (mode === newMode) {
       return;
     }
 
@@ -159,7 +123,13 @@ export class ImageGalleryBase extends PureComponent {
   }
 
   render() {
-    const { data, renderOverlay, renderPlaceholder, style } = this.props;
+    const {
+      data,
+      renderOverlay,
+      renderPlaceholder,
+      showNextPage,
+      style,
+    } = this.props;
     const { selectedIndex, imageSwitchingEnabled } = this.state;
 
     return (
@@ -171,7 +141,7 @@ export class ImageGalleryBase extends PureComponent {
           renderPage={this.renderPage}
           bounces
           pageMargin={style.pageMargin}
-          showNextPage={false}
+          showNextPage={showNextPage}
           renderOverlay={renderOverlay}
           renderPlaceholder={renderPlaceholder}
           scrollEnabled={imageSwitchingEnabled}
@@ -180,3 +150,50 @@ export class ImageGalleryBase extends PureComponent {
     );
   }
 }
+
+ImageGalleryBase.propTypes = {
+  // Array containing objects with gallery data (shape defined below)
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      description: PropTypes.string,
+      source: PropTypes.shape({
+        uri: PropTypes.string,
+      }),
+      title: PropTypes.string,
+    }),
+  ).isRequired,
+  // Style prop used to override default (theme) styling
+  style: PropTypes.object.isRequired,
+  // Renders an overlay over a single image
+  // For example image gallery overlay using the `ImageGalleryOverlay` component
+  // renderOverlay(imageData, imageIndex)
+  renderImageOverlay: PropTypes.func,
+  // Renders an overlay over all images
+  // For example page indicators using the `PageIndicators` component
+  // renderOverlay(imageData, imageIndex)
+  renderOverlay: PropTypes.func,
+  // Callback function that can be used to define placeholder
+  // that appears when content is loading
+  renderPlaceholder: PropTypes.func,
+  // Initially selected page in gallery
+  selectedIndex: PropTypes.number,
+  showNextPage: PropTypes.bool,
+  // Callback function called when user swipes between pages (images)
+  // Index of new (selected) page is passed to this callback
+  onIndexSelected: PropTypes.func,
+  // onModeChanged(mode), callback function triggered when user taps on single photo
+  // Or when user transforms (zooms etc.) image
+  // Useful for hiding external controls (i.e. navigation bar)
+  // Mode can be `gallery` or `imagePreview`
+  onModeChanged: PropTypes.func,
+};
+
+ImageGalleryBase.defaultProps = {
+  selectedIndex: 0,
+  showNextPage: false,
+  renderPlaceholder: () => <LoadingIndicator />,
+  renderImageOverlay: undefined,
+  renderOverlay: undefined,
+  onIndexSelected: undefined,
+  onModeChanged: undefined,
+};

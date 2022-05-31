@@ -2,6 +2,7 @@ import React from 'react';
 import { Text } from 'react-native';
 import { AllHtmlEntities as Entities } from 'html-entities';
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 import { combineMappers, ElementPropTypes, mapElementProps } from '../Html';
 
 const html = new Entities();
@@ -57,6 +58,11 @@ export function TextElement(props) {
 
 TextElement.propTypes = {
   ...ElementPropTypes,
+  style: PropTypes.object,
+};
+
+TextElement.defaultProps = {
+  style: {},
 };
 
 export default combineMappers(mapElementProps)(TextElement);

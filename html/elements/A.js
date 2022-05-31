@@ -9,12 +9,6 @@ import { isImg } from './Img';
 import { Inline } from './Inline';
 
 class A extends PureComponent {
-  static propTypes = {
-    ...ElementPropTypes,
-    handleLinkPress: PropTypes.func,
-    href: PropTypes.string,
-  };
-
   constructor(props, context) {
     super(props, context);
 
@@ -62,6 +56,17 @@ class A extends PureComponent {
     );
   }
 }
+
+A.propTypes = {
+  ...ElementPropTypes,
+  handleLinkPress: PropTypes.func,
+  href: PropTypes.string,
+};
+
+A.defaultProps = {
+  handleLinkPress: undefined,
+  href: undefined,
+};
 
 function openLinkPress(Component) {
   return function(props) {
