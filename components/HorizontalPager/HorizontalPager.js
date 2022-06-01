@@ -57,17 +57,20 @@ class HorizontalPager extends PureComponent {
   }
 
   onLayoutContainer(event) {
-    const { width: newWidth, height: newHeight } = event.nativeEvent.layout;
-    const { scrolledToInitialIndex, width, height } = this.state;
+    const { width, height } = event.nativeEvent.layout;
+    const {
+      width: currentWidth,
+      height: currentHeight,
+      scrolledToInitialIndex,
+    } = this.state;
 
-    if (width === newWidth && height === newHeight) {
+    if (currentWidth === width && currentHeight === height) {
       return;
     }
 
     this.setState({ width, height }, () => {
-      // By checking has the pager scrolled to initial index, we're avoiding
-      // a weird issue where pager would scroll back to initial index after
-      // swiping to other index
+      // By checking has the pager scrolled to initial index, we're avoiding weird issue
+      // where pager would scroll back to initial index after swiping to other index
       if (!scrolledToInitialIndex) {
         requestAnimationFrame(() => this.scrollToInitialPage());
       }
