@@ -317,7 +317,7 @@ HorizontalPager.defaultProps = {
   renderOverlay: undefined,
   renderPage: undefined,
   renderPlaceholder: undefined,
-  scrollEnabled: false,
+  scrollEnabled: true,
   selectedIndex: 0,
   showNextPage: false,
   surroundingPagesToLoad: 2,
