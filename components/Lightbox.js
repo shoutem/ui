@@ -1,4 +1,4 @@
-import { default as Lightbox } from 'react-native-lightbox';
+import Lightbox from 'react-native-lightbox';
 import { connectAnimation } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
 

@@ -5,12 +5,12 @@ import { connectStyle } from '@shoutem/theme';
 
 class Button extends PureComponent {
   render() {
-    const { style, ...otherProps } = this.props;
+    const { style } = this.props;
     const { underlayColor, ...otherStyle } = style;
 
     return (
       <TouchableOpacity
-        {...otherProps}
+        {...this.props}
         style={otherStyle}
         underlayColor={underlayColor}
       />
