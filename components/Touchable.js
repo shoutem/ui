@@ -13,13 +13,13 @@ import { View } from './View';
  */
 class Touchable extends PureComponent {
   render() {
-    const { children, style, styleName, ...otherProps } = this.props;
+    const { children, style, styleName } = this.props;
     const { touchableNativeFeedback, touchableOpacity, ...otherStyle } = style;
 
     if (Platform.OS === 'android') {
       return (
         <TouchableNativeFeedback
-          {...otherProps}
+          {...this.props}
           style={touchableNativeFeedback}
         >
           <View virtual style={otherStyle} styleName={styleName}>
@@ -31,7 +31,7 @@ class Touchable extends PureComponent {
 
     return (
       <TouchableOpacity
-        {...otherProps}
+        {...this.props}
         style={{
           ...otherStyle,
           ...touchableOpacity,

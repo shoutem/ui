@@ -4,12 +4,12 @@ import { connectStyle } from '@shoutem/theme';
 
 class TouchableOpacity extends PureComponent {
   render() {
-    const { children, style, ...otherProps } = this.props;
+    const { children, style } = this.props;
     const { activeOpacity, ...otherStyle } = style;
 
     return (
       <RNTouchableOpacity
-        {...otherProps}
+        {...this.props}
         style={otherStyle}
         activeOpacity={activeOpacity}
       >
