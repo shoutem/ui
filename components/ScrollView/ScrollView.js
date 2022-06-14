@@ -64,16 +64,18 @@ class ScrollView extends PureComponent {
   }
 
   addIphoneXPadding(style) {
-    if (typeof style.paddingBottom !== 'number') {
-      style.paddingBottom = 0;
+    const resolvedStyle = { ...style };
+
+    if (typeof resolvedStyle.paddingBottom !== 'number') {
+      resolvedStyle.paddingBottom = 0;
     }
 
-    style.paddingBottom = Device.select({
-      iPhoneX: style.paddingBottom + IPHONE_X_HOME_INDICATOR_PADDING,
-      default: style.paddingBottom,
+    resolvedStyle.paddingBottom = Device.select({
+      iPhoneX: resolvedStyle.paddingBottom + IPHONE_X_HOME_INDICATOR_PADDING,
+      default: resolvedStyle.paddingBottom,
     });
 
-    return style;
+    return resolvedStyle;
   }
 
   render() {

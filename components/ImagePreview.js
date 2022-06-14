@@ -8,9 +8,6 @@ import Icon from './Icon/Icon';
 
 const ZoomableImage = makeZoomable(Image);
 
-const CLOSE_ICON_NAME = 'clear';
-const CLOSE_ICON_SIZE = 25;
-
 /**
  * Renders an ImagePreview which shows an inline image preview.
  * When clicked, the image is displayed in full screen.

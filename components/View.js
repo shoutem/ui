@@ -7,21 +7,18 @@ import { LinearGradient } from './LinearGradient';
 
 class View extends PureComponent {
   render() {
-    const { children, style, ...otherProps } = this.props;
+    const { children, style } = this.props;
     const { backgroundGradient, ...viewStyle } = style;
 
     let gradient = null;
     if (backgroundGradient) {
       gradient = (
-        <LinearGradient
-          styleName="fill-parent"
-          style={style.backgroundGradient}
-        />
+        <LinearGradient styleName="fill-parent" style={backgroundGradient} />
       );
     }
 
     return (
-      <RNView {...otherProps} style={viewStyle}>
+      <RNView {...this.props} style={viewStyle}>
         {gradient}
         {children}
       </RNView>
