@@ -5,12 +5,12 @@ import { connectStyle } from '@shoutem/theme';
 
 class TouchableNativeFeedback extends PureComponent {
   render() {
-    const { children, style, ...otherProps } = this.props;
+    const { children, style } = this.props;
     const { background, useForeground, ...otherStyle } = style;
 
     return (
       <RNTouchableNativeFeedback
-        {...otherProps}
+        {...this.props}
         style={otherStyle}
         background={background}
         useForeground={useForeground}

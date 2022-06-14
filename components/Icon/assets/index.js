@@ -23,6 +23,7 @@ import close from './close.svg';
 import comment from './comment.svg';
 import comments from './comments.svg';
 import deals from './deals.svg';
+import deleteIcon from './delete.svg';
 import directions from './directions.svg';
 import downArrow from './down-arrow.svg';
 import download from './download.svg';
@@ -38,10 +39,10 @@ import eyeCrossed from './eye-crossed.svg';
 import facebook from './facebook.svg';
 import facebookLogo from './facebook-logo.svg';
 import folder from './folder.svg';
+import forward from './forward.svg';
 import forward5 from './forward-5.svg';
 import forward10 from './forward-10.svg';
 import forward30 from './forward-30.svg';
-import forward from './forward.svg';
 import friends from './friends.svg';
 import gallery from './gallery.svg';
 import garbageCan from './garbage-can.svg';
@@ -83,10 +84,10 @@ import radiobuttonOff from './radiobutton-off.svg';
 import radiobuttonOn from './radiobutton-on.svg';
 import receipt from './receipt.svg';
 import refresh from './refresh.svg';
+import replay from './replay.svg';
 import replay5 from './replay-5.svg';
 import replay10 from './replay-10.svg';
 import replay30 from './replay-30.svg';
-import replay from './replay.svg';
 import restaurant from './restaurant.svg';
 import restaurantMenu from './restaurant-menu.svg';
 import restore from './restore.svg';
@@ -97,8 +98,8 @@ import search from './search.svg';
 import settings from './settings.svg';
 import share from './share.svg';
 import shareAndroid from './share-android.svg';
-import sleep from './sleep.svg';
 import sidebar from './sidebar.svg';
+import sleep from './sleep.svg';
 import socialWall from './social-wall.svg';
 import stamp from './stamp.svg';
 import stop from './stop.svg';
@@ -142,6 +143,7 @@ export const defaultConfig = [
   { name: 'comment', icon: comment },
   { name: 'comments', icon: comments },
   { name: 'deals', icon: deals },
+  { name: 'delete', icon: deleteIcon },
   { name: 'directions', icon: directions },
   { name: 'down-arrow', icon: downArrow },
   { name: 'download', icon: download },
