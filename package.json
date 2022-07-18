@@ -68,9 +68,9 @@
   },
   "nativeDependencies": [
     "@react-native-community/datetimepicker",
+    "lottie-react-native",
     "react-native-device-info",
     "react-native-linear-gradient",
-    "lottie-react-native",
     "react-native-photo-view",
     "react-native-svg",
     "react-native-webview"
