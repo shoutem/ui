@@ -11,21 +11,14 @@ import {
   IPHONE_X_HOME_INDICATOR_PADDING,
   IPHONE_X_NOTCH_PADDING,
   IPHONE_XR_NOTCH_PADDING,
+  NAVIGATION_BAR_HEIGHT,
   NAVIGATION_HEADER_HEIGHT,
+  STATUS_BAR_OFFSET,
 } from './const';
 import { Device } from './helpers';
 import { resolveVariable } from './services';
 
 const window = Dimensions.get('window');
-
-const STATUS_BAR_OFFSET =
-  Platform.OS === 'android' ? -StatusBar.currentConfig : 0;
-export const NAVIGATION_BAR_HEIGHT = Device.select({
-  iPhoneX: NAVIGATION_HEADER_HEIGHT + IPHONE_X_NOTCH_PADDING,
-  iPhoneXR: NAVIGATION_HEADER_HEIGHT + IPHONE_XR_NOTCH_PADDING,
-  notchedAndroid: NAVIGATION_HEADER_HEIGHT + StatusBar.currentHeight,
-  default: NAVIGATION_HEADER_HEIGHT,
-});
 
 export const sizeVariants = [
   '',

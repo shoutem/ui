@@ -1,4 +1,2 @@
-import { Device } from './device-selector';
-import Keyboard from './keyboard';
-
-export { Device, Keyboard };
+export { Device } from './device-selector';
+export { calculateKeyboardOffset, default as Keyboard } from './keyboard';
