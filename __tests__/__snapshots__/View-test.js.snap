@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`View renders correctly 1`] = `
+<View
+  animationOptions={Object {}}
+  onLayout={[Function]}
+  style={
+    Object {
+      "backgroundColor": "red",
+      "height": 40,
+      "width": 40,
+    }
+  }
+/>
+`;
