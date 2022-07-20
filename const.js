@@ -14,7 +14,7 @@ const IPHONE_12_MAX_LONG_SIDE = 926;
 const NAVIGATION_HEADER_HEIGHT = 64;
 
 const STATUS_BAR_OFFSET =
-  Platform.OS === 'android' ? -StatusBar.currentConfig : 0;
+  Platform.OS === 'android' ? -StatusBar.currentHeight : 0;
 const NAVIGATION_BAR_HEIGHT = Device.select({
   iPhoneX: NAVIGATION_HEADER_HEIGHT + IPHONE_X_NOTCH_PADDING,
   iPhoneXR: NAVIGATION_HEADER_HEIGHT + IPHONE_XR_NOTCH_PADDING,
