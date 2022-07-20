@@ -14,8 +14,8 @@ const ClearButton = ({ style, onPress }) => (
 );
 
 ClearButton.propTypes = {
-  style: PropTypes.object,
-  onPress: PropTypes.func,
+  style: PropTypes.object.isRequired,
+  onPress: PropTypes.func.isRequired,
 };
 
 /**
@@ -24,22 +24,6 @@ ClearButton.propTypes = {
  *
  */
 class SearchField extends PureComponent {
-  static propTypes = {
-    // A placeholder for input when no value is entered
-    placeholder: PropTypes.string,
-    // Called with the new value on text change
-    onChangeText: PropTypes.func,
-    // Styles for container and search icon
-    style: PropTypes.shape({
-      clearIcon: PropTypes.object,
-      container: PropTypes.object,
-      input: PropTypes.object,
-      searchIcon: PropTypes.object,
-    }),
-    // Value to render as text in search input
-    value: PropTypes.string,
-  };
-
   render() {
     const {
       onChangeText,
@@ -71,6 +55,28 @@ class SearchField extends PureComponent {
     );
   }
 }
+
+SearchField.propTypes = {
+  // Styles for container and search icon
+  style: PropTypes.shape({
+    clearIcon: PropTypes.object,
+    container: PropTypes.object,
+    input: PropTypes.object,
+    searchIcon: PropTypes.object,
+  }).isRequired,
+  // A placeholder for input when no value is entered
+  placeholder: PropTypes.string,
+  // Value to render as text in search input
+  value: PropTypes.string,
+  // Called with the new value on text change
+  onChangeText: PropTypes.func,
+};
+
+SearchField.defaultProps = {
+  placeholder: undefined,
+  value: undefined,
+  onChangeText: undefined,
+};
 
 const AnimatedSearchField = connectAnimation(SearchField);
 const StyledSearchField = connectStyle('shoutem.ui.SearchField')(

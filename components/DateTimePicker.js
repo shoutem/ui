@@ -198,13 +198,14 @@ class DateTimePicker extends PureComponent {
 }
 
 DateTimePicker.propTypes = {
+  style: PropTypes.object.isRequired,
   cancelButtonText: PropTypes.string,
   confirmButtonText: PropTypes.string,
   is24Hour: PropTypes.bool,
   mode: PropTypes.oneOf(Object.values(DATEPICKER_MODES)),
-  onValueChanged: PropTypes.func,
   textValue: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+  onValueChanged: PropTypes.func,
 };
 
 DateTimePicker.defaultProps = {
@@ -212,7 +213,9 @@ DateTimePicker.defaultProps = {
   confirmButtonText: 'Confirm',
   is24Hour: false,
   mode: 'datetime',
+  textValue: undefined,
   value: new Date(),
+  onValueChanged: undefined,
 };
 
 const StyledDateTimePicker = connectStyle('shoutem.ui.DateTimePicker')(

@@ -28,7 +28,7 @@ function Icon({ name, style, ...otherProps }) {
 
 Icon.propTypes = {
   name: PropTypes.string.isRequired,
-  style: PropTypes.any,
+  style: PropTypes.object.isRequired,
 };
 
 export default connectStyle('shoutem.ui.Icon')(Icon);

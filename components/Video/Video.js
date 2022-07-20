@@ -36,24 +36,6 @@ function getSource(sourceReader, poster) {
  * @returns {*}
  */
 class Video extends PureComponent {
-  static propTypes = {
-    width: PropTypes.number,
-    height: PropTypes.number,
-    // `playerParams` currently only works for Youtube
-    playerParams: PropTypes.object,
-    source: PropTypes.shape({
-      uri: PropTypes.string,
-    }),
-    style: PropTypes.object,
-    poster: PropTypes.string,
-  };
-
-  static defaultProps = {
-    playerParams: {
-      showinfo: 0,
-    },
-  };
-
   constructor(props) {
     super(props);
 
@@ -64,16 +46,10 @@ class Video extends PureComponent {
   render() {
     const { width, height, style, poster } = this.props;
 
-    // https://github.com/vimeo/player.js/issues/514
-    // Vimeo player crashes the app, if played in full screen portrait mode and if user
-    // tries to navigate back using Android hardware back button. Disableing full screen
-    // option for Vimeo until their player is fixed.
-    const isYoutubeVideo = this.sourceReader.isYouTube;
-
     return (
       <View style={style.container}>
         <WebView
-          allowsFullscreenVideo={isYoutubeVideo}
+          allowsFullscreenVideo
           mediaPlaybackRequiresUserAction={false}
           style={{ width, height }}
           source={getSource(this.sourceReader, poster)}
@@ -84,6 +60,26 @@ class Video extends PureComponent {
     );
   }
 }
+
+Video.propTypes = {
+  style: PropTypes.object.isRequired,
+  height: PropTypes.number,
+  // `playerParams` currently only works for Youtube
+  playerParams: PropTypes.object,
+  poster: PropTypes.string,
+  source: PropTypes.shape({
+    uri: PropTypes.string,
+  }),
+  width: PropTypes.number,
+};
+
+Video.defaultProps = {
+  width: undefined,
+  height: undefined,
+  playerParams: { showinfo: 0 },
+  source: undefined,
+  poster: undefined,
+};
 
 const AnimatedVideo = connectAnimation(Video);
 const StyledVideo = connectStyle('shoutem.ui.Video')(AnimatedVideo);

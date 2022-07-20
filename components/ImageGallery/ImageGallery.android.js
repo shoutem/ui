@@ -27,6 +27,14 @@ class ImageGallery extends ImageGalleryBase {
   }
 }
 
+ImageGallery.propTypes = {
+  ...ImageGalleryBase.propTypes,
+};
+
+ImageGallery.defaultProps = {
+  ...ImageGalleryBase.defaultProps,
+};
+
 const StyledImageGallery = connectStyle('shoutem.ui.ImageGallery')(
   ImageGallery,
 );

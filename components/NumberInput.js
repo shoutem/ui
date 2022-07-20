@@ -22,28 +22,6 @@ import { View } from './View';
  * focus and blur events.
  */
 class NumberInput extends PureComponent {
-  static propTypes = {
-    ...TextInput.propTypes,
-    // Maximum allowed value
-    max: PropTypes.number,
-    // Minimum allowed value
-    min: PropTypes.number,
-    // Called when the user changes the value by inputting it directly or with buttons
-    onChange: PropTypes.func.isRequired,
-    // Step used to increase or decrease value with corresponding buttons
-    step: PropTypes.number,
-    // Styles for component parts
-    style: PropTypes.shape({
-      button: PropTypes.object,
-      container: PropTypes.object,
-      icon: PropTypes.object,
-      input: PropTypes.object,
-      inputContainer: PropTypes.object,
-    }),
-    // Value of the input - can be empty
-    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  };
-
   constructor(props) {
     super(props);
 
@@ -57,13 +35,13 @@ class NumberInput extends PureComponent {
   }
 
   decreaseValue() {
-    const { step = 1, value = 0 } = this.props;
+    const { step, value } = this.props;
 
     this.updateValue(value - step);
   }
 
   increaseValue() {
-    const { step = 1, value = 0 } = this.props;
+    const { step, value } = this.props;
 
     this.updateValue(value + step);
   }
@@ -112,6 +90,36 @@ class NumberInput extends PureComponent {
     );
   }
 }
+
+NumberInput.propTypes = {
+  ...TextInput.propTypes,
+  // Styles for component parts
+  style: PropTypes.shape({
+    button: PropTypes.object,
+    container: PropTypes.object,
+    icon: PropTypes.object,
+    input: PropTypes.object,
+    inputContainer: PropTypes.object,
+  }).isRequired,
+  // Called when the user changes the value by inputting it directly or with buttons
+  onChange: PropTypes.func.isRequired,
+  // Maximum allowed value
+  max: PropTypes.number,
+  // Minimum allowed value
+  min: PropTypes.number,
+  // Step used to increase or decrease value with corresponding buttons
+  step: PropTypes.number,
+  // Value of the input - can be empty
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+};
+
+NumberInput.defaultProps = {
+  ...TextInput.defaultProps,
+  max: undefined,
+  min: undefined,
+  step: 1,
+  value: 0,
+};
 
 const AnimatedNumberInput = connectAnimation(NumberInput);
 const StyledNumberInput = connectStyle('shoutem.ui.NumberInput')(

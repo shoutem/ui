@@ -39,6 +39,10 @@ NavBarStageContainer.propTypes = {
   style: PropTypes.object,
 };
 
+NavBarStageContainer.defaultProps = {
+  style: {},
+};
+
 export class NavigationBars extends PureComponent {
   render() {
     const navBarDropDownOptions = [

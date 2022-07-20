@@ -54,16 +54,6 @@ function resolveDimensions(objectToResize, style) {
 }
 
 class SimpleHtml extends PureComponent {
-  static propTypes = {
-    body: PropTypes.string,
-    attachments: PropTypes.array,
-    style: PropTypes.object,
-    customTagStyles: PropTypes.object,
-    customHandleLinkPress: PropTypes.func,
-    unsupportedVideoFormatMessage: PropTypes.string,
-    customAlterNode: PropTypes.func,
-  };
-
   constructor(props) {
     super(props);
 
@@ -308,5 +298,24 @@ class SimpleHtml extends PureComponent {
     );
   }
 }
+
+SimpleHtml.propTypes = {
+  style: PropTypes.object.isRequired,
+  attachments: PropTypes.array,
+  body: PropTypes.string,
+  customAlterNode: PropTypes.func,
+  customHandleLinkPress: PropTypes.func,
+  customTagStyles: PropTypes.object,
+  unsupportedVideoFormatMessage: PropTypes.string,
+};
+
+SimpleHtml.defaultProps = {
+  attachments: undefined,
+  body: undefined,
+  customAlterNode: undefined,
+  customHandleLinkPress: undefined,
+  customTagStyles: undefined,
+  unsupportedVideoFormatMessage: undefined,
+};
 
 export default connectStyle('shoutem.ui.SimpleHtml')(SimpleHtml);

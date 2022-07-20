@@ -26,9 +26,14 @@ function ActionSheetOption({ style, option, cancelOption }) {
 }
 
 ActionSheetOption.propTypes = {
-  style: PropTypes.any,
-  option: optionPropType,
+  style: PropTypes.object.isRequired,
   cancelOption: PropTypes.bool,
+  option: optionPropType,
+};
+
+ActionSheetOption.defaultProps = {
+  option: undefined,
+  cancelOption: false,
 };
 
 export default connectStyle('shoutem.ui.ActionSheetOption')(ActionSheetOption);

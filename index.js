@@ -1,12 +1,4 @@
 import { setDefaultThemeStyle } from './init';
-import getTheme, {
-  calculateLineHeight,
-  defaultThemeVariables,
-  dimensionRelativeToIphone,
-  resolveFontFamily,
-  resolveFontStyle,
-  resolveFontWeight,
-} from './theme';
 
 setDefaultThemeStyle();
 
@@ -15,16 +7,17 @@ export {
   calculateLineHeight,
   defaultThemeVariables,
   dimensionRelativeToIphone,
-  getTheme,
+  default as getTheme,
   resolveFontFamily,
   resolveFontStyle,
   resolveFontWeight,
-};
+} from './theme';
 
 // Components
 export { ActionSheet } from './components/ActionSheet';
 export { Button } from './components/Button';
 export { Card } from './components/Card';
+export { CategoryPicker } from './components/CategoryPicker';
 export { DateTimePicker } from './components/DateTimePicker';
 export { Divider } from './components/Divider';
 export { DropDownMenu, DropDownModal } from './components/DropDownMenu';
