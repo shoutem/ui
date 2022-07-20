@@ -20,19 +20,6 @@ function getBackgroundColor(style) {
 
 // eslint-disable-next-line react/prefer-stateless-function
 class NavigationBar extends PureComponent {
-  static propTypes = {
-    leftComponent: PropTypes.node,
-    centerComponent: PropTypes.node,
-    rightComponent: PropTypes.node,
-    style: PropTypes.object,
-    id: PropTypes.string,
-    statusBarColor: PropTypes.string,
-  };
-
-  static defaultProps = {
-    id: 'default',
-  };
-
   setStatusBarStyle(backgroundColor) {
     function chooseBarStyle(bgColor) {
       return color(bgColor).isDark() ? 'light-content' : 'default';
@@ -99,6 +86,24 @@ class NavigationBar extends PureComponent {
     );
   }
 }
+
+NavigationBar.propTypes = {
+  style: PropTypes.object.isRequired,
+  centerComponent: PropTypes.node,
+  id: PropTypes.string,
+  leftComponent: PropTypes.node,
+  rightComponent: PropTypes.node,
+  // eslint-disable-next-line react/no-unused-prop-types
+  statusBarColor: PropTypes.string,
+};
+
+NavigationBar.defaultProps = {
+  id: 'default',
+  leftComponent: undefined,
+  centerComponent: undefined,
+  rightComponent: undefined,
+  statusBarColor: undefined,
+};
 
 const AnimatedNavigationBar = connectAnimation(composeChildren(NavigationBar));
 const StyledNavigationBar = connectStyle('shoutem.ui.NavigationBar')(

@@ -17,12 +17,6 @@ const DESCRIPTION_LENGTH_TRIM_LIMIT = 90;
  * a description of an image.
  */
 class ImageGalleryOverlay extends PureComponent {
-  static propTypes = {
-    title: PropTypes.string,
-    description: PropTypes.string,
-    style: PropTypes.object,
-  };
-
   constructor(props) {
     super(props);
 
@@ -72,7 +66,7 @@ class ImageGalleryOverlay extends PureComponent {
 
   renderDescription(description) {
     const { style } = this.props;
-    const collapsed = this.state.isDescriptionCollapsed;
+    const { isDescriptionCollapsed: collapsed } = this.state;
 
     if (!description) {
       return null;
@@ -137,6 +131,17 @@ class ImageGalleryOverlay extends PureComponent {
     );
   }
 }
+
+ImageGalleryOverlay.propTypes = {
+  style: PropTypes.object.isRequired,
+  description: PropTypes.string,
+  title: PropTypes.string,
+};
+
+ImageGalleryOverlay.defaultProps = {
+  description: undefined,
+  title: undefined,
+};
 
 const AnimatedOverlay = connectAnimation(ImageGalleryOverlay);
 const StyledOverlay = connectStyle('shoutem.ui.ImageGalleryOverlay', {

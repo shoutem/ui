@@ -8,12 +8,6 @@ import RestaurantDetails from './RestaurantDetails';
 import RestaurantsList from './RestaurantsList';
 
 class Restaurants extends PureComponent {
-  static propTypes = {
-    onNavigateBack: PropTypes.func.isRequired,
-    navigationState: PropTypes.object,
-    scene: PropTypes.object,
-  };
-
   constructor(props) {
     super(props);
 
@@ -48,6 +42,17 @@ class Restaurants extends PureComponent {
     );
   }
 }
+
+Restaurants.propTypes = {
+  onNavigateBack: PropTypes.func.isRequired,
+  navigationState: PropTypes.object,
+  scene: PropTypes.object,
+};
+
+Restaurants.defaultProps = {
+  navigationState: undefined,
+  scene: undefined,
+};
 
 export default connect(state => ({ navigationState: state.navigationState }), {
   onNavigateBack: navigatePop,

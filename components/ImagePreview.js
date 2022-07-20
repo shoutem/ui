@@ -4,19 +4,9 @@ import autoBindReact from 'auto-bind/react';
 import PropTypes from 'prop-types';
 import { makeZoomable } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
-import { Icon } from './Icon/Icon';
+import Icon from './Icon/Icon';
 
 const ZoomableImage = makeZoomable(Image);
-
-const propTypes = {
-  width: PropTypes.number,
-  height: PropTypes.number,
-  source: Image.propTypes.source,
-  style: PropTypes.object,
-};
-
-const CLOSE_ICON_NAME = 'clear';
-const CLOSE_ICON_SIZE = 25;
 
 /**
  * Renders an ImagePreview which shows an inline image preview.
@@ -27,11 +17,11 @@ class ImagePreview extends PureComponent {
     super(props);
 
     autoBindReact(this);
-  }
 
-  state = {
-    fullScreen: false,
-  };
+    this.state = {
+      fullScreen: false,
+    };
+  }
 
   onPressCloseButton() {
     this.setState({
@@ -47,8 +37,9 @@ class ImagePreview extends PureComponent {
 
   render() {
     const { source, style, width, height } = this.props;
+    const { fullScreen } = this.state;
 
-    if (this.state.fullScreen) {
+    if (fullScreen) {
       const closeButton = (
         <View style={style.header}>
           <TouchableOpacity
@@ -90,7 +81,18 @@ class ImagePreview extends PureComponent {
   }
 }
 
-ImagePreview.propTypes = propTypes;
+ImagePreview.propTypes = {
+  style: PropTypes.object.isRequired,
+  height: PropTypes.number,
+  source: Image.propTypes.source,
+  width: PropTypes.number,
+};
+
+ImagePreview.defaultProps = {
+  height: undefined,
+  source: undefined,
+  width: undefined,
+};
 
 const StyledImagePreview = connectStyle('shoutem.ui.ImagePreview')(
   ImagePreview,

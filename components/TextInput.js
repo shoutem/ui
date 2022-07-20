@@ -81,7 +81,9 @@ class TextInput extends PureComponent {
           />
         </Wiggle>
         {!!errorMessage && (
-          <Caption styleName="form-error sm-gutter-top" style={errorText}>{errorMessage}</Caption>
+          <Caption styleName="form-error sm-gutter-top" style={errorText}>
+            {errorMessage}
+          </Caption>
         )}
       </View>
     );
@@ -90,12 +92,14 @@ class TextInput extends PureComponent {
 
 TextInput.propTypes = {
   ...RNTextInput.propTypes,
+  style: PropTypes.object.isRequired,
   animate: PropTypes.bool,
-  style: PropTypes.object,
+  errorMessage: PropTypes.string,
 };
 
 TextInput.defaultProps = {
   animate: true,
+  errorMessage: undefined,
 };
 
 const AnimatedTextInput = connectAnimation(TextInput);

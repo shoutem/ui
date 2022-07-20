@@ -28,4 +28,8 @@ Ol.propTypes = {
   style: PropTypes.object,
 };
 
+Ol.defaultProps = {
+  style: {},
+};
+
 export default combineMappers(mapElementProps)(Ol);

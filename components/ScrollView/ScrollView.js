@@ -12,11 +12,6 @@ const isTabBarOnScreen = true;
 const IPHONE_X_HOME_INDICATOR_PADDING = isTabBarOnScreen ? 0 : 34;
 
 class ScrollView extends PureComponent {
-  static propTypes = {
-    ...Animated.ScrollView.propTypes,
-    primary: PropTypes.bool,
-  };
-
   static contextTypes = {
     animationDriver: DriverShape,
     driverProvider: PropTypes.object,
@@ -69,36 +64,45 @@ class ScrollView extends PureComponent {
   }
 
   addIphoneXPadding(style) {
-    if (typeof style.paddingBottom !== 'number') {
-      style.paddingBottom = 0;
+    const resolvedStyle = { ...style };
+
+    if (typeof resolvedStyle.paddingBottom !== 'number') {
+      resolvedStyle.paddingBottom = 0;
     }
 
-    style.paddingBottom = Device.select({
-      iPhoneX: style.paddingBottom + IPHONE_X_HOME_INDICATOR_PADDING,
-      default: style.paddingBottom,
+    resolvedStyle.paddingBottom = Device.select({
+      iPhoneX: resolvedStyle.paddingBottom + IPHONE_X_HOME_INDICATOR_PADDING,
+      default: resolvedStyle.paddingBottom,
     });
 
-    return style;
+    return resolvedStyle;
   }
 
   render() {
-    const { props, animationDriver } = this;
-    const { style = {} } = props;
-    const contentContainerStyle = {
-      ...style.contentContainerStyle,
-    };
-    delete style.contentContainerStyle;
+    const { style, ...otherProps } = this.props;
+    const { scrollViewProps } = this.animationDriver;
+    const { contentContainerStyle, ...otherStyle } = style;
 
     return (
       <Animated.ScrollView
         ref={this.setWrappedInstance}
         contentContainerStyle={this.addIphoneXPadding(contentContainerStyle)}
-        {...animationDriver.scrollViewProps}
-        {..._.omit(props, 'onScroll')}
+        {...scrollViewProps}
+        {..._.omit(otherProps, 'onScroll')}
+        style={otherStyle}
       />
     );
   }
 }
+
+ScrollView.propTypes = {
+  ...Animated.ScrollView.propTypes,
+  primary: PropTypes.bool,
+};
+
+ScrollView.defaultProps = {
+  primary: false,
+};
 
 const StyledScrollView = connectStyle('shoutem.ui.ScrollView')(ScrollView);
 
