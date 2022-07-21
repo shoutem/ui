@@ -13,6 +13,14 @@ export {
   resolveFontWeight,
 } from './theme';
 
+// Services
+export {
+  createScopedResolver,
+  resolveVariable,
+  ThemeVariableResolver,
+  defaultResolver as variableResolver,
+} from './services';
+
 // Components
 export { ActionSheet } from './components/ActionSheet';
 export { Button } from './components/Button';
