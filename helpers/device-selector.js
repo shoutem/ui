@@ -17,13 +17,6 @@ export const IPHONE_12_MAX_LONG_SIDE = 926;
 
 export const NAVIGATION_HEADER_HEIGHT = 64;
 
-export const NAVIGATION_BAR_HEIGHT = select({
-  iPhoneX: NAVIGATION_HEADER_HEIGHT + IPHONE_X_NOTCH_PADDING,
-  iPhoneXR: NAVIGATION_HEADER_HEIGHT + IPHONE_XR_NOTCH_PADDING,
-  notchedAndroid: NAVIGATION_HEADER_HEIGHT + StatusBar.currentHeight,
-  default: NAVIGATION_HEADER_HEIGHT,
-});
-
 const xDimensionsMatch =
   height === IPHONE_X_LONG_SIDE || width === IPHONE_X_LONG_SIDE;
 
@@ -70,6 +63,13 @@ function select(settings) {
 
   return _.get(settings, 'default');
 }
+
+export const NAVIGATION_BAR_HEIGHT = select({
+  iPhoneX: NAVIGATION_HEADER_HEIGHT + IPHONE_X_NOTCH_PADDING,
+  iPhoneXR: NAVIGATION_HEADER_HEIGHT + IPHONE_XR_NOTCH_PADDING,
+  notchedAndroid: NAVIGATION_HEADER_HEIGHT + StatusBar.currentHeight,
+  default: NAVIGATION_HEADER_HEIGHT,
+});
 
 export const Device = {
   isIphoneX,
