@@ -1,26 +1,18 @@
 const { Platform, StatusBar } = require('react-native');
-const { Device } = require('./helpers');
-
-const IPHONE_X_HOME_INDICATOR_PADDING = 34;
-const IPHONE_X_LONG_SIDE = 812;
-const IPHONE_X_NOTCH_PADDING = 30;
-
-const IPHONE_XR_LONG_SIDE = 896;
-const IPHONE_XR_NOTCH_PADDING = 34;
-
-const IPHONE_12_LONG_SIDE = 844;
-const IPHONE_12_MAX_LONG_SIDE = 926;
-
-const NAVIGATION_HEADER_HEIGHT = 64;
+const {
+  NAVIGATION_BAR_HEIGHT,
+  IPHONE_X_HOME_INDICATOR_PADDING,
+  IPHONE_X_LONG_SIDE,
+  IPHONE_X_NOTCH_PADDING,
+  IPHONE_XR_LONG_SIDE,
+  IPHONE_12_LONG_SIDE,
+  IPHONE_12_MAX_LONG_SIDE,
+  NAVIGATION_HEADER_HEIGHT,
+  IPHONE_XR_NOTCH_PADDING,
+} = require('./helpers');
 
 const STATUS_BAR_OFFSET =
   Platform.OS === 'android' ? -StatusBar.currentHeight : 0;
-const NAVIGATION_BAR_HEIGHT = Device.select({
-  iPhoneX: NAVIGATION_HEADER_HEIGHT + IPHONE_X_NOTCH_PADDING,
-  iPhoneXR: NAVIGATION_HEADER_HEIGHT + IPHONE_XR_NOTCH_PADDING,
-  notchedAndroid: NAVIGATION_HEADER_HEIGHT + StatusBar.currentHeight,
-  default: NAVIGATION_HEADER_HEIGHT,
-});
 
 module.exports = {
   IPHONE_X_HOME_INDICATOR_PADDING,

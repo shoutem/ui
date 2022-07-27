@@ -1,15 +1,28 @@
-import { Dimensions, Platform } from 'react-native';
+import { Dimensions, Platform, StatusBar } from 'react-native';
 import { hasNotch } from 'react-native-device-info';
 import _ from 'lodash';
-import {
-  IPHONE_12_LONG_SIDE,
-  IPHONE_12_MAX_LONG_SIDE,
-  IPHONE_X_LONG_SIDE,
-  IPHONE_XR_LONG_SIDE,
-} from '../const';
 
 const { OS, isPad, isTVOS } = Platform;
 const { width, height } = Dimensions.get('window');
+
+export const IPHONE_X_HOME_INDICATOR_PADDING = 34;
+export const IPHONE_X_LONG_SIDE = 812;
+export const IPHONE_X_NOTCH_PADDING = 30;
+
+export const IPHONE_XR_LONG_SIDE = 896;
+export const IPHONE_XR_NOTCH_PADDING = 34;
+
+export const IPHONE_12_LONG_SIDE = 844;
+export const IPHONE_12_MAX_LONG_SIDE = 926;
+
+export const NAVIGATION_HEADER_HEIGHT = 64;
+
+export const NAVIGATION_BAR_HEIGHT = select({
+  iPhoneX: NAVIGATION_HEADER_HEIGHT + IPHONE_X_NOTCH_PADDING,
+  iPhoneXR: NAVIGATION_HEADER_HEIGHT + IPHONE_XR_NOTCH_PADDING,
+  notchedAndroid: NAVIGATION_HEADER_HEIGHT + StatusBar.currentHeight,
+  default: NAVIGATION_HEADER_HEIGHT,
+});
 
 const xDimensionsMatch =
   height === IPHONE_X_LONG_SIDE || width === IPHONE_X_LONG_SIDE;

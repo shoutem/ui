@@ -1,5 +1,5 @@
 import { Platform, StatusBar } from 'react-native';
-import { NAVIGATION_BAR_HEIGHT } from '../const';
+import { NAVIGATION_BAR_HEIGHT } from './device-selector';
 
 export function calculateKeyboardOffset(extraOffset = 0) {
   const resolvedOffset = NAVIGATION_BAR_HEIGHT + extraOffset;
