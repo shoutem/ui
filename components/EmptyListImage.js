@@ -52,7 +52,6 @@ class EmptyListImage extends PureComponent {
 }
 
 EmptyListImage.propTypes = {
-  ...EmptyListImage.propTypes,
   image: PropTypes.func,
   imageStyle: PropTypes.object,
   message: PropTypes.string,
