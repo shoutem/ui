@@ -1,12 +1,4 @@
 import { setDefaultThemeStyle } from './init';
-import getTheme, {
-  calculateLineHeight,
-  defaultThemeVariables,
-  dimensionRelativeToIphone,
-  resolveFontFamily,
-  resolveFontStyle,
-  resolveFontWeight,
-} from './theme';
 
 setDefaultThemeStyle();
 
@@ -15,12 +7,13 @@ export {
   calculateLineHeight,
   defaultThemeVariables,
   dimensionRelativeToIphone,
-  getTheme,
+  default as getTheme,
   resolveFontFamily,
   resolveFontStyle,
   resolveFontWeight,
-};
+} from './theme';
 
+// Services
 export {
   createScopedResolver,
   resolveVariable,
@@ -76,8 +69,14 @@ export { TouchableOpacity } from './components/TouchableOpacity';
 export { Video } from './components/Video';
 export { View } from './components/View';
 export { YearRangePicker } from './components/YearRangePicker';
+
+// Examples
 export { Examples } from './examples/components';
-export { Device, Keyboard } from './helpers';
+
+// Helpers
+export { calculateKeyboardOffset, Device, Keyboard } from './helpers';
+
+// HTML
 export { Html } from './html';
 export { SimpleHtml } from './html';
 
@@ -89,5 +88,7 @@ export {
   IPHONE_XR_LONG_SIDE,
   IPHONE_XR_NOTCH_PADDING,
   nativeDependencies,
+  NAVIGATION_BAR_HEIGHT,
   NAVIGATION_HEADER_HEIGHT,
+  STATUS_BAR_OFFSET,
 } from './const';
