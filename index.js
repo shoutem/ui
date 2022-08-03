@@ -7,11 +7,12 @@ export {
   calculateLineHeight,
   defaultThemeVariables,
   dimensionRelativeToIphone,
-  dimensionRelativeToIphoneHeight,
   default as getTheme,
   resolveFontFamily,
   resolveFontStyle,
   resolveFontWeight,
+  responsiveHeight,
+  responsiveWidth,
 } from './theme';
 
 // Services

@@ -48,13 +48,19 @@ export function dimensionRelativeToIphone(
   actualRefVal = window.width,
 ) {
   // 375 is iPhone width
+  // eslint-disable-next-line no-console
+  console.warn(
+    'dimensionRelativeToIphone is depreacted and will be removed in next major release. Use responsiveWidth instead.',
+  );
   return getSizeRelativeToReference(dimension, 375, actualRefVal);
 }
 
-export function dimensionRelativeToIphoneHeight(
-  dimension,
-  actualRefVal = window.height,
-) {
+export function responsiveWidth(dimension, actualRefVal = window.width) {
+  // 375 is iPhone width
+  return getSizeRelativeToReference(dimension, 375, actualRefVal);
+}
+
+export function responsiveHeight(dimension, actualRefVal = window.height) {
   // 812 is iPhone height
   return getSizeRelativeToReference(dimension, 812, actualRefVal);
 }
@@ -592,65 +598,65 @@ export default () => {
     imageSizes: {
       // NOTE: '-avatar' styles do not work with ImageBackground
       '.small-avatar': {
-        width: dimensionRelativeToIphone(25),
-        height: dimensionRelativeToIphone(25),
+        width: responsiveWidth(25),
+        height: responsiveWidth(25),
         borderRadius: 12.5,
         borderWidth: 0,
       },
 
       '.small': {
-        width: dimensionRelativeToIphone(65),
-        height: dimensionRelativeToIphone(65),
+        width: responsiveWidth(65),
+        height: responsiveWidth(65),
       },
 
       '.medium-avatar': {
-        width: dimensionRelativeToIphone(145),
-        height: dimensionRelativeToIphone(145),
-        borderRadius: dimensionRelativeToIphone(72.5),
+        width: responsiveWidth(145),
+        height: responsiveWidth(145),
+        borderRadius: responsiveWidth(72.5),
         borderWidth: 0,
       },
 
       '.medium': {
-        width: dimensionRelativeToIphone(145),
-        height: dimensionRelativeToIphone(92),
+        width: responsiveWidth(145),
+        height: responsiveWidth(92),
       },
 
       '.medium-wide': {
-        width: dimensionRelativeToIphone(180),
-        height: dimensionRelativeToIphone(85),
+        width: responsiveWidth(180),
+        height: responsiveWidth(85),
       },
 
       '.medium-portrait': {
-        width: dimensionRelativeToIphone(209),
-        height: dimensionRelativeToIphone(139),
+        width: responsiveWidth(209),
+        height: responsiveWidth(139),
       },
 
       '.medium-square': {
-        width: dimensionRelativeToIphone(145),
-        height: dimensionRelativeToIphone(145),
+        width: responsiveWidth(145),
+        height: responsiveWidth(145),
       },
 
       // NOTE: Image resizing doesn't work correctly if both
       // dimensions are not explicitly defined, so we can't
       // use flex: 1, or alignSelf: 'stretch' here...
       '.featured': {
-        width: dimensionRelativeToIphone(365),
-        height: dimensionRelativeToIphone(345),
+        width: responsiveWidth(365),
+        height: responsiveWidth(345),
       },
 
       '.large': {
         width: window.width,
-        height: dimensionRelativeToIphone(280),
+        height: responsiveWidth(280),
       },
 
       '.large-portrait': {
         width: window.width,
-        height: dimensionRelativeToIphone(518),
+        height: responsiveWidth(518),
       },
 
       '.large-banner': {
         width: window.width,
-        height: dimensionRelativeToIphone(200),
+        height: responsiveWidth(200),
       },
 
       '.large-square': {
@@ -660,12 +666,12 @@ export default () => {
 
       '.large-wide': {
         width: window.width,
-        height: dimensionRelativeToIphone(238),
+        height: responsiveWidth(238),
       },
 
       '.large-ultra-wide': {
         width: window.width,
-        height: dimensionRelativeToIphone(130),
+        height: responsiveWidth(130),
       },
     },
     'shoutem.ui.Image': {
@@ -1131,7 +1137,7 @@ export default () => {
         backgroundColor: resolveVariable('paperColor'),
       },
 
-      width: dimensionRelativeToIphone(180),
+      width: responsiveWidth(180),
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'flex-start',
@@ -1145,7 +1151,7 @@ export default () => {
         'shoutem.ui.View': {
           '.pull-left': {
             marginVertical: resolveVariable('mediumGutter'),
-            marginLeft: -dimensionRelativeToIphone(72),
+            marginLeft: -responsiveWidth(72),
           },
         },
 
@@ -1348,7 +1354,7 @@ export default () => {
           fontFamily: 'Rubik-Medium',
         },
 
-        width: dimensionRelativeToIphone(120),
+        width: responsiveWidth(120),
         height: 82,
         flexDirection: 'column',
       },
@@ -2295,8 +2301,8 @@ export default () => {
       },
       video: {
         // 16:9 ratio covers majority of YouTube videos
-        width: dimensionRelativeToIphone(345),
-        height: dimensionRelativeToIphone(194),
+        width: responsiveWidth(345),
+        height: responsiveWidth(194),
         paddingBottom: resolveVariable('smallGutter'),
       },
       fallback: {
@@ -2573,30 +2579,30 @@ export default () => {
     'shoutem.ui.InlineGallery': {
       '.large-ultra-wide': {
         container: {
-          height: dimensionRelativeToIphone(130),
+          height: responsiveWidth(130),
         },
       },
 
       '.large-banner': {
         container: {
-          height: dimensionRelativeToIphone(200),
+          height: responsiveWidth(200),
         },
       },
 
       '.large-wide': {
         container: {
-          height: dimensionRelativeToIphone(238),
+          height: responsiveWidth(238),
         },
       },
 
       '.large-square': {
         container: {
-          height: dimensionRelativeToIphone(375),
+          height: responsiveWidth(375),
         },
       },
 
       container: {
-        height: dimensionRelativeToIphone(345),
+        height: responsiveWidth(345),
       },
 
       imageContainer: {},
