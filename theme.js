@@ -51,6 +51,14 @@ export function dimensionRelativeToIphone(
   return getSizeRelativeToReference(dimension, 375, actualRefVal);
 }
 
+export function dimensionRelativeToIphoneHeight(
+  dimension,
+  actualRefVal = window.height,
+) {
+  // 812 is iPhone height
+  return getSizeRelativeToReference(dimension, 812, actualRefVal);
+}
+
 // 'fontWeight' and 'fontStyle' aren't always supplied for every component, so we're setting default
 // values of 'normal'.
 export function resolveFontFamily(

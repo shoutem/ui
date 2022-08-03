@@ -7,6 +7,7 @@ export {
   calculateLineHeight,
   defaultThemeVariables,
   dimensionRelativeToIphone,
+  dimensionRelativeToIphoneHeight,
   default as getTheme,
   resolveFontFamily,
   resolveFontStyle,
