@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
-import { ViewPropTypes } from 'react-native';
-import DropShadow from 'react-native-drop-shadow';
+import { View as RNView, ViewPropTypes } from 'react-native';
 import PropTypes from 'prop-types';
 import { connectAnimation } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
@@ -11,18 +10,13 @@ class View extends PureComponent {
     const { children, style } = this.props;
     const { backgroundGradient, ...viewStyle } = style;
 
-    let gradient = null;
-    if (backgroundGradient) {
-      gradient = (
-        <LinearGradient styleName="fill-parent" style={backgroundGradient} />
-      );
-    }
-
     return (
-      <DropShadow {...this.props} style={viewStyle}>
-        {gradient}
+      <RNView {...this.props} style={viewStyle}>
+        {!!backgroundGradient && (
+          <LinearGradient styleName="fill-parent" style={backgroundGradient} />
+        )}
         {children}
-      </DropShadow>
+      </RNView>
     );
   }
 }
