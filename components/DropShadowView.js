@@ -9,22 +9,13 @@ import { connectStyle } from '@shoutem/theme';
  * Component adds support for shadow styles on Android
  * that behave the same way as on iOS.
  */
-function DropShadowView({ children, style, ...otherProps }) {
-  return (
-    <DropShadow style={style} {...otherProps}>
-      {children}
-    </DropShadow>
-  );
+function DropShadowView({ children, ...otherProps }) {
+  return <DropShadow {...otherProps}>{children}</DropShadow>;
 }
 
 DropShadowView.propTypes = {
   ...ViewPropTypes,
   children: PropTypes.node.isRequired,
-  style: PropTypes.object,
-};
-
-DropShadowView.defaultProps = {
-  style: {},
 };
 
 const AnimatedView = connectAnimation(DropShadowView);
