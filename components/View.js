@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
-import { View as RNView, ViewPropTypes } from 'react-native';
+import { ViewPropTypes } from 'react-native';
+import DropShadow from 'react-native-drop-shadow';
 import PropTypes from 'prop-types';
 import { connectAnimation } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
@@ -18,10 +19,10 @@ class View extends PureComponent {
     }
 
     return (
-      <RNView {...this.props} style={viewStyle}>
+      <DropShadow {...this.props} style={viewStyle}>
         {gradient}
         {children}
-      </RNView>
+      </DropShadow>
     );
   }
 }
