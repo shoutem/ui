@@ -34,7 +34,7 @@
     "react-native-svg": "12.3.0",
     "react-native-svg-transformer": "1.0.0",
     "react-native-transformable-image": "github:shoutem/react-native-transformable-image#v0.0.20",
-    "react-native-webview": "11.22.7",
+    "react-native-webview": "11.23.0",
     "react-native-youtube-iframe": "2.2.2",
     "stream": "0.0.2",
     "tinycolor2": "1.4.1"
