@@ -1,6 +1,6 @@
 import React from 'react';
-import { ViewPropTypes } from 'react-native';
 import DropShadow from 'react-native-drop-shadow';
+import { ViewPropTypes } from 'deprecated-react-native-prop-types';
 import PropTypes from 'prop-types';
 import { connectAnimation } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
