@@ -11,7 +11,7 @@ class Text extends PureComponent {
 }
 
 Text.propTypes = {
-  ...TextPropTypes.propTypes,
+  ...TextPropTypes,
 };
 
 const AnimatedText = connectAnimation(Text);
