@@ -11,6 +11,8 @@ export {
   resolveFontFamily,
   resolveFontStyle,
   resolveFontWeight,
+  responsiveHeight,
+  responsiveWidth,
 } from './theme';
 
 // Services

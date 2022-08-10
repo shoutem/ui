@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Text as RNText } from 'react-native';
+import { TextPropTypes } from 'deprecated-react-native-prop-types';
 import { connectAnimation } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
 
@@ -10,7 +11,7 @@ class Text extends PureComponent {
 }
 
 Text.propTypes = {
-  ...RNText.propTypes,
+  ...TextPropTypes.propTypes,
 };
 
 const AnimatedText = connectAnimation(Text);
