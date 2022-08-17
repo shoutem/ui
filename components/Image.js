@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Image as RNImage, Platform } from 'react-native';
 import autoBindReact from 'auto-bind/react';
+import { ImagePropTypes } from 'deprecated-react-native-prop-types';
 import _ from 'lodash';
 import { connectAnimation } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
@@ -82,7 +83,7 @@ class Image extends PureComponent {
 }
 
 Image.propTypes = {
-  ...RNImage.propTypes,
+  ...ImagePropTypes,
 };
 
 const AnimatedImage = connectAnimation(Image);

@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { TextInput as RNTextInput } from 'react-native';
 import autoBindReact from 'auto-bind/react';
+import { TextInputPropTypes } from 'deprecated-react-native-prop-types';
 import PropTypes from 'prop-types';
 import { connectAnimation, Wiggle } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
@@ -91,7 +92,7 @@ class TextInput extends PureComponent {
 }
 
 TextInput.propTypes = {
-  ...RNTextInput.propTypes,
+  ...TextInputPropTypes,
   style: PropTypes.object.isRequired,
   animate: PropTypes.bool,
   errorMessage: PropTypes.string,

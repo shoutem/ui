@@ -1,5 +1,5 @@
 import React, { Children, PureComponent } from 'react';
-import { View as RNView, ViewPropTypes } from 'react-native';
+import { View as RNView } from 'react-native';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connectAnimation } from '@shoutem/animation';
@@ -35,7 +35,7 @@ class GridRow extends PureComponent {
 }
 
 GridRow.propTypes = {
-  ...ViewPropTypes,
+  ...View.propTypes,
   columns: PropTypes.number.isRequired,
 };
 
