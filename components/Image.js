@@ -83,7 +83,7 @@ class Image extends PureComponent {
 }
 
 Image.propTypes = {
-  ...ImagePropTypes.propTypes,
+  ...ImagePropTypes,
 };
 
 const AnimatedImage = connectAnimation(Image);
