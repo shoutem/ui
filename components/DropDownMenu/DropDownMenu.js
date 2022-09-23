@@ -54,7 +54,7 @@ class DropDownMenu extends PureComponent {
       <View style={style.horizontalContainer}>
         <Button onPress={this.collapse} style={style.selectedOption}>
           {showSelectedOption && <Text>{selectedOption[titleProperty]}</Text>}
-          <Icon name={iconName} />
+          <Icon name={iconName} style={style.icon} />
         </Button>
       </View>
     ) : null;
