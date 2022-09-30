@@ -72,9 +72,6 @@ export { Video } from './components/Video';
 export { View } from './components/View';
 export { YearRangePicker } from './components/YearRangePicker';
 
-// Examples
-export { Examples } from './examples/components';
-
 // Helpers
 export { calculateKeyboardOffset, Device, Keyboard } from './helpers';
 
@@ -89,7 +86,6 @@ export {
   IPHONE_X_NOTCH_PADDING,
   IPHONE_XR_LONG_SIDE,
   IPHONE_XR_NOTCH_PADDING,
-  nativeDependencies,
   NAVIGATION_BAR_HEIGHT,
   NAVIGATION_HEADER_HEIGHT,
   STATUS_BAR_OFFSET,
