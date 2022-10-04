@@ -121,8 +121,7 @@
   "jest": {
     "preset": "react-native",
     "testPathIgnorePatterns": [
-      "/node_modules/",
-      "examples/"
+      "/node_modules/"
     ],
     "transformIgnorePatterns": [
       "!/node_modules/@shoutem"
