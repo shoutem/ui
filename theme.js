@@ -1,4 +1,4 @@
-import { Dimensions, Platform, StatusBar, StyleSheet } from 'react-native';
+import { Dimensions, Platform, StyleSheet } from 'react-native';
 import {
   changeColorAlpha,
   createSharedStyle,
@@ -2899,7 +2899,6 @@ export default () => {
         borderRadius: 1,
         flexDirection: 'row',
         marginBottom: 8,
-        marginLeft: 8,
       },
       text: {
         marginTop: 12,
