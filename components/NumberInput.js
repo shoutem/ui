@@ -65,11 +65,11 @@ class NumberInput extends PureComponent {
     return (
       <View style={style.container} styleName="horizontal">
         <Button
-          style={style.button}
+          style={[style.button, style.buttonLeft]}
           styleName="secondary"
           onPress={this.decreaseValue}
         >
-          <Icon name="minus-button" style={style.icon} />
+          <Icon name="minus-button" style={[style.icon, style.iconLeft]} />
         </Button>
         <View style={style.inputContainer} styleName="horizontal">
           <TextInput
@@ -80,11 +80,11 @@ class NumberInput extends PureComponent {
           />
         </View>
         <Button
-          style={style.button}
+          style={[style.button, style.buttonRight]}
           styleName="secondary"
           onPress={this.increaseValue}
         >
-          <Icon name="plus-button" style={style.icon} />
+          <Icon name="plus-button" style={[style.icon, style.iconRight]} />
         </Button>
       </View>
     );

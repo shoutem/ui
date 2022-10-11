@@ -24,7 +24,7 @@ class ShareButton extends PureComponent {
   onShare() {
     const { title, message, url } = this.props;
 
-    Share.share({
+    return Share.share({
       title,
       // URL property isn't supported on Android, so we are
       // including it as the message for now.
@@ -34,7 +34,11 @@ class ShareButton extends PureComponent {
   }
 
   render() {
-    const { animationName, iconProps, ...otherProps } = this.props;
+    const { animationName, iconProps, url, ...otherProps } = this.props;
+
+    if (!url) {
+      return null;
+    }
 
     return (
       <Button onPress={this.onShare} {...otherProps}>
