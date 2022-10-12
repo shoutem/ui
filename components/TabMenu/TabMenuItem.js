@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import { LayoutAnimation } from 'react-native';
 import autoBindReact from 'auto-bind/react';
-import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
 import { Text } from '../Text';
@@ -26,13 +25,23 @@ class TabMenuItem extends PureComponent {
     onItemPressed(item);
   }
 
-  handleLayout({
+  handleTextLayout({
     nativeEvent: {
       layout: { width },
     },
   }) {
     LayoutAnimation.easeInEaseOut();
     this.setState({ baseWidth: width });
+  }
+
+  handleContainerLayout({
+    nativeEvent: {
+      layout: { width },
+    },
+  }) {
+    const { onLayoutMeasured } = this.props;
+
+    onLayoutMeasured(width);
   }
 
   render() {
@@ -42,11 +51,12 @@ class TabMenuItem extends PureComponent {
     return (
       <TouchableOpacity
         onPress={this.handleItemPressed}
+        onLayout={this.handleContainerLayout}
         styleName="vertical h-center"
       >
         <Text
           style={[style.text, isSelected && style.selectedText]}
-          onLayout={this.handleLayout}
+          onLayout={this.handleTextLayout}
         >
           {item.title}
         </Text>
@@ -58,6 +68,7 @@ class TabMenuItem extends PureComponent {
 
 TabMenuItem.propTypes = {
   style: PropTypes.object.isRequired,
+  onLayoutMeasured: PropTypes.func.isRequired,
   isSelected: PropTypes.bool,
   item: optionShape,
   onItemPressed: PropTypes.func,
