@@ -3,6 +3,7 @@ import { ReactNativeZoomableView } from '@openspacelabs/react-native-zoomable-vi
 import autoBindReact from 'auto-bind/react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
+import { connectStyle } from '@shoutem/theme';
 import { HorizontalPager } from '../HorizontalPager';
 import { Image } from '../Image';
 import { LoadingIndicator } from '../LoadingIndicator';
@@ -11,7 +12,7 @@ import { View } from '../View';
 const IMAGE_PREVIEW_MODE = 'imagePreview';
 const IMAGE_GALLERY_MODE = 'gallery';
 
-export class ImageGallery extends PureComponent {
+class ImageGallery extends PureComponent {
   /**
    * The image preview mode is the mode in which
    * the user can zoom in/out and pan the image around.
@@ -84,9 +85,22 @@ export class ImageGallery extends PureComponent {
   }
 
   renderImage(imageProps) {
+    const { style } = this.props;
+
+    // TODO: Remove & deprecate
+    // To enable backwards compatibility, remove flex styles from image
+    const imageStyle = _.omit(imageProps?.style, 'flex');
+    const resolvedImageProps = _.omit(imageProps, 'style');
+
     return (
-      <ReactNativeZoomableView maxZoom={30}>
-        <Image {...imageProps} />
+      <ReactNativeZoomableView
+        maxZoom={1.5}
+        minZoom={0.5}
+        zoomStep={0.5}
+        initialZoom={1}
+        bindToBorders
+      >
+        <Image style={[style.image, imageStyle]} {...resolvedImageProps} />
       </ReactNativeZoomableView>
     );
   }
@@ -202,3 +216,8 @@ ImageGallery.defaultProps = {
   onIndexSelected: undefined,
   onModeChanged: undefined,
 };
+
+const StyledImageGallery = connectStyle('shoutem.ui.ImageGallery')(
+  ImageGallery,
+);
+export { StyledImageGallery as ImageGallery };
