@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { ReactNativeZoomableView } from '@openspacelabs/react-native-zoomable-view';
 import autoBindReact from 'auto-bind/react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
@@ -10,7 +11,7 @@ import { View } from '../View';
 const IMAGE_PREVIEW_MODE = 'imagePreview';
 const IMAGE_GALLERY_MODE = 'gallery';
 
-export class ImageGalleryBase extends PureComponent {
+export class ImageGallery extends PureComponent {
   /**
    * The image preview mode is the mode in which
    * the user can zoom in/out and pan the image around.
@@ -82,8 +83,12 @@ export class ImageGalleryBase extends PureComponent {
     });
   }
 
-  renderImage() {
-    // Override this to provide platform specific UI
+  renderImage(imageProps) {
+    return (
+      <ReactNativeZoomableView maxZoom={30}>
+        <Image {...imageProps} />
+      </ReactNativeZoomableView>
+    );
   }
 
   renderPage(pageData, pageIndex) {
@@ -151,7 +156,7 @@ export class ImageGalleryBase extends PureComponent {
   }
 }
 
-ImageGalleryBase.propTypes = {
+ImageGallery.propTypes = {
   // Array containing objects with gallery data (shape defined below)
   data: PropTypes.arrayOf(
     PropTypes.shape({
@@ -188,7 +193,7 @@ ImageGalleryBase.propTypes = {
   onModeChanged: PropTypes.func,
 };
 
-ImageGalleryBase.defaultProps = {
+ImageGallery.defaultProps = {
   selectedIndex: 0,
   showNextPage: false,
   renderPlaceholder: () => <LoadingIndicator />,
