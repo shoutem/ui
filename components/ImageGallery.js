@@ -1,6 +1,6 @@
-import React, { PureComponent } from 'react';
+import React, { useState } from 'react';
+import { Pressable } from 'react-native';
 import { ReactNativeZoomableView } from '@openspacelabs/react-native-zoomable-view';
-import autoBindReact from 'auto-bind/react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
@@ -12,81 +12,41 @@ import { View } from '../View';
 const IMAGE_PREVIEW_MODE = 'imagePreview';
 const IMAGE_GALLERY_MODE = 'gallery';
 
-class ImageGallery extends PureComponent {
-  /**
-   * The image preview mode is the mode in which
-   * the user can zoom in/out and pan the image around.
-   */
-  static IMAGE_PREVIEW_MODE = IMAGE_PREVIEW_MODE;
+function ImageGallery({
+  data,
+  onIndexSelected,
+  onModeChanged,
+  renderOverlay,
+  renderImageOverlay,
+  renderPlaceholder,
+  selectedIndex,
+  showNextPage,
+  style,
+}) {
+  const [currentIndex, setCurrentIndex] = useState(selectedIndex);
+  const [mode, setMode] = useState(IMAGE_GALLERY_MODE);
 
-  /**
-   * The gallery mode is the mode in which
-   * the user can scroll between images, and can see
-   * additional info about each image.
-   */
-  static IMAGE_GALLERY_MODE = IMAGE_GALLERY_MODE;
-
-  constructor(props) {
-    super(props);
-
-    autoBindReact(this);
-
-    const { selectedIndex } = props;
-
-    this.state = {
-      selectedIndex,
-      imageSwitchingEnabled: true,
-      mode: IMAGE_GALLERY_MODE,
-      // Disabling rule as this flag is used via inheritance in other classes.
-      // eslint-disable-next-line react/no-unused-state
-      collapsed: true,
-    };
-  }
-
-  onImageTap() {
-    const { mode } = this.state;
-
-    // We are toggling between image preview and
-    // gallery modes when the user taps on an image.
+  function onImageTap(newMode) {
     if (mode === IMAGE_PREVIEW_MODE) {
-      this.setMode(IMAGE_GALLERY_MODE);
+      setMode(IMAGE_GALLERY_MODE);
     } else {
-      this.setMode(IMAGE_PREVIEW_MODE);
+      setMode(IMAGE_PREVIEW_MODE);
+    }
+
+    if (_.onModeChanged(newMode)) {
+      onModeChanged(newMode);
     }
   }
 
-  onIndexSelected(newIndex) {
-    const { onIndexSelected } = this.props;
-    this.setState(
-      {
-        selectedIndex: newIndex,
-      },
-      () => {
-        if (_.isFunction(onIndexSelected)) {
-          onIndexSelected(newIndex);
-        }
-      },
-    );
-  }
+  function handleIndexSelected(newIndex) {
+    setCurrentIndex(newIndex);
 
-  setMode(newMode) {
-    const { onModeChanged } = this.props;
-    const { mode } = this.state;
-
-    if (mode === newMode) {
-      return;
+    if (_.isFunction(onIndexSelected)) {
+      onIndexSelected(newIndex);
     }
-
-    this.setState({ mode }, () => {
-      if (_.isFunction(onModeChanged)) {
-        onModeChanged(mode);
-      }
-    });
   }
 
-  renderImage(imageProps) {
-    const { style } = this.props;
-
+  function renderImage(imageProps) {
     // TODO: Remove & deprecate
     // To enable backwards compatibility, remove flex styles from image
     const imageStyle = _.omit(imageProps?.style, 'flex');
@@ -100,14 +60,14 @@ class ImageGallery extends PureComponent {
         initialZoom={1}
         bindToBorders
       >
-        <Image style={[style.image, imageStyle]} {...resolvedImageProps} />
+        <Pressable onPress={onImageTap}>
+          <Image style={[style.image, imageStyle]} {...resolvedImageProps} />
+        </Pressable>
       </ReactNativeZoomableView>
     );
   }
 
-  renderPage(pageData, pageIndex) {
-    const { mode, selectedIndex } = this.state;
-    const { style, renderImageOverlay } = this.props;
+  function renderPage(pageData, pageIndex) {
     const image = _.get(pageData, 'source.uri');
 
     if (!image) {
@@ -135,43 +95,31 @@ class ImageGallery extends PureComponent {
 
     return (
       <View key={pageIndex} style={style.page}>
-        {this.renderImage(transformedImageProps, pageData, pageIndex)}
+        {renderImage(transformedImageProps, pageData, pageIndex)}
         {overlay}
       </View>
     );
   }
 
-  render() {
-    const {
-      data,
-      renderOverlay,
-      renderPlaceholder,
-      showNextPage,
-      style,
-    } = this.props;
-    const { selectedIndex, imageSwitchingEnabled } = this.state;
-
-    return (
-      <View style={style.container} driver={this.timingDriver}>
-        <HorizontalPager
-          data={data}
-          onIndexSelected={this.onIndexSelected}
-          selectedIndex={selectedIndex}
-          renderPage={this.renderPage}
-          bounces
-          pageMargin={style.pageMargin}
-          showNextPage={showNextPage}
-          renderOverlay={renderOverlay}
-          renderPlaceholder={renderPlaceholder}
-          scrollEnabled={imageSwitchingEnabled}
-        />
-      </View>
-    );
-  }
+  return (
+    <View style={style.container}>
+      <HorizontalPager
+        data={data}
+        onIndexSelected={handleIndexSelected}
+        selectedIndex={currentIndex}
+        renderPage={renderPage}
+        bounces
+        pageMargin={style.pageMargin}
+        showNextPage={showNextPage}
+        renderOverlay={renderOverlay}
+        renderPlaceholder={renderPlaceholder}
+        scrollEnabled
+      />
+    </View>
+  );
 }
 
 ImageGallery.propTypes = {
-  // Array containing objects with gallery data (shape defined below)
   data: PropTypes.arrayOf(
     PropTypes.shape({
       description: PropTypes.string,
@@ -181,38 +129,22 @@ ImageGallery.propTypes = {
       title: PropTypes.string,
     }),
   ).isRequired,
-  // Style prop used to override default (theme) styling
   style: PropTypes.object.isRequired,
-  // Renders an overlay over a single image
-  // For example image gallery overlay using the `ImageGalleryOverlay` component
-  // renderOverlay(imageData, imageIndex)
   renderImageOverlay: PropTypes.func,
-  // Renders an overlay over all images
-  // For example page indicators using the `PageIndicators` component
-  // renderOverlay(imageData, imageIndex)
   renderOverlay: PropTypes.func,
-  // Callback function that can be used to define placeholder
-  // that appears when content is loading
   renderPlaceholder: PropTypes.func,
-  // Initially selected page in gallery
   selectedIndex: PropTypes.number,
   showNextPage: PropTypes.bool,
-  // Callback function called when user swipes between pages (images)
-  // Index of new (selected) page is passed to this callback
   onIndexSelected: PropTypes.func,
-  // onModeChanged(mode), callback function triggered when user taps on single photo
-  // Or when user transforms (zooms etc.) image
-  // Useful for hiding external controls (i.e. navigation bar)
-  // Mode can be `gallery` or `imagePreview`
   onModeChanged: PropTypes.func,
 };
 
 ImageGallery.defaultProps = {
-  selectedIndex: 0,
-  showNextPage: false,
-  renderPlaceholder: () => <LoadingIndicator />,
   renderImageOverlay: undefined,
   renderOverlay: undefined,
+  renderPlaceholder: () => <LoadingIndicator />,
+  selectedIndex: 0,
+  showNextPage: false,
   onIndexSelected: undefined,
   onModeChanged: undefined,
 };
