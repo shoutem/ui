@@ -47,9 +47,7 @@ function ImageGallery({
   }
 
   function renderImage(imageProps) {
-    // TODO: Remove & deprecate
-    // To enable backwards compatibility, remove flex styles from image
-    const imageStyle = _.omit(imageProps?.style, 'flex');
+    const imageStyle = imageProps?.style;
     const resolvedImageProps = _.omit(imageProps, 'style');
 
     return (
@@ -61,7 +59,7 @@ function ImageGallery({
         bindToBorders
       >
         <Pressable onPress={onImageTap}>
-          <Image style={[style.image, imageStyle]} {...resolvedImageProps} />
+          <Image style={[imageStyle, style.image]} {...resolvedImageProps} />
         </Pressable>
       </ReactNativeZoomableView>
     );
@@ -78,7 +76,6 @@ function ImageGallery({
     const transformImageProps = Image.getPropsTransformer();
     const imageProps = {
       source: { uri: image },
-      style: { flex: 1 },
     };
     const transformedImageProps = _.isFunction(transformImageProps)
       ? transformImageProps(imageProps)
