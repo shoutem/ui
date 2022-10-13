@@ -4,10 +4,10 @@ import { ReactNativeZoomableView } from '@openspacelabs/react-native-zoomable-vi
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
-import { HorizontalPager } from '../HorizontalPager';
-import { Image } from '../Image';
-import { LoadingIndicator } from '../LoadingIndicator';
-import { View } from '../View';
+import { HorizontalPager } from './HorizontalPager';
+import { Image } from './Image';
+import { LoadingIndicator } from './LoadingIndicator';
+import { View } from './View';
 
 const IMAGE_PREVIEW_MODE = 'imagePreview';
 const IMAGE_GALLERY_MODE = 'gallery';
