@@ -28,7 +28,7 @@
     "prop-types": "15.8.1",
     "qs": "6.9.3",
     "react-native-device-info": "9.0.2",
-    "react-native-lightbox": "github:shoutem/react-native-lightbox#v0.7.2",
+    "react-native-lightbox-v2": "0.9.0",
     "react-native-linear-gradient": "2.6.2",
     "react-native-modal": "11.7.0",
     "react-native-render-html": "4.2.5",
