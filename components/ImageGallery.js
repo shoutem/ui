@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Pressable } from 'react-native';
 import { ReactNativeZoomableView } from '@openspacelabs/react-native-zoomable-view';
 import _ from 'lodash';
@@ -26,44 +26,53 @@ function ImageGallery({
   const [currentIndex, setCurrentIndex] = useState(selectedIndex);
   const [mode, setMode] = useState(IMAGE_GALLERY_MODE);
 
-  function onImageTap(newMode) {
-    if (mode === IMAGE_PREVIEW_MODE) {
-      setMode(IMAGE_GALLERY_MODE);
-    } else {
-      setMode(IMAGE_PREVIEW_MODE);
-    }
+  const handleImageTap = useCallback(
+    newMode => {
+      if (mode === IMAGE_PREVIEW_MODE) {
+        setMode(IMAGE_GALLERY_MODE);
+      } else {
+        setMode(IMAGE_PREVIEW_MODE);
+      }
 
-    if (_.onModeChanged(newMode)) {
-      onModeChanged(newMode);
-    }
-  }
+      if (_.onModeChanged(newMode)) {
+        onModeChanged(newMode);
+      }
+    },
+    [mode, onModeChanged],
+  );
 
-  function handleIndexSelected(newIndex) {
-    setCurrentIndex(newIndex);
+  const handleIndexSelected = useCallback(
+    newIndex => {
+      setCurrentIndex(newIndex);
 
-    if (_.isFunction(onIndexSelected)) {
-      onIndexSelected(newIndex);
-    }
-  }
+      if (_.isFunction(onIndexSelected)) {
+        onIndexSelected(newIndex);
+      }
+    },
+    [onIndexSelected],
+  );
 
-  function renderImage(imageProps) {
-    const imageStyle = imageProps?.style;
-    const resolvedImageProps = _.omit(imageProps, 'style');
+  const renderImage = useCallback(
+    imageProps => {
+      const imageStyle = imageProps?.style;
+      const resolvedImageProps = _.omit(imageProps, 'style');
 
-    return (
-      <ReactNativeZoomableView
-        maxZoom={1.5}
-        minZoom={0.5}
-        zoomStep={0.5}
-        initialZoom={1}
-        bindToBorders
-      >
-        <Pressable onPress={onImageTap}>
-          <Image style={[imageStyle, style.image]} {...resolvedImageProps} />
-        </Pressable>
-      </ReactNativeZoomableView>
-    );
-  }
+      return (
+        <ReactNativeZoomableView
+          maxZoom={1.5}
+          minZoom={0.5}
+          zoomStep={0.5}
+          initialZoom={1}
+          bindToBorders
+        >
+          <Pressable onPress={handleImageTap}>
+            <Image style={[imageStyle, style.image]} {...resolvedImageProps} />
+          </Pressable>
+        </ReactNativeZoomableView>
+      );
+    },
+    [handleImageTap, style.image],
+  );
 
   function renderPage(pageData, pageIndex) {
     const image = _.get(pageData, 'source.uri');
