@@ -34,7 +34,7 @@ function ImageGallery({
         setMode(IMAGE_PREVIEW_MODE);
       }
 
-      if (_.onModeChanged(newMode)) {
+      if (_.isFunction(onModeChanged)) {
         onModeChanged(newMode);
       }
     },
@@ -65,7 +65,7 @@ function ImageGallery({
           initialZoom={1}
           bindToBorders
         >
-          <Pressable onPress={handleImageTap}>
+          <Pressable style={[imageStyle, style.image]} onPress={handleImageTap}>
             <Image style={[imageStyle, style.image]} {...resolvedImageProps} />
           </Pressable>
         </ReactNativeZoomableView>
