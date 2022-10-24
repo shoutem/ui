@@ -85,6 +85,7 @@ function ImageGallery({
     const transformImageProps = Image.getPropsTransformer();
     const imageProps = {
       source: { uri: image },
+      style: { ...style.image },
     };
     const transformedImageProps = _.isFunction(transformImageProps)
       ? transformImageProps(imageProps)
