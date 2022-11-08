@@ -3101,6 +3101,14 @@ export default () => {
         borderRadius: 8,
         padding: responsiveWidth(12),
         backgroundColor: resolveVariable('paperColor'),
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.23,
+        shadowRadius: 2.62,
+        elevation: 4,
       },
       detailsContainer: {
         flexDirection: 'row',
@@ -3176,6 +3184,25 @@ export default () => {
       },
       confirmButtonText: {
         color: resolveVariable('primaryButtonText.color'),
+      },
+      progressBar: {
+        color: changeColorAlpha(resolveVariable('featuredColor'), 0.8),
+      },
+    },
+    'shoutem.ui.ErrorToast': {
+      container: {
+        backgroundColor: '#F5F0F1',
+      },
+      progressbar: {
+        color: '#D0021B',
+      },
+    },
+    'shoutem.ui.SuccessToast': {
+      container: {
+        backgroundColor: '#F5F7F2',
+      },
+      progressbar: {
+        color: '#88C242',
       },
     },
   };
