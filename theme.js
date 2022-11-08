@@ -3077,5 +3077,106 @@ export default () => {
     'shoutem.ui.ScrollView': {
       contentContainerStyle: {},
     },
+
+    // Toast messages
+
+    'shoutem.ui.ToastProgressBar': {
+      container: {
+        flexDirection: 'row',
+        height: responsiveHeight(2),
+        backgroundColor: 'transparent',
+      },
+      progressBar: {
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        bottom: 0,
+        right: 0,
+      },
+    },
+
+    'shoutem.ui.BaseToast': {
+      container: {
+        width: resolveVariable('sizes.window.width') - responsiveWidth(20),
+        borderRadius: 8,
+        padding: responsiveWidth(12),
+        backgroundColor: resolveVariable('paperColor'),
+      },
+      detailsContainer: {
+        flexDirection: 'row',
+        flex: 1,
+        alignItems: 'center',
+      },
+      image: {
+        width: responsiveHeight(48),
+        height: responsiveHeight(48),
+        marginRight: responsiveWidth(8),
+        borderRadius: 4,
+      },
+      icon: {
+        width: responsiveWidth(32),
+        height: responsiveWidth(32),
+        marginRight: responsiveWidth(8),
+      },
+      textContainer: {
+        height: responsiveHeight(48),
+        justifyContent: 'space-between',
+      },
+      title: {
+        color: changeColorAlpha(resolveVariable('text.color'), 0.8),
+        fontSize: 12,
+        fontFamily: resolveFontFamily(
+          resolveVariable('text.fontFamily'),
+          '400',
+        ),
+        fontWeight: resolveFontWeight('400'),
+        lineHeight: 14,
+      },
+      message: {
+        color: resolveVariable('text.color'),
+        fontSize: 14,
+        fontFamily: resolveFontFamily(
+          resolveVariable('text.fontFamily'),
+          '400',
+        ),
+        fontWeight: resolveFontWeight('400'),
+        lineHeight: 16,
+      },
+      buttonContainer: {
+        flexDirection: 'row',
+        flex: 1,
+        justifyContent: 'space-between',
+      },
+      button: {
+        borderRadius: 6,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: responsiveHeight(32),
+        width: '49%',
+        padding: responsiveHeight(8),
+      },
+      buttonText: {
+        fontSize: 12,
+        fontFamily: resolveFontFamily(
+          resolveVariable('text.fontFamily'),
+          '500',
+        ),
+        fontWeight: resolveFontWeight('500'),
+        lineHeight: 16,
+      },
+      cancelButton: {
+        backgroundColor: resolveVariable('secondaryButtonBackgroundColor'),
+      },
+      confirmButton: {
+        backgroundColor: resolveVariable('primaryButtonBackgroundColor'),
+      },
+      cancelButtonText: {
+        color: resolveVariable('secondaryButtonTextColor'),
+      },
+      confirmButtonText: {
+        color: resolveVariable('primaryButtonText.color'),
+      },
+    },
   };
 };
