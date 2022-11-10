@@ -7,7 +7,7 @@ function SuccessToast({ style, props, isVisible }) {
   return (
     <BaseToast
       customToastStyle={style}
-      imageSource={images.success}
+      iconSource={images.success}
       isVisible={isVisible}
       {...props}
     />

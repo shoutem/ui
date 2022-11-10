@@ -272,8 +272,8 @@ export const defaultThemeVariables = {
   // Toast Progress Bar
   toastProgressBarBackgroundColor: 'rgba(136, 143, 161, 0.1)',
   toastProgressBarColor: '#00AADF',
-  toastSuccessProgressBarColor: '#D0021B',
-  toastErrorProgressBarColor: '#88C242',
+  toastSuccessProgressBarColor: '#88C242',
+  toastErrorProgressBarColor: '#D0021B',
 
   smallGutter: 5,
   mediumGutter: 15,
@@ -3136,6 +3136,8 @@ export default () => {
         shadowRadius: 2.62,
         elevation: 4,
         overflow: 'hidden',
+        borderWidth: 1,
+        borderColor: '#BDC0CB26',
       },
       detailsContainer: {
         paddingHorizontal: responsiveWidth(12),
@@ -3153,6 +3155,7 @@ export default () => {
         width: responsiveWidth(32),
         height: responsiveWidth(32),
         marginRight: responsiveWidth(8),
+        color: resolveVariable('toastMessageColor'),
       },
       textContainer: {
         height: responsiveHeight(48),
@@ -3169,7 +3172,7 @@ export default () => {
         lineHeight: 14,
       },
       message: {
-        color: resolveVariable('toasts.toastMessageColor'),
+        color: resolveVariable('toastMessageColor'),
         fontSize: 14,
         fontFamily: resolveFontFamily(
           resolveVariable('text.fontFamily'),
@@ -3225,6 +3228,7 @@ export default () => {
     'shoutem.ui.ErrorToast': {
       container: {
         backgroundColor: resolveVariable('toastErrorBackgroundColor'),
+        borderWidth: 1,
       },
       title: {
         color: resolveVariable('toastErrorTitleColor'),
@@ -3239,6 +3243,7 @@ export default () => {
     'shoutem.ui.SuccessToast': {
       container: {
         backgroundColor: resolveVariable('toastSuccessBackgroundColor'),
+        borderWidth: 1,
       },
       title: {
         color: resolveVariable('toastSuccessTitleColor'),

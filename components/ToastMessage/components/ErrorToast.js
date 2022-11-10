@@ -8,7 +8,7 @@ function ErrorToast({ style, props, isVisible }) {
     <BaseToast
       customToastStyle={style}
       isVisible={isVisible}
-      imageSource={images.error}
+      iconSource={images.error}
       {...props}
     />
   );
