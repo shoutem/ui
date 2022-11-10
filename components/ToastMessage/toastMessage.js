@@ -1,9 +1,19 @@
 import React from 'react';
-import _ from 'lodash';
 import Toast from 'react-native-toast-message';
+import _ from 'lodash';
 import { ActionToast, ErrorToast, InfoToast, SuccessToast } from './components';
 
-const NATIVE_PROPS_MAP = ['position', 'visibilityTime', 'autoHide', 'topOffset', 'bottomOffset', 'keyboardOffset', 'onShow', 'onHide', 'onPress'];
+const NATIVE_PROPS_MAP = [
+  'position',
+  'visibilityTime',
+  'autoHide',
+  'topOffset',
+  'bottomOffset',
+  'keyboardOffset',
+  'onShow',
+  'onHide',
+  'onPress',
+];
 const config = {
   'shoutem-success': props => <SuccessToast {...props} />,
   'shoutem-error': props => <ErrorToast {...props} />,
@@ -23,17 +33,14 @@ function normalizeProps(type, props) {
 
 export const Provider = () => <Toast config={config} />;
 
-const showAction = props =>
-  Toast.show(normalizeProps('shoutem-action', props));
+const showAction = props => Toast.show(normalizeProps('shoutem-action', props));
 
-const showInfo = props =>
-Toast.show(normalizeProps('shoutem-info', props));
+const showInfo = props => Toast.show(normalizeProps('shoutem-info', props));
 
 const showSuccess = props =>
-Toast.show(normalizeProps('shoutem-success', props));
+  Toast.show(normalizeProps('shoutem-success', props));
 
-const showError = props =>
-Toast.show(normalizeProps('shoutem-error', props));
+const showError = props => Toast.show(normalizeProps('shoutem-error', props));
 
 export default {
   Provider,

@@ -1,9 +1,15 @@
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { Animated, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
 
-function ToastProgressBar({ duration, style, onProgressComplete, color, visible }) {
+function ToastProgressBar({
+  duration,
+  style,
+  onProgressComplete,
+  color,
+  visible,
+}) {
   const progressValue = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -17,14 +23,14 @@ function ToastProgressBar({ duration, style, onProgressComplete, color, visible 
       duration,
       useNativeDriver: false,
     }).start(handleAnimationEnd);
-  }, [visible]);
+  }, [visible, duration, handleAnimationEnd]);
 
   const handleAnimationEnd = useCallback(() => {
     progressValue.setValue(0);
     if (onProgressComplete) {
       onProgressComplete();
     }
-  });
+  }, [onProgressComplete, progressValue]);
 
   return (
     <View style={style.container}>

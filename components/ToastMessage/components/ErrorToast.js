@@ -5,7 +5,12 @@ import BaseToast from './BaseToast';
 
 function ErrorToast({ style, props, isVisible }) {
   return (
-    <BaseToast customToastStyle={style} isVisible={isVisible} imageSource={images.error} {...props} />
+    <BaseToast
+      customToastStyle={style}
+      isVisible={isVisible}
+      imageSource={images.error}
+      {...props}
+    />
   );
 }
 
