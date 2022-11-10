@@ -253,6 +253,28 @@ export const defaultThemeVariables = {
   sectionHeaderBackgroundColor: '#F2F2F2',
   indicatorColor: '#222222',
 
+  // Toast Container
+  toastBackgroundColor: '#FFFFFF',
+  toastSuccessBackgroundColor: '#333D27',
+  toastErrorBackgroundColor: '#3D272A',
+  // Toast Text
+  toastTitleColor: '#888FA1',
+  toastSuccessTitleColor: '#B4BDAA',
+  toastErrorTitleColor: '#B4BDAA',
+  toastMessageColor: '#444F6C',
+  toastSuccessMessageColor: '#FFFFFF',
+  toastErrorMessageColor: 'FFFFFF',
+  // Toast Action buttons
+  toastConfirmButtonBackgroundColor: '#444F6C',
+  toastConfirmButtonTextColor: '#FFFFFF',
+  toastCancelButtonTextColor: '#444F6C',
+  toastCancelButtonBackgroundColor: '#F3F4F6',
+  // Toast Progress Bar
+  toastProgressBarBackgroundColor: 'rgba(136, 143, 161, 0.1)',
+  toastProgressBarColor: '#00AADF',
+  toastSuccessProgressBarColor: '#D0021B',
+  toastErrorProgressBarColor: '#88C242',
+
   smallGutter: 5,
   mediumGutter: 15,
   largeGutter: 30,
@@ -3104,7 +3126,7 @@ export default () => {
         width: resolveVariable('sizes.window.width') - responsiveWidth(20),
         borderRadius: 8,
         paddingTop: responsiveWidth(12),
-        backgroundColor: resolveVariable('paperColor'),
+        backgroundColor: resolveVariable('toastBackgroundColor'),
         shadowColor: '#000000',
         shadowOffset: {
           width: 0,
@@ -3137,7 +3159,7 @@ export default () => {
         justifyContent: 'space-between',
       },
       title: {
-        color: changeColorAlpha(resolveVariable('text.color'), 0.8),
+        color: resolveVariable('toastTitleColor'),
         fontSize: 12,
         fontFamily: resolveFontFamily(
           resolveVariable('text.fontFamily'),
@@ -3147,7 +3169,7 @@ export default () => {
         lineHeight: 14,
       },
       message: {
-        color: resolveVariable('text.color'),
+        color: resolveVariable('toasts.toastMessageColor'),
         fontSize: 14,
         fontFamily: resolveFontFamily(
           resolveVariable('text.fontFamily'),
@@ -3185,35 +3207,47 @@ export default () => {
         lineHeight: 16,
       },
       cancelButton: {
-        backgroundColor: resolveVariable('secondaryButtonBackgroundColor'),
+        backgroundColor: resolveVariable('toastCancelButtonBackgroundColor'),
       },
       confirmButton: {
-        backgroundColor: resolveVariable('primaryButtonBackgroundColor'),
+        backgroundColor: resolveVariable('toastConfirmButtonBackgroundColor'),
       },
       cancelButtonText: {
-        color: resolveVariable('secondaryButtonTextColor'),
+        color: resolveVariable('toastCancelButtonTextColor'),
       },
       confirmButtonText: {
-        color: resolveVariable('text.color'),
+        color: resolveVariable('toastConfirmButtonTextColor'),
       },
       progressBar: {
-        color: changeColorAlpha(resolveVariable('featuredColor'), 0.8),
+        color: resolveVariable('toastProgressBarColor'),
       },
     },
     'shoutem.ui.ErrorToast': {
       container: {
-        backgroundColor: '#F5F0F1',
+        backgroundColor: resolveVariable('toastErrorBackgroundColor'),
+      },
+      title: {
+        color: resolveVariable('toastErrorTitleColor'),
+      },
+      message: {
+        color: resolveVariable('toastErrorMessageColor'),
       },
       progressBar: {
-        color: '#D0021B',
+        color: resolveVariable('toastErrorProgressBarColor'),
       },
     },
     'shoutem.ui.SuccessToast': {
       container: {
-        backgroundColor: '#F5F7F2',
+        backgroundColor: resolveVariable('toastSuccessBackgroundColor'),
+      },
+      title: {
+        color: resolveVariable('toastSuccessTitleColor'),
+      },
+      message: {
+        color: resolveVariable('toastSuccessMessageColor'),
       },
       progressBar: {
-        color: '#88C242',
+        color: resolveVariable('toastSuccessProgressBarColor'),
       },
     },
   };
