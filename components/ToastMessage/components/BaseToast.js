@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
-import { Button, Icon, Image, Text, View } from '@shoutem/ui';
+import { Icon, Image, Text, View, Touchable } from '@shoutem/ui';
 import ToastProgressBar from './ToastProgressBar';
 
 function BaseToast({
@@ -18,6 +18,7 @@ function BaseToast({
   durationIndicator,
   visibilityTime,
   customToastStyle,
+  isVisible,
 }) {
   const hasConfirmButton = onConfirm && confirmButtonText;
   const hasCancelButton = onCancel && cancelButtonText;
@@ -26,11 +27,13 @@ function BaseToast({
     customToastStyle,
   ]);
 
+  console.log(resolvedStyle);
+
   return (
     <View style={resolvedStyle.container}>
       <View style={resolvedStyle.detailsContainer}>
         {iconSource && (
-          <Image source={iconSource} style={resolvedStyle.imageIcon} />
+          <Image source={iconSource} style={resolvedStyle.image} />
         )}
         {!iconSource && <Icon name={iconName} style={resolvedStyle.icon} />}
         <View style={resolvedStyle.textContainer}>
@@ -41,28 +44,28 @@ function BaseToast({
       {(hasConfirmButton || hasCancelButton) && (
         <View style={resolvedStyle.buttonContainer}>
           {hasCancelButton && (
-            <Button style={resolvedStyle.button}>
-              <Text style={resolvedStyle.buttonText}>{cancelButtonText}</Text>
-            </Button>
+            <Touchable style={[resolvedStyle.button, resolvedStyle.cancelButton, !hasConfirmButton && resolvedStyle.fullWidthButton]} onPress={onCancel}>
+              <Text style={[resolvedStyle.buttonText, resolvedStyle.cancelButtonText]}>{cancelButtonText}</Text>
+            </Touchable>
           )}
           {hasConfirmButton && (
-            <Button style={resolvedStyle.button}>
-              <Text style={resolvedStyle.buttonText}>{confirmButtonText}</Text>
-            </Button>
+            <Touchable style={[resolvedStyle.button, resolvedStyle.confirmButton, !hasCancelButton && resolvedStyle.fullWidthButton]} onPress={onConfirm}>
+              <Text style={[resolvedStyle.buttonText, resolvedStyle.confirmButtonText]}>{confirmButtonText}</Text>
+            </Touchable>
           )}
         </View>
       )}
-      {durationIndicator && (
-        <ToastProgressBar
-          duration={visibilityTime}
-          color={style.progressBar.color}
-        />
-      )}
+          <ToastProgressBar
+            duration={visibilityTime}
+            color={resolvedStyle.progressBar.color}
+            visible={isVisible && durationIndicator}
+          />
     </View>
   );
 }
 
 BaseToast.propTypes = {
+  isVisible: PropTypes.bool.isRequired,
   style: PropTypes.object.isRequired,
   cancelButtonText: PropTypes.string,
   confirmButtonText: PropTypes.string,

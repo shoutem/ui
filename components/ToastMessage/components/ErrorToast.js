@@ -3,9 +3,9 @@ import { connectStyle } from '@shoutem/theme';
 import { images } from '../assets';
 import BaseToast from './BaseToast';
 
-function ErrorToast({ style, ...props }) {
+function ErrorToast({ style, props, isVisible }) {
   return (
-    <BaseToast customToastStyle={style} imageSource={images.error} {...props} />
+    <BaseToast customToastStyle={style} isVisible={isVisible} imageSource={images.error} {...props} />
   );
 }
 

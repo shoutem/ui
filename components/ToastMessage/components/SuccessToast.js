@@ -3,11 +3,12 @@ import { connectStyle } from '@shoutem/theme';
 import { images } from '../assets';
 import BaseToast from './BaseToast';
 
-function SuccessToast({ style, ...props }) {
+function SuccessToast({ style, props, isVisible }) {
   return (
     <BaseToast
       customToastStyle={style}
       imageSource={images.success}
+      isVisible={isVisible}
       {...props}
     />
   );

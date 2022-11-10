@@ -3082,16 +3082,20 @@ export default () => {
 
     'shoutem.ui.ToastProgressBar': {
       container: {
+        marginTop: responsiveWidth(10),
         flexDirection: 'row',
         height: responsiveHeight(2),
-        backgroundColor: 'transparent',
+        backgroundColor: 'rgba(136, 143, 161, 0.1)',
       },
       progressBar: {
+        flexDirection: 'row',
+        width: '100%',
         position: 'absolute',
         left: 0,
         top: 0,
         bottom: 0,
-        right: 0,
+        borderBottomLeftRadius: 8,
+        borderBottomRightRadius: 8,
       },
     },
 
@@ -3099,9 +3103,9 @@ export default () => {
       container: {
         width: resolveVariable('sizes.window.width') - responsiveWidth(20),
         borderRadius: 8,
-        padding: responsiveWidth(12),
+        paddingTop: responsiveWidth(12),
         backgroundColor: resolveVariable('paperColor'),
-        shadowColor: '#000',
+        shadowColor: '#000000',
         shadowOffset: {
           width: 0,
           height: 2,
@@ -3109,8 +3113,10 @@ export default () => {
         shadowOpacity: 0.23,
         shadowRadius: 2.62,
         elevation: 4,
+        overflow: 'hidden',
       },
       detailsContainer: {
+        paddingHorizontal: responsiveWidth(12),
         flexDirection: 'row',
         flex: 1,
         alignItems: 'center',
@@ -3151,9 +3157,11 @@ export default () => {
         lineHeight: 16,
       },
       buttonContainer: {
+        paddingHorizontal: responsiveWidth(12),
         flexDirection: 'row',
         flex: 1,
         justifyContent: 'space-between',
+        marginTop: responsiveHeight(12),
       },
       button: {
         borderRadius: 6,
@@ -3162,7 +3170,10 @@ export default () => {
         alignItems: 'center',
         height: responsiveHeight(32),
         width: '49%',
-        padding: responsiveHeight(8),
+        padding: responsiveWidth(8),
+      },
+      fullWidthButton: {
+        width: '100%',
       },
       buttonText: {
         fontSize: 12,
@@ -3183,7 +3194,7 @@ export default () => {
         color: resolveVariable('secondaryButtonTextColor'),
       },
       confirmButtonText: {
-        color: resolveVariable('primaryButtonText.color'),
+        color: resolveVariable('text.color'),
       },
       progressBar: {
         color: changeColorAlpha(resolveVariable('featuredColor'), 0.8),
@@ -3193,7 +3204,7 @@ export default () => {
       container: {
         backgroundColor: '#F5F0F1',
       },
-      progressbar: {
+      progressBar: {
         color: '#D0021B',
       },
     },
@@ -3201,7 +3212,7 @@ export default () => {
       container: {
         backgroundColor: '#F5F7F2',
       },
-      progressbar: {
+      progressBar: {
         color: '#88C242',
       },
     },
