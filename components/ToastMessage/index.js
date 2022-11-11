@@ -1,2 +1,2 @@
-export { default as Toast } from './toastMessage';
 export { BaseToast } from './components';
+export { default as Toast } from './toastMessage';

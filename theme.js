@@ -263,7 +263,7 @@ export const defaultThemeVariables = {
   toastErrorTitleColor: '#B4BDAA',
   toastMessageColor: '#444F6C',
   toastSuccessMessageColor: '#FFFFFF',
-  toastErrorMessageColor: 'FFFFFF',
+  toastErrorMessageColor: '#FFFFFF',
   // Toast Action buttons
   toastConfirmButtonBackgroundColor: '#444F6C',
   toastConfirmButtonTextColor: '#FFFFFF',
