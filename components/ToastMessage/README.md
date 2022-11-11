@@ -20,48 +20,48 @@ Each of these accepts same set or props / params, but implements different styli
 ```jsx
 import { Toast } from '@shoutem/ui';
 ...
-	    Toast.showInfo({
-        title: 'Hello world!',
-        message: `This is a message!`,
-        iconSource: { 
-          uri: 'https://townsquare.media/site/341/files/2012/05/Mr.-Trololo.jpg',
-        },
-      });
+Toast.showInfo({
+  title: 'Hello world!',
+  message: `This is a message!`,
+  iconSource: { 
+    uri: 'https://townsquare.media/site/341/files/2012/05/Mr.-Trololo.jpg',
+  },
+});
 ...
 ```
 
 ```jsx
 import { Toast } from '@shoutem/ui';
 ...
-	    Toast.showAlert({
-        title: 'Stop',
-        message: `Hammer time`,
-        iconSource: require('../assets/actionIcon.png'),
-        cancelButtonText: 'absolutely not',
-        confirmButtonText: `Hammer zeit!`,
-        onCancel: Toast.hide,
-        onConfirm: () => {
-          console.log('A man of culture....');
-          Toast.hide();
-        }
-      });
+Toast.showAlert({
+  title: 'Stop',
+  message: `Hammer time`,
+  iconSource: require('../assets/actionIcon.png'),
+  cancelButtonText: 'absolutely not',
+  confirmButtonText: `Hammer zeit!`,
+  onCancel: Toast.hide,
+  onConfirm: () => {
+    console.log('A man of culture....');
+    Toast.hide();
+  }
+});
 ...
 ```
 
 ```jsx
 import { Toast } from '@shoutem/ui';
 ...
-	    Toast.showError({
-        title: 'Error',
-        message: `We've failed to charge your credit card. Please check your CC data`,
-        iconName: 'error',
-        confirmButtonText: `Take me to payment details`,
-        onConfirm: () => {
-          navigateTo('PaymentDetailsScreen');
-          Toast.hide();
-        }
-        autoHide: false,
-      });
+Toast.showError({
+  title: 'Error',
+  message: `We've failed to charge your credit card. Please check your CC data`,
+  iconName: 'error',
+  confirmButtonText: `Take me to payment details`,
+  onConfirm: () => {
+    navigateTo('PaymentDetailsScreen');
+    Toast.hide();
+  }
+  autoHide: false,
+});
 ...
 ```
 
@@ -91,7 +91,6 @@ Currently supported props mainly include "native" props from the parent library,
 | onShow                                      | Function          |             |                                                                                                                                  |
 | onHide                                      | Function          |             |                                                                                                                                  |
 | onPress                                     | Function          |             |                                                                                                                                  |
-                               |
 
 ## BaseToast
 
