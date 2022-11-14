@@ -3239,6 +3239,9 @@ export default () => {
       progressBar: {
         color: resolveVariable('toastErrorProgressBarColor'),
       },
+      icon: {
+        color: '#D0021B',
+      },
     },
     'shoutem.ui.SuccessToast': {
       container: {
@@ -3253,6 +3256,9 @@ export default () => {
       },
       progressBar: {
         color: resolveVariable('toastSuccessProgressBarColor'),
+      },
+      icon: {
+        color: '#88C242',
       },
     },
   };

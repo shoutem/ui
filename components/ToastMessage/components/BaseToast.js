@@ -115,7 +115,7 @@ BaseToast.defaultProps = {
   onCancel: undefined,
   onConfirm: undefined,
   durationIndicator: true,
-  iconName: 'info',
+  iconName: 'about',
   iconSource: undefined,
   visibilityTime: 4000,
 };
