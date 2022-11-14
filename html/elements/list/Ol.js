@@ -5,7 +5,7 @@ import { combineMappers, ElementPropTypes, mapElementProps } from '../../Html';
 import pickLiChildElements from './helpers/pickLiChildElements';
 import renderItems from './helpers/renderItems';
 
-function createNumberElement(index) {
+function createNumberElement(_element, index) {
   return {
     tag: 'number',
     attributes: {
