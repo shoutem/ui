@@ -1,11 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Dimensions, Linking } from 'react-native';
 import Html from 'react-native-render-html';
-import { iframe } from 'react-native-render-html/src/HTMLRenderers';
-import {
-  cssObjectToString,
-  cssStringToObject,
-} from 'react-native-render-html/src/HTMLStyles';
 import {
   alterNode as tableAlterNode,
   cssRulesFromSpecs,
@@ -14,7 +9,7 @@ import {
   makeTableRenderer,
 } from 'react-native-render-html-table-bridge';
 import WebView from 'react-native-webview';
-import YoutubePlayer from 'react-native-youtube-iframe';
+import IframeRenderer, { iframeModel } from '@native-html/iframe-plugin';
 import autoBindReact from 'auto-bind/react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
@@ -22,6 +17,7 @@ import { connectStyle } from '@shoutem/theme';
 import { Text } from '../../components/Text';
 import { View } from '../../components/View';
 import getEmptyObjectKeys from '../services/getEmptyObjectKeys';
+import { cssObjectToString, cssStringToObject } from '../services/HtmlParser';
 import isValidVideoFormat from '../services/isValidVideoFormat';
 import Image from './Image';
 
@@ -207,46 +203,6 @@ class SimpleHtml extends PureComponent {
     return null;
   }
 
-  renderIframe(htmlAttribs, children, convertedCSSStyles, passProps) {
-    const { style } = this.props;
-
-    const url = htmlAttribs?.src;
-
-    if (url && !isValidVideoFormat(url)) {
-      const { unsupportedVideoFormatMessage } = this.props;
-
-      const message =
-        unsupportedVideoFormatMessage || 'Unsupported video format.';
-
-      return (
-        <View
-          style={style.fallback}
-          styleName="vertical h-center v-center"
-          key={passProps.key}
-        >
-          <Text>{message}</Text>
-        </View>
-      );
-    }
-
-    if (url && (url.includes('youtube') || url.includes('youtu.be'))) {
-      const youtubeIdRegEx = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
-      const regExMatch = url.match(youtubeIdRegEx);
-      const youtubeId =
-        regExMatch && regExMatch[7].length === 11 ? regExMatch[7] : false;
-
-      return (
-        <YoutubePlayer
-          height={style.video.height}
-          key={passProps.key}
-          videoId={youtubeId}
-        />
-      );
-    }
-
-    return iframe(htmlAttribs, children, convertedCSSStyles, passProps);
-  }
-
   render() {
     const { style, body, customTagStyles, ...otherProps } = this.props;
 
@@ -271,12 +227,17 @@ class SimpleHtml extends PureComponent {
     const cssRules = `${cssStyle}${tableCssStyle}`;
 
     const customRenderers = {
-      iframe: this.renderIframe,
+      iframe: IframeRenderer,
       table: makeTableRenderer({ WebViewComponent: WebView, cssRules }),
       attachment: this.renderAttachments,
     };
 
+    const customHTMLElementModels = {
+      iframe: iframeModel,
+    };
+
     const htmlProps = {
+      customHTMLElementModels,
       html: body,
       imagesMaxWidth: maxWidth,
       staticContentMaxWidth: maxWidth,

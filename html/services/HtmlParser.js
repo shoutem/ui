@@ -1,5 +1,25 @@
 import htmlparser2 from 'htmlparser2';
 
+export function cssStringToObject(str) {
+  return str
+    .split(';')
+    .map(prop => prop.split(':'))
+    .reduce((acc, prop) => {
+      if (prop.length === 2) {
+        acc[prop[0].trim()] = prop[1].trim();
+      }
+      return acc;
+    }, {});
+}
+
+export function cssObjectToString(obj) {
+  let string = '';
+  Object.keys(obj).forEach(style => {
+    string += `${style}:${obj[style]};`;
+  });
+  return string;
+}
+
 /**
  * Decode HTML "entities" (special characters)
  * to the human readable format.
