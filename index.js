@@ -65,6 +65,7 @@ export { TabMenu } from './components/TabMenu';
 export { Caption, Heading, Subtitle, Text, Title } from './components/Text';
 export { TextInput } from './components/TextInput';
 export { Tile } from './components/Tile';
+export { Toast } from './components/ToastMessage';
 export { Touchable } from './components/Touchable';
 export { TouchableNativeFeedback } from './components/TouchableNativeFeedback';
 export { TouchableOpacity } from './components/TouchableOpacity';
