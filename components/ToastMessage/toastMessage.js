@@ -20,6 +20,7 @@ const config = {
   'shoutem-info': props => <InfoToast {...props} />,
   'shoutem-action': props => <ActionToast {...props} />,
 };
+const toastQueue = [];
 
 function normalizeProps(type, props) {
   const nativeProps = _.pick(props, NATIVE_PROPS_MAP);
@@ -27,20 +28,83 @@ function normalizeProps(type, props) {
   return {
     type,
     ...nativeProps,
+    onHide: () => {
+      if (nativeProps.onHide) {
+        nativeProps.onHide();
+      }
+
+      handleQueuedToastFinish(props.id);
+    },
     props,
   };
 }
 
+// Underlying library doesn't support stacking multiple
+// toasts, so we queue them instead
+const queueToast = (toast, id) => {
+  if (_.isEmpty(toastQueue)) {
+    toast();
+  }
+
+  toastQueue.push({
+    id,
+    toast,
+  });
+};
+
+const handleQueuedToastFinish = toastId => {
+  _.remove(toastQueue, toastConfig => toastConfig.id === toastId);
+
+  if (!_.isEmpty(toastQueue)) {
+    // Start the next toast with a bit of a delay to allow
+    // the hide transition to finish
+    _.delay(() => _.head(toastQueue).toast(), 300);
+  }
+};
+
 export const Provider = () => <Toast config={config} />;
 
-const showAction = props => Toast.show(normalizeProps('shoutem-action', props));
+const showAction = props => {
+  const id = _.uniqueId();
 
-const showInfo = props => Toast.show(normalizeProps('shoutem-info', props));
+  queueToast(
+    () => Toast.show(normalizeProps('shoutem-action', { ...props, id })),
+    id,
+  );
+};
 
-const showSuccess = props =>
-  Toast.show(normalizeProps('shoutem-success', props));
+const showInfo = props => {
+  const id = _.uniqueId();
 
-const showError = props => Toast.show(normalizeProps('shoutem-error', props));
+  queueToast(
+    () => Toast.show(normalizeProps('shoutem-info', { ...props, id })),
+    id,
+  );
+};
+
+const showSuccess = props => {
+  const id = _.uniqueId();
+
+  queueToast(
+    () => Toast.show(normalizeProps('shoutem-success', { ...props, id })),
+    id,
+  );
+};
+
+const showError = props => {
+  const id = _.uniqueId();
+
+  queueToast(
+    () => Toast.show(normalizeProps('shoutem-error', { ...props, id })),
+    id,
+  );
+};
+
+const showDefault = props => {
+  const id = _.uniqueId();
+
+  queueToast(() => Toast.show({ ...props, id }), id);
+};
 
 export default {
   Provider,
@@ -48,7 +112,7 @@ export default {
   showError,
   showSuccess,
   showInfo,
-  show: Toast.show,
+  show: showDefault,
   hide: Toast.hide,
   defaultConfig: config,
 };
