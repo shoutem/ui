@@ -253,6 +253,28 @@ export const defaultThemeVariables = {
   sectionHeaderBackgroundColor: '#F2F2F2',
   indicatorColor: '#222222',
 
+  // Toast Container
+  toastBackgroundColor: '#FFFFFF',
+  toastSuccessBackgroundColor: '#333D27',
+  toastErrorBackgroundColor: '#3D272A',
+  // Toast Text
+  toastTitleColor: '#888FA1',
+  toastSuccessTitleColor: '#B4BDAA',
+  toastErrorTitleColor: '#B4BDAA',
+  toastMessageColor: '#444F6C',
+  toastSuccessMessageColor: '#FFFFFF',
+  toastErrorMessageColor: '#FFFFFF',
+  // Toast Action buttons
+  toastConfirmButtonBackgroundColor: '#444F6C',
+  toastConfirmButtonTextColor: '#FFFFFF',
+  toastCancelButtonTextColor: '#444F6C',
+  toastCancelButtonBackgroundColor: '#F3F4F6',
+  // Toast Progress Bar
+  toastProgressBarBackgroundColor: 'rgba(136, 143, 161, 0.1)',
+  toastProgressBarColor: '#00AADF',
+  toastSuccessProgressBarColor: '#88C242',
+  toastErrorProgressBarColor: '#D0021B',
+
   smallGutter: 5,
   mediumGutter: 15,
   largeGutter: 30,
@@ -3076,6 +3098,168 @@ export default () => {
 
     'shoutem.ui.ScrollView': {
       contentContainerStyle: {},
+    },
+
+    // Toast messages
+
+    'shoutem.ui.ToastProgressBar': {
+      container: {
+        marginTop: responsiveWidth(10),
+        flexDirection: 'row',
+        height: responsiveHeight(2),
+        backgroundColor: 'rgba(136, 143, 161, 0.1)',
+      },
+      progressBar: {
+        flexDirection: 'row',
+        width: '100%',
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        bottom: 0,
+        borderBottomLeftRadius: 8,
+        borderBottomRightRadius: 8,
+      },
+    },
+
+    'shoutem.ui.BaseToast': {
+      container: {
+        width: resolveVariable('sizes.window.width') - responsiveWidth(20),
+        borderRadius: 8,
+        paddingTop: responsiveWidth(12),
+        backgroundColor: resolveVariable('toastBackgroundColor'),
+        shadowColor: '#000000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.23,
+        shadowRadius: 2.62,
+        elevation: 4,
+        overflow: 'hidden',
+        borderWidth: 1,
+        borderColor: '#BDC0CB26',
+      },
+      detailsContainer: {
+        paddingHorizontal: responsiveWidth(12),
+        flexDirection: 'row',
+        flex: 1,
+        alignItems: 'center',
+      },
+      image: {
+        width: responsiveHeight(48),
+        height: responsiveHeight(48),
+        marginRight: responsiveWidth(8),
+        borderRadius: 4,
+      },
+      icon: {
+        width: responsiveWidth(32),
+        height: responsiveWidth(32),
+        marginRight: responsiveWidth(8),
+        color: resolveVariable('toastMessageColor'),
+      },
+      textContainer: {
+        height: responsiveHeight(48),
+        justifyContent: 'space-between',
+      },
+      title: {
+        color: resolveVariable('toastTitleColor'),
+        fontSize: 12,
+        fontFamily: resolveFontFamily(
+          resolveVariable('text.fontFamily'),
+          '400',
+        ),
+        fontWeight: resolveFontWeight('400'),
+        lineHeight: 14,
+      },
+      message: {
+        color: resolveVariable('toastMessageColor'),
+        fontSize: 14,
+        fontFamily: resolveFontFamily(
+          resolveVariable('text.fontFamily'),
+          '400',
+        ),
+        fontWeight: resolveFontWeight('400'),
+        lineHeight: 16,
+      },
+      buttonContainer: {
+        paddingHorizontal: responsiveWidth(12),
+        flexDirection: 'row',
+        flex: 1,
+        justifyContent: 'space-between',
+        marginTop: responsiveHeight(12),
+      },
+      button: {
+        borderRadius: 6,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: responsiveHeight(32),
+        width: '49%',
+        padding: responsiveWidth(8),
+      },
+      fullWidthButton: {
+        width: '100%',
+      },
+      buttonText: {
+        fontSize: 12,
+        fontFamily: resolveFontFamily(
+          resolveVariable('text.fontFamily'),
+          '500',
+        ),
+        fontWeight: resolveFontWeight('500'),
+        lineHeight: 16,
+      },
+      cancelButton: {
+        backgroundColor: resolveVariable('toastCancelButtonBackgroundColor'),
+      },
+      confirmButton: {
+        backgroundColor: resolveVariable('toastConfirmButtonBackgroundColor'),
+      },
+      cancelButtonText: {
+        color: resolveVariable('toastCancelButtonTextColor'),
+      },
+      confirmButtonText: {
+        color: resolveVariable('toastConfirmButtonTextColor'),
+      },
+      progressBar: {
+        color: resolveVariable('toastProgressBarColor'),
+      },
+    },
+    'shoutem.ui.ErrorToast': {
+      container: {
+        backgroundColor: resolveVariable('toastErrorBackgroundColor'),
+        borderWidth: 1,
+      },
+      title: {
+        color: resolveVariable('toastErrorTitleColor'),
+      },
+      message: {
+        color: resolveVariable('toastErrorMessageColor'),
+      },
+      progressBar: {
+        color: resolveVariable('toastErrorProgressBarColor'),
+      },
+      icon: {
+        color: '#D0021B',
+      },
+    },
+    'shoutem.ui.SuccessToast': {
+      container: {
+        backgroundColor: resolveVariable('toastSuccessBackgroundColor'),
+        borderWidth: 1,
+      },
+      title: {
+        color: resolveVariable('toastSuccessTitleColor'),
+      },
+      message: {
+        color: resolveVariable('toastSuccessMessageColor'),
+      },
+      progressBar: {
+        color: resolveVariable('toastSuccessProgressBarColor'),
+      },
+      icon: {
+        color: '#88C242',
+      },
     },
   };
 };

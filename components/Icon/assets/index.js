@@ -17,6 +17,8 @@ import checkboxOff from './checkbox-off.svg';
 import checkboxOn from './checkbox-on.svg';
 import checkboxRectangleOff from './checkbox-rectangle-off.svg';
 import checkboxRectangleOn from './checkbox-rectangle-on.svg';
+import checkmarkOval from './checkmark-oval.svg';
+import checkmarkRound from './checkmark-round.svg';
 import clearText from './clear-text.svg';
 import clock from './clock.svg';
 import close from './close.svg';
@@ -32,6 +34,7 @@ import edit from './edit.svg';
 import email from './email.svg';
 import equalizer from './equalizer.svg';
 import error from './error.svg';
+import errorrRectangle from './error-rectangle.svg';
 import events from './events.svg';
 import exitToApp from './exit-to-app.svg';
 import eye from './eye.svg';
@@ -137,6 +140,8 @@ export const defaultConfig = [
   { name: 'checkbox-on', icon: checkboxOn },
   { name: 'checkbox-rectangle-off', icon: checkboxRectangleOff },
   { name: 'checkbox-rectangle-on', icon: checkboxRectangleOn },
+  { name: 'checkmark-oval', icon: checkmarkOval },
+  { name: 'checkmark-round', icon: checkmarkRound },
   { name: 'clear-text', icon: clearText },
   { name: 'clock', icon: clock },
   { name: 'close', icon: close },
@@ -152,6 +157,7 @@ export const defaultConfig = [
   { name: 'email', icon: email },
   { name: 'equalizer', icon: equalizer },
   { name: 'error', icon: error },
+  { name: 'error-rectangle', icon: errorrRectangle },
   { name: 'events', icon: events },
   { name: 'exit-to-app', icon: exitToApp },
   { name: 'eye', icon: eye },
