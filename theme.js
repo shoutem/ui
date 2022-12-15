@@ -3158,6 +3158,7 @@ export default () => {
         color: resolveVariable('toastMessageColor'),
       },
       textContainer: {
+        flex: 1,
         height: responsiveHeight(48),
         justifyContent: 'space-between',
       },
@@ -3180,6 +3181,8 @@ export default () => {
         ),
         fontWeight: resolveFontWeight('400'),
         lineHeight: 16,
+        flex: 1,
+        flexWrap: 'wrap',
       },
       buttonContainer: {
         paddingHorizontal: responsiveWidth(12),
