@@ -3182,7 +3182,7 @@ export default () => {
         fontWeight: resolveFontWeight('400'),
         lineHeight: 16,
         flex: 1,
-        flexWrap: "wrap",
+        flexWrap: 'wrap',
       },
       buttonContainer: {
         paddingHorizontal: responsiveWidth(12),
