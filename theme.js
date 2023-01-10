@@ -68,7 +68,7 @@ export function responsiveHeight(dimension, actualRefVal = window.height) {
 // 'fontWeight' and 'fontStyle' aren't always supplied for every component, so we're setting default
 // values of 'normal'.
 export function resolveFontFamily(
-  fontName,
+  fontName = 'Rubik-Regular',
   fontWeight = 'normal',
   fontStyle = 'normal',
 ) {
