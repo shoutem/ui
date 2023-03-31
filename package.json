@@ -88,7 +88,11 @@
     "url": "git+ssh://git@github.com:shoutem/ui.git"
   },
   "license": "BSD-3-Clause",
-  "maintainers": [
+  "contributors": [
+    {
+      "email": "majaklajic@gmail.com",
+      "name": "majaklajic"
+    },
     {
       "email": "lucija.tatarevic@shoutem.com",
       "name": "ltatarev"
