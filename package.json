@@ -26,7 +26,7 @@
     "htmlparser2": "3.10.1",
     "lodash": "4.17.21",
     "lottie-ios": "3.4.0",
-    "lottie-react-native": "5.1.4",
+    "lottie-react-native": "6.1.2",
     "prop-types": "15.8.1",
     "qs": "6.9.3",
     "react-native-device-info": "9.0.2",
