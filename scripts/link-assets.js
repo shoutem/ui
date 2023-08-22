@@ -1,5 +1,5 @@
 const { execSync } = require('child_process');
-const { path } = require('path');
+const path = require('path');
 
 const execPath = path.resolve(
   'node_modules',
