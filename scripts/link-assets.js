@@ -2,27 +2,37 @@ const { execSync } = require('child_process');
 const path = require('path');
 
 const execPath = path.resolve(
-  'node_modules',
+  __dirname,
+  '..',
+  '..',
+  '..',
   'react-native-asset',
   'lib',
   'cli.js',
 );
 
-// Path is the relative path seen as with root app directory being the CWD.
+const rootAppPath = path.resolve(
+  __dirname, // app/node_modules/@shoutem/ui/scripts
+  '..', // app/node_modules/@shoutem/ui
+  '..', // app/node_modules/@shoutem
+  '..', // app/node_modules
+  '..', // app
+);
+
 const assetPaths = [
-  '../fonts/rubicon-icon-font.ttf',
-  '../fonts/Rubik-Black.ttf',
-  '../fonts/Rubik-BlackItalic.ttf',
-  '../fonts/Rubik-Bold.ttf',
-  '../fonts/Rubik-BoldItalic.ttf',
-  '../fonts/Rubik-Italic.ttf',
-  '../fonts/Rubik-Light.ttf',
-  '../fonts/Rubik-LightItalic.ttf',
-  '../fonts/Rubik-Medium.ttf',
-  '../fonts/Rubik-MediumItalic.ttf',
-  '../fonts/Rubik-Regular.ttf',
+  path.resolve(__dirname, '../fonts/rubicon-icon-font.ttf'),
+  path.resolve(__dirname, '../fonts/Rubik-Black.ttf'),
+  path.resolve(__dirname, '../fonts/Rubik-BlackItalic.ttf'),
+  path.resolve(__dirname, '../fonts/Rubik-Bold.ttf'),
+  path.resolve(__dirname, '../fonts/Rubik-BoldItalic.ttf'),
+  path.resolve(__dirname, '../fonts/Rubik-Italic.ttf'),
+  path.resolve(__dirname, '../fonts/Rubik-Light.ttf'),
+  path.resolve(__dirname, '../fonts/Rubik-LightItalic.ttf'),
+  path.resolve(__dirname, '../fonts/Rubik-Medium.ttf'),
+  path.resolve(__dirname, '../fonts/Rubik-MediumItalic.ttf'),
+  path.resolve(__dirname, '../fonts/Rubik-Regular.ttf'),
 ];
 
-const execArgs = [execPath, '-a', assetPaths, '-n-u'];
+const execArgs = ['node', execPath, '-a', ...assetPaths, '-p', rootAppPath];
 
-execSync('node', execArgs, { cwd: __dirname });
+execSync(execArgs.join(' '), { cwd: __dirname });
