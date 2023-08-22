@@ -5,7 +5,7 @@
   "scripts": {
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
-    "postinstall": "node ./scripts/add-native-deps && node ./scripts/link-assets",
+    "postinstall": "node ./scripts/add-native-deps",
     "release": "npm publish --access public --tag latest",
     "release-rc": "npm publish --access public --tag rc",
     "test": "jest"

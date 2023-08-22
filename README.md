@@ -12,6 +12,14 @@ $ npm install --save @shoutem/ui
 
 We have a `postinstall` script which will add `@shoutem/ui`'s native dependencies to your root `package.json` in order to support autolinking and pod installation.
 
+Optional: Link the font files to your iOS and Android projects using `react-native-asset`:
+
+```
+$ npx react-native-asset node_modules/@shoutem/ui/fonts
+```
+
+Not doing this will result in dismissable red screen errors about unknown font names, as well as the default system fonts being used on iOS and Android when a Shoutem UI font is meant to be used, so we suggest running this step.
+
 ## Docs
 
 All the documentation is available on the [Developer portal](http://shoutem.github.io/docs/ui-toolkit/introduction).
