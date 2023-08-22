@@ -10,17 +10,17 @@ const execPath = path.resolve(
 
 // Path is the relative path seen as with root app directory being the CWD.
 const assetPaths = [
-  './node_modules/@shoutem/ui/fonts/rubicon-icon-font.ttf',
-  './node_modules/@shoutem/ui/fonts/Rubik-Black.ttf',
-  './node_modules/@shoutem/ui/fonts/Rubik-BlackItalic.ttf',
-  './node_modules/@shoutem/ui/fonts/Rubik-Bold.ttf',
-  './node_modules/@shoutem/ui/fonts/Rubik-BoldItalic.ttf',
-  './node_modules/@shoutem/ui/fonts/Rubik-Italic.ttf',
-  './node_modules/@shoutem/ui/fonts/Rubik-Light.ttf',
-  './node_modules/@shoutem/ui/fonts/Rubik-LightItalic.ttf',
-  './node_modules/@shoutem/ui/fonts/Rubik-Medium.ttf',
-  './node_modules/@shoutem/ui/fonts/Rubik-MediumItalic.ttf',
-  './node_modules/@shoutem/ui/fonts/Rubik-Regular.ttf',
+  './fonts/rubicon-icon-font.ttf',
+  './fonts/Rubik-Black.ttf',
+  './fonts/Rubik-BlackItalic.ttf',
+  './fonts/Rubik-Bold.ttf',
+  './fonts/Rubik-BoldItalic.ttf',
+  './fonts/Rubik-Italic.ttf',
+  './fonts/Rubik-Light.ttf',
+  './fonts/Rubik-LightItalic.ttf',
+  './fonts/Rubik-Medium.ttf',
+  './fonts/Rubik-MediumItalic.ttf',
+  './fonts/Rubik-Regular.ttf',
 ];
 
 const execArgs = [execPath, '-a', assetPaths, '-n-u'];
