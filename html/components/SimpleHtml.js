@@ -237,6 +237,9 @@ class SimpleHtml extends PureComponent {
 
       return (
         <YoutubePlayer
+          webViewProps={{
+            renderToHardwareTextureAndroid: true,
+          }}
           height={style.video.height}
           key={passProps.key}
           videoId={youtubeId}
