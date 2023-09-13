@@ -6,14 +6,9 @@ import { Text } from '../../components/Text';
 import { View } from '../../components/View';
 import isValidVideoFormat from '../services/isValidVideoFormat';
 
-const IframeRenderer = ({
-  tnode: { attributes, children },
-  shoutemStyle,
-  style,
-  unsupportedVideoFormatMessage,
-  passProps,
-}) => {
-  const url = attributes?.src;
+const IframeRenderer = props => {
+  const { tnode, shoutemStyle, unsupportedVideoFormatMessage } = props;
+  const url = tnode?.domNode?.attribs?.src;
 
   if (url && !isValidVideoFormat(url)) {
     const message =
@@ -46,23 +41,18 @@ const IframeRenderer = ({
     );
   }
 
-  return iframe(attributes, children, style, passProps);
+  return iframe(props);
 };
 
 IframeRenderer.propTypes = {
   tnode: PropTypes.shape({
-    attributes: PropTypes.any,
     children: PropTypes.any,
   }).isRequired,
-  passProps: PropTypes.any,
-  shoutemStyle: PropTypes.oneOf([PropTypes.array, PropTypes.object]),
-  style: PropTypes.any,
+  shoutemStyle: PropTypes.any,
   unsupportedVideoFormatMessage: PropTypes.string,
 };
 
 IframeRenderer.defaultProps = {
-  passProps: undefined,
-  style: undefined,
   shoutemStyle: undefined,
   unsupportedVideoFormatMessage: undefined,
 };
