@@ -1,6 +1,6 @@
 {
   "name": "@shoutem/ui",
-  "version": "6.3.0",
+  "version": "6.3.1-rc.0",
   "description": "Styleable set of components for React Native applications",
   "scripts": {
     "lint": "eslint .",
@@ -11,17 +11,17 @@
     "test": "jest"
   },
   "dependencies": {
+    "@native-html/iframe-plugin": "2.6.1",
+    "@native-html/table-plugin": "5.3.1",
     "@openspacelabs/react-native-zoomable-view": "2.0.4",
     "@react-native-community/datetimepicker": "6.2.0",
     "@shoutem/animation": "~0.15.0",
     "@shoutem/eslint-config-react": "~1.0.6",
     "@shoutem/theme": "~0.13.0",
-    "@native-html/iframe-plugin": "2.6.1",
-    "@native-html/table-plugin": "5.3.1",
     "auto-bind": "4.0.0",
     "babel-plugin-transform-decorators-legacy": "1.3.5",
     "buffer": "5.6.0",
-    "deprecated-react-native-prop-types": "2.3.0",
+    "deprecated-react-native-prop-types": "4.1.0",
     "events": "1.1.0",
     "fs-extra": "7.0.1",
     "html-entities": "1.3.1",
@@ -30,7 +30,7 @@
     "lottie-ios": "4.2.0",
     "lottie-react-native": "6.1.2",
     "prop-types": "15.8.1",
-    "qs": "6.9.3",
+    "qs": "^6.11.2",
     "react-native-device-info": "9.0.2",
     "react-native-lightbox-v2": "0.9.0",
     "react-native-linear-gradient": "2.6.2",
@@ -50,8 +50,8 @@
   },
   "devDependencies": {
     "@babel/core": "7.16.7",
-    "@babel/register": "7.9.0",
     "@babel/plugin-proposal-decorators": "7.16.7",
+    "@babel/register": "7.9.0",
     "@shoutem/eslint-config-react-native": "~1.0.2",
     "babel-eslint": "10.1.0",
     "eslint": "6.8.0",
