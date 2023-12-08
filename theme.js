@@ -2060,56 +2060,11 @@ export default () => {
     },
 
     'shoutem.ui.Switch': {
-      container: {
-        borderRadius: 15,
-        height: 18,
-        marginVertical: 7,
-        paddingHorizontal: 2,
-        paddingVertical: 2,
-        width: 32,
-
-        muteAnimation(driver) {
-          return {
-            backgroundColor: driver.interpolate({
-              inputRange: [0, 1],
-              outputRange: [
-                inverseColorBrightnessForAmount(
-                  resolveVariable('paperColor'),
-                  15,
-                ),
-                changeColorAlpha(
-                  resolveVariable('secondaryButtonBackgroundColor'),
-                  1,
-                ),
-              ],
-            }),
-          };
-        },
+      track: {
+        false: resolveVariable('backgroundColor'),
+        true: resolveVariable('secondaryButtonBackgroundColor'),
       },
-
-      thumb: {
-        backgroundColor: resolveVariable('paperColor'),
-        borderRadius: 7,
-        height: 14,
-        width: 14,
-
-        turnAnimation(driver, { layout, animationOptions }) {
-          const { x, width } = layout;
-          return {
-            transform: [
-              {
-                translateX: driver.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [
-                    0,
-                    animationOptions.containerWidth - width - 2 * x,
-                  ],
-                }),
-              },
-            ],
-          };
-        },
-      },
+      thumb: resolveVariable('paperColor'),
     },
 
     'shoutem.ui.DropDownMenu': {
