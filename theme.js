@@ -2062,7 +2062,7 @@ export default () => {
     'shoutem.ui.Switch': {
       track: {
         false: resolveVariable('backgroundColor'),
-        true: resolveVariable('secondaryButtonBackgroundColor'),
+        true: resolveVariable('featuredColor'),
       },
       thumb: resolveVariable('paperColor'),
     },
