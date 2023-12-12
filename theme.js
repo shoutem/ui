@@ -7,8 +7,8 @@ import {
   INCLUDE,
   inverseColorBrightnessForAmount,
 } from '@shoutem/theme';
+import { getHomeIndicatorPadding } from './helpers/device-selector';
 import {
-  IPHONE_X_HOME_INDICATOR_PADDING,
   IPHONE_X_NOTCH_PADDING,
   IPHONE_XR_NOTCH_PADDING,
   NAVIGATION_BAR_HEIGHT,
@@ -956,20 +956,12 @@ export default () => {
       },
 
       '.with-notch-padding': {
-        paddingBottom: Device.select({
-          iPhoneX: IPHONE_X_HOME_INDICATOR_PADDING,
-          iPhoneXR: IPHONE_X_HOME_INDICATOR_PADDING,
-          default: 0,
-        }),
+        paddingBottom: getHomeIndicatorPadding(),
       },
 
       'shoutem.ui.ListView': {
         listContent: {
-          paddingBottom: Device.select({
-            iPhoneX: IPHONE_X_HOME_INDICATOR_PADDING,
-            iPhoneXR: IPHONE_X_HOME_INDICATOR_PADDING,
-            default: 0,
-          }),
+          paddingBottom: getHomeIndicatorPadding(),
         },
       },
 
