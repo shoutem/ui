@@ -955,7 +955,13 @@ export default () => {
         backgroundColor: resolveVariable('paperColor'),
       },
 
+      // This was created with home indicator padding in mind. Use with-home-indicator-padding
+      // if you need bottom padding. For actual notch - top of the screen padding, use SafeAreaView component instead.
       '.with-notch-padding': {
+        paddingBottom: getHomeIndicatorPadding(),
+      },
+
+      '.with-home-indicator-padding': {
         paddingBottom: getHomeIndicatorPadding(),
       },
 
