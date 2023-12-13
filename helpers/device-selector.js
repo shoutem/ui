@@ -109,10 +109,7 @@ export const getHomeIndicatorPadding = () => {
   // Home indicator is present since iPhone X series.
   // Separate iphoneX check is here because older iPhone X is the only series that has ID version lower than 10,6.
   // iPhone SE 2nd and 3rd gen also have higher ID version than 10,6.
-  if (
-    (isIphoneX || (numericMajorVersion >= 10 && numericMinorVersion >= 6)) &&
-    !isNewerGenIphoneSE
-  ) {
+  if ((numericMajorVersion >= 11 || isIphoneX) && !isNewerGenIphoneSE) {
     // Devices with home indicator
     return 34;
   }
