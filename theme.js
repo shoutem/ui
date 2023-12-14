@@ -856,6 +856,10 @@ export default () => {
     'shoutem.ui.View': {
       [INCLUDE]: ['commonVariants', 'guttersPadding'],
 
+      '.with-home-indicator-padding': {
+        paddingBottom: getHomeIndicatorPadding(),
+      },
+
       '.horizontal': {
         [INCLUDE]: ['horizontalFlexAlignment'],
         flexDirection: 'row',
