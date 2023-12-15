@@ -92,7 +92,7 @@ export const getHomeIndicatorPadding = () => {
   const majorVersion = versions[1];
   const minorVersion = versions[2];
 
-  const decimalNumber = parseFloat(`${majorVersion}.${minorVersion}`);
+  const numericVersion = parseFloat(`${majorVersion}.${minorVersion}`);
 
   const excludedIphones = {
     iPhone8: 10.4,
@@ -105,8 +105,8 @@ export const getHomeIndicatorPadding = () => {
   // There are few newer models that do not have home indicator.
   // They're included in excludedIphones object above.
   if (
-    decimalNumber >= 10.3 &&
-    !Object.values(excludedIphones).includes(decimalNumber)
+    numericVersion >= 10.3 &&
+    !Object.values(excludedIphones).includes(numericVersion)
   ) {
     // Devices with home indicator
     return 34;
