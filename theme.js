@@ -7,8 +7,8 @@ import {
   INCLUDE,
   inverseColorBrightnessForAmount,
 } from '@shoutem/theme';
+import { getHomeIndicatorPadding } from './helpers/device-selector';
 import {
-  IPHONE_X_HOME_INDICATOR_PADDING,
   IPHONE_X_NOTCH_PADDING,
   IPHONE_XR_NOTCH_PADDING,
   NAVIGATION_BAR_HEIGHT,
@@ -856,6 +856,10 @@ export default () => {
     'shoutem.ui.View': {
       [INCLUDE]: ['commonVariants', 'guttersPadding'],
 
+      '.with-home-indicator-padding': {
+        paddingBottom: getHomeIndicatorPadding(),
+      },
+
       '.horizontal': {
         [INCLUDE]: ['horizontalFlexAlignment'],
         flexDirection: 'row',
@@ -955,21 +959,19 @@ export default () => {
         backgroundColor: resolveVariable('paperColor'),
       },
 
+      // This was created with home indicator padding in mind. Use with-home-indicator-padding
+      // if you need bottom padding. For actual notch - top of the screen padding, use SafeAreaView component instead.
       '.with-notch-padding': {
-        paddingBottom: Device.select({
-          iPhoneX: IPHONE_X_HOME_INDICATOR_PADDING,
-          iPhoneXR: IPHONE_X_HOME_INDICATOR_PADDING,
-          default: 0,
-        }),
+        paddingBottom: getHomeIndicatorPadding(),
+      },
+
+      '.with-home-indicator-padding': {
+        paddingBottom: getHomeIndicatorPadding(),
       },
 
       'shoutem.ui.ListView': {
         listContent: {
-          paddingBottom: Device.select({
-            iPhoneX: IPHONE_X_HOME_INDICATOR_PADDING,
-            iPhoneXR: IPHONE_X_HOME_INDICATOR_PADDING,
-            default: 0,
-          }),
+          paddingBottom: getHomeIndicatorPadding(),
         },
       },
 
