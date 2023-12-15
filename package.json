@@ -41,6 +41,7 @@
     "react-native-toast-message": "2.1.5",
     "react-native-webview": "11.23.0",
     "react-native-youtube-iframe": "2.2.2",
+    "react-native-vimeo-iframe": "1.2.1",
     "stream": "0.0.2",
     "tinycolor2": "1.4.1"
   },

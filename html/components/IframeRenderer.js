@@ -41,6 +41,14 @@ const IframeRenderer = props => {
     );
   }
 
+  if (url && url.includes('vimeo')) {
+    const vimeoIdRegEx = /(?:www\.|player\.)?vimeo.com\/(?:channels\/(?:\w+\/)?|groups\/(?:[^\/]*)\/videos\/|album\/(?:\d+)\/video\/|video\/|)(\d+)(?:[a-zA-Z0-9_\-]+)?/i;
+    const regExMatches = url.match(vimeoIdRegEx);
+    const videoId = regExMatches[1];
+
+    <Vimeo videoId={videoId} />;
+  }
+
   return iframe(props);
 };
 
