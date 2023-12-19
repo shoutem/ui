@@ -104,7 +104,7 @@ class SimpleHtml extends PureComponent {
       },
       WebView,
       ignoredTags: IGNORED_TAGS,
-      domVisitors,
+      domVisitors: { onElement },
     };
 
     return (
