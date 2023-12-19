@@ -34,12 +34,6 @@ class SimpleHtml extends PureComponent {
       : Linking.openURL(href);
   }
 
-  /**
-   * Our Rich Text Editor wraps <iframe> elements with <figure> element when video is added.
-   * Figure element is causing enormous white space below the video, so we need to remove
-   * the style causing it.
-   */
-
   render() {
     const {
       style,
