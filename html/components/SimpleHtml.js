@@ -15,6 +15,7 @@ import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
 import { View } from '../../components/View';
 import { resolveMaxWidth } from '../services/Dimensions';
+import { onElement } from '../services/DomVisitors';
 import AttachmentRenderer from './AttachmentRenderer';
 import IframeRenderer from './IframeRenderer';
 
@@ -40,6 +41,7 @@ class SimpleHtml extends PureComponent {
       customTagStyles,
       unsupportedVideoFormatMessage,
       attachments,
+      domVisitors,
       ...otherProps
     } = this.props;
 
@@ -102,6 +104,7 @@ class SimpleHtml extends PureComponent {
       },
       WebView,
       ignoredTags: IGNORED_TAGS,
+      domVisitors,
     };
 
     return (
@@ -119,6 +122,7 @@ SimpleHtml.propTypes = {
   customAlterNode: PropTypes.func,
   customHandleLinkPress: PropTypes.func,
   customTagStyles: PropTypes.object,
+  domVisitors: PropTypes.object,
   unsupportedVideoFormatMessage: PropTypes.string,
 };
 
@@ -129,6 +133,7 @@ SimpleHtml.defaultProps = {
   customHandleLinkPress: undefined,
   customTagStyles: undefined,
   unsupportedVideoFormatMessage: undefined,
+  domVisitors: { onElement },
 };
 
 export default connectStyle('shoutem.ui.SimpleHtml')(SimpleHtml);
