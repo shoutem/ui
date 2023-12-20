@@ -2329,7 +2329,7 @@ export default () => {
       },
       // Just enough to display portrait mode Vimeo videos and all Vimeo player controls
       vimeoVideo: {
-        height: responsiveWidth(220),
+        height: responsiveHeight(220),
       },
       fallback: {
         width: window.width,
