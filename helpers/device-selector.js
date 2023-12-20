@@ -1,5 +1,5 @@
 import { Dimensions, Platform, StatusBar } from 'react-native';
-import { hasNotch } from 'react-native-device-info';
+import DeviceInfo from 'react-native-device-info';
 import _ from 'lodash';
 
 const { OS, isPad, isTVOS } = Platform;
@@ -37,7 +37,7 @@ const isIphoneXR =
   !isTVOS &&
   (xrDimensionsMatch || twelveDimensionsMatch || twelveMaxDimensionsMatch);
 
-const isNotchedAndroid = OS === 'android' && hasNotch();
+const isNotchedAndroid = OS === 'android' && DeviceInfo.hasNotch();
 
 /**
  * Receives settings for different devices
@@ -70,6 +70,51 @@ export const NAVIGATION_BAR_HEIGHT = select({
   notchedAndroid: NAVIGATION_HEADER_HEIGHT + StatusBar.currentHeight,
   default: NAVIGATION_HEADER_HEIGHT,
 });
+
+export const getHomeIndicatorPadding = () => {
+  if (Platform.OS === 'android') {
+    return 0;
+  }
+
+  // Apple identifier
+  const deviceId = DeviceInfo.getDeviceId();
+
+  // Extract the numbers from the deviceId string using a regular expression
+  const versions = deviceId.match(/(\d+),(\d+)/);
+
+  // Only checks if regex found X,Y, it does not resolve any of device ID-padding logic.
+  // If version is present, e.g. in iPhone 9,1, it'll always return array of length 3.
+  if (!versions && versions.length < 3) {
+    return 0;
+  }
+
+  // Extracted numbers as strings
+  const majorVersion = versions[1];
+  const minorVersion = versions[2];
+
+  const numericVersion = parseFloat(`${majorVersion}.${minorVersion}`);
+
+  const excludedIphones = {
+    iPhone8: 10.4,
+    iPhone8plus: 10.5,
+    iPhoneSeGen2: 12.8,
+    iPhoneSeGen3: 14.6,
+  };
+
+  // Home indicator is present since iPhone X series with id of iPhone10,3.
+  // There are few newer models that do not have home indicator.
+  // They're included in excludedIphones object above.
+  if (
+    numericVersion >= 10.3 &&
+    !Object.values(excludedIphones).includes(numericVersion)
+  ) {
+    // Devices with home indicator
+    return 34;
+  }
+
+  // Devices without home indicator
+  return 0;
+};
 
 export const Device = {
   isIphoneX,
