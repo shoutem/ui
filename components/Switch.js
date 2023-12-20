@@ -1,87 +1,32 @@
-import React, { PureComponent } from 'react';
-import { TouchableWithoutFeedback } from 'react-native';
-import autoBindReact from 'auto-bind/react';
+import React from 'react';
+import { Switch as RNSwitch } from 'react-native';
 import PropTypes from 'prop-types';
-import { connectAnimation, TimingDriver } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
 import { View } from './View';
 
-class Switch extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    autoBindReact(this);
-
-    this.timingDriver = new TimingDriver();
-
-    this.setValue(props.value);
-  }
-
-  componentDidUpdate(prevProps) {
-    const { value: currentValue } = this.props;
-
-    if (prevProps.value !== currentValue) {
-      this.setValue(currentValue);
-    }
-  }
-
-  onSwitchPressed() {
-    const { value, onValueChange } = this.props;
-
-    onValueChange(!value);
-  }
-
-  setValue(value) {
-    this.timingDriver.toValue(value ? 1 : 0);
-  }
-
-  render() {
-    const { style } = this.props;
-
-    return (
-      <TouchableWithoutFeedback
-        onPress={this.onSwitchPressed}
-        styleName="clear"
-      >
-        <View>
-          <View
-            animationName="mute"
-            driver={this.timingDriver}
-            style={style.container}
-          >
-            <View
-              animationName="turn"
-              animationOptions={{ containerWidth: style.container.width }}
-              driver={this.timingDriver}
-              style={style.thumb}
-            />
-          </View>
-        </View>
-      </TouchableWithoutFeedback>
-    );
-  }
-}
+const Switch = ({ value, onValueChange, style }) => (
+  <View style={style.container}>
+    <RNSwitch
+      trackColor={style.track}
+      thumbColor={style.thumb}
+      ios_backgroundColor={style.track?.false}
+      onValueChange={onValueChange}
+      value={value}
+    />
+  </View>
+);
 
 Switch.propTypes = {
-  // Styles for the container and underlying thumb
-  style: PropTypes.shape({
-    // Container style
-    container: PropTypes.object,
-    // Thumb style
-    thumb: PropTypes.object,
-  }).isRequired,
-  // True when switch is on, false otherwise
+  onValueChange: PropTypes.func.isRequired,
+  style: PropTypes.object,
   value: PropTypes.bool,
-  // Called when switch is toggled on and off
-  onValueChange: PropTypes.func,
 };
 
 Switch.defaultProps = {
   value: false,
-  onValueChange: undefined,
+  style: {},
 };
 
-const AnimatedSwitch = connectAnimation(Switch);
-const StyledSwitch = connectStyle('shoutem.ui.Switch')(AnimatedSwitch);
+const StyledSwitch = connectStyle('shoutem.ui.Switch')(Switch);
 
 export { StyledSwitch as Switch };

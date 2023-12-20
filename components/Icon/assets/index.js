@@ -171,7 +171,6 @@ export const defaultConfig = [
   { name: 'forward', icon: forward },
   { name: 'gallery', icon: gallery },
   { name: 'friends', icon: friends },
-  { name: 'gallery', icon: gallery },
   { name: 'garbage-can', icon: garbageCan },
   { name: 'gift', icon: gift },
   { name: 'github', icon: github },
