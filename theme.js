@@ -2327,6 +2327,10 @@ export default () => {
         height: responsiveWidth(194),
         paddingBottom: resolveVariable('smallGutter'),
       },
+      // Just enough to display portrait mode Vimeo videos and all Vimeo player controls
+      vimeoVideo: {
+        height: responsiveHeight(220),
+      },
       fallback: {
         width: window.width,
         height: 40,
