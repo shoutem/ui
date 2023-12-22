@@ -1,16 +1,19 @@
 import _ from 'lodash';
 
-// Shoutem RTE component wraps any video attachment (hosted inside iframe) with <figure>
+// Shoutem RTE component wraps any video attachment (hosted inside iframe or video) with <figure>
 // element. That element contains style that breaks the SimpleHtml UI - enormous blank
 // space below attachment.
 // This function removes height and padding-bottom styles from figure to fix this UI issue.
 export const removeShoutemRteVideoAttachmentWrapper = element => {
   if (
-    element.name === 'figure' &&
+    (element.name === 'figure' || element.name === 'video') &&
     element.children.length > 0 &&
     // <figure> can have multiple generated children too - type:text. Probably caused by empty space between
     // figure and iframe elements in generated HTML.
-    _.some(element.children, ({ name }) => name === 'iframe')
+    _.some(
+      element.children,
+      ({ name }) => name === 'iframe' || name === 'video',
+    )
   ) {
     // Remove height and padding-bottom styles because they break the UI
     element.attribs.style = element.attribs.style
