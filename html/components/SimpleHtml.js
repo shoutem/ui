@@ -1,10 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Linking } from 'react-native';
-import Html, {
-  defaultSystemFonts,
-  HTMLContentModel,
-  HTMLElementModel,
-} from 'react-native-render-html';
+import Html, { defaultSystemFonts } from 'react-native-render-html';
 import WebView from 'react-native-webview';
 import { iframeModel } from '@native-html/iframe-plugin';
 import table, {
@@ -18,6 +14,7 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
 import VideoRenderer from '@shoutem/ui/html/components/VideoRenderer';
+import { videoModel } from '@shoutem/ui/html/services/HTMLElementModels';
 import { View } from '../../components/View';
 import { resolveMaxWidth } from '../services/Dimensions';
 import { onElement } from '../services/DomVisitors';
@@ -103,38 +100,15 @@ class SimpleHtml extends PureComponent {
             renderToHardwareTextureAndroid: true,
           },
         },
-        video: (htmlAttribs, _children, _convertedCSSStyles, passProps) => {
-          return (
-            <View
-              key={passProps.key}
-              style={{
-                width: '100%',
-                aspectRatio: 16.0 / 9.0,
-                marginTop: 16,
-                marginBottom: 16,
-              }}
-            >
-              <WebView
-                scrollEnabled={false}
-                source={{ uri: htmlAttribs.src }}
-                style={{ flex: 1, width: '100%', aspectRatio: 16.0 / 9.0 }}
-              />
-            </View>
-          );
-        },
       },
       customHTMLElementModels: {
         table: tableModel,
         iframe: iframeModel,
-        video: HTMLElementModel.fromCustomModel({
-          contentModel: HTMLContentModel.block,
-          tagName: 'video',
-          isOpaque: true,
-        }),
+        video: videoModel,
       },
       WebView,
       ignoredTags: IGNORED_TAGS,
-      domVisitors: { onElement },
+      domVisitors,
     };
 
     return (
