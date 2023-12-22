@@ -40,10 +40,14 @@ class SimpleHtml extends PureComponent {
     const {
       style,
       body,
-      customTagStyles,
       unsupportedVideoFormatMessage,
       attachments,
-      domVisitors,
+      customDomVisitors,
+      customCustomRenderers,
+      customTagStyles,
+      customHtmlElementModels,
+      customIgnoredStyles,
+      customRendererProps,
       ...otherProps
     } = this.props;
 
@@ -79,6 +83,7 @@ class SimpleHtml extends PureComponent {
         />
       ),
       video: VideoRenderer,
+      ...customCustomRenderers,
     };
 
     const htmlProps = {
@@ -88,7 +93,12 @@ class SimpleHtml extends PureComponent {
       tagsStyles: _.omitBy(tagStyles, tagStyle => !tagStyle),
       systemFonts: [...defaultSystemFonts, style.baseFont.fontFamily],
       baseStyle: style.baseFont,
-      ignoredStyles: ['fontFamily', 'letterSpacing', 'transform'],
+      ignoredStyles: [
+        'fontFamily',
+        'letterSpacing',
+        'transform',
+        ...customIgnoredStyles,
+      ],
       renderers: customRenderers,
       renderersProps: {
         table: {
@@ -100,15 +110,17 @@ class SimpleHtml extends PureComponent {
             renderToHardwareTextureAndroid: true,
           },
         },
+        ...customRendererProps,
       },
       customHTMLElementModels: {
         table: tableModel,
         iframe: iframeModel,
         video: videoModel,
+        ...customHtmlElementModels,
       },
       WebView,
       ignoredTags: IGNORED_TAGS,
-      domVisitors,
+      domVisitors: { onElement, ...customDomVisitors },
     };
 
     return (
@@ -123,8 +135,12 @@ SimpleHtml.propTypes = {
   style: PropTypes.object.isRequired,
   attachments: PropTypes.array,
   body: PropTypes.string,
-  customAlterNode: PropTypes.func,
+  customCustomRenderers: PropTypes.object,
+  customDomVisitors: PropTypes.object,
   customHandleLinkPress: PropTypes.func,
+  customHtmlElementModels: PropTypes.object,
+  customIgnoredStyles: PropTypes.arrayOf(PropTypes.string),
+  customRendererProps: PropTypes.object,
   customTagStyles: PropTypes.object,
   domVisitors: PropTypes.object,
   unsupportedVideoFormatMessage: PropTypes.string,
@@ -133,11 +149,15 @@ SimpleHtml.propTypes = {
 SimpleHtml.defaultProps = {
   attachments: undefined,
   body: undefined,
-  customAlterNode: undefined,
   customHandleLinkPress: undefined,
-  customTagStyles: undefined,
+  customTagStyles: {},
   unsupportedVideoFormatMessage: undefined,
   domVisitors: { onElement },
+  customDomVisitors: {},
+  customCustomRenderers: {},
+  customHtmlElementModels: {},
+  customIgnoredStyles: [],
+  customRendererProps: {},
 };
 
 export default connectStyle('shoutem.ui.SimpleHtml')(SimpleHtml);
