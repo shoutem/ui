@@ -22,7 +22,7 @@ function getBackgroundColor(style) {
 class NavigationBar extends PureComponent {
   setStatusBarStyle(backgroundColor) {
     function chooseBarStyle(bgColor) {
-      return color(bgColor).isDark() ? 'light-content' : 'default';
+      return color(bgColor).isDark() ? 'light-content' : 'dark-content';
     }
 
     function setStyle(bgColor) {
