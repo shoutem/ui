@@ -1,4 +1,5 @@
 import React from 'react';
+import { Vimeo } from 'react-native-vimeo-iframe';
 import YoutubePlayer from 'react-native-youtube-iframe';
 import iframe from '@native-html/iframe-plugin';
 import PropTypes from 'prop-types';
@@ -37,6 +38,19 @@ const IframeRenderer = props => {
         }}
         height={shoutemStyle.video.height}
         videoId={youtubeId}
+      />
+    );
+  }
+
+  if (url && url.includes('vimeo')) {
+    const vimeoIdRegEx = /(?:www\.|player\.)?vimeo.com\/(?:channels\/(?:\w+\/)?|groups\/(?:[^\/]*)\/videos\/|album\/(?:\d+)\/video\/|video\/|)(\d+)(?:[a-zA-Z0-9_\-]+)?/i;
+    const regExMatches = url.match(vimeoIdRegEx);
+    const vimeoId = regExMatches[1];
+
+    return (
+      <Vimeo
+        videoId={vimeoId}
+        style={{ height: shoutemStyle.vimeoVideo.height }}
       />
     );
   }

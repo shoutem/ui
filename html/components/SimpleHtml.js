@@ -13,8 +13,11 @@ import autoBindReact from 'auto-bind/react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
+import VideoRenderer from '@shoutem/ui/html/components/VideoRenderer';
+import { videoModel } from '@shoutem/ui/html/services/HTMLElementModels';
 import { View } from '../../components/View';
 import { resolveMaxWidth } from '../services/Dimensions';
+import { onElement } from '../services/DomVisitors';
 import AttachmentRenderer from './AttachmentRenderer';
 import IframeRenderer from './IframeRenderer';
 
@@ -37,9 +40,14 @@ class SimpleHtml extends PureComponent {
     const {
       style,
       body,
-      customTagStyles,
       unsupportedVideoFormatMessage,
       attachments,
+      customDomVisitors,
+      customCustomRenderers,
+      customTagStyles,
+      customHtmlElementModels,
+      customIgnoredStyles,
+      customRendererProps,
       ...otherProps
     } = this.props;
 
@@ -74,6 +82,8 @@ class SimpleHtml extends PureComponent {
           style={style}
         />
       ),
+      video: VideoRenderer,
+      ...customCustomRenderers,
     };
 
     const htmlProps = {
@@ -83,7 +93,12 @@ class SimpleHtml extends PureComponent {
       tagsStyles: _.omitBy(tagStyles, tagStyle => !tagStyle),
       systemFonts: [...defaultSystemFonts, style.baseFont.fontFamily],
       baseStyle: style.baseFont,
-      ignoredStyles: ['fontFamily', 'letterSpacing', 'transform'],
+      ignoredStyles: [
+        'fontFamily',
+        'letterSpacing',
+        'transform',
+        ...customIgnoredStyles,
+      ],
       renderers: customRenderers,
       renderersProps: {
         table: {
@@ -95,13 +110,17 @@ class SimpleHtml extends PureComponent {
             renderToHardwareTextureAndroid: true,
           },
         },
+        ...customRendererProps,
       },
       customHTMLElementModels: {
         table: tableModel,
         iframe: iframeModel,
+        video: videoModel,
+        ...customHtmlElementModels,
       },
       WebView,
       ignoredTags: IGNORED_TAGS,
+      domVisitors: { onElement, ...customDomVisitors },
     };
 
     return (
@@ -116,19 +135,29 @@ SimpleHtml.propTypes = {
   style: PropTypes.object.isRequired,
   attachments: PropTypes.array,
   body: PropTypes.string,
-  customAlterNode: PropTypes.func,
+  customCustomRenderers: PropTypes.object,
+  customDomVisitors: PropTypes.object,
   customHandleLinkPress: PropTypes.func,
+  customHtmlElementModels: PropTypes.object,
+  customIgnoredStyles: PropTypes.arrayOf(PropTypes.string),
+  customRendererProps: PropTypes.object,
   customTagStyles: PropTypes.object,
+  domVisitors: PropTypes.object,
   unsupportedVideoFormatMessage: PropTypes.string,
 };
 
 SimpleHtml.defaultProps = {
   attachments: undefined,
   body: undefined,
-  customAlterNode: undefined,
   customHandleLinkPress: undefined,
-  customTagStyles: undefined,
+  customTagStyles: {},
   unsupportedVideoFormatMessage: undefined,
+  domVisitors: { onElement },
+  customDomVisitors: {},
+  customCustomRenderers: {},
+  customHtmlElementModels: {},
+  customIgnoredStyles: [],
+  customRendererProps: {},
 };
 
 export default connectStyle('shoutem.ui.SimpleHtml')(SimpleHtml);
