@@ -67,6 +67,14 @@ class SimpleHtml extends PureComponent {
     const cssRules = `${cssStyle}${tableCssStyle}`;
 
     const customRenderers = {
+      div: ({ TDefaultRenderer, ...props }) => {
+        const resolvedStyle =
+          props.tnode?.attributes?.class !== 'image-inline'
+            ? {}
+            : { flex: 1, flexDirection: 'row', alignItems: 'center' };
+
+        return <TDefaultRenderer {...props} style={resolvedStyle} />;
+      },
       iframe: props => (
         <IframeRenderer
           {...props}
