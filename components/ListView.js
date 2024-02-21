@@ -415,10 +415,31 @@ StyledListView.prototype.scrollTo = function scrollTo(coordinates) {
   }
 };
 
-StyledListView.prototype.scrollToEnd = function scrollToEnd(animation) {
+StyledListView.prototype.scrollToEnd = function scrollToEnd(config) {
   const listView = getRNListViewComponent(this);
   if (listView) {
-    listView.scrollToEnd(animation);
+    listView.scrollToEnd(config);
+  }
+};
+
+StyledListView.prototype.scrollToOffset = function scrollToOffset(config) {
+  const listView = getRNListViewComponent(this);
+  if (listView) {
+    listView.scrollToOffset(config);
+  }
+};
+
+StyledListView.prototype.scrollToIndex = function scrollToIndex(config) {
+  const listView = getRNListViewComponent(this);
+  if (listView) {
+    listView.scrollToIndex(config);
+  }
+};
+
+StyledListView.prototype.scrollToItem = function scrollToItem(config) {
+  const listView = getRNListViewComponent(this);
+  if (listView) {
+    listView.scrollToItem(config);
   }
 };
 
