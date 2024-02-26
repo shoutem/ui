@@ -1,6 +1,6 @@
 {
   "name": "@shoutem/ui",
-  "version": "6.4.2",
+  "version": "6.4.3",
   "description": "Styleable set of components for React Native applications",
   "scripts": {
     "lint": "eslint .",
@@ -33,7 +33,7 @@
     "qs": "6.9.3",
     "react-native-device-info": "9.0.2",
     "react-native-lightbox-v2": "0.9.0",
-    "react-native-linear-gradient": "2.6.2",
+    "react-native-linear-gradient": "2.8.3",
     "react-native-modal": "13.0.1",
     "react-native-render-html": "6.3.4",
     "react-native-svg": "12.3.0",
