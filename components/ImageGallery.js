@@ -82,14 +82,10 @@ function ImageGallery({
     }
 
     const isImageVisible = pageIndex === selectedIndex;
-    const transformImageProps = Image.getPropsTransformer();
     const imageProps = {
       source: { uri: image },
       style: style.image,
     };
-    const transformedImageProps = _.isFunction(transformImageProps)
-      ? transformImageProps(imageProps)
-      : imageProps;
 
     const showOverlay =
       _.isFunction(renderImageOverlay) &&
@@ -102,7 +98,7 @@ function ImageGallery({
 
     return (
       <View key={pageIndex} style={style.page}>
-        {renderImage(transformedImageProps, pageData, pageIndex)}
+        {renderImage(imageProps, pageData, pageIndex)}
         {overlay}
       </View>
     );
