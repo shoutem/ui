@@ -3225,5 +3225,29 @@ export default () => {
         color: '#88C242',
       },
     },
+    'shoutem.ui.AnimatedScrollingText': {
+      text: {
+        color: resolveVariable('text'),
+        fontSize: responsiveHeight(15),
+        fontWeight: resolveFontWeight('600'),
+        flexWrap: 'nowrap',
+      },
+      scrollContainer: {
+        maxHeight: responsiveHeight(20),
+      },
+      scrollContentContainer: {
+        maxHeight: responsiveHeight(20),
+      },
+    },
+    'shoutem.ui.SkipTrackIcon': {
+      rotated: { transform: [{ rotate: '180deg' }] },
+      icon: {
+        size: responsiveHeight(24),
+        color: '#FFF',
+        strokeWidth: 2,
+        triangleHeight: responsiveHeight(16),
+        triangleWidth: responsiveWidth(12),
+      },
+    },
   };
 };
