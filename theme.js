@@ -3239,15 +3239,5 @@ export default () => {
         maxHeight: responsiveHeight(20),
       },
     },
-    'shoutem.ui.SkipTrackIcon': {
-      rotated: { transform: [{ rotate: '180deg' }] },
-      icon: {
-        size: responsiveHeight(24),
-        color: '#FFF',
-        strokeWidth: 2,
-        triangleHeight: responsiveHeight(16),
-        triangleWidth: responsiveWidth(12),
-      },
-    },
   };
 };

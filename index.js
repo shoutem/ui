@@ -61,7 +61,6 @@ export { ScrollView } from './components/ScrollView';
 export { SearchField } from './components/SearchField';
 export { ShareButton } from './components/ShareButton';
 export { Spinner } from './components/Spinner';
-export { SkipTrackIcon } from './components/SvgIcons/SkipTrackIcon';
 export { Switch } from './components/Switch';
 export { TabMenu } from './components/TabMenu';
 export { Caption, Heading, Subtitle, Text, Title } from './components/Text';

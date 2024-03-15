@@ -79,6 +79,7 @@ import pause from './pause.svg';
 import photo from './photo.svg';
 import pin from './pin.svg';
 import play from './play.svg';
+import playlistPlay from './playlist-play.svg';
 import plusButton from './plus-button.svg';
 import podcasts from './podcasts.svg';
 import products from './products.svg';
@@ -102,6 +103,7 @@ import settings from './settings.svg';
 import share from './share.svg';
 import shareAndroid from './share-android.svg';
 import sidebar from './sidebar.svg';
+import skipNext from './skip-next.svg';
 import sleep from './sleep.svg';
 import socialWall from './social-wall.svg';
 import stamp from './stamp.svg';
@@ -202,6 +204,7 @@ export const defaultConfig = [
   { name: 'photo', icon: photo },
   { name: 'pin', icon: pin },
   { name: 'play', icon: play },
+  { name: 'playlist-play', icon: playlistPlay },
   { name: 'plus-button', icon: plusButton },
   { name: 'podcasts', icon: podcasts },
   { name: 'products', icon: products },
@@ -225,6 +228,7 @@ export const defaultConfig = [
   { name: 'share', icon: share },
   { name: 'share-android', icon: shareAndroid },
   { name: 'sidebar', icon: sidebar },
+  { name: 'skip-next', icon: skipNext },
   { name: 'sleep', icon: sleep },
   { name: 'social-wall', icon: socialWall },
   { name: 'stamp', icon: stamp },
