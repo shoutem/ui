@@ -1,6 +1,6 @@
 {
   "name": "@shoutem/ui",
-  "version": "6.4.3",
+  "version": "6.4.4",
   "description": "Styleable set of components for React Native applications",
   "scripts": {
     "lint": "eslint .",
@@ -27,8 +27,7 @@
     "html-entities": "1.3.1",
     "htmlparser2": "3.10.1",
     "lodash": "4.17.21",
-    "lottie-ios": "4.2.0",
-    "lottie-react-native": "6.1.2",
+    "lottie-react-native": "6.7.0",
     "prop-types": "15.8.1",
     "qs": "6.9.3",
     "react-native-device-info": "9.0.2",
@@ -74,7 +73,6 @@
   },
   "nativeDependencies": [
     "@react-native-community/datetimepicker",
-    "lottie-ios",
     "lottie-react-native",
     "react-native-device-info",
     "react-native-linear-gradient",
