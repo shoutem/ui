@@ -1,7 +1,5 @@
 import { Theme } from '@shoutem/theme';
-import {
-  defaultResolver as variableResolver,
-} from './services';
+import { defaultResolver as variableResolver } from './services';
 import getThemeStyle, { defaultThemeVariables } from './theme';
 
 function setDefaultThemeStyle() {
