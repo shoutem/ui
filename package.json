@@ -73,7 +73,6 @@
   },
   "nativeDependencies": [
     "@react-native-community/datetimepicker",
-    "lottie-ios",
     "lottie-react-native",
     "react-native-device-info",
     "react-native-linear-gradient",
