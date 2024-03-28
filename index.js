@@ -25,6 +25,7 @@ export {
 
 // Components
 export { ActionSheet } from './components/ActionSheet';
+export { AnimatedScrollingText } from './components/AnimatedScrollingText';
 export { Button } from './components/Button';
 export { Card } from './components/Card';
 export { CategoryPicker } from './components/CategoryPicker';

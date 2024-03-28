@@ -9,7 +9,7 @@ New component used for multiple types of alerts, or simple action prompts. The c
 Most of the time, you will want to use one of the four standard methods of showing a toast using this package.
 
 - Toast.showInfo
-- Toast.showAlert
+- Toast.showAction
 - Toast.showError
 - Toast.showSuccess
 
@@ -33,7 +33,7 @@ Toast.showInfo({
 ```jsx
 import { Toast } from '@shoutem/ui';
 ...
-Toast.showAlert({
+Toast.showAction({
   title: 'Stop',
   message: `Hammer time`,
   iconSource: require('../assets/actionIcon.png'),

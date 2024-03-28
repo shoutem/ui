@@ -1,4 +1,5 @@
-import React, { PureComponent } from 'react';
+/* eslint-disable react/no-multi-comp */
+import React, { forwardRef, PureComponent } from 'react';
 import { TextInput as RNTextInput } from 'react-native';
 import autoBindReact from 'auto-bind/react';
 import { TextInputPropTypes } from 'deprecated-react-native-prop-types';
@@ -45,6 +46,7 @@ class TextInput extends PureComponent {
       errorMessage,
       highlightOnFocus,
       style,
+      forwardedRef,
       ...otherProps
     } = this.props;
     const { isFocused } = this.state;
@@ -79,6 +81,7 @@ class TextInput extends PureComponent {
               ...(errorMessage ? errorBorderColor : {}),
               ...otherStyle,
             }}
+            ref={forwardedRef}
           />
         </Wiggle>
         {!!errorMessage && (
@@ -106,4 +109,9 @@ TextInput.defaultProps = {
 const AnimatedTextInput = connectAnimation(TextInput);
 const StyledTextInput = connectStyle('shoutem.ui.TextInput')(AnimatedTextInput);
 
-export { StyledTextInput as TextInput };
+const ForwardedTextInput = forwardRef((props, ref) => (
+  <StyledTextInput {...props} forwardedRef={ref} />
+));
+ForwardedTextInput.displayName = 'TextInput';
+
+export { ForwardedTextInput as TextInput };
