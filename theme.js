@@ -348,6 +348,18 @@ export default () => {
         borderColor: 'transparent',
       },
 
+      '.rounded-corners-sm': {
+        borderRadius: 5,
+      },
+
+      '.rounded-corners-md': {
+        borderRadius: 10,
+      },
+
+      '.rounded-corners-lg': {
+        borderRadius: 15,
+      },
+
       '.flexible': {
         flex: 1,
       },
