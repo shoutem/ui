@@ -6463,10 +6463,10 @@ react-native-codegen@^0.0.17:
     jscodeshift "^0.13.1"
     nullthrows "^1.1.1"
 
-react-native-device-info@9.0.2:
-  version "9.0.2"
-  resolved "https://registry.npmjs.org/react-native-device-info/-/react-native-device-info-9.0.2.tgz"
-  integrity sha512-+IfYZ/OuKjnFf7SFfgIzEqynSeFngrIHc5KgHUIfXusLDXIFJ+LhRBCD7skqnraHrfmESUOMjLbNcvy4SVdwSA==
+react-native-device-info@^10.13.2:
+  version "10.13.2"
+  resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-10.13.2.tgz#7bfd4eb991c3434b8a2c38224cb1f51f8e799d54"
+  integrity sha512-5EAls7uvGdZkVfp1KWHsR5BfJJHp/ux64+ZPj1865IcaUyrNQIWYFmrTHwTH8L/NGJUTBrzv+y6WODnN17LSbw==
 
 react-native-gradle-plugin@^0.0.6:
   version "0.0.6"

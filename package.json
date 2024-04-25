@@ -30,7 +30,7 @@
     "lottie-react-native": "6.7.0",
     "prop-types": "15.8.1",
     "qs": "6.9.3",
-    "react-native-device-info": "9.0.2",
+    "react-native-device-info": "10.13.2",
     "react-native-lightbox-v2": "0.9.0",
     "react-native-linear-gradient": "2.8.3",
     "react-native-modal": "13.0.1",
