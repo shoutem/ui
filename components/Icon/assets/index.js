@@ -106,6 +106,7 @@ import sidebar from './sidebar.svg';
 import skipNext from './skip-next.svg';
 import sleep from './sleep.svg';
 import socialWall from './social-wall.svg';
+import speedMeter from './speed-meter.svg';
 import stamp from './stamp.svg';
 import stop from './stop.svg';
 import takeAPhoto from './take-a-photo.svg';
@@ -231,6 +232,7 @@ export const defaultConfig = [
   { name: 'skip-next', icon: skipNext },
   { name: 'sleep', icon: sleep },
   { name: 'social-wall', icon: socialWall },
+  { name: 'speed-meter', icon: speedMeter },
   { name: 'stamp', icon: stamp },
   { name: 'stop', icon: stop },
   { name: 'take-a-photo', icon: takeAPhoto },
