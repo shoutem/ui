@@ -110,6 +110,7 @@ import speedMeter from './speed-meter.svg';
 import stamp from './stamp.svg';
 import stop from './stop.svg';
 import takeAPhoto from './take-a-photo.svg';
+import tiktok from './tiktok.svg';
 import trophy from './trophy.svg';
 import turnOff from './turn-off.svg';
 import tweet from './tweet.svg';
@@ -236,6 +237,7 @@ export const defaultConfig = [
   { name: 'stamp', icon: stamp },
   { name: 'stop', icon: stop },
   { name: 'take-a-photo', icon: takeAPhoto },
+  { name: 'tiktok', icon: tiktok },
   { name: 'trophy', icon: trophy },
   { name: 'turn-off', icon: turnOff },
   { name: 'tweet', icon: tweet },
