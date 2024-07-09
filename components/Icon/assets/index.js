@@ -83,6 +83,7 @@ import playlistPlay from './playlist-play.svg';
 import plusButton from './plus-button.svg';
 import podcasts from './podcasts.svg';
 import products from './products.svg';
+import queue from './queue.svg';
 import radio from './radio.svg';
 import radiobuttonOff from './radiobutton-off.svg';
 import radiobuttonOn from './radiobutton-on.svg';
@@ -123,6 +124,7 @@ import videoCam from './video-cam.svg';
 import videoCamOff from './video-cam-off.svg';
 import videoChat from './video-chat.svg';
 import web from './web.svg';
+import wheelchair from './wheelchair.svg';
 
 export const defaultConfig = [
   { name: 'about', icon: about },
@@ -210,6 +212,7 @@ export const defaultConfig = [
   { name: 'plus-button', icon: plusButton },
   { name: 'podcasts', icon: podcasts },
   { name: 'products', icon: products },
+  { name: 'queue', icon: queue },
   { name: 'radio', icon: radio },
   { name: 'radiobutton-off', icon: radiobuttonOff },
   { name: 'radiobutton-on', icon: radiobuttonOn },
@@ -250,4 +253,5 @@ export const defaultConfig = [
   { name: 'video-cam-off', icon: videoCamOff },
   { name: 'video-chat', icon: videoChat },
   { name: 'web', icon: web },
+  { name: 'wheelchair', icon: wheelchair },
 ];
