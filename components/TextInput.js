@@ -1,6 +1,6 @@
 /* eslint-disable react/no-multi-comp */
 import React, { forwardRef, PureComponent } from 'react';
-import { TextInput as RNTextInput } from 'react-native';
+import { TextInput as RNTextInput, Platform } from 'react-native';
 import autoBindReact from 'auto-bind/react';
 import { TextInputPropTypes } from 'deprecated-react-native-prop-types';
 import PropTypes from 'prop-types';
@@ -60,14 +60,16 @@ class TextInput extends PureComponent {
       withoutBorder,
       wiggleAnimation,
       errorText,
+      height,
       ...otherStyle
     } = style;
 
+    const containerStyle = Platform.OS === "web" ? { height } : undefined;
     const hasBorder = (isFocused && highlightOnFocus) || !!errorMessage;
     const startErrorAnimation = animate && !!errorMessage;
 
     return (
-      <View>
+      <View style={containerStyle}>
         <Wiggle style={wiggleAnimation} startAnimation={startErrorAnimation}>
           <RNTextInput
             {...otherProps}
@@ -80,6 +82,7 @@ class TextInput extends PureComponent {
               ...(hasBorder ? withBorder : withoutBorder),
               ...(errorMessage ? errorBorderColor : {}),
               ...otherStyle,
+              height: 50,
             }}
             ref={forwardedRef}
           />
