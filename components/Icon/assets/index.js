@@ -124,6 +124,7 @@ import videoCam from './video-cam.svg';
 import videoCamOff from './video-cam-off.svg';
 import videoChat from './video-chat.svg';
 import web from './web.svg';
+import wheelchair from './wheelchair.svg';
 
 export const defaultConfig = [
   { name: 'about', icon: about },
@@ -252,4 +253,5 @@ export const defaultConfig = [
   { name: 'video-cam-off', icon: videoCamOff },
   { name: 'video-chat', icon: videoChat },
   { name: 'web', icon: web },
+  { name: 'wheelchair', icon: wheelchair },
 ];
