@@ -1,6 +1,6 @@
 {
   "name": "@shoutem/ui",
-  "version": "7.1.0-beta.4",
+  "version": "7.1.0-beta.5",
   "description": "Styleable set of components for React Native applications",
   "scripts": {
     "lint": "eslint .",
@@ -41,12 +41,14 @@
     "react-native-vimeo-iframe": "^1.2.1",
     "react-native-webview": "11.23.0",
     "react-native-youtube-iframe": "2.2.2",
+    "react-native-actions-sheet": "0.9.6",
     "stream": "0.0.2",
     "tinycolor2": "1.4.1"
   },
   "peerDependencies": {
     "react": ">=16.9.0",
-    "react-native": ">=0.61.5"
+    "react-native": ">=0.61.5",
+    "react-native-gesture-handler": "*"
   },
   "devDependencies": {
     "@babel/core": "7.16.7",
