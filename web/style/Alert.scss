@@ -17,7 +17,7 @@
 }
 
 .alert-actions {
-  border-top: 1px solid #ABABAB;
+  border-top: 1px solid #DEDEDE;
   margin: 20px 0px 0px 0px;
 }
 
@@ -56,10 +56,14 @@
   width: 50%;
 }
 
-.third-width {
-  width: 33%;
+.button-height {
+  height: 50px;
 }
 
 .border-right {
-  border-right: 1px solid #ABABAB;
+  border-right: 1px solid #DEDEDE;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #DEDEDE;
 }
