@@ -12,6 +12,7 @@ const ActionSheet = ({
   confirmOptions = undefined,
   style,
   onDismiss = undefined,
+  ...otherProps
 }) => {
   const actionSheetRef = useRef(null);
 
@@ -31,7 +32,13 @@ const ActionSheet = ({
   }, [active]);
 
   return (
-    <ActionSheetNative gestureEnabled ref={actionSheetRef} onClose={onDismiss}>
+    <ActionSheetNative
+      gestureEnabled
+      ref={actionSheetRef}
+      onClose={onDismiss}
+      containerStyle={style.container}
+      {...otherProps}
+    >
       <View style={style.contentContainer}>
         {hasConfirmOptions && (
           <View style={style.segmentContainer}>

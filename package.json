@@ -1,6 +1,6 @@
 {
   "name": "@shoutem/ui",
-  "version": "7.1.0-beta.5",
+  "version": "7.1.0-beta.6",
   "description": "Styleable set of components for React Native applications",
   "scripts": {
     "lint": "eslint .",
@@ -41,7 +41,7 @@
     "react-native-vimeo-iframe": "^1.2.1",
     "react-native-webview": "11.23.0",
     "react-native-youtube-iframe": "2.2.2",
-    "react-native-actions-sheet": "0.9.6",
+    "react-native-actions-sheet": "0.9.3",
     "stream": "0.0.2",
     "tinycolor2": "1.4.1"
   },
