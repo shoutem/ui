@@ -7,6 +7,7 @@ import {
   StatusBar,
   View,
 } from 'react-native';
+import { RefreshControl as WebRefreshControl } from 'react-native-web-refresh-control';
 import autoBindReact from 'auto-bind/react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
@@ -37,15 +38,11 @@ class ListView extends PureComponent {
   static getDerivedStateFromProps(props, state) {
     const isLoading = props.loading;
 
-    if (isLoading) {
-      if (state.status !== Status.IDLE) {
-        // We are already in a loading status
-        return state;
-      }
-
+    if (isLoading && state.status === Status.IDLE) {
       return { status: Status.LOADING };
     }
-    return { status: Status.IDLE };
+
+    return { status: state.status ?? Status.IDLE };
   }
 
   constructor(props, context) {
@@ -78,6 +75,14 @@ class ListView extends PureComponent {
 
     if (onRefresh) {
       onRefresh();
+
+      // Adding timeout, until onRefresh becomes async function. Then, we'll be able to know when
+      // refresh is done and set status back to idle.
+      setTimeout(() => {
+        this.setState({
+          status: Status.IDLE,
+        });
+      }, 500);
     }
   }
 
@@ -301,6 +306,17 @@ class ListView extends PureComponent {
       ...style.refreshControl,
     };
     delete refreshControlStyle.tintColor;
+
+    if (Platform.OS === 'web') {
+      return (
+        <WebRefreshControl
+          onRefresh={this.onRefresh}
+          refreshing={status === Status.REFRESHING}
+          tintColor={style.refreshControl.tintColor}
+          style={refreshControlStyle}
+        />
+      );
+    }
 
     return (
       <RefreshControl
