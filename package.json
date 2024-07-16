@@ -39,6 +39,7 @@
     "react-native-svg-transformer": "1.3.0",
     "react-native-toast-message": "2.1.5",
     "react-native-vimeo-iframe": "^1.2.1",
+    "react-native-web-refresh-control": "1.1.2",
     "react-native-webview": "11.23.0",
     "react-native-youtube-iframe": "2.2.2",
     "stream": "0.0.2",
