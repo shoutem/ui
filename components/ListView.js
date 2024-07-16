@@ -38,10 +38,17 @@ class ListView extends PureComponent {
   static getDerivedStateFromProps(props, state) {
     const isLoading = props.loading;
 
+    // If data is loading but no status updates were triggered, set status to loading.
     if (isLoading && state.status === Status.IDLE) {
       return { status: Status.LOADING };
     }
 
+    // If loading is done, set status back to idle.
+    if (!isLoading && state.status === Status.LOADING) {
+      return { status: Status.IDLE}
+    }
+
+    // Return all other statuses as they are.
     return { status: state.status ?? Status.IDLE };
   }
 
