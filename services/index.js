@@ -1,6 +1,7 @@
+export { unavailableInWeb } from './unavailableInWeb';
 export {
-  ThemeVariableResolver,
+  createScopedResolver,
   defaultResolver,
   resolveVariable,
-  createScopedResolver,
+  ThemeVariableResolver,
 } from './variableResolver';
