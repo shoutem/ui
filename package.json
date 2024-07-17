@@ -15,7 +15,7 @@
     "@native-html/table-plugin": "5.3.1",
     "@openspacelabs/react-native-zoomable-view": "2.0.4",
     "@react-native-community/datetimepicker": "6.2.0",
-    "@shoutem/animation": "~0.15.0",
+    "@shoutem/animation": "0.17.0-beta.0",
     "@shoutem/eslint-config-react": "~1.0.6",
     "@shoutem/theme": "~0.13.2",
     "auto-bind": "4.0.0",
