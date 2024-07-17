@@ -2714,13 +2714,7 @@ export default () => {
 
     'shoutem.ui.ActionSheet': {
       container: {
-        position: 'absolute',
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0,
-        flexDirection: 'column',
-        justifyContent: 'flex-end',
+        backgroundColor: 'transparent',
       },
       contentContainer: {
         marginHorizontal: 8,
@@ -2744,10 +2738,11 @@ export default () => {
       text: {
         fontSize: 15,
         letterSpacing: 0.38,
-        color: '#000000',
+        color: resolveVariable('primaryButtonText.color'),
         lineHeight: 24,
       },
       cancelText: {
+        color: resolveVariable('errorText.color'),
         textAlign: 'center',
         fontWeight: resolveFontWeight('700'),
       },
