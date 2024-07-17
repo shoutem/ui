@@ -2475,8 +2475,7 @@ export default () => {
     'shoutem.ui.Video': {
       container: {
         backgroundColor: resolveVariable('paperColor'),
-        flex: 1,
-        height: 240,
+        height: responsiveHeight(240),
       },
     },
 
