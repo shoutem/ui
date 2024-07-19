@@ -37,9 +37,15 @@ class EmptyListImage extends PureComponent {
     } = this.props;
     const EmptyStateImage = this.resolveImage();
 
+    // SVG cannot receive array of style elements on Web
+    const resolvedStyle = {
+      ...style.image,
+      ...imageStyle,
+    };
+
     return (
       <View styleName="vertical h-center ">
-        <EmptyStateImage style={[style.image, imageStyle]} />
+        <EmptyStateImage style={resolvedStyle} />
         <Title styleName="title" style={[style.title, titleStyle]}>
           {title}
         </Title>
