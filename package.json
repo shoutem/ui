@@ -1,6 +1,6 @@
 {
   "name": "@shoutem/ui",
-  "version": "7.1.0-beta.4",
+  "version": "7.1.0-beta.9",
   "description": "Styleable set of components for React Native applications",
   "scripts": {
     "lint": "eslint .",
@@ -15,7 +15,7 @@
     "@native-html/table-plugin": "5.3.1",
     "@openspacelabs/react-native-zoomable-view": "2.0.4",
     "@react-native-community/datetimepicker": "6.2.0",
-    "@shoutem/animation": "~0.15.0",
+    "@shoutem/animation": "0.17.0-beta.0",
     "@shoutem/eslint-config-react": "~1.0.6",
     "@shoutem/theme": "~0.13.2",
     "auto-bind": "4.0.0",
@@ -35,18 +35,21 @@
     "react-native-linear-gradient": "2.8.3",
     "react-native-modal": "13.0.1",
     "react-native-render-html": "6.3.4",
-    "react-native-svg": "12.3.0",
+    "react-native-svg": "15.4.0",
     "react-native-svg-transformer": "1.3.0",
     "react-native-toast-message": "2.1.5",
     "react-native-vimeo-iframe": "^1.2.1",
+    "react-native-web-refresh-control": "1.1.2",
     "react-native-webview": "11.23.0",
     "react-native-youtube-iframe": "2.2.2",
+    "react-native-actions-sheet": "0.9.3",
     "stream": "0.0.2",
     "tinycolor2": "1.4.1"
   },
   "peerDependencies": {
     "react": ">=16.9.0",
-    "react-native": ">=0.61.5"
+    "react-native": ">=0.61.5",
+    "react-native-gesture-handler": "*"
   },
   "devDependencies": {
     "@babel/core": "7.16.7",
