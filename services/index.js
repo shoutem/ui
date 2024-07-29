@@ -1,6 +1,7 @@
+export { isAndroid, isIos, isWeb } from './platform';
 export {
-  ThemeVariableResolver,
+  createScopedResolver,
   defaultResolver,
   resolveVariable,
-  createScopedResolver,
+  ThemeVariableResolver,
 } from './variableResolver';
