@@ -1,4 +1,4 @@
-import { Dimensions, Platform, StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 import {
   changeColorAlpha,
   createSharedStyle,
@@ -16,7 +16,7 @@ import {
   STATUS_BAR_OFFSET,
 } from './const';
 import { Device } from './helpers';
-import { resolveVariable } from './services';
+import { isAndroid, isIos, resolveVariable } from './services';
 
 const window = Dimensions.get('window');
 
@@ -72,7 +72,7 @@ export function resolveFontFamily(
   fontWeight = 'normal',
   fontStyle = 'normal',
 ) {
-  if (Platform.OS === 'ios') {
+  if (!isAndroid) {
     return fontName;
   }
 
@@ -103,22 +103,22 @@ export function resolveFontFamily(
 // being provided to fontWeight will cause the default system font to be used, so we conditionally
 // resolve it.
 export function resolveFontWeight(fontWeight) {
-  if (Platform.OS === 'ios') {
-    return fontWeight;
+  if (isAndroid) {
+    return 'normal';
   }
 
-  return 'normal';
+  return fontWeight;
 }
 
 // Currently, resolveFontFamily will provide fontStyle styling, but any value other than 'normal'
 // being provided to fontStyle will cause the default system font to be used, so we conditionally
 // resolve it.
 export function resolveFontStyle(fontStyle) {
-  if (Platform.OS === 'ios') {
-    return fontStyle;
+  if (isAndroid) {
+    return 'normal';
   }
 
-  return 'normal';
+  return fontStyle;
 }
 
 // This function is deprecated and replaced with calculateLineHeight.
@@ -1819,7 +1819,7 @@ export default () => {
         top: Device.select({
           iPhoneX: 6,
           iPhoneXR: 8,
-          default: Platform.OS === 'android' ? 0 : -4,
+          default: isAndroid ? 0 : -4,
         }),
         left: 0,
         right: 0,
@@ -2427,7 +2427,7 @@ export default () => {
       number: {
         // Font should be monospace so that item content has same offset
         // Can not apply width to the Text for some reason
-        fontFamily: Platform.OS === 'ios' ? 'Menlo-Regular' : 'monospace',
+        fontFamily: isIos ? 'Menlo-Regular' : 'monospace',
         fontSize: 12,
       },
       bullet: {},
