@@ -2733,17 +2733,18 @@ export default () => {
         paddingVertical: 16,
         borderBottomWidth: 1,
         borderColor: 'rgba(130, 130, 130, 0.1)',
+        alignItems: 'center',
       },
       text: {
         fontSize: 15,
         letterSpacing: 0.38,
-        color: resolveVariable('primaryButtonText.color'),
         lineHeight: 24,
+        color: '#007AFF', // iOS blue
       },
       cancelText: {
-        color: resolveVariable('errorText.color'),
         textAlign: 'center',
         fontWeight: resolveFontWeight('700'),
+        color: '#007AFF', // iOS blue
       },
     },
 
