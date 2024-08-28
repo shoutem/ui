@@ -43,7 +43,11 @@ const ActionSheet = ({
         {hasConfirmOptions && (
           <View style={style.segmentContainer}>
             {_.map(confirmOptions, option => (
-              <ActionSheetOption key={option.title} option={option} />
+              <ActionSheetOption
+                key={option.title}
+                option={option}
+                style={style.option}
+              />
             ))}
           </View>
         )}
@@ -55,6 +59,7 @@ const ActionSheet = ({
                   key={option.title}
                   cancelOption
                   option={option}
+                  style={style.option}
                 />
               ))}
             </View>
