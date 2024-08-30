@@ -2738,15 +2738,16 @@ export default () => {
       text: {
         fontSize: 15,
         letterSpacing: 0.38,
-        color: isAndroid
-          ? resolveVariable('primaryButtonText.color')
-          : '#007AFF', // iOS blue,
+        color: resolveVariable('primaryButtonText.color'),
         lineHeight: 24,
       },
       cancelText: {
-        color: isAndroid ? resolveVariable('errorText.color') : '#007AFF', // iOS blue,
+        color: resolveVariable('errorText.color'),
         textAlign: 'center',
         fontWeight: resolveFontWeight('700'),
+      },
+      iosBlueTextColor: {
+        color: '#007AFF',
       },
     },
 
