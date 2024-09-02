@@ -2733,6 +2733,7 @@ export default () => {
         paddingVertical: 16,
         borderBottomWidth: 1,
         borderColor: 'rgba(130, 130, 130, 0.1)',
+        alignItems: 'center',
       },
       text: {
         fontSize: 15,
@@ -2744,6 +2745,9 @@ export default () => {
         color: resolveVariable('errorText.color'),
         textAlign: 'center',
         fontWeight: resolveFontWeight('700'),
+      },
+      iosBlueTextColor: {
+        color: '#007AFF',
       },
     },
 
