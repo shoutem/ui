@@ -12,6 +12,13 @@ function ToastProgressBar({
 }) {
   const progressValue = useRef(new Animated.Value(0)).current;
 
+  const handleAnimationEnd = useCallback(() => {
+    progressValue.setValue(0);
+    if (onProgressComplete) {
+      onProgressComplete();
+    }
+  }, [onProgressComplete, progressValue]);
+
   useEffect(() => {
     if (!visible) {
       progressValue.setValue(0);
@@ -24,13 +31,6 @@ function ToastProgressBar({
       useNativeDriver: false,
     }).start(handleAnimationEnd);
   }, [visible, duration, handleAnimationEnd]);
-
-  const handleAnimationEnd = useCallback(() => {
-    progressValue.setValue(0);
-    if (onProgressComplete) {
-      onProgressComplete();
-    }
-  }, [onProgressComplete, progressValue]);
 
   return (
     <View style={style.container}>
