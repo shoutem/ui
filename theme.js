@@ -3130,7 +3130,6 @@ export default () => {
       },
       textContainer: {
         flex: 1,
-        height: responsiveHeight(48),
         justifyContent: 'space-between',
       },
       title: {
