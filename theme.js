@@ -72,7 +72,7 @@ export function resolveFontFamily(
   fontWeight = 'normal',
   fontStyle = 'normal',
 ) {
-  if (!isAndroid) {
+  if (isIos) {
     return fontName;
   }
 
@@ -103,7 +103,7 @@ export function resolveFontFamily(
 // being provided to fontWeight will cause the default system font to be used, so we conditionally
 // resolve it.
 export function resolveFontWeight(fontWeight) {
-  if (isAndroid) {
+  if (!isIos) {
     return 'normal';
   }
 
@@ -114,7 +114,7 @@ export function resolveFontWeight(fontWeight) {
 // being provided to fontStyle will cause the default system font to be used, so we conditionally
 // resolve it.
 export function resolveFontStyle(fontStyle) {
-  if (isAndroid) {
+  if (!isIos) {
     return 'normal';
   }
 
