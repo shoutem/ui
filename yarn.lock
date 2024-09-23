@@ -1508,10 +1508,10 @@
   resolved "https://registry.npmjs.org/@react-native/polyfills/-/polyfills-2.0.0.tgz"
   integrity sha512-K0aGNn1TjalKj+65D7ycc1//H9roAQ51GJVk5ZJQFb2teECGmzd86bYDC0aYdbRf7gtovescq4Zt6FR0tgXiHQ==
 
-"@shoutem/animation@0.17.0-beta.0":
-  version "0.17.0-beta.0"
-  resolved "https://registry.npmjs.org/@shoutem/animation/-/animation-0.17.0-beta.0.tgz"
-  integrity sha512-qfne7lTxrzKMZisLOo5F0Vc3n0jFxCXylFJ8K5S7Dfgj3EoC9jrDCB6RjQsHyaFCqypYnORogPbEAD64keyLZQ==
+"@shoutem/animation@0.17.0":
+  version "0.17.0"
+  resolved "https://registry.npmjs.org/@shoutem/animation/-/animation-0.17.0.tgz"
+  integrity sha512-hR7m6G8dqRNbgkSCjxCe67shMfVuctSXrxDuTKA1EEV6NUrOZL/1dKG65sXc1JzEVapjXJHkFnR1A2LbpQTrdA==
   dependencies:
     auto-bind "4.0.0"
     hoist-non-react-statics "3.3.2"
@@ -1542,10 +1542,10 @@
     "@shoutem/eslint-config-base" "^1.0.1"
     eslint-config-airbnb "18.2.1"
 
-"@shoutem/theme@~0.14.0-beta.1":
-  version "0.14.0-beta.1"
-  resolved "https://registry.npmjs.org/@shoutem/theme/-/theme-0.14.0-beta.1.tgz"
-  integrity sha512-18DCBPNC4pJSEWcs+17btC+d3BRybq2cT8NjTQoEOK8eFOAogm+rYhyYJ08LqTJKG/Jxg0YqGlXKIMBidgik9A==
+"@shoutem/theme@~0.14.0":
+  version "0.14.0"
+  resolved "https://registry.npmjs.org/@shoutem/theme/-/theme-0.14.0.tgz"
+  integrity sha512-0Vu+OYRFKCNT4W+62RNPDrc+KoVUBtgrgYD2hafQFZTu25DZiIqStkT8fR3oVuuDNZToFK7Qkfkcb3r1M90eRA==
   dependencies:
     auto-bind "4.0.0"
     hoist-non-react-statics "1.2.0"
