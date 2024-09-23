@@ -6,7 +6,6 @@ import { iframeModel } from '@native-html/iframe-plugin';
 import table, {
   cssRulesFromSpecs,
   defaultTableStylesSpecs,
-  IGNORED_TAGS,
   tableModel,
 } from '@native-html/table-plugin';
 import autoBindReact from 'auto-bind/react';
@@ -119,7 +118,6 @@ class SimpleHtml extends PureComponent {
         ...customHtmlElementModels,
       },
       WebView,
-      ignoredTags: IGNORED_TAGS,
       domVisitors: { onElement, ...customDomVisitors },
     };
 

@@ -1,4 +1,4 @@
-import { Dimensions, Platform, StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 import {
   changeColorAlpha,
   createSharedStyle,
@@ -16,7 +16,7 @@ import {
   STATUS_BAR_OFFSET,
 } from './const';
 import { Device } from './helpers';
-import { resolveVariable } from './services';
+import { isAndroid, isIos, resolveVariable } from './services';
 
 const window = Dimensions.get('window');
 
@@ -72,7 +72,7 @@ export function resolveFontFamily(
   fontWeight = 'normal',
   fontStyle = 'normal',
 ) {
-  if (Platform.OS === 'ios') {
+  if (isIos) {
     return fontName;
   }
 
@@ -103,22 +103,22 @@ export function resolveFontFamily(
 // being provided to fontWeight will cause the default system font to be used, so we conditionally
 // resolve it.
 export function resolveFontWeight(fontWeight) {
-  if (Platform.OS === 'ios') {
-    return fontWeight;
+  if (!isIos) {
+    return 'normal';
   }
 
-  return 'normal';
+  return fontWeight;
 }
 
 // Currently, resolveFontFamily will provide fontStyle styling, but any value other than 'normal'
 // being provided to fontStyle will cause the default system font to be used, so we conditionally
 // resolve it.
 export function resolveFontStyle(fontStyle) {
-  if (Platform.OS === 'ios') {
-    return fontStyle;
+  if (!isIos) {
+    return 'normal';
   }
 
-  return 'normal';
+  return fontStyle;
 }
 
 // This function is deprecated and replaced with calculateLineHeight.
@@ -1819,7 +1819,7 @@ export default () => {
         top: Device.select({
           iPhoneX: 6,
           iPhoneXR: 8,
-          default: Platform.OS === 'android' ? 0 : -4,
+          default: isAndroid ? 0 : -4,
         }),
         left: 0,
         right: 0,
@@ -2427,7 +2427,7 @@ export default () => {
       number: {
         // Font should be monospace so that item content has same offset
         // Can not apply width to the Text for some reason
-        fontFamily: Platform.OS === 'ios' ? 'Menlo-Regular' : 'monospace',
+        fontFamily: isIos ? 'Menlo-Regular' : 'monospace',
         fontSize: 12,
       },
       bullet: {},
@@ -2475,8 +2475,7 @@ export default () => {
     'shoutem.ui.Video': {
       container: {
         backgroundColor: resolveVariable('paperColor'),
-        flex: 1,
-        height: 240,
+        height: responsiveHeight(240),
       },
     },
 
@@ -2714,13 +2713,7 @@ export default () => {
 
     'shoutem.ui.ActionSheet': {
       container: {
-        position: 'absolute',
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0,
-        flexDirection: 'column',
-        justifyContent: 'flex-end',
+        backgroundColor: 'transparent',
       },
       contentContainer: {
         marginHorizontal: 8,
@@ -2740,16 +2733,21 @@ export default () => {
         paddingVertical: 16,
         borderBottomWidth: 1,
         borderColor: 'rgba(130, 130, 130, 0.1)',
+        alignItems: 'center',
       },
       text: {
         fontSize: 15,
         letterSpacing: 0.38,
-        color: '#000000',
+        color: resolveVariable('primaryButtonText.color'),
         lineHeight: 24,
       },
       cancelText: {
+        color: resolveVariable('errorText.color'),
         textAlign: 'center',
         fontWeight: resolveFontWeight('700'),
+      },
+      iosBlueTextColor: {
+        color: '#007AFF',
       },
     },
 
@@ -3132,7 +3130,6 @@ export default () => {
       },
       textContainer: {
         flex: 1,
-        height: responsiveHeight(48),
         justifyContent: 'space-between',
       },
       title: {

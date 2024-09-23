@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { InteractionManager, LayoutAnimation, ScrollView } from 'react-native';
+import { InteractionManager, LayoutAnimation, ScrollView, Platform } from 'react-native';
 import autoBindReact from 'auto-bind/react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
@@ -219,7 +219,14 @@ class HorizontalPager extends PureComponent {
       );
 
       return (
-        <View key={pageIndex} style={{ width: containerWidth }}>
+        <View
+          key={pageIndex}
+          style={{ 
+            width: containerWidth, 
+            ...(Platform.OS === 'web' && {
+              height: '100%',
+            })
+          }}>
           {pageContent}
         </View>
       );
