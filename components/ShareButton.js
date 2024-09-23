@@ -3,6 +3,7 @@ import { Platform, Share } from 'react-native';
 import autoBindReact from 'auto-bind/react';
 import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
+import { unavailableInWeb } from '../services';
 import { Button } from './Button';
 import { Icon } from './Icon';
 
@@ -41,7 +42,7 @@ class ShareButton extends PureComponent {
     }
 
     return (
-      <Button onPress={this.onShare} {...otherProps}>
+      <Button onPress={unavailableInWeb(this.onShare)} {...otherProps}>
         <Icon
           name={Platform.OS === 'ios' ? 'share' : 'share-android'}
           animationName={animationName}

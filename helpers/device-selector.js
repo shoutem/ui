@@ -72,7 +72,7 @@ export const NAVIGATION_BAR_HEIGHT = select({
 });
 
 export const getHomeIndicatorPadding = () => {
-  if (Platform.OS === 'android') {
+  if (Platform.OS === 'android' || Platform.OS === 'web') {
     return 0;
   }
 

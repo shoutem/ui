@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Image, Modal, TouchableOpacity, View } from 'react-native';
+import { ImagePropTypes } from 'deprecated-react-native-prop-types';
 import autoBindReact from 'auto-bind/react';
 import PropTypes from 'prop-types';
 import { makeZoomable } from '@shoutem/animation';
@@ -84,7 +85,7 @@ class ImagePreview extends PureComponent {
 ImagePreview.propTypes = {
   style: PropTypes.object.isRequired,
   height: PropTypes.number,
-  source: Image.propTypes.source,
+  source: ImagePropTypes.source,
   width: PropTypes.number,
 };
 

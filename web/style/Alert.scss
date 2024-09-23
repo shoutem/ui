@@ -1,0 +1,69 @@
+.alert-container {
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  font-size: 15px;
+}
+
+.alert-popup {
+  border-radius: 18px;
+  padding-bottom: 0px;
+  overflow: hidden;
+}
+
+.alert-title {
+  color: black;
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: -10px;
+}
+
+.alert-actions {
+  border-top: 1px solid #DEDEDE;
+  margin: 20px 0px 0px 0px;
+}
+
+.alert-confirm {
+  color: cornflowerblue;
+  background-color: transparent;
+  margin: 0;
+  height: 100%;
+  border-radius: 0;
+  padding: 15px;
+}
+
+.alert-cancel {
+  color: cornflowerblue;
+  background-color: transparent;
+  margin: 0;
+  height: 100%;
+  border-radius: 0;
+  padding: 15px;
+}
+
+.alert-deny {
+  color: red;
+  background-color: transparent;
+  margin: 0;
+  height: 100%;
+  border-radius: 0;
+  padding: 15px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.half-width {
+  width: 50%;
+}
+
+.button-height {
+  height: 50px;
+}
+
+.border-right {
+  border-right: 1px solid #DEDEDE;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #DEDEDE;
+}

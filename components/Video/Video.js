@@ -44,7 +44,7 @@ class Video extends PureComponent {
   }
 
   render() {
-    const { width, height, style, poster } = this.props;
+    const { width, height = '100%', style, poster } = this.props;
 
     return (
       <View style={style.container}>
