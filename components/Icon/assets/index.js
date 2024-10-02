@@ -70,6 +70,7 @@ import micOff from './mic-off.svg';
 import minusButton from './minus-button.svg';
 import missing from './missing.svg';
 import moreHorizontal from './more-horizontal.svg';
+import musicNote from './music-note.svg';
 import musicVideo from './music-video.svg';
 import myLocation from './my-location.svg';
 import news from './news.svg';
@@ -200,6 +201,7 @@ export const defaultConfig = [
   { name: 'minus-button', icon: minusButton },
   { name: 'missing', icon: missing },
   { name: 'more-horizontal', icon: moreHorizontal },
+  { name: 'music-note', icon: musicNote },
   { name: 'music-video', icon: musicVideo },
   { name: 'my-location', icon: myLocation },
   { name: 'news', icon: news },
