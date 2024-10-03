@@ -90,6 +90,7 @@ import radiobuttonOff from './radiobutton-off.svg';
 import radiobuttonOn from './radiobutton-on.svg';
 import receipt from './receipt.svg';
 import refresh from './refresh.svg';
+import repeat from './repeat.svg';
 import replay from './replay.svg';
 import replay5 from './replay-5.svg';
 import replay10 from './replay-10.svg';
@@ -220,6 +221,7 @@ export const defaultConfig = [
   { name: 'radiobutton-on', icon: radiobuttonOn },
   { name: 'receipt', icon: receipt },
   { name: 'refresh', icon: refresh },
+  { name: 'repeat', icon: repeat },
   { name: 'replay-5', icon: replay5 },
   { name: 'replay-10', icon: replay10 },
   { name: 'replay-30', icon: replay30 },
