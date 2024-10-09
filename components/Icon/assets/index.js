@@ -70,6 +70,7 @@ import micOff from './mic-off.svg';
 import minusButton from './minus-button.svg';
 import missing from './missing.svg';
 import moreHorizontal from './more-horizontal.svg';
+import musicNote from './music-note.svg';
 import musicVideo from './music-video.svg';
 import myLocation from './my-location.svg';
 import news from './news.svg';
@@ -89,6 +90,7 @@ import radiobuttonOff from './radiobutton-off.svg';
 import radiobuttonOn from './radiobutton-on.svg';
 import receipt from './receipt.svg';
 import refresh from './refresh.svg';
+import repeat from './repeat.svg';
 import replay from './replay.svg';
 import replay5 from './replay-5.svg';
 import replay10 from './replay-10.svg';
@@ -199,6 +201,7 @@ export const defaultConfig = [
   { name: 'minus-button', icon: minusButton },
   { name: 'missing', icon: missing },
   { name: 'more-horizontal', icon: moreHorizontal },
+  { name: 'music-note', icon: musicNote },
   { name: 'music-video', icon: musicVideo },
   { name: 'my-location', icon: myLocation },
   { name: 'news', icon: news },
@@ -218,6 +221,7 @@ export const defaultConfig = [
   { name: 'radiobutton-on', icon: radiobuttonOn },
   { name: 'receipt', icon: receipt },
   { name: 'refresh', icon: refresh },
+  { name: 'repeat', icon: repeat },
   { name: 'replay-5', icon: replay5 },
   { name: 'replay-10', icon: replay10 },
   { name: 'replay-30', icon: replay30 },

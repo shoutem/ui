@@ -3153,6 +3153,7 @@ export default () => {
         lineHeight: 16,
         flex: 1,
         flexWrap: 'wrap',
+        maxHeight: resolveVariable('sizes.window.height') / 4,
       },
       buttonContainer: {
         paddingHorizontal: responsiveWidth(12),
