@@ -5,6 +5,7 @@ import iframe from '@native-html/iframe-plugin';
 import PropTypes from 'prop-types';
 import { Text } from '../../components/Text';
 import { View } from '../../components/View';
+import { isAndroid } from '../../services';
 import isValidVideoFormat from '../services/isValidVideoFormat';
 
 const IframeRenderer = props => {
@@ -51,6 +52,12 @@ const IframeRenderer = props => {
       <Vimeo
         videoId={vimeoId}
         style={{ height: shoutemStyle.vimeoVideo.height }}
+        // Prevents Android issue with iframee inside the scroll container
+        // Scrolling to bottom crashes the app
+        {...(isAndroid && {
+          overScrollMode: 'never',
+          androidLayerType: 'software',
+        })}
       />
     );
   }
