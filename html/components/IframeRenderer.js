@@ -52,7 +52,7 @@ const IframeRenderer = props => {
       <Vimeo
         videoId={vimeoId}
         style={{ height: shoutemStyle.vimeoVideo.height }}
-        // Prevents Android issue with iframee inside the scroll container
+        // Prevents Android issue with iframe inside the scroll container
         // Scrolling to bottom crashes the app
         {...(isAndroid && {
           overScrollMode: 'never',
