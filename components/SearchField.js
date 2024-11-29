@@ -1,4 +1,5 @@
-import React, { PureComponent } from 'react';
+/* eslint-disable react/no-multi-comp */
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connectAnimation } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
@@ -23,59 +24,50 @@ ClearButton.propTypes = {
  * It has a search icon, placeholder and a button that clears the current query.
  *
  */
-class SearchField extends PureComponent {
-  render() {
-    const {
-      onChangeText,
-      placeholder,
-      style,
-      value,
-      ...otherProps
-    } = this.props;
+const SearchField = ({
+  onChangeText,
+  placeholder,
+  style,
+  defaultValue,
+  ...otherProps
+}) => {
+  const [text, setText] = useState(defaultValue);
 
-    return (
-      <View
-        style={style.container}
-        styleName="horizontal sm-gutter-horizontal v-center"
-      >
-        <Icon name="search" style={style.searchIcon} />
-        <TextInput
-          {...otherProps}
-          autoCapitalize="none"
-          autoCorrect={false}
-          onChangeText={onChangeText}
-          placeholder={placeholder}
-          style={style.input}
-          value={value}
-        />
-        {!!value && (
-          <ClearButton onPress={() => onChangeText('')} style={style} />
-        )}
-      </View>
-    );
-  }
-}
+  useEffect(() => {
+    onChangeText(text);
+  }, [onChangeText, text]);
+
+  return (
+    <View
+      style={style.container}
+      styleName="horizontal sm-gutter-horizontal v-center"
+    >
+      <Icon name="search" style={style.searchIcon} />
+      <TextInput
+        {...otherProps}
+        autoCapitalize="none"
+        autoCorrect={false}
+        onChangeText={setText}
+        placeholder={placeholder}
+        style={style.input}
+        value={text}
+      />
+      {!!text && <ClearButton onPress={() => setText('')} style={style} />}
+    </View>
+  );
+};
 
 SearchField.propTypes = {
-  // Styles for container and search icon
-  style: PropTypes.shape({
-    clearIcon: PropTypes.object,
-    container: PropTypes.object,
-    input: PropTypes.object,
-    searchIcon: PropTypes.object,
-  }).isRequired,
-  // A placeholder for input when no value is entered
+  style: PropTypes.object.isRequired,
+  defaultValue: PropTypes.string,
   placeholder: PropTypes.string,
-  // Value to render as text in search input
-  value: PropTypes.string,
-  // Called with the new value on text change
   onChangeText: PropTypes.func,
 };
 
 SearchField.defaultProps = {
   placeholder: undefined,
-  value: undefined,
   onChangeText: undefined,
+  defaultValue: '',
 };
 
 const AnimatedSearchField = connectAnimation(SearchField);
