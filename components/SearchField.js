@@ -1,5 +1,6 @@
 /* eslint-disable react/no-multi-comp */
 import React, { useEffect, useState } from 'react';
+import { ActivityIndicator } from 'react-native';
 import PropTypes from 'prop-types';
 import { connectAnimation } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
@@ -24,8 +25,8 @@ ClearButton.propTypes = {
  * It has a search icon, placeholder and a button that clears the current query.
  *
  */
-const SearchField = ({ onChangeText, style, defaultValue, ...otherProps }) => {
-  const [text, setText] = useState(defaultValue);
+const SearchField = ({ onChangeText, loading, style, ...otherProps }) => {
+  const [text, setText] = useState(otherProps.defaultValue);
 
   useEffect(() => {
     onChangeText(text);
@@ -46,7 +47,10 @@ const SearchField = ({ onChangeText, style, defaultValue, ...otherProps }) => {
         {...otherProps}
         onChangeText={setText}
       />
-      {!!text && <ClearButton onPress={() => setText('')} style={style} />}
+      {!!text && !loading && (
+        <ClearButton onPress={() => setText('')} style={style} />
+      )}
+      {loading && <ActivityIndicator style={style.clearButton} />}
     </View>
   );
 };
@@ -54,12 +58,12 @@ const SearchField = ({ onChangeText, style, defaultValue, ...otherProps }) => {
 SearchField.propTypes = {
   style: PropTypes.object.isRequired,
   defaultValue: PropTypes.string,
-  placeholder: PropTypes.string,
+  loading: PropTypes.bool,
   onChangeText: PropTypes.func,
 };
 
 SearchField.defaultProps = {
-  placeholder: undefined,
+  loading: false,
   onChangeText: undefined,
   defaultValue: '',
 };
