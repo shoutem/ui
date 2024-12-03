@@ -24,18 +24,13 @@ ClearButton.propTypes = {
  * It has a search icon, placeholder and a button that clears the current query.
  *
  */
-const SearchField = ({
-  onChangeText,
-  placeholder,
-  style,
-  defaultValue,
-  ...otherProps
-}) => {
+const SearchField = ({ onChangeText, style, defaultValue, ...otherProps }) => {
   const [text, setText] = useState(defaultValue);
 
   useEffect(() => {
     onChangeText(text);
-  }, [onChangeText, text]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [text]);
 
   return (
     <View
@@ -44,13 +39,12 @@ const SearchField = ({
     >
       <Icon name="search" style={style.searchIcon} />
       <TextInput
-        {...otherProps}
         autoCapitalize="none"
         autoCorrect={false}
-        onChangeText={setText}
-        placeholder={placeholder}
-        style={style.input}
         value={text}
+        style={style.input}
+        {...otherProps}
+        onChangeText={setText}
       />
       {!!text && <ClearButton onPress={() => setText('')} style={style} />}
     </View>
