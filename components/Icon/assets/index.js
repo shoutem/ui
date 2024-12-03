@@ -41,6 +41,7 @@ import eye from './eye.svg';
 import eyeCrossed from './eye-crossed.svg';
 import facebook from './facebook.svg';
 import facebookLogo from './facebook-logo.svg';
+import filters from './filters.svg';
 import folder from './folder.svg';
 import forward from './forward.svg';
 import forward5 from './forward-5.svg';
@@ -172,6 +173,7 @@ export const defaultConfig = [
   { name: 'eye-crossed', icon: eyeCrossed },
   { name: 'facebook', icon: facebook },
   { name: 'facebook-logo', icon: facebookLogo },
+  { name: 'filters', icon: filters },
   { name: 'folder', icon: folder },
   { name: 'forward-5', icon: forward5 },
   { name: 'forward-10', icon: forward10 },
