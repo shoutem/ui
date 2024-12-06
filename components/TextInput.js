@@ -80,8 +80,8 @@ class TextInput extends PureComponent {
             underlineColorAndroid={underlineColorAndroid}
             style={{
               ...(hasBorder ? withBorder : withoutBorder),
-              ...(errorMessage ? errorBorderColor : {}),
               ...otherStyle,
+              ...(errorMessage ? errorBorderColor : {}),
               height,
             }}
             ref={forwardedRef}

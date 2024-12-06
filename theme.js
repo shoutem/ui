@@ -2040,7 +2040,6 @@ export default () => {
       clearButton: {
         position: 'absolute',
         right: 5,
-        top: 3,
       },
 
       clearIcon: {
