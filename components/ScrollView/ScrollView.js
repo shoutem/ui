@@ -5,11 +5,7 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { DriverShape, ScrollDriver } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
-import { Device } from '../../helpers';
 import { ScrollDriverProvider } from './ScrollDriverProvider.js';
-
-const isTabBarOnScreen = true;
-const IPHONE_X_HOME_INDICATOR_PADDING = isTabBarOnScreen ? 0 : 34;
 
 class ScrollView extends PureComponent {
   static contextTypes = {
@@ -63,21 +59,6 @@ class ScrollView extends PureComponent {
     this.wrappedInstance = component;
   }
 
-  addIphoneXPadding(style) {
-    const resolvedStyle = { ...style };
-
-    if (typeof resolvedStyle.paddingBottom !== 'number') {
-      resolvedStyle.paddingBottom = 0;
-    }
-
-    resolvedStyle.paddingBottom = Device.select({
-      iPhoneX: resolvedStyle.paddingBottom + IPHONE_X_HOME_INDICATOR_PADDING,
-      default: resolvedStyle.paddingBottom,
-    });
-
-    return resolvedStyle;
-  }
-
   render() {
     const { style, ...otherProps } = this.props;
     const { scrollViewProps } = this.animationDriver;
@@ -86,7 +67,7 @@ class ScrollView extends PureComponent {
     return (
       <Animated.ScrollView
         ref={this.setWrappedInstance}
-        contentContainerStyle={this.addIphoneXPadding(contentContainerStyle)}
+        contentContainerStyle={contentContainerStyle}
         {...scrollViewProps}
         {..._.omit(otherProps, 'onScroll')}
         style={otherStyle}

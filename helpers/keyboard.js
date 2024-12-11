@@ -1,14 +1,18 @@
 import { Platform, StatusBar } from 'react-native';
-import { NAVIGATION_BAR_HEIGHT } from './device-selector';
+import { isNotchedAndroid, NAVIGATION_BAR_HEIGHT } from './device-selector';
 
 export function calculateKeyboardOffset(extraOffset = 0) {
   const resolvedOffset = NAVIGATION_BAR_HEIGHT + extraOffset;
 
-  if (Platform.OS === 'ios') {
+  if (Platform.OS === 'ios' || isNotchedAndroid) {
     return resolvedOffset;
   }
 
-  return StatusBar.currentHeight + resolvedOffset;
+  if (Platform.OS === 'android' && !isNotchedAndroid) {
+    return StatusBar.currentHeight + resolvedOffset;
+  }
+
+  return resolvedOffset;
 }
 
 // TODO: Deprecate and remove Keyboard.calculateKeyboardOffset

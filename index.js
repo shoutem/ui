@@ -50,8 +50,6 @@ export { LinearGradient } from './components/LinearGradient';
 export { ListView } from './components/ListView';
 export { LoadingContainer } from './components/LoadingContainer';
 export { LoadingIndicator } from './components/LoadingIndicator';
-export { NavigationBar } from './components/NavigationBar';
-export { NavigationBarAnimations } from './components/NavigationBar/NavigationBarAnimations';
 export { NumberInput } from './components/NumberInput';
 export { Overlay } from './components/Overlay';
 export { PageIndicators } from './components/PageIndicators';
@@ -83,12 +81,9 @@ export { SimpleHtml } from './html';
 
 // Constants
 export {
-  IPHONE_X_HOME_INDICATOR_PADDING,
-  IPHONE_X_LONG_SIDE,
-  IPHONE_X_NOTCH_PADDING,
-  IPHONE_XR_LONG_SIDE,
-  IPHONE_XR_NOTCH_PADDING,
+  HOME_INDICATOR_PADDING,
   NAVIGATION_BAR_HEIGHT,
   NAVIGATION_HEADER_HEIGHT,
+  NOTCH_AREA_HEIGHT,
   STATUS_BAR_OFFSET,
 } from './const';
