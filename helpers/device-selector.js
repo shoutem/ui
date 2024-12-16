@@ -8,7 +8,7 @@ export const isNotchedAndroid =
   Platform.OS === 'android' && DeviceInfo.hasNotch();
 
 export const NAVIGATION_BAR_HEIGHT = Platform.select({
-  ios: NAVIGATION_HEADER_HEIGHT + initialWindowMetrics.insets.top,
+  ios: NAVIGATION_HEADER_HEIGHT + initialWindowMetrics?.insets?.top,
   android: isNotchedAndroid
     ? NAVIGATION_HEADER_HEIGHT + StatusBar.currentHeight
     : NAVIGATION_HEADER_HEIGHT,
@@ -16,10 +16,10 @@ export const NAVIGATION_BAR_HEIGHT = Platform.select({
 });
 
 export const HOME_INDICATOR_PADDING =
-  Platform.OS === 'ios' ? HOME_INDICATOR_PADDING.insets.bottom : 0;
+  Platform.OS === 'ios' ? initialWindowMetrics?.insets?.bottom : 0;
 
 export const NOTCH_AREA_HEIGHT = Platform.select({
-  ios: initialWindowMetrics.insets.top,
+  ios: initialWindowMetrics?.insets?.top,
   android: isNotchedAndroid ? StatusBar.currentHeight : 0,
   default: 0,
 });
