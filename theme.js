@@ -7,16 +7,12 @@ import {
   INCLUDE,
   inverseColorBrightnessForAmount,
 } from '@shoutem/theme';
-import { getHomeIndicatorPadding } from './helpers/device-selector';
 import {
-  IPHONE_X_NOTCH_PADDING,
-  IPHONE_XR_NOTCH_PADDING,
+  HOME_INDICATOR_PADDING,
   NAVIGATION_BAR_HEIGHT,
-  NAVIGATION_HEADER_HEIGHT,
   STATUS_BAR_OFFSET,
 } from './const';
-import { Device } from './helpers';
-import { isAndroid, isIos, resolveVariable } from './services';
+import { isIos, resolveVariable } from './services';
 
 const window = Dimensions.get('window');
 
@@ -869,7 +865,7 @@ export default () => {
       [INCLUDE]: ['commonVariants', 'guttersPadding'],
 
       '.with-home-indicator-padding': {
-        paddingBottom: getHomeIndicatorPadding(),
+        paddingBottom: HOME_INDICATOR_PADDING,
       },
 
       '.horizontal': {
@@ -974,16 +970,16 @@ export default () => {
       // This was created with home indicator padding in mind. Use with-home-indicator-padding
       // if you need bottom padding. For actual notch - top of the screen padding, use SafeAreaView component instead.
       '.with-notch-padding': {
-        paddingBottom: getHomeIndicatorPadding(),
+        paddingBottom: HOME_INDICATOR_PADDING,
       },
 
       '.with-home-indicator-padding': {
-        paddingBottom: getHomeIndicatorPadding(),
+        paddingBottom: HOME_INDICATOR_PADDING,
       },
 
       'shoutem.ui.ListView': {
         listContent: {
-          paddingBottom: getHomeIndicatorPadding(),
+          paddingBottom: HOME_INDICATOR_PADDING,
         },
       },
 
@@ -1537,332 +1533,6 @@ export default () => {
     //
     // Other
     //
-    // Deprecated on ShoutEm platform ( not used for navigationBar elements )
-    navigationBar: {
-      '.featured': {
-        'shoutem.ui.Button': {
-          'shoutem.ui.Icon': {
-            color: resolveVariable('featuredNavBarIconsColor'),
-          },
-          'shoutem.ui.Text': {
-            color: resolveVariable('featuredNavBarIconsColor'),
-          },
-
-          'shoutem.ui.View': {
-            '.badge': {
-              backgroundColor: resolveVariable('featuredNavBarIconsColor'),
-              borderColor: resolveVariable('featuredColor'),
-
-              'shoutem.ui.Text': {
-                color: resolveVariable('featuredColor'),
-              },
-            },
-          },
-        },
-
-        'shoutem.ui.DropDownMenu': {
-          selectedOption: {
-            'shoutem.ui.Icon': {
-              color: resolveVariable('featuredNavBarIconsColor'),
-            },
-            'shoutem.ui.Text': {
-              color: resolveVariable('featuredNavBarIconsColor'),
-            },
-          },
-        },
-
-        ...createSharedStyle(
-          ['shoutem.ui.Title', 'shoutem.ui.Icon', 'shoutem.ui.Text'],
-          {
-            fontFamily: resolveFontFamily(
-              resolveVariable('title.fontFamily'),
-              resolveVariable('title.fontWeight'),
-              resolveVariable('title.fontStyle'),
-            ),
-            fontWeight: resolveFontWeight(resolveVariable('title.fontWeight')),
-            fontStyle: resolveFontStyle(resolveVariable('title.fontStyle')),
-            color: resolveVariable('featuredNavBarTitleColor'),
-          },
-        ),
-
-        container: {
-          [INCLUDE]: ['featuredBackground'],
-          borderBottomWidth: 0,
-        },
-      },
-
-      'shoutem.ui.Icon': {
-        color: resolveVariable('navBarIconsColor'),
-        width: 24,
-        height: 24,
-        paddingHorizontal: 9,
-      },
-
-      'shoutem.ui.Text': {
-        ...resolveVariable('navBarText'),
-        fontFamily: resolveFontFamily(
-          resolveVariable('navBarText.fontFamily'),
-          resolveVariable('navBarText.fontWeight'),
-          resolveVariable('navBarText.fontStyle'),
-        ),
-        fontWeight: resolveFontWeight(resolveVariable('navBarText.fontWeight')),
-        fontStyle: resolveFontStyle(resolveVariable('navBarText.fontStyle')),
-        paddingHorizontal: 9,
-      },
-
-      'shoutem.ui.ShareButton': {
-        '.clear': {
-          'shoutem.ui.Button': {
-            [INCLUDE]: ['clearButton'],
-          },
-        },
-      },
-
-      'shoutem.ui.Button': {
-        [INCLUDE]: ['clearButton', 'tightButton'],
-        'shoutem.ui.Icon': {
-          color: resolveVariable('navBarIconsColor'),
-          marginVertical: 9,
-        },
-        'shoutem.ui.Text': {
-          ...resolveVariable('navBarText'),
-          fontFamily: resolveFontFamily(
-            resolveVariable('navBarText.fontFamily'),
-            'normal',
-            resolveVariable('navBarText.fontStyle'),
-          ),
-          fontWeight: resolveFontWeight('normal'),
-          fontStyle: resolveFontStyle(resolveVariable('navBarText.fontStyle')),
-          color: resolveVariable('navBarIconsColor'),
-          letterSpacing: 0,
-        },
-        'shoutem.ui.View': {
-          '.badge': {
-            top: 5,
-            right: 5,
-          },
-        },
-        paddingHorizontal: 9,
-      },
-    },
-
-    'shoutem.ui.NavigationBar': {
-      title: {
-        color: resolveVariable('navBarText.color'),
-        lineHeight: calculateLineHeight(resolveVariable('navBarText.fontSize')),
-        ...resolveVariable('navBarText'),
-        fontFamily: resolveFontFamily(
-          resolveVariable('navBarText.fontFamily'),
-          resolveVariable('navBarText.fontWeight'),
-          resolveVariable('navBarText.fontStyle'),
-        ),
-        fontWeight: resolveFontWeight(resolveVariable('navBarText.fontWeight')),
-        fontStyle: resolveFontStyle(resolveVariable('navBarText.fontStyle')),
-      },
-      icon: {
-        color: resolveVariable('navBarIconsColor'),
-      },
-      statusBar: {
-        backgroundColor: resolveVariable('statusBarColor'),
-        statusBarStyle: resolveVariable('statusBarStyle'),
-      },
-      container: {
-        backgroundColor: resolveVariable('navBarBackground'),
-        borderBottomColor: resolveVariable('navBarBorderColor'),
-        borderBottomWidth: StyleSheet.hairlineWidth,
-      },
-      leftContainer: {
-        paddingLeft: resolveVariable('mediumGutter'),
-      },
-      rightContainer: {
-        paddingRight: resolveVariable('mediumGutter'),
-      },
-
-      '.clear': {
-        container: {
-          backgroundColor: 'transparent',
-          borderBottomColor: 'transparent',
-        },
-      },
-
-      '.featured': {
-        title: {
-          color: resolveVariable('featuredNavBarTitleColor'),
-        },
-        icon: {
-          color: resolveVariable('featuredNavBarIconsColor'),
-        },
-
-        container: {
-          backgroundColor: resolveVariable('featuredColor'),
-          borderBottomWidth: 0,
-          shadowOpacity: 0,
-        },
-      },
-
-      '.no-border': {
-        container: {
-          borderBottomWidth: 0,
-          shadowOpacity: 0,
-        },
-      },
-
-      boxingAnimation(driver) {
-        return {
-          container: {
-            borderBottomColor: driver.interpolate({
-              // Animate to approx title top offset
-              inputRange: [0, 45],
-              outputRange: [
-                'transparent',
-                resolveVariable('navBarBorderColor'),
-              ],
-              extrapolate: 'clamp',
-            }),
-            borderBottomWidth: 1,
-          },
-          title: {
-            opacity: driver.interpolate({
-              inputRange: [250, 300],
-              outputRange: [0, 1],
-              extrapolate: 'clamp',
-            }),
-          },
-        };
-      },
-
-      solidifyAnimation(driver) {
-        return {
-          icon: {
-            opacity: driver.interpolate({
-              inputRange: [250, 300],
-              outputRange: [0, 1],
-              extrapolate: 'clamp',
-            }),
-          },
-          title: {
-            color: driver.interpolate({
-              inputRange: [250, 300],
-              outputRange: ['transparent', resolveVariable('navBarText.color')],
-              extrapolate: 'clamp',
-            }),
-          },
-          container: {
-            backgroundColor: driver.interpolate({
-              inputRange: [250, 300],
-              outputRange: ['transparent', resolveVariable('navBarBackground')],
-              extrapolate: 'clamp',
-            }),
-            borderBottomColor: driver.interpolate({
-              inputRange: [250, 300],
-              outputRange: [
-                'transparent',
-                resolveVariable('navBarBorderColor'),
-              ],
-              extrapolate: 'clamp',
-            }),
-            opacity: driver.interpolate({
-              inputRange: [250, 300],
-              outputRange: [0, 1],
-              extrapolate: 'clamp',
-            }),
-          },
-        };
-      },
-
-      fadeAnimation(driver) {
-        return {
-          container: {
-            gradient: {
-              colors: ['transparent', 'rgba(0, 0, 0, 0.5)', 'transparent'],
-              locations: [0.0, 0.25, 1.0],
-              opacity: driver.interpolate({
-                inputRange: [250, 300],
-                outputRange: [1, 0],
-              }),
-            },
-          },
-        };
-      },
-    },
-
-    // Deprecated on ShoutEm platform ( not used for navigationBar elements )
-    'shoutem.ui.navigation.NavigationBar': {
-      [INCLUDE]: ['navigationBar'],
-
-      '.fade': {
-        // Clear navigation bar is currently disabled on Android
-        // due to overflow issues.
-        gradient: {
-          [INCLUDE]: ['fillParent'],
-          colors: ['transparent', 'rgba(0, 0, 0, 0.15)', 'transparent'],
-          locations: [0.0, 0.25, 1.0],
-          solidifyAnimation(driver) {
-            return {
-              opacity: driver.interpolate({
-                inputRange: [250, 300],
-                outputRange: [1, 0],
-              }),
-            };
-          },
-        },
-      },
-
-      container: {
-        paddingTop: NAVIGATION_BAR_HEIGHT,
-        backgroundColor: resolveVariable('navBarBackground'),
-        borderBottomColor: resolveVariable('navBarBorderColor'),
-        borderBottomWidth: StyleSheet.hairlineWidth,
-      },
-      navigationHeader: {
-        position: 'absolute',
-        top: Device.select({
-          iPhoneX: 6,
-          iPhoneXR: 8,
-          default: isAndroid ? 0 : -4,
-        }),
-        left: 0,
-        right: 0,
-        height: NAVIGATION_BAR_HEIGHT,
-      },
-      statusBar: {
-        backgroundColor: resolveVariable('statusBarColor'),
-        statusBarStyle: resolveVariable('statusBarStyle'),
-        height: Device.select({
-          iPhoneX: IPHONE_X_NOTCH_PADDING,
-          iPhoneXR: IPHONE_XR_NOTCH_PADDING,
-          default: 0,
-        }),
-      },
-      screenBackground: resolveVariable('backgroundColor'),
-      navigationBarImage: {
-        marginTop: Device.select({
-          iPhoneX: IPHONE_X_NOTCH_PADDING,
-          iPhoneXR: IPHONE_XR_NOTCH_PADDING,
-          default: 0,
-        }),
-        flex: 1,
-        flexGrow: 1,
-        height: NAVIGATION_HEADER_HEIGHT,
-        left: 0,
-        solidifyAnimation(driver) {
-          return {
-            opacity: driver.interpolate({
-              inputRange: [250, 300],
-              outputRange: [0, 1],
-              extrapolate: 'clamp',
-            }),
-          };
-        },
-        boxingAnimation() {
-          return {};
-        },
-        position: 'absolute',
-        right: 0,
-        top: 0,
-        width: window.width,
-      },
-    },
 
     sectionHeaderDivider: {
       'shoutem.ui.Caption': {
