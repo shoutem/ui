@@ -8,26 +8,25 @@ import { circlePath } from './svgCalculations';
 
 const ProgressRing = ({
   index,
-  width = PROGRESS_RING_DEFAULT_PROPS.width,
-  backgroundWidth = PROGRESS_RING_DEFAULT_PROPS.backgroundWidth,
-  progressLineCap = PROGRESS_RING_DEFAULT_PROPS.progressLineCap,
-  backgroundLineCap = PROGRESS_RING_DEFAULT_PROPS.backgroundLineCap,
-  percentage = PROGRESS_RING_DEFAULT_PROPS.percentage,
-  hasBackgroundColor = PROGRESS_RING_DEFAULT_PROPS.hasBackgroundColor,
-  arcSweepAngle = PROGRESS_RING_DEFAULT_PROPS.arcSweepAngle,
+  progressPercentage = PROGRESS_RING_DEFAULT_PROPS.progressPercentage,
   size = PROGRESS_RING_DEFAULT_PROPS.size,
   color = PROGRESS_RING_DEFAULT_PROPS.color,
+  progressLineWidth = PROGRESS_RING_DEFAULT_PROPS.progressLineWidth,
+  backgroundLineWidth = PROGRESS_RING_DEFAULT_PROPS.backgroundLineWidth,
+  progressLineCap = PROGRESS_RING_DEFAULT_PROPS.progressLineCap,
+  backgroundLineCap = PROGRESS_RING_DEFAULT_PROPS.backgroundLineCap,
+  arcSweepAngle = PROGRESS_RING_DEFAULT_PROPS.arcSweepAngle,
 }) => {
   const halfSize = size / 2;
 
-  const maxWidthCircle = backgroundWidth
-    ? Math.max(width, backgroundWidth)
-    : width;
+  const maxWidthCircle = backgroundLineWidth
+    ? Math.max(progressLineWidth, backgroundLineWidth)
+    : progressLineWidth;
 
   const radius = halfSize - maxWidthCircle / 2 - index * maxWidthCircle;
 
   const currentFillAngle =
-    (arcSweepAngle * Math.min(100, Math.max(0, percentage))) / 100;
+    (arcSweepAngle * Math.min(100, Math.max(0, progressPercentage))) / 100;
 
   const backgroundPath = circlePath(
     halfSize,
@@ -47,20 +46,20 @@ const ProgressRing = ({
 
   return (
     <>
-      {hasBackgroundColor && (
+      {backgroundLineWidth > 0 && (
         <Path
           d={backgroundPath}
           stroke={changeColorAlpha(color, 0.2)}
-          strokeWidth={backgroundWidth || width}
+          strokeWidth={backgroundLineWidth || progressLineWidth}
           strokeLinecap={backgroundLineCap}
           fill="transparent"
         />
       )}
-      {percentage > 0 && (
+      {progressPercentage > 0 && (
         <Path
           d={progressPath}
           stroke={color}
-          strokeWidth={width}
+          strokeWidth={progressLineWidth}
           strokeLinecap={progressLineCap}
           fill="transparent"
         />
@@ -73,13 +72,12 @@ ProgressRing.propTypes = {
   index: PropTypes.number.isRequired,
   arcSweepAngle: PropTypes.number,
   backgroundLineCap: PropTypes.string,
-  backgroundWidth: PropTypes.number,
+  backgroundLineWidth: PropTypes.number,
   color: PropTypes.string,
-  hasBackgroundColor: PropTypes.bool,
-  percentage: PropTypes.number,
   progressLineCap: PropTypes.string,
+  progressLineWidth: PropTypes.number,
+  progressPercentage: PropTypes.number,
   size: PropTypes.number,
-  width: PropTypes.number,
 };
 
 export default ProgressRing;

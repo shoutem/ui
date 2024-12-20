@@ -8,13 +8,12 @@ export const DEFAULT_PROGRESS_COLORS = [
 ];
 
 export const PROGRESS_RING_DEFAULT_PROPS = {
-  width: 10,
-  backgroundWidth: 10,
+  progressLineWidth: 10,
+  backgroundLineWidth: 10,
   progressLineCap: 'round',
   backgroundLineCap: 'round',
-  percentage: 0.1, // 0.1 so that it shows tiny fill indicator, indicating 0%, better UX/UI than empty.
+  progressPercentage: 0.1, // 0.1 so that it shows tiny fill indicator, indicating 0%, better UX/UI than empty.
   arcSweepAngle: 360,
   size: 80,
-  hasBackgroundColor: true,
   color: '#000',
 };

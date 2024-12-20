@@ -29,15 +29,15 @@ const resolveInterpolationRange = colors => {
   };
 };
 
-export const useColorInterpolation = (colors, percentage) => {
-  const animatedPercentage = useRef(new Animated.Value(percentage)).current;
+export const useColorInterpolation = (colors, progressPerecentage) => {
+  const animatedPercentage = useRef(new Animated.Value(0)).current;
 
   const [interpolatedColor, setInterpolatedColor] = useState(colors[0]);
 
   useEffect(() => {
     Animated.timing(animatedPercentage, {
-      toValue: percentage,
-      duration: 100,
+      toValue: progressPerecentage,
+      duration: 1000,
       useNativeDriver: false, // Color interpolation requires native driver to be false
     }).start();
 
@@ -54,7 +54,42 @@ export const useColorInterpolation = (colors, percentage) => {
     return () => {
       animatedPercentage.removeListener(listener);
     };
-  }, [percentage, colors, animatedPercentage]);
+  }, [progressPerecentage, colors, animatedPercentage]);
 
   return interpolatedColor;
+};
+
+export const useColorAndPercentageInterpolation = (
+  colors,
+  progressPerecentage,
+) => {
+  const animatedPercentage = useRef(new Animated.Value(0)).current;
+
+  const [interpolatedColor, setInterpolatedColor] = useState(colors[0]);
+  const [interpolatedPercentage, setInterpolatedPercentage] = useState(0);
+
+  useEffect(() => {
+    Animated.timing(animatedPercentage, {
+      toValue: progressPerecentage,
+      duration: 1000,
+      useNativeDriver: false, // Color interpolation requires native driver to be false
+    }).start();
+
+    // Listen to animatedPercentage value changes and update the interpolated color
+    const listener = animatedPercentage.addListener(({ value }) => {
+      const colorInterpolation = animatedPercentage.interpolate(
+        resolveInterpolationRange(colors),
+      );
+
+      // Resolve the interpolated color to a valid color string
+      setInterpolatedColor(colorInterpolation.__getValue());
+      setInterpolatedPercentage(value);
+    });
+
+    return () => {
+      animatedPercentage.removeListener(listener);
+    };
+  }, [progressPerecentage, colors, animatedPercentage]);
+
+  return { interpolatedColor, interpolatedPercentage };
 };

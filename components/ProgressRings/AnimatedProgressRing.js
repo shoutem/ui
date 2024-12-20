@@ -2,22 +2,26 @@
 import React from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import { useColorInterpolation } from '../../hooks';
+import { useColorAndPercentageInterpolation } from '../../hooks';
 import { DEFAULT_PROGRESS_COLORS, PROGRESS_RING_DEFAULT_PROPS } from './const';
 import ProgressRing from './ProgressRing';
 
 const AnimatedProgressRing = props => {
   const {
-    percentage = PROGRESS_RING_DEFAULT_PROPS.percentage,
+    progressPercentage = PROGRESS_RING_DEFAULT_PROPS.progressPercentage,
     progressColors = DEFAULT_PROGRESS_COLORS,
   } = props;
 
-  const interpolatedColor = useColorInterpolation(progressColors, percentage);
+  const {
+    interpolatedColor,
+    interpolatedPercentage,
+  } = useColorAndPercentageInterpolation(progressColors, progressPercentage);
 
   return (
     <ProgressRing
       {..._.omit(props, ['progressColors'])}
       color={interpolatedColor}
+      progressPercentage={interpolatedPercentage}
     />
   );
 };

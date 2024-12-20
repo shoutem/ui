@@ -1,1 +1,4 @@
-export { useColorInterpolation } from './useColorInterpolation';
+export {
+  useColorAndPercentageInterpolation,
+  useColorInterpolation,
+} from './useColorAndPercentageInterpolation';
