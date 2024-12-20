@@ -2918,5 +2918,12 @@ export default () => {
         maxHeight: responsiveHeight(20),
       },
     },
+
+    'shoutem.ui.ProgressRings': {
+      container: { justifyContent: 'center', alignItems: 'center' },
+      childrenContainer: {
+        position: 'absolute',
+      },
+    },
   };
 };

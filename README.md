@@ -30,7 +30,7 @@ Join [our community](https://www.facebook.com/groups/shoutem.community/) on Face
 
 ## UI Toolkit
 
-Shoutem UI is a part of the [Shoutem UI Toolkit](https://shoutem.github.io/ui/) that enables you to build professional looking React Native apps with ease.
+Shoutem UI is a part of the [Shoutem UI Toolkit](https://shoutem.github.io/docs/ui-toolkit/introduction) that enables you to build professional looking React Native apps with ease.
 
 It consists of three libraries:
 
