@@ -2,8 +2,9 @@
 import React from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
+import { DEFAULT_PROGRESS_COLORS } from '../../const';
 import { useColorAndPercentageInterpolation } from '../../hooks';
-import { DEFAULT_PROGRESS_COLORS, PROGRESS_RING_DEFAULT_PROPS } from './const';
+import { PROGRESS_RING_DEFAULT_PROPS } from './const';
 import ProgressRing from './ProgressRing';
 
 const AnimatedProgressRing = props => {
