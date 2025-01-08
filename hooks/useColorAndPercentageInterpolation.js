@@ -1,7 +1,8 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-bitwise */
 import { useEffect, useRef, useState } from 'react';
 import { Animated } from 'react-native';
-import { DEFAULT_PROGRESS_COLORS } from '../const';
+import { DEFAULT_PROGRESS_COLORS } from '@shoutem/ui/components/ProgressRings';
 
 const resolveInputRange = colors => {
   if (colors.length === 1) {
@@ -50,7 +51,8 @@ export const useColorInterpolation = (
 
   useEffect(() => {
     if (!animatedConfig) {
-      return () => null;
+      setInterpolatedColor(getInterpolatedColor(colors, progressPerecentage));
+      return;
     }
 
     Animated.timing(animatedPercentage, animatedConfig).start();
@@ -95,7 +97,8 @@ export const useColorAndPercentageInterpolation = (
 
   useEffect(() => {
     if (!animatedConfig) {
-      return () => null;
+      setInterpolatedPercentage(progressPerecentage);
+      return;
     }
 
     Animated.timing(animatedPercentage, animatedConfig).start();
