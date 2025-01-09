@@ -11,12 +11,21 @@ const AnimatedProgressRing = props => {
   const {
     progressPercentage = PROGRESS_RING_DEFAULT_PROPS.progressPercentage,
     progressColors = DEFAULT_PROGRESS_COLORS,
+    animationConfig = {
+      toValue: progressPercentage,
+      duration: 1000 * (progressPercentage / 100), // 100% will animate for 1s, 50% for 0.5s etc.
+      useNativeDriver: true,
+    },
   } = props;
 
   const {
     interpolatedColor,
     interpolatedPercentage,
-  } = useColorAndPercentageInterpolation(progressColors, progressPercentage);
+  } = useColorAndPercentageInterpolation(
+    progressColors,
+    progressPercentage,
+    animationConfig,
+  );
 
   return (
     <ProgressRing

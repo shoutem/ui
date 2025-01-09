@@ -2,7 +2,7 @@
 /* eslint-disable no-bitwise */
 import { useEffect, useRef, useState } from 'react';
 import { Animated } from 'react-native';
-import { DEFAULT_PROGRESS_COLORS } from '@shoutem/ui/components/ProgressRings';
+import { DEFAULT_PROGRESS_COLORS } from '../const';
 
 const resolveInputRange = colors => {
   if (colors.length === 1) {
@@ -34,10 +34,10 @@ const resolveInterpolationRange = colors => {
 
 export const useColorInterpolation = (
   colors,
-  progressPerecentage,
+  progressPercentage,
   animatedConfig = {
-    toValue: progressPerecentage,
-    duration: 200,
+    toValue: progressPercentage,
+    duration: 1000 * (progressPercentage / 100), // 100% will animate for 1s, 50% for 0.5s etc.
     useNativeDriver: true,
   },
 ) => {
@@ -45,13 +45,13 @@ export const useColorInterpolation = (
 
   const [interpolatedColor, setInterpolatedColor] = useState(
     !animatedConfig
-      ? getInterpolatedColor(colors, progressPerecentage)
+      ? getInterpolatedColor(colors, progressPercentage)
       : colors[0],
   );
 
   useEffect(() => {
     if (!animatedConfig) {
-      setInterpolatedColor(getInterpolatedColor(colors, progressPerecentage));
+      setInterpolatedColor(getInterpolatedColor(colors, progressPercentage));
       return;
     }
 
@@ -70,17 +70,17 @@ export const useColorInterpolation = (
     return () => {
       animatedPercentage.removeListener(listener);
     };
-  }, [progressPerecentage, colors, animatedPercentage, animatedConfig]);
+  }, [progressPercentage, colors, animatedPercentage, animatedConfig]);
 
   return interpolatedColor;
 };
 
 export const useColorAndPercentageInterpolation = (
   colors,
-  progressPerecentage,
+  progressPercentage,
   animatedConfig = {
-    toValue: progressPerecentage,
-    duration: 200,
+    toValue: progressPercentage,
+    duration: 1000 * (progressPercentage / 100), // 100% will animate for 1s, 50% for 0.5s etc.
     useNativeDriver: true,
   },
 ) => {
@@ -88,16 +88,16 @@ export const useColorAndPercentageInterpolation = (
 
   const [interpolatedColor, setInterpolatedColor] = useState(
     !animatedConfig
-      ? getInterpolatedColor(colors, progressPerecentage)
+      ? getInterpolatedColor(colors, progressPercentage)
       : colors[0],
   );
   const [interpolatedPercentage, setInterpolatedPercentage] = useState(
-    !animatedConfig ? progressPerecentage : 0,
+    !animatedConfig ? progressPercentage : 0,
   );
 
   useEffect(() => {
     if (!animatedConfig) {
-      setInterpolatedPercentage(progressPerecentage);
+      setInterpolatedPercentage(progressPercentage);
       return;
     }
 
@@ -117,7 +117,7 @@ export const useColorAndPercentageInterpolation = (
     return () => {
       animatedPercentage.removeListener(listener);
     };
-  }, [progressPerecentage, colors, animatedPercentage, animatedConfig]);
+  }, [progressPercentage, colors, animatedPercentage, animatedConfig]);
 
   return { interpolatedColor, interpolatedPercentage };
 };
