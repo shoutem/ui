@@ -18,3 +18,12 @@ export {
   NOTCH_AREA_HEIGHT,
   STATUS_BAR_OFFSET,
 };
+
+export const DEFAULT_PROGRESS_COLORS = [
+  '#FF0000', // Red
+  '#FF4500', // Orange-Red
+  '#FFA500', // Orange
+  '#FFD700', // Yellow
+  '#ADFF2F', // Yellow-Green
+  '#90EE90', // Light Green
+];
