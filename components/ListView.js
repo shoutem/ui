@@ -45,7 +45,7 @@ class ListView extends PureComponent {
 
     // If loading is done, set status back to idle.
     if (!isLoading && state.status === Status.LOADING) {
-      return { status: Status.IDLE}
+      return { status: Status.IDLE };
     }
 
     // Return all other statuses as they are.
@@ -111,7 +111,6 @@ class ListView extends PureComponent {
       renderSectionHeader,
       onRefresh,
       onLoadMoreThreshold,
-      keyExtractor,
       contentContainerStyle,
       ListEmptyComponent,
     } = this.props;
@@ -127,8 +126,8 @@ class ListView extends PureComponent {
     // style
     mappedProps.style = style.list;
     mappedProps.contentContainerStyle = {
-      ...contentContainerStyle,
       ...style.listContent,
+      ...contentContainerStyle,
     };
 
     if (Platform.OS === 'ios' && parseInt(Platform.Version, 10) === 13) {
