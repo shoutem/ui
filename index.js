@@ -1,5 +1,7 @@
 import { setDefaultThemeStyle } from './init';
 
+export { default } from 'react-native-haptic-feedback';
+
 setDefaultThemeStyle();
 
 // Theme
