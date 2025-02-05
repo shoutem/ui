@@ -1,6 +1,6 @@
 {
   "name": "@shoutem/ui",
-  "version": "8.1.3-rc.1",
+  "version": "8.1.3-rc.2",
   "description": "Styleable set of components for React Native applications",
   "scripts": {
     "lint": "eslint .",
