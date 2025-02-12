@@ -1,7 +1,5 @@
 import { setDefaultThemeStyle } from './init';
 
-export { default as ReactNativeHapticFeedback } from 'react-native-haptic-feedback';
-
 setDefaultThemeStyle();
 
 // Theme
@@ -56,6 +54,7 @@ export { NumberInput } from './components/NumberInput';
 export { Overlay } from './components/Overlay';
 export { PageIndicators } from './components/PageIndicators';
 export * from './components/ProgressRings';
+export { ReactNativeHapticFeedback } from './components/RNHapticFeedback';
 export { Row } from './components/Row';
 export { Screen } from './components/Screen';
 export { ScrollView } from './components/ScrollView';
@@ -74,6 +73,8 @@ export { TouchableOpacity } from './components/TouchableOpacity';
 export { Video } from './components/Video';
 export { View } from './components/View';
 export { YearRangePicker } from './components/YearRangePicker';
+
+// Hooks
 export * from './hooks';
 
 // Helpers
