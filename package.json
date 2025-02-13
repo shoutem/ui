@@ -1,6 +1,6 @@
 {
   "name": "@shoutem/ui",
-  "version": "8.1.2",
+  "version": "8.2.0-rc.0",
   "description": "Styleable set of components for React Native applications",
   "scripts": {
     "lint": "eslint .",
@@ -31,6 +31,7 @@
     "prop-types": "15.8.1",
     "qs": "6.9.3",
     "react-native-device-info": "10.13.2",
+    "react-native-haptic-feedback": "2.3.3",
     "react-native-lightbox-v2": "0.9.0",
     "react-native-linear-gradient": "2.8.3",
     "react-native-modal": "13.0.1",
@@ -79,6 +80,7 @@
     "@react-native-community/datetimepicker",
     "lottie-react-native",
     "react-native-device-info",
+    "react-native-haptic-feedback",
     "react-native-linear-gradient",
     "react-native-photo-view",
     "react-native-svg",
