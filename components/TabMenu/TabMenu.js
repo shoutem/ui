@@ -11,50 +11,84 @@ class TabMenu extends PureComponent {
   constructor(props) {
     super(props);
 
+    this.scroll = {};
+
     autoBindReact(this);
 
     this.state = {
       itemWidths: {},
-      scrollOffset: 0,
+      viewportHorizontal: [],
     };
   }
 
-  handleOptionSelected(key, option) {
-    const { onOptionSelected } = this.props;
-    const { scrollOffset, itemWidths, viewportHorizontal } = this.state;
+  componentDidMount() {
+    this.scrollToSelectedItem();
+  }
+
+  componentDidUpdate(prevProps) {
+    const { selectedOption } = this.props;
+
+    if (prevProps.selectedOption !== selectedOption) {
+      this.scrollToSelectedItem();
+    }
+  }
+
+  scrollToSelectedItem() {
+    const { selectedOption, options } = this.props;
+    const { itemWidths, viewportHorizontal } = this.state;
+
+    if (!selectedOption || !options.length || !this.scroll) {
+      return;
+    }
+
+    const selectedIndex = options.findIndex(
+      option => option.id === selectedOption.id,
+    );
+
+    if (selectedIndex === -1) {
+      return;
+    }
 
     let itemStart = 0;
 
     _.forEach(itemWidths, (itemWidth, index) => {
-      if (index < key) {
+      if (index < selectedIndex) {
         itemStart += itemWidth;
       }
     });
 
-    const itemEnd = itemStart + itemWidths[key];
+    const itemEnd = itemStart + itemWidths[selectedIndex];
 
-    LayoutAnimation.easeInEaseOut();
-    onOptionSelected(option);
-
+    // Ensure item is in view
     if (itemEnd > _.last(viewportHorizontal)) {
       const extraScroll = itemEnd - _.last(viewportHorizontal);
-
-      this.scroll.scrollTo({
-        x: extraScroll + scrollOffset,
-        y: 0,
-        animated: true,
-      });
+      this.scroll.scrollTo({ x: extraScroll, y: 0, animated: true });
     }
 
     if (itemStart < _.head(viewportHorizontal)) {
-      const extraScroll = _.head(viewportHorizontal) - itemStart;
-
       this.scroll.scrollTo({
-        x: scrollOffset - extraScroll,
+        x: itemStart,
         y: 0,
         animated: true,
       });
     }
+  }
+
+  handleScroll({
+    nativeEvent: {
+      contentOffset: { x },
+      layoutMeasurement: { width },
+    },
+  }) {
+    this.setState({ viewportHorizontal: [x, width] });
+  }
+
+  handleScrollLayout({
+    nativeEvent: {
+      layout: { width },
+    },
+  }) {
+    this.setState({ viewportHorizontal: [0, width] });
   }
 
   handleItemLayout(key, width) {
@@ -68,21 +102,11 @@ class TabMenu extends PureComponent {
     });
   }
 
-  handleScroll({
-    nativeEvent: {
-      contentOffset: { x },
-      layoutMeasurement: { width },
-    },
-  }) {
-    this.setState({ scrollOffset: x, viewportHorizontal: [x, x + width] });
-  }
+  handleOptionSelected(option) {
+    const { onOptionSelected } = this.props;
 
-  handleScrollLayout({
-    nativeEvent: {
-      layout: { width },
-    },
-  }) {
-    this.setState({ viewportHorizontal: [0, width] });
+    LayoutAnimation.easeInEaseOut();
+    onOptionSelected(option);
   }
 
   renderOption(option, key) {
@@ -95,7 +119,7 @@ class TabMenu extends PureComponent {
         key={key}
         isSelected={isSelected}
         item={option}
-        onItemPressed={option => this.handleOptionSelected(key, option)}
+        onItemPressed={option => this.handleOptionSelected(option)}
         onLayoutMeasured={width => this.handleItemLayout(key, width)}
       />
     );
@@ -113,6 +137,7 @@ class TabMenu extends PureComponent {
         ref={ref => {
           this.scroll = ref;
         }}
+        scrollEventThrottle={16}
         showsHorizontalScrollIndicator={false}
         style={style.list}
       >
