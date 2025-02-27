@@ -5,7 +5,6 @@ import addFriend from './add-friend.svg';
 import addToCart from './add-to-cart.svg';
 import addToFavoritesOff from './add-to-favorites-off.svg';
 import addToFavoritesOn from './add-to-favorites-on.svg';
-import addToShoppingCart from './add-to-shopping-cart.svg';
 import address from './address.svg';
 import attachMedia from './attach-media.svg';
 import back from './back.svg';
@@ -136,7 +135,6 @@ export const defaultConfig = [
   { name: 'add-event', icon: addEvent },
   { name: 'add-friend', icon: addFriend },
   { name: 'add-to-cart', icon: addToCart },
-  { name: 'add-to-shopping-cart', icon: addToShoppingCart },
   { name: 'add-to-favorites-off', icon: addToFavoritesOff },
   { name: 'add-to-favorites-on', icon: addToFavoritesOn },
   { name: 'address', icon: address },
