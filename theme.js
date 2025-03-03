@@ -2556,6 +2556,7 @@ export default () => {
       list: {
         flexGrow: 0,
         flexShrink: 0,
+        backgroundColor: resolveVariable('backgroundColor'),
       },
     },
 
