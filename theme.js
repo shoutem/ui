@@ -2264,6 +2264,12 @@ export default () => {
         },
       },
 
+      '.5:7-ratio': {
+        container: {
+          height: (7 / 5) * window.width,
+        },
+      },
+
       container: {
         height: responsiveWidth(345),
       },
