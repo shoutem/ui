@@ -32,10 +32,6 @@ export class ScrollDriverProvider extends PureComponent {
     };
   }
 
-  componentDidUpdate() {
-    this.setupAnimationDriver(this.props, this.context);
-  }
-
   setupAnimationDriver(props, context) {
     const { onAnimationDriverChange } = this.props;
 
