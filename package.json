@@ -1,6 +1,6 @@
 {
   "name": "@shoutem/ui",
-  "version": "8.2.3-rc.0",
+  "version": "8.2.3-rc.1",
   "description": "Styleable set of components for React Native applications",
   "scripts": {
     "lint": "eslint .",
@@ -14,6 +14,7 @@
     "@native-html/iframe-plugin": "2.6.1",
     "@native-html/table-plugin": "5.3.1",
     "@openspacelabs/react-native-zoomable-view": "2.0.4",
+    "@react-native-camera-roll/camera-roll": "5.7.2",
     "@react-native-community/datetimepicker": "6.2.0",
     "@shoutem/animation": "0.17.0",
     "@shoutem/eslint-config-react": "~1.0.6",
