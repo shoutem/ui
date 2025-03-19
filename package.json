@@ -1,6 +1,6 @@
 {
   "name": "@shoutem/ui",
-  "version": "8.2.3-rc.1",
+  "version": "8.2.3-rc.2",
   "description": "Styleable set of components for React Native applications",
   "scripts": {
     "lint": "eslint .",
@@ -86,7 +86,9 @@
     "react-native-linear-gradient",
     "react-native-photo-view",
     "react-native-svg",
-    "react-native-webview"
+    "react-native-webview",
+    "react-native-fast-image",
+    "@react-native-camera-roll/camera-roll"
   ],
   "homepage": "http://shoutem.github.io/docs/ui-toolkit/introduction",
   "bugs": {
