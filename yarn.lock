@@ -6430,6 +6430,11 @@ react-native-device-info@10.13.2:
   resolved "https://registry.npmjs.org/react-native-device-info/-/react-native-device-info-10.13.2.tgz"
   integrity sha512-5EAls7uvGdZkVfp1KWHsR5BfJJHp/ux64+ZPj1865IcaUyrNQIWYFmrTHwTH8L/NGJUTBrzv+y6WODnN17LSbw==
 
+react-native-fast-image@^8.6.3:
+  version "8.6.3"
+  resolved "https://registry.yarnpkg.com/react-native-fast-image/-/react-native-fast-image-8.6.3.tgz#6edc3f9190092a909d636d93eecbcc54a8822255"
+  integrity sha512-Sdw4ESidXCXOmQ9EcYguNY2swyoWmx53kym2zRsvi+VeFCHEdkO+WG1DK+6W81juot40bbfLNhkc63QnWtesNg==
+
 react-native-gradle-plugin@^0.0.6:
   version "0.0.6"
   resolved "https://registry.npmjs.org/react-native-gradle-plugin/-/react-native-gradle-plugin-0.0.6.tgz"

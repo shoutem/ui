@@ -30,7 +30,9 @@
     "lottie-react-native": "6.7.0",
     "prop-types": "15.8.1",
     "qs": "6.9.3",
+    "react-native-actions-sheet": "0.9.3",
     "react-native-device-info": "10.13.2",
+    "react-native-fast-image": "^8.6.3",
     "react-native-haptic-feedback": "2.3.3",
     "react-native-lightbox-v2": "0.9.0",
     "react-native-linear-gradient": "2.8.3",
@@ -43,7 +45,6 @@
     "react-native-web-refresh-control": "1.1.2",
     "react-native-webview": "11.23.0",
     "react-native-youtube-iframe": "2.2.2",
-    "react-native-actions-sheet": "0.9.3",
     "stream": "0.0.2",
     "tinycolor2": "1.4.1"
   },
