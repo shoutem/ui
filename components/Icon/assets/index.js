@@ -48,6 +48,7 @@ import forward5 from './forward-5.svg';
 import forward10 from './forward-10.svg';
 import forward30 from './forward-30.svg';
 import friends from './friends.svg';
+import fullScreen from './full-screen.svg';
 import gallery from './gallery.svg';
 import garbageCan from './garbage-can.svg';
 import gift from './gift.svg';
@@ -126,6 +127,7 @@ import users from './users.svg';
 import videoCam from './video-cam.svg';
 import videoCamOff from './video-cam-off.svg';
 import videoChat from './video-chat.svg';
+import videoRecording from './video-recording.svg';
 import web from './web.svg';
 import wheelchair from './wheelchair.svg';
 
@@ -181,6 +183,7 @@ export const defaultConfig = [
   { name: 'forward', icon: forward },
   { name: 'gallery', icon: gallery },
   { name: 'friends', icon: friends },
+  { name: 'full-screen', icon: fullScreen },
   { name: 'garbage-can', icon: garbageCan },
   { name: 'gift', icon: gift },
   { name: 'github', icon: github },
@@ -258,6 +261,7 @@ export const defaultConfig = [
   { name: 'video-cam', icon: videoCam },
   { name: 'video-cam-off', icon: videoCamOff },
   { name: 'video-chat', icon: videoChat },
+  { name: 'video-recording', icon: videoRecording },
   { name: 'web', icon: web },
   { name: 'wheelchair', icon: wheelchair },
 ];
