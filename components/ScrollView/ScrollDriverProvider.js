@@ -1,7 +1,9 @@
-import { Children, PureComponent } from 'react';
+import React, { Children, createContext, PureComponent } from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { DriverShape, ScrollDriver } from '@shoutem/animation';
+
+export const ScrollDriverContext = createContext({});
 
 /**
  * Use this component if you want to share animation driver between unreachable siblings.
@@ -10,26 +12,10 @@ import { DriverShape, ScrollDriver } from '@shoutem/animation';
  * register its driver.
  */
 export class ScrollDriverProvider extends PureComponent {
-  static childContextTypes = {
-    driverProvider: PropTypes.object,
-    animationDriver: DriverShape,
-  };
-
-  static contextTypes = {
-    animationDriver: DriverShape,
-  };
-
   constructor(props, context) {
     super(props, context);
 
     this.setupAnimationDriver(props, context);
-  }
-
-  getChildContext() {
-    return {
-      driverProvider: this,
-      animationDriver: this.animationDriver,
-    };
   }
 
   setupAnimationDriver(props, context) {
@@ -70,9 +56,20 @@ export class ScrollDriverProvider extends PureComponent {
   render() {
     const { children } = this.props;
 
-    return children && Children.only(children);
+    return (
+      <ScrollDriverContext.Provider
+        value={{
+          driverProvider: this,
+          animationDriver: this.animationDriver,
+        }}
+      >
+        {children && Children.only(children)}
+      </ScrollDriverContext.Provider>
+    );
   }
 }
+
+ScrollDriverProvider.contextType = ScrollDriverContext;
 
 // We disable this eslint rule because the props are being utilized indirectly
 // through componentDidUpdate's usage of setupAnimationDriver

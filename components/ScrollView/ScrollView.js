@@ -3,21 +3,17 @@ import { Animated } from 'react-native';
 import autoBindReact from 'auto-bind/react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import { DriverShape, ScrollDriver } from '@shoutem/animation';
+import { ScrollDriver } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
-import { ScrollDriverProvider } from './ScrollDriverProvider.js';
+import {
+  ScrollDriverContext,
+  ScrollDriverProvider,
+} from './ScrollDriverProvider.js';
 
 class ScrollView extends PureComponent {
-  static contextTypes = {
-    animationDriver: DriverShape,
-    driverProvider: PropTypes.object,
-  };
-
-  static childContextTypes = {
-    animationDriver: DriverShape,
-  };
-
   static DriverProvider = ScrollDriverProvider;
+
+  static DriverContext = ScrollDriverContext;
 
   constructor(props, context) {
     super(props, context);
@@ -30,12 +26,6 @@ class ScrollView extends PureComponent {
         { useNativeDriver: true, nativeScrollEventThrottle: 20 },
         props.onScroll,
       );
-  }
-
-  getChildContext() {
-    return {
-      animationDriver: this.animationDriver,
-    };
   }
 
   componentDidMount() {
@@ -61,20 +51,30 @@ class ScrollView extends PureComponent {
 
   render() {
     const { style, ...otherProps } = this.props;
+    const { driverProvider } = this.context;
     const { scrollViewProps } = this.animationDriver;
     const { contentContainerStyle, ...otherStyle } = style;
 
     return (
-      <Animated.ScrollView
-        ref={this.setWrappedInstance}
-        contentContainerStyle={contentContainerStyle}
-        {...scrollViewProps}
-        {..._.omit(otherProps, 'onScroll')}
-        style={otherStyle}
-      />
+      <ScrollDriverContext.Provider
+        value={{
+          driverProvider,
+          animationDriver: this.animationDriver,
+        }}
+      >
+        <Animated.ScrollView
+          ref={this.setWrappedInstance}
+          contentContainerStyle={contentContainerStyle}
+          {...scrollViewProps}
+          {..._.omit(otherProps, 'onScroll')}
+          style={otherStyle}
+        />
+      </ScrollDriverContext.Provider>
     );
   }
 }
+
+ScrollView.contextType = ScrollDriverContext;
 
 ScrollView.propTypes = {
   ...Animated.ScrollView.propTypes,
