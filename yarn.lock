@@ -1607,10 +1607,10 @@
   dependencies:
     nanoid "^3.3.11"
 
-"@shoutem/animation@0.17.0":
-  version "0.17.0"
-  resolved "https://registry.npmjs.org/@shoutem/animation/-/animation-0.17.0.tgz"
-  integrity sha512-hR7m6G8dqRNbgkSCjxCe67shMfVuctSXrxDuTKA1EEV6NUrOZL/1dKG65sXc1JzEVapjXJHkFnR1A2LbpQTrdA==
+"@shoutem/animation@1.0.0-rc.1":
+  version "1.0.0-rc.1"
+  resolved "https://registry.npmjs.org/@shoutem/animation/-/animation-1.0.0-rc.1.tgz"
+  integrity sha512-2IXvVYWONcUI5Zi2UnMx88onpQrZifh4uhltllG8cfVH+gnnJ1EIvtO/4CpIuQ9wK4Uw0ok1SzpYB+jGefcrYA==
   dependencies:
     auto-bind "4.0.0"
     hoist-non-react-statics "3.3.2"
@@ -1641,10 +1641,10 @@
     "@shoutem/eslint-config-base" "^1.0.1"
     eslint-config-airbnb "18.2.1"
 
-"@shoutem/theme@0.15.0-rc.0":
-  version "0.15.0-rc.0"
-  resolved "https://registry.npmjs.org/@shoutem/theme/-/theme-0.15.0-rc.0.tgz"
-  integrity sha512-MqZ7U52PpIxDyGGSUBy3fQgUpET0AlA9UD2f3S5OOHWWE6NwKvLqGdGDbi5JxCf7ZMV7x3+DO8q8eWTgSyZOIw==
+"@shoutem/theme@1.0.0-rc.1":
+  version "1.0.0-rc.1"
+  resolved "https://registry.npmjs.org/@shoutem/theme/-/theme-1.0.0-rc.1.tgz"
+  integrity sha512-Z6u6lYVhYXCUG8oa/847d5DYvzlpuKgLOhmyiKoy/8aIkWU4ziUWOBnjQ9O//mUWWDlNPnKOYNT0c6SCNC6L8A==
   dependencies:
     auto-bind "4.0.0"
     hoist-non-react-statics "1.2.0"
@@ -5796,7 +5796,7 @@ react-native-youtube-iframe@2.2.2:
   dependencies:
     events "^3.2.0"
 
-react-native@*, react-native@^*, "react-native@>= 0.59.0", "react-native@>= 0.63.0", react-native@>=0.46, react-native@>=0.54.0, react-native@>=0.59.0, react-native@>=0.60, react-native@>=0.60.0, react-native@>=0.60.6, react-native@>=0.61.0, react-native@>=0.70.0, react-native@>=0.78.0, react-native@0.78.0:
+react-native@*, react-native@^*, "react-native@>= 0.59.0", "react-native@>= 0.63.0", react-native@>=0.46, react-native@>=0.54.0, react-native@>=0.59.0, react-native@>=0.60, react-native@>=0.60.0, react-native@>=0.61.0, react-native@>=0.70.0, react-native@>=0.78.0, react-native@0.78.0:
   version "0.78.0"
   resolved "https://registry.npmjs.org/react-native/-/react-native-0.78.0.tgz"
   integrity sha512-3PO4tNvCN6BdAKcoY70v1sLfxYCmDR4KS1VTY+kIBKy5Qznp27QNxL7zBQjvS6Jp91gc8N82QbysQrfBlwg9gQ==
