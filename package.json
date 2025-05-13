@@ -51,7 +51,8 @@
     "react": ">=19.0.0",
     "react-native": ">=0.78.0",
     "react-native-gesture-handler": "*",
-    "react-native-safe-area-context": "*"
+    "react-native-safe-area-context": "*",
+    "@react-navigation/native": "*"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
