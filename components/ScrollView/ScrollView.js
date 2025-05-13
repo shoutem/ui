@@ -1,18 +1,18 @@
 import React, { useContext, useEffect, useRef } from 'react';
-import { useFocusEffect } from '@react-navigation/native';
 import { Animated } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import { ScrollDriver, AnimationDriverContext } from '@shoutem/animation';
+import { AnimationDriverContext, ScrollDriver } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
 
 const ScrollView = ({ driver, onScroll, primary, style, ...otherProps }) => {
   const animationDriver = useRef(
     driver ||
-    new ScrollDriver(
-      { useNativeDriver: true, nativeScrollEventThrottle: 20 },
-      onScroll,
-    )
+      new ScrollDriver(
+        { useNativeDriver: true, nativeScrollEventThrottle: 20 },
+        onScroll,
+      ),
   );
   const animationDriverContext = useContext(AnimationDriverContext);
 
@@ -21,7 +21,10 @@ const ScrollView = ({ driver, onScroll, primary, style, ...otherProps }) => {
   // to derive the new driver and cascading styles before the actual navigation transition is done
   // to avoid rerendering when the actual nav transition completes
   useFocusEffect(() => {
-    const { animationDriver: prevAnimationDriver, setAnimationDriver } = animationDriverContext;
+    const {
+      animationDriver: prevAnimationDriver,
+      setAnimationDriver,
+    } = animationDriverContext;
 
     if (setAnimationDriver) {
       setAnimationDriver(animationDriver.current, primary);
@@ -29,8 +32,9 @@ const ScrollView = ({ driver, onScroll, primary, style, ...otherProps }) => {
 
     return () => {
       if (prevAnimationDriver) {
-        setAnimationDriver(prevAnimationDriver)
-      }};
+        setAnimationDriver(prevAnimationDriver);
+      }
+    };
   });
 
   useEffect(() => {
@@ -43,14 +47,14 @@ const ScrollView = ({ driver, onScroll, primary, style, ...otherProps }) => {
   const { contentContainerStyle, ...otherStyle } = style;
 
   return (
-      <Animated.ScrollView
-        contentContainerStyle={contentContainerStyle}
-        {...scrollViewProps}
-        {..._.omit(otherProps, 'onScroll')}
-        style={otherStyle}
-      />
+    <Animated.ScrollView
+      contentContainerStyle={contentContainerStyle}
+      {...scrollViewProps}
+      {..._.omit(otherProps, 'onScroll')}
+      style={otherStyle}
+    />
   );
-}
+};
 
 ScrollView.propTypes = {
   ...Animated.ScrollView.propTypes,
