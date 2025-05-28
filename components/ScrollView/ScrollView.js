@@ -6,6 +6,11 @@ import PropTypes from 'prop-types';
 import { AnimationDriverContext, ScrollDriver } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
 
+// ScrollView component envisioned to be used as a container component inside
+// the Shoutem screens. It will correctly set the current animation driver
+// when it is mounted inside the parent screen. In case you don't want the scroll
+// that is aware of the animation driver context, but want the shoutem themed styling,
+// you should use the plain RN ScrollView and connect it to the 'shoutem.ui.ScrollView' stylename
 const ScrollView = ({ driver, onScroll, primary, style, ...otherProps }) => {
   const animationDriver = useRef(
     driver ||
