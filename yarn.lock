@@ -1641,10 +1641,10 @@
     "@shoutem/eslint-config-base" "^1.0.1"
     eslint-config-airbnb "18.2.1"
 
-"@shoutem/theme@1.0.0-rc.2":
-  version "1.0.0-rc.2"
-  resolved "https://registry.npmjs.org/@shoutem/theme/-/theme-1.0.0-rc.2.tgz"
-  integrity sha512-Td7601aXBvQcWOYtO9LKxJR3QHtN1EF7gytp6G0FCoqusvOy6fdxxiARRgFylI/Nt/72tXliSq0KxgKLLvRhMg==
+"@shoutem/theme@1.0.0-rc.3":
+  version "1.0.0-rc.3"
+  resolved "https://registry.npmjs.org/@shoutem/theme/-/theme-1.0.0-rc.3.tgz"
+  integrity sha512-PsK3qGTIGMUNEVbvT2xCOc0Mw7/OJBn3SVtPYMAVpN0sYa3PLfvv7z/EuaJ4Z4eHnDJdNtMNkXp7wbfszFjmvw==
   dependencies:
     auto-bind "4.0.0"
     hoist-non-react-statics "1.2.0"
