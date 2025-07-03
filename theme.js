@@ -2407,8 +2407,11 @@ export default () => {
         paddingHorizontal: 20,
         paddingVertical: 16,
         borderBottomWidth: 1,
-        borderColor: 'rgba(130, 130, 130, 0.1)',
         alignItems: 'center',
+        backgroundColor: resolveVariable('primaryButtonBackgroundColor'),
+        borderColor: resolveVariable('primaryButtonBorderColor'),
+        borderWidth: StyleSheet.hairlineWidth,
+        borderRadius: 13,
       },
       text: {
         fontSize: 15,
