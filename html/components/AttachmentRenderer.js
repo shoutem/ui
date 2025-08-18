@@ -24,7 +24,7 @@ const AttachmentRenderer = ({ tnode, style, attachments }) => {
 };
 
 AttachmentRenderer.propTypes = {
-  attachments: PropTypes.oneOf([PropTypes.array, PropTypes.object]),
+  attachments: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   style: PropTypes.any,
   tnode: PropTypes.object,
 };
