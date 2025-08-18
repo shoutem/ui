@@ -5,7 +5,7 @@ import { resolveDimensions } from '../services/Dimensions';
 import Image from './Image';
 
 const AttachmentRenderer = ({ tnode, style, attachments }) => {
-  if (_.isEmpty(attachments)) {
+  if (!attachments || _.isEmpty(attachments)) {
     return null;
   }
 
