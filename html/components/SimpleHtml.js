@@ -13,7 +13,10 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
 import VideoRenderer from '@shoutem/ui/html/components/VideoRenderer';
-import { videoModel } from '@shoutem/ui/html/services/HTMLElementModels';
+import {
+  attachmentModel,
+  videoModel,
+} from '@shoutem/ui/html/services/HTMLElementModels';
 import { View } from '../../components/View';
 import { resolveMaxWidth } from '../services/Dimensions';
 import { onElement } from '../services/DomVisitors';
@@ -76,7 +79,7 @@ class SimpleHtml extends PureComponent {
       table,
       attachment: props => (
         <AttachmentRenderer
-          {...props}
+          tnode={props.tnode}
           attachments={attachments}
           style={style}
         />
@@ -115,6 +118,7 @@ class SimpleHtml extends PureComponent {
         table: tableModel,
         iframe: iframeModel,
         video: videoModel,
+        attachment: attachmentModel,
         ...customHtmlElementModels,
       },
       WebView,
