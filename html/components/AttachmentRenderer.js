@@ -4,39 +4,35 @@ import PropTypes from 'prop-types';
 import { resolveDimensions } from '../services/Dimensions';
 import Image from './Image';
 
-const AttachmentRenderer = ({ id, type, style, attachments }) => {
-  if (!attachments) {
+const AttachmentRenderer = ({ tnode, style, attachments }) => {
+  if (_.isEmpty(attachments)) {
     return null;
   }
 
-  if (type === 'image') {
-    const image = _.find(attachments, { id });
+  const image = _.find(attachments, { id: tnode?.id });
 
-    if (image && image.src) {
-      const source = { uri: image.src };
-      const imageSize = { width: image.width, height: image.height };
-      const { height, width } = resolveDimensions(imageSize, style);
-      const resolvedStyle = { alignSelf: 'center', height, width };
-
-      return <Image source={source} key={id} style={resolvedStyle} />;
-    }
+  if (!image || !image.src) {
+    return null;
   }
 
-  return null;
+  const source = { uri: image.src };
+  const imageSize = { width: image.width, height: image.height };
+  const { height, width } = resolveDimensions(imageSize, style);
+  const resolvedStyle = { alignSelf: 'center', height, width };
+
+  return <Image source={source} key={tnode?.id} style={resolvedStyle} />;
 };
 
 AttachmentRenderer.propTypes = {
   attachments: PropTypes.oneOf([PropTypes.array, PropTypes.object]),
-  id: PropTypes.any,
   style: PropTypes.any,
-  type: PropTypes.any,
+  tnode: PropTypes.object,
 };
 
 AttachmentRenderer.defaultProps = {
-  id: undefined,
-  type: undefined,
   attachments: undefined,
   style: undefined,
+  tnode: {},
 };
 
 export default AttachmentRenderer;
