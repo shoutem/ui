@@ -5,3 +5,9 @@ export const videoModel = HTMLElementModel.fromCustomModel({
   tagName: 'video',
   isOpaque: true,
 });
+
+export const attachmentModel = HTMLElementModel.fromCustomModel({
+  contentModel: HTMLContentModel.block,
+  tagName: 'attachment',
+  isOpaque: true,
+});
