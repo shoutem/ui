@@ -1,4 +1,5 @@
-import React, { PureComponent } from 'react';
+/* eslint-disable react/prop-types */
+import React, { useCallback, useMemo } from 'react';
 import { Linking } from 'react-native';
 import Html, { defaultSystemFonts } from 'react-native-render-html';
 import WebView from 'react-native-webview';
@@ -8,9 +9,7 @@ import table, {
   defaultTableStylesSpecs,
   tableModel,
 } from '@native-html/table-plugin';
-import autoBindReact from 'auto-bind/react';
 import _ from 'lodash';
-import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
 import VideoRenderer from '@shoutem/ui/html/components/VideoRenderer';
 import {
@@ -23,52 +22,53 @@ import { onElement } from '../services/DomVisitors';
 import AttachmentRenderer from './AttachmentRenderer';
 import IframeRenderer from './IframeRenderer';
 
-class SimpleHtml extends PureComponent {
-  constructor(props) {
-    super(props);
+const SimpleHtml = ({
+  style,
+  body,
+  unsupportedVideoFormatMessage,
+  attachments,
+  customDomVisitors = {},
+  customCustomRenderers = {},
+  customTagStyles = {},
+  customHtmlElementModels = {},
+  customIgnoredStyles = [],
+  customRendererProps = {},
+  customHandleLinkPress,
+  ...otherProps
+}) => {
+  const onLinkPress = useCallback(
+    (_evt, href) => {
+      return customHandleLinkPress
+        ? customHandleLinkPress(href)
+        : Linking.openURL(href);
+    },
+    [customHandleLinkPress],
+  );
 
-    autoBindReact(this);
-  }
+  const maxWidth = useMemo(() => {
+    return resolveMaxWidth(style);
+  }, [style]);
 
-  onLinkPress(_evt, href) {
-    const { customHandleLinkPress } = this.props;
-
-    return customHandleLinkPress
-      ? customHandleLinkPress(href)
-      : Linking.openURL(href);
-  }
-
-  render() {
-    const {
-      style,
-      body,
-      unsupportedVideoFormatMessage,
-      attachments,
-      customDomVisitors,
-      customCustomRenderers,
-      customTagStyles,
-      customHtmlElementModels,
-      customIgnoredStyles,
-      customRendererProps,
-      ...otherProps
-    } = this.props;
-
-    const maxWidth = resolveMaxWidth(style);
-
-    const tagStyles = {
+  const tagStyles = useMemo(
+    () => ({
       ...style.tags,
       ...customTagStyles,
-    };
+    }),
+    [style.tags, customTagStyles],
+  );
 
+  const cssRules = useMemo(() => {
     const tableStyle = _.get(style, 'table', {});
     const tableCssStyle = _.get(style, 'tableCss', '');
     const cssStyle = cssRulesFromSpecs({
       ...defaultTableStylesSpecs,
       ...tableStyle,
     });
-    const cssRules = `${cssStyle}${tableCssStyle}`;
+    return `${cssStyle}${tableCssStyle}`;
+  }, [style]);
 
-    const customRenderers = {
+  const customRenderers = useMemo(
+    () => ({
       iframe: props => (
         <IframeRenderer
           {...props}
@@ -86,80 +86,88 @@ class SimpleHtml extends PureComponent {
       ),
       video: VideoRenderer,
       ...customCustomRenderers,
-    };
+    }),
+    [style, unsupportedVideoFormatMessage, attachments, customCustomRenderers],
+  );
 
-    const htmlProps = {
+  const systemFonts = useMemo(
+    () => [...defaultSystemFonts, style.baseFont.fontFamily],
+    [style.baseFont.fontFamily],
+  );
+
+  const ignoredStyles = useMemo(
+    () => ['fontFamily', 'letterSpacing', 'transform', ...customIgnoredStyles],
+    [customIgnoredStyles],
+  );
+
+  const renderersProps = useMemo(
+    () => ({
+      table: {
+        cssRules,
+      },
+      a: { onPress: onLinkPress },
+      iframe: {
+        webViewProps: {
+          renderToHardwareTextureAndroid: true,
+        },
+      },
+      ...customRendererProps,
+    }),
+    [cssRules, onLinkPress, customRendererProps],
+  );
+
+  const customHTMLElementModels = useMemo(
+    () => ({
+      table: tableModel,
+      iframe: iframeModel,
+      video: videoModel,
+      attachment: attachmentModel,
+      ...customHtmlElementModels,
+    }),
+    [customHtmlElementModels],
+  );
+
+  const domVisitors = useMemo(
+    () => ({
+      onElement,
+      ...customDomVisitors,
+    }),
+    [customDomVisitors],
+  );
+
+  const filteredTagStyles = useMemo(
+    () => _.omitBy(tagStyles, tagStyle => !tagStyle),
+    [tagStyles],
+  );
+
+  // We have to be really careful with props passed to SimpleHtml, as they'll cause unnecessary re-renders.
+  // Component is meant to be static (in almost all scenarios) - it should only render with initially given props.
+  // Notice that props below are memoized to only be calculated on mount, because lots of these props non-primitive
+  // (reference types), and they'll cause re-renders.
+  const htmlProps = useMemo(
+    () => ({
       source: { html: body },
       computeEmbeddedMaxWidth: () => maxWidth,
       contentWidth: maxWidth,
-      tagsStyles: _.omitBy(tagStyles, tagStyle => !tagStyle),
-      systemFonts: [...defaultSystemFonts, style.baseFont.fontFamily],
+      tagsStyles: filteredTagStyles,
+      systemFonts,
       baseStyle: style.baseFont,
-      ignoredStyles: [
-        'fontFamily',
-        'letterSpacing',
-        'transform',
-        ...customIgnoredStyles,
-      ],
+      ignoredStyles,
       renderers: customRenderers,
-      renderersProps: {
-        table: {
-          cssRules,
-        },
-        a: { onPress: this.onLinkPress },
-        iframe: {
-          webViewProps: {
-            renderToHardwareTextureAndroid: true,
-          },
-        },
-        ...customRendererProps,
-      },
-      customHTMLElementModels: {
-        table: tableModel,
-        iframe: iframeModel,
-        video: videoModel,
-        attachment: attachmentModel,
-        ...customHtmlElementModels,
-      },
+      renderersProps,
+      customHTMLElementModels,
       WebView,
-      domVisitors: { onElement, ...customDomVisitors },
-    };
+      domVisitors,
+    }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
 
-    return (
-      <View style={style.container}>
-        <Html {...htmlProps} {...otherProps} />
-      </View>
-    );
-  }
-}
-
-SimpleHtml.propTypes = {
-  style: PropTypes.object.isRequired,
-  attachments: PropTypes.array,
-  body: PropTypes.string,
-  customCustomRenderers: PropTypes.object,
-  customDomVisitors: PropTypes.object,
-  customHandleLinkPress: PropTypes.func,
-  customHtmlElementModels: PropTypes.object,
-  customIgnoredStyles: PropTypes.arrayOf(PropTypes.string),
-  customRendererProps: PropTypes.object,
-  customTagStyles: PropTypes.object,
-  domVisitors: PropTypes.object,
-  unsupportedVideoFormatMessage: PropTypes.string,
+  return (
+    <View style={style.container}>
+      <Html {...htmlProps} {...otherProps} />
+    </View>
+  );
 };
 
-SimpleHtml.defaultProps = {
-  attachments: undefined,
-  body: undefined,
-  customHandleLinkPress: undefined,
-  customTagStyles: {},
-  unsupportedVideoFormatMessage: undefined,
-  domVisitors: { onElement },
-  customDomVisitors: {},
-  customCustomRenderers: {},
-  customHtmlElementModels: {},
-  customIgnoredStyles: [],
-  customRendererProps: {},
-};
-
-export default connectStyle('shoutem.ui.SimpleHtml')(SimpleHtml);
+export default React.memo(connectStyle('shoutem.ui.SimpleHtml')(SimpleHtml));
