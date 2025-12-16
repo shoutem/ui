@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Animated } from 'react-native';
+import { Animated, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
-import { ScrollView } from './ScrollView';
 import { Text } from './Text';
 
 const DEFAULT_CONFIG = {
@@ -10,7 +9,7 @@ const DEFAULT_CONFIG = {
   waitDuration: 2000,
 };
 
-const AnimatedScrollingText = ({ text, config, style }) => {
+const AnimatedScrollingText = ({ text, config = DEFAULT_CONFIG, style }) => {
   const translateX = useRef(new Animated.Value(0)).current;
 
   const [containerWidth, setContainerWidth] = useState();
@@ -84,12 +83,12 @@ const AnimatedScrollingText = ({ text, config, style }) => {
 
 AnimatedScrollingText.propTypes = {
   text: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/require-default-props
   config: PropTypes.object,
   style: PropTypes.object,
 };
 
 AnimatedScrollingText.defaultProps = {
-  config: DEFAULT_CONFIG,
   style: {},
 };
 
