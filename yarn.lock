@@ -1607,10 +1607,10 @@
   dependencies:
     nanoid "^3.3.11"
 
-"@shoutem/animation@1.0.0-rc.1":
-  version "1.0.0-rc.1"
-  resolved "https://registry.npmjs.org/@shoutem/animation/-/animation-1.0.0-rc.1.tgz"
-  integrity sha512-2IXvVYWONcUI5Zi2UnMx88onpQrZifh4uhltllG8cfVH+gnnJ1EIvtO/4CpIuQ9wK4Uw0ok1SzpYB+jGefcrYA==
+"@shoutem/animation@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/@shoutem/animation/-/animation-1.0.0.tgz"
+  integrity sha512-x8/+SLTZxzDXZLfxEePqy+ethx4j/iU/hgy56BGRgzYH4oTyryURW0IWvhzXg3v7auQPLx9QcfU+3ogPwI7wfA==
   dependencies:
     auto-bind "4.0.0"
     hoist-non-react-statics "3.3.2"
@@ -1641,10 +1641,10 @@
     "@shoutem/eslint-config-base" "^1.0.1"
     eslint-config-airbnb "18.2.1"
 
-"@shoutem/theme@1.0.0-rc.3":
-  version "1.0.0-rc.3"
-  resolved "https://registry.npmjs.org/@shoutem/theme/-/theme-1.0.0-rc.3.tgz"
-  integrity sha512-PsK3qGTIGMUNEVbvT2xCOc0Mw7/OJBn3SVtPYMAVpN0sYa3PLfvv7z/EuaJ4Z4eHnDJdNtMNkXp7wbfszFjmvw==
+"@shoutem/theme@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/@shoutem/theme/-/theme-1.0.0.tgz"
+  integrity sha512-QDqI0uu1q3vMfg/LBDimshCxPWaEByOjO2p7IaHIAQBBLf/bfJGta4jtAr0Yu/vDcte+l5d60DNFanLD49WscA==
   dependencies:
     auto-bind "4.0.0"
     hoist-non-react-statics "1.2.0"
@@ -3239,11 +3239,6 @@ escape-string-regexp@^4.0.0:
   version "4.0.0"
   resolved "https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-4.0.0.tgz"
   integrity sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==
-
-escape-string-regexp@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-2.0.0.tgz"
-  integrity sha512-UpzcLCXolUWcNu5HtVMHYdXJjArjsF9C0aNnquZYY4uW/Vu0miy5YoWvbV345HauVvcAUnpRuhMMcqTcGOY2+w==
 
 eslint-config-airbnb-base@^14.2.1:
   version "14.2.1"
@@ -5781,12 +5776,12 @@ react-native-web-refresh-control@1.1.2:
   resolved "https://registry.npmjs.org/react-native-web-refresh-control/-/react-native-web-refresh-control-1.1.2.tgz"
   integrity sha512-nLf/boI5AzLWhRN6P/4nI4P0Stpx4WepMX8/Ldkpiqrsr/MXiAYs39zWo3zdzHB5QKA3bGaoRJhl+C7vNVcAcQ==
 
-react-native-webview@*, react-native-webview@>=7.0.0, react-native-webview@11.23.0:
-  version "11.23.0"
-  resolved "https://registry.npmjs.org/react-native-webview/-/react-native-webview-11.23.0.tgz"
-  integrity sha512-mGrgsMnYcQONvQy59xpBn87sKqkCsSkqIDRo+c2Ov4ISYl1j90wFBs+qViVJRWdoNHVuoCAZ4nZkJ65mhDpHhA==
+react-native-webview@*, react-native-webview@>=7.0.0, react-native-webview@13.16.0:
+  version "13.16.0"
+  resolved "https://registry.npmjs.org/react-native-webview/-/react-native-webview-13.16.0.tgz"
+  integrity sha512-Nh13xKZWW35C0dbOskD7OX01nQQavOzHbCw9XoZmar4eXCo7AvrYJ0jlUfRVVIJzqINxHlpECYLdmAdFsl9xDA==
   dependencies:
-    escape-string-regexp "2.0.0"
+    escape-string-regexp "^4.0.0"
     invariant "2.2.4"
 
 react-native-youtube-iframe@2.2.2:

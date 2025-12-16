@@ -1,6 +1,6 @@
 {
   "name": "@shoutem/ui",
-  "version": "9.0.0-rc.5",
+  "version": "9.0.0",
   "description": "Styleable set of components for React Native applications",
   "scripts": {
     "lint": "eslint .",
@@ -15,7 +15,7 @@
     "@native-html/table-plugin": "5.3.1",
     "@openspacelabs/react-native-zoomable-view": "2.0.4",
     "@react-native-community/datetimepicker": "6.2.0",
-    "@shoutem/animation": "1.0.0-rc.1",
+    "@shoutem/animation": "1.0.0",
     "@shoutem/eslint-config-react": "~1.0.6",
     "@shoutem/theme": "1.0.0",
     "auto-bind": "4.0.0",
