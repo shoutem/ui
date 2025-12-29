@@ -6,24 +6,27 @@ import { connectAnimation } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
 import VideoSourceReader from './VideoSourceReader';
 
-function getSource(sourceReader, poster) {
+function getSource(sourceReader, poster, headers) {
   const url = sourceReader.getUrl();
+  let source;
 
   if (sourceReader.isEmbeddableVideo()) {
-    return {
-      uri: url,
-    };
+    source = { uri: url };
+  } else {
+    const HTML = `
+      <video width="100%" height="auto" poster="${poster}" controls  >
+         <source src="${url}" >
+       </video>
+    `;
+
+    source = { html: HTML };
   }
 
-  const HTML = `
-    <video width="100%" height="auto" poster="${poster}" controls  >
-       <source src="${url}" >
-     </video>
-  `;
+  if (headers) {
+    source.headers = headers;
+  }
 
-  return {
-    html: HTML,
-  };
+  return source;
 }
 
 /**
@@ -45,12 +48,7 @@ class Video extends PureComponent {
 
   render() {
     const { width, height = '100%', style, poster, headers } = this.props;
-
-    const webViewSource = getSource(this.sourceReader, poster);
-
-    if (headers && webViewSource.uri) {
-      webViewSource.headers = headers;
-    }
+    const webViewSource = getSource(this.sourceReader, poster, headers);
 
     return (
       <View style={style.container}>
