@@ -44,7 +44,13 @@ class Video extends PureComponent {
   }
 
   render() {
-    const { width, height = '100%', style, poster } = this.props;
+    const { width, height = '100%', style, poster, headers } = this.props;
+
+    const webViewSource = getSource(this.sourceReader, poster);
+
+    if (headers && webViewSource.uri) {
+      webViewSource.headers = headers;
+    }
 
     return (
       <View style={style.container}>
@@ -52,7 +58,7 @@ class Video extends PureComponent {
           allowsFullscreenVideo
           mediaPlaybackRequiresUserAction={false}
           style={{ width, height }}
-          source={getSource(this.sourceReader, poster)}
+          source={webViewSource}
           scrollEnabled={false}
           originWhitelist={['*']}
         />
@@ -63,6 +69,7 @@ class Video extends PureComponent {
 
 Video.propTypes = {
   style: PropTypes.object.isRequired,
+  headers: PropTypes.object,
   height: PropTypes.number,
   // `playerParams` currently only works for Youtube
   playerParams: PropTypes.object,
@@ -75,6 +82,7 @@ Video.propTypes = {
 
 Video.defaultProps = {
   width: undefined,
+  headers: undefined,
   height: undefined,
   playerParams: { showinfo: 0 },
   source: undefined,
