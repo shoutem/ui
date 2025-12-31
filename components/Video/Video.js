@@ -6,24 +6,27 @@ import { connectAnimation } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
 import VideoSourceReader from './VideoSourceReader';
 
-function getSource(sourceReader, poster) {
+function getSource(sourceReader, poster, headers) {
   const url = sourceReader.getUrl();
+  let source;
 
   if (sourceReader.isEmbeddableVideo()) {
-    return {
-      uri: url,
-    };
+    source = { uri: url };
+  } else {
+    const HTML = `
+      <video width="100%" height="auto" poster="${poster}" controls  >
+         <source src="${url}" >
+       </video>
+    `;
+
+    source = { html: HTML };
   }
 
-  const HTML = `
-    <video width="100%" height="auto" poster="${poster}" controls  >
-       <source src="${url}" >
-     </video>
-  `;
+  if (headers) {
+    source.headers = headers;
+  }
 
-  return {
-    html: HTML,
-  };
+  return source;
 }
 
 /**
@@ -44,7 +47,8 @@ class Video extends PureComponent {
   }
 
   render() {
-    const { width, height = '100%', style, poster } = this.props;
+    const { width, height = '100%', style, poster, headers } = this.props;
+    const webViewSource = getSource(this.sourceReader, poster, headers);
 
     return (
       <View style={style.container}>
@@ -52,7 +56,7 @@ class Video extends PureComponent {
           allowsFullscreenVideo
           mediaPlaybackRequiresUserAction={false}
           style={{ width, height }}
-          source={getSource(this.sourceReader, poster)}
+          source={webViewSource}
           scrollEnabled={false}
           originWhitelist={['*']}
         />
@@ -63,6 +67,7 @@ class Video extends PureComponent {
 
 Video.propTypes = {
   style: PropTypes.object.isRequired,
+  headers: PropTypes.object,
   height: PropTypes.number,
   // `playerParams` currently only works for Youtube
   playerParams: PropTypes.object,
@@ -75,6 +80,7 @@ Video.propTypes = {
 
 Video.defaultProps = {
   width: undefined,
+  headers: undefined,
   height: undefined,
   playerParams: { showinfo: 0 },
   source: undefined,
