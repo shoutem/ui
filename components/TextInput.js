@@ -28,6 +28,7 @@ class TextInput extends PureComponent {
     }
 
     this.setState({ isFocused: false });
+    this.props.onBlur()
   }
 
   handleFocus() {
@@ -38,8 +39,8 @@ class TextInput extends PureComponent {
     }
 
     this.setState({ isFocused: true });
+    this.props.onFocus()
   }
-
   render() {
     const {
       animate,
