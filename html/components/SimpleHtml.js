@@ -152,6 +152,7 @@ const SimpleHtml = ({
       tagsStyles: filteredTagStyles,
       systemFonts,
       baseStyle: style.baseFont,
+      enableCSSInlineProcessing: true,
       ignoredStyles,
       renderers: customRenderers,
       renderersProps,
