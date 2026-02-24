@@ -152,13 +152,17 @@ const SimpleHtml = ({
       tagsStyles: filteredTagStyles,
       systemFonts,
       baseStyle: style.baseFont,
-      enableCSSInlineProcessing: true,
       ignoredStyles,
       renderers: customRenderers,
       renderersProps,
       customHTMLElementModels,
       WebView,
       domVisitors,
+      // Explicitly passing react-native-render-html defaults that were
+      // previously set via defaultProps, which no longer works in React 19+.
+      enableCSSInlineProcessing: true,
+      enableUserAgentStyles: true,
+      emSize: 14,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
