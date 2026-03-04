@@ -12,9 +12,7 @@ function patchPackage() {
     });
   } catch (e) {
     // eslint-disable-next-line no-console
-    console.log(
-      `[@shoutem/ui] - error applying patches\n${e.message}`,
-    );
+    console.log(`[@shoutem/ui] - error applying patches\n${e.message}`);
   }
 }
 
