@@ -1,11 +1,11 @@
 {
   "name": "@shoutem/ui",
-  "version": "9.0.4",
+  "version": "9.0.5",
   "description": "Styleable set of components for React Native applications",
   "scripts": {
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
-    "postinstall": "node ./scripts/add-native-deps",
+    "postinstall": "node ./scripts/add-native-deps && node ./scripts/patch-device-info",
     "release": "npm publish --access public --tag latest",
     "release-rc": "npm publish --access public --tag rc",
     "test": "jest"
