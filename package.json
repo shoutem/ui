@@ -5,7 +5,7 @@
   "scripts": {
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
-    "postinstall": "node ./scripts/add-native-deps",
+    "postinstall": "node ./scripts/postinstall",
     "release": "npm publish --access public --tag latest",
     "release-rc": "npm publish --access public --tag rc",
     "test": "jest"
@@ -70,6 +70,7 @@
     "eslint-plugin-simple-import-sort": "7.0.0",
     "jest": "^29.6.3",
     "@react-native/babel-preset": "0.78.0",
+    "patch-package": "^8.0.1",
     "path": "0.12.7",
     "prettier": "1.19.1",
     "react": "19.0.0",
