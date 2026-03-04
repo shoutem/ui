@@ -1,0 +1,232 @@
+diff --git a/node_modules/react-native-device-info/lib/commonjs/internal/devicesWithDynamicIsland.js b/node_modules/react-native-device-info/lib/commonjs/internal/devicesWithDynamicIsland.js
+index f4c3db6..291e8e2 100644
+--- a/node_modules/react-native-device-info/lib/commonjs/internal/devicesWithDynamicIsland.js
++++ b/node_modules/react-native-device-info/lib/commonjs/internal/devicesWithDynamicIsland.js
+@@ -5,6 +5,30 @@ Object.defineProperty(exports, "__esModule", {
+ });
+ exports.default = void 0;
+ const devicesWithDynamicIsland = [{
++  brand: 'Apple',
++  model: 'iPhone 17'
++}, {
++  brand: 'Apple',
++  model: 'iPhone Air'
++}, {
++  brand: 'Apple',
++  model: 'iPhone 17 Pro'
++}, {
++  brand: 'Apple',
++  model: 'iPhone 17 Pro Max'
++}, {
++  brand: 'Apple',
++  model: 'iPhone 16'
++}, {
++  brand: 'Apple',
++  model: 'iPhone 16 Plus'
++}, {
++  brand: 'Apple',
++  model: 'iPhone 16 Pro'
++}, {
++  brand: 'Apple',
++  model: 'iPhone 16 Pro Max'
++}, {
+   brand: 'Apple',
+   model: 'iPhone 15'
+ }, {
+diff --git a/node_modules/react-native-device-info/lib/commonjs/internal/devicesWithNotch.js b/node_modules/react-native-device-info/lib/commonjs/internal/devicesWithNotch.js
+index de3ee1c..0c34379 100644
+--- a/node_modules/react-native-device-info/lib/commonjs/internal/devicesWithNotch.js
++++ b/node_modules/react-native-device-info/lib/commonjs/internal/devicesWithNotch.js
+@@ -5,6 +5,33 @@ Object.defineProperty(exports, "__esModule", {
+ });
+ exports.default = void 0;
+ const devicesWithNotch = [{
++  brand: 'Apple',
++  model: 'iPhone 17'
++}, {
++  brand: 'Apple',
++  model: 'iPhone Air'
++}, {
++  brand: 'Apple',
++  model: 'iPhone 17 Pro'
++}, {
++  brand: 'Apple',
++  model: 'iPhone 17 Pro Max'
++}, {
++  brand: 'Apple',
++  model: 'iPhone 16e'
++}, {
++  brand: 'Apple',
++  model: 'iPhone 16'
++}, {
++  brand: 'Apple',
++  model: 'iPhone 16 Plus'
++}, {
++  brand: 'Apple',
++  model: 'iPhone 16 Pro'
++}, {
++  brand: 'Apple',
++  model: 'iPhone 16 Pro Max'
++}, {
+   brand: 'Apple',
+   model: 'iPhone 15'
+ }, {
+diff --git a/node_modules/react-native-device-info/lib/module/internal/devicesWithDynamicIsland.js b/node_modules/react-native-device-info/lib/module/internal/devicesWithDynamicIsland.js
+index 7f2eb2d..2832399 100644
+--- a/node_modules/react-native-device-info/lib/module/internal/devicesWithDynamicIsland.js
++++ b/node_modules/react-native-device-info/lib/module/internal/devicesWithDynamicIsland.js
+@@ -1,4 +1,28 @@
+ const devicesWithDynamicIsland = [{
++  brand: 'Apple',
++  model: 'iPhone 17'
++}, {
++  brand: 'Apple',
++  model: 'iPhone Air'
++}, {
++  brand: 'Apple',
++  model: 'iPhone 17 Pro'
++}, {
++  brand: 'Apple',
++  model: 'iPhone 17 Pro Max'
++}, {
++  brand: 'Apple',
++  model: 'iPhone 16'
++}, {
++  brand: 'Apple',
++  model: 'iPhone 16 Plus'
++}, {
++  brand: 'Apple',
++  model: 'iPhone 16 Pro'
++}, {
++  brand: 'Apple',
++  model: 'iPhone 16 Pro Max'
++}, {
+   brand: 'Apple',
+   model: 'iPhone 15'
+ }, {
+diff --git a/node_modules/react-native-device-info/lib/module/internal/devicesWithNotch.js b/node_modules/react-native-device-info/lib/module/internal/devicesWithNotch.js
+index e826a17..e38806b 100644
+--- a/node_modules/react-native-device-info/lib/module/internal/devicesWithNotch.js
++++ b/node_modules/react-native-device-info/lib/module/internal/devicesWithNotch.js
+@@ -1,4 +1,31 @@
+ const devicesWithNotch = [{
++  brand: 'Apple',
++  model: 'iPhone 17'
++}, {
++  brand: 'Apple',
++  model: 'iPhone Air'
++}, {
++  brand: 'Apple',
++  model: 'iPhone 17 Pro'
++}, {
++  brand: 'Apple',
++  model: 'iPhone 17 Pro Max'
++}, {
++  brand: 'Apple',
++  model: 'iPhone 16e'
++}, {
++  brand: 'Apple',
++  model: 'iPhone 16'
++}, {
++  brand: 'Apple',
++  model: 'iPhone 16 Plus'
++}, {
++  brand: 'Apple',
++  model: 'iPhone 16 Pro'
++}, {
++  brand: 'Apple',
++  model: 'iPhone 16 Pro Max'
++}, {
+   brand: 'Apple',
+   model: 'iPhone 15'
+ }, {
+diff --git a/node_modules/react-native-device-info/src/internal/devicesWithDynamicIsland.ts b/node_modules/react-native-device-info/src/internal/devicesWithDynamicIsland.ts
+index c5d44d0..b41ad8e 100644
+--- a/node_modules/react-native-device-info/src/internal/devicesWithDynamicIsland.ts
++++ b/node_modules/react-native-device-info/src/internal/devicesWithDynamicIsland.ts
+@@ -1,6 +1,38 @@
+ import { NotchDevice } from './privateTypes';
+ 
+ const devicesWithDynamicIsland: NotchDevice[] = [
++  {
++    brand: 'Apple',
++    model: 'iPhone 17',
++  },
++  {
++    brand: 'Apple',
++    model: 'iPhone Air',
++  },
++  {
++    brand: 'Apple',
++    model: 'iPhone 17 Pro',
++  },
++  {
++    brand: 'Apple',
++    model: 'iPhone 17 Pro Max',
++  },
++  {
++    brand: 'Apple',
++    model: 'iPhone 16',
++  },
++  {
++    brand: 'Apple',
++    model: 'iPhone 16 Plus',
++  },
++  {
++    brand: 'Apple',
++    model: 'iPhone 16 Pro',
++  },
++  {
++    brand: 'Apple',
++    model: 'iPhone 16 Pro Max',
++  },
+   {
+     brand: 'Apple',
+     model: 'iPhone 15',
+diff --git a/node_modules/react-native-device-info/src/internal/devicesWithNotch.ts b/node_modules/react-native-device-info/src/internal/devicesWithNotch.ts
+index 3c41ba7..722fb54 100644
+--- a/node_modules/react-native-device-info/src/internal/devicesWithNotch.ts
++++ b/node_modules/react-native-device-info/src/internal/devicesWithNotch.ts
+@@ -1,6 +1,42 @@
+ import { NotchDevice } from './privateTypes';
+ 
+ const devicesWithNotch: NotchDevice[] = [
++  {
++    brand: 'Apple',
++    model: 'iPhone 17',
++  },
++  {
++    brand: 'Apple',
++    model: 'iPhone Air',
++  },
++  {
++    brand: 'Apple',
++    model: 'iPhone 17 Pro',
++  },
++  {
++    brand: 'Apple',
++    model: 'iPhone 17 Pro Max',
++  },
++  {
++    brand: 'Apple',
++    model: 'iPhone 16e',
++  },
++  {
++    brand: 'Apple',
++    model: 'iPhone 16',
++  },
++  {
++    brand: 'Apple',
++    model: 'iPhone 16 Plus',
++  },
++  {
++    brand: 'Apple',
++    model: 'iPhone 16 Pro',
++  },
++  {
++    brand: 'Apple',
++    model: 'iPhone 16 Pro Max',
++  },
+   {
+     brand: 'Apple',
+     model: 'iPhone 15',
