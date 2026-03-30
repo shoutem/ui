@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useCallback, useContext, useEffect, useRef } from 'react';
 import { Animated } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import _ from 'lodash';
@@ -25,22 +25,17 @@ const ScrollView = ({ driver, onScroll, primary, style, ...otherProps }) => {
   // we want to switch to appropriate animation driver. We use the following hook
   // to derive the new driver and cascading styles before the actual navigation transition is done
   // to avoid rerendering when the actual nav transition completes
-  useFocusEffect(() => {
-    const {
-      animationDriver: prevAnimationDriver,
-      setAnimationDriver,
-    } = animationDriverContext;
+  useFocusEffect(
+    useCallback(() => {
+      const { setAnimationDriver } = animationDriverContext;
 
-    if (setAnimationDriver) {
-      setAnimationDriver(animationDriver.current, primary);
-    }
-
-    return () => {
-      if (prevAnimationDriver) {
-        setAnimationDriver(prevAnimationDriver);
+      if (setAnimationDriver) {
+        setAnimationDriver(animationDriver.current, primary);
       }
-    };
-  });
+
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []),
+  );
 
   useEffect(() => {
     if (driver && animationDriver.current !== driver) {
