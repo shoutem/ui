@@ -12,6 +12,38 @@ const fallbackImage = require('../assets/images/transparent.png');
 const isValidSource = source =>
   _.isNumber(source) || (_.isObject(source) && source.uri);
 
+const resolvedUrlCache = {};
+
+const isRemoteImage = source => {
+  if (!source) return false;
+  const uri = _.isObject(source) ? source.uri : source;
+  return _.isString(uri) && (uri.startsWith('http://') || uri.startsWith('https://'));
+};
+
+const getResolvedSource = (source, resolvedUri) => {
+  if (_.isObject(source) && source.uri) {
+    return { ...source, uri: resolvedUri };
+  }
+  return resolvedUri;
+};
+
+const resolveImageUrl = source => {
+  const uri = _.isObject(source) ? source.uri : source;
+  if (resolvedUrlCache[uri]) {
+    return Promise.resolve(resolvedUrlCache[uri]);
+  }
+  return fetch(uri, { method: 'HEAD' })
+    .then(response => {
+      const resolvedUri = response.url || uri;
+      resolvedUrlCache[uri] = resolvedUri;
+      return resolvedUri;
+    })
+    .catch(() => {
+      resolvedUrlCache[uri] = uri;
+      return uri;
+    });
+};
+
 /**
  * A function to transform props that will be used by
  * all instances of the Image component.
@@ -44,6 +76,31 @@ class Image extends PureComponent {
     super(props);
 
     autoBindReact(this);
+    this.state = {
+      resolvedSource: null,
+    };
+  }
+
+  componentDidMount() {
+    this.resolveSource(this.props.source);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.source !== this.props.source) {
+      this.resolveSource(this.props.source);
+    }
+  }
+
+  resolveSource(source) {
+    if (!isRemoteImage(source)) {
+      this.setState({ resolvedSource: source });
+      return;
+    }
+    resolveImageUrl(source).then(resolvedUri => {
+      this.setState({
+        resolvedSource: getResolvedSource(source, resolvedUri),
+      });
+    });
   }
 
   setNativeProps(nativeProps) {
@@ -52,7 +109,11 @@ class Image extends PureComponent {
 
   createTransformedProps(props) {
     let transformedProps = { ...props };
-    const { source, defaultSource } = props;
+    const source = this.state.resolvedSource !== null
+      ? this.state.resolvedSource
+      : props.source;
+    transformedProps.source = source;
+    const { defaultSource } = props;
 
     // defaultSource is not supported on Android, so we manually
     // reassign the defaultSource prop to source if source is not defined
