@@ -38,9 +38,20 @@ function LoadingContainer({
 
   return (
     <View style={style.container}>
-      {!loading && <View onLayout={onLayoutChange}>{children}</View>}
+      <View
+        onLayout={onLayoutChange}
+        style={loading ? { opacity: 0 } : null}
+      >
+        {children}
+      </View>
       {loading && (
-        <View style={[style.container, dimensions]}>
+        <View
+          style={[
+            { position: 'absolute', top: 0, left: 0 },
+            style.container,
+            dimensions,
+          ]}
+        >
           <LottieView
             style={lottieViewDimensions}
             source={animation}
