@@ -60,7 +60,6 @@ LoadingContainer.propTypes = {
   animationScale: PropTypes.number,
   children: PropTypes.oneOfType([
     PropTypes.object,
-    PropTypes.func,
     PropTypes.node,
   ]),
   loading: PropTypes.bool,
