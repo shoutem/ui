@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { TouchableOpacity } from 'react-native';
+import { TouchableOpacityPropTypes } from 'deprecated-react-native-prop-types';
 import { connectAnimation } from '@shoutem/animation';
 import { connectStyle } from '@shoutem/theme';
 
@@ -19,7 +20,7 @@ class Button extends PureComponent {
 }
 
 Button.propTypes = {
-  ...TouchableOpacity.propTypes,
+  ...TouchableOpacityPropTypes,
 };
 
 const AnimatedButton = connectAnimation(Button);
