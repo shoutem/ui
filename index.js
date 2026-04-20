@@ -78,7 +78,14 @@ export { YearRangePicker } from './components/YearRangePicker';
 export * from './hooks';
 
 // Helpers
-export { calculateKeyboardOffset, Device, Keyboard } from './helpers';
+export {
+  calculateKeyboardOffset,
+  Device,
+  getHomeIndicatorPadding,
+  getNavigationBarHeight,
+  getNotchAreaHeight,
+  Keyboard,
+} from './helpers';
 
 // HTML
 export { Html } from './html';

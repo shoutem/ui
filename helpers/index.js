@@ -1,5 +1,8 @@
 export {
   Device,
+  getHomeIndicatorPadding,
+  getNavigationBarHeight,
+  getNotchAreaHeight,
   HOME_INDICATOR_PADDING,
   isNotchedAndroid,
   NAVIGATION_BAR_HEIGHT,
