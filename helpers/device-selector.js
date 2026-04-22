@@ -26,10 +26,12 @@ export const NAVIGATION_BAR_HEIGHT = Platform.select({
   default: NAVIGATION_HEADER_HEIGHT,
 });
 
+// Bottom inset from the native safe-area module (home indicator on iOS,
+// system nav bar on Android with edge-to-edge). Falls back to 34pt on iOS
+// (race condition guard) or 0 on Android (no inset when edge-to-edge is off).
 export const HOME_INDICATOR_PADDING =
-  Platform.OS === 'ios'
-    ? initialWindowMetrics?.insets?.bottom ?? DEFAULT_IOS_BOTTOM_INSET
-    : 0;
+  initialWindowMetrics?.insets?.bottom ??
+  (Platform.OS === 'ios' ? DEFAULT_IOS_BOTTOM_INSET : 0);
 
 export const NOTCH_AREA_HEIGHT = Platform.select({
   ios: initialWindowMetrics?.insets?.top ?? DEFAULT_IOS_TOP_INSET,
@@ -65,7 +67,12 @@ const getBottomInset = () => {
     // eslint-disable-next-line global-require
     const metrics = require('react-native-safe-area-context')
       .initialWindowMetrics;
-    _bottomInset = metrics?.insets?.bottom ?? DEFAULT_IOS_BOTTOM_INSET;
+
+    // Use actual bottom inset if available. Fallback: 34pt on iOS (safe
+    // default for all notched iPhones), 0 on Android (no inset pre-RN 0.77).
+    _bottomInset =
+      metrics?.insets?.bottom ??
+      (Platform.OS === 'ios' ? DEFAULT_IOS_BOTTOM_INSET : 0);
   }
 
   return _bottomInset;
@@ -80,8 +87,10 @@ export const getNavigationBarHeight = () =>
     default: NAVIGATION_HEADER_HEIGHT,
   });
 
-export const getHomeIndicatorPadding = () =>
-  Platform.OS === 'ios' ? getBottomInset() : 0;
+// Returns bottom safe area inset on both platforms. On iOS this is the home
+// indicator area (34pt). On Android this is the system navigation bar height
+// when edge-to-edge is enabled (RN 0.76+), or 0 on older RN versions.
+export const getHomeIndicatorPadding = () => getBottomInset();
 
 export const getNotchAreaHeight = () =>
   Platform.select({
