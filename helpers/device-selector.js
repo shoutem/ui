@@ -27,9 +27,8 @@ export const NAVIGATION_BAR_HEIGHT = Platform.select({
 });
 
 export const HOME_INDICATOR_PADDING =
-  Platform.OS === 'ios'
-    ? initialWindowMetrics?.insets?.bottom ?? DEFAULT_IOS_BOTTOM_INSET
-    : 0;
+  initialWindowMetrics?.insets?.bottom ??
+  (Platform.OS === 'ios' ? DEFAULT_IOS_BOTTOM_INSET : 0);
 
 export const NOTCH_AREA_HEIGHT = Platform.select({
   ios: initialWindowMetrics?.insets?.top ?? DEFAULT_IOS_TOP_INSET,
@@ -65,7 +64,9 @@ const getBottomInset = () => {
     // eslint-disable-next-line global-require
     const metrics = require('react-native-safe-area-context')
       .initialWindowMetrics;
-    _bottomInset = metrics?.insets?.bottom ?? DEFAULT_IOS_BOTTOM_INSET;
+    _bottomInset =
+      metrics?.insets?.bottom ??
+      (Platform.OS === 'ios' ? DEFAULT_IOS_BOTTOM_INSET : 0);
   }
 
   return _bottomInset;
@@ -80,8 +81,7 @@ export const getNavigationBarHeight = () =>
     default: NAVIGATION_HEADER_HEIGHT,
   });
 
-export const getHomeIndicatorPadding = () =>
-  Platform.OS === 'ios' ? getBottomInset() : 0;
+export const getHomeIndicatorPadding = () => getBottomInset();
 
 export const getNotchAreaHeight = () =>
   Platform.select({
