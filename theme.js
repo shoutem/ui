@@ -977,12 +977,6 @@ export default () => {
         paddingBottom: HOME_INDICATOR_PADDING,
       },
 
-      'shoutem.ui.ListView': {
-        listContent: {
-          paddingBottom: HOME_INDICATOR_PADDING,
-        },
-      },
-
       backgroundColor: resolveVariable('backgroundColor'),
       flex: 1,
     },
