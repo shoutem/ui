@@ -33,7 +33,7 @@ export function removeWhiteSpace(childElements) {
 
 export function decodeHtmlEntities(childElements) {
   return _.map(childElements, element =>
-    _.isString(element) ? html.decode(element) : element,
+    _.isString(element) ? html.decode(_.escape(element)) : element,
   );
 }
 
