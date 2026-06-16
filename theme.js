@@ -2680,6 +2680,7 @@ export default () => {
       modalButton: { width: 100, margin: 'auto' },
       modalButtonContainer: { height: 80 },
       modalContainer: { backgroundColor: '#FFFFFF' },
+      text: {},
       textContainer: {
         borderColor: '#C2C2C2',
         borderWidth: 1,
