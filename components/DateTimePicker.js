@@ -122,7 +122,7 @@ class DateTimePicker extends PureComponent {
           style={style.textContainer}
           onPress={this.handleShowPicker}
         >
-          <Text>{textValue}</Text>
+          <Text style={style.text}>{textValue}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={this.handleShowPicker}
