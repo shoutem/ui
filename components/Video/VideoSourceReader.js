@@ -2,7 +2,7 @@ import { stringify } from 'qs';
 
 function getYouTubeVideoId(url) {
   // eslint-disable-next-line no-useless-escape
-  const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\??v?=?))([^#&\?]*).*/;
+  const regExp = /^.*(?:(youtu.be\/)|(shorts\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\??v?=?))([^#&\?]*).*/;
   const match = url.match(regExp);
 
   if (match && match[7].length === 11) {
@@ -64,5 +64,13 @@ export default class VideoSourceReader {
     }
 
     return this.source;
+  }
+
+  getYouTubeId() {
+    return getYouTubeVideoId(this.source);
+  }
+
+  getVimeoId() {
+    return getVimeoVideoId(this.source);
   }
 }
