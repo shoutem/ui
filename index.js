@@ -40,6 +40,7 @@ export { HorizontalPager } from './components/HorizontalPager';
 export { Icon, registerIcons } from './components/Icon';
 export { Image } from './components/Image';
 export { ImageBackground } from './components/ImageBackground';
+export { ImageCarousel } from './components/ImageCarousel';
 export { ImageGallery } from './components/ImageGallery';
 export { ImageGalleryOverlay } from './components/ImageGalleryOverlay';
 export { ImagePreview } from './components/ImagePreview';
