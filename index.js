@@ -17,6 +17,7 @@ export {
 
 // Services
 export {
+  createLayeredResolver,
   createScopedResolver,
   resolveVariable,
   ThemeVariableResolver,
