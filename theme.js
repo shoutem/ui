@@ -2162,6 +2162,112 @@ export default () => {
       nextPageInsetSize: 20,
     },
 
+    'shoutem.ui.ImageCarousel': {
+      container: {
+        width: '100%',
+        overflow: 'hidden',
+        backgroundColor: resolveVariable('paperColor'),
+      },
+      listContent: {},
+      // Geometry / animation scalars read by the component, not applied as styles.
+      cardWidth: responsiveWidth(236),
+      cardSpacing: responsiveWidth(10),
+      inactiveScale: 0.85,
+      inactiveOpacity: 0.7,
+      pageIndicators: {
+        container: {
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          bottom: 0,
+          paddingTop: resolveVariable('largeGutter'),
+          paddingBottom: resolveVariable('mediumGutter'),
+          // A bottom-anchored scrim behind the dots — without it, white dots on
+          // a light or similarly-colored part of the image become invisible.
+          // Reaches full darkness within the first 20% (same quick-ramp as the
+          // overlay text zones) so the dots themselves always sit on the fully
+          // dark portion, not partway through the fade.
+          backgroundGradient: {
+            colors: [
+              'rgba(0, 0, 0, 0)',
+              'rgba(0, 0, 0, 0.05)',
+              'rgba(0, 0, 0, 0.1)',
+            ],
+            locations: [0, 0.2, 1],
+          },
+        },
+        // White dots so they read on top of photos, mirroring
+        // shoutem.ui.PageIndicators' own `.overlay-bottom` variant.
+        indicator: {
+          backgroundColor: '#ffffff',
+        },
+        selectedIndicator: {
+          backgroundColor: changeColorAlpha('#ffffff', 0.7),
+        },
+      },
+      // 36×36 circular buttons vertically centered over the slide edges; the
+      // marginTop is exactly half the button's own height (not a gutter) so it
+      // centers regardless of slide height, and a fixed dark scrim (not a theme
+      // color) keeps the icon legible over any photo.
+      leftArrow: {
+        position: 'absolute',
+        top: '50%',
+        left: resolveVariable('mediumGutter'),
+        width: responsiveWidth(36),
+        height: responsiveWidth(36),
+        marginTop: -responsiveWidth(18),
+        borderRadius: responsiveWidth(18),
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: changeColorAlpha('#000000', 0.4),
+      },
+      rightArrow: {
+        position: 'absolute',
+        top: '50%',
+        right: resolveVariable('mediumGutter'),
+        width: responsiveWidth(36),
+        height: responsiveWidth(36),
+        marginTop: -responsiveWidth(18),
+        borderRadius: responsiveWidth(18),
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: changeColorAlpha('#000000', 0.4),
+      },
+      arrowIcon: {
+        color: resolveVariable('imageOverlayTextColor'),
+        width: responsiveWidth(20),
+        height: responsiveWidth(20),
+      },
+      placeholder: {},
+    },
+
+    'shoutem.ui.ImageCarouselSlide': {
+      // Fills the carousel's per-slide wrapper, which owns the width and the
+      // aspect ratio.
+      card: {
+        flex: 1,
+        borderRadius: responsiveWidth(16),
+        overflow: 'hidden',
+        backgroundColor: resolveVariable('lineColor'),
+      },
+      image: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+      },
+      // Covers the image while it downloads; the card's overflow clipping keeps
+      // it inside the rounded corners.
+      imagePlaceholder: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+      },
+    },
+
     //
     // PageIndicators
     //
