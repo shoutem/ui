@@ -22,12 +22,12 @@ import { View } from '../View';
  */
 const ImageCarouselSlide = ({
   item,
-  index,
-  isActive,
+  index = 0,
+  isActive = false,
   source,
   renderOverlay,
   renderImagePlaceholder,
-  style,
+  style = {},
 }) => {
   const [isImageLoaded, setImageLoaded] = useState(false);
 
@@ -65,16 +65,6 @@ ImageCarouselSlide.propTypes = {
   renderOverlay: PropTypes.func,
   source: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
   style: PropTypes.object,
-};
-
-ImageCarouselSlide.defaultProps = {
-  index: 0,
-  isActive: false,
-  item: undefined,
-  renderImagePlaceholder: undefined,
-  renderOverlay: undefined,
-  source: undefined,
-  style: {},
 };
 
 const StyledImageCarouselSlide = connectStyle('shoutem.ui.ImageCarouselSlide')(

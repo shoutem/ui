@@ -2238,7 +2238,6 @@ export default () => {
         width: responsiveWidth(20),
         height: responsiveWidth(20),
       },
-      placeholder: {},
     },
 
     'shoutem.ui.ImageCarouselSlide': {
