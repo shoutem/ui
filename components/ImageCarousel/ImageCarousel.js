@@ -5,7 +5,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Animated } from 'react-native';
+import { Animated, useWindowDimensions } from 'react-native';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
@@ -44,9 +44,10 @@ const defaultGetImageSource = item => item.source;
  * image cards that snap one by one, with neighbouring cards peeking in and
  * scaling/fading with the scroll position. The first and last slides rest
  * against the list edges; every other slide rests centered. Also owns page
- * indicator dots, arrows, and autoplay. Renders a placeholder until it has
- * measured its own width, and nothing at all when `data` is empty. Callers
- * customize slides through `renderOverlay` and `renderImagePlaceholder`.
+ * indicator dots, arrows, and autoplay. The list renders on the first frame
+ * using an estimated width and already rests on `initialIndex`; it renders
+ * nothing at all when `data` is empty. Callers customize slides through
+ * `renderOverlay` and `renderImagePlaceholder`.
  *
  * @param {Array} [data] The slides to render.
  * @param {Function} [getImageSource] `(item) => imageSource`. Defaults to the
@@ -54,8 +55,13 @@ const defaultGetImageSource = item => item.source;
  * @param {Function} [keyExtractor] `(item, index) => string`. Defaults to the
  *   item's `id`, falling back to its index.
  * @param {number} [cardAspectRatio] The shape of every slide as width / height.
- * @param {number} [initialIndex] The 0-based slide index to open on, applied by
- *   scrolling once the carousel has measured its width.
+ * @param {number} [initialIndex] The 0-based slide index to open on. The first
+ *   frame already rests on it.
+ * @param {number} [initialWidth] The estimated carousel width used until the
+ *   real width is measured. Defaults to the window width, which is exact for a
+ *   full-width carousel; pass it when the carousel is narrower than the window.
+ *   `onLayout` corrects any difference, which can re-snap neighbouring slides
+ *   by a frame.
  * @param {boolean} [autoplay] Whether to automatically advance slides on a
  *   timer. Paused while the user is dragging.
  * @param {number} [autoplayIntervalMs] The autoplay interval, in milliseconds.
@@ -68,9 +74,6 @@ const defaultGetImageSource = item => item.source;
  *   rendered inside the slide card, on top of the image.
  * @param {Function} [renderImagePlaceholder] `(item, { index }) => JSX.Element`
  *   rendered over a slide's image until it has loaded.
- * @param {Function} [renderPlaceholder] `({ cardAspectRatio }) => JSX.Element`
- *   rendered instead of the list until the width is measured. Defaults to an
- *   empty view with the height the loaded carousel will have.
  * @param {Function} [onIndexChange] `(index) => void`, called when the active
  *   slide changes (not on mount).
  * @param {Object} style Resolved styles, injected by connectStyle. Geometry is
@@ -80,28 +83,30 @@ const defaultGetImageSource = item => item.source;
  * @returns {JSX.Element|null}
  */
 const ImageCarousel = ({
-  data,
-  getImageSource,
-  keyExtractor,
-  cardAspectRatio,
-  initialIndex,
-  autoplay,
-  autoplayIntervalMs,
-  showPageIndicators,
-  maxPageIndicators,
-  showArrows,
+  data = [],
+  getImageSource = defaultGetImageSource,
+  keyExtractor = defaultKeyExtractor,
+  cardAspectRatio = 16 / 9,
+  initialIndex = 0,
+  initialWidth,
+  autoplay = false,
+  autoplayIntervalMs = 5000,
+  showPageIndicators = true,
+  maxPageIndicators = 10,
+  showArrows = false,
   renderOverlay,
   renderImagePlaceholder,
-  renderPlaceholder,
   onIndexChange,
-  style,
+  style = {},
 }) => {
+  const { width: windowWidth } = useWindowDimensions();
   const listRef = useRef(null);
   const isFirstSnapRender = useRef(true);
   const isFirstIndexRender = useRef(true);
-  const scrollX = useRef(new Animated.Value(0)).current;
 
-  const [containerWidth, setContainerWidth] = useState(0);
+  const [containerWidth, setContainerWidth] = useState(
+    initialWidth ?? windowWidth,
+  );
   const [activeIndex, setActiveIndex] = useState(initialIndex);
   const [isInteracting, setIsInteracting] = useState(false);
 
@@ -117,6 +122,11 @@ const ImageCarousel = ({
       }),
     [data.length, containerWidth, cardWidth, cardSpacing],
   );
+
+  // Offset of `initialIndex` computed from the estimated width, so the very
+  // first frame already rests on the right slide.
+  const initialOffset = useRef(snapOffsets[initialIndex] ?? 0).current;
+  const scrollX = useRef(new Animated.Value(initialOffset)).current;
 
   const itemWrapperStyle = useMemo(
     () => ({
@@ -179,12 +189,13 @@ const ImageCarousel = ({
       return;
     }
 
-    // Positions the list on the active slide whenever the measured width
-    // changes: the first measured render lands on `initialIndex` (the list
-    // deliberately has no `initialScrollIndex` - the list's own mount-time
-    // scroll pass renders a frame with the content shifted a full card before
-    // it self-corrects), and a device rotation re-snaps to the slide that was
-    // already active, read at fire time (as are the snap offsets).
+    // Re-positions the list on the active slide whenever the measured width
+    // changes: a corrected width estimate or a device rotation re-snaps to the
+    // slide that was already active, read at fire time (as are the snap
+    // offsets). The list deliberately has no `initialScrollIndex` - the list's
+    // own mount-time scroll pass renders a frame with the content shifted a
+    // full card before it self-corrects - so `contentOffset` positions the
+    // first frame instead.
     listRef.current?.scrollToOffset({
       offset: snapOffsets[activeIndex] ?? 0,
       animated: false,
@@ -316,43 +327,31 @@ const ImageCarousel = ({
     return null;
   }
 
-  const placeholderStyle = [
-    style.placeholder,
-    { height: cardWidth / cardAspectRatio },
-  ];
-  const placeholder = renderPlaceholder ? (
-    renderPlaceholder({ cardAspectRatio })
-  ) : (
-    <View style={placeholderStyle} />
-  );
-
   return (
     <View style={style.container} onLayout={handleLayout}>
-      {containerWidth === 0 && placeholder}
-      {containerWidth > 0 && (
-        <Animated.FlatList
-          ref={listRef}
-          horizontal
-          data={data}
-          renderItem={renderSlide}
-          keyExtractor={keyExtractor}
-          showsHorizontalScrollIndicator={false}
-          snapToOffsets={snapOffsets}
-          snapToAlignment="start"
-          decelerationRate="fast"
-          disableIntervalMomentum
-          getItemLayout={getItemLayout}
-          scrollEnabled={data.length > 1}
-          bounces={false}
-          scrollEventThrottle={16}
-          removeClippedSubviews={false}
-          onScroll={handleScrollEvent}
-          onScrollBeginDrag={handleScrollBeginDrag}
-          onScrollEndDrag={handleScrollEndDrag}
-          onMomentumScrollEnd={handleMomentumScrollEnd}
-          contentContainerStyle={style.listContent}
-        />
-      )}
+      <Animated.FlatList
+        ref={listRef}
+        horizontal
+        data={data}
+        renderItem={renderSlide}
+        keyExtractor={keyExtractor}
+        showsHorizontalScrollIndicator={false}
+        snapToOffsets={snapOffsets}
+        snapToAlignment="start"
+        decelerationRate="fast"
+        disableIntervalMomentum
+        getItemLayout={getItemLayout}
+        scrollEnabled={data.length > 1}
+        bounces={false}
+        scrollEventThrottle={16}
+        removeClippedSubviews={false}
+        contentOffset={{ x: initialOffset, y: 0 }}
+        onScroll={handleScrollEvent}
+        onScrollBeginDrag={handleScrollBeginDrag}
+        onScrollEndDrag={handleScrollEndDrag}
+        onMomentumScrollEnd={handleMomentumScrollEnd}
+        contentContainerStyle={style.listContent}
+      />
       {showPageIndicators && data.length > 1 && (
         <PageIndicators
           activeIndex={activeIndex}
@@ -388,33 +387,15 @@ ImageCarousel.propTypes = {
   data: PropTypes.array,
   getImageSource: PropTypes.func,
   initialIndex: PropTypes.number,
+  initialWidth: PropTypes.number,
   keyExtractor: PropTypes.func,
   maxPageIndicators: PropTypes.number,
   renderImagePlaceholder: PropTypes.func,
   renderOverlay: PropTypes.func,
-  renderPlaceholder: PropTypes.func,
   showArrows: PropTypes.bool,
   showPageIndicators: PropTypes.bool,
   style: PropTypes.object,
   onIndexChange: PropTypes.func,
-};
-
-ImageCarousel.defaultProps = {
-  autoplay: false,
-  autoplayIntervalMs: 5000,
-  cardAspectRatio: 16 / 9,
-  data: [],
-  getImageSource: defaultGetImageSource,
-  initialIndex: 0,
-  keyExtractor: defaultKeyExtractor,
-  maxPageIndicators: 10,
-  renderImagePlaceholder: undefined,
-  renderOverlay: undefined,
-  renderPlaceholder: undefined,
-  showArrows: false,
-  showPageIndicators: true,
-  style: {},
-  onIndexChange: undefined,
 };
 
 const StyledImageCarousel = connectStyle('shoutem.ui.ImageCarousel')(
