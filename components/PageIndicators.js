@@ -14,11 +14,25 @@ class PageIndicators extends PureComponent {
     autoBindReact(this);
   }
 
-  renderPageIndicator(index, count, activeIndex, indicatorStyle) {
+  /**
+   * Renders a single dot. The dot reads its look from the explicit
+   * `indicator` / `selectedIndicator` style keys; the legacy `selected`
+   * styleName is still applied so themes that target the dot through an
+   * `indicatorContainer['shoutem.ui.View']` selector keep working.
+   *
+   * @param {number} index The dot's index.
+   * @param {boolean} isSelected Whether the dot represents the active page.
+   * @returns {JSX.Element}
+   */
+  renderPageIndicator(index, isSelected) {
     const { style } = this.props;
+    const indicatorStyle = isSelected
+      ? { ...style.indicator, ...style.selectedIndicator }
+      : style.indicator;
+
     return (
       <View style={style.indicatorContainer} key={`pageIndicator${index}`}>
-        <View styleName={indicatorStyle} />
+        <View styleName={isSelected ? 'selected' : ''} style={indicatorStyle} />
       </View>
     );
   }
@@ -30,26 +44,12 @@ class PageIndicators extends PureComponent {
     const maxIndicatorsCount = Math.min(count, maxCount);
 
     for (let i = 0; i < maxIndicatorsCount; i += 1) {
-      let indicatorStyle = '';
+      // The dot matching the active index is selected; when the active index
+      // exceeds the number of rendered dots, the last dot stands in for it.
+      const isSelected =
+        activeIndex === i || (activeIndex >= i && maxIndicatorsCount - 1 === i);
 
-      if (activeIndex === i) {
-        // If currently selected index matches index of page indicator that is rendered
-        // then we should apply different styling
-        indicatorStyle = 'selected';
-      } else if (activeIndex >= i && maxIndicatorsCount - 1 === i) {
-        // If currently selected index exceeds over number of indicators,
-        // we should treat last indicator as selected one
-        indicatorStyle = 'selected';
-      }
-
-      pageIndicators.push(
-        this.renderPageIndicator(
-          i,
-          maxIndicatorsCount,
-          activeIndex,
-          indicatorStyle,
-        ),
-      );
+      pageIndicators.push(this.renderPageIndicator(i, isSelected));
     }
 
     return <View style={style.container}>{pageIndicators}</View>;
