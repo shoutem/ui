@@ -98,6 +98,12 @@ const slideFillStyle = { flex: 1 };
  *   rendered over a slide's image until it has loaded.
  * @param {Function} [onIndexChange] `(index) => void`, called when the active
  *   slide changes (not on mount).
+ * @param {Function} [onImageLoadEnd] `(item, { index }) => void`, called when a
+ *   slide's image finishes loading, whether it succeeded or failed.
+ * @param {boolean} [scrollEnabled] Whether the user can swipe between slides.
+ *   Defaults to true. When false, autoplay does not advance and arrows are
+ *   hidden; page indicators are unaffected. Swiping is also disabled when
+ *   there's only one slide.
  * @param {Object} style Resolved styles, injected by connectStyle. Geometry is
  *   read from the `cardWidth`, `cardSpacing`, `inactiveScale` and
  *   `inactiveOpacity` scalars. `style.slide` is passed to every
@@ -122,6 +128,8 @@ const ImageCarousel = ({
   renderOverlay,
   renderImagePlaceholder,
   onIndexChange,
+  onImageLoadEnd,
+  scrollEnabled = true,
   style = {},
 }) => {
   const { width: windowWidth } = useWindowDimensions();
@@ -174,7 +182,13 @@ const ImageCarousel = ({
   );
 
   useEffect(() => {
-    if (!autoplay || data.length < 2 || !snapInterval || isInteracting) {
+    if (
+      !autoplay ||
+      !scrollEnabled ||
+      data.length < 2 ||
+      !snapInterval ||
+      isInteracting
+    ) {
       return undefined;
     }
 
@@ -186,6 +200,7 @@ const ImageCarousel = ({
   }, [
     autoplay,
     autoplayIntervalMs,
+    scrollEnabled,
     activeIndex,
     isInteracting,
     data.length,
@@ -334,6 +349,7 @@ const ImageCarousel = ({
               source={getImageSource(item)}
               renderOverlay={renderOverlay}
               renderImagePlaceholder={renderImagePlaceholder}
+              onImageLoadEnd={onImageLoadEnd}
               style={style.slide}
             />
           </Animated.View>
@@ -344,6 +360,7 @@ const ImageCarousel = ({
       getImageSource,
       renderOverlay,
       renderImagePlaceholder,
+      onImageLoadEnd,
       itemWrapperStyle,
       scrollX,
       snapOffsets,
@@ -374,7 +391,7 @@ const ImageCarousel = ({
         decelerationRate="fast"
         disableIntervalMomentum
         getItemLayout={getItemLayout}
-        scrollEnabled={data.length > 1}
+        scrollEnabled={scrollEnabled && data.length > 1}
         bounces={false}
         scrollEventThrottle={16}
         removeClippedSubviews={false}
@@ -394,7 +411,7 @@ const ImageCarousel = ({
           style={style.pageIndicators}
         />
       )}
-      {showArrows && activeIndex > 0 && (
+      {showArrows && scrollEnabled && activeIndex > 0 && (
         <TouchableOpacity
           style={style.leftArrow}
           onPress={handlePrevArrowPress}
@@ -402,7 +419,7 @@ const ImageCarousel = ({
           <Icon name="left-arrow" style={style.arrowIcon} />
         </TouchableOpacity>
       )}
-      {showArrows && activeIndex < data.length - 1 && (
+      {showArrows && scrollEnabled && activeIndex < data.length - 1 && (
         <TouchableOpacity
           style={style.rightArrow}
           onPress={handleNextArrowPress}
@@ -426,9 +443,11 @@ ImageCarousel.propTypes = {
   maxPageIndicators: PropTypes.number,
   renderImagePlaceholder: PropTypes.func,
   renderOverlay: PropTypes.func,
+  scrollEnabled: PropTypes.bool,
   showArrows: PropTypes.bool,
   showPageIndicators: PropTypes.bool,
   style: PropTypes.object,
+  onImageLoadEnd: PropTypes.func,
   onIndexChange: PropTypes.func,
 };
 
