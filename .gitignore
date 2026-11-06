@@ -8,3 +8,6 @@ jsconfig.json
 
 # Mac OS X folder attributes file
 .DS_Store
+
+# Claude Code personal settings
+.claude/settings.local.json

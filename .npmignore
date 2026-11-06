@@ -12,5 +12,7 @@ node_modules
 # Ignore previous builds
 *.tgz
 
-# Dev-only: browser playground
+# Dev-only: browser playground and Claude Code docs
 playground
+CLAUDE.md
+.claude
