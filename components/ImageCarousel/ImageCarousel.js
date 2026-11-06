@@ -5,7 +5,12 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Animated, useWindowDimensions } from 'react-native';
+import {
+  Animated,
+  Platform,
+  useWindowDimensions,
+  View as RNView,
+} from 'react-native';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { connectStyle } from '@shoutem/theme';
@@ -39,14 +44,31 @@ const defaultKeyExtractor = (item, index) => item.id ?? String(index);
  */
 const defaultGetImageSource = item => item.source;
 
+const isWeb = Platform.OS === 'web';
+
+// React Native Web ignores `snapToOffsets`, so on web the browser's CSS scroll
+// snapping does it instead. Centering every slot reproduces
+// `resolveSnapOffsets`: the browser clamps snap positions to the scrollable
+// range, so the first and last slides rest against the list edges.
+// `scrollSnapStop` keeps a fling to one slide at a time, like
+// `disableIntervalMomentum` on native.
+const webListSnapStyle = isWeb ? { scrollSnapType: 'x mandatory' } : null;
+const webSlotSnapStyle = isWeb
+  ? { scrollSnapAlign: 'center', scrollSnapStop: 'always' }
+  : null;
+
+// Fills the slot, which owns the slide's size and spacing.
+const slideFillStyle = { flex: 1 };
+
 /**
  * A horizontally-swipeable image carousel: pages through `data` as fixed-width
  * image cards that snap one by one, with neighbouring cards peeking in and
  * scaling/fading with the scroll position. The first and last slides rest
  * against the list edges; every other slide rests centered. Also owns page
- * indicator dots, arrows, and autoplay. The list renders on the first frame
- * using an estimated width and already rests on `initialIndex`; it renders
- * nothing at all when `data` is empty. Callers customize slides through
+ * indicator dots, arrows, and autoplay. On web, where `snapToOffsets` isn't
+ * supported, slides snap through CSS scroll snapping. The list renders on the
+ * first frame using an estimated width and already rests on `initialIndex`; it
+ * renders nothing at all when `data` is empty. Callers customize slides through
  * `renderOverlay` and `renderImagePlaceholder`.
  *
  * @param {Array} [data] The slides to render.
@@ -78,8 +100,11 @@ const defaultGetImageSource = item => item.source;
  *   slide changes (not on mount).
  * @param {Object} style Resolved styles, injected by connectStyle. Geometry is
  *   read from the `cardWidth`, `cardSpacing`, `inactiveScale` and
- *   `inactiveOpacity` scalars. A `style` prop passed by the caller is merged
- *   over the theme styles by connectStyle.
+ *   `inactiveOpacity` scalars. `style.slide` is passed to every
+ *   `ImageCarouselSlide` and merged over that component's theme, so callers
+ *   can restyle the slide card (e.g. `slide.card` background, corner radius,
+ *   border) from the carousel's style. A `style` prop passed by the caller is
+ *   merged over the theme styles by connectStyle.
  * @returns {JSX.Element|null}
  */
 const ImageCarousel = ({
@@ -133,6 +158,7 @@ const ImageCarousel = ({
       width: cardWidth,
       marginHorizontal: cardSpacing / 2,
       aspectRatio: cardAspectRatio,
+      ...webSlotSnapStyle,
     }),
     [cardWidth, cardSpacing, cardAspectRatio],
   );
@@ -295,17 +321,23 @@ const ImageCarousel = ({
         ],
       };
 
+      // The slot stays untransformed so its layout box (which web scroll
+      // snapping aligns to) is identical for every slide; only the inner view
+      // scales and shifts.
       return (
-        <Animated.View style={[itemWrapperStyle, animatedStyle]}>
-          <ImageCarouselSlide
-            item={item}
-            index={index}
-            isActive={index === activeIndex}
-            source={getImageSource(item)}
-            renderOverlay={renderOverlay}
-            renderImagePlaceholder={renderImagePlaceholder}
-          />
-        </Animated.View>
+        <RNView style={itemWrapperStyle}>
+          <Animated.View style={[slideFillStyle, animatedStyle]}>
+            <ImageCarouselSlide
+              item={item}
+              index={index}
+              isActive={index === activeIndex}
+              source={getImageSource(item)}
+              renderOverlay={renderOverlay}
+              renderImagePlaceholder={renderImagePlaceholder}
+              style={style.slide}
+            />
+          </Animated.View>
+        </RNView>
       );
     },
     [
@@ -320,6 +352,7 @@ const ImageCarousel = ({
       inactiveScale,
       inactiveOpacity,
       activeIndex,
+      style.slide,
     ],
   );
 
@@ -346,6 +379,7 @@ const ImageCarousel = ({
         scrollEventThrottle={16}
         removeClippedSubviews={false}
         contentOffset={{ x: initialOffset, y: 0 }}
+        style={webListSnapStyle}
         onScroll={handleScrollEvent}
         onScrollBeginDrag={handleScrollBeginDrag}
         onScrollEndDrag={handleScrollEndDrag}
