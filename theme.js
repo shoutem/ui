@@ -2169,6 +2169,9 @@ export default () => {
         backgroundColor: resolveVariable('paperColor'),
       },
       listContent: {},
+      // Passed to every `shoutem.ui.ImageCarouselSlide` and merged over its own
+      // theme (e.g. `slide.card`), so a carousel's style can restyle its slides.
+      slide: {},
       // Geometry / animation scalars read by the component, not applied as styles.
       cardWidth: responsiveWidth(236),
       cardSpacing: responsiveWidth(10),

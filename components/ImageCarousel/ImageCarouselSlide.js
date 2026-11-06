@@ -17,6 +17,8 @@ import { View } from '../View';
  *   rendered on top of the image.
  * @param {Function} [renderImagePlaceholder] `(item, { index }) => JSX.Element`
  *   rendered over the image until it finishes loading.
+ * @param {Function} [onImageLoadEnd] `(item, { index }) => void`, called once
+ *   the image finishes loading, whether it succeeded or failed.
  * @param {Object} style Resolved styles, injected by connectStyle.
  * @returns {JSX.Element}
  */
@@ -27,13 +29,18 @@ const ImageCarouselSlide = ({
   source,
   renderOverlay,
   renderImagePlaceholder,
+  onImageLoadEnd,
   style = {},
 }) => {
   const [isImageLoaded, setImageLoaded] = useState(false);
 
   const handleImageLoadEnd = useCallback(() => {
     setImageLoaded(true);
-  }, []);
+
+    if (onImageLoadEnd) {
+      onImageLoadEnd(item, { index });
+    }
+  }, [onImageLoadEnd, item, index]);
 
   const placeholder =
     !isImageLoaded && renderImagePlaceholder
@@ -65,6 +72,7 @@ ImageCarouselSlide.propTypes = {
   renderOverlay: PropTypes.func,
   source: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
   style: PropTypes.object,
+  onImageLoadEnd: PropTypes.func,
 };
 
 const StyledImageCarouselSlide = connectStyle('shoutem.ui.ImageCarouselSlide')(
