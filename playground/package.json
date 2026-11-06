@@ -1,0 +1,44 @@
+{
+  "name": "shoutem-ui-playground",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Browser playground for @shoutem/ui: real components on react-native-web, published as a claude.ai artifact. See README.md.",
+  "scripts": {
+    "build": "node build.mjs",
+    "scan": "node scripts/scan-props.mjs && node scripts/scan-usages.mjs && node scripts/scan-presets.mjs && node scripts/scan-themes.mjs"
+  },
+  "dependencies": {
+    "@native-html/iframe-plugin": "^2.6.1",
+    "@native-html/table-plugin": "^5.3.1",
+    "@react-native/assets-registry": "^0.81.6",
+    "@shoutem/animation": "^1.0.1",
+    "@shoutem/theme": "^1.0.2",
+    "auto-bind": "^4.0.0",
+    "buffer": "^5.6.0",
+    "deprecated-react-native-prop-types": "^2.3.0",
+    "domutils": "^1.7.0",
+    "esbuild": "^0.24.2",
+    "esbuild-plugin-svgr": "^3.1.0",
+    "events": "^1.1.0",
+    "html-entities": "^1.3.1",
+    "htmlparser2": "^3.10.1",
+    "lodash": "^4.17.21",
+    "playwright-core": "^1.49.1",
+    "prop-types": "^15.8.1",
+    "qs": "^6.9.3",
+    "react": "^19.1.4",
+    "react-dom": "^19.1.4",
+    "react-native-render-html": "^6.3.4",
+    "react-native-safe-area-context": "^5.6.1",
+    "react-native-svg": "^15.11.2",
+    "react-native-web": "^0.21.2",
+    "react-native-web-refresh-control": "^1.1.2",
+    "tinycolor2": "^1.4.1"
+  },
+  "devDependencies": {
+    "@babel/generator": "^7.26.3",
+    "@babel/parser": "^7.26.3",
+    "@babel/traverse": "^7.26.4",
+    "moment": "^2.29.4"
+  }
+}

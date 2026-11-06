@@ -1,0 +1,2032 @@
+{
+ "ActionSheet": {
+  "file": "components/ActionSheet/ActionSheet.js",
+  "props": {
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": true
+   },
+   "active": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": false
+   },
+   "cancelOptions": {
+    "type": "json",
+    "raw": "PropTypes.arrayOf(optionPropType)",
+    "required": false
+   },
+   "confirmOptions": {
+    "type": "json",
+    "raw": "PropTypes.arrayOf(optionPropType)",
+    "required": false
+   },
+   "onDismiss": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "active": false,
+   "cancelOptions": "undefined",
+   "confirmOptions": "undefined",
+   "onDismiss": "undefined"
+  }
+ },
+ "ActionSheetOption": {
+  "file": "components/ActionSheet/ActionSheetOption.js",
+  "props": {
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": true
+   },
+   "cancelOption": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": false
+   },
+   "nativeStyle": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": false
+   },
+   "option": {
+    "type": "any",
+    "raw": "optionPropType",
+    "required": false
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "option": "undefined",
+   "cancelOption": false,
+   "nativeStyle": false
+  }
+ },
+ "AnimatedScrollingText": {
+  "file": "components/AnimatedScrollingText.js",
+  "props": {
+   "text": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": true
+   },
+   "config": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": false,
+    "doc": "eslint-disable-next-line react/require-default-props"
+   },
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": false
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "config": "DEFAULT_CONFIG",
+   "style": {}
+  }
+ },
+ "Button": {
+  "file": "components/Button.js",
+  "props": {},
+  "inherits": [
+   "TouchableOpacity.propTypes"
+  ],
+  "defaults": {}
+ },
+ "Category": {
+  "file": "components/CategoryPicker/Category.js",
+  "props": {
+   "category": {
+    "type": "json",
+    "raw": "categoryShape",
+    "required": true
+   },
+   "isSelected": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": false
+   },
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": false
+   },
+   "onPress": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "style": {},
+   "isSelected": false,
+   "onPress": "undefined"
+  }
+ },
+ "CategoryPicker": {
+  "file": "components/CategoryPicker/CategoryPicker.js",
+  "props": {
+   "categories": {
+    "type": "json",
+    "raw": "PropTypes.arrayOf(categoryShape)",
+    "required": false
+   },
+   "selectedCategory": {
+    "type": "json",
+    "raw": "categoryShape",
+    "required": false
+   },
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": false
+   },
+   "onCategorySelected": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "categories": [],
+   "style": {},
+   "selectedCategory": "undefined",
+   "onCategorySelected": "undefined"
+  }
+ },
+ "DateTimePicker": {
+  "file": "components/DateTimePicker.js",
+  "props": {
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": true
+   },
+   "cancelButtonText": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false
+   },
+   "confirmButtonText": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false
+   },
+   "is24Hour": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": false
+   },
+   "mode": {
+    "type": "string",
+    "raw": "PropTypes.oneOf(Object.values(DATEPICKER_MODES))",
+    "required": false
+   },
+   "textValue": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false
+   },
+   "value": {
+    "type": "string",
+    "raw": "PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)])",
+    "required": false
+   },
+   "onValueChanged": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "cancelButtonText": "Cancel",
+   "confirmButtonText": "Confirm",
+   "is24Hour": false,
+   "mode": "datetime",
+   "textValue": "undefined",
+   "value": "new Date()",
+   "onValueChanged": "undefined"
+  }
+ },
+ "DropDownMenu": {
+  "file": "components/DropDownMenu/DropDownMenu.js",
+  "props": {
+   "iconName": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false,
+    "doc": "Icon displayed on dropdown menu button"
+   },
+   "showSelectedOption": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": false,
+    "doc": "Whether the text should be displayed next to dropdown icon or not"
+   }
+  },
+  "inherits": [
+   "_.omit(DropDownModal.propTypes, modalSpecificProps)"
+  ],
+  "defaults": {
+   "iconName": "drop-down",
+   "showSelectedOption": true
+  }
+ },
+ "DropDownModal": {
+  "file": "components/DropDownMenu/DropDownModal.js",
+  "props": {
+   "options": {
+    "type": "json",
+    "raw": "PropTypes.array",
+    "required": true,
+    "doc": "Collection of objects which will be shown as options in DropDownMenu"
+   },
+   "selectedOption": {
+    "type": "any",
+    "raw": "PropTypes.any",
+    "required": true,
+    "doc": "Selected option that will be shown."
+   },
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": true
+   },
+   "titleProperty": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": true,
+    "doc": "Key name that represents option's string value, and it will be displayed to the user in the UI"
+   },
+   "renderOption": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false,
+    "doc": "Optional render function, for every item in the list. Input parameter should be shaped as one of the items from the options object"
+   },
+   "visible": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": false,
+    "doc": "Visibility flag, controling the modal visibility"
+   },
+   "visibleOptions": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false,
+    "doc": "Number of options shown without scroll. Can be set trough DropDown style.visibleOptions. Prop definition overrides style."
+   },
+   "onClose": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false,
+    "doc": "Callback that is called when modal should be closed"
+   },
+   "onOptionSelected": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false,
+    "doc": "Callback that is called when dropdown option is selected"
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "renderOption": "(option, titleProperty) => (\n    <Text>{option[titleProperty].toUpperCase()}</Te",
+   "visible": false,
+   "visibleOptions": "undefined",
+   "onClose": "undefined",
+   "onOptionSelected": "undefined"
+  }
+ },
+ "EmptyListImage": {
+  "file": "components/EmptyListImage.js",
+  "props": {
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": true
+   },
+   "image": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   },
+   "imageStyle": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": false
+   },
+   "message": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false
+   },
+   "messageStyle": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": false
+   },
+   "title": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false
+   },
+   "titleStyle": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": false
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "image": "undefined",
+   "imageStyle": "undefined",
+   "message": "We couldn't find anything to show...",
+   "messageStyle": "undefined",
+   "title": "It's empty in here",
+   "titleStyle": "undefined"
+  }
+ },
+ "EmptyStateView": {
+  "file": "components/EmptyStateView.js",
+  "props": {
+   "icon": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false
+   },
+   "message": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false
+   },
+   "retryButtonTitle": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false
+   },
+   "onRetry": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "icon": "error",
+   "message": "undefined",
+   "retryButtonTitle": "TRY AGAIN",
+   "onRetry": "undefined"
+  }
+ },
+ "FormGroup": {
+  "file": "components/FormGroup.js",
+  "props": {},
+  "inherits": [
+   "View.propTypes"
+  ],
+  "defaults": {}
+ },
+ "GridRow": {
+  "file": "components/GridRow.js",
+  "props": {
+   "columns": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": true
+   }
+  },
+  "inherits": [
+   "View.propTypes"
+  ],
+  "defaults": {}
+ },
+ "HorizontalPager": {
+  "file": "components/HorizontalPager/HorizontalPager.js",
+  "props": {
+   "data": {
+    "type": "json",
+    "raw": "PropTypes.arrayOf(PropTypes.object)",
+    "required": true,
+    "doc": "Array containing objects (pages)"
+   },
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": true,
+    "doc": "Style prop used to override default (theme) styling"
+   },
+   "bounces": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": false,
+    "doc": "Prop defining whether the Pager will bounce back when user tries to swipe beyond end of content (iOS only)"
+   },
+   "pageMargin": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false,
+    "doc": "Page margin, margin visible between pages, during swipe gesture."
+   },
+   "renderOverlay": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false,
+    "doc": "Callback function that can be used to render overlay over pages For example page indicators using `PageIndicators` component renderOverlay(pageData, pageIndex, layout)"
+   },
+   "renderPage": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false,
+    "doc": "A function which renders a single page renderPage(pageData, pageIndex)"
+   },
+   "renderPlaceholder": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false,
+    "doc": "Callback function that can be used to define placeholder that appears when content is loading"
+   },
+   "scrollEnabled": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": false,
+    "doc": "Prop that forces enables or disables swiping"
+   },
+   "selectedIndex": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false,
+    "doc": "Initially selected page in gallery"
+   },
+   "showNextPage": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": false,
+    "doc": "Prop that reduces page size by pageMargin, allowing 'sneak peak' of next page"
+   },
+   "surroundingPagesToLoad": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false,
+    "doc": "Always render only central (currently loaded) page plus `surroundingPagesToLoad` to the left and to the right. If currently rendered page is out of bounds, empty `View` (with set dimensions for proper scrolling) will be rendered Defaults to 2."
+   },
+   "onIndexSelected": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false,
+    "doc": "Callback function called when user swipes between pages (images) Index of new (selected) page is passed to this callback"
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "bounces": false,
+   "pageMargin": 0,
+   "renderOverlay": "undefined",
+   "renderPage": "undefined",
+   "renderPlaceholder": "undefined",
+   "scrollEnabled": true,
+   "selectedIndex": 0,
+   "showNextPage": false,
+   "surroundingPagesToLoad": 2,
+   "onIndexSelected": "undefined"
+  }
+ },
+ "Page": {
+  "file": "components/HorizontalPager/Page.js",
+  "props": {
+   "isActive": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": true
+   },
+   "width": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": true
+   },
+   "children": {
+    "type": "node",
+    "raw": "PropTypes.node",
+    "required": false
+   },
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": false
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "children": "undefined",
+   "style": {}
+  }
+ },
+ "Icon": {
+  "file": "components/Icon/Icon.js",
+  "props": {
+   "name": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": true
+   },
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": true
+   }
+  },
+  "inherits": [],
+  "defaults": {}
+ },
+ "Image": {
+  "file": "components/Image.js",
+  "props": {},
+  "inherits": [
+   "ImagePropTypes"
+  ],
+  "defaults": {}
+ },
+ "ImageBackground": {
+  "file": "components/ImageBackground.js",
+  "props": {},
+  "inherits": [
+   "RNImageBackground.propTypes"
+  ],
+  "defaults": {}
+ },
+ "ImageCarousel": {
+  "file": "components/ImageCarousel/ImageCarousel.js",
+  "props": {
+   "autoplay": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": false
+   },
+   "autoplayIntervalMs": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false
+   },
+   "cardAspectRatio": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false
+   },
+   "data": {
+    "type": "json",
+    "raw": "PropTypes.array",
+    "required": false
+   },
+   "getImageSource": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   },
+   "initialIndex": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false
+   },
+   "initialWidth": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false
+   },
+   "keyExtractor": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   },
+   "maxPageIndicators": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false
+   },
+   "renderImagePlaceholder": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   },
+   "renderOverlay": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   },
+   "scrollEnabled": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": false
+   },
+   "showArrows": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": false
+   },
+   "showPageIndicators": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": false
+   },
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": false
+   },
+   "onImageLoadEnd": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   },
+   "onIndexChange": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "data": [],
+   "getImageSource": "defaultGetImageSource",
+   "keyExtractor": "defaultKeyExtractor",
+   "cardAspectRatio": "16 / 9",
+   "initialIndex": 0,
+   "autoplay": false,
+   "autoplayIntervalMs": 5000,
+   "showPageIndicators": true,
+   "maxPageIndicators": 10,
+   "showArrows": false,
+   "scrollEnabled": true,
+   "style": {}
+  }
+ },
+ "ImageCarouselSlide": {
+  "file": "components/ImageCarousel/ImageCarouselSlide.js",
+  "props": {
+   "index": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false
+   },
+   "isActive": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": false
+   },
+   "item": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": false
+   },
+   "renderImagePlaceholder": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   },
+   "renderOverlay": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   },
+   "source": {
+    "type": "number",
+    "raw": "PropTypes.oneOfType([PropTypes.object, PropTypes.number])",
+    "required": false
+   },
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": false
+   },
+   "onImageLoadEnd": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "index": 0,
+   "isActive": false,
+   "style": {}
+  }
+ },
+ "ImageGallery": {
+  "file": "components/ImageGallery.js",
+  "props": {
+   "data": {
+    "type": "json",
+    "raw": "PropTypes.arrayOf(\n    PropTypes.shape({\n      description: PropTypes.string,\n      source: PropTypes.shape({\n       …",
+    "required": true
+   },
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": true
+   },
+   "renderImageOverlay": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   },
+   "renderOverlay": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   },
+   "renderPlaceholder": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   },
+   "selectedIndex": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false
+   },
+   "showNextPage": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": false
+   },
+   "onIndexSelected": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   },
+   "onModeChanged": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "renderImageOverlay": "undefined",
+   "renderOverlay": "undefined",
+   "renderPlaceholder": "() => <LoadingIndicator />",
+   "selectedIndex": 0,
+   "showNextPage": false,
+   "onIndexSelected": "undefined",
+   "onModeChanged": "undefined"
+  }
+ },
+ "ImageGalleryOverlay": {
+  "file": "components/ImageGalleryOverlay.js",
+  "props": {
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": true
+   },
+   "description": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false
+   },
+   "title": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "description": "undefined",
+   "title": "undefined"
+  }
+ },
+ "ImagePreview": {
+  "file": "components/ImagePreview.js",
+  "props": {
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": true
+   },
+   "height": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false
+   },
+   "source": {
+    "type": "json",
+    "raw": "ImagePropTypes.source",
+    "required": false
+   },
+   "width": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "height": "undefined",
+   "source": "undefined",
+   "width": "undefined"
+  }
+ },
+ "InlineDropDownMenu": {
+  "file": "components/InlineDropDownMenu/InlineDropDownMenu.js",
+  "props": {
+   "options": {
+    "type": "json",
+    "raw": "PropTypes.arrayOf(optionShape)",
+    "required": true
+   },
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": true
+   },
+   "containerStyle": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": false
+   },
+   "heading": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false
+   },
+   "headingStyle": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": false
+   },
+   "selectedDescriptor": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false
+   },
+   "selectedOption": {
+    "type": "json",
+    "raw": "optionShape",
+    "required": false
+   },
+   "selectedOptionContainerStyle": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": false
+   },
+   "selectedOptionTextStyle": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": false
+   },
+   "onOptionSelected": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "heading": "undefined",
+   "headingStyle": "undefined",
+   "containerStyle": "undefined",
+   "selectedDescriptor": "undefined",
+   "selectedOption": "undefined",
+   "selectedOptionContainerStyle": "undefined",
+   "selectedOptionTextStyle": "undefined",
+   "onOptionSelected": "undefined"
+  }
+ },
+ "InlineDropDownMenuItem": {
+  "file": "components/InlineDropDownMenu/InlineDropDownMenuItem.js",
+  "props": {
+   "style": {
+    "type": "any",
+    "raw": "PropTypes",
+    "required": true
+   },
+   "index": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false
+   },
+   "isSelected": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": false
+   },
+   "item": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": false
+   },
+   "selectedDescriptor": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false
+   },
+   "onItemPressed": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "index": "undefined",
+   "isSelected": false,
+   "item": "undefined",
+   "selectedDescriptor": "undefined",
+   "onItemPressed": "undefined"
+  }
+ },
+ "InlineGallery": {
+  "file": "components/InlineGallery.js",
+  "props": {
+   "data": {
+    "type": "json",
+    "raw": "PropTypes.arrayOf(\n    PropTypes.shape({\n      source: PropTypes.shape({\n        uri: PropTypes.string,\n      }),\n   …",
+    "required": true,
+    "doc": "Array containing objects with image data (shape defined below)"
+   },
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": true,
+    "doc": "Style, applied to Image component"
+   },
+   "renderOverlay": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false,
+    "doc": "Callback function that can be used to render overlay over pages For example page indicators using `PageIndicators` component renderOverlay(imageData, imageIndex)"
+   },
+   "renderPlaceholder": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false,
+    "doc": "Callback function that can be used to define placeholder that appears when content is loading"
+   },
+   "selectedIndex": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false,
+    "doc": "Initially selected page in gallery"
+   },
+   "showNextPage": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": false,
+    "doc": "Prop that reduces page size by pageMargin, allowing 'sneak peak' of next page Defaults to false"
+   },
+   "onIndexSelected": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false,
+    "doc": "Callback function called when user swipes between pages (images) Index of new (selected) page is passed to this callback"
+   },
+   "onPress": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false,
+    "doc": "Callback function called when user taps on single item (image) in gallery"
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "renderPlaceholder": "() => <LoadingIndicator />",
+   "renderOverlay": "undefined",
+   "selectedIndex": "undefined",
+   "showNextPage": false,
+   "onIndexSelected": "undefined",
+   "onPress": "undefined"
+  }
+ },
+ "LinearGradient": {
+  "file": "components/LinearGradient.js",
+  "props": {
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": true
+   },
+   "children": {
+    "type": "node",
+    "raw": "PropTypes.node",
+    "required": false
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "children": "undefined"
+  }
+ },
+ "ListView": {
+  "file": "components/ListView.js",
+  "props": {
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": true
+   },
+   "autoHideHeader": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": false
+   },
+   "contentContainerStyle": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": false
+   },
+   "data": {
+    "type": "json",
+    "raw": "PropTypes.array",
+    "required": false
+   },
+   "emptyListMessage": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false
+   },
+   "emptyListTitle": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false
+   },
+   "getSectionId": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   },
+   "hasFeaturedItem": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": false
+   },
+   "keyExtractor": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   },
+   "ListEmptyComponent": {
+    "type": "json",
+    "raw": "PropTypes.oneOfType([PropTypes.func, PropTypes.object])",
+    "required": false
+   },
+   "loading": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": false
+   },
+   "renderFeaturedItem": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   },
+   "renderFooter": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   },
+   "renderHeader": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   },
+   "renderRow": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   },
+   "renderSectionHeader": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   },
+   "scrollDriver": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": false
+   },
+   "sections": {
+    "type": "json",
+    "raw": "PropTypes.array",
+    "required": false
+   },
+   "onLoadMore": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   },
+   "onLoadMoreThreshold": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false
+   },
+   "onRefresh": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "autoHideHeader": false,
+   "contentContainerStyle": {},
+   "data": "undefined",
+   "emptyListMessage": "undefined",
+   "emptyListTitle": "undefined",
+   "getSectionId": "undefined",
+   "hasFeaturedItem": false,
+   "keyExtractor": "undefined",
+   "ListEmptyComponent": "undefined",
+   "loading": false,
+   "renderFeaturedItem": "undefined",
+   "renderFooter": "undefined",
+   "renderHeader": "undefined",
+   "renderRow": "undefined",
+   "renderSectionHeader": "undefined",
+   "scrollDriver": "undefined",
+   "sections": "undefined",
+   "onLoadMore": "undefined",
+   "onLoadMoreThreshold": 0.5,
+   "onRefresh": "undefined"
+  }
+ },
+ "LoadingContainer": {
+  "file": "components/LoadingContainer.js",
+  "props": {
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": true
+   },
+   "animation": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": false
+   },
+   "animationScale": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false
+   },
+   "children": {
+    "type": "json",
+    "raw": "PropTypes.oneOfType([\n    PropTypes.object,\n    PropTypes.func,\n    PropTypes.node,\n  ])",
+    "required": false
+   },
+   "loading": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": false
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "animationScale": 1,
+   "children": "undefined",
+   "animation": "animations.loadingDots",
+   "loading": false
+  }
+ },
+ "NumberInput": {
+  "file": "components/NumberInput.js",
+  "props": {
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.shape({\n    button: PropTypes.object,\n    container: PropTypes.object,\n    icon: PropTypes.object,\n    inpu…",
+    "required": true,
+    "doc": "Styles for component parts"
+   },
+   "onChange": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": true,
+    "doc": "Called when the user changes the value by inputting it directly or with buttons"
+   },
+   "max": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false,
+    "doc": "Maximum allowed value"
+   },
+   "min": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false,
+    "doc": "Minimum allowed value"
+   },
+   "step": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false,
+    "doc": "Step used to increase or decrease value with corresponding buttons"
+   },
+   "value": {
+    "type": "string",
+    "raw": "PropTypes.oneOfType([PropTypes.number, PropTypes.string])",
+    "required": false,
+    "doc": "Value of the input - can be empty"
+   }
+  },
+  "inherits": [
+   "TextInput.propTypes"
+  ],
+  "defaults": {
+   "max": "undefined",
+   "min": "undefined",
+   "step": 1,
+   "value": 0
+  }
+ },
+ "PageIndicators": {
+  "file": "components/PageIndicators.js",
+  "props": {
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": true,
+    "doc": "Style prop used to override default (theme) styling"
+   },
+   "activeIndex": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false,
+    "doc": "ActiveIndex: number defining which page indicator will be rendered as active (selected)"
+   },
+   "count": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false,
+    "doc": "Count: number defining how many page indicators will be rendered"
+   },
+   "maxCount": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false,
+    "doc": "maxCount defining highest number of page indicators that can be rendered If `count` is higher than `maxCount`, then `maxCount` number of indicators will be rendered. Defaults to 10"
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "activeIndex": "undefined",
+   "count": "undefined",
+   "maxCount": 10
+  }
+ },
+ "AnimatedProgressRing": {
+  "file": "components/ProgressRings/AnimatedProgressRing.js",
+  "props": {
+   "progressColors": {
+    "type": "json",
+    "raw": "PropTypes.arrayOf(PropTypes.string)",
+    "required": false
+   }
+  },
+  "inherits": [
+   "_.omit(ProgressRing.propTypes, ['color'])"
+  ],
+  "defaults": {}
+ },
+ "ProgressRing": {
+  "file": "components/ProgressRings/ProgressRing.js",
+  "props": {
+   "index": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": true
+   },
+   "arcSweepAngle": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false
+   },
+   "backgroundLineCap": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false
+   },
+   "backgroundLineWidth": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false
+   },
+   "color": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false
+   },
+   "progressLineCap": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false
+   },
+   "progressLineWidth": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false
+   },
+   "progressPercentage": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false
+   },
+   "size": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "progressPercentage": "PROGRESS_RING_DEFAULT_PROPS.progressPercentage",
+   "size": "PROGRESS_RING_DEFAULT_PROPS.size",
+   "color": "PROGRESS_RING_DEFAULT_PROPS.color",
+   "progressLineWidth": "PROGRESS_RING_DEFAULT_PROPS.progressLineWidth",
+   "backgroundLineWidth": "PROGRESS_RING_DEFAULT_PROPS.backgroundLineWidth",
+   "progressLineCap": "PROGRESS_RING_DEFAULT_PROPS.progressLineCap",
+   "backgroundLineCap": "PROGRESS_RING_DEFAULT_PROPS.backgroundLineCap",
+   "arcSweepAngle": "PROGRESS_RING_DEFAULT_PROPS.arcSweepAngle"
+  }
+ },
+ "ProgressRings": {
+  "file": "components/ProgressRings/ProgressRings.js",
+  "props": {
+   "rings": {
+    "type": "json",
+    "raw": "PropTypes.arrayOf(\n    // Omitting color to stop errors, but implementation has to define either color or progressCol…",
+    "required": true
+   },
+   "children": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   },
+   "rotation": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false
+   },
+   "size": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false
+   },
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": false
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "children": "undefined",
+   "size": 80,
+   "rotation": 0,
+   "style": {}
+  }
+ },
+ "ScrollView": {
+  "file": "components/ScrollView/ScrollView.js",
+  "props": {
+   "primary": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": false
+   }
+  },
+  "inherits": [
+   "Animated.ScrollView.propTypes"
+  ],
+  "defaults": {
+   "primary": false
+  }
+ },
+ "ClearButton": {
+  "file": "components/SearchField.js",
+  "props": {
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": true
+   },
+   "onPress": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": true
+   }
+  },
+  "inherits": [],
+  "defaults": {}
+ },
+ "SearchField": {
+  "file": "components/SearchField.js",
+  "props": {
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": true
+   },
+   "defaultValue": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false
+   },
+   "loading": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": false
+   },
+   "onChangeText": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "loading": false,
+   "onChangeText": "undefined",
+   "defaultValue": ""
+  }
+ },
+ "ShareButton": {
+  "file": "components/ShareButton.js",
+  "props": {
+   "animationName": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false,
+    "doc": "Animation name for share icon"
+   },
+   "iconProps": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": false,
+    "doc": "Additional props for Icon component"
+   },
+   "message": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false,
+    "doc": "Message to share"
+   },
+   "title": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false,
+    "doc": "Title"
+   },
+   "url": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false,
+    "doc": "Url to share"
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "animationName": "undefined",
+   "iconProps": "undefined",
+   "message": "undefined",
+   "title": "undefined",
+   "url": "undefined"
+  }
+ },
+ "Spinner": {
+  "file": "components/Spinner.js",
+  "props": {
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": true
+   }
+  },
+  "inherits": [],
+  "defaults": {}
+ },
+ "Switch": {
+  "file": "components/Switch.js",
+  "props": {
+   "onValueChange": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": true
+   },
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": false
+   },
+   "value": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": false
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "value": false,
+   "style": {}
+  }
+ },
+ "TabMenu": {
+  "file": "components/TabMenu/TabMenu.js",
+  "props": {
+   "options": {
+    "type": "json",
+    "raw": "PropTypes.arrayOf(optionShape)",
+    "required": true
+   },
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": true
+   },
+   "selectedOption": {
+    "type": "json",
+    "raw": "optionShape",
+    "required": false
+   },
+   "onOptionSelected": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "selectedOption": "undefined",
+   "onOptionSelected": "undefined"
+  }
+ },
+ "TabMenuItem": {
+  "file": "components/TabMenu/TabMenuItem.js",
+  "props": {
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": true
+   },
+   "onLayoutMeasured": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": true
+   },
+   "isSelected": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": false
+   },
+   "item": {
+    "type": "json",
+    "raw": "optionShape",
+    "required": false
+   },
+   "onItemPressed": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "isSelected": false,
+   "item": "undefined",
+   "onItemPressed": "undefined"
+  }
+ },
+ "Text": {
+  "file": "components/Text.js",
+  "props": {},
+  "inherits": [
+   "TextPropTypes"
+  ],
+  "defaults": {}
+ },
+ "TextInput": {
+  "file": "components/TextInput.js",
+  "props": {
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": true
+   },
+   "animate": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": false
+   },
+   "errorMessage": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false
+   }
+  },
+  "inherits": [
+   "TextInputPropTypes"
+  ],
+  "defaults": {
+   "animate": true,
+   "errorMessage": "undefined"
+  }
+ },
+ "BaseToast": {
+  "file": "components/ToastMessage/components/BaseToast.js",
+  "props": {
+   "isVisible": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": true
+   },
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": true
+   },
+   "cancelButtonText": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false
+   },
+   "confirmButtonText": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false
+   },
+   "customToastStyle": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": false
+   },
+   "durationIndicator": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": false
+   },
+   "iconName": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false
+   },
+   "iconSource": {
+    "type": "any",
+    "raw": "PropTypes.any",
+    "required": false
+   },
+   "message": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false
+   },
+   "title": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false
+   },
+   "visibilityTime": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false
+   },
+   "onCancel": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   },
+   "onConfirm": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "customToastStyle": {},
+   "title": "undefined",
+   "message": "undefined",
+   "confirmButtonText": "undefined",
+   "cancelButtonText": "undefined",
+   "onCancel": "undefined",
+   "onConfirm": "undefined",
+   "durationIndicator": true,
+   "iconName": "about",
+   "iconSource": "undefined",
+   "visibilityTime": 4000
+  }
+ },
+ "ToastProgressBar": {
+  "file": "components/ToastMessage/components/ToastProgressBar.js",
+  "props": {
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": true
+   },
+   "visible": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": true
+   },
+   "color": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false
+   },
+   "duration": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false
+   },
+   "onProgressComplete": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "color": "#00AADF",
+   "duration": 4000,
+   "onProgressComplete": "undefined"
+  }
+ },
+ "Touchable": {
+  "file": "components/Touchable.js",
+  "props": {
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": true
+   }
+  },
+  "inherits": [
+   "TouchableOpacity.propTypes",
+   "TouchableNativeFeedback.propTypes"
+  ],
+  "defaults": {}
+ },
+ "TouchableNativeFeedback": {
+  "file": "components/TouchableNativeFeedback.js",
+  "props": {
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.shape({\n    background: PropTypes.object,\n    useForeground: PropTypes.bool,\n  })",
+    "required": true
+   }
+  },
+  "inherits": [
+   "RNTouchableNativeFeedback.propTypes"
+  ],
+  "defaults": {}
+ },
+ "TouchableOpacity": {
+  "file": "components/TouchableOpacity.js",
+  "props": {},
+  "inherits": [
+   "RNTouchableOpacity.propTypes"
+  ],
+  "defaults": {}
+ },
+ "Video": {
+  "file": "components/Video/Video.js",
+  "props": {
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": true
+   },
+   "headers": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": false
+   },
+   "height": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false
+   },
+   "playerParams": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": false,
+    "doc": "`playerParams` currently only works for Youtube"
+   },
+   "poster": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false
+   },
+   "source": {
+    "type": "json",
+    "raw": "PropTypes.shape({\n    uri: PropTypes.string,\n  })",
+    "required": false
+   },
+   "width": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "width": "undefined",
+   "headers": "undefined",
+   "height": "undefined",
+   "playerParams": {
+    "showinfo": 0
+   },
+   "source": "undefined",
+   "poster": "undefined"
+  }
+ },
+ "View": {
+  "file": "components/View.js",
+  "props": {
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": true
+   }
+  },
+  "inherits": [
+   "ViewPropTypes"
+  ],
+  "defaults": {}
+ },
+ "YearRangePicker": {
+  "file": "components/YearRangePicker/YearRangePicker.js",
+  "props": {
+   "buttonPlaceholder": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false,
+    "doc": "Disabling as this prop is used in the formatButtonTooltip function. eslint-disable-next-line react/no-unused-prop-types"
+   },
+   "confirmButtonTitle": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false
+   },
+   "rangeEnd": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false
+   },
+   "rangeStart": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false
+   },
+   "resetButtonTitle": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false
+   },
+   "selectedYears": {
+    "type": "json",
+    "raw": "PropTypes.arrayOf(PropTypes.number)",
+    "required": false
+   },
+   "onRangeConfirmed": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "buttonPlaceholder": "Year",
+   "confirmButtonTitle": "undefined",
+   "rangeEnd": "undefined",
+   "rangeStart": "undefined",
+   "resetButtonTitle": "undefined",
+   "selectedYears": [],
+   "onRangeConfirmed": "undefined"
+  }
+ },
+ "YearRangePickerButton": {
+  "file": "components/YearRangePicker/YearRangePickerButton.js",
+  "props": {
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": true
+   },
+   "collapsed": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": false
+   },
+   "tooltip": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false
+   },
+   "onPress": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "collapsed": "undefined",
+   "tooltip": "undefined",
+   "onPress": "undefined"
+  }
+ },
+ "YearRangePickerModal": {
+  "file": "components/YearRangePicker/YearRangePickerModal.js",
+  "props": {
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": true
+   },
+   "confirmButtonTitle": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false
+   },
+   "rangeEnd": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false
+   },
+   "rangeStart": {
+    "type": "number",
+    "raw": "PropTypes.number",
+    "required": false
+   },
+   "resetButtonTitle": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": false
+   },
+   "selectedYears": {
+    "type": "json",
+    "raw": "PropTypes.arrayOf(PropTypes.number)",
+    "required": false
+   },
+   "visible": {
+    "type": "bool",
+    "raw": "PropTypes.bool",
+    "required": false
+   },
+   "onDismiss": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   },
+   "onRangeConfirmed": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "confirmButtonTitle": "undefined",
+   "rangeEnd": "undefined",
+   "rangeStart": "undefined",
+   "resetButtonTitle": "undefined",
+   "selectedYears": [],
+   "visible": false,
+   "onDismiss": "undefined",
+   "onRangeConfirmed": "undefined"
+  }
+ },
+ "Html": {
+  "file": "html/Html.js",
+  "props": {
+   "body": {
+    "type": "string",
+    "raw": "PropTypes.string",
+    "required": true
+   },
+   "style": {
+    "type": "json",
+    "raw": "PropTypes.object",
+    "required": true
+   },
+   "renderElement": {
+    "type": "func",
+    "raw": "PropTypes.func",
+    "required": false
+   }
+  },
+  "inherits": [],
+  "defaults": {
+   "renderElement": "undefined"
+  }
+ }
+}
