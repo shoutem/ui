@@ -5,6 +5,8 @@
   "scripts": {
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
+    "playground": "npm --prefix playground install --no-audit --no-fund && npm --prefix playground run dev",
+    "playground:build": "npm --prefix playground install --no-audit --no-fund && npm --prefix playground run build",
     "postinstall": "node ./scripts/add-native-deps",
     "release": "npm publish --access public --tag latest",
     "release-rc": "npm publish --access public --tag rc",
