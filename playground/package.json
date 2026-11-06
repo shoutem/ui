@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "description": "Browser playground for @shoutem/ui: real components on react-native-web, published as a claude.ai artifact. See README.md.",
   "scripts": {
+    "dev": "node serve.mjs",
     "build": "node build.mjs",
+    "check": "node scripts/check.mjs",
     "scan": "node scripts/scan-props.mjs && node scripts/scan-usages.mjs && node scripts/scan-presets.mjs && node scripts/scan-themes.mjs"
   },
   "dependencies": {
