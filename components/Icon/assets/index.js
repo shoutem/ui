@@ -49,6 +49,7 @@ import forward10 from './forward-10.svg';
 import forward30 from './forward-30.svg';
 import friends from './friends.svg';
 import fullScreen from './full-screen.svg';
+import funnel from './funnel.svg';
 import gallery from './gallery.svg';
 import garbageCan from './garbage-can.svg';
 import gift from './gift.svg';
@@ -184,6 +185,7 @@ export const defaultConfig = [
   { name: 'gallery', icon: gallery },
   { name: 'friends', icon: friends },
   { name: 'full-screen', icon: fullScreen },
+  { name: 'funnel', icon: funnel },
   { name: 'garbage-can', icon: garbageCan },
   { name: 'gift', icon: gift },
   { name: 'github', icon: github },
